@@ -11,13 +11,27 @@ import android.view.ViewGroup;
  */
 public class ViewHolder<V extends View> extends RecyclerView.ViewHolder {
 
-    public final V view;
+    /**
+     * You can access this typed field instead of casting {@link RecyclerView.ViewHolder#itemView}.
+     */
+    public final V itemView;
 
+    /**
+     * Creates ViewHolder from the provided View.
+     * @see #ViewHolder(int, ViewGroup)
+     */
     public ViewHolder(V itemView) {
         super(itemView);
-        view = itemView;
+        this.itemView = itemView;
     }
 
+    /**
+     * Creates a ViewHolder from a layout resource id.
+     *
+     * @param layoutResId ID for an XML layout resource to load (e.g., R.layout.main_page)
+     * @param parent      pass the first argument received in
+     *                    {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
+     */
     @SuppressWarnings("unchecked cast")
     public ViewHolder(@LayoutRes int layoutResId, ViewGroup parent) {
         this((V) inflate(layoutResId, parent));

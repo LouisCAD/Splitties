@@ -9,14 +9,26 @@ import android.view.ViewGroup;
  */
 public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data>> extends ViewHolder<V> {
 
+    /**
+     *
+     * @param itemView
+     */
     public ViewWrapper(V itemView) {
         super(itemView);
     }
 
+    /**
+     * @see ViewHolder#ViewHolder(int, ViewGroup)
+     */
     public ViewWrapper(@LayoutRes int layoutResId, ViewGroup parent) {
         super(layoutResId, parent);
     }
 
+    /**
+     * Implement this interface in your custom {@link View} so it can be used with
+     * {@link ViewWrapper} and be easily bound to data.
+     * @param <Data> the type of the data to be bound.
+     */
     public interface Binder<Data> {
         void bind(Data data);
     }
