@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables;
+package xyz.louiscad.samplereusables;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

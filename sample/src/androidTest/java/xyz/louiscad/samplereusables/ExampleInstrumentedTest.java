@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables;
+package xyz.louiscad.samplereusables;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables;
+package xyz.louiscad.samplereusables;
 
 import org.junit.Test;
 
