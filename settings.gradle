@@ -1,1 +1,1 @@
-include ':sample', ':typesaferecyclerview'
+include ':sample', ':typesaferecyclerview', ':selectableviewgroups'

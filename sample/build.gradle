@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "xyz.louiscad.reusables"
-        minSdkVersion 9
+        minSdkVersion 11
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -38,6 +38,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // This project's libraries
     compile project(':typesaferecyclerview')
+    compile project(':selectableviewgroups')
     // Android Support Libraries
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:design:${supportLibVersion}";
