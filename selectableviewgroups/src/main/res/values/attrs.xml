@@ -3,4 +3,7 @@
     <declare-styleable name="SelectableRelativeLayout">
         <attr name="foreground" format="reference"/>
     </declare-styleable>
+    <declare-styleable name="SelectableLinearLayout">
+        <attr name="foreground" format="reference"/>
+    </declare-styleable>
 </resources>
