@@ -11,6 +11,10 @@ import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
+import xyz.louiscad.reusables.R;
+
+import static xyz.louiscad.reusables.widget.SelectableViewGroupsUtils.getDefaultForegroundSelector;
+
 /**
  * RelativeLayout with ripple effect / select foreground when touched
  */
@@ -21,33 +25,39 @@ public abstract class SelectableRelativeLayout extends RelativeLayout {
 
     public SelectableRelativeLayout(Context context) {
         super(context);
-        init(context);
+        init(context, null, 0, 0);
     }
 
     public SelectableRelativeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init(context, attrs, 0, 0);
     }
 
     public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @CallSuper
     @SuppressWarnings("WeakerAccess")
-    protected void init(Context context) {
-        TypedArray ta = context.obtainStyledAttributes(new int[]{android.R.attr.selectableItemBackground});
-        mForegroundSelector = ta.getDrawable(0);
-        assert mForegroundSelector != null;
-        mForegroundSelector.setCallback(this);
+    protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        final TypedArray ta = context.obtainStyledAttributes(attrs,
+                R.styleable.SelectableRelativeLayout,
+                defStyleAttr,
+                defStyleRes
+        );
+        mForegroundSelector = ta.getDrawable(R.styleable.SelectableRelativeLayout_foreground);
         ta.recycle();
+        if (mForegroundSelector == null) {
+            mForegroundSelector = getDefaultForegroundSelector(context);
+        }
+        mForegroundSelector.setCallback(this);
         setWillNotDraw(false);
     }
 
