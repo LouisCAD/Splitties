@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables.util;
+package xyz.louiscad.typesaferecyclerview.util;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;

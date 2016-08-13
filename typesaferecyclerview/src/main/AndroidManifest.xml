@@ -1,4 +1,4 @@
-<manifest package="xyz.louiscad.reusables"
+<manifest package="xyz.louiscad.typesaferecyclerview"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application

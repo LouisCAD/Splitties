@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables.widget;
+package xyz.louiscad.selectableviewgroups.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,37 +9,37 @@ import android.os.Build;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 
-import xyz.louiscad.reusables.R;
+import xyz.louiscad.selectableviewgroups.R;
 
-import static xyz.louiscad.reusables.widget.SelectableViewGroupsUtils.getDefaultForegroundSelector;
+import static xyz.louiscad.selectableviewgroups.widget.SelectableViewGroupsUtils.getDefaultForegroundSelector;
 
 /**
- * RelativeLayout with ripple effect / select foreground when touched
+ * LinearLayout with ripple effect / select foreground when touched
  */
 @SuppressWarnings("unused")
-public abstract class SelectableRelativeLayout extends RelativeLayout {
+public abstract class SelectableLinearLayout extends LinearLayout {
 
     private Drawable mForegroundSelector;
 
-    public SelectableRelativeLayout(Context context) {
+    public SelectableLinearLayout(Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public SelectableRelativeLayout(Context context, AttributeSet attrs) {
+    public SelectableLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SelectableLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SelectableLinearLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -48,11 +48,11 @@ public abstract class SelectableRelativeLayout extends RelativeLayout {
     @SuppressWarnings("WeakerAccess")
     protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray ta = context.obtainStyledAttributes(attrs,
-                R.styleable.SelectableRelativeLayout,
+                R.styleable.SelectableLinearLayout,
                 defStyleAttr,
                 defStyleRes
         );
-        mForegroundSelector = ta.getDrawable(R.styleable.SelectableRelativeLayout_foreground);
+        mForegroundSelector = ta.getDrawable(R.styleable.SelectableLinearLayout_foreground);
         ta.recycle();
         if (mForegroundSelector == null) {
             mForegroundSelector = getDefaultForegroundSelector(context);

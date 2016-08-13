@@ -1,4 +1,4 @@
-package xyz.louiscad.reusables;
+package xyz.louiscad.typesaferecyclerview;
 
 import org.junit.Test;
 
