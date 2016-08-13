@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("xyz.louiscad.reusables.test", appContext.getPackageName());
+        assertEquals("xyz.louiscad.selectableviewgroups.test", appContext.getPackageName());
     }
 }
