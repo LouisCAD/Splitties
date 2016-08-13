@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Reusables.iml" filepath="$PROJECT_DIR$/Reusables.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Splitties.iml" filepath="$PROJECT_DIR$/Splitties.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
       <module fileurl="file://$PROJECT_DIR$/selectableviewgroups/selectableviewgroups.iml" filepath="$PROJECT_DIR$/selectableviewgroups/selectableviewgroups.iml" />
       <module fileurl="file://$PROJECT_DIR$/typesaferecyclerview/typesaferecyclerview.iml" filepath="$PROJECT_DIR$/typesaferecyclerview/typesaferecyclerview.iml" />

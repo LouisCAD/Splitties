@@ -15,17 +15,20 @@
   ~ limitations under the License.
   -->
 
-<manifest package="xyz.louiscad.samplereusables"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+          package="xyz.louiscad.splittiessample"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="xyz.louiscad.samplereusables.MainActivity"
+            android:name="xyz.louiscad.splittiessample.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

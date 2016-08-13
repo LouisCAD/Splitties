@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.samplereusables;
+package xyz.louiscad.splittiessample;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
