@@ -16,3 +16,6 @@ This modules consists of two `ViewHolder` subclasses that make it typesafe, and 
 Included classes are not exhaustive, so if you find some code that follows this library's philosophy and you think it should be here, feel free to open an issue.
 
 And of course, the same goes if you find a bug.
+
+##License
+This library is published under Apache License version 2.0 which you can see [here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
