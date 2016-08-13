@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Android sources" pattern="(file:*.java||file:*.xml||file:*.gradle)&amp;&amp;!file[*]:.idea//*&amp;&amp;!file[*]:build//*" />
+</component>
