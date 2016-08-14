@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">Reusables</string>
+    <string name="app_name">Splitties Sample</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
