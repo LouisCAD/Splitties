@@ -16,9 +16,9 @@ See the sample.
 This modules consists of two `ViewHolder` subclasses that make it typesafe, and easier to use for the common use case which is to bind a ViewHolder to a POJO. See the sample to understand how it works.
 ##Selectable ViewGroups
 ###What it does
-It adds a `foreground` attribute to `RelativeLayout` and `LinearLayout` which defaults to `@android:attr/selectableItemBackground`, allowing visual feedback when the user selects the View.
+It adds a `foreground` attribute to common ViewGroups (`ConstraintLayout`, `RelativeLayout` and `LinearLayout`) which defaults to `@android:attr/selectableItemBackground`, allowing visual feedback when the user selects the View. This can be useful in a `RecyclerView`.
 ###Usage
-Just use `SelectableLinearLayout` or `SelectableRelativeLayout` in your layouts.
+Just use `SelectableLinearLayout`, `SelectableRelativeLayout` or `SelectableConstraintLayout` in your layouts.
 ###Explanation
 `FrameLayout` is historically the only `ViewGroup` which supports a foreground drawable attribute. The foreground attribute is often used with value `@android:attr/selectableItemBackground` to provide visual feedback when the user touches a selectable element such as a list item in a RecyclerView, which translates as a Ripple effect starting from Android Lollipop. As a consequence, people usually wrap their `RelativeLayout`, `LinearLayout` or other `ViewGroup` with a `FrameLayout` just to provide this foreground attribute. This is unefficient, espacially if this is replicated as it is in a RecyclerView. The foreground attribute is part of the `View` class since Android Marshmallow now, but few apps can have their minSdk set to 23, so I made this library which provides a foreground attribute that defaults to `@android:attr/selectableItemBackground` for popular `ViewGroups`.
 
