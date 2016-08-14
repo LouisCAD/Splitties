@@ -35,7 +35,7 @@ import static xyz.louiscad.selectableviewgroups.widget.SelectableViewGroupsUtils
  * ConstraintLayout with ripple effect / select foreground when touched
  */
 @SuppressWarnings("unused")
-public abstract class SelectableConstraintLayout extends ConstraintLayout {
+public class SelectableConstraintLayout extends ConstraintLayout {
 
     private Drawable mForegroundSelector;
 

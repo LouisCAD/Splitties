@@ -35,7 +35,7 @@ import static xyz.louiscad.selectableviewgroups.widget.SelectableViewGroupsUtils
  * LinearLayout with ripple effect / select foreground when touched
  */
 @SuppressWarnings("unused")
-public abstract class SelectableLinearLayout extends LinearLayout {
+public class SelectableLinearLayout extends LinearLayout {
 
     private Drawable mForegroundSelector;
 

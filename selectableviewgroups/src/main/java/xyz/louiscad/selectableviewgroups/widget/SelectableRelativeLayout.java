@@ -35,7 +35,7 @@ import static xyz.louiscad.selectableviewgroups.widget.SelectableViewGroupsUtils
  * RelativeLayout with ripple effect / select foreground when touched
  */
 @SuppressWarnings("unused")
-public abstract class SelectableRelativeLayout extends RelativeLayout {
+public class SelectableRelativeLayout extends RelativeLayout {
 
     private Drawable mForegroundSelector;
 
