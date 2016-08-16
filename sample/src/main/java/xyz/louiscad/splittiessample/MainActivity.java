@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Click
     void fabClicked(FloatingActionButton fab) {
-        Snackbar.make(fab, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(fab, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show();
     }
 }
