@@ -32,8 +32,10 @@
 
         <Button
             android:id="@+id/launchDemoButton"
-            android:layout_width="match_parent"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:text="@string/go_to_the_demo"/>
 
