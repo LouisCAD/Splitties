@@ -62,4 +62,6 @@ dependencies {
     // AndroidAnnotations
     compile "org.androidannotations:androidannotations-api:${AAVersion}";
     apt "org.androidannotations:androidannotations:${AAVersion}";
+    // Timber log utility
+    compile "com.jakewharton.timber:timber:${timberVersion}";
 }

@@ -18,7 +18,10 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-sdk tools:overrideLibrary="timber.log"/>
+
     <application
+        android:name=".DemoApp"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,10 +40,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DemoActivity"
+            android:name=".DemoActivity_"
             android:label="@string/title_activity_demo"
             android:parentActivityName=".MainActivity_"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:targetApi="jelly_bean">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.louiscad.splittiessample.MainActivity_"/>

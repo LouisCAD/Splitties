@@ -14,31 +14,20 @@
  * limitations under the License.
  */
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
+package xyz.louiscad.splittiessample;
 
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
+import android.app.Application;
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+import timber.log.Timber;
 
-allprojects {
-    repositories {
-        jcenter()
-    }
-    ext {
-        supportLibVersion = '24.1.1'
-        AAVersion = '4.0.0'
-        timberVersion = '4.1.2'
-    }
-}
+/**
+ * Can be used to init some app wide things (e.g. the logging library Timber).
+ */
+public class DemoApp extends Application {
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
+    }
 }
