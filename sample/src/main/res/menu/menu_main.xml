@@ -17,7 +17,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="xyz.louiscad.splittiessample.MainActivity">
+      tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity_">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

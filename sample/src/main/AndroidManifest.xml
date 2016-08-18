@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".MainActivity_"
+            android:name=".ui.activity.MainActivity_"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -40,14 +40,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DemoActivity_"
+            android:name=".ui.activity.DemoActivity_"
             android:label="@string/title_activity_demo"
-            android:parentActivityName=".MainActivity_"
+            android:parentActivityName=".ui.activity.MainActivity_"
             android:theme="@style/AppTheme.NoActionBar"
-            tools:targetApi="jelly_bean">
+            tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.louiscad.splittiessample.MainActivity_"/>
+                android:value="xyz.louiscad.splittiessample.ui.activity.MainActivity_"/>
         </activity>
     </application>
 

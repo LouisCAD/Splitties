@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample;
+package xyz.louiscad.splittiessample.ui.activity;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +26,8 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsMenu;
 import org.androidannotations.annotations.ViewById;
+
+import xyz.louiscad.splittiessample.R;
 
 @EActivity(R.layout.activity_main)
 @OptionsMenu(R.menu.menu_main)

@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="xyz.louiscad.splittiessample.MainActivity">
+    tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity_">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
