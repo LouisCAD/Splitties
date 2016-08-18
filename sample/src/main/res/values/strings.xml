@@ -108,4 +108,5 @@
     <string name="action_settings">Settings</string>
     <string name="go_to_the_demo">Go to the demo!</string>
     <string name="cant_dislike_md">Not sure you can dislike Material Design…</string>
+    <string name="title_activity_demo">DemoActivity</string>
 </resources>
