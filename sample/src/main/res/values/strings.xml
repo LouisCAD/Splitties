@@ -115,4 +115,5 @@
     <string name="msg_marketing_guy_invents_new_feature">BREAKING: A carrier salesman invents a new feature in front of a customer!</string>
     <string name="title_feature_not_available">Feature not available yet</string>
     <string name="msg_go_to_pc_manually">We are afraid you\'ll need to get back to your computer manually to use this library and get your project done</string>
+    <string name="subtitle_items_count_hint">There\'s only 2,147,483,647 items.</string>
 </resources>

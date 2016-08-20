@@ -49,6 +49,7 @@ public class DemoActivity extends AppCompatActivity {
         //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new DemoAdapter());
     }
 

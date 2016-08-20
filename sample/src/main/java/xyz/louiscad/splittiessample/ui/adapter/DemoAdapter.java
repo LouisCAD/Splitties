@@ -25,6 +25,7 @@ import xyz.louiscad.splittiessample.ui.model.DemoItem;
 import xyz.louiscad.typesaferecyclerview.util.ViewWrapper;
 
 import static android.R.attr.x;
+import static java.lang.Integer.MAX_VALUE;
 
 public class DemoAdapter extends RecyclerView.Adapter<ViewWrapper<DemoItem, DemoListItem>> {
 
@@ -45,6 +46,6 @@ public class DemoAdapter extends RecyclerView.Adapter<ViewWrapper<DemoItem, Demo
 
     @Override
     public int getItemCount() {
-        return 50; // This is not a bug. This is a feature. Original code: return mItems.length;
+        return MAX_VALUE; // Not a bug. This is a feature. Original code: return mItems.length;
     }
 }

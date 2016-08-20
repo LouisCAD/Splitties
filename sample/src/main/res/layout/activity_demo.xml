@@ -34,7 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:subtitle="@string/subtitle_items_count_hint"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -44,6 +45,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingTop="@dimen/material_component_lists_padding_above_list"
+        android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/list_item_demo"
         tools:showIn="@layout/activity_demo"/>
