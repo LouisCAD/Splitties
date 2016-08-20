@@ -16,14 +16,18 @@
 
 package xyz.louiscad.splittiessample.ui.model;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import xyz.louiscad.splittiessample.R;
+import xyz.louiscad.splittiessample.ui.activity.DemoActivity;
 
 import static android.support.design.widget.Snackbar.LENGTH_INDEFINITE;
+import static java.lang.Integer.MAX_VALUE;
 
 /**
  * @see xyz.louiscad.splittiessample.ui.widget.DemoListItem
@@ -36,6 +40,17 @@ public class DemoItem extends ImmutableBasicItem implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Snackbar.make(v, R.string.msg_marketing_guy_invents_new_feature, LENGTH_INDEFINITE).show();
+        Snackbar.make(v, R.string.msg_marketing_guy_invents_new_feature, LENGTH_INDEFINITE)
+                .setAction(R.string.scroll_to_the_end, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Context context = v.getContext();
+                        while (!(context instanceof DemoActivity)) {
+                            if (!(context instanceof ContextWrapper)) return;
+                            context = ((ContextWrapper) context).getBaseContext();
+                        }
+                        ((DemoActivity) context).recyclerView.scrollToPosition(MAX_VALUE - 1);
+                    }
+                }).show();
     }
 }

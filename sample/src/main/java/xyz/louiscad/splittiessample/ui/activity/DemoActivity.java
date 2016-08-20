@@ -41,7 +41,7 @@ public class DemoActivity extends AppCompatActivity {
     Toolbar mToolbar;
 
     @ViewById
-    RecyclerView recyclerView;
+    public RecyclerView recyclerView;
 
     @AfterViews
     void initViews() {
