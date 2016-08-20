@@ -28,6 +28,15 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.jfrog.bintray" version "1.7"
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
+wrapper {
+    gradleVersion = '3.0'
+}
+
 allprojects {
     repositories {
         jcenter()
@@ -37,8 +46,4 @@ allprojects {
         AAVersion = '4.0.0'
         timberVersion = '4.1.2'
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
