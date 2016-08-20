@@ -20,11 +20,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import xyz.louiscad.splittiessample.R;
-import xyz.louiscad.splittiessample.ui.widget.DemoListItem;
 import xyz.louiscad.splittiessample.ui.model.DemoItem;
+import xyz.louiscad.splittiessample.ui.widget.DemoListItem;
 import xyz.louiscad.typesaferecyclerview.util.ViewWrapper;
 
-import static android.R.attr.x;
 import static java.lang.Integer.MAX_VALUE;
 
 public class DemoAdapter extends RecyclerView.Adapter<ViewWrapper<DemoItem, DemoListItem>> {
