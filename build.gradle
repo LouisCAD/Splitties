@@ -42,7 +42,7 @@ allprojects {
         jcenter()
     }
     ext {
-        supportLibVersion = '24.1.1'
+        supportLibVersion = '24.2.0'
         AAVersion = '4.0.0'
         timberVersion = '4.1.2'
     }
