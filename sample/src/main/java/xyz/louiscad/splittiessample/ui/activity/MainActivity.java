@@ -43,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Click
+    void launchDemoButtonClicked() {
+        DemoActivity_.intent(this).start();
+    }
+
+    @Click
     void fabClicked(FloatingActionButton fab) {
         Snackbar.make(fab, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show();
     }

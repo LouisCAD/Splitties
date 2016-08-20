@@ -30,8 +30,13 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            useProguard false
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -64,4 +69,7 @@ dependencies {
     apt "org.androidannotations:androidannotations:${AAVersion}";
     // Timber log utility
     compile "com.jakewharton.timber:timber:${timberVersion}";
+
+    compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
+    compile 'com.actinarium.aligned:aligned:0.1'
 }
