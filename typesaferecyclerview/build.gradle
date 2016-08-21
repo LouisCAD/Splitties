@@ -16,30 +16,6 @@
 
 apply plugin: 'com.android.library'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'splitties'
-
-    publishedGroupId = 'xyz.louiscad.splitties'
-    libraryName = 'Splitties'
-    artifact = 'typesafe-recyclerview'
-
-    libraryDescription = 'Collection of small Android libraries'
-
-    siteUrl = 'https://github.com/LouisCAD/Splitties'
-    gitUrl = 'https://github.com/LouisCAD/Splitties.git'
-
-    libraryVersion = '1.0'
-
-    developerId = 'louiscad'
-    developerName = 'Louis CAD'
-    developerEmail = 'louis.cognault@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -66,11 +42,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
     // Android Support Libraries
-    compile "com.android.support:support-annotations:${supportLibVersion}";
+    compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:recyclerview-v7:${supportLibVersion}";
+    testCompile 'junit:junit:4.12'
 }
-
-apply from: '../install.gradle'
-apply from: '../bintray.gradle'
