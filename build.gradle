@@ -41,6 +41,7 @@ allprojects {
         supportLibVersion = '24.2.0'
         AAVersion = '4.0.0'
         timberVersion = '4.3.0'
+        splittiesVersion = '1.0'
         // Libraries
         groupId = "xyz.louiscad.splitties"
         libraryVersion = "1.0"
