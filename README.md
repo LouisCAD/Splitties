@@ -20,7 +20,7 @@ This modules consists of two `ViewHolder` subclasses that make it typesafe, and 
 It adds a `foreground` attribute to common ViewGroups (`ConstraintLayout`, `RelativeLayout` and `LinearLayout`) which defaults to `@android:attr/selectableItemBackground`, allowing visual feedback when the user selects the View. This can be useful in a `RecyclerView`.
 ###Usage
 Just use `SelectableLinearLayout`, `SelectableRelativeLayout` or `SelectableConstraintLayout` in your layouts, or extend them, and if you want to customize the foreground, follow this example:
-```java
+```xml
 <SelectableRelativeLayout
     ...
     app:foreground="@drawable/your_state_drawable>
