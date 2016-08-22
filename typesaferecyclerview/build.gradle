@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+plugins {
+    id "com.jfrog.bintray" version "1.7.1"
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -24,7 +29,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName libraryVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -43,7 +48,15 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     // Android Support Libraries
+    compile "com.android.support:support-annotations:${supportLibVersion}";
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:recyclerview-v7:${supportLibVersion}";
     testCompile 'junit:junit:4.12'
 }
+
+ext {
+    libraryDesc = "Helps reduce boilerplate when using RecyclerView"
+}
+
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'

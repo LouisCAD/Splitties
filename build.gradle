@@ -28,11 +28,6 @@ buildscript {
     }
 }
 
-plugins {
-    id "com.jfrog.bintray" version "1.7"
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
 wrapper {
     gradleVersion = '3.0'
 }
@@ -42,8 +37,14 @@ allprojects {
         jcenter()
     }
     ext {
+        // Dependencies versions
         supportLibVersion = '24.2.0'
         AAVersion = '4.0.0'
-        timberVersion = '4.1.2'
+        timberVersion = '4.3.0'
+        // Libraries
+        groupId = "xyz.louiscad.splitties"
+        libraryVersion = "1.0"
+        siteUrl = 'https://github.com/LouisCAD/Splitties'
+        gitUrl = 'https://github.com/LouisCAD/Splitties.git'
     }
 }

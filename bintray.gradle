@@ -1,0 +1,63 @@
+/*
+ * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+group = groupId
+version = libraryVersion
+
+bintray {
+    user = bintray_user
+    key = bintray_api_key
+
+    configurations = ['archives'] //When uploading configuration files
+
+    override = true
+    pkg {
+        repo = 'splitties'
+        name = project.name
+        desc = libraryDesc
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        labels = ['aar', 'android']
+        publicDownloadNumbers = true
+        githubRepo = 'LouisCAD/Splitties'
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.getDestinationDir()
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}

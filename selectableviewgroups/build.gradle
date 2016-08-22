@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+plugins {
+    id "com.jfrog.bintray" version "1.7.1"
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
 apply plugin: 'com.android.library'
 
 android {
@@ -24,7 +29,7 @@ android {
         minSdkVersion 11
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
+        versionName libraryVersion
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -44,5 +49,14 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
+    compile "com.android.support:support-annotations:${supportLibVersion}";
+
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
 }
+
+ext {
+    libraryDesc = "Adds foreground attr to popular ViewGroups"
+}
+
+apply from: '../install.gradle'
+apply from: '../bintray.gradle'
