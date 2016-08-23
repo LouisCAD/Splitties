@@ -11,7 +11,7 @@ I personally often copy/pasted the code which makes these libraries into the pro
 ###What it does
 It makes using RecyclerView simpler, with less boilerplate for basic or less basic usages.
 ###Usage
-Download the project and open it in Android Studio to see the sample. Alternatively, take a look at these classes:
+Download or clone the project and open it in Android Studio to see the sample. Alternatively, take a look at these classes:
 [DemoAdapter](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/adapter/DemoAdapter.java), [DemoListItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/widget/DemoListItem.java), [DemoItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/model/DemoItem.java) and [ImmutableBasicItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/model/ImmutableBasicItem.java).
 ###Explanation
 This modules consists of two `ViewHolder` subclasses that make it typesafe, and easier to use for the common use case which is to bind a ViewHolder to a POJO. See the sample to understand how it works.
