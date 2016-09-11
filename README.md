@@ -34,8 +34,8 @@ Note that the `foreground` atrribute does not clash with android's one (for API 
 ##Download
 If you use gradle and have `jcenter()` (default for new Android Studio projects) in your repositories, just add the compile line of the modules you need.
 ```groovy
-compile 'xyz.louiscad.splitties:selectableviewgroups:1.0'
-compile 'xyz.louiscad.splitties:typesaferecyclerview:1.0'
+compile 'xyz.louiscad.splitties:selectableviewgroups:1.1'
+compile 'xyz.louiscad.splitties:typesaferecyclerview:1.1'
 ```
 For maven and alternative configurations, check the [Bintray page](https://bintray.com/louiscad/splitties).
 
