@@ -17,6 +17,7 @@
 package xyz.louiscad.typesaferecyclerview.util;
 
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,7 @@ public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data>> extend
      */
     public ViewWrapper(V itemView) {
         super(itemView);
+        itemView.setViewHolder(this);
     }
 
     /**
@@ -39,6 +41,7 @@ public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data>> extend
      */
     public ViewWrapper(@LayoutRes int layoutResId, ViewGroup parent) {
         super(layoutResId, parent);
+        itemView.setViewHolder(this);
     }
 
     /**
@@ -49,5 +52,12 @@ public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data>> extend
      */
     public interface Binder<Data> {
         void bind(Data data);
+        /**
+         * Is called during {@link ViewWrapper} creation (so only once). If you need to get
+         * the position from the implementing View, save the holder passed parameter to a field
+         * so you can call {@link RecyclerView.ViewHolder#getAdapterPosition()} later.
+         * @param holder The {@link RecyclerView.ViewHolder} holding this View
+         */
+        void setViewHolder(ViewWrapper holder);
     }
 }

@@ -68,4 +68,9 @@ public class DemoListItem extends SelectableRelativeLayout implements ViewWrappe
         detailTextView.setText(demoItem.detailResId);
         setOnClickListener(demoItem);
     }
+
+    @Override
+    public void setViewHolder(ViewWrapper holder) {
+        // We don't need the ViewHolder here, so no field to set.
+    }
 }
