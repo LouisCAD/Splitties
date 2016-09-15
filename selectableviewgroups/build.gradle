@@ -30,9 +30,7 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName libraryVersion
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -51,7 +49,7 @@ dependencies {
 
     compile "com.android.support:support-annotations:${supportLibVersion}";
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
 }
 
 ext {
