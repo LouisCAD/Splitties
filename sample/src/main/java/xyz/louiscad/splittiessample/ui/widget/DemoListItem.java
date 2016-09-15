@@ -19,6 +19,7 @@ package xyz.louiscad.splittiessample.ui.widget;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,13 +38,17 @@ import xyz.louiscad.typesaferecyclerview.util.ViewWrapper;
  */
 @EViewGroup
 @See(layoutRes = R.layout.list_item_demo, layoutResUseOnly = true)
-public class DemoListItem extends SelectableRelativeLayout implements ViewWrapper.Binder<DemoItem> {
+public class DemoListItem extends SelectableRelativeLayout
+        implements ViewWrapper.Binder<DemoItem, DemoListItem.Host>, View.OnClickListener {
 
     @ViewById
     ImageView iconImageView;
 
     @ViewById
     TextView titleTextView, detailTextView;
+
+    private Host mHost;
+    private DemoItem mDemoItem;
 
     public DemoListItem(Context context) {
         super(context);
@@ -63,14 +68,29 @@ public class DemoListItem extends SelectableRelativeLayout implements ViewWrappe
 
     @Override
     public void bind(DemoItem demoItem) {
+        mDemoItem = demoItem;
         iconImageView.setImageResource(demoItem.iconResId);
         titleTextView.setText(demoItem.titleResId);
         detailTextView.setText(demoItem.detailResId);
-        setOnClickListener(demoItem);
+        setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mHost.onDemoItemClicked(mDemoItem);
+    }
+
+    @Override
+    public void setHost(Host host) {
+        mHost = host;
     }
 
     @Override
     public void setViewHolder(ViewWrapper holder) {
         // We don't need the ViewHolder here, so no field to set.
+    }
+
+    public interface Host {
+        void onDemoItemClicked(DemoItem demoItem);
     }
 }

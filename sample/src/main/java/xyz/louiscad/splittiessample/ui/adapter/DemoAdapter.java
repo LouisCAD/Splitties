@@ -26,20 +26,26 @@ import xyz.louiscad.typesaferecyclerview.util.ViewWrapper;
 
 import static java.lang.Integer.MAX_VALUE;
 
-public class DemoAdapter extends RecyclerView.Adapter<ViewWrapper<DemoItem, DemoListItem>> {
+public class DemoAdapter extends RecyclerView.Adapter<ViewWrapper<DemoItem, DemoListItem, DemoListItem.Host>> {
 
     private final DemoItem[] mItems = {
             new DemoItem(R.string.title_feature_not_bug, R.string.bug_marketing_definition,
                     R.drawable.ic_bug_report_black_24dp)
     };
 
-    @Override
-    public ViewWrapper<DemoItem, DemoListItem> onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewWrapper<>(R.layout.list_item_demo, parent);
+    private final DemoListItem.Host mHost;
+
+    public DemoAdapter(DemoListItem.Host host) {
+        mHost = host;
     }
 
     @Override
-    public void onBindViewHolder(ViewWrapper<DemoItem, DemoListItem> holder, int position) {
+    public ViewWrapper<DemoItem, DemoListItem, DemoListItem.Host> onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewWrapper<>(mHost, R.layout.list_item_demo, parent);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewWrapper<DemoItem, DemoListItem, DemoListItem.Host> holder, int position) {
         holder.itemView.bind(mItems[0]); // This is not a bug. This is a feature. Use position IRL.
     }
 

@@ -23,41 +23,58 @@ import android.view.ViewGroup;
 
 /**
  * Use this class if your {@link ViewHolder} are always bound to the same data type.
+ * @param <Data> The data you want to bind to your item view.
+ * @param <V>    The type of your item views.
+ * @param <Host> The host of your items views. It's recommended to be an interface defined in your
+ *               item view (which can be called Host too) that your Activity, Fragment, Presenter
+ *               or anything else you want implements. If you don't need this (i.e. read only list),
+ *               you can use {@link Void} here.
  */
-public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data>> extends ViewHolder<V> {
+public class ViewWrapper<Data, V extends View & ViewWrapper.Binder<Data, Host>, Host>
+        extends ViewHolder<V> {
 
     /**
      * @param itemView the bind-able View to wrap.
+     * @param host     Shouldn't be null unless it's from {@link Void} type.
      * @see ViewHolder#ViewHolder(View)
      */
-    public ViewWrapper(V itemView) {
+    public ViewWrapper(Host host, V itemView) {
         super(itemView);
+        itemView.setHost(host);
         itemView.setViewHolder(this);
     }
 
     /**
-     * The passed layoutResId <b>root View must implement {@link ViewWrapper.Binder<Data>}.</b>
+     * @param layoutResId <b>It's root View must implement {@link ViewWrapper.Binder}.</b>
+     * @param host        Shouldn't be null unless it's from {@link Void} type.
      * @see ViewHolder#ViewHolder(int, ViewGroup)
      */
-    public ViewWrapper(@LayoutRes int layoutResId, ViewGroup parent) {
+    public ViewWrapper(Host host, @LayoutRes int layoutResId, ViewGroup parent) {
         super(layoutResId, parent);
+        itemView.setHost(host);
         itemView.setViewHolder(this);
     }
 
     /**
      * Implement this interface in your custom {@link View} so it can be used with
      * {@link ViewWrapper} and be easily bound to data.
-     *
      * @param <Data> the type of the data to be bound.
      */
-    public interface Binder<Data> {
-        void bind(Data data);
+    public interface Binder<Data, Host> {
+        /**
+         * Is called during {@link ViewWrapper} creation (so only once). If you need to get the host
+         * so you can talk to it from the item view (e.g. to handle a click), save it to a field to
+         * interact with it later.
+         * @param host Shouldn't be null unless it's from {@link Void} type.
+         */
+        void setHost(Host host);
         /**
          * Is called during {@link ViewWrapper} creation (so only once). If you need to get
-         * the position from the implementing View, save the holder passed parameter to a field
+         * the position from the item view, save the holder passed parameter to a field
          * so you can call {@link RecyclerView.ViewHolder#getAdapterPosition()} later.
          * @param holder The {@link RecyclerView.ViewHolder} holding this View
          */
         void setViewHolder(ViewWrapper holder);
+        void bind(Data data);
     }
 }
