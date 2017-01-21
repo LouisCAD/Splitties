@@ -19,31 +19,49 @@ version = libraryVersion
 
 install {
     repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
-                name 'Splitties'
+        pom.project {
+            packaging 'aar'
+            name 'Splitties'
+            url siteUrl
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+            developers {
+                developer {
+                    id 'louiscad'
+                    name 'Louis CAD'
+                    email 'louis.cognault@gmail.com'
+                }
+            }
+            scm {
+                connection 'https://github.com/LouisCAD/Splitties.git'
+                developerConnection 'https://github.com/LouisCAD/Splitties.git'
                 url siteUrl
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'louiscad'
-                        name 'Louis CAD'
-                        email 'louis.cognault@gmail.com'
-                    }
-                }
-                scm {
-                    connection 'https://github.com/LouisCAD/Splitties.git'
-                    developerConnection 'https://github.com/LouisCAD/Splitties.git'
-                    url siteUrl
 
-                }
             }
         }
     }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    failOnError false
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.getDestinationDir()
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
 }

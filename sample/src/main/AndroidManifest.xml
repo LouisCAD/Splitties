@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".ui.activity.MainActivity_"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -38,14 +38,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.DemoActivity_"
+            android:name=".ui.activity.DemoActivity"
             android:label="@string/title_activity_demo"
-            android:parentActivityName=".ui.activity.MainActivity_"
+            android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="xyz.louiscad.splittiessample.ui.activity.MainActivity_"/>
+                android:value="xyz.louiscad.splittiessample.ui.activity.MainActivity"/>
         </activity>
     </application>
 

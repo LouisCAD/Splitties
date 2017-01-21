@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,14 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdkVersion
     buildToolsVersion projectBuildToolsVersion
-
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 9
         targetSdkVersion projectSdkVersion
         versionCode 1
         versionName libraryVersion
@@ -38,6 +39,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        concurrency
+        concurrency_unchecked
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
@@ -45,16 +53,16 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
-
-    compile "com.android.support:support-annotations:${supportLibVersion}";
-
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
 
 ext {
-    libraryDesc = "Adds foreground attr to popular ViewGroups"
+    libraryDesc = "Delegates for kotlin on android that check UI thread"
 }
 
-apply from: '../install.gradle'
-apply from: '../bintray.gradle'
+apply from: '../installAll.gradle'

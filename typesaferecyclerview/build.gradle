@@ -15,24 +15,22 @@
  */
 
 plugins {
-    id "com.jfrog.bintray" version "1.7.1"
+    id "com.jfrog.bintray" version "1.7.3"
     id "com.github.dcendents.android-maven" version "1.5"
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion projectSdkVersion
+    buildToolsVersion projectBuildToolsVersion
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 24
+        targetSdkVersion projectSdkVersion
         versionCode 1
         versionName libraryVersion
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {

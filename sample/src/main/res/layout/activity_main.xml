@@ -21,8 +21,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/coordinator"
     android:fitsSystemWindows="true"
-    tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity_">
+    tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
