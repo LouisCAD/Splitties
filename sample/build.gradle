@@ -66,8 +66,8 @@ dependencies {
     // This project's libraries
     compile project(':typesaferecyclerview')
     compile project(':selectableviewgroups')
-    compile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
+    //compile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
+    //releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
     //compile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
     //compile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
     // Android Support Libraries

@@ -20,6 +20,7 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdkVersion
@@ -56,5 +57,4 @@ ext {
     libraryDesc = "Adds foreground attr to popular ViewGroups"
 }
 
-apply from: '../install.gradle'
-apply from: '../bintray.gradle'
+apply from: '../publish.gradle'

@@ -16,4 +16,4 @@
 
 package xyz.louiscad.concurrency
 
-internal val check = false
+internal const val CHECK = false

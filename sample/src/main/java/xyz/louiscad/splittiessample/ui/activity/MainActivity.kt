@@ -16,7 +16,6 @@
 
 package xyz.louiscad.splittiessample.ui.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -24,12 +23,11 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import xyz.louiscad.concurrency.uiLazy
 import xyz.louiscad.splittiessample.R
 
 class MainActivity : AppCompatActivity() {
 
-    private val vibrator by uiLazy { getSystemService(Context.VIBRATOR_SERVICE) }
+    //private val vibrator by uiLazy { getSystemService(Context.VIBRATOR_SERVICE) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

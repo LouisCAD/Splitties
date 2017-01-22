@@ -44,7 +44,7 @@ allprojects {
         splittiesVersion = '1.2'
         // Libraries
         groupId = "xyz.louiscad.splitties"
-        libraryVersion = "1.2"
+        libraryVersion = "1.2.1"
         siteUrl = 'https://github.com/LouisCAD/Splitties'
         gitUrl = 'https://github.com/LouisCAD/Splitties.git'
     }

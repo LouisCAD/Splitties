@@ -36,7 +36,7 @@ internal class UiThreadOnlyLazyImpl<out T>(initializer: () -> T) : Lazy<T>, Seri
 
     override val value: T
         get() {
-            if (check) checkUiThread()
+            if (CHECK) checkUiThread()
             if (_value === UNINITIALIZED_VALUE) {
                 _value = initializer!!()
                 initializer = null

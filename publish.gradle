@@ -1,0 +1,117 @@
+/*
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+def pomConfig = {
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        }
+    }
+    developers {
+        developer {
+            id 'louiscad'
+            name 'Louis CAD'
+            email 'louis.cognault@gmail.com'
+        }
+    }
+    scm {
+        connection 'https://github.com/LouisCAD/Splitties.git'
+        developerConnection 'https://github.com/LouisCAD/Splitties.git'
+        url siteUrl
+
+    }
+}
+
+def publicationNames = []
+publishing.publications {
+    android.libraryVariants.all { variant ->
+        if (variant.buildType.name == "debug") return // Prevents publishing debug library
+
+        def sourceDirs = variant.sourceSets.collect {
+            it.javaDirectories // Also includes kotlin sources if any
+        }
+        def javadoc = task("${variant.name}Javadoc", type: Javadoc) {
+            description "Generates Javadoc for ${variant.name}."
+            source = sourceDirs
+            classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.compile
+            options.links("http://docs.oracle.com/javase/7/docs/api/");
+            options.links("http://d.android.com/reference/");
+            exclude '**/BuildConfig.java'
+            exclude '**/R.java'
+            failOnError false
+        }
+        def javadocJar = task("${variant.name}JavadocJar", type: Jar, dependsOn: javadoc) {
+            description "Puts Javadoc for ${variant.name} in a jar."
+            classifier = 'javadoc'
+            from javadoc.getDestinationDir()
+        }
+        def sourcesJar = task("${variant.name}SourcesJar", type: Jar) {
+            description "Puts sources for ${variant.name} in a jar."
+            from sourceDirs
+            classifier = 'sources'
+        }
+
+        def publicationName = "splitties${variant.name.capitalize()}Library"
+        publicationNames.add(publicationName)
+
+        def publicationArtifactId = variant.flavorName.isEmpty() ?
+                project.name : variant.flavorName.replace('_', '-') // Cause can't use - for flavors
+        "$publicationName"(MavenPublication) {
+            artifactId publicationArtifactId
+            group groupId
+            version libraryVersion
+
+            artifact variant.outputs[0].packageLibrary // This is the aar library
+            artifact sourcesJar
+            artifact javadocJar
+
+            pom {
+                packaging 'aar'
+                withXml {
+                    def root = asNode()
+                    root.appendNode("name", 'Splitties')
+                    root.appendNode("url", siteUrl)
+                    root.children().last() + pomConfig
+                }
+            }
+        }
+    }
+}
+
+group = groupId
+version = libraryVersion
+
+afterEvaluate {
+    bintray {
+        user = bintray_user
+        key = bintray_api_key
+        publications = publicationNames
+
+        override = true
+        pkg {
+            repo = 'splitties'
+            name = project.name
+            desc = libraryDesc
+            websiteUrl = siteUrl
+            issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
+            vcsUrl = gitUrl
+            licenses = ['Apache-2.0']
+            labels = ['aar', 'android']
+            publicDownloadNumbers = true
+            githubRepo = 'LouisCAD/Splitties'
+        }
+    }
+}
