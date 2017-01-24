@@ -16,4 +16,7 @@
 
 package xyz.louiscad.concurrency
 
-internal const val CHECK = false
+@Suppress("UNUSED_PARAMETER", "NOTHING_TO_INLINE")
+internal inline fun <T> _lazy(mode: LazyThreadSafetyPolicy, noinline initializer: () -> T): Lazy<T> {
+    return kotlin.lazy(LazyThreadSafetyMode.NONE, initializer)
+}

@@ -16,4 +16,19 @@
 
 package xyz.louiscad.concurrency
 
-internal const val CHECK = true
+import timber.log.Timber
+
+@Suppress("NOTHING_TO_INLINE")
+internal object Reporter {
+    inline fun check(value: Boolean) = try {
+        kotlin.check(value)
+    } catch (e: IllegalStateException) {
+        Timber.wtf(e)
+    }
+
+    inline fun check(value: Boolean, lazyMessage: () -> Any) = try {
+        kotlin.check(value, lazyMessage)
+    } catch (e: IllegalStateException) {
+        Timber.wtf(e)
+    }
+}

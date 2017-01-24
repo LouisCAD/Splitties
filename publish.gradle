@@ -85,6 +85,25 @@ publishing.publications {
                     root.appendNode("name", 'Splitties')
                     root.appendNode("url", siteUrl)
                     root.children().last() + pomConfig
+                    def depsNode = root["dependencies"][0]
+                    if (depsNode == null) {
+                        depsNode = root.appendNode("dependencies")
+                    }
+
+                    def addDep = {
+                        def dependencyNode = depsNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                    }
+
+                    // add deps that everyone has
+                    configurations.compile.allDependencies.each addDep
+                    // add config specific deps
+                    if (!variant.flavorName.isEmpty()) {
+                        configurations["${variant.flavorName}Compile"].allDependencies.each addDep
+                    }
+                    // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
                 }
             }
         }

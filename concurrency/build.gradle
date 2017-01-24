@@ -41,6 +41,7 @@ android {
     }
     productFlavors {
         concurrency
+        concurrency_report
         concurrency_unchecked
     }
     sourceSets {
@@ -56,6 +57,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.1.0'
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Timber log utility
+    concurrency_reportCompile "com.jakewharton.timber:timber:${timberVersion}";
 }
 repositories {
     mavenCentral()
