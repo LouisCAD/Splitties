@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 def pomConfig = {
     licenses {
         license {
@@ -31,7 +32,6 @@ def pomConfig = {
         connection 'https://github.com/LouisCAD/Splitties.git'
         developerConnection 'https://github.com/LouisCAD/Splitties.git'
         url siteUrl
-
     }
 }
 
@@ -40,13 +40,39 @@ publishing.publications {
     android.libraryVariants.all { variant ->
         if (variant.buildType.name == "debug") return // Prevents publishing debug library
 
+        def flavored = !variant.flavorName.isEmpty()
+
+        /**
+         * Translates "_" in flavor names to "-" for artifactIds, because "-" in flavor name is an
+         * illegal character, but is well used in artifactId names.
+         */
+        def variantArtifactId = flavored ? variant.flavorName.replace('_', '-') : project.name
+
+        /**
+         * If the javadoc destinationDir wasn't changed per flavor, the libraryVariants would
+         * overwrite the javaDoc as all variants would write in the same directory
+         * before the last javadoc jar would have been built, which would cause the last javadoc
+         * jar to include classes from other flavors that it doesn't include.
+         *
+         * Yes, tricky.
+         *
+         * Note that "${buildDir}/docs/javadoc" is the default javadoc destinationDir.
+         */
+        def javaDocDestDir = file("${buildDir}/docs/javadoc ${flavored ? variantArtifactId : ""}")
+
+        /**
+         * Includes
+         */
         def sourceDirs = variant.sourceSets.collect {
-            it.javaDirectories // Also includes kotlin sources if any
+            it.javaDirectories // Also includes kotlin sources if any.
         }
         def javadoc = task("${variant.name}Javadoc", type: Javadoc) {
             description "Generates Javadoc for ${variant.name}."
-            source = sourceDirs
-            classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.compile
+            source = variant.javaCompile.source // Yes, javaCompile is deprecated,
+            // but I didn't find any working alternative. Please, tweet @Louis_CAD if you find one.
+            destinationDir = javaDocDestDir
+            classpath += files(android.getBootClasspath().join(File.pathSeparator))
+            classpath += files(configurations.compile)
             options.links("http://docs.oracle.com/javase/7/docs/api/");
             options.links("http://d.android.com/reference/");
             exclude '**/BuildConfig.java'
@@ -56,7 +82,7 @@ publishing.publications {
         def javadocJar = task("${variant.name}JavadocJar", type: Jar, dependsOn: javadoc) {
             description "Puts Javadoc for ${variant.name} in a jar."
             classifier = 'javadoc'
-            from javadoc.getDestinationDir()
+            from javadoc.destinationDir
         }
         def sourcesJar = task("${variant.name}SourcesJar", type: Jar) {
             description "Puts sources for ${variant.name} in a jar."
@@ -67,10 +93,8 @@ publishing.publications {
         def publicationName = "splitties${variant.name.capitalize()}Library"
         publicationNames.add(publicationName)
 
-        def publicationArtifactId = variant.flavorName.isEmpty() ?
-                project.name : variant.flavorName.replace('_', '-') // Cause can't use - for flavors
         "$publicationName"(MavenPublication) {
-            artifactId publicationArtifactId
+            artifactId variantArtifactId
             group groupId
             version libraryVersion
 
@@ -101,7 +125,7 @@ publishing.publications {
                     // Add deps that everyone has
                     configurations.compile.allDependencies.each addDep
                     // Add flavor specific deps
-                    if (!variant.flavorName.isEmpty()) {
+                    if (flavored) {
                         configurations["${variant.flavorName}Compile"].allDependencies.each addDep
                     }
                     // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
