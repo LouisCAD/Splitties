@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/appctx" />
             <option value="$PROJECT_DIR$/concurrency" />
+            <option value="$PROJECT_DIR$/preferences" />
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/selectableviewgroups" />
             <option value="$PROJECT_DIR$/typesaferecyclerview" />
