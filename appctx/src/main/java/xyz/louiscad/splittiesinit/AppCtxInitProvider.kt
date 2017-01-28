@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,4 +14,15 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviewgroups', ':concurrency', ':appctx'
+package xyz.louiscad.splittiesinit
+
+import android.content.Context
+
+/**
+ * Initializes [appCtx] so it can be used where any [Context] can be used.
+ */
+class AppCtxInitProvider : InitProvider() {
+    override fun onCreate() = consume {
+        internalCtx = context
+    }
+}
