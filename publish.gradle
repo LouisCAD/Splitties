@@ -153,7 +153,7 @@ afterEvaluate {
             issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
             vcsUrl = gitUrl
             licenses = ['Apache-2.0']
-            labels = ['aar', 'android']
+            labels = ['aar', 'android', 'kotlin']
             publicDownloadNumbers = true
             githubRepo = 'LouisCAD/Splitties'
         }
