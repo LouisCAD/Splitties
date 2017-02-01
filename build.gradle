@@ -38,7 +38,7 @@ allprojects {
         projectBuildToolsVersion = '25.0.2'
         projectSdkVersion = 25
         // Dependencies versions
-        supportLibVersion = '25.1.0'
+        supportLibVersion = '25.1.1'
         AAVersion = '4.1.0'
         timberVersion = '4.3.0'
         splittiesVersion = '1.2'
@@ -48,4 +48,8 @@ allprojects {
         siteUrl = 'https://github.com/LouisCAD/Splitties'
         gitUrl = 'https://github.com/LouisCAD/Splitties.git'
     }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
