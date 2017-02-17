@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/concurrency" />
             <option value="$PROJECT_DIR$/preferences" />
             <option value="$PROJECT_DIR$/sample" />
+            <option value="$PROJECT_DIR$/sample-nagbox" />
             <option value="$PROJECT_DIR$/selectableviewgroups" />
             <option value="$PROJECT_DIR$/typesaferecyclerview" />
           </set>
