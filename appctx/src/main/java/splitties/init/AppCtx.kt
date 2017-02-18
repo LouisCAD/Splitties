@@ -18,6 +18,7 @@ package splitties.init
 
 import android.app.Application
 import android.content.Context
+import android.os.Build
 
 /**
  * **WARNING!** Please, do not use this context if you rely on a scoped [Context] such as accessing
@@ -30,4 +31,12 @@ import android.content.Context
  */
 val appCtx: Context
     get() = internalCtx!!
+
+/**
+ * See [Direct Boot documentation](https://developer.android.com/training/articles/direct-boot.html)
+ */
+val directBootCtx: Context by lazy {
+    if (Build.VERSION.SDK_INT < 24) appCtx else appCtx.createDeviceProtectedStorageContext()
+}
+
 internal var internalCtx: Context? = null

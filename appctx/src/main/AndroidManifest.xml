@@ -16,14 +16,17 @@
 
 <manifest
     package="splitties.init"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application>
         <provider
             android:name=".AppCtxInitProvider"
             android:authorities="${applicationId}.appctxinitprovider"
+            android:directBootAware="true"
             android:exported="false"
-            android:initOrder="900"/>
+            android:initOrder="900"
+            tools:ignore="UnusedAttribute"/>
     </application>
 
 </manifest>

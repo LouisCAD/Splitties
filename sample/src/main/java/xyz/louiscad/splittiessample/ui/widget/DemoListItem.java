@@ -69,9 +69,9 @@ public class DemoListItem extends SelectableRelativeLayout
     @Override
     public void bind(DemoItem demoItem) {
         mDemoItem = demoItem;
-        iconImageView.setImageResource(demoItem.iconResId);
-        titleTextView.setText(demoItem.titleResId);
-        detailTextView.setText(demoItem.detailResId);
+        iconImageView.setImageResource(demoItem.getIconResId());
+        titleTextView.setText(demoItem.getTitleResId());
+        detailTextView.setText(demoItem.getDetailResId());
         setOnClickListener(this);
     }
 

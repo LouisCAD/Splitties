@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package splitties.init
+package xyz.louiscad.splittiessample
 
-import android.content.Context
-import android.util.Log
+import splitties.init.AppCtxInitProvider
+import splitties.init.appCtx
 
 /**
- * Initializes [appCtx] so it can be used where any [Context] can be used.
- *
- * If you use [appCtx] in another process than the default one, but fail to declare a subclass of
- * this class in your manifest with the same process, attempts to access [appCtx] in
- * this non-default process will throw a [KotlinNullPointerException].
+ * Just present here and in the manifest to call [AppCtxInitProvider] implementation
+ * for the second process of this app so [appCtx] is initialized.
+ * @see AppCtxInitProvider
  */
-open class AppCtxInitProvider : InitProvider() {
-    override final fun onCreate() = consume {
-        Log.d("APPCTX", "About to init appCtx")
-        internalCtx = context
-    }
-}
+class SecondProcessInitProvider : AppCtxInitProvider()

@@ -24,22 +24,41 @@ android {
     buildToolsVersion projectBuildToolsVersion
     defaultConfig {
         applicationId "xyz.louiscad.splittiessample"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion projectSdkVersion
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resConfigs "en", "fr"
         vectorDrawables.useSupportLibrary = true
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        debug {
+            storeFile file("${System.properties['user.home']}/.android/debug.keystore")
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
     }
     buildTypes {
+        dev {
+            initWith(buildTypes.debug)
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-DEV"
+            minifyEnabled true
+            useProguard false
+        }
         debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-DEBUG"
             minifyEnabled true
             useProguard false
         }
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     sourceSets {
@@ -57,36 +76,53 @@ buildscript {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    // Tests
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    testCompile 'junit:junit:4.12'
     // This project's libraries
-    compile project(':typesaferecyclerview')
-    compile project(':selectableviewgroups')
-    //compile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
-    //releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
-    //compile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
-    //compile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
+    devCompile project(':appctx')
+    devCompile project(':concurrency')
+    devCompile project(':typesaferecyclerview')
+    devCompile project(':selectableviewgroups')
+
+    debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+
+    releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+
     // Android Support Libraries
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:design:${supportLibVersion}";
+
     // AndroidAnnotations
     compile "org.androidannotations:androidannotations-api:${AAVersion}";
     apt "org.androidannotations:androidannotations:${AAVersion}";
+
     // Timber log utility
     compile "com.jakewharton.timber:timber:${timberVersion}";
 
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
     compile 'com.actinarium.aligned:aligned:0.1'
+
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Tests
+    testCompile 'junit:junit:4.12'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 }
 repositories {
     mavenCentral()
     mavenLocal()
     maven {
-        url  "https://dl.bintray.com/louiscad/splitties"
+        url "https://dl.bintray.com/louiscad/splitties"
+    }
+}
+
+apt {
+    arguments {
+        resourcePackageName android.defaultConfig.applicationId
     }
 }
