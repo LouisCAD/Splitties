@@ -39,4 +39,12 @@ val directBootCtx: Context by lazy {
     if (Build.VERSION.SDK_INT < 24) appCtx else appCtx.createDeviceProtectedStorageContext()
 }
 
+/**
+ * Call this method from your [Application] subclass if you need to use [appCtx] outside the default
+ * process.
+ */
+fun setAppCtx(app: Application) {
+    internalCtx = app
+}
+
 internal var internalCtx: Context? = null

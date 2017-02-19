@@ -38,3 +38,5 @@ import splitties.init.AppCtxInitProvider
 
 class SecondProcessInitProvider : AppCtxInitProvider()
 ```
+
+Alternatively, for an app (doesn't work for libraries), you can call `setAppCtx(app: Application)` from your custom application class `onCreate()` method to init the `appCtx` manually.
