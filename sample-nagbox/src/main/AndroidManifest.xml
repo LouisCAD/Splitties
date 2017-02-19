@@ -14,27 +14,28 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          package="com.actinarium.nagbox">
+<manifest
+    package="com.actinarium.nagbox"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
-            android:allowBackup="true"
-            android:fullBackupContent="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            tools:ignore="GoogleAppIndexingWarning">
+        android:allowBackup="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-                android:name=".ui.MainActivity"
-                android:windowSoftInputMode="adjustPan"
-                android:launchMode="singleTask">
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -42,26 +43,27 @@
         </activity>
 
         <service
-                android:name=".service.NagboxService"
-                android:enabled="true"
-                android:exported="false"/>
+            android:name=".service.NagboxService"
+            android:enabled="true"
+            android:exported="false"/>
 
         <receiver
-                android:name=".service.NagAlarmReceiver"
-                android:enabled="true"
-                android:exported="false">
+            android:name=".service.NagAlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
 
         <provider
-                android:name=".database.NagboxContentProvider"
-                android:authorities="${applicationId}.provider"
-                android:enabled="true"
-                android:exported="false"/>
+            android:name=".database.NagboxContentProvider"
+            android:authorities="${applicationId}.provider"
+            android:enabled="true"
+            android:exported="false"/>
 
     </application>
 
