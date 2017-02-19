@@ -17,6 +17,7 @@
 package splitties.init
 
 import android.content.Context
+import android.support.annotation.CallSuper
 
 /**
  * Initializes [appCtx] so it can be used where any [Context] can be used.
@@ -26,5 +27,5 @@ import android.content.Context
  * this non-default process will throw a [KotlinNullPointerException].
  */
 open class AppCtxInitProvider : InitProvider() {
-    override final fun onCreate() = consume { internalCtx = context }
+    @CallSuper override fun onCreate() = consume { internalCtx = context }
 }

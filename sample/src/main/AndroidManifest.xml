@@ -19,7 +19,6 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name=".DemoApp"
         android:allowBackup="true"
         android:directBootAware="true"
         android:fullBackupContent="true"
@@ -48,6 +47,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xyz.louiscad.splittiessample.ui.activity.MainActivity"/>
         </activity>
+
+        <provider
+            android:name=".AppInitProvider"
+            android:authorities="${applicationId}.init"
+            android:exported="false"
+            android:initOrder="899"/>
 
         <provider
             android:name=".SecondProcessInitProvider"

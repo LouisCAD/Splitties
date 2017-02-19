@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample;
+package xyz.louiscad.splittiessample
 
-import android.app.Application;
-
-import timber.log.Timber;
+import android.app.Application
+import android.content.ContentProvider
+import timber.log.Timber
 
 /**
- * Can be used to init some app wide things (e.g. the logging library Timber).
+ * Initializes some app wide things (e.g. the logging library Timber).
+ * This object needs to be invoked (`AppInit`) in a [ContentProvider] or an [Application].
  */
-public class DemoApp extends Application {
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        if (BuildConfig.DEBUG) Timber.plant(new Timber.DebugTree());
+object AppInit {
+    init {
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 }

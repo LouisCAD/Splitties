@@ -16,9 +16,9 @@
 
 package splitties.init
 
-internal inline fun consume(f: () -> Unit): Boolean {
+inline fun consume(result: Boolean = true, f: () -> Unit): Boolean {
     f()
-    return true
+    return result
 }
 
 internal fun unsupported(errorMessage: String? = null): Nothing = throw UnsupportedOperationException(errorMessage)
