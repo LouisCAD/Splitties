@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (c) 2016. Louis Cognault Ayeva Derman
+  ~ Copyright (c) 2017. Louis Cognault Ayeva Derman
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,4 +15,10 @@
   ~ limitations under the License.
   -->
 
-<xyz.louiscad.splittiessample.ui.widget.DemoListItem style="@style/ListItem"/>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/list_item_two_lines_icon"/>
+</android.support.constraint.ConstraintLayout>

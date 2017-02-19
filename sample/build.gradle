@@ -17,7 +17,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'android-apt'
 
 android {
     compileSdkVersion projectSdkVersion
@@ -94,9 +93,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:design:${supportLibVersion}";
 
-    // AndroidAnnotations
-    compile "org.androidannotations:androidannotations-api:${AAVersion}";
-    apt "org.androidannotations:androidannotations:${AAVersion}";
+    // Constraint Layout
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
 
     // Timber log utility
     compile "com.jakewharton.timber:timber:${timberVersion}";
@@ -113,16 +111,11 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
+
 repositories {
     mavenCentral()
     mavenLocal()
     maven {
         url "https://dl.bintray.com/louiscad/splitties"
-    }
-}
-
-apt {
-    arguments {
-        resourcePackageName android.defaultConfig.applicationId
     }
 }
