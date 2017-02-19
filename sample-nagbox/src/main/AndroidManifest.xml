@@ -59,7 +59,7 @@
 
         <provider
                 android:name=".database.NagboxContentProvider"
-                android:authorities="com.actinarium.nagbox.provider"
+                android:authorities="${applicationId}.provider"
                 android:enabled="true"
                 android:exported="false"/>
 

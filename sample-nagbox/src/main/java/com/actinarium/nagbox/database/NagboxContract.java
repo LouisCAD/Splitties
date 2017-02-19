@@ -21,6 +21,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
+
+import com.actinarium.nagbox.BuildConfig;
 import com.actinarium.nagbox.model.Task;
 
 /**
@@ -30,7 +32,7 @@ import com.actinarium.nagbox.model.Task;
  */
 public final class NagboxContract {
 
-    public static final String CONTENT_AUTHORITY = "com.actinarium.nagbox.provider";
+    public static final String CONTENT_AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
     public static final String PATH_TASKS = "tasks";

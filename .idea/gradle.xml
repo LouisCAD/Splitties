@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/sample" />
             <option value="$PROJECT_DIR$/sample-nagbox" />
             <option value="$PROJECT_DIR$/selectableviewgroups" />
+            <option value="$PROJECT_DIR$/stetho-init" />
             <option value="$PROJECT_DIR$/typesaferecyclerview" />
           </set>
         </option>
