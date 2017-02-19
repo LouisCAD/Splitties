@@ -30,8 +30,8 @@ import android.view.ViewGroup
  * @param <Host> The host of your items views. It's recommended to be an interface defined in your
  * *               item view (which can be called Host too) that your Activity, Fragment, Presenter
  * *               or anything else you want implements. If you don't need this (i.e. read only list),
- * *               you can use [Void] here.
-</Host></V></Data> */
+ * *               you can use [Void] or [Unit] here.
+ */
 class ViewWrapper<Data, V, Host> : ViewHolder<V> where V : View, V : ViewWrapper.Binder<Data, Host> {
 
     /**
