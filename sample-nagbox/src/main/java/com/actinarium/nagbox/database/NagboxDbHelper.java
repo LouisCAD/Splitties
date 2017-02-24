@@ -106,9 +106,9 @@ public class NagboxDbHelper extends SQLiteOpenHelper {
         NagboxDbOps.Transaction transaction = NagboxDbOps.startTransaction(db);
         Task reusableTask = new Task();
         for (int i = 0; i < length; i++) {
-            reusableTask.title = starterTaskTitles[i];
-            reusableTask.interval = starterTaskIntervals[i];
-            reusableTask.displayOrder = i + 1;
+            reusableTask.setTitle(starterTaskTitles[i]);
+            reusableTask.setInterval(starterTaskIntervals[i]);
+            reusableTask.setDisplayOrder(i + 1);
             transaction.createTask(reusableTask);
         }
         transaction.commit();

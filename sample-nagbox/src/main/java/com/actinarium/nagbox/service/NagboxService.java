@@ -155,7 +155,7 @@ public class NagboxService extends IntentService {
 
         // I know that only either of those is needed, but for the sake of nice code I'm pulling these here
         final Task task = intent.getParcelableExtra(EXTRA_TASK);
-        final long id = intent.getLongExtra(EXTRA_TASK_ID, Task.NO_ID);
+        final long id = intent.getLongExtra(EXTRA_TASK_ID, Task.Companion.getNO_ID());
         switch (intent.getAction()) {
             case ACTION_UPDATE_TASK_STATUS:
                 handleUpdateTaskStatus(task);
@@ -193,7 +193,7 @@ public class NagboxService extends IntentService {
         // Our app must ensure that task order is correct and unique. So assign the order = max(order) + 1
         // We could (and should) do this atomically using INSERT with sub-query, but that's not trivial with given APIs.
         int maxOrder = NagboxDbOps.getMaxTaskOrder(mDatabase);
-        task.displayOrder = maxOrder + 1;
+        task.setDisplayOrder(maxOrder + 1);
 
         // In the end of the method we put everything into the DB using DbOps.Transaction
         boolean isSuccess = NagboxDbOps.startTransaction(mDatabase)
@@ -210,8 +210,8 @@ public class NagboxService extends IntentService {
     }
 
     private void handleUpdateTask(Task task) {
-        if (task.id < 0) {
-            Log.e(TAG, "Was trying to update task with invalid/unset ID=" + task.id);
+        if (task.getId() < 0) {
+            Log.e(TAG, "Was trying to update task with invalid/unset ID=" + task.getId());
             return;
         }
 
@@ -221,15 +221,15 @@ public class NagboxService extends IntentService {
 
         if (isSuccess) {
             // Even though our content provider doesn't know about a single item URI yet, won't hurt to do it right
-            getContentResolver().notifyChange(TasksTable.getUriForItem(task.id), null);
+            getContentResolver().notifyChange(TasksTable.getUriForItem(task.getId()), null);
         } else {
             Log.e(TAG, "Couldn't update task " + task);
         }
     }
 
     private void handleUpdateTaskStatus(Task task) {
-        if (task.id < 0) {
-            Log.e(TAG, "Was trying to update flags of the task with invalid/unset ID=" + task.id);
+        if (task.getId() < 0) {
+            Log.e(TAG, "Was trying to update flags of the task with invalid/unset ID=" + task.getId());
             return;
         }
 
@@ -238,7 +238,7 @@ public class NagboxService extends IntentService {
                 .commit();
 
         if (isSuccess) {
-            getContentResolver().notifyChange(TasksTable.getUriForItem(task.id), null);
+            getContentResolver().notifyChange(TasksTable.getUriForItem(task.getId()), null);
             rescheduleAlarm();
         } else {
             Log.e(TAG, "Couldn't update status of task " + task);
@@ -258,8 +258,8 @@ public class NagboxService extends IntentService {
             return;
         }
 
-        task.setIsActive(false);
-        task.setIsSeen(true);
+        task.setActive(false);
+        task.setSeen(true);
         handleUpdateTaskStatus(task);
     }
 
@@ -288,7 +288,7 @@ public class NagboxService extends IntentService {
                 .commit();
 
         if (isSuccess) {
-            getContentResolver().notifyChange(TasksTable.getUriForItem(task.id), null);
+            getContentResolver().notifyChange(TasksTable.getUriForItem(task.getId()), null);
             rescheduleAlarm();
         } else {
             Log.e(TAG, "Couldn't restore task " + task);
@@ -333,14 +333,14 @@ public class NagboxService extends IntentService {
         for (Task task : tasksToRemind) {
             boolean isModified = false;
             if (task.isSeen()) {
-                task.setIsSeen(false);
+                task.setSeen(false);
                 isModified = true;
             }
 
             // Using the loop because the alarm might've fired long ago (e.g. before system reboot),
             // so we need to make sure that nextFireAt is indeed in the future
-            while (task.nextFireAt <= now) {
-                task.nextFireAt += task.interval * DateUtils.MINUTE_IN_MILLIS;
+            while (task.getNextFireAt() <= now) {
+                task.setNextFireAt(task.getNextFireAt() + task.getInterval() * DateUtils.MINUTE_IN_MILLIS);
                 isModified = true;
             }
 
@@ -370,7 +370,7 @@ public class NagboxService extends IntentService {
             // Notify all affected task items
             final ContentResolver contentResolver = getContentResolver();
             for (int i = 0; i < updateSize; i++) {
-                contentResolver.notifyChange(TasksTable.getUriForItem(tasksToUpdate.get(i).id), null);
+                contentResolver.notifyChange(TasksTable.getUriForItem(tasksToUpdate.get(i).getId()), null);
             }
         }
 
@@ -394,7 +394,7 @@ public class NagboxService extends IntentService {
 
         NagboxDbOps.Transaction transaction = NagboxDbOps.startTransaction(mDatabase);
         for (Task task : tasksToDismiss) {
-            task.setIsSeen(true);
+            task.setSeen(true);
             transaction.updateTaskStatus(task);
         }
         boolean isSuccess = transaction.commit();
@@ -405,7 +405,7 @@ public class NagboxService extends IntentService {
             // Notify all affected task items
             final ContentResolver contentResolver = getContentResolver();
             for (Task task : tasksToDismiss) {
-                contentResolver.notifyChange(TasksTable.getUriForItem(task.id), null);
+                contentResolver.notifyChange(TasksTable.getUriForItem(task.getId()), null);
             }
         }
     }

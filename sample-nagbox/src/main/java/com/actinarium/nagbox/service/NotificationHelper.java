@@ -67,21 +67,21 @@ public final class NotificationHelper {
         // Notification action to stop the task
         Intent stopAction = new Intent(context, NagboxService.class);
         stopAction.setAction(NagboxService.ACTION_ON_NOTIFICATION_ACTION_STOP_TASK);
-        stopAction.putExtra(NagboxService.EXTRA_TASK_ID, task.id);
+        stopAction.putExtra(NagboxService.EXTRA_TASK_ID, task.getId());
         stopAction.putExtra(NagboxService.EXTRA_CANCEL_NOTIFICATION_ID, NAG_NOTIFICATION_ID);
         PendingIntent stopActionPI = PendingIntent.getService(context, 0, stopAction, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Create public notification
-        Notification publicNotification = makeCommonBuilder(context, currentTime, task.id)
+        Notification publicNotification = makeCommonBuilder(context, currentTime, task.getId())
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getResources().getQuantityString(R.plurals.notification_stacked_header, 1, 1))
                 .build();
 
         // Create private notification
-        Notification privateNotification = makeCommonBuilder(context, currentTime, task.id)
+        Notification privateNotification = makeCommonBuilder(context, currentTime, task.getId())
                 .setPublicVersion(publicNotification)
-                .setContentTitle(task.title)
-                .setContentText(DateUtils.prettyPrintNagDuration(context, task.lastStartedAt, currentTime))
+                .setContentTitle(task.getTitle())
+                .setContentText(DateUtils.prettyPrintNagDuration(context, task.getLastStartedAt(), currentTime))
                 .addAction(R.drawable.ic_cancel, context.getString(R.string.notification_action_stop), stopActionPI)
                 .build();
 
@@ -100,21 +100,21 @@ public final class NotificationHelper {
             // Notification action to stop the task
             Intent stopAction = new Intent(context, NagboxService.class);
             stopAction.setAction(NagboxService.ACTION_ON_NOTIFICATION_ACTION_STOP_TASK);
-            stopAction.putExtra(NagboxService.EXTRA_TASK_ID, task.id);
-            stopAction.putExtra(NagboxService.EXTRA_CANCEL_NOTIFICATION_ID, (int) task.id);
+            stopAction.putExtra(NagboxService.EXTRA_TASK_ID, task.getId());
+            stopAction.putExtra(NagboxService.EXTRA_CANCEL_NOTIFICATION_ID, (int) task.getId());
 
             // Since actions are "equal" (differ in extras only), need to use a unique "request code" (task.id will do)
-            PendingIntent stopActionPI = PendingIntent.getService(context, (int) task.id, stopAction, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent stopActionPI = PendingIntent.getService(context, (int) task.getId(), stopAction, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            Notification stackedItem = makeCommonBuilder(context, currentTime, task.id)
-                    .setContentTitle(task.title)
-                    .setContentText(DateUtils.prettyPrintNagDuration(context, task.lastStartedAt, currentTime))
+            Notification stackedItem = makeCommonBuilder(context, currentTime, task.getId())
+                    .setContentTitle(task.getTitle())
+                    .setContentText(DateUtils.prettyPrintNagDuration(context, task.getLastStartedAt(), currentTime))
                     .setGroup(NAG_NOTIFICATION_GROUP)
                     .addAction(R.drawable.ic_cancel, context.getString(R.string.notification_action_stop), stopActionPI)
                     .build();
 
             // Well, let's use task IDs for their individual notifications then
-            notifManager.notify((int) task.id, stackedItem);
+            notifManager.notify((int) task.getId(), stackedItem);
         }
 
         // Summary text, reused
@@ -124,7 +124,7 @@ public final class NotificationHelper {
         // Public summary notification
         // Since Android N already shows app name in the notification, display the summary in title
         boolean isApi24 = Build.VERSION.SDK_INT >= 24;
-        Notification publicNotification = makeCommonBuilder(context, currentTime, Task.NO_ID)
+        Notification publicNotification = makeCommonBuilder(context, currentTime, Task.Companion.getNO_ID())
                 .setContentTitle(isApi24 ? summary : context.getString(R.string.app_name))
                 .setContentText(isApi24 ? null : summary)
                 .setGroup(NAG_NOTIFICATION_GROUP)
@@ -147,7 +147,7 @@ public final class NotificationHelper {
         }
 
         // Create private summary notification
-        Notification privateNotification = makeCommonBuilder(context, currentTime, Task.NO_ID)
+        Notification privateNotification = makeCommonBuilder(context, currentTime, Task.Companion.getNO_ID())
                 .setPublicVersion(publicNotification)
                 .setContentTitle(isApi24 ? summary : context.getString(R.string.app_name))
                 .setContentText(isApi24 ? null : summary)
@@ -216,15 +216,15 @@ public final class NotificationHelper {
     }
 
     private static CharSequence makeInboxStyleLine(Context context, Task task, long now) {
-        final String duration = DateUtils.prettyPrintNagDuration(context, task.lastStartedAt, now);
+        final String duration = DateUtils.prettyPrintNagDuration(context, task.getLastStartedAt(), now);
         if (Build.VERSION.SDK_INT >= 24) {
-            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_L, task.title, duration), Html.FROM_HTML_MODE_LEGACY);
+            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_L, task.getTitle(), duration), Html.FROM_HTML_MODE_LEGACY);
         } else if (Build.VERSION.SDK_INT >= 21) {
             //noinspection deprecation
-            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_L, task.title, duration));
+            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_L, task.getTitle(), duration));
         } else {
             //noinspection deprecation
-            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_OLD, task.title, duration));
+            return Html.fromHtml(String.format(INBOX_STYLE_LINE_FORMAT_OLD, task.getTitle(), duration));
         }
     }
 }

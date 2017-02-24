@@ -69,8 +69,8 @@ public final class NagboxContract {
     public interface BuildingBlocks {
 
         String SELECTION_ID = BaseColumns._ID + " = ?";
-        String SELECTION_TASK_ACTIVE = TasksTable.COL_FLAGS + " & " + Task.FLAG_ACTIVE;
-        String SELECTION_TASK_NOT_SEEN = TasksTable.COL_FLAGS + " & " + Task.FLAG_NOT_SEEN;
+        String SELECTION_TASK_ACTIVE = TasksTable.COL_FLAGS + " & " + Task.Companion.getFLAG_ACTIVE();
+        String SELECTION_TASK_NOT_SEEN = TasksTable.COL_FLAGS + " & " + Task.Companion.getFLAG_NOT_SEEN();
         String SELECTION_TASK_FIRE_AT_ON_OR_BEFORE = TasksTable.COL_NEXT_FIRE_AT + " <= ?";
 
         String AGGR_COL_MIN_NEXT_FIRE_AT = "MIN(" + TasksTable.COL_NEXT_FIRE_AT + ")";
@@ -112,13 +112,13 @@ public final class NagboxContract {
                 task = new Task();
             }
 
-            task.id = cursor.getLong(0);
-            task.title = cursor.getString(1);
-            task.interval = cursor.getInt(2);
-            task.flags = cursor.getInt(3);
-            task.nextFireAt = cursor.getLong(4);
-            task.lastStartedAt = cursor.getLong(5);
-            task.displayOrder = cursor.getInt(6);
+            task.setId(cursor.getLong(0));
+            task.setTitle(cursor.getString(1));
+            task.setInterval(cursor.getInt(2));
+            task.setFlags(cursor.getInt(3));
+            task.setNextFireAt(cursor.getLong(4));
+            task.setLastStartedAt(cursor.getLong(5));
+            task.setDisplayOrder(cursor.getInt(6));
 
             return task;
         }
@@ -152,10 +152,10 @@ public final class NagboxContract {
                 task = new Task();
             }
 
-            task.id = cursor.getLong(0);
-            task.flags = cursor.getInt(1);
-            task.nextFireAt = cursor.getLong(2);
-            task.lastStartedAt = cursor.getLong(3);
+            task.setId(cursor.getLong(0));
+            task.setFlags(cursor.getInt(1));
+            task.setNextFireAt(cursor.getLong(2));
+            task.setLastStartedAt(cursor.getLong(3));
 
             return task;
         }

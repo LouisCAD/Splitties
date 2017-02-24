@@ -150,7 +150,7 @@ public final class NagboxDbOps {
      */
     public static Task[] getTasksToDismiss(SQLiteDatabase db, long id) {
         Cursor cursor;
-        if (id == Task.NO_ID) {
+        if (id == Task.Companion.getNO_ID()) {
             cursor = db.query(
                     TasksTable.TABLE_NAME,
                     NagboxContract.TASK_FULL_PROJECTION.getColumns(),
@@ -245,7 +245,7 @@ public final class NagboxDbOps {
                     task.toContentValues()
             );
             if (id != -1) {
-                task.id = id;
+                task.setId(id);
             } else {
                 mIsSuccess = false;
                 mDatabase.endTransaction();
@@ -270,7 +270,7 @@ public final class NagboxDbOps {
                     TasksTable.TABLE_NAME,
                     task.toContentValuesOnUpdate(),
                     BuildingBlocks.SELECTION_ID,
-                    new String[]{Long.toString(task.id)}
+                    new String[]{Long.toString(task.getId())}
             );
             if (rowsAffected != 1) {
                 mIsSuccess = false;
@@ -295,7 +295,7 @@ public final class NagboxDbOps {
                     TasksTable.TABLE_NAME,
                     task.toContentValuesOnStatusChange(),
                     BuildingBlocks.SELECTION_ID,
-                    new String[]{Long.toString(task.id)}
+                    new String[]{Long.toString(task.getId())}
             );
             if (rowsAffected != 1) {
                 mIsSuccess = false;

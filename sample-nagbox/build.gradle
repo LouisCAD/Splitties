@@ -15,6 +15,8 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def appVersion = '0.1-mvp'
 
@@ -43,6 +45,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 def supportLibVersion = '25.1.1'
@@ -51,6 +56,7 @@ dependencies {
     debugCompile project(":stetho-init")
     debugCompile 'com.facebook.stetho:stetho:1.4.2'
 
+    compile project(':material-lists')
     compile "com.android.support:appcompat-v7:$supportLibVersion"
     compile "com.android.support:recyclerview-v7:$supportLibVersion"
     compile "com.android.support:design:$supportLibVersion"
@@ -59,4 +65,14 @@ dependencies {
 
 
     testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    kapt 'com.android.databinding:compiler:2.3.0-rc1'
+}
+repositories {
+    mavenCentral()
+}
+
+kapt {
+    generateStubs = true
 }

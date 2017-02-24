@@ -72,7 +72,7 @@ public class TaskItemHolder extends RecyclerView.ViewHolder implements PopupMenu
     @SuppressWarnings("unused")
     public void onTaskStatusChanged(boolean isActive) {
         // Tell the controller to set task status (idle/running) and schedule it for alarm
-        mHost.onSetTaskStatus(new Task(mTask), isActive);
+        mHost.onSetTaskStatus(mTask.copy(), isActive);
     }
 
     @SuppressWarnings("unused")
@@ -89,11 +89,11 @@ public class TaskItemHolder extends RecyclerView.ViewHolder implements PopupMenu
         switch (menuItem.getItemId()) {
             case R.id.action_edit:
                 // Passing the copy of this mutable task to be on the safe side
-                mHost.onEditTask(new Task(mTask));
+                mHost.onEditTask(mTask.copy());
                 return true;
             case R.id.action_delete:
                 // Since we have a Context here, we could call the service directly. But let's keep things consistent.
-                mHost.onDeleteTask(new Task(mTask));
+                mHost.onDeleteTask(mTask.copy());
                 return true;
         }
         return false;

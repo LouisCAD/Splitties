@@ -71,12 +71,12 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        task.setIsActive(isActive);
-        task.setIsSeen(true);
+        task.setActive(isActive);
+        task.setSeen(true);
         if (isActive) {
             // Schedule next fire time
-            task.lastStartedAt = System.currentTimeMillis();
-            task.nextFireAt = task.lastStartedAt + task.interval * DateUtils.MINUTE_IN_MILLIS;
+            task.setLastStartedAt(System.currentTimeMillis());
+            task.setNextFireAt(task.getLastStartedAt() + task.getInterval() * DateUtils.MINUTE_IN_MILLIS);
         }
         NagboxService.updateTaskStatus(this, task);
     }
@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDeleteTask(final Task task) {
-        NagboxService.deleteTask(this, task.id);
-        Snackbar.make(mBinding.getRoot(), getString(R.string.deleted_message, task.title), Snackbar.LENGTH_LONG)
+        NagboxService.deleteTask(this, task.getId());
+        Snackbar.make(mBinding.getRoot(), getString(R.string.deleted_message, task.getTitle()), Snackbar.LENGTH_LONG)
                 .setAction(R.string.undo, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity
      * @param task task to edit, or <code>null</code> to make a dialog for creating a new task
      */
     private void showCreateEditDialog(@Nullable Task task) {
-        EditTaskDialogFragment fragment = EditTaskDialogFragment.newInstance(task);
-        fragment.show(getSupportFragmentManager(), EditTaskDialogFragment.TAG);
+        EditTaskDialogFragment fragment = EditTaskDialogFragment.Companion.newInstance(task);
+        fragment.show(getSupportFragmentManager(), EditTaskDialogFragment.Companion.getTAG());
     }
 
     // Loader callbacks -----------------------------------------------------
