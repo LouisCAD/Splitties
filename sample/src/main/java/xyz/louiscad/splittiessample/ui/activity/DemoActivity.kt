@@ -26,10 +26,9 @@ import kotlinx.android.synthetic.main.activity_demo.*
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.ui.adapter.DemoAdapter
 import xyz.louiscad.splittiessample.ui.model.DemoItem
-import xyz.louiscad.splittiessample.ui.widget.DemoListItem
 import java.lang.Integer.MAX_VALUE
 
-class DemoActivity : AppCompatActivity(), DemoListItem.Host {
+class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.typesaferecyclerview;
+package splitties.typesaferecyclerview;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -37,6 +37,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("xyz.louiscad.typesaferecyclerview.test", appContext.getPackageName());
+        assertEquals("splitties.typesaferecyclerview.test", appContext.getPackageName());
     }
 }

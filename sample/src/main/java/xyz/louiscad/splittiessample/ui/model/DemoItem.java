@@ -20,7 +20,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
 /**
- * @see xyz.louiscad.splittiessample.ui.widget.DemoListItem
+ * @see xyz.louiscad.splittiessample.ui.adapter.DemoAdapter.DemoViewHolder
  */
 public class DemoItem extends ImmutableBasicItem {
 

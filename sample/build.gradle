@@ -65,36 +65,30 @@ android {
     }
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
-
 dependencies {
     // This project's libraries
-    devCompile project(':appctx')
-    devCompile project(':concurrency')
-    devCompile project(':typesaferecyclerview')
-    devCompile project(':selectableviewgroups')
+    compile project(':appctx')
+    //compile project(':concurrency')
+    compile "xyz.louiscad.splitties:concurrency:1.3.0"
+    compile project(':typesaferecyclerview')
+    compile project(':preferences')
+    compile project(':selectableviewgroups')
+    compile project(':material-lists')
 
-    debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
+    /*debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
 
     releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
     releaseCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"*/
 
     // Android Support Libraries
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     compile "com.android.support:design:${supportLibVersion}";
 
     // Constraint Layout
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
 
     // Timber log utility
     compile "com.jakewharton.timber:timber:${timberVersion}";

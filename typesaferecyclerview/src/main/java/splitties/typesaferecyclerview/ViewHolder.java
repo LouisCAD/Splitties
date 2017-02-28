@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.typesaferecyclerview.util;
+package splitties.typesaferecyclerview;
 
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -48,14 +47,7 @@ public class ViewHolder<V extends View> extends RecyclerView.ViewHolder {
      * @param parent      pass the first argument received in
      *                    {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    @SuppressWarnings("unchecked cast")
     public ViewHolder(@LayoutRes int layoutResId, ViewGroup parent) {
-        this((V) inflate(layoutResId, parent));
-    }
-
-    @SuppressWarnings("unchecked cast")
-    private static <V extends View> V inflate(@LayoutRes int layoutResId, ViewGroup parent) {
-        return (V) LayoutInflater.from(parent.getContext())
-                .inflate(layoutResId, parent, false);
+        this(LayoutInflaterKt.<V>inflate(parent, layoutResId, false));
     }
 }

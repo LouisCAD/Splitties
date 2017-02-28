@@ -38,7 +38,7 @@ allprojects {
         projectBuildToolsVersion = '25.0.2'
         projectSdkVersion = 25
         // Dependencies versions
-        supportLibVersion = '25.1.1'
+        supportLibVersion = '25.2.0'
         AAVersion = '4.1.0'
         timberVersion = '4.3.0'
         splittiesVersion = '1.2'

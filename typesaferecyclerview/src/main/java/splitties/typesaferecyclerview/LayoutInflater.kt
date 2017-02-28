@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.typesaferecyclerview;
+package splitties.typesaferecyclerview
 
-import org.junit.Test;
+import android.support.annotation.LayoutRes
+import android.view.LayoutInflater
+import android.view.ViewGroup
 
-import static org.junit.Assert.*;
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
-public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
-    }
+fun <V> ViewGroup.inflate(@LayoutRes resId: Int, attachToRoot: Boolean = true): V {
+    @Suppress("UNCHECKED_CAST")
+    return LayoutInflater.from(context).inflate(resId, this, attachToRoot) as V
 }

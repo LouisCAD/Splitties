@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<xyz.louiscad.splittiessample.ui.widget.DemoListItem style="@style/ListItem"/>
+<splitties.material.lists.TwoLinesIconSwitchListItem style="@style/ListItem"/>

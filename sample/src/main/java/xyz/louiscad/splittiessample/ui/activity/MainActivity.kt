@@ -16,18 +16,21 @@
 
 package xyz.louiscad.splittiessample.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Vibrator
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import splitties.concurrency.LazyThreadSafetyPolicy.UI_THREAD
 import xyz.louiscad.splittiessample.R
 
 class MainActivity : AppCompatActivity() {
 
-    //private val vibrator by uiLazy { getSystemService(Context.VIBRATOR_SERVICE) }
+    private val vibrator by lazy(UI_THREAD) { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DemoActivity::class.java))
         }
         fab.setOnClickListener {
+            vibrator.vibrate(pattern, -1)
             Snackbar.make(coordinator, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show()
         }
     }
@@ -44,5 +48,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    companion object {
+        private val pattern = longArrayOf(0, 1, 50, 1)
     }
 }
