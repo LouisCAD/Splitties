@@ -17,10 +17,18 @@
 package splitties.typesaferecyclerview
 
 import android.support.annotation.LayoutRes
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 
-fun <V> ViewGroup.inflate(@LayoutRes resId: Int, attachToRoot: Boolean = true): V {
+/**
+ * @param attachToRoot should be explicitly false if used for a [RecyclerView] item, but the
+ * default (true) can left as is for most other cases.
+ *
+ * @see LayoutInflater.inflate
+ */
+fun <V : View> ViewGroup.inflate(@LayoutRes resId: Int, attachToRoot: Boolean = true): V {
     @Suppress("UNCHECKED_CAST")
     return LayoutInflater.from(context).inflate(resId, this, attachToRoot) as V
 }

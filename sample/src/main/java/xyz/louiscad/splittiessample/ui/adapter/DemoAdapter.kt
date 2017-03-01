@@ -50,7 +50,7 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
 
         private val itemClickListener = OnClickListener { host.onDemoItemClicked(data) }
 
-        override fun TwoLinesIconSwitchListItem.bind() {
+        override fun TwoLinesIconSwitchListItem.onBind() {
             icon.setImageResource(data.iconResId)
             firstLine.setText(data.titleResId)
             secondLine.setText(data.detailResId)
