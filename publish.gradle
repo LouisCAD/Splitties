@@ -90,7 +90,7 @@ publishing.publications {
             classifier = 'sources'
         }
 
-        def publicationName = "splitties${variant.name.capitalize()}Library"
+        def publicationName = "splitties${variant.name.capitalize()}"
         publicationNames.add(publicationName)
 
         "$publicationName"(MavenPublication) {

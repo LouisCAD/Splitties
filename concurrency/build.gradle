@@ -26,6 +26,7 @@ apply plugin: 'maven-publish'
 android {
     compileSdkVersion projectSdkVersion
     buildToolsVersion projectBuildToolsVersion
+    defaultPublishConfig "concurrencyDebug"
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion projectSdkVersion

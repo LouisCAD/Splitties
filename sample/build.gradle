@@ -68,20 +68,19 @@ android {
 dependencies {
     // This project's libraries
     compile project(':appctx')
-    //compile project(':concurrency')
-    compile "xyz.louiscad.splitties:concurrency:1.3.0"
-    compile project(':typesaferecyclerview')
+    devCompile project(':concurrency')
+    devCompile project(':typesaferecyclerview')
+    devCompile project(':selectableviewgroups')
     compile project(':preferences')
-    compile project(':selectableviewgroups')
     compile project(':material-lists')
 
-    /*debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
 
     releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
     releaseCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"*/
+    releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
 
     // Android Support Libraries
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
