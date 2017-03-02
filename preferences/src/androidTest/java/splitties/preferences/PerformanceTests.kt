@@ -70,7 +70,6 @@ class PerformanceTests {
 
     object CacheTestPrefs : Preferences(appContext, prefsFileName) {
         var testStringField by StringPref(testKey, testDefaultValue)
-
     }
 
     object NoCacheTestPrefs : NoCachePreferences(appContext, prefsFileName) {
