@@ -22,20 +22,51 @@ import splitties.init.appCtx
 import kotlin.reflect.KProperty
 
 @Suppress("NOTHING_TO_INLINE")
-abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Context.MODE_PRIVATE) {
+abstract class Preferences(ctx: Context = appCtx, name: String = defaultPrefsName, mode: Int = Context.MODE_PRIVATE) {
     protected val prefs: SharedPreferences = ctx.getSharedPreferences(name, mode)
+
+    protected var editor: SharedPreferences.Editor by ResettableLazy { prefs.edit() }
+        private set
 
     operator fun contains(o: Any) = prefs === o
 
+    protected fun boolPref(defaultValue: Boolean = false) = BoolPrefProvider(defaultValue = defaultValue)
     protected fun intPref(defaultValue: Int) = IntPrefProvider(defaultValue = defaultValue)
     protected fun floatPref(defaultValue: Float) = FloatPrefProvider(defaultValue = defaultValue)
     protected fun longPref(defaultValue: Long) = LongPrefProvider(defaultValue = defaultValue)
-    protected fun stringPref(defaultValue: String? = null) = StringPrefProvider(defaultValue = defaultValue)
-    protected fun stringSetPref(defaultValue: MutableSet<String>? = null) = StringSetPrefProvider(defaultValue = defaultValue)
+    protected fun stringPref(defaultValue: String? = null)
+            = StringPrefProvider(defaultValue = defaultValue)
+
+    protected fun stringSetPref(defaultValue: MutableSet<String>? = null)
+            = StringSetPrefProvider(defaultValue = defaultValue)
+
+    private var bulk = false
+    private var useCommit = false
+    private var useCommitForBulk = false
+
+    fun beginBulk(blocking: Boolean = false) {
+        useCommitForBulk = blocking
+        bulk = true
+    }
+
+    fun endBulk() {
+        if (useCommitForBulk) editor.commit() else editor.apply()
+        bulk = false
+    }
+
+    fun abortBulk() {
+        editor = editor // Invalidates the editor stored in the delegate
+        bulk = false
+    }
+
+    protected fun SharedPreferences.Editor.attemptApply() {
+        if (bulk) return
+        if (useCommit) commit() else apply()
+    }
 
     protected inner class BoolPref(val key: String, val defaultValue: Boolean) {
         inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Boolean) {
-            prefs.edit().putBoolean(key, value).apply()
+            editor.putBoolean(key, value).attemptApply()
         }
 
         inline operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Boolean {
@@ -49,7 +80,7 @@ abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Cont
         }
 
         inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Int) {
-            prefs.edit().putInt(key, value).apply()
+            editor.putInt(key, value).attemptApply()
         }
     }
 
@@ -59,7 +90,7 @@ abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Cont
         }
 
         inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Float) {
-            prefs.edit().putFloat(key, value).apply()
+            editor.putFloat(key, value).attemptApply()
         }
     }
 
@@ -69,7 +100,7 @@ abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Cont
         }
 
         inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Long) {
-            prefs.edit().putLong(key, value).apply()
+            editor.putLong(key, value).attemptApply()
         }
     }
 
@@ -79,18 +110,20 @@ abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Cont
         }
 
         inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: String?) {
-            prefs.edit().putString(key, value).apply()
+            editor.putString(key, value).attemptApply()
         }
     }
 
     protected inner class StringSetPref(val key: String,
                                         val defaultValue: MutableSet<String>? = null) {
-        inline operator fun getValue(thisRef: Preferences, prop: KProperty<*>): MutableSet<String>? {
+        inline operator fun getValue(thisRef: Preferences,
+                                     prop: KProperty<*>): MutableSet<String>? {
             return prefs.getStringSet(key, defaultValue)
         }
 
-        inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: MutableSet<String>?) {
-            prefs.edit().putStringSet(key, value).apply()
+        inline operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
+                                     value: MutableSet<String>?) {
+            editor.putStringSet(key, value).attemptApply()
         }
     }
 
@@ -98,47 +131,63 @@ abstract class Preferences(ctx: Context = appCtx, name: String, mode: Int = Cont
         protected fun getKey(prop: KProperty<*>) = if (key === PROP_NAME) prop.name else key
     }
 
-    protected inner class BoolPrefProvider(val key: String = PROP_NAME, val defaultValue: Boolean)
+    protected inner class BoolPrefProvider(key: String = PROP_NAME, val defaultValue: Boolean)
         : PrefProvider(key) {
         inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): BoolPref {
             return BoolPref(getKey(prop), defaultValue)
         }
     }
 
-    protected inner class FloatPrefProvider(val key: String = PROP_NAME, val defaultValue: Float)
+    protected inner class FloatPrefProvider(key: String = PROP_NAME, val defaultValue: Float)
         : PrefProvider(key) {
         inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): FloatPref {
             return FloatPref(getKey(prop), defaultValue)
         }
     }
 
-    protected inner class LongPrefProvider(val key: String = PROP_NAME, val defaultValue: Long)
+    protected inner class LongPrefProvider(key: String = PROP_NAME, val defaultValue: Long)
         : PrefProvider(key) {
         inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): LongPref {
             return LongPref(getKey(prop), defaultValue)
         }
     }
 
-    protected inner class IntPrefProvider(val key: String = PROP_NAME, val defaultValue: Int)
+    protected inner class IntPrefProvider(key: String = PROP_NAME, val defaultValue: Int)
         : PrefProvider(key) {
         inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): IntPref {
             return IntPref(getKey(prop), defaultValue)
         }
     }
 
-    protected inner class StringPrefProvider(val key: String = PROP_NAME, val defaultValue: String? = null)
+    protected inner class StringPrefProvider(key: String = PROP_NAME,
+                                             val defaultValue: String? = null)
         : PrefProvider(key) {
         inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): StringPref {
             return StringPref(getKey(prop), defaultValue)
         }
     }
 
-    protected inner class StringSetPrefProvider(val key: String = PROP_NAME, val defaultValue: MutableSet<String>? = null)
+    protected inner class StringSetPrefProvider(key: String = PROP_NAME,
+                                                val defaultValue: MutableSet<String>? = null)
         : PrefProvider(key) {
-        inline operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): StringSetPref {
+        inline operator fun provideDelegate(thisRef: Preferences,
+                                            prop: KProperty<*>): StringSetPref {
             return StringSetPref(getKey(prop), defaultValue)
         }
     }
 }
 
+val defaultPrefsName get() = "${appCtx.packageName}_preferences"
+
 private val PROP_NAME = "__splitties__"
+
+inline fun <P : Preferences> P.bulk(blocking: Boolean = false, editions: P.() -> Unit) {
+    beginBulk(blocking)
+    try {
+        editions()
+        endBulk()
+    } catch (t: Throwable) {
+        abortBulk()
+        throw t
+    }
+}

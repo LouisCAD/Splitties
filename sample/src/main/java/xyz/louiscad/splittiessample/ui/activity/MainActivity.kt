@@ -26,7 +26,9 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import splitties.concurrency.LazyThreadSafetyPolicy.UI_THREAD
+import splitties.preferences.bulk
 import xyz.louiscad.splittiessample.R
+import xyz.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +42,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DemoActivity::class.java))
         }
         fab.setOnClickListener {
+            GamePreferences.bulk {
+                currentLevel++
+                bossesFought++
+                lastTimePlayed = System.currentTimeMillis()
+            } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
+            // TODO: 02/03/2017 With a UI showing prefs values.
             vibrator.vibrate(pattern, -1)
             Snackbar.make(coordinator, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show()
         }
