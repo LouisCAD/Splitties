@@ -68,21 +68,27 @@ android {
 dependencies {
     // This project's libraries
     devCompile project(':appctx')
+    devCompile project(':stetho-init')
     devCompile project(':concurrency')
+    devCompile project(':preferences')
     devCompile project(':typesaferecyclerview')
     devCompile project(':selectableviewgroups')
-    compile project(':preferences')
-    compile project(':material-lists')
+    devCompile project(':material-lists')
 
     debugCompile "xyz.louiscad.splitties:appctx:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:stetho-init:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:concurrency:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:preferences:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
     debugCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:material-lists:${splittiesVersion}"
 
     releaseCompile "xyz.louiscad.splitties:appctx:${splittiesVersion}"
     releaseCompile "xyz.louiscad.splitties:concurrency-unchecked:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:preferences:${splittiesVersion}"
     releaseCompile "xyz.louiscad.splitties:typesaferecyclerview:${splittiesVersion}"
     releaseCompile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:material-lists:${splittiesVersion}"
 
     // Android Support Libraries
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
@@ -108,7 +114,5 @@ dependencies {
 }
 
 repositories {
-    maven {
-        url "https://dl.bintray.com/louiscad/splitties"
-    }
+    //maven { url "https://dl.bintray.com/louiscad/splitties" }
 }
