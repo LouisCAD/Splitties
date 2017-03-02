@@ -35,10 +35,10 @@ class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
         setContentView(R.layout.activity_demo)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(this@DemoActivity)
-            adapter = DemoAdapter(this@DemoActivity)
+        recyclerView.let {
+            it.setHasFixedSize(true)
+            it.layoutManager = LinearLayoutManager(this)
+            it.adapter = DemoAdapter(this)
         }
         fab.setOnClickListener { v ->
             Snackbar.make(v, R.string.title_feature_not_available, LENGTH_SHORT)

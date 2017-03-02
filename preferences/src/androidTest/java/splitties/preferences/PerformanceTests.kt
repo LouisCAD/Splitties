@@ -68,7 +68,7 @@ class PerformanceTests {
         Log.d(TAG, "vanilla   : $vanilla")
     }
 
-    object CacheTestPrefs : Preferences(appContext, prefsFileName) {
+    object CacheTestPrefs : Preferences(prefsFileName) {
         var testStringField by StringPref(testKey, testDefaultValue)
     }
 

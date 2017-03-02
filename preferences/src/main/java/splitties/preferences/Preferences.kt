@@ -18,19 +18,39 @@ package splitties.preferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build.VERSION.SDK_INT
 import splitties.init.appCtx
+import splitties.init.directBootCtx
 import kotlin.reflect.KProperty
 
 @Suppress("NOTHING_TO_INLINE")
-abstract class Preferences(ctx: Context = appCtx, name: String = defaultPrefsName, mode: Int = Context.MODE_PRIVATE) {
-    protected val prefs: SharedPreferences = ctx.getSharedPreferences(name, mode)
+abstract class Preferences(name: String, availableAtDirectBoot: Boolean = false, mode: Int = Context.MODE_PRIVATE) {
+
+    protected val prefs: SharedPreferences
+
+    init {
+        val storageCtx: Context = if (availableAtDirectBoot && SDK_INT > 24) {
+            // Moving the sharedPreferences from is done by the system only if you had it outside
+            // the direct boot available storage or if the device was running Android M or older,
+            // and just got updated. These two cases are extremely rare, and it's unlikely that your
+            // sharedPreferences are big enough to significantly harm the user experience because of
+            // the operation happening on UI thread for the single time (per preference file) this
+            // move operations will take place.
+            // noinspection NewApi
+            directBootCtx.moveSharedPreferencesFrom(appCtx, name)
+            directBootCtx
+        } else appCtx
+        prefs = storageCtx.getSharedPreferences(name, mode)
+    }
 
     protected var editor: SharedPreferences.Editor by ResettableLazy { prefs.edit() }
         private set
 
     operator fun contains(o: Any) = prefs === o
 
-    protected fun boolPref(defaultValue: Boolean = false) = BoolPrefProvider(defaultValue = defaultValue)
+    protected fun boolPref(defaultValue: Boolean = false)
+            = BoolPrefProvider(defaultValue = defaultValue)
+
     protected fun intPref(defaultValue: Int) = IntPrefProvider(defaultValue = defaultValue)
     protected fun floatPref(defaultValue: Float) = FloatPrefProvider(defaultValue = defaultValue)
     protected fun longPref(defaultValue: Long) = LongPrefProvider(defaultValue = defaultValue)
@@ -127,6 +147,10 @@ abstract class Preferences(ctx: Context = appCtx, name: String = defaultPrefsNam
         }
     }
 
+    /**
+     * Base class for Preferences delegate providers that need to use the property name as key
+     * by default.
+     */
     abstract class PrefProvider(private val key: String) {
         protected fun getKey(prop: KProperty<*>) = if (key === PROP_NAME) prop.name else key
     }
@@ -175,19 +199,8 @@ abstract class Preferences(ctx: Context = appCtx, name: String = defaultPrefsNam
             return StringSetPref(getKey(prop), defaultValue)
         }
     }
-}
 
-val defaultPrefsName get() = "${appCtx.packageName}_preferences"
-
-private val PROP_NAME = "__splitties__"
-
-inline fun <P : Preferences> P.bulk(blocking: Boolean = false, editions: P.() -> Unit) {
-    beginBulk(blocking)
-    try {
-        editions()
-        endBulk()
-    } catch (t: Throwable) {
-        abortBulk()
-        throw t
+    companion object {
+        private val PROP_NAME = "__splitties__"
     }
 }

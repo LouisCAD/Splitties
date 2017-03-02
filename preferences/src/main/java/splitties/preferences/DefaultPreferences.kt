@@ -14,14 +14,17 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.prefs
+package splitties.preferences
 
-import splitties.preferences.Preferences
+import splitties.init.appCtx
 
-object GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0)
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
+/**
+ * This should be overriden ba only one object in an app.
+ */
+abstract class DefaultPreferences(availableAtDirectBoot: Boolean = false)
+    : Preferences(defaultPrefsName, availableAtDirectBoot) {
+
+    private companion object {
+        private val defaultPrefsName get() = "${appCtx.packageName}_preferences"
+    }
 }

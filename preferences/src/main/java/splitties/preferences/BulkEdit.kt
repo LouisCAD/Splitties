@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.prefs
+package splitties.preferences
 
-import splitties.preferences.Preferences
-
-object GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0)
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
+inline fun <P : Preferences> P.bulk(blocking: Boolean = false, editions: P.() -> Unit) {
+    beginBulk(blocking)
+    try {
+        editions()
+        endBulk()
+    } catch (t: Throwable) {
+        abortBulk()
+        throw t
+    }
 }
