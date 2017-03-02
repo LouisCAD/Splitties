@@ -33,6 +33,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenLocal()
     }
     ext {
         projectBuildToolsVersion = '25.0.2'

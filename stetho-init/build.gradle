@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 25
@@ -39,6 +45,7 @@ android {
 
 dependencies {
     compile 'com.facebook.stetho:stetho:1.4.2'
+
     compile "com.android.support:support-annotations:${supportLibVersion}"
 
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -46,3 +53,9 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 }
+
+ext {
+    libraryDesc = "Initializes Stetho automatically on your debug builds."
+}
+
+apply from: '../publish.gradle'

@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
+plugins {
+    id "com.jfrog.bintray" version "1.7.3"
+    id "com.github.dcendents.android-maven" version "1.5"
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 25
@@ -41,14 +47,19 @@ android {
 }
 
 dependencies {
-    compile project(":selectableviewgroups")
+    compile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+
+    compile "com.android.support:appcompat-v7:${supportLibVersion}";
+    compile "com.android.support:support-annotations:${supportLibVersion}"
+
+    testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:${supportLibVersion}";
-    compile "com.android.support:support-annotations:${supportLibVersion}"
-    testCompile 'junit:junit:4.12'
 }
-repositories {
-    mavenCentral()
+
+ext {
+    libraryDesc = "Material Design list items for Android apps."
 }
+
+apply from: '../publish.gradle'

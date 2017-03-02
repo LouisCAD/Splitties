@@ -51,9 +51,6 @@ dependencies {
     compile "com.android.support:support-annotations:${supportLibVersion}"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
-repositories {
-    mavenCentral()
-}
 
 ext {
     libraryDesc = "Initializes a val named appCtx you can use anywhere."

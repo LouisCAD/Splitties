@@ -60,9 +60,6 @@ dependencies {
     // Timber log utility
     concurrency_reportCompile "com.jakewharton.timber:timber:${timberVersion}";
 }
-repositories {
-    mavenCentral()
-}
 
 ext {
     libraryDesc = "Delegates for kotlin on android that check UI thread"

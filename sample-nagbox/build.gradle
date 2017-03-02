@@ -69,9 +69,6 @@ dependencies {
 
     kapt 'com.android.databinding:compiler:2.3.0-rc1'
 }
-repositories {
-    mavenCentral()
-}
 
 kapt {
     generateStubs = true
