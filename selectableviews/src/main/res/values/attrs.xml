@@ -17,6 +17,12 @@
 
 <resources>
     <attr name="foreground" format="reference"/>
+    <declare-styleable name="SelectableConstraintLayout">
+        <attr name="foreground"/>
+    </declare-styleable>
+    <declare-styleable name="SelectableTextView">
+        <attr name="foreground"/>
+    </declare-styleable>
     <declare-styleable name="SelectableRelativeLayout">
         <attr name="foreground"/>
     </declare-styleable>

@@ -72,7 +72,7 @@ dependencies {
     devCompile project(':concurrency')
     devCompile project(':preferences')
     devCompile project(':typesaferecyclerview')
-    devCompile project(':selectableviewgroups')
+    devCompile project(':selectableviews')
     devCompile project(':material-lists')
 
     debugCompile "xyz.louiscad.splitties:appctx:${splittiesVersion}"

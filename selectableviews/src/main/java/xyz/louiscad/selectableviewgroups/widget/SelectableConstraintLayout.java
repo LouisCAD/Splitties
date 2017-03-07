@@ -30,7 +30,7 @@ import android.util.AttributeSet;
 
 import xyz.louiscad.selectableviewgroups.R;
 
-import static xyz.louiscad.selectableviewgroups.widget.SelectableViewGroupsUtils.getDefaultForegroundSelector;
+import static splitties.selectableviews.SelectableViewsUtils.getDefaultForegroundSelector;
 
 /**
  * ConstraintLayout with ripple effect / select foreground when touched
@@ -82,12 +82,6 @@ public class SelectableConstraintLayout extends ConstraintLayout {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mForegroundSelector.setBounds(0, 0, w, h);
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
-        mForegroundSelector.draw(canvas);
     }
 
     @Override

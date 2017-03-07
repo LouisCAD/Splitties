@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.selectableviewgroups.widget;
+package splitties.selectableviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
-enum SelectableViewGroupsUtils {
+public enum SelectableViewsUtils {
     ;
     private static final int[] SELECTABLE_ATTR = {android.R.attr.selectableItemBackground};
 
-    static Drawable getDefaultForegroundSelector(@NonNull Context context) {
+    public static Drawable getDefaultForegroundSelector(@NonNull Context context) {
         final TypedArray ta = context.obtainStyledAttributes(SELECTABLE_ATTR);
         try {
             return ta.getDrawable(0);
