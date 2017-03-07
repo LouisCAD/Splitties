@@ -33,9 +33,7 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
                     R.drawable.ic_bug_report_black_24dp
             ))
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DemoViewHolder {
-        return DemoViewHolder(host, R.layout.list_item_demo, parent)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(host, parent)
 
     override fun onBindViewHolder(holder: DemoViewHolder, position: Int) {
         holder.bind(mItems[0]) // This is not a bug. This is a feature. Use position IRL.
@@ -45,8 +43,9 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
         return MAX_VALUE // Not a bug. This is a feature. Original code: return mItems.length;
     }
 
-    class DemoViewHolder(host: Host, layoutResId: Int, parent: ViewGroup)
-        : ItemViewHolder<DemoItem, TwoLinesIconSwitchListItem, DemoViewHolder.Host>(host, layoutResId, parent) {
+    class DemoViewHolder(host: Host, parent: ViewGroup) : ItemViewHolder<DemoItem,
+            TwoLinesIconSwitchListItem,
+            DemoViewHolder.Host>(host, R.layout.list_item_demo, parent) {
 
         private val itemClickListener = OnClickListener { host.onDemoItemClicked(data) }
 

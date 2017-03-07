@@ -20,7 +20,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/preview_list_item_switch_two_lines_icon">
+    tools:showIn="@layout/design_preview_list_item_switch_two_lines_icon">
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/toggle"
@@ -30,7 +30,8 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:theme="@style/Theme.AppCompat.Light"/>
 
     <TextView
         android:id="@+id/firstLine"
@@ -46,7 +47,7 @@
         app:layout_constraintEnd_toStartOf="@+id/icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Lock the app"/>
+        tools:text="@string/first_line_sample"/>
 
     <TextView
         android:id="@+id/secondLine"
@@ -63,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/firstLine"
         app:layout_constraintTop_toBottomOf="@+id/firstLine"
-        tools:text="Yes"/>
+        tools:text="@string/second_line_sample"/>
 
     <ImageView
         android:id="@+id/icon"
@@ -77,5 +78,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription"
-        tools:src="@android:drawable/ic_lock_lock"/>
+        tools:src="@drawable/ic_pets_black_24dp"/>
 </merge>

@@ -25,10 +25,11 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 import android.util.AttributeSet;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SingleLineIconListItem extends LinearLayout {
+import xyz.louiscad.selectableviewgroups.widget.SelectableLinearLayout;
+
+public class SingleLineIconListItem extends SelectableLinearLayout {
     public SingleLineIconListItem(@NonNull Context context) {
         super(context);
         init(context);
