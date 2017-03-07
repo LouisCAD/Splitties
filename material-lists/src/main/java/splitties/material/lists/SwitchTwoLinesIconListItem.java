@@ -47,7 +47,7 @@ public class SwitchTwoLinesIconListItem extends SelectableConstraintLayout {
     private ImageView icon;
 
     private void init(final Context context) {
-        inflate(context, R.layout.list_item_switch_two_lines_icon, this);
+        inflate(context, R.layout.content_list_item_switch_two_lines_icon, this);
         toggle = (SwitchCompat) findViewById(R.id.toggle);
         firstLine = (TextView) findViewById(R.id.firstLine);
         secondLine = (TextView) findViewById(R.id.secondLine);

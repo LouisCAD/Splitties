@@ -45,7 +45,7 @@ public class TwoLinesIconListItem extends SelectableConstraintLayout {
     private TextView firstLine, secondLine;
 
     private void init(final Context context) {
-        inflate(context, R.layout.list_item_two_lines_icon, this);
+        inflate(context, R.layout.content_list_item_two_lines_icon, this);
         icon = (ImageView) findViewById(R.id.icon);
         firstLine = (TextView) findViewById(R.id.firstLine);
         secondLine = (TextView) findViewById(R.id.secondLine);

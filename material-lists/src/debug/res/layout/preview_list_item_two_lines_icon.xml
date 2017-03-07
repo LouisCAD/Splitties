@@ -20,5 +20,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/list_item_two_lines_icon"/>
+    <include layout="@layout/content_list_item_two_lines_icon"/>
 </android.support.constraint.ConstraintLayout>
