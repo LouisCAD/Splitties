@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    compile "xyz.louiscad.splitties:selectableviewgroups:${splittiesVersion}"
+    compile "xyz.louiscad.splitties:selectableviews:${splittiesVersion}"
 
     compile "com.android.support:appcompat-v7:${supportLibVersion}";
     debugCompile "com.android.support:recyclerview-v7:${supportLibVersion}";
