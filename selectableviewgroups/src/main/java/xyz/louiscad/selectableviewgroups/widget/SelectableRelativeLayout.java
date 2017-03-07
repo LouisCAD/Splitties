@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
@@ -39,30 +40,30 @@ public class SelectableRelativeLayout extends RelativeLayout {
 
     private Drawable mForegroundSelector;
 
-    public SelectableRelativeLayout(Context context) {
+    public SelectableRelativeLayout(@NonNull Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public SelectableRelativeLayout(Context context, AttributeSet attrs) {
+    public SelectableRelativeLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SelectableRelativeLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public SelectableRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public SelectableRelativeLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @CallSuper
     @SuppressWarnings("WeakerAccess")
-    protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray ta = context.obtainStyledAttributes(attrs,
                 R.styleable.SelectableRelativeLayout,
                 defStyleAttr,

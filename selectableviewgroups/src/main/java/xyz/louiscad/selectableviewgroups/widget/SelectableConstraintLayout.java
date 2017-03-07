@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 
@@ -39,24 +40,24 @@ public class SelectableConstraintLayout extends ConstraintLayout {
 
     private Drawable mForegroundSelector;
 
-    public SelectableConstraintLayout(Context context) {
+    public SelectableConstraintLayout(@NonNull Context context) {
         super(context);
         init(context, null, 0, 0);
     }
 
-    public SelectableConstraintLayout(Context context, AttributeSet attrs) {
+    public SelectableConstraintLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, 0, 0);
     }
 
-    public SelectableConstraintLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public SelectableConstraintLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr, 0);
     }
 
     @CallSuper
     @SuppressWarnings("WeakerAccess")
-    protected void init(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray ta = context.obtainStyledAttributes(attrs,
                 R.styleable.SelectableRelativeLayout,
                 defStyleAttr,
