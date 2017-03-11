@@ -46,7 +46,8 @@ publishing.publications {
          * Translates "_" in flavor names to "-" for artifactIds, because "-" in flavor name is an
          * illegal character, but is well used in artifactId names.
          */
-        def variantArtifactId = flavored ? variant.flavorName.replace('_', '-') : project.name
+        def baseVariantArtifactId = flavored ? variant.flavorName.replace('_', '-') : project.name
+        def variantArtifactId = "splitties-$baseVariantArtifactId"
 
         /**
          * If the javadoc destinationDir wasn't changed per flavor, the libraryVariants would

@@ -45,10 +45,11 @@ android {
 }
 
 dependencies {
-    compile "xyz.louiscad.splitties:appctx:${splittiesVersion}"
-
+    compile "xyz.louiscad.splitties:splitties-appctx:${splittiesVersion}"
+    // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
+    // Test dependencies
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
