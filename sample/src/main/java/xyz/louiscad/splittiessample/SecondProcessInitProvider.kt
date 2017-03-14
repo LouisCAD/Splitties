@@ -17,6 +17,7 @@
 package xyz.louiscad.splittiessample
 
 import splitties.init.AppCtxInitProvider
+import splitties.init.InitProvider
 import splitties.init.appCtx
 import splitties.init.consume
 
@@ -25,6 +26,6 @@ import splitties.init.consume
  * for the second process of this app so [appCtx] is initialized.
  * @see AppCtxInitProvider
  */
-class SecondProcessInitProvider : AppCtxInitProvider() {
-    override fun onCreate() = consume(super.onCreate()) { AppInit }
+class SecondProcessInitProvider : InitProvider() {
+    override fun onCreate() = consume { AppInit }
 }

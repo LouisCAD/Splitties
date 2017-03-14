@@ -17,6 +17,7 @@
 package splitties.init
 
 import android.app.Application
+import android.content.ContentProvider
 import android.content.Context
 import android.os.Build
 
@@ -29,8 +30,7 @@ import android.os.Build
  * [AppCtxInitProvider] which is initialized by Android as early as possible when your app's
  * process is created.
  */
-val appCtx: Context
-    get() = internalCtx!!
+inline val appCtx: Context get() = internalCtx ?: initAppCtxWithReflection()
 
 /**
  * Lazily creates a device protected storage Context on Android N+ devices,
@@ -42,12 +42,28 @@ val directBootCtx: Context by lazy {
     if (Build.VERSION.SDK_INT < 24) appCtx else appCtx.createDeviceProtectedStorageContext()
 }
 
+@PublishedApi
+internal var internalCtx: Context? = null
+
+@PublishedApi
+internal fun initAppCtxWithReflection(): Context {
+    // Fallback, should only run once per non default process.
+    val activityThread = Class.forName("android.app.ActivityThread")
+    val ctx = activityThread.getDeclaredMethod("currentApplication").invoke(null) as Context
+    internalCtx = ctx
+    return ctx
+}
+
 /**
  * Call this method from your [Application] subclass if you need to use [appCtx] outside the default
- * process.
+ * process and the reflection method throws an exception on some devices.
+ *
+ * If you ever use this method because of what is mentioned above, be sure to call this method
+ * before you try to access [appCtx] or [directBootCtx].
+ *
+ * @see appCtx
  */
+@Deprecated("Should not be needed.", ReplaceWith(""), DeprecationLevel.WARNING)
 fun setAppCtx(app: Application) {
     internalCtx = app
 }
-
-internal var internalCtx: Context? = null
