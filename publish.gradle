@@ -148,7 +148,7 @@ afterEvaluate {
         override = true
         pkg {
             repo = 'splitties'
-            name = "splitties-${project.name}"
+            name = "splitties"
             desc = libraryDesc
             websiteUrl = siteUrl
             issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
