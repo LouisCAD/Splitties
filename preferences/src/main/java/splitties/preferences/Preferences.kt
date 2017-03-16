@@ -60,27 +60,27 @@ abstract class Preferences(name: String, availableAtDirectBoot: Boolean = false,
     protected fun stringSetPref(defaultValue: MutableSet<String>? = null)
             = StringSetPrefProvider(defaultValue = defaultValue)
 
-    private var bulk = false
+    private var edit = false
     private var useCommit = false
-    private var useCommitForBulk = false
+    private var useCommitForEdit = false
 
-    fun beginBulk(blocking: Boolean = false) {
-        useCommitForBulk = blocking
-        bulk = true
+    fun beginEdit(blocking: Boolean = false) {
+        useCommitForEdit = blocking
+        edit = true
     }
 
-    fun endBulk() {
-        if (useCommitForBulk) editor.commit() else editor.apply()
-        bulk = false
+    fun endEdit() {
+        if (useCommitForEdit) editor.commit() else editor.apply()
+        edit = false
     }
 
-    fun abortBulk() {
+    fun abortEdit() {
         editor = editor // Invalidates the editor stored in the delegate
-        bulk = false
+        edit = false
     }
 
     protected fun SharedPreferences.Editor.attemptApply() {
-        if (bulk) return
+        if (edit) return
         if (useCommit) commit() else apply()
     }
 

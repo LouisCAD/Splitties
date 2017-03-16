@@ -16,13 +16,13 @@
 
 package splitties.preferences
 
-inline fun <P : Preferences> P.bulk(blocking: Boolean = false, editions: P.() -> Unit) {
-    beginBulk(blocking)
+inline fun <P : Preferences> P.edit(blocking: Boolean = false, editions: P.() -> Unit) {
+    beginEdit(blocking)
     try {
         editions()
-        endBulk()
+        endEdit()
     } catch (t: Throwable) {
-        abortBulk()
+        abortEdit()
         throw t
     }
 }

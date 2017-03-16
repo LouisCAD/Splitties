@@ -26,7 +26,7 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import splitties.concurrency.LazyThreadSafetyPolicy.UI_THREAD
-import splitties.preferences.bulk
+import splitties.preferences.edit
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.prefs.GamePreferences
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, DemoActivity::class.java))
         }
         fab.setOnClickListener {
-            GamePreferences.bulk {
+            GamePreferences.edit {
                 currentLevel++
                 bossesFought++
                 lastTimePlayed = System.currentTimeMillis()
