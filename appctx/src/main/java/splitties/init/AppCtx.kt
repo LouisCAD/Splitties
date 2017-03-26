@@ -17,7 +17,6 @@
 package splitties.init
 
 import android.app.Application
-import android.content.ContentProvider
 import android.content.Context
 import android.os.Build
 
@@ -64,6 +63,6 @@ internal fun initAppCtxWithReflection(): Context {
  * @see appCtx
  */
 @Deprecated("Should not be needed.", ReplaceWith(""), DeprecationLevel.WARNING)
-fun setAppCtx(app: Application) {
-    internalCtx = app
+fun Application.injectAsAppCtx() {
+    internalCtx = this
 }
