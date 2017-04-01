@@ -28,7 +28,9 @@
         android:layout_gravity="center_vertical|start"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
-        tools:ignore="ContentDescription,RtlSymmetry"
+        android:tint="?android:attr/textColorSecondary"
+        android:tintMode="multiply"
+        tools:ignore="ContentDescription,RtlSymmetry,UnusedAttribute"
         tools:src="@drawable/ic_pets_black_24dp"/>
 
     <TextView

@@ -30,10 +30,12 @@
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:tint="?android:attr/textColorSecondary"
+        android:tintMode="multiply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription"
+        tools:ignore="ContentDescription,UnusedAttribute"
         tools:src="@drawable/ic_pets_black_24dp"/>
 
     <TextView
