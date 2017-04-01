@@ -40,7 +40,7 @@ allprojects {
         projectBuildToolsVersion = '25.0.2'
         projectSdkVersion = 25
         // Dependencies versions
-        supportLibVersion = '25.3.0'
+        supportLibVersion = '25.3.1'
         constraintLayoutVersion = '1.0.2'
         timberVersion = '4.5.1'
         splittiesVersion = '1.3.0-rc9'

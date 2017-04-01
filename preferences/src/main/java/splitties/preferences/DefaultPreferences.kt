@@ -19,7 +19,7 @@ package splitties.preferences
 import splitties.init.appCtx
 
 /**
- * This should be overriden ba only one object in an app.
+ * This should be overriden by only one object in an app.
  */
 abstract class DefaultPreferences(availableAtDirectBoot: Boolean = false)
     : Preferences(defaultPrefsName, availableAtDirectBoot) {
