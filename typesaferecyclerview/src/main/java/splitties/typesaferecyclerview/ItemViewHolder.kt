@@ -35,7 +35,7 @@ abstract class ItemViewHolder<Data : Any, V : View, Host>(protected val host: Ho
         private set
 
     constructor(host: Host, @LayoutRes layoutResId: Int, parent: ViewGroup)
-            : this(host, parent.inflate(layoutResId, false))
+            : this(host, parent.inflateItem(layoutResId))
 
     /**
      * Don't create objects, use non inlined lambdas, or call methods doing so in this callback

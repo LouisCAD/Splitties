@@ -48,6 +48,6 @@ public class ViewHolder<V extends View> extends RecyclerView.ViewHolder {
      *                    {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
     public ViewHolder(@LayoutRes int layoutResId, ViewGroup parent) {
-        this(LayoutInflaterKt.<V>inflate(parent, layoutResId, false));
+        this(LayoutInflaterKt.<V>inflateItem(parent, layoutResId));
     }
 }
