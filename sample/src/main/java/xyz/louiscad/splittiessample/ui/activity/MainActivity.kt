@@ -16,6 +16,7 @@
 
 package xyz.louiscad.splittiessample.ui.activity
 
+import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -28,6 +29,8 @@ import kotlinx.android.synthetic.main.content_main.*
 import splitties.concurrency.LazyThreadSafetyPolicy.UI_THREAD
 import splitties.preferences.edit
 import xyz.louiscad.splittiessample.R
+import xyz.louiscad.splittiessample.extensions.toggleNightMode
+import xyz.louiscad.splittiessample.extensions.uiModeManager
 import xyz.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         launchDemoButton.setOnClickListener {
@@ -51,6 +55,7 @@ class MainActivity : AppCompatActivity() {
             vibrator.vibrate(pattern, -1)
             Snackbar.make(coordinator, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show()
         }
+        toggle_night_mode_button.setOnClickListener { toggleNightMode() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

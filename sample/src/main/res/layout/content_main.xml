@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="xyz.louiscad.splittiessample.MainActivity_"
+    tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
@@ -36,8 +36,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="16dp"
+            android:layout_marginTop="8dp"
             android:text="@string/go_to_the_demo"/>
+
+        <Button
+            android:id="@+id/toggle_night_mode_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@drawable/ic_invert_colors_white_24dp"
+            android:drawablePadding="4dp"
+            android:drawableStart="@drawable/ic_invert_colors_white_24dp"
+            android:drawableTint="?android:attr/textColorSecondary"
+            android:text="@string/toggle_night_mode"
+            tools:ignore="UnusedAttribute"/>
 
         <TextView
             android:layout_width="wrap_content"

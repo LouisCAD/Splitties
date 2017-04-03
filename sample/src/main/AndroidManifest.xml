@@ -21,6 +21,7 @@
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
+        android:name=".DemoApp"
         android:allowBackup="true"
         android:directBootAware="true"
         android:fullBackupContent="true"
@@ -42,7 +43,6 @@
             android:name=".ui.activity.DemoActivity"
             android:label="@string/title_activity_demo"
             android:parentActivityName=".ui.activity.MainActivity"
-            android:process=":second_process"
             android:theme="@style/AppTheme.NoActionBar"
             tools:ignore="UnusedAttribute">
             <meta-data

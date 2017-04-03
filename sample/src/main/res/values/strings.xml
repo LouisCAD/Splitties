@@ -117,4 +117,5 @@
     <string name="msg_go_to_pc_manually">We are afraid you\'ll need to get back to your computer manually to use this library and get your project done</string>
     <string name="subtitle_items_count_hint">There\'s only 2,147,483,647 items.</string>
     <string name="scroll_to_the_end">Scroll to the end</string>
+    <string name="toggle_night_mode">Toggle night mode</string>
 </resources>
