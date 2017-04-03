@@ -16,12 +16,9 @@
   -->
 
 <resources>
-    <style name="ListItem">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+
     <style name="DefaultTintedIcon">
-        <item name="android:tint">#323232</item>
-        <!-- see @android:color/secondary_text_light -->
+        <item name="android:tint">#bebebe</item>
+        <!-- see @android:color/secondary_text_dark -->
     </style>
 </resources>

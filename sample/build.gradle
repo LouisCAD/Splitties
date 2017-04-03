@@ -28,7 +28,6 @@ android {
         versionCode 1
         versionName "1.0"
         resConfigs "en", "fr"
-        vectorDrawables.useSupportLibrary = true
         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

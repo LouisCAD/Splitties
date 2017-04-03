@@ -16,12 +16,12 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/coordinator"
     android:fitsSystemWindows="true"
     tools:context="xyz.louiscad.splittiessample.ui.activity.MainActivity">
 
@@ -57,8 +57,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_favorite_white_24dp"
         app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_favorite_white_24dp"/>
+        app:layout_anchorGravity="bottom|end"/>
 
 </android.support.design.widget.CoordinatorLayout>
