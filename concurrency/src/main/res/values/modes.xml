@@ -16,5 +16,7 @@
   -->
 
 <resources>
-    <integer name="splitties_concurrency_mode">0</integer>
+    <integer name="mode_check">0</integer>
+    <integer name="mode_report">1</integer>
+    <integer name="mode_unchecked">2</integer>
 </resources>
