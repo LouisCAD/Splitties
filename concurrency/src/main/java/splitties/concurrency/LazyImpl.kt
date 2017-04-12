@@ -19,7 +19,9 @@
 package splitties.concurrency
 
 internal inline fun <T> _lazy(mode: LazyThreadSafetyPolicy, noinline initializer: () -> T): Lazy<T> {
-    return when (mode) {
+    return if (ConcurrencyReporter.unchecked) kotlin.lazy(LazyThreadSafetyMode.NONE, initializer).also {
+        ConcurrencyReporter.atLeastOneUncheckedLazyInstantiated = true
+    } else when (mode) {
         LazyThreadSafetyPolicy.UI_THREAD -> UiThreadOnlyLazyImpl(initializer)
         LazyThreadSafetyPolicy.UNIQUE_ACCESS_THREAD -> SingleThreadLazyImpl(initializer)
         LazyThreadSafetyPolicy.UNIQUE_THREAD -> SingleThreadLazyImpl(initializer, true)
@@ -45,12 +47,12 @@ internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiat
     override val value: T
         get() {
             if (threadId == -1L) synchronized(this) {
-                Reporter.check(threadId == -1L) {
+                ConcurrencyReporter.check(threadId == -1L) {
                     "Thread $threadId first accessed this single thread lazy, but the thread " +
                             "${Thread.currentThread().id} is accessing it."
                 }
                 threadId = Thread.currentThread().id
-            } else Reporter.check(Thread.currentThread().id == threadId) {
+            } else ConcurrencyReporter.check(Thread.currentThread().id == threadId) {
                 "Thread $threadId first accessed this single thread lazy, but the thread " +
                         "${Thread.currentThread().id} is accessing it."
             }
@@ -75,7 +77,7 @@ internal class UiThreadOnlyLazyImpl<out T>(initializer: () -> T) : Lazy<T> {
 
     override val value: T
         get() {
-            Reporter.check(isUiThread()) { "This should only be called on the UI thread!" }
+            ConcurrencyReporter.check(isUiThread) { "This should only be called on the UI thread!" }
             if (_value === UNINITIALIZED_VALUE) {
                 _value = initializer!!()
                 initializer = null

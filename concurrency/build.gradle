@@ -26,7 +26,6 @@ apply plugin: 'maven-publish'
 android {
     compileSdkVersion projectSdkVersion
     buildToolsVersion projectBuildToolsVersion
-    defaultPublishConfig "concurrencyDebug"
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion projectSdkVersion
@@ -40,19 +39,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-        concurrency
-        concurrency_report
-        concurrency_unchecked
-    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
 dependencies {
+    compile "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
     // Timber log utility
-    concurrency_reportCompile "com.jakewharton.timber:timber:${timberVersion}";
+    compile "com.jakewharton.timber:timber:$timberVersion"
     // Kotlin
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
