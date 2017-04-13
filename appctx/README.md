@@ -5,7 +5,7 @@ You can use `appCtx` anywhere in your app (without risking leaking a short-lived
 
 ## Important: use the right context!
 You may not want to use the Application Context in some cases. Devices on which your app/library runs may (will) change configuration during the app's process lifecycle, such as screen density, language or orientation.
-lease, do not use this context if you rely on a scoped `Context` such as accessing themed resources from an Activity, or configuration dependent values or resources. Configuration dependent context usage may be ok if your component handle `onConfigurationChanged()` properly though. If you wonder if using Application Context is ok, test your app against configuration changes that may affect it and check it reacts correctly.
+Please, do not use this context if you rely on a scoped `Context` such as accessing themed resources from an Activity, or configuration dependent values or resources. Configuration dependent context usage may be ok if your component handle `onConfigurationChanged()` properly though. If you wonder if using Application Context is ok, test your app against configuration changes that may affect it and check it reacts correctly.
 ## How it works
 This library takes advantage of Content Providers to automatically initialize `appCtx` for you before even your [Application](https://developer.android.com/reference/android/app/Application.html)'s `onCreate()` is called! This library also takes advantage of [manifest placeholders](https://developer.android.com/studio/build/manifest-build-variables.html) (and the default `${applicationId}` and gradle manifest merging to avoid two apps using this library clashing with same authority Content Providers.
 
