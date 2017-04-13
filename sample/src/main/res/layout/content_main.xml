@@ -53,6 +53,15 @@
             android:text="@string/toggle_night_mode"
             tools:ignore="UnusedAttribute"/>
 
+        <Button
+            android:id="@+id/concurrency_test_button"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:text="@string/test_concurrency"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

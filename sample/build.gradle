@@ -78,40 +78,48 @@ dependencies {
     devCompile project(':selectableviews')
     devCompile project(':material-lists')
 
-    debugCompile "xyz.louiscad.splitties:splitties-appctx:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-stetho-init:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-concurrency:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-preferences:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-typesaferecyclerview:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-selectableviews:${splittiesVersion}"
-    debugCompile "xyz.louiscad.splitties:splitties-material-lists:${splittiesVersion}"
+    debugCompile "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-stetho-init:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
+    debugCompile "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
 
-    releaseCompile "xyz.louiscad.splitties:splitties-appctx:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:splitties-concurrency-unchecked:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:splitties-preferences:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:splitties-typesaferecyclerview:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:splitties-selectableviews:${splittiesVersion}"
-    releaseCompile "xyz.louiscad.splitties:splitties-material-lists:${splittiesVersion}"
+    releaseCompile "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-concurrency-unchecked:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
 
     // Android Support Libraries
-    compile "com.android.support:appcompat-v7:${supportLibVersion}";
-    compile "com.android.support:design:${supportLibVersion}";
+    compile "com.android.support:appcompat-v7:$supportLibVersion"
+    compile "com.android.support:design:$supportLibVersion"
 
     // Constraint Layout
-    compile "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}";
+    compile "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
     // Timber log utility
-    compile "com.jakewharton.timber:timber:${timberVersion}";
+    compile "com.jakewharton.timber:timber:$timberVersion"
 
     compile 'com.dmitrymalkovich.android:material-design-dimens:1.2'
     compile 'com.actinarium.aligned:aligned:0.1'
 
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version";
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Kotlinx coroutines
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.14"
 
     // Tests
     testCompile 'junit:junit:4.12'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
 }
