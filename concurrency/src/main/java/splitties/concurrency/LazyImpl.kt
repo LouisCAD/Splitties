@@ -19,8 +19,8 @@
 package splitties.concurrency
 
 internal inline fun <T> _lazy(mode: LazyThreadSafetyPolicy, noinline initializer: () -> T): Lazy<T> {
-    return if (ConcurrencyReporter.unchecked) kotlin.lazy(LazyThreadSafetyMode.NONE, initializer).also {
-        ConcurrencyReporter.atLeastOneUncheckedLazyInstantiated = true
+    return if (Concurrency.useStdLibImpl) kotlin.lazy(LazyThreadSafetyMode.NONE, initializer).also {
+        Concurrency.atLeastOneUncheckedLazyInstantiated = true
     } else when (mode) {
         LazyThreadSafetyPolicy.UI_THREAD -> UiThreadOnlyLazyImpl(initializer)
         LazyThreadSafetyPolicy.UNIQUE_ACCESS_THREAD -> SingleThreadLazyImpl(initializer)
