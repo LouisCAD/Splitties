@@ -35,6 +35,8 @@ inline fun <T> singleThreadLazy(noinline initializer: () -> T): Lazy<T> {
     return lazy(LazyThreadSafetyPolicy.UNIQUE_THREAD, initializer)
 }
 
+fun <T> lazy(mode: LazyThreadSafetyPolicy, initializer: () -> T): Lazy<T> = _lazy(mode, initializer)
+
 /**
  * Creates a new instance of the [Lazy] that is already initialized with the specified [value].
  */
@@ -62,8 +64,6 @@ inline fun <T> lazy(noinline initializer: () -> T) = kotlin.lazy(initializer)
  * Also this behavior can be changed in the future.
  */
 inline fun <T> lazy(mode: LazyThreadSafetyMode, noinline initializer: () -> T) = kotlin.lazy(mode, initializer)
-
-fun <T> lazy(mode: LazyThreadSafetyPolicy, initializer: () -> T): Lazy<T> = _lazy(mode, initializer)
 
 /**
  * Creates a new instance of the [Lazy] that uses the specified initialization function [initializer]
@@ -110,7 +110,7 @@ enum class LazyThreadSafetyPolicy {
     UNIQUE_THREAD
 }
 
-internal object UNINITIALIZED_VALUE
+internal val UNINITIALIZED_VALUE = Any()
 internal val NOT_INITIALIZED = "Lazy value not initialized yet."
 
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
