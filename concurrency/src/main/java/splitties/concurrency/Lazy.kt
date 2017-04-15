@@ -114,6 +114,7 @@ internal val UNINITIALIZED_VALUE = Any()
 internal val NOT_INITIALIZED = "Lazy value not initialized yet."
 
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
-val mainLooper: Looper = Looper.getMainLooper()!!
+@JvmField val mainLooper: Looper = Looper.getMainLooper()!!
+@JvmField val mainThread: Thread = mainLooper.thread
 
-inline val isUiThread get() = mainLooper.thread == Thread.currentThread()
+inline val isUiThread get() = mainThread === Thread.currentThread()
