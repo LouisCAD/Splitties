@@ -36,13 +36,9 @@ internal inline fun <T> _lazy(mode: LazyThreadSafetyPolicy, noinline initializer
  */
 internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiation: Boolean = false)
     : Lazy<T> {
-    @Volatile private var threadId = -1L
+    @Volatile private var threadId = if (checkInstantiation) Thread.currentThread().id else -1L
     private var initializer: (() -> T)? = initializer
     private var _value: Any? = UNINITIALIZED_VALUE
-
-    init {
-        if (checkInstantiation) threadId = Thread.currentThread().id
-    }
 
     override val value: T
         get() {
