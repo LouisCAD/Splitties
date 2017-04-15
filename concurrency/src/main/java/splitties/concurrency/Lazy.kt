@@ -20,11 +20,19 @@ package splitties.concurrency
 
 import android.os.Looper
 
-/**
- * A lazy that checks it's called on the UI thread.
- */
+/** Calls [lazy] with [LazyThreadSafetyPolicy.UI_THREAD]. */
 inline fun <T> uiLazy(noinline initializer: () -> T): Lazy<T> {
     return lazy(LazyThreadSafetyPolicy.UI_THREAD, initializer)
+}
+
+/** Calls [lazy] with [LazyThreadSafetyPolicy.UNIQUE_ACCESS_THREAD]. */
+inline fun <T> singleAccessThreadLazy(noinline initializer: () -> T): Lazy<T> {
+    return lazy(LazyThreadSafetyPolicy.UNIQUE_ACCESS_THREAD, initializer)
+}
+
+/** Calls [lazy] with [LazyThreadSafetyPolicy.UNIQUE_THREAD]. */
+inline fun <T> singleThreadLazy(noinline initializer: () -> T): Lazy<T> {
+    return lazy(LazyThreadSafetyPolicy.UNIQUE_THREAD, initializer)
 }
 
 /**
@@ -106,6 +114,6 @@ internal object UNINITIALIZED_VALUE
 internal val NOT_INITIALIZED = "Lazy value not initialized yet."
 
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
-@JvmField val mainLooper: Looper = Looper.getMainLooper()!!
+val mainLooper: Looper = Looper.getMainLooper()!!
 
 inline val isUiThread get() = mainLooper.thread == Thread.currentThread()
