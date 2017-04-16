@@ -32,9 +32,9 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenLocal()
         jcenter()
         //maven { url "https://dl.bintray.com/louiscad/splitties" }
-        mavenLocal()
     }
     ext {
         projectBuildToolsVersion = '25.0.2'
