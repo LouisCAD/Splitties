@@ -1,7 +1,9 @@
-#Releasing this library:
+# Releasing this library:
 1. Test the library, and make sure there's no regression.
-- Run this command to build and publish the library.
+2. Build the library once with the previous release own dependencies.
+3. Update the own dependencies versions and rebuild the library.
+4. Run this command to upload the library.
 ```shell
 ./gradlew bintrayUpload
 ```
-- Sign in on Bintray and publish the packages.
+5. Sign in on Bintray and publish the packages.
