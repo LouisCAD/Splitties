@@ -45,10 +45,10 @@ allprojects {
         supportLibVersion = '25.3.1'
         constraintLayoutVersion = '1.0.2'
         timberVersion = '4.5.1'
-        splittiesVersion = '1.3.0-rc10'
+        splittiesVersion = '1.3.0'
         // Libraries
         groupId = "xyz.louiscad.splitties"
-        libraryVersion = "1.3.0-rc10"
+        libraryVersion = "1.3.0"
         siteUrl = 'https://github.com/LouisCAD/Splitties'
         gitUrl = 'https://github.com/LouisCAD/Splitties.git'
     }

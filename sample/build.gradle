@@ -87,7 +87,7 @@ dependencies {
     debugCompile "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
 
     releaseCompile "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
-    releaseCompile "xyz.louiscad.splitties:splitties-concurrency-unchecked:$splittiesVersion"
+    releaseCompile "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
     releaseCompile "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
     releaseCompile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
     releaseCompile "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
