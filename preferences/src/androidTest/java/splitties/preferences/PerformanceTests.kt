@@ -39,7 +39,6 @@ class PerformanceTests {
         private val testString = "Hi, I'm a half-random string used to test preferences!"
     }
 
-
     @Test
     @Throws(Exception::class)
     fun testCachedPrefFieldBenefit() {
