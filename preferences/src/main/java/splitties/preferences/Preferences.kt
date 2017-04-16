@@ -24,7 +24,9 @@ import splitties.init.directBootCtx
 import kotlin.reflect.KProperty
 
 @Suppress("NOTHING_TO_INLINE")
-abstract class Preferences(name: String, availableAtDirectBoot: Boolean = false, mode: Int = Context.MODE_PRIVATE) {
+abstract class Preferences(name: String,
+                           availableAtDirectBoot: Boolean = false,
+                           mode: Int = Context.MODE_PRIVATE) {
 
     protected val prefs: SharedPreferences
 
@@ -140,7 +142,8 @@ abstract class Preferences(name: String, availableAtDirectBoot: Boolean = false,
             return prefs.getStringSet(key, defaultValue)
         }
 
-        operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: MutableSet<String>?) {
+        operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
+                              value: MutableSet<String>?) {
             editor.putStringSet(key, value).attemptApply()
         }
     }
