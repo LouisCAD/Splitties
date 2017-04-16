@@ -32,7 +32,6 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
         jcenter()
         //maven { url "https://dl.bintray.com/louiscad/splitties" }
     }
