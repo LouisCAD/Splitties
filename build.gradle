@@ -17,10 +17,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.2-eap-69'
+    ext.kotlin_version = '1.1.1'
     repositories {
         jcenter()
-        maven { url "https://dl.bintray.com/kotlin/kotlin-eap-1.1" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
@@ -34,7 +33,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven { url "https://dl.bintray.com/kotlin/kotlin-eap-1.1" }
         //maven { url "https://dl.bintray.com/louiscad/splitties" }
         mavenLocal()
     }
