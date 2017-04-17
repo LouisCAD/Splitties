@@ -64,3 +64,4 @@ ext {
 }
 
 apply from: '../publish.gradle'
+apply from: '../no-version-ranges.gradle'

@@ -66,6 +66,4 @@ ext {
 }
 
 apply from: '../publish.gradle'
-repositories {
-    mavenCentral()
-}
+apply from: '../no-version-ranges.gradle'

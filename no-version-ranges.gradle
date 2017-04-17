@@ -1,0 +1,8 @@
+configurations.all {
+    resolutionStrategy {
+        eachDependency { DependencyResolveDetails details ->
+            assert !(details.requested.version.contains("+"))
+            assert !(details.requested.version.contains("SNAPSHOT"))
+        }
+    }
+}

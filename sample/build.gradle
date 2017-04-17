@@ -123,3 +123,5 @@ kotlin {
         coroutines "enable"
     }
 }
+
+apply from: '../no-version-ranges.gradle'
