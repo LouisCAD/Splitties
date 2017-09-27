@@ -28,7 +28,7 @@ android {
     buildToolsVersion projectBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion projectSdkVersion
         versionCode 1
         versionName libraryVersion
@@ -56,5 +56,5 @@ ext {
     libraryDesc = "Initializes a val named appCtx you can use anywhere."
 }
 
-apply from: '../publish.gradle'
+//apply from: '../publish.gradle'
 apply from: '../no-version-ranges.gradle'

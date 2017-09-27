@@ -27,7 +27,7 @@ android {
     buildToolsVersion projectBuildToolsVersion
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion projectSdkVersion
         versionCode 1
         versionName libraryVersion
@@ -64,5 +64,5 @@ ext {
     libraryDesc = "Material Design list items for Android apps."
 }
 
-apply from: '../publish.gradle'
+//apply from: '../publish.gradle'
 apply from: '../no-version-ranges.gradle'

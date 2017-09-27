@@ -21,8 +21,8 @@ apply plugin: 'kotlin-android-extensions'
 def appVersion = '0.1-mvp'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion projectSdkVersion
+    buildToolsVersion projectBuildToolsVersion
 
     defaultConfig {
         applicationId "com.actinarium.nagbox"
@@ -54,7 +54,7 @@ android {
 
 dependencies {
     debugCompile project(":stetho-init")
-    debugCompile 'com.facebook.stetho:stetho:1.4.2'
+    debugCompile 'com.facebook.stetho:stetho:1.5.0'
 
     compile project(':material-lists')
     compile "com.android.support:appcompat-v7:$supportLibVersion"
@@ -67,7 +67,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    kapt 'com.android.databinding:compiler:2.3.0-rc1'
+    kapt 'com.android.databinding:compiler:3.0.0-beta6'
 }
 
 kapt {
