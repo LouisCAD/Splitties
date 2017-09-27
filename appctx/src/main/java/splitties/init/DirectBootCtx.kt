@@ -17,15 +17,17 @@
 package splitties.init
 
 import android.content.Context
-import android.support.annotation.CallSuper
+import android.os.Build.VERSION.SDK_INT
+import android.support.annotation.RequiresApi
 
 /**
- * Initializes [appCtx] so it can be used where any [Context] can be used.
- *
- * If you use [appCtx] in another process than the default one, but fail to declare a subclass of
- * this class in your manifest with the same process, attempts to access [appCtx] in
- * this non-default process will throw a [KotlinNullPointerException].
+ * Lazily creates a device protected storage Context on Android N+ devices,
+ * or initializes itself to [appCtx] if the device runs Android M or an older version.
+ * See [Direct Boot documentation](https://developer.android.com/training/articles/direct-boot.html)
+ * to learn more.
  */
-open class AppCtxInitProvider : InitProvider() {
-    @CallSuper override fun onCreate() = consume { internalCtx = context }
-}
+inline val directBootCtx: Context get() = if (SDK_INT < 24) appCtx else deviceProtectedStorageCtx.value
+
+@PublishedApi
+@RequiresApi(24)
+internal val deviceProtectedStorageCtx = lazy { appCtx.createDeviceProtectedStorageContext() }

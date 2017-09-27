@@ -16,9 +16,9 @@
 
 package splitties.init
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.os.Build.VERSION.SDK_INT
 
 /**
  * **WARNING!** Please, do not use this context if you rely on a scoped [Context] such as accessing
@@ -31,21 +31,12 @@ import android.os.Build.VERSION.SDK_INT
  */
 inline val appCtx: Context get() = internalCtx ?: initAppCtxWithReflection()
 
-/**
- * Lazily creates a device protected storage Context on Android N+ devices,
- * or initializes itself to [appCtx] if the device runs Android M or an older version.
- * See [Direct Boot documentation](https://developer.android.com/training/articles/direct-boot.html)
- * to learn more.
- */
-inline val directBootCtx: Context get() = if (SDK_INT < 24) appCtx else deviceProtectedStorageCtx
-
 @PublishedApi
-internal val deviceProtectedStorageCtx by lazy { appCtx.createDeviceProtectedStorageContext() }
-
-@PublishedApi
+@SuppressLint("StaticFieldLeak")
 internal var internalCtx: Context? = null
 
 @PublishedApi
+@SuppressLint("PrivateApi")
 internal fun initAppCtxWithReflection(): Context {
     // Fallback, should only run once per non default process.
     val activityThread = Class.forName("android.app.ActivityThread")
