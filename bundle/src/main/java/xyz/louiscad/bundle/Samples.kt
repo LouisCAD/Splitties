@@ -16,5 +16,16 @@
 
 package xyz.louiscad.bundle
 
-fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException(errorMessage)
-fun unsupported(errorMessage: String? = null): Nothing = throw UnsupportedOperationException(errorMessage)
+import android.content.Intent
+import android.os.Bundle
+
+fun main(args: Array<String>) {
+    val someOptions = Bundle()
+    someOptions.with(TitleOptionsHelper) {
+        title = "Hello World!"
+    }
+}
+
+object TitleOptionsHelper : BundleHelper() {
+    var title: CharSequence by bundle(Intent.EXTRA_TITLE)
+}
