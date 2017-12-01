@@ -16,16 +16,18 @@
 
 package xyz.louiscad.bundle
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 
-fun main(args: Array<String>) {
-    val someOptions = Bundle()
-    someOptions.with(TitleOptionsHelper) {
-        title = "Hello World!"
+class SampleActivity : Activity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        actionBar.title = withExtras(TitleOptionsHelper) { title }
+    }
+
+    object TitleOptionsHelper : BundleHelper() {
+        var title: CharSequence by bundle()
     }
 }
 
-object TitleOptionsHelper : BundleHelper() {
-    var title: CharSequence by bundle(Intent.EXTRA_TITLE)
-}

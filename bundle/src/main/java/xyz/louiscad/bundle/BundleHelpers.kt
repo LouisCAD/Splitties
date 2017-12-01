@@ -16,14 +16,21 @@
 
 package xyz.louiscad.bundle
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import kotlin.reflect.KProperty
 
-
-inline fun <T : BundleHelper> Bundle.with(t: T, f: T.() -> Unit) {
+inline fun <T : BundleHelper, R> Activity.withExtras(t: T, f: T.() -> R) = intent.extras.with(t, f)
+inline fun <T : BundleHelper> Intent.putExtras(t: T, f: T.() -> Unit) {
+    replaceExtras(Bundle().apply { with(t, f) })
+}
+inline fun <T : BundleHelper, R> Bundle.with(t: T, f: T.() -> R) : R {
+    //TODO: Add concurrency dependency and check is uiThread
     t.currentBundle = this
-    t.f()
+    val r = t.f()
     t.currentBundle = null
+    return r
 }
 
 open class BundleHelper {
