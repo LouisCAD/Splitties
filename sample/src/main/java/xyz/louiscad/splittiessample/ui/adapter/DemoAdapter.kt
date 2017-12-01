@@ -30,7 +30,7 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
     private val mItems = arrayOf(
             DemoItem(R.string.title_feature_not_bug,
                     R.string.bug_marketing_definition,
-                    R.drawable.ic_bug_report_black_24dp
+                    R.drawable.ic_bug_report_white_24dp
             ))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(host, parent)
