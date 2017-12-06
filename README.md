@@ -15,7 +15,7 @@ Designed for Kotlin.
 ### Why?
 I was tired of searching for a reference to the current context everytime, and tired of not being able to use it in Kotlin's `object` singletons, so I found a safe way to have a reference to the application Context everywhere.
 ### Usage
-When you don't need configuration dependent or themed context, just use `appCtx` from any Kotlin code to get a reference to your application Context. This library also provides a lazily initialized `directBootCtx` for direct boot aware apps.
+When you don't need configuration dependent or themed `Context`, just use `appCtx` from any Kotlin code to get a reference to your application Context. This library also provides a lazily initialized `directBootCtx` for direct boot aware apps.
 
 [Read more here](appctx/README.md)
 
