@@ -37,7 +37,7 @@ You can customize the behavior when a violation occurs. The default one is to th
 ## Material Lists
 *List Items for RecyclerView implementing [Material Design Guidelines](https://material.io/guidelines/)*
 
-*Warning! I found a few display issues when the text is longer than the width of the RecyclerView, so I don't recommend to use this right now, but it'll be fixed in next version!*
+**Warning! I found a few display issues when the text is longer than the width of the RecyclerView, so I don't recommend to use this right now, but it'll be fixed in next version!**
 
 Written in Java only, but the simple API is Kotlin friendly. Uses ConstraintLayout and LinearLayout.
 
