@@ -49,7 +49,7 @@ dependencies {
     api "com.android.support:support-compat:$supportLibVersion"
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

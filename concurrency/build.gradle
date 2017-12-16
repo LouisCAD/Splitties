@@ -49,7 +49,7 @@ dependencies {
     // Timber log utility
     compile "com.jakewharton.timber:timber:$timberVersion"
     // Kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testCompile 'junit:junit:4.12'

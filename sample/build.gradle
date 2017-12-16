@@ -90,7 +90,7 @@ dependencies {
     api 'com.actinarium.aligned:aligned:0.1'
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Kotlinx coroutines
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.17"
