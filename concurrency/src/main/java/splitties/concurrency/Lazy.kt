@@ -35,7 +35,7 @@ inline fun <T> singleThreadLazy(noinline initializer: () -> T): Lazy<T> {
     return lazy(LazyThreadSafetyPolicy.UNIQUE_THREAD, initializer)
 }
 
-fun <T> lazy(mode: LazyThreadSafetyPolicy, initializer: () -> T): Lazy<T> = _lazy(mode, initializer)
+fun <T> lazy(policy: LazyThreadSafetyPolicy, initializer: () -> T): Lazy<T> = _lazy(policy, initializer)
 
 /**
  * Creates a new instance of the [Lazy] that is already initialized with the specified [value].
