@@ -44,13 +44,13 @@ android {
 }
 
 dependencies {
-    compile 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho:1.5.0'
 
-    compile "com.android.support:support-annotations:${supportLibVersion}"
+    implementation "com.android.support:support-annotations:${supportLibVersion}"
 
     // Test dependencies
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

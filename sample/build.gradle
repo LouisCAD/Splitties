@@ -61,43 +61,43 @@ android {
 
 dependencies {
     // This project's libraries
-    debugApi project(':appctx')
+    debugImplementation project(':appctx')
     debugImplementation project(':stetho-init')
-    debugApi project(':concurrency')
-    debugApi project(':preferences')
-    debugApi project(':typesaferecyclerview')
-    debugApi project(':selectableviews')
-    debugApi project(':material-lists')
+    debugImplementation project(':concurrency')
+    debugImplementation project(':preferences')
+    debugImplementation project(':typesaferecyclerview')
+    debugImplementation project(':selectableviews')
+    debugImplementation project(':material-lists')
 
-    releaseApi "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
-    releaseApi "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
-    releaseApi "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
-    releaseApi "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
-    releaseApi "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
-    releaseApi "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
+    releaseImplementation "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
 
     // Android Support Libraries
-    api "com.android.support:appcompat-v7:$supportLibVersion"
-    api "com.android.support:design:$supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    implementation "com.android.support:design:$supportLibVersion"
 
     // Constraint Layout
-    api "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
 
     // Timber log utility
-    api "com.jakewharton.timber:timber:$timberVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
 
-    api 'com.dmitrymalkovich.android:material-design-dimens:1.2'
-    api 'com.actinarium.aligned:aligned:0.1'
+    implementation 'com.dmitrymalkovich.android:material-design-dimens:1.2'
+    implementation 'com.actinarium.aligned:aligned:0.1'
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Kotlinx coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.17"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
 
     // Tests
-    testApi 'junit:junit:4.12'
-    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }

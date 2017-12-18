@@ -46,10 +46,10 @@ android {
 
 dependencies {
     // Android Support Libraries
-    api "com.android.support:support-compat:$supportLibVersion"
+    implementation "com.android.support:support-compat:$supportLibVersion"
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

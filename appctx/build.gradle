@@ -48,8 +48,8 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-annotations:${supportLibVersion}"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:support-annotations:$supportLibVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 ext {
