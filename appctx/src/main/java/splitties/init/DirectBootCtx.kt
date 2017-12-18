@@ -18,6 +18,7 @@ package splitties.init
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES.N
 import android.support.annotation.RequiresApi
 
 /**
@@ -26,8 +27,8 @@ import android.support.annotation.RequiresApi
  * See [Direct Boot documentation](https://developer.android.com/training/articles/direct-boot.html)
  * to learn more.
  */
-inline val directBootCtx: Context get() = if (SDK_INT < 24) appCtx else deviceProtectedStorageCtx.value
+inline val directBootCtx: Context get() = if (SDK_INT < N) appCtx else deviceProtectedStorageCtx.value
 
 @PublishedApi
-@RequiresApi(24)
+@RequiresApi(N)
 internal val deviceProtectedStorageCtx = lazy { appCtx.createDeviceProtectedStorageContext() }
