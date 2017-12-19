@@ -18,10 +18,12 @@
 
 package splitties.concurrency
 
-internal inline fun <T> _lazy(mode: LazyThreadSafetyPolicy, noinline initializer: () -> T): Lazy<T> {
+import splitties.uithread.isUiThread
+
+internal inline fun <T> _lazy(policy: LazyThreadSafetyPolicy, noinline initializer: () -> T): Lazy<T> {
     return if (Concurrency.useStdLibImpl) kotlin.lazy(LazyThreadSafetyMode.NONE, initializer).also {
         Concurrency.atLeastOneUncheckedLazyInstantiated = true
-    } else when (mode) {
+    } else when (policy) {
         LazyThreadSafetyPolicy.UI_THREAD -> UiThreadOnlyLazyImpl(initializer)
         LazyThreadSafetyPolicy.UNIQUE_ACCESS_THREAD -> SingleThreadLazyImpl(initializer)
         LazyThreadSafetyPolicy.UNIQUE_THREAD -> SingleThreadLazyImpl(initializer, true)
@@ -38,7 +40,7 @@ internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiat
     : Lazy<T> {
     @Volatile private var threadId = if (checkInstantiation) Thread.currentThread().id else -1L
     private var initializer: (() -> T)? = initializer
-    private var _value: Any? = UNINITIALIZED_VALUE
+    private var _value: Any? = uninitializedValue
 
     override val value: T
         get() {
@@ -52,7 +54,7 @@ internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiat
                 "Thread $threadId first accessed this single thread lazy, but the thread " +
                         "${Thread.currentThread().id} is accessing it."
             }
-            if (_value === UNINITIALIZED_VALUE) {
+            if (_value === uninitializedValue) {
                 _value = initializer!!()
                 initializer = null
             }
@@ -60,7 +62,7 @@ internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiat
             return _value as T
         }
 
-    override fun isInitialized(): Boolean = _value !== UNINITIALIZED_VALUE
+    override fun isInitialized(): Boolean = _value !== uninitializedValue
     override fun toString(): String = if (isInitialized()) value.toString() else NOT_INITIALIZED
 }
 
@@ -69,12 +71,12 @@ internal class SingleThreadLazyImpl<out T>(initializer: () -> T, checkInstantiat
  */
 internal class UiThreadOnlyLazyImpl<out T>(initializer: () -> T) : Lazy<T> {
     private var initializer: (() -> T)? = initializer
-    private var _value: Any? = UNINITIALIZED_VALUE
+    private var _value: Any? = uninitializedValue
 
     override val value: T
         get() {
             ConcurrencyReporter.check(isUiThread) { "This should only be called on the UI thread!" }
-            if (_value === UNINITIALIZED_VALUE) {
+            if (_value === uninitializedValue) {
                 _value = initializer!!()
                 initializer = null
             }
@@ -82,6 +84,6 @@ internal class UiThreadOnlyLazyImpl<out T>(initializer: () -> T) : Lazy<T> {
             return _value as T
         }
 
-    override fun isInitialized(): Boolean = _value !== UNINITIALIZED_VALUE
+    override fun isInitialized(): Boolean = _value !== uninitializedValue
     override fun toString(): String = if (isInitialized()) value.toString() else NOT_INITIALIZED
 }

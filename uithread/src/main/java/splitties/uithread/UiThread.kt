@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':concurrency', ':appctx', ':preferences', ':sample-nagbox', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread'
+package splitties.uithread
+
+import android.os.Looper
+
+/** This main looper cache avoids synchronization overhead when accessed repeatedly. */
+@JvmField val mainLooper: Looper = Looper.getMainLooper()!!
+@JvmField val mainThread: Thread = mainLooper.thread
+
+val isUiThread inline get() = mainThread === Thread.currentThread()

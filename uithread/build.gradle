@@ -26,12 +26,15 @@ apply plugin: 'maven-publish'
 android {
     compileSdkVersion projectSdkVersion
     buildToolsVersion projectBuildToolsVersion
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion projectSdkVersion
         versionCode 1
         versionName libraryVersion
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -39,30 +42,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
 }
 
 dependencies {
-    debugImplementation project(':appctx')
-    debugImplementation project(':uithread')
-    releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
-    // Timber log utility
-    implementation "com.jakewharton.timber:timber:$timberVersion"
-    // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-}
-
-ext {
-    libraryDesc = "Delegates for kotlin on android that check UI thread"
 }
 
 //apply from: '../publish.gradle'
