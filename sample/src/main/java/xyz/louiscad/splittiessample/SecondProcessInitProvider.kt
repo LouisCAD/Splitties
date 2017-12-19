@@ -17,9 +17,9 @@
 package xyz.louiscad.splittiessample
 
 import splitties.init.AppCtxInitProvider
-import splitties.init.InitProvider
 import splitties.init.appCtx
 import splitties.init.consume
+import splitties.initprovider.InitProvider
 
 /**
  * Just present here and in the manifest to call [AppCtxInitProvider] implementation

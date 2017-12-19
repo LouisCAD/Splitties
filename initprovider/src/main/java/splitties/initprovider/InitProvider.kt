@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package splitties.init
+package splitties.initprovider
 
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
+import splitties.exceptions.unsupported
 
 /**
  * Base class for [ContentProvider]s used for initialization purposes.

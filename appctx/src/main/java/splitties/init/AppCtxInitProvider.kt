@@ -18,6 +18,7 @@ package splitties.init
 
 import android.content.Context
 import android.support.annotation.CallSuper
+import splitties.initprovider.InitProvider
 
 /**
  * Initializes [appCtx] so it can be used where any [Context] can be used.

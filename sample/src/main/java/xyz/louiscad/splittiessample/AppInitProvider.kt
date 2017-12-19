@@ -16,7 +16,7 @@
 
 package xyz.louiscad.splittiessample
 
-import splitties.init.InitProvider
+import splitties.initprovider.InitProvider
 import splitties.init.consume
 
 class AppInitProvider : InitProvider() {

@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package splitties.init
+package splitties.exceptions
 
-inline fun consume(result: Boolean = true, f: () -> Unit): Boolean {
-    f()
-    return result
-}
+import android.content.Intent
+
+fun unexpectedValue(value: Any?): Nothing = throw IllegalStateException("Unexpected value: $value")
+
+fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException(errorMessage)
+fun illegalArg(errorMessage: String? = null): Nothing = throw IllegalArgumentException(errorMessage)
+
+fun unsupported(errorMessage: String? = null): Nothing = throw UnsupportedOperationException(errorMessage)
+
+fun unsupportedAction(intent: Intent): Nothing = unsupported("Unsupported action: ${intent.action}")

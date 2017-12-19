@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':concurrency', ':appctx', ':preferences', ':sample-nagbox', ':stetho-init', ':material-lists', ':bundle'
+include ':sample', ':typesaferecyclerview', ':selectableviews', ':concurrency', ':appctx', ':preferences', ':sample-nagbox', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions'

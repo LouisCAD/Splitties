@@ -45,15 +45,8 @@ android {
 }
 
 dependencies {
-    debugImplementation project(':initprovider')
     debugImplementation project(':exceptions')
-    //releaseImplementation "xyz.louiscad.splitties:splitties-initprovider:$splittiesVersion"
-    implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-
-ext {
-    libraryDesc = "Initializes a val named appCtx you can use anywhere."
 }
 
 //apply from: '../publish.gradle'
