@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.bundle
+package splitties.bundle
 
 import android.app.Activity
 import android.os.Bundle

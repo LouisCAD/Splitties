@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.bundle
+package splitties.bundle
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import splitties.exceptions.illegal
 import kotlin.reflect.KProperty
 
 inline fun <T : BundleHelper, R> Activity.withExtras(t: T, f: T.() -> R) = intent.extras.with(t, f)

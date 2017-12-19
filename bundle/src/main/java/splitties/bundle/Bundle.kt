@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.bundle
+package splitties.bundle
 
 import android.os.Binder
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.BundleCompat
 import android.util.SparseArray
+import splitties.exceptions.unsupported
 
 fun Bundle.put(key: String, value: Any?) {
     when (value) {
