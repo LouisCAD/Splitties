@@ -22,7 +22,6 @@ import android.os.Parcelable
 import android.support.v4.app.BundleCompat
 import android.util.SparseArray
 
-@Suppress("UNCHECKED_CAST")
 fun Bundle.put(key: String, value: Any?) {
     when (value) {
         is String -> putString(key, value)
@@ -36,24 +35,39 @@ fun Bundle.put(key: String, value: Any?) {
         is CharArray -> putCharArray(key, value)
         is CharSequence -> putCharSequence(key, value)
         is Bundle -> putBundle(key, value)
-        is Array<*> -> when {
-            value.isArrayOf<CharSequence>() -> putCharSequenceArray(key, value as Array<out CharSequence>?)
-            value.isArrayOf<String>() -> putStringArray(key, value as Array<String>?)
-            value.isArrayOf<Parcelable>() -> putParcelableArray(key, value as Array<Parcelable>?)
-            value.isArrayOf<SparseArray<out Parcelable>>() -> putSparseParcelableArray(key, value as SparseArray<out Parcelable>?)
-            else -> unsupported("Array type ${value.javaClass.canonicalName} is not supported")
-        }
-        is ArrayList<*> -> when(value.firstOrNull()) {
-            is CharSequence -> putCharSequenceArrayList(key, value as ArrayList<CharSequence>?)
-            is String -> putStringArrayList(key, value as ArrayList<String>?)
-            is Parcelable -> putParcelableArrayList(key, value as ArrayList<out Parcelable>?)
-            is Int, null -> putIntegerArrayList(key, value as ArrayList<Int>?)
-            else -> unsupported("Type ${value.first().javaClass.canonicalName} in ArrayList is not supported")
-        }
+        is Array<*> -> putArray(key, value)
+        is ArrayList<*> -> putArrayList(key, value)
+        is SparseArray<*> -> putSparseArrayOfParcelable(key, value)
         is Binder -> BundleCompat.putBinder(this, key, value)
         is Parcelable -> putParcelable(key, value)
         is java.io.Serializable -> putSerializable(key, value) // Includes primitive types
         null -> putString(key, value) // Any non primitive type works for any null value
         else -> unsupported("Type ${value.javaClass.canonicalName} is not supported")
     }
+}
+
+private fun Bundle.putArray(key: String, value: Array<*>) {
+    @Suppress("UNCHECKED_CAST")
+    when {
+        value.isArrayOf<CharSequence>() -> putCharSequenceArray(key, value as Array<out CharSequence>?)
+        value.isArrayOf<String>() -> putStringArray(key, value as Array<String>?)
+        value.isArrayOf<Parcelable>() -> putParcelableArray(key, value as Array<Parcelable>?)
+        else -> unsupported("Array type ${value.javaClass.canonicalName} is not supported")
+    }
+}
+
+private fun Bundle.putArrayList(key: String, value: ArrayList<*>) {
+    @Suppress("UNCHECKED_CAST")
+    when (value.firstOrNull()) {
+        is CharSequence -> putCharSequenceArrayList(key, value as ArrayList<CharSequence>?)
+        is String -> putStringArrayList(key, value as ArrayList<String>?)
+        is Parcelable -> putParcelableArrayList(key, value as ArrayList<out Parcelable>?)
+        is Int, null -> putIntegerArrayList(key, value as ArrayList<Int>?)
+        else -> unsupported("Type ${value.first().javaClass.canonicalName} in ArrayList is not supported")
+    }
+}
+
+private fun Bundle.putSparseArrayOfParcelable(key: String, value: SparseArray<*>) {
+    @Suppress("UNCHECKED_CAST")
+    putSparseParcelableArray(key, value as SparseArray<out Parcelable>?)
 }
