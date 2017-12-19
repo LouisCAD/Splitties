@@ -18,11 +18,16 @@ package splitties.exceptions
 
 import android.content.Intent
 
+/** Throws an [IllegalStateException] with a message that includes [value]. */
 fun unexpectedValue(value: Any?): Nothing = throw IllegalStateException("Unexpected value: $value")
 
+/** Throws an [IllegalStateException] with the passed message. */
 fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException(errorMessage)
+/** Throws an [IllegalArgumentException] with the passed message. */
 fun illegalArg(errorMessage: String? = null): Nothing = throw IllegalArgumentException(errorMessage)
 
+/** Throws an [UnsupportedOperationException] with the passed message. */
 fun unsupported(errorMessage: String? = null): Nothing = throw UnsupportedOperationException(errorMessage)
 
+/** Throws an [UnsupportedOperationException] with the unsupported action name in the message. */
 fun unsupportedAction(intent: Intent): Nothing = unsupported("Unsupported action: ${intent.action}")
