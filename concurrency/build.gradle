@@ -47,6 +47,7 @@ android {
 dependencies {
     debugImplementation project(':appctx')
     debugImplementation project(':uithread')
+    debugImplementation project(':exceptions')
     releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
     // Timber log utility
     implementation "com.jakewharton.timber:timber:$timberVersion"
