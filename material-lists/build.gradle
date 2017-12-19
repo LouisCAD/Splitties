@@ -50,8 +50,9 @@ dependencies {
     debugImplementation project(':selectableviews')
     releaseImplementation "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
 
-    implementation "com.android.support:appcompat-v7:$supportLibVersion";
-    debugImplementation "com.android.support:recyclerview-v7:$supportLibVersion";
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibVersion"
+    debugImplementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:support-annotations:$supportLibVersion"
 
     // Test dependencies
