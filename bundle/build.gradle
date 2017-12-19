@@ -45,6 +45,8 @@ android {
 }
 
 dependencies {
+    debugImplementation project(':exceptions')
+
     // Android Support Libraries
     implementation "com.android.support:support-compat:$supportLibVersion"
 
