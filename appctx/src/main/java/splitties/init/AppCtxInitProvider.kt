@@ -16,6 +16,7 @@
 
 package splitties.init
 
+import android.app.Application
 import android.content.Context
 import android.support.annotation.CallSuper
 import splitties.initprovider.InitProvider
@@ -23,9 +24,12 @@ import splitties.initprovider.InitProvider
 /**
  * Initializes [appCtx] so it can be used where any [Context] can be used.
  *
- * If you use [appCtx] in another process than the default one, but fail to declare a subclass of
- * this class in your manifest with the same process, attempts to access [appCtx] in
- * this non-default process will throw a [KotlinNullPointerException].
+ * If you use [appCtx] in another process than the default one. This will not be invoked.
+ * The library will attempt to initialize [appCtx] using reflection instead. If you want to avoid
+ * this, you can declare a subclass of this class in your manifest with the name of the process
+ * properly specified to get it Automatically initialized. Alternatively, you can in your properly
+ * declared custom [Application] call [injectAsAppCtx] passing `this` reference from the constructor
+ * or the [Application.onCreate] method.
  */
 open class AppCtxInitProvider : InitProvider() {
     @CallSuper override fun onCreate() = consume { internalCtx = context }
