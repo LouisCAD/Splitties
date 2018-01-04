@@ -16,19 +16,7 @@
 
 package splitties.concurrency
 
-import splitties.concurrency.Concurrency.MODE_REPORT
-import splitties.concurrency.Concurrency.mode
-import splitties.concurrency.Concurrency.unchecked
-import timber.log.Timber
-
-@Suppress("NOTHING_TO_INLINE")
-object ConcurrencyReporter {
-
-    inline internal fun check(value: Boolean, lazyMessage: () -> Any) {
-        if (!unchecked) try {
-            kotlin.check(value, lazyMessage)
-        } catch (e: IllegalStateException) {
-            if (mode == MODE_REPORT) Timber.wtf(e) else throw e
-        }
-    }
+abstract class PropertyAccessChecker {
+    abstract fun onRead()
+    abstract fun onWrite()
 }

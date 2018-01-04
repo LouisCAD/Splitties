@@ -30,8 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
-import splitties.concurrency.LazyThreadSafetyPolicy.UI_THREAD
-import splitties.concurrency.lazy
+import splitties.concurrency.uiLazy
 import splitties.preferences.edit
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.toggleNightMode
@@ -40,7 +39,7 @@ import xyz.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
 
-    private val vibrator by lazy(UI_THREAD) { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
+    private val vibrator by uiLazy { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
