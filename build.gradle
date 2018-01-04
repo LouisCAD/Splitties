@@ -38,7 +38,7 @@ allprojects {
         //maven { url "https://dl.bintray.com/louiscad/splitties" }
     }
     ext {
-        projectBuildToolsVersion = '27.0.2'
+        projectBuildToolsVersion = '27.0.3'
         projectSdkVersion = 27
         // Dependencies versions
         supportLibVersion = '27.0.2'
