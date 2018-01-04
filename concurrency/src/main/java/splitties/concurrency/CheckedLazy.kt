@@ -27,7 +27,10 @@ fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(uiCheck
  * Creates a new instance of the [Lazy] that uses the specified initialization function [initializer]
  * and calls [readCheck] on each access.
  *
- * @param readCheck This method may check the current thread, or other condition external to this [Lazy].
+ * If you want to check access to always happen on a specific thread, you can pass the result of
+ * a call to the [accessOn] helper function.
+ *
+ * @param readCheck This method may check any condition external to this [Lazy].
  */
 fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(readCheck, initializer)
 
