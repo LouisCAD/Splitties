@@ -19,7 +19,7 @@ package splitties.checkedlazy
 import splitties.exceptions.illegal
 import splitties.uithread.checkUiThread
 
-internal inline val currentThread: Thread get() = Thread.currentThread()
+private inline val currentThread: Thread get() = Thread.currentThread()
 
 val uiChecker = { checkUiThread() }
 
