@@ -28,11 +28,12 @@ fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initial
  * function [initializer] and calls [readChecker] on each access.
  *
  * If you want to check access to always happen on a specific thread, you can pass the result of
- * a call to the [accessOn] helper function.
+ * a call to the [accessOn] helper function. There's also the [noAccessOn] helper function that does
+ * the contrary.
  *
- * Let's say you want to throw an [IllegalStateException] for a non allowed access such as a
- * prohibited [Thread] it's [readChecker] responsibility to do it. [check] or [require] from stdlib
- * may help you implement this kind of check.
+ * Let's say you want to throw an [IllegalStateException] for a custom condition, it's [readChecker]
+ * responsibility to do it. [check] or [require] from stdlib may help you implement this kind
+ * of check.
  *
  * This lazy is as safe as the [readChecker] is: an empty one will be like calling [kotlin.lazy] with
  * [kotlin.LazyThreadSafetyMode.NONE], which is potentially unsafe.
