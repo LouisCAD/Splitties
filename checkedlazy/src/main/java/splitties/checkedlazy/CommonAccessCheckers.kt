@@ -19,7 +19,7 @@ package splitties.checkedlazy
 import splitties.exceptions.illegal
 import splitties.uithread.isUiThread
 
-inline val currentThread: Thread get() = Thread.currentThread()
+internal inline val currentThread: Thread get() = Thread.currentThread()
 
 val uiChecker = {
     if (!isUiThread) illegal("This should only be called on the UI thread! Current: $currentThread")
