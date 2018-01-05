@@ -143,19 +143,19 @@ If you use gradle and have `jcenter()` (default for new Android Studio projects)
 ```groovy
 allProjects {
     ext {
-        splittiesVersion = '1.3.0'
+        splitties_version = '1.3.0'
     }
 }
 ```
 Here are all the artifacts of this library. Just use the ones you need:
 ```groovy
-compile "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
-compile "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
-compile "xyz.louiscad.splitties:splitties-material-lists:$splittiesVersion"
-compile "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
-compile "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"
-debugCompile "xyz.louiscad.splitties:splitties-stetho-init:$splittiesVersion"
-compile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
+compile "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
+compile "xyz.louiscad.splitties:splitties-concurrency:$splitties_version"
+compile "xyz.louiscad.splitties:splitties-material-lists:$splitties_version"
+compile "xyz.louiscad.splitties:splitties-preferences:$splitties_version"
+compile "xyz.louiscad.splitties:splitties-selectableviews:$splitties_version"
+debugCompile "xyz.louiscad.splitties:splitties-stetho-init:$splitties_version"
+compile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
 ```
 For maven and alternative build-systems, check the [Bintray page](https://bintray.com/louiscad/splitties/splitties).
 
