@@ -17,13 +17,11 @@
 package splitties.checkedlazy
 
 import splitties.exceptions.illegal
-import splitties.uithread.isUiThread
+import splitties.uithread.checkUiThread
 
 internal inline val currentThread: Thread get() = Thread.currentThread()
 
-val uiChecker = {
-    if (!isUiThread) illegal("This should only be called on the UI thread! Current: $currentThread")
-}
+val uiChecker = { checkUiThread() }
 
 fun accessOn(thread: Thread) = {
     if (thread !== currentThread) illegal("Access expected on thread: $thread. Current: $currentThread")

@@ -14,12 +14,23 @@
  * limitations under the License.
  */
 
+@file:Suppress("NOTHING_TO_INLINE")
+
 package splitties.uithread
 
 import android.os.Looper
+
+@PublishedApi internal inline val currentThread: Thread get() = Thread.currentThread()
 
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
 @JvmField val mainLooper: Looper = Looper.getMainLooper()!!
 @JvmField val mainThread: Thread = mainLooper.thread
 
 val isUiThread inline get() = mainThread === Thread.currentThread()
+
+/**
+ * Passes if run on the [mainThread] (aka. UI thread), throws an [IllegalStateException] otherwise.
+ */
+inline fun checkUiThread() = check(isUiThread) {
+    "This should only be called on the UI thread! Current: $currentThread"
+}
