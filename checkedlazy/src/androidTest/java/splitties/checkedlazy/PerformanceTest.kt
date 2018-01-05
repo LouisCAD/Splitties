@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.concurrency
+package splitties.checkedlazy
 
 import android.os.Handler
 import android.os.Looper

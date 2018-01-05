@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package splitties.concurrency
+package splitties.checkedlazy
 
 /**
  * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of UI thread.

@@ -14,7 +14,7 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.concurrency">
+<manifest package="splitties.checkedlazy">
 
     <application/>
 

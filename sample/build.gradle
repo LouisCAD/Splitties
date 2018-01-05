@@ -64,7 +64,7 @@ dependencies {
     debugImplementation project(':appctx')
     debugImplementation project(':initprovider')
     debugImplementation project(':stetho-init')
-    debugImplementation project(':concurrency')
+    debugImplementation project(':checkedlazy')
     debugImplementation project(':preferences')
     debugImplementation project(':typesaferecyclerview')
     debugImplementation project(':selectableviews')
@@ -72,7 +72,7 @@ dependencies {
 
     releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splittiesVersion"
     //releaseImplementation "xyz.louiscad.splitties:splitties-initprovider:$splittiesVersion"
-    releaseImplementation "xyz.louiscad.splitties:splitties-concurrency:$splittiesVersion"
+    //releaseImplementation "xyz.louiscad.splitties:splitties-checkedlazy:$splittiesVersion"
     releaseImplementation "xyz.louiscad.splitties:splitties-preferences:$splittiesVersion"
     releaseImplementation "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splittiesVersion"
     releaseImplementation "xyz.louiscad.splitties:splitties-selectableviews:$splittiesVersion"

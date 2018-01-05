@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
-import splitties.concurrency.uiLazy
+import splitties.checkedlazy.uiLazy
 import splitties.preferences.edit
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.toggleNightMode

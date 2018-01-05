@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package splitties.concurrency
+package splitties.checkedlazy;
 
-import splitties.exceptions.illegal
-import splitties.uithread.isUiThread
+import org.junit.Test;
 
-inline val currentThread: Thread get() = Thread.currentThread()
+import static org.junit.Assert.*;
 
-val uiChecker = {
-    if (!isUiThread) illegal("This should only be called on the UI thread! Current: $currentThread")
-}
-
-fun accessOn(thread: Thread) = {
-    if (thread !== currentThread) illegal("Access expected on thread: $thread. Current: $currentThread")
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+public class ExampleUnitTest {
+    @Test
+    public void addition_isCorrect() throws Exception {
+        assertEquals(4, 2 + 2);
+    }
 }
