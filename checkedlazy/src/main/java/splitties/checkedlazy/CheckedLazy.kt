@@ -30,6 +30,9 @@ fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initial
  * If you want to check access to always happen on a specific thread, you can pass the result of
  * a call to the [accessOn] helper function.
  *
+ * This lazy is as safe as the [readCheck] is: an empty one will be like calling [kotlin.lazy] with
+ * [kotlin.LazyThreadSafetyMode.NONE], which is potentially unsafe.
+ *
  * @param readCheck This method may check any condition external to this [Lazy].
  */
 fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, readCheck)
