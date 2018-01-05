@@ -21,7 +21,7 @@ package splitties.checkedlazy
 /**
  * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of UI thread.
  */
-fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(uiChecker, initializer)
+fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, uiChecker)
 
 /**
  * Creates a new instance of the [Lazy] that uses the specified initialization function [initializer]
@@ -32,34 +32,29 @@ fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(uiCheck
  *
  * @param readCheck This method may check any condition external to this [Lazy].
  */
-fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(readCheck, initializer)
+fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, readCheck)
 
 /**
  * This is a modified version of [kotlin.UnsafeLazyImpl] which calls [readCheck] on each access.
  * If you also supplied [firstAccessCheck] (using secondary constructor), it will be called on the
  * first access, then [readCheck] will be called for subsequent accesses.
  */
-internal class CheckedAccessLazyImpl<out T>(private val readCheck: () -> Unit,
-                                            initializer: () -> T) : Lazy<T> {
-
-    constructor(readCheck: () -> Unit,
-                firstAccessCheck: () -> Unit,
-                initializer: () -> T) : this(readCheck, initializer) {
-        this.firstAccessCheck = firstAccessCheck
-    }
+internal class CheckedAccessLazyImpl<out T>(initializer: () -> T,
+                                            private val readCheck: (() -> Unit)? = null,
+                                            private var firstAccessCheck: (() -> Unit)? = null
+) : Lazy<T> {
 
     private var initializer: (() -> T)? = initializer
-    private var firstAccessCheck: (() -> Unit)? = null
     private var _value: Any? = uninitializedValue
 
     override val value: T
         get() {
             if (_value === uninitializedValue) {
-                firstAccessCheck?.invoke() ?: readCheck()
+                firstAccessCheck?.invoke() ?: readCheck?.invoke()
                 _value = initializer!!()
                 firstAccessCheck = null
                 initializer = null
-            } else readCheck()
+            } else readCheck?.invoke()
             @Suppress("UNCHECKED_CAST")
             return _value as T
         }
