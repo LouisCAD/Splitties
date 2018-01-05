@@ -19,10 +19,26 @@ package splitties.checkedlazy
 import splitties.exceptions.illegal
 import splitties.uithread.checkUiThread
 
-val uiChecker = { checkUiThread() }
+@JvmField internal val uiChecker = { checkUiThread() }
 
+/**
+ * Throws an [IllegalStateException] if invoked outside of passed [thread].
+ *
+ * Helper for [checkedLazy]'s readChecker.
+ */
 fun accessOn(thread: Thread) = {
     Thread.currentThread().let {
         if (thread !== it) illegal("Access expected on thread: $thread. Current: $it")
+    }
+}
+
+/**
+ * Throws an [IllegalStateException] if invoked from passed [thread].
+ *
+ * Helper for [checkedLazy]'s readChecker.
+ */
+fun noAccessOn(thread: Thread) = {
+    Thread.currentThread().let {
+        if (thread === it) illegal("No access allowed on thread: $thread!")
     }
 }
