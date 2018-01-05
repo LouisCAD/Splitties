@@ -24,18 +24,24 @@ package splitties.checkedlazy
 fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, uiChecker)
 
 /**
- * Creates a new instance of the [Lazy] that uses the specified initialization function [initializer]
- * and calls [readCheck] on each access.
+ * Creates a new instance of the [Lazy] that uses the specified initialization
+ * function [initializer] and calls [readCheck] on each access.
  *
  * If you want to check access to always happen on a specific thread, you can pass the result of
  * a call to the [accessOn] helper function.
+ *
+ * Let's say you want to throw an [IllegalStateException] for a non allowed access such as a
+ * prohibited [Thread] it's [readCheck] responsibility to do it. [check] or [require] from stdlib
+ * may help you implement this kind of check.
  *
  * This lazy is as safe as the [readCheck] is: an empty one will be like calling [kotlin.lazy] with
  * [kotlin.LazyThreadSafetyMode.NONE], which is potentially unsafe.
  *
  * @param readCheck This method may check any condition external to this [Lazy].
  */
-fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, readCheck)
+fun <T> checkedLazy(readCheck: () -> Unit, initializer: () -> T): Lazy<T> {
+    return CheckedAccessLazyImpl<T>(initializer, readCheck)
+}
 
 /**
  * This is a modified version of [kotlin.UnsafeLazyImpl] which calls [readCheck] on each access.
