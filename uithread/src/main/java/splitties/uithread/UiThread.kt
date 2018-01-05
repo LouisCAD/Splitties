@@ -25,6 +25,7 @@ import android.os.Looper
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
 @JvmField val mainLooper: Looper = Looper.getMainLooper()!!
 @JvmField val mainThread: Thread = mainLooper.thread
+inline val uiThread get() = mainThread
 
 val isUiThread inline get() = mainThread === Thread.currentThread()
 
