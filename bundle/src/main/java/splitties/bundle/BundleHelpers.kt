@@ -47,7 +47,7 @@ open class BundleHelper {
 @Suppress("unused") inline fun BundleHelper.bundle() = BundleDelegate
 @Suppress("unused") inline fun BundleHelper.bundleOrNull() = BundleOrNullDelegate
 
-inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key)
+inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = true)
 inline fun <T> BundleHelper.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = false)
 
 private inline val BundleHelper.bundle
@@ -83,7 +83,7 @@ object BundleOrNullDelegate {
 @PublishedApi
 internal class ExplicitBundleDelegate<T>(private val helper: BundleHelper,
                                          private val key: String,
-                                         private val noNull: Boolean = true) : ReadWriteProperty<Any?, T> {
+                                         private val noNull: Boolean) : ReadWriteProperty<Any?, T> {
 
     @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
