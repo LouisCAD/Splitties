@@ -16,6 +16,7 @@
 
 package splitties.preferences
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build.VERSION.SDK_INT
@@ -23,6 +24,7 @@ import splitties.init.appCtx
 import splitties.init.directBootCtx
 import kotlin.reflect.KProperty
 
+@SuppressLint("CommitPrefEdits")
 @Suppress("NOTHING_TO_INLINE")
 abstract class Preferences(name: String,
                            availableAtDirectBoot: Boolean = false,
