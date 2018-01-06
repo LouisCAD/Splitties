@@ -21,6 +21,7 @@ package splitties.resources
 import android.app.Fragment
 import android.content.Context
 import android.support.annotation.ArrayRes
+import android.support.annotation.AttrRes
 import android.support.annotation.BoolRes
 import android.support.annotation.IntegerRes
 import android.view.View
@@ -31,25 +32,65 @@ inline fun Context.bool(@BoolRes boolResId: Int): Boolean = resources.getBoolean
 inline fun SupportFragment.bool(@BoolRes boolResId: Int) = context!!.bool(boolResId)
 inline fun Fragment.bool(@BoolRes boolResId: Int) = activity.bool(boolResId)
 inline fun View.bool(@BoolRes boolResId: Int) = context.bool(boolResId)
-/** Use this method for non configuration dependent resources when you don't have a [Context]
+/**
+ * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
- * initialized yet). */
+ * initialized yet).
+ *
+ * For theme dependent resources, the application theme will be implicitly used.
+ */
 inline fun appBool(@BoolRes boolResId: Int) = appCtx.bool(boolResId)
 
 inline fun Context.int(@IntegerRes intResId: Int): Int = resources.getInteger(intResId)
 inline fun SupportFragment.int(@IntegerRes intResId: Int) = context!!.int(intResId)
 inline fun Fragment.int(@IntegerRes intResId: Int) = activity.int(intResId)
 inline fun View.int(@IntegerRes intResId: Int) = context.int(intResId)
-/** Use this method for non configuration dependent resources when you don't have a [Context]
+/**
+ * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
- * initialized yet). */
+ * initialized yet).
+ *
+ * For theme dependent resources, the application theme will be implicitly used.
+ */
 inline fun appInt(@IntegerRes intResId: Int) = appCtx.int(intResId)
 
 inline fun Context.intArray(@ArrayRes intArrayResId: Int): IntArray = resources.getIntArray(intArrayResId)
 inline fun SupportFragment.intArray(@ArrayRes intArrayResId: Int) = context!!.intArray(intArrayResId)
 inline fun Fragment.intArray(@ArrayRes intArrayResId: Int) = activity.intArray(intArrayResId)
 inline fun View.intArray(@ArrayRes intArrayResId: Int) = context.intArray(intArrayResId)
-/** Use this method for non configuration dependent resources when you don't have a [Context]
+/**
+ * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
- * initialized yet). */
+ * initialized yet).
+ *
+ * For theme dependent resources, the application theme will be implicitly used.
+ */
 inline fun appIntArray(@ArrayRes intArrayResId: Int) = appCtx.intArray(intArrayResId)
+
+// Styled resources below
+
+inline fun Context.styledBool(@AttrRes attr: Int): Boolean = withStyledAttributes(attr) { getBoolean(it, false) }
+inline fun SupportFragment.styledBool(@AttrRes attr: Int) = context!!.styledBool(attr)
+inline fun Fragment.styledBool(@AttrRes attr: Int) = activity.styledBool(attr)
+inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
+/**
+ * Use this method for non configuration dependent resources when you don't have a [Context]
+ * or when you're calling it from an Activity or a Fragment member (as the Context is not
+ * initialized yet).
+ *
+ * For theme dependent resources, the application theme will be implicitly used.
+ */
+inline fun appStyledBool(@AttrRes attr: Int) = appCtx.styledBool(attr)
+
+inline fun Context.styledInt(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getInteger(it, -1) }
+inline fun SupportFragment.styledInt(@AttrRes attr: Int) = context!!.styledInt(attr)
+inline fun Fragment.styledInt(@AttrRes attr: Int) = activity.styledInt(attr)
+inline fun View.styledInt(@AttrRes attr: Int) = context.styledInt(attr)
+/**
+ * Use this method for non configuration dependent resources when you don't have a [Context]
+ * or when you're calling it from an Activity or a Fragment member (as the Context is not
+ * initialized yet).
+ *
+ * For theme dependent resources, the application theme will be implicitly used.
+ */
+inline fun appStyledInt(@AttrRes attr: Int) = appCtx.styledInt(attr)
