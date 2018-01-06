@@ -51,16 +51,22 @@ abstract class Preferences(name: String,
     operator fun contains(o: Any) = prefs === o
 
     protected fun boolPref(defaultValue: Boolean = false)
-            = BoolPrefProvider(defaultValue = defaultValue)
+            = BoolPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun intPref(defaultValue: Int) = IntPrefProvider(defaultValue = defaultValue)
-    protected fun floatPref(defaultValue: Float) = FloatPrefProvider(defaultValue = defaultValue)
-    protected fun longPref(defaultValue: Long) = LongPrefProvider(defaultValue = defaultValue)
-    protected fun stringPref(defaultValue: String? = null)
-            = StringPrefProvider(defaultValue = defaultValue)
+    protected fun intPref(defaultValue: Int) = IntPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun floatPref(defaultValue: Float) = FloatPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun longPref(defaultValue: Long) = LongPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringSetPref(defaultValue: MutableSet<String>? = null)
-            = StringSetPrefProvider(defaultValue = defaultValue)
+    protected fun stringPref(defaultValue: String) = StringPref(key = PROP_NAME, defaultValue = defaultValue)
+
+    protected fun stringOrNullPref(defaultValue: String? = null) =
+            StringOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
+
+    protected fun stringSetPref(defaultValue: MutableSet<String>) =
+            StringSetPref(key = PROP_NAME, defaultValue = defaultValue)
+
+    protected fun stringSetOrNullPref(defaultValue: MutableSet<String>? = null) =
+            StringSetOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
     private var edit = false
     private var useCommit = false
@@ -86,117 +92,89 @@ abstract class Preferences(name: String,
         if (useCommit) commit() else apply()
     }
 
+    private inline fun String.real(prop: KProperty<*>) = if (this === PROP_NAME) prop.name else this
+
     protected inner class BoolPref(val key: String, val defaultValue: Boolean) {
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Boolean) {
-            editor.putBoolean(key, value).attemptApply()
+            editor.putBoolean(key.real(prop), value).attemptApply()
         }
 
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Boolean {
-            return prefs.getBoolean(key, defaultValue)
+            return prefs.getBoolean(key.real(prop), defaultValue)
         }
     }
 
     protected inner class IntPref(val key: String, val defaultValue: Int) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Int {
-            return prefs.getInt(key, defaultValue)
+            return prefs.getInt(key.real(prop), defaultValue)
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Int) {
-            editor.putInt(key, value).attemptApply()
+            editor.putInt(key.real(prop), value).attemptApply()
         }
     }
 
     protected inner class FloatPref(val key: String, val defaultValue: Float) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Float {
-            return prefs.getFloat(key, defaultValue)
+            return prefs.getFloat(key.real(prop), defaultValue)
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Float) {
-            editor.putFloat(key, value).attemptApply()
+            editor.putFloat(key.real(prop), value).attemptApply()
         }
     }
 
     protected inner class LongPref(val key: String, val defaultValue: Long) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Long {
-            return prefs.getLong(key, defaultValue)
+            return prefs.getLong(key.real(prop), defaultValue)
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Long) {
-            editor.putLong(key, value).attemptApply()
+            editor.putLong(key.real(prop), value).attemptApply()
         }
     }
 
-    protected inner class StringPref(val key: String, val defaultValue: String? = null) {
+    protected inner class StringPref(val key: String, val defaultValue: String) {
+        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): String {
+            return prefs.getString(key.real(prop), defaultValue)
+        }
+
+        operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: String) {
+            editor.putString(key.real(prop), value).attemptApply()
+        }
+    }
+
+    protected inner class StringOrNullPref(val key: String, val defaultValue: String? = null) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): String? {
-            return prefs.getString(key, defaultValue)
+            return prefs.getString(key.real(prop), defaultValue)
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: String?) {
-            editor.putString(key, value).attemptApply()
+            editor.putString(key.real(prop), value).attemptApply()
         }
     }
 
     protected inner class StringSetPref(val key: String,
-                                        val defaultValue: MutableSet<String>? = null) {
+                                        val defaultValue: MutableSet<String>) {
+        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): MutableSet<String> {
+            return prefs.getStringSet(key.real(prop), defaultValue)
+        }
+
+        operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
+                              value: MutableSet<String>) {
+            editor.putStringSet(key.real(prop), value).attemptApply()
+        }
+    }
+
+    protected inner class StringSetOrNullPref(val key: String,
+                                              val defaultValue: MutableSet<String>? = null) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): MutableSet<String>? {
-            return prefs.getStringSet(key, defaultValue)
+            return prefs.getStringSet(key.real(prop), defaultValue)
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
                               value: MutableSet<String>?) {
-            editor.putStringSet(key, value).attemptApply()
-        }
-    }
-
-    /**
-     * Base class for Preferences delegate providers that need to use the property name as key
-     * by default.
-     */
-    abstract class PrefProvider(private val key: String) {
-        protected fun getKey(prop: KProperty<*>) = if (key === PROP_NAME) prop.name else key
-    }
-
-    protected inner class BoolPrefProvider(key: String = PROP_NAME, val defaultValue: Boolean)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): BoolPref {
-            return BoolPref(getKey(prop), defaultValue)
-        }
-    }
-
-    protected inner class FloatPrefProvider(key: String = PROP_NAME, val defaultValue: Float)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): FloatPref {
-            return FloatPref(getKey(prop), defaultValue)
-        }
-    }
-
-    protected inner class LongPrefProvider(key: String = PROP_NAME, val defaultValue: Long)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): LongPref {
-            return LongPref(getKey(prop), defaultValue)
-        }
-    }
-
-    protected inner class IntPrefProvider(key: String = PROP_NAME, val defaultValue: Int)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): IntPref {
-            return IntPref(getKey(prop), defaultValue)
-        }
-    }
-
-    protected inner class StringPrefProvider(key: String = PROP_NAME,
-                                             val defaultValue: String? = null)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): StringPref {
-            return StringPref(getKey(prop), defaultValue)
-        }
-    }
-
-    protected inner class StringSetPrefProvider(key: String = PROP_NAME,
-                                                val defaultValue: MutableSet<String>? = null)
-        : PrefProvider(key) {
-        operator fun provideDelegate(thisRef: Preferences, prop: KProperty<*>): StringSetPref {
-            return StringSetPref(getKey(prop), defaultValue)
+            editor.putStringSet(key.real(prop), value).attemptApply()
         }
     }
 
