@@ -21,7 +21,6 @@ package splitties.resources
 import android.app.Fragment
 import android.content.Context
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
@@ -56,11 +55,11 @@ inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
 /**
  * @see [android.support.v4.content.ContextCompat.getColorStateList]
  */
-fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList {
+fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList? {
     return (if (SDK_INT >= M) getColorStateList(colorRes) else {
         @Suppress("DEPRECATION")
         resources.getColorStateList(colorRes)
-    }) ?: throw Resources.NotFoundException(resources.getResourceName(colorRes))
+    })
 }
 
 inline fun SupportFragment.colorSL(@ColorRes colorRes: Int) = context!!.colorSL(colorRes)
@@ -94,7 +93,7 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
  */
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
 
-inline fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList = withStyledAttributes(attr) { getColorStateList(it) }
+inline fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList? = withStyledAttributes(attr) { getColorStateList(it) }
 inline fun SupportFragment.styledColorSL(@AttrRes attr: Int) = context!!.styledColorSL(attr)
 inline fun Fragment.styledColorSL(@AttrRes attr: Int) = activity.styledColorSL(attr)
 inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
