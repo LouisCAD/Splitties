@@ -46,6 +46,7 @@ android {
 
 dependencies {
     debugImplementation project(':appctx')
+    debugImplementation project(':uithread')
 
     implementation "com.android.support:support-annotations:$supportLibVersion"
     compileOnly "com.android.support:support-fragment:$supportLibs_version"
