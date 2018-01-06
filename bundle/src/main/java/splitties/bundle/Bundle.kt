@@ -17,9 +17,9 @@
 package splitties.bundle
 
 import android.os.Binder
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
-import android.support.v4.app.BundleCompat
 import android.util.SparseArray
 import splitties.exceptions.unsupported
 
@@ -39,7 +39,7 @@ fun Bundle.put(key: String, value: Any?) {
         is Array<*> -> putArray(key, value)
         is ArrayList<*> -> putArrayList(key, value)
         is SparseArray<*> -> putSparseArrayOfParcelable(key, value)
-        is Binder -> BundleCompat.putBinder(this, key, value)
+        is Binder -> if (SDK_INT >= 18) putBinder(key, value) else putBinderCompat(key, value)
         is Parcelable -> putParcelable(key, value)
         is java.io.Serializable -> putSerializable(key, value) // Includes primitive types
         null -> putString(key, value) // Any non primitive type works for any null value
