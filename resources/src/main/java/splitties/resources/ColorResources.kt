@@ -48,6 +48,7 @@ inline fun View.color(@ColorRes colorRes: Int) = context.color(colorRes)
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
  * initialized yet).
+ *
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
@@ -69,6 +70,7 @@ inline fun View.colorSL(@ColorRes colorRes: Int) = context.colorSL(colorRes)
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
  * initialized yet).
+ *
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
@@ -87,6 +89,7 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
  * initialized yet).
+ *
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
@@ -99,6 +102,7 @@ inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
  * initialized yet).
+ *
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appStyledColorSL(@AttrRes attr: Int) = appCtx.styledColorSL(attr)
