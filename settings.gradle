@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread'
+include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices'
