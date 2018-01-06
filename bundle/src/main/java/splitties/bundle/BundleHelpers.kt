@@ -44,13 +44,14 @@ open class BundleHelper {
     internal var currentBundle: Bundle? = null
 }
 
-@Suppress("unused") inline fun <T : Any> BundleHelper.bundle() = BundleDelegate
-@Suppress("unused") inline fun <T> BundleHelper.bundleOrNull() = BundleOrNullDelegate
+@Suppress("unused") inline fun BundleHelper.bundle() = BundleDelegate
+@Suppress("unused") inline fun BundleHelper.bundleOrNull() = BundleOrNullDelegate
 
 inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key)
 inline fun <T> BundleHelper.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = false)
 
-private val BundleHelper.bundle get() = currentBundle ?: illegal("Bundle property accessed outside with() function!")
+private inline val BundleHelper.bundle
+    get() = currentBundle ?: illegal("Bundle property accessed outside with() function!")
 
 object BundleDelegate {
 
@@ -84,16 +85,14 @@ internal class ExplicitBundleDelegate<T>(private val helper: BundleHelper,
                                          private val key: String,
                                          private val noNull: Boolean = true) : ReadWriteProperty<Any?, T> {
 
-    private val bundle get() = helper.currentBundle ?: illegal("Bundle property accessed outside with() function!")
-
     @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
-        return bundle[key].also {
+        return helper.bundle[key].also {
             if (noNull) checkNotNull(it) { "Property $key could not be read" }
         } as T
     }
 
     override operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        bundle.put(key, value)
+        helper.bundle.put(key, value)
     }
 }
