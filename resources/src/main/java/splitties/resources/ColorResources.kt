@@ -30,6 +30,9 @@ import android.view.View
 import splitties.init.appCtx
 import android.support.v4.app.Fragment as SupportFragment
 
+/**
+ * @see [android.support.v4.content.ContextCompat.getColor]
+ */
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = if (SDK_INT >= M) getColor(colorRes) else {
     @Suppress("DEPRECATION")
@@ -44,6 +47,9 @@ inline fun View.color(@ColorRes colorRes: Int) = context.color(colorRes)
  * initialized yet). */
 inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
 
+/**
+ * @see [android.support.v4.content.ContextCompat.getColorStateList]
+ */
 fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList {
     return (if (SDK_INT >= M) getColorStateList(colorRes) else {
         @Suppress("DEPRECATION")
