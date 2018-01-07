@@ -23,14 +23,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion projectSdkVersion
-    buildToolsVersion projectBuildToolsVersion
+    compileSdkVersion projectSdk_version
+    buildToolsVersion projectBuildTools_version
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion projectSdkVersion
+        targetSdkVersion projectSdk_version
         versionCode 1
-        versionName libraryVersion
+        versionName library_version
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -46,7 +46,7 @@ android {
 dependencies {
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
-    implementation "com.android.support:support-annotations:${supportLibVersion}"
+    implementation "com.android.support:support-annotations:$supportLibs_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

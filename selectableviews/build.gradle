@@ -23,14 +23,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion projectSdkVersion
-    buildToolsVersion projectBuildToolsVersion
+    compileSdkVersion projectSdk_version
+    buildToolsVersion projectBuildTools_version
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion projectSdkVersion
+        targetSdkVersion projectSdk_version
         versionCode 1
-        versionName libraryVersion
+        versionName library_version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,9 +42,9 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:$supportLibVersion"
-    implementation "com.android.support:support-annotations:$supportLibVersion"
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
+    implementation "com.android.support:appcompat-v7:$supportLibs_version"
+    implementation "com.android.support:support-annotations:$supportLibs_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

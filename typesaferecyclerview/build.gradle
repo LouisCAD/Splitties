@@ -24,14 +24,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion projectSdkVersion
-    buildToolsVersion projectBuildToolsVersion
+    compileSdkVersion projectSdk_version
+    buildToolsVersion projectBuildTools_version
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion projectSdkVersion
+        targetSdkVersion projectSdk_version
         versionCode 1
-        versionName libraryVersion
+        versionName library_version
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -47,9 +47,9 @@ android {
 
 dependencies {
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:${supportLibVersion}";
-    implementation "com.android.support:appcompat-v7:${supportLibVersion}";
-    implementation "com.android.support:recyclerview-v7:${supportLibVersion}";
+    implementation "com.android.support:support-annotations:$supportLibs_version"
+    implementation "com.android.support:appcompat-v7:$supportLibs_version"
+    implementation "com.android.support:recyclerview-v7:$supportLibs_version"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
