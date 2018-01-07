@@ -22,6 +22,10 @@ import android.arch.lifecycle.Lifecycle.Event.*
 import android.arch.lifecycle.LifecycleOwner
 import splitties.exceptions.illegal
 
+/**
+ * A LifecycleObserver interface for Kotlin where you can implement only what you need.
+ * Make sure you import the right one when implementing it.
+ */
 interface LifecycleObserver : GenericLifecycleObserver {
 
     fun onCreate(owner: LifecycleOwner) = Unit
