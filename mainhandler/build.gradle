@@ -59,9 +59,5 @@ dependencies {
     })
 }
 
-ext {
-    libraryDesc = "Delegates for kotlin on android that check UI thread"
-}
-
 //apply from: '../publish.gradle'
 apply from: '../no-version-ranges.gradle'
