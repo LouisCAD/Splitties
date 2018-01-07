@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices', ':resources', ':fragmentargs', ':support-fragmentargs', ':arch-lifecycle', ':mainhandler', ':arch-room', ':bitflags'
+include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices', ':resources', ':fragmentargs', ':support-fragmentargs', ':arch-lifecycle', ':mainhandler', ':arch-room', ':bitflags', ':toast'
