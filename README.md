@@ -29,6 +29,15 @@ to continue nullable strings support in prefs.
 Stetho Init isn't expected to break, but there's no guarantees.
 
 ***Below is a list of the libraries included in this project***
+
+* [App Context](#app-context)
+* [Concurrency](#concurrency)
+* [Material Lists](#material-lists)
+* [Preferences](#preferences)
+* [Selectable Views](#selectable-views)
+* [Stetho init](#stetho-init)
+* [Typesafe RecyclerView](#typesafe-recyclerview)
+
 ## App Context
 *Have a `Context` everywhere.*
 
