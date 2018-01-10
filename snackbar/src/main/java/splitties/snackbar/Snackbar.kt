@@ -23,33 +23,33 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import splitties.resources.txt
 
-inline fun CoordinatorLayout.snack(msg: CharSequence,
-                                   duration: Int = Snackbar.LENGTH_SHORT,
-                                   actionSetup: Snackbar.() -> Unit = {}) {
-    Snackbar.make(this, msg, duration).apply(actionSetup).show()
-}
+inline fun CoordinatorLayout.snack(
+        msg: CharSequence,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        actionSetup: Snackbar.() -> Unit = {}
+) = Snackbar.make(this, msg, duration).apply(actionSetup).also { it.show() }
 
-inline fun CoordinatorLayout.snack(@StringRes msgResId: Int,
-                                   duration: Int = Snackbar.LENGTH_SHORT,
-                                   actionSetup: Snackbar.() -> Unit = {}) {
-    snack(txt(msgResId), duration, actionSetup)
-}
-
-/**
- * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
- */
-inline fun CoordinatorLayout.longSnack(msg: CharSequence,
-                                       actionSetup: Snackbar.() -> Unit = {}) {
-    snack(msg, Snackbar.LENGTH_LONG, actionSetup)
-}
+inline fun CoordinatorLayout.snack(
+        @StringRes msgResId: Int,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        actionSetup: Snackbar.() -> Unit = {}
+) = snack(txt(msgResId), duration, actionSetup)
 
 /**
  * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
  */
-inline fun CoordinatorLayout.longSnack(@StringRes msgResId: Int,
-                                       actionSetup: Snackbar.() -> Unit = {}) {
-    longSnack(txt(msgResId), actionSetup)
-}
+inline fun CoordinatorLayout.longSnack(
+        msg: CharSequence,
+        actionSetup: Snackbar.() -> Unit = {}
+) = snack(msg, Snackbar.LENGTH_LONG, actionSetup)
+
+/**
+ * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
+ */
+inline fun CoordinatorLayout.longSnack(
+        @StringRes msgResId: Int,
+        actionSetup: Snackbar.() -> Unit = {}
+) = longSnack(txt(msgResId), actionSetup)
 
 /**
  * Alias for calling [snack] with [Snackbar.LENGTH_INDEFINITE] as a duration parameter.
@@ -66,10 +66,10 @@ inline fun CoordinatorLayout.longSnack(@StringRes msgResId: Int,
  * - `allYouCanEatBuffet(…)`
  * - `buffet(…)`
  */
-inline fun CoordinatorLayout.snackForever(msg: CharSequence,
-                                          actionSetup: Snackbar.() -> Unit = {}) {
-    snack(msg, Snackbar.LENGTH_INDEFINITE, actionSetup)
-}
+inline fun CoordinatorLayout.snackForever(
+        msg: CharSequence,
+        actionSetup: Snackbar.() -> Unit = {}
+) = snack(msg, Snackbar.LENGTH_INDEFINITE, actionSetup)
 
 /**
  * Alias for calling [snack] with [Snackbar.LENGTH_INDEFINITE] as a duration parameter.
@@ -86,7 +86,7 @@ inline fun CoordinatorLayout.snackForever(msg: CharSequence,
  * - `allYouCanEatBuffet(…)`
  * - `buffet(…)`
  */
-inline fun CoordinatorLayout.snackForever(@StringRes msgResId: Int,
-                                          actionSetup: Snackbar.() -> Unit = {}) {
-    snackForever(txt(msgResId), actionSetup)
-}
+inline fun CoordinatorLayout.snackForever(
+        @StringRes msgResId: Int,
+        actionSetup: Snackbar.() -> Unit = {}
+) = snackForever(txt(msgResId), actionSetup)
