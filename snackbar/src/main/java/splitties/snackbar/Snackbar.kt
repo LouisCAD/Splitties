@@ -21,13 +21,12 @@ package splitties.snackbar
 import android.support.annotation.StringRes
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
-import android.view.View
 import splitties.resources.txt
 
 inline fun CoordinatorLayout.snack(msg: CharSequence,
                                    duration: Int = Snackbar.LENGTH_SHORT,
                                    actionSetup: Snackbar.() -> Unit = {}) {
-    snackBar(msg, duration, actionSetup)
+    Snackbar.make(this, msg, duration).apply(actionSetup).also { it.show() }
 }
 
 inline fun CoordinatorLayout.snack(@StringRes msgResId: Int,
@@ -90,10 +89,4 @@ inline fun CoordinatorLayout.snackForever(msg: CharSequence,
 inline fun CoordinatorLayout.snackForever(@StringRes msgResId: Int,
                                           actionSetup: Snackbar.() -> Unit = {}) {
     snackForever(txt(msgResId), actionSetup)
-}
-
-@PublishedApi inline internal fun View.snackBar(text: CharSequence,
-                                                duration: Int,
-                                                actionSetup: Snackbar.() -> Unit): Snackbar {
-    return Snackbar.make(this, text, duration).apply(actionSetup).also { it.show() }
 }
