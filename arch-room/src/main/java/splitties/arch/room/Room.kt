@@ -18,12 +18,19 @@ package splitties.arch.room
 
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.content.Context
 import splitties.init.appCtx
 
 typealias DbConfig<DB> = RoomDatabase.Builder<DB>.() -> Unit
 
+inline fun <reified DB : RoomDatabase> roomDb(
+        ctx: Context,
+        name: String,
+        config: DbConfig<DB> = {}
+): DB = Room.databaseBuilder(ctx, DB::class.java, name).apply(config).build()
+
 inline fun <reified DB : RoomDatabase> roomDb(name: String, config: DbConfig<DB> = {}): DB {
-    return Room.databaseBuilder(appCtx, DB::class.java, name).apply(config).build()
+    return roomDb(appCtx, name, config)
 }
 
 inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
