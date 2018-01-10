@@ -23,12 +23,26 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import splitties.resources.txt
 
+/**
+ * Shows a [Snackbar].
+ * You can configure the [action] with its text and color in [actionSetup] if needed.
+ *
+ * @param msg     The text to show. Can be formatted text.
+ * @param duration Either [Snackbar.LENGTH_SHORT] (default), [Snackbar.LENGTH_LONG] or [Snackbar.LENGTH_INDEFINITE]
+ */
 inline fun CoordinatorLayout.snack(
         msg: CharSequence,
         duration: Int = Snackbar.LENGTH_SHORT,
         actionSetup: Snackbar.() -> Unit = {}
 ) = Snackbar.make(this, msg, duration).apply(actionSetup).also { it.show() }
 
+/**
+ * Shows a [Snackbar].
+ * You can configure the [action] with its text and color in [actionSetup] if needed.
+ *
+ * @param msgResId The resource id of the text to show. Can be formatted text.
+ * @param duration Either [Snackbar.LENGTH_SHORT] (default), [Snackbar.LENGTH_LONG] or [Snackbar.LENGTH_INDEFINITE]
+ */
 inline fun CoordinatorLayout.snack(
         @StringRes msgResId: Int,
         duration: Int = Snackbar.LENGTH_SHORT,
