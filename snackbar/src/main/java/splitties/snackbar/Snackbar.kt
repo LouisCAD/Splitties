@@ -24,24 +24,16 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import splitties.resources.txt
 
-inline fun CoordinatorLayout.snack(@StringRes msgResId: Int,
-                                   duration: Int = Snackbar.LENGTH_SHORT,
-                                   actionSetup: Snackbar.() -> Unit = {}) {
-    snackBar(txt(msgResId), duration, actionSetup)
-}
-
 inline fun CoordinatorLayout.snack(msg: CharSequence,
                                    duration: Int = Snackbar.LENGTH_SHORT,
                                    actionSetup: Snackbar.() -> Unit = {}) {
     snackBar(msg, duration, actionSetup)
 }
 
-/**
- * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
- */
-inline fun CoordinatorLayout.longSnack(@StringRes msgResId: Int,
-                                       actionSetup: Snackbar.() -> Unit = {}) {
-    snack(msgResId, Snackbar.LENGTH_LONG, actionSetup)
+inline fun CoordinatorLayout.snack(@StringRes msgResId: Int,
+                                   duration: Int = Snackbar.LENGTH_SHORT,
+                                   actionSetup: Snackbar.() -> Unit = {}) {
+    snack(txt(msgResId), duration, actionSetup)
 }
 
 /**
@@ -53,23 +45,11 @@ inline fun CoordinatorLayout.longSnack(msg: CharSequence,
 }
 
 /**
- * Alias for calling [snack] with [Snackbar.LENGTH_INDEFINITE] as a duration parameter.
- *
- * **Watch your weight!**
- *
- * Side note: This method could have get one of the following names instead:
- * - `snackForLife(…)`
- * - `snackOfYourLife(…)`
- * - `outToLunch(…)`
- * - `pinnedSnack(…)` (this one was **not fun**, so it was immediately discarded)
- * - `infiniteSnack(…)`
- * - `indefiniteSnack(…)` (probably the most accurate naming, but we didn't find it any fun either)
- * - `allYouCanEatBuffet(…)`
- * - `buffet(…)`
+ * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
  */
-inline fun CoordinatorLayout.snackForever(@StringRes msgResId: Int,
-                                          actionSetup: Snackbar.() -> Unit = {}) {
-    snack(msgResId, Snackbar.LENGTH_INDEFINITE, actionSetup)
+inline fun CoordinatorLayout.longSnack(@StringRes msgResId: Int,
+                                       actionSetup: Snackbar.() -> Unit = {}) {
+    longSnack(txt(msgResId), actionSetup)
 }
 
 /**
@@ -90,6 +70,26 @@ inline fun CoordinatorLayout.snackForever(@StringRes msgResId: Int,
 inline fun CoordinatorLayout.snackForever(msg: CharSequence,
                                           actionSetup: Snackbar.() -> Unit = {}) {
     snack(msg, Snackbar.LENGTH_INDEFINITE, actionSetup)
+}
+
+/**
+ * Alias for calling [snack] with [Snackbar.LENGTH_INDEFINITE] as a duration parameter.
+ *
+ * **Watch your weight!**
+ *
+ * Side note: This method could have get one of the following names instead:
+ * - `snackForLife(…)`
+ * - `snackOfYourLife(…)`
+ * - `outToLunch(…)`
+ * - `pinnedSnack(…)` (this one was **not fun**, so it was immediately discarded)
+ * - `infiniteSnack(…)`
+ * - `indefiniteSnack(…)` (probably the most accurate naming, but we didn't find it any fun either)
+ * - `allYouCanEatBuffet(…)`
+ * - `buffet(…)`
+ */
+inline fun CoordinatorLayout.snackForever(@StringRes msgResId: Int,
+                                          actionSetup: Snackbar.() -> Unit = {}) {
+    snackForever(txt(msgResId), actionSetup)
 }
 
 @PublishedApi inline internal fun View.snackBar(text: CharSequence,
