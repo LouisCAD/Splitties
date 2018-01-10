@@ -26,7 +26,7 @@ import splitties.resources.txt
 inline fun CoordinatorLayout.snack(msg: CharSequence,
                                    duration: Int = Snackbar.LENGTH_SHORT,
                                    actionSetup: Snackbar.() -> Unit = {}) {
-    Snackbar.make(this, msg, duration).apply(actionSetup).also { it.show() }
+    Snackbar.make(this, msg, duration).apply(actionSetup).show()
 }
 
 inline fun CoordinatorLayout.snack(@StringRes msgResId: Int,
