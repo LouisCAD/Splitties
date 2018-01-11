@@ -19,6 +19,7 @@ package xyz.louiscad.splittiessample.extensions
 import android.app.UiModeManager
 import android.content.res.Configuration
 import android.support.v7.app.AppCompatActivity
+import splitties.exceptions.illegalArg
 
 fun AppCompatActivity.toggleNightMode() {
     val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK

@@ -19,27 +19,21 @@
 package xyz.louiscad.splittiessample.ui.activity
 
 import android.app.UiModeManager
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Vibrator
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.launch
-import splitties.checkedlazy.uiLazy
 import splitties.preferences.edit
+import splitties.snackbar.longSnack
+import splitties.systemservices.uiModeManager
+import splitties.systemservices.vibrator
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.toggleNightMode
-import xyz.louiscad.splittiessample.extensions.uiModeManager
 import xyz.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
-
-    private val vibrator by uiLazy { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,15 +51,12 @@ class MainActivity : AppCompatActivity() {
             } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
             // TODO: 02/03/2017 With a UI showing prefs values.
             vibrator.vibrate(pattern, -1)
-            Snackbar.make(coordinator, R.string.cant_dislike_md, Snackbar.LENGTH_LONG).show()
-        }
-        concurrency_test_button.setOnClickListener {
-            launch(CommonPool) { vibrator.vibrate(pattern, -1) }
+            coordinator.longSnack(R.string.cant_dislike_md)
         }
         toggle_night_mode_button.setOnClickListener { toggleNightMode() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
