@@ -26,12 +26,12 @@ import splitties.uithread.checkUiThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-inline fun <T : BundleHelper, R> Activity.withExtras(t: T, f: T.() -> R) = intent.extras.with(t, f)
-inline fun <T : BundleHelper> Intent.putExtras(t: T, f: T.() -> Unit) {
+inline fun <T : BundleHelper, R> Activity.withExtras(t: T, crossinline f: T.() -> R) = intent.extras.with(t, f)
+inline fun <T : BundleHelper> Intent.putExtras(t: T, crossinline f: T.() -> Unit) {
     replaceExtras((extras ?: Bundle()).apply { with(t, f) })
 }
 
-inline fun <T : BundleHelper, R> Bundle.with(t: T, f: T.() -> R): R {
+inline fun <T : BundleHelper, R> Bundle.with(t: T, crossinline f: T.() -> R): R {
     checkUiThread()
     t.currentBundle = this
     val r = t.f()
