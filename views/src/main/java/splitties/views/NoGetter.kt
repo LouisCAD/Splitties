@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices', ':resources', ':fragmentargs', ':support-fragmentargs', ':arch-lifecycle', ':mainhandler', ':arch-room', ':bitflags', ':toast', ':snackbar', ':dimensions', ':views'
+package splitties.views
+
+@PublishedApi internal const val NO_GETTER = "Property does not have a getter"
+
+/**
+ * Usage example:
+ * `@Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter`
+ */
+@PublishedApi
+inline internal val noGetter: Nothing get() = throw UnsupportedOperationException(NO_GETTER)

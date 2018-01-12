@@ -29,6 +29,7 @@ import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
+import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.toggleNightMode
 import xyz.louiscad.splittiessample.prefs.GamePreferences
@@ -40,10 +41,10 @@ class MainActivity : AppCompatActivity() {
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        launchDemoButton.setOnClickListener {
+        launchDemoButton.onClick {
             startActivity(Intent(this, DemoActivity::class.java))
         }
-        fab.setOnClickListener {
+        fab.onClick {
             GamePreferences.edit {
                 currentLevel++
                 bossesFought++
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             vibrator.vibrate(pattern, -1)
             coordinator.longSnack(R.string.cant_dislike_md)
         }
-        toggle_night_mode_button.setOnClickListener { toggleNightMode() }
+        toggle_night_mode_button.onClick { toggleNightMode() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
