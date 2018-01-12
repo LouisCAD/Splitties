@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    debugImplementation project(':dimensions')
 
     // Android Support Libraries
     implementation "com.android.support:support-annotations:$supportLibs_version"
