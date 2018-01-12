@@ -16,13 +16,34 @@
 
 package splitties.views
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import android.support.annotation.DrawableRes
 import android.widget.ImageView
 
+/**
+ * Sets a drawable resource as the content of this ImageView.
+ *
+ * **This does Bitmap reading and decoding on the UI thread, which can cause a latency hiccup.**
+ * If that's a concern, consider using [imageDrawable] or [imageBitMap] and [BitmapFactory] instead.
+ */
 inline var ImageView.imageResource: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
-    set(value) = setImageResource(value)
+    set(@DrawableRes value) = setImageResource(value)
 
+/**
+ * Sets a drawable as the content of this ImageView.
+ * A null value will clear the content.
+ */
 inline var ImageView.imageDrawable: Drawable?
     get() = drawable
     set(value) = setImageDrawable(value)
+
+/**
+ * Sets a Bitmap as the content of this ImageView.
+ * @see BitmapFactory
+ */
+inline var ImageView.imageBitMap: Bitmap
+    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    set(value) = setImageBitmap(value)
