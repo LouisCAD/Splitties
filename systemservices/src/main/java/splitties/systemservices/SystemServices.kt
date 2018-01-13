@@ -150,6 +150,5 @@ inline val storageStatsManager: StorageStatsManager @RequiresApi(26) get() = get
 inline val textClassificationManager: TextClassificationManager @RequiresApi(26) get() = getSystemService(TEXT_CLASSIFICATION_SERVICE)
 inline val wifiAwareManager: WifiAwareManager @RequiresApi(26) get() = getSystemService(WIFI_AWARE_SERVICE)
 
-@PublishedApi
-@Suppress("UNCHECKED_CAST", "NOTHING_TO_INLINE")
-internal inline fun <T> getSystemService(name: String) = appCtx.getSystemService(name) as T
+@Suppress("UNCHECKED_CAST")
+@PublishedApi internal fun <T> getSystemService(name: String) = appCtx.getSystemService(name) as T
