@@ -21,6 +21,7 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
 import android.os.Build.VERSION_CODES.M
 import android.support.annotation.ColorRes
+import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes
 import android.support.annotation.StyleRes
 import android.view.Gravity
@@ -67,8 +68,8 @@ fun TextView.setCompoundDrawables(start: Drawable? = null, top: Drawable? = null
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun TextView.setCompoundDrawables(start: Int = 0, top: Int = 0,
-                                         end: Int = 0, bottom: Int = 0) {
+inline fun TextView.setCompoundDrawables(@DrawableRes start: Int = 0, @DrawableRes top: Int = 0,
+                                         @DrawableRes end: Int = 0, @DrawableRes bottom: Int = 0) {
     val left = if (isLtr) start else end
     val right = if (isRtl) start else end
     setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
