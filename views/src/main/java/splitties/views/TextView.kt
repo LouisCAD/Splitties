@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
 import android.os.Build.VERSION_CODES.M
+import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.support.annotation.StyleRes
 import android.view.Gravity
@@ -33,7 +34,7 @@ inline var TextView.textResource: Int
 
 inline var TextView.textColorResource: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
-    set(value) = setTextColor(color(value))
+    set(@ColorRes value) = setTextColor(color(value))
 
 var TextView.textAppearance: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
