@@ -28,17 +28,18 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import splitties.resources.color
+import kotlin.DeprecationLevel.HIDDEN
 
 inline var TextView.textResource: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(@StringRes value) = setText(value)
 
 inline var TextView.textColorResource: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(@ColorRes value) = setTextColor(color(value))
 
 var TextView.textAppearance: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     @Suppress("DEPRECATION")
     set(@StyleRes value) = if (SDK_INT < M) setTextAppearance(context, value)
     else setTextAppearance(value)

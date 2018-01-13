@@ -22,6 +22,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.support.annotation.ColorInt
 import android.view.View
+import kotlin.DeprecationLevel.HIDDEN
 
 /**
  * This View's background [Drawable].
@@ -39,5 +40,5 @@ inline var View.bg: Drawable?
  * This is an alias to [View.setBackgroundColor].
  */
 inline var View.backgroundColor: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(@ColorInt colorInt) = setBackgroundColor(colorInt)

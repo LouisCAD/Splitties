@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
+import kotlin.DeprecationLevel.HIDDEN
 
 /**
  * Sets a drawable resource as the content of this ImageView.
@@ -29,7 +30,7 @@ import android.widget.ImageView
  * If that's a concern, consider using [imageDrawable] or [imageBitMap] and [BitmapFactory] instead.
  */
 inline var ImageView.imageResource: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(@DrawableRes value) = setImageResource(value)
 
 /**
@@ -45,5 +46,5 @@ inline var ImageView.imageDrawable: Drawable?
  * @see BitmapFactory
  */
 inline var ImageView.imageBitMap: Bitmap
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = setImageBitmap(value)
