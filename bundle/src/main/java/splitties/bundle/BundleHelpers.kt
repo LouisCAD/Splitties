@@ -50,8 +50,11 @@ open class BundleHelper {
 inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = true)
 inline fun <T> BundleHelper.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = false)
 
-private inline val BundleHelper.bundle: Bundle
-    get() = currentBundle ?: illegal("Bundle property accessed outside with() function!")
+private val BundleHelper.bundle: Bundle
+    get() {
+        checkUiThread()
+        return currentBundle ?: illegal("Bundle property accessed outside with() function!")
+    }
 
 object BundleDelegate {
 
