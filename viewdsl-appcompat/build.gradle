@@ -49,6 +49,7 @@ dependencies {
 
     // Android Support Libraries
     implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:appcompat-v7:$supportLibs_version"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
