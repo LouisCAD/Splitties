@@ -110,7 +110,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Kotlinx coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.20"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.21.1"
 
     // Tests
     testImplementation 'junit:junit:4.12'
