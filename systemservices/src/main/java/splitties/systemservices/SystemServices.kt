@@ -74,11 +74,11 @@ import android.view.textservice.TextServicesManager
 import splitties.init.appCtx
 
 inline val AccessibilityService.windowManager get() = getSystemService(WINDOW_SERVICE) as WindowManager
-inline val View.windowManager get() = context.getSystemService(WINDOW_SERVICE) as WindowManager
 inline val Context.windowManager get() = getSystemService(WINDOW_SERVICE) as WindowManager
+inline val View.windowManager get() = context.windowManager
 inline val windowManager: WindowManager get() = getSystemService(WINDOW_SERVICE)
-inline val View.layoutInflater: LayoutInflater get() = context.getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
 inline val Context.layoutInflater: LayoutInflater get() = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+inline val View.layoutInflater: LayoutInflater get() = context.layoutInflater
 inline val activityManager: ActivityManager get() = getSystemService(ACTIVITY_SERVICE)
 inline val powerManager: PowerManager get() = getSystemService(POWER_SERVICE)
 inline val alarmManager: AlarmManager get() = getSystemService(ALARM_SERVICE)
