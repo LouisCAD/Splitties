@@ -85,7 +85,11 @@ dependencies {
     debugImplementation project(':uithread')
     debugImplementation project(':snackbar')
     debugImplementation project(':viewdsl')
+    debugImplementation project(':viewdsl-appcompat')
+    debugImplementation project(':viewdsl-constraintlayout')
+    debugImplementation project(':viewdsl-design')
     debugImplementation project(':views')
+    debugImplementation project(':views-appcompat')
 
     releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
 
