@@ -14,5 +14,5 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.supportfragmentargs"
+<manifest package="splitties.views.appcompat"
           xmlns:android="http://schemas.android.com/apk/res/android"/>

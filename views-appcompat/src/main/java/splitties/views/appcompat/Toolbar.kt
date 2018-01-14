@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.appcompatviews
+package splitties.views.appcompat
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package splitties.supportfragmentargs
+package splitties.fragmentargs.support
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

@@ -61,7 +61,7 @@ android {
 
 dependencies {
     // This project's libraries
-    debugImplementation project(':appcompat-views')
+    debugImplementation project(':views-appcompat')
     debugImplementation project(':appctx')
     debugImplementation project(':arch-lifecycle')
     debugImplementation project(':arch-room')
@@ -76,7 +76,7 @@ dependencies {
     debugImplementation project(':material-lists')
     debugImplementation project(':preferences')
     debugImplementation project(':resources')
-    debugImplementation project(':support-fragmentargs')
+    debugImplementation project(':fragmentargs-support')
     debugImplementation project(':selectableviews')
     debugImplementation project(':stetho-init')
     debugImplementation project(':systemservices')

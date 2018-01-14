@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE")
+package splitties.views.appcompat
 
-package splitties.appcompatviews
+import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.support.v4.widget.ImageViewCompat
+import android.widget.ImageView
 
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.O
-import android.support.v7.widget.TooltipCompat
-import android.view.View
-import kotlin.DeprecationLevel.HIDDEN
+inline var ImageView.imgTintList: ColorStateList?
+    get() = ImageViewCompat.getImageTintList(this)
+    set(value) = ImageViewCompat.setImageTintList(this, value)
 
-inline fun View.contentDescAsTooltip() {
-    tooltipTxt = contentDescription
-}
-
-var View.tooltipTxt: CharSequence
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = if (SDK_INT >= O) tooltipText = value else {
-        TooltipCompat.setTooltipText(this, value)
-    }
+inline var ImageView.imgTintMode: PorterDuff.Mode?
+    get() = ImageViewCompat.getImageTintMode(this)
+    set(value) = ImageViewCompat.setImageTintMode(this, value)

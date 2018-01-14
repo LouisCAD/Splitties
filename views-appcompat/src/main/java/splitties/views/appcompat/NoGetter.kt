@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.appcompatviews
+package splitties.views.appcompat
 
 @PublishedApi internal const val NO_GETTER = "Property does not have a getter"
 
