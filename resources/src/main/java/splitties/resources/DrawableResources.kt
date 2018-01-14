@@ -42,17 +42,20 @@ fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
     else if (SDK_INT >= 16) {
         @Suppress("DEPRECATION")
         resources.getDrawable(drawableResId)
-    }else {
+    } else {
         // Prior to JELLY_BEAN, Resources.getDrawable() would not correctly
         // retrieve the final configuration density when the resource ID
         // is a reference another Drawable resource. As a workaround, try
         // to resolve the drawable reference manually.
-        resources.getValue(drawableResId, tmpValue, true)
-        val resolvedId = tmpValue.resourceId
+        val resolvedId = synchronized(tmpValue) {
+            resources.getValue(drawableResId, tmpValue, true)
+            tmpValue.resourceId
+        }
         @Suppress("DEPRECATION")
         resources.getDrawable(resolvedId)
     }
 }
+
 inline fun SupportFragment.drawable(@BoolRes drawableResId: Int) = context!!.drawable(drawableResId)
 inline fun Fragment.drawable(@BoolRes drawableResId: Int) = activity.drawable(drawableResId)
 inline fun View.drawable(@BoolRes drawableResId: Int) = context.drawable(drawableResId)
