@@ -19,7 +19,6 @@
 package xyz.louiscad.splittiessample.ui.activity
 
 import android.app.UiModeManager
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -31,6 +30,7 @@ import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
+import xyz.louiscad.splittiessample.extensions.start
 import xyz.louiscad.splittiessample.extensions.toggleNightMode
 import xyz.louiscad.splittiessample.prefs.GamePreferences
 
@@ -41,9 +41,7 @@ class MainActivity : AppCompatActivity() {
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        launchDemoButton.onClick {
-            startActivity(Intent(this, DemoActivity::class.java))
-        }
+        launchDemoButton.onClick { start<DemoActivity>() }
         fab.onClick {
             GamePreferences.edit {
                 currentLevel++
