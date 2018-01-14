@@ -61,6 +61,7 @@ android {
 
 dependencies {
     // This project's libraries
+    debugImplementation project(':appcompat-views')
     debugImplementation project(':appctx')
     debugImplementation project(':arch-lifecycle')
     debugImplementation project(':arch-room')
@@ -83,6 +84,7 @@ dependencies {
     debugImplementation project(':typesaferecyclerview')
     debugImplementation project(':uithread')
     debugImplementation project(':snackbar')
+    debugImplementation project(':viewdsl')
     debugImplementation project(':views')
 
     releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
