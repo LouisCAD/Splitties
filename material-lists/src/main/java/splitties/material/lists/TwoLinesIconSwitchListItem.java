@@ -27,24 +27,22 @@ import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout;
 
 public class TwoLinesIconSwitchListItem extends SelectableConstraintLayout {
 
+    private ImageView icon;
+    private TextView firstLine, secondLine;
+    private SwitchCompat toggle;
+
     public TwoLinesIconSwitchListItem(Context context) {
         super(context);
         init(context);
     }
-
     public TwoLinesIconSwitchListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
-
     public TwoLinesIconSwitchListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-
-    private ImageView icon;
-    private TextView firstLine, secondLine;
-    private SwitchCompat toggle;
 
     private void init(final Context context) {
         inflate(context, R.layout.content_list_item_two_lines_icon_switch, this);

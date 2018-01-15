@@ -23,4 +23,4 @@ package splitties.views.appcompat
  * `@Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter`
  */
 @PublishedApi
-inline internal val noGetter: Nothing get() = throw UnsupportedOperationException(NO_GETTER)
+internal inline val noGetter: Nothing get() = throw UnsupportedOperationException(NO_GETTER)

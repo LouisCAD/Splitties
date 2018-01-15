@@ -26,6 +26,7 @@ fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException
 
 /** Throws an [IllegalArgumentException] with the passed message. */
 fun illegalArg(errorMessage: String? = null): Nothing = throw IllegalArgumentException(errorMessage)
+
 /** Throws an [IllegalArgumentException] with the passed [argument]. */
 fun illegalArg(argument: Any?): Nothing = throw IllegalArgumentException("Illegal argument: $argument")
 

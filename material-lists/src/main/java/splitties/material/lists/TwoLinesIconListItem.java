@@ -26,6 +26,9 @@ import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout;
 
 public class TwoLinesIconListItem extends SelectableConstraintLayout {
 
+    private ImageView icon;
+    private TextView firstLine, secondLine;
+
     public TwoLinesIconListItem(Context context) {
         super(context);
         init(context);
@@ -35,14 +38,10 @@ public class TwoLinesIconListItem extends SelectableConstraintLayout {
         super(context, attrs);
         init(context);
     }
-
     public TwoLinesIconListItem(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-
-    private ImageView icon;
-    private TextView firstLine, secondLine;
 
     private void init(final Context context) {
         inflate(context, R.layout.content_list_item_two_lines_icon, this);

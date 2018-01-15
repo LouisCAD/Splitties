@@ -30,6 +30,9 @@ import android.widget.TextView;
 import xyz.louiscad.selectableviewgroups.widget.SelectableLinearLayout;
 
 public class SingleLineIconListItem extends SelectableLinearLayout {
+    private ImageView icon;
+    private TextView firstLine;
+
     public SingleLineIconListItem(@NonNull Context context) {
         super(context);
         init(context);
@@ -44,15 +47,11 @@ public class SingleLineIconListItem extends SelectableLinearLayout {
         super(context, attrs, defStyleAttr);
         init(context);
     }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public SingleLineIconListItem(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
-
-    private ImageView icon;
-    private TextView firstLine;
 
     private void init(final Context context) {
         inflate(context, R.layout.content_list_item_single_line_icon, this);
