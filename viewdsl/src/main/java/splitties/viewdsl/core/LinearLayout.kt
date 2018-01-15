@@ -35,10 +35,10 @@ inline fun LinearLayout.lParams(
         initParams: LinearLayout.LayoutParams.() -> Unit
 ) = LinearLayout.LayoutParams(width, height).apply(initParams)
 
-
-inline fun LinearLayout.lParams(width: Int = wrapContent, height: Int = wrapContent) =
-        LinearLayout.LayoutParams(width, height)
-
+inline fun LinearLayout.lParams(
+        width: Int = wrapContent,
+        height: Int = wrapContent
+) = LinearLayout.LayoutParams(width, height)
 
 inline fun LinearLayout.lParams(
         width: Int = wrapContent,
