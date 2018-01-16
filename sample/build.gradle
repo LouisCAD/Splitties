@@ -61,7 +61,8 @@ android {
 
 dependencies {
     // This project's libraries
-    debugImplementation project(':views-appcompat')
+    debugImplementation project(':alertdialog')
+    debugImplementation project(':alertdialog-appcompat')
     debugImplementation project(':appctx')
     debugImplementation project(':arch-lifecycle')
     debugImplementation project(':arch-room')
