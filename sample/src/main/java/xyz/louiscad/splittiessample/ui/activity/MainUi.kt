@@ -29,27 +29,27 @@ import splitties.dimensions.dip
 import splitties.resources.styledColor
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
+import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
-import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.verticalLayout
-import splitties.viewdsl.design.lParams
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import xyz.louiscad.splittiessample.R
+import splitties.viewdsl.design.lParams as dLParams // See overload resolution ambiguity issue on https://youtrack.jetbrains.com/issue/KT-22323
 
 class MainUi(override val ctx: MainActivity) : Ui {
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay,
-                lParams(width = matchParent, height = dip(180))) {
-            add(::CollapsingToolbarLayout, lParams(height = matchParent) {
+                dLParams(width = matchParent, height = dip(180))) {
+            add(::CollapsingToolbarLayout, dLParams(height = matchParent) {
                 scrollFlags = SCROLL_FLAG_SCROLL or SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                add(::Toolbar, lParams(width = matchParent) {
+                add(::Toolbar, dLParams(width = matchParent) {
                     collapseMode = COLLAPSE_MODE_PIN
                 }) {
                     popupTheme = R.style.AppTheme_PopupOverlay
@@ -57,14 +57,14 @@ class MainUi(override val ctx: MainActivity) : Ui {
                 }
             }
         }
-        add(::NestedScrollView, lParams(width = matchParent, height = matchParent) {
+        add(::NestedScrollView, dLParams(width = matchParent, height = matchParent) {
             behavior = AppBarLayout.ScrollingViewBehavior()
         }) {
             add(::verticalLayout, lParams(width = matchParent)) {
 
             }
         }
-        add(::FloatingActionButton, lParams {
+        add(::FloatingActionButton, dLParams {
             anchorId = R.id.app_bar
             anchorGravity = Gravity.BOTTOM or Gravity.END
             margin = dip(16)
