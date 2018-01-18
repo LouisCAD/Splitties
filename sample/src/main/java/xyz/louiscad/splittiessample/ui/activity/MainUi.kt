@@ -75,12 +75,6 @@ class MainUi(override val ctx: MainActivity) : Ui {
                 gravity = Gravity.CENTER_HORIZONTAL
                 bottomMargin = dip(8)
             })
-            add(::button, R.id.concurrency_test_button, lParams {
-                gravity = Gravity.CENTER_HORIZONTAL
-                bottomMargin = dip(8)
-            }) {
-                textResource = R.string.test_concurrency
-            }
             add(::textView, lParams {
                 margin = dimenPxSize(R.dimen.text_margin)
             }) {
