@@ -18,39 +18,50 @@ package xyz.louiscad.splittiessample.demo
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.design.widget.Snackbar.LENGTH_INDEFINITE
-import android.support.design.widget.Snackbar.LENGTH_SHORT
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_demo.*
+import splitties.checkedlazy.uiLazy
+import splitties.snackbar.action
+import splitties.snackbar.snack
+import splitties.snackbar.snackForever
+import splitties.viewdsl.core.setContentView
+import splitties.views.appcompat.configActionBar
+import splitties.views.appcompat.showHomeAsUp
+import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
 import java.lang.Integer.MAX_VALUE
 
 class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
 
+    private val ui by uiLazy { DemoUi(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_demo)
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        recyclerView.let {
+        setContentView(ui)
+        configActionBar {
+            showHomeAsUp = true
+        }
+        ui.recyclerView.let {
             it.setHasFixedSize(true)
             it.layoutManager = LinearLayoutManager(this)
             it.adapter = DemoAdapter(this)
         }
-        fab.setOnClickListener { v ->
-            Snackbar.make(v, R.string.title_feature_not_available, LENGTH_SHORT)
-                    .addCallback(object : Snackbar.Callback() {
-                        override fun onDismissed(snackbar: Snackbar?, event: Int) {
-                            Snackbar.make(v, R.string.msg_go_to_pc_manually, LENGTH_INDEFINITE).show()
-                        }
-                    }).show()
+        ui.fab.onClick {
+            ui.root.snack(R.string.title_feature_not_available) {
+                addCallback(object : Snackbar.Callback() {
+                    override fun onDismissed(snackbar: Snackbar?, event: Int) {
+                        ui.root.snackForever(R.string.msg_go_to_pc_manually)
+                    }
+                })
+            }
         }
     }
 
     override fun onDemoItemClicked(demoItem: DemoItem) {
-        Snackbar.make(coordinator, R.string.msg_marketing_guy_invents_new_feature, LENGTH_INDEFINITE)
-                .setAction(R.string.scroll_to_the_end) { recyclerView.scrollToPosition(MAX_VALUE - 1) }
-                .show()
+        ui.root.snackForever(R.string.msg_marketing_guy_invents_new_feature) {
+            action(R.string.scroll_to_the_end) {
+                ui.recyclerView.scrollToPosition(MAX_VALUE - 1)
+            }
+        }
     }
 }
