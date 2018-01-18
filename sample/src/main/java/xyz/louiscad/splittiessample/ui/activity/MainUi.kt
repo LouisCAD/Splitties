@@ -30,6 +30,7 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
+import splitties.resources.styledDimenPxSize
 import splitties.viewdsl.appcompat.button
 import splitties.viewdsl.appcompat.styles.coloredButton
 import splitties.viewdsl.appcompat.textView
@@ -49,23 +50,31 @@ import splitties.viewdsl.design.lParams as dLParams
 
 class MainUi(override val ctx: MainActivity) : Ui {
 
+    val launchDemoBtn = v(::coloredButton) {
+        textResource = R.string.go_to_the_demo
+    }
+
+    val toggleNightModeBtn = v(::button) {
+        compoundDrawablePadding = dip(4)
+        if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
+        setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
+        textResource = R.string.toggle_night_mode
+    }
+
+    val fab = v(::FloatingActionButton) {
+        imageResource = R.drawable.ic_favorite_white_24dp
+    }
+
     val content = v(::NestedScrollView) {
         add(::verticalLayout, lParams(width = matchParent)) {
-            add(::coloredButton, R.id.launchDemoButton, lParams {
+            add(launchDemoBtn, lParams {
                 gravity = Gravity.CENTER_HORIZONTAL
                 topMargin = dip(8)
-            }) {
-                textResource = R.string.go_to_the_demo
-            }
-            add(::button, R.id.toggle_night_mode_button, lParams {
+            })
+            add(toggleNightModeBtn, lParams {
                 gravity = Gravity.CENTER_HORIZONTAL
                 bottomMargin = dip(8)
-            }) {
-                compoundDrawablePadding = dip(4)
-                if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
-                setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
-                textResource = R.string.toggle_night_mode
-            }
+            })
             add(::button, R.id.concurrency_test_button, lParams {
                 gravity = Gravity.CENTER_HORIZONTAL
                 bottomMargin = dip(8)
@@ -89,23 +98,21 @@ class MainUi(override val ctx: MainActivity) : Ui {
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                add(::Toolbar, dLParams(width = matchParent) {
+                add(::Toolbar, dLParams(height = styledDimenPxSize(R.attr.actionBarSize)) {
                     collapseMode = COLLAPSE_MODE_PIN
                 }) {
-                    popupTheme = R.style.AppTheme_PopupOverlay
                     ctx.setSupportActionBar(this)
+                    popupTheme = R.style.AppTheme_PopupOverlay
                 }
             }
         }
         add(content, dLParams(width = matchParent, height = matchParent) {
             behavior = AppBarLayout.ScrollingViewBehavior()
         })
-        add(::FloatingActionButton, dLParams {
+        add(fab, dLParams {
             anchorId = R.id.app_bar
             anchorGravity = Gravity.BOTTOM or Gravity.END
             margin = dip(16)
-        }) {
-            imageResource = R.drawable.ic_favorite_white_24dp
-        }
+        })
     }
 }

@@ -22,12 +22,11 @@ import android.app.UiModeManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.*
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
+import splitties.viewdsl.core.setContentView
 import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.start
@@ -38,11 +37,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val ui = MainUi(this)
+        setContentView(ui)
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        launchDemoButton.onClick { start<DemoActivity>() }
-        fab.onClick {
+        ui.launchDemoBtn.onClick { start<DemoActivity>() }
+        ui.fab.onClick {
             GamePreferences.edit {
                 currentLevel++
                 bossesFought++
@@ -50,9 +49,9 @@ class MainActivity : AppCompatActivity() {
             } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
             // TODO: 02/03/2017 With a UI showing prefs values.
             vibrator.vibrate(pattern, -1)
-            coordinator.longSnack(R.string.cant_dislike_md)
+            ui.root.longSnack(R.string.cant_dislike_md)
         }
-        toggle_night_mode_button.onClick { toggleNightMode() }
+        ui.toggleNightModeBtn.onClick { toggleNightMode() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
