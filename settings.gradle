@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices', ':resources', ':fragmentargs', ':fragmentargs-support', ':arch-lifecycle', ':mainhandler', ':arch-room', ':bitflags', ':toast', ':snackbar', ':dimensions', ':views', ':views-appcompat', ':viewdsl', ':viewdsl-appcompat', ':viewdsl-constraintlayout', ':viewdsl-design', ':alertdialog', ':alertdialog-appcompat'
+include ':sample', ':typesaferecyclerview', ':selectableviews', ':checkedlazy', ':appctx', ':preferences', ':stetho-init', ':material-lists', ':bundle', ':initprovider', ':exceptions', ':uithread', ':systemservices', ':resources', ':fragmentargs', ':fragmentargs-support', ':arch-lifecycle', ':mainhandler', ':arch-room', ':bitflags', ':toast', ':snackbar', ':dimensions', ':views', ':views-appcompat', ':viewdsl', ':viewdsl-appcompat', ':viewdsl-constraintlayout', ':viewdsl-design', ':alertdialog', ':alertdialog-appcompat', ':viewdsl-appcompat-styles'

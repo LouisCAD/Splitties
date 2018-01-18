@@ -87,6 +87,7 @@ dependencies {
     debugImplementation project(':snackbar')
     debugImplementation project(':viewdsl')
     debugImplementation project(':viewdsl-appcompat')
+    debugImplementation project(':viewdsl-appcompat-styles')
     debugImplementation project(':viewdsl-constraintlayout')
     debugImplementation project(':viewdsl-design')
     debugImplementation project(':views')
