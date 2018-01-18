@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.ui.activity
+package xyz.louiscad.splittiessample.demo
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -24,8 +24,6 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_demo.*
 import xyz.louiscad.splittiessample.R
-import xyz.louiscad.splittiessample.ui.adapter.DemoAdapter
-import xyz.louiscad.splittiessample.ui.model.DemoItem
 import java.lang.Integer.MAX_VALUE
 
 class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {

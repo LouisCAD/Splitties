@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.ui.adapter
+package xyz.louiscad.splittiessample.demo
 
 import android.support.v7.widget.RecyclerView
 import android.view.View.OnClickListener
@@ -22,7 +22,6 @@ import android.view.ViewGroup
 import splitties.material.lists.TwoLinesIconSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
 import xyz.louiscad.splittiessample.R
-import xyz.louiscad.splittiessample.ui.model.DemoItem
 import java.lang.Integer.MAX_VALUE
 
 class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {

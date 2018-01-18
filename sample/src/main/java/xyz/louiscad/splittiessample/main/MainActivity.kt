@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 @file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
 
-package xyz.louiscad.splittiessample.ui.activity
+package xyz.louiscad.splittiessample.main
 
 import android.app.UiModeManager
 import android.os.Bundle
@@ -32,6 +32,7 @@ import xyz.louiscad.splittiessample.R
 import xyz.louiscad.splittiessample.extensions.start
 import xyz.louiscad.splittiessample.extensions.toggleNightMode
 import xyz.louiscad.splittiessample.prefs.GamePreferences
+import xyz.louiscad.splittiessample.demo.DemoActivity
 
 class MainActivity : AppCompatActivity() {
 

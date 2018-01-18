@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.ui.model;
+package xyz.louiscad.splittiessample.demo
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import android.support.annotation.DrawableRes
+import android.support.annotation.StringRes
+import android.support.v7.widget.RecyclerView
 
 /**
- * @see xyz.louiscad.splittiessample.ui.adapter.DemoAdapter.DemoViewHolder
+ * Designed for [RecyclerView] items that won't change title, detail and icon.
  */
-public class DemoItem extends ImmutableBasicItem {
 
-    public DemoItem(@StringRes int titleResId, @StringRes int detailResId, @DrawableRes int iconResId) {
-        super(titleResId, detailResId, iconResId);
-    }
-}
+open class ImmutableBasicItem(@StringRes val titleResId: Int,
+                              @StringRes val detailResId: Int,
+                              @DrawableRes val iconResId: Int)

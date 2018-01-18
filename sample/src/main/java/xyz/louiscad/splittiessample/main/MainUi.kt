@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.ui.activity
+package xyz.louiscad.splittiessample.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.support.design.widget.AppBarLayout
