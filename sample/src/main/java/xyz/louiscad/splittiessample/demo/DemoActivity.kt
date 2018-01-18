@@ -17,11 +17,11 @@
 package xyz.louiscad.splittiessample.demo
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import splitties.checkedlazy.uiLazy
 import splitties.snackbar.action
+import splitties.snackbar.onDismiss
 import splitties.snackbar.snack
 import splitties.snackbar.snackForever
 import splitties.viewdsl.core.setContentView
@@ -48,11 +48,9 @@ class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
         }
         ui.fab.onClick {
             ui.root.snack(R.string.title_feature_not_available) {
-                addCallback(object : Snackbar.Callback() {
-                    override fun onDismissed(snackbar: Snackbar?, event: Int) {
-                        ui.root.snackForever(R.string.msg_go_to_pc_manually)
-                    }
-                })
+                onDismiss {
+                    ui.root.snackForever(R.string.msg_go_to_pc_manually)
+                }
             }
         }
     }
