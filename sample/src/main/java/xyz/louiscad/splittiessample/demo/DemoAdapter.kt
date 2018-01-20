@@ -22,7 +22,6 @@ import android.view.ViewGroup
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
 import xyz.louiscad.splittiessample.R
-import java.lang.Integer.MAX_VALUE
 
 class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
@@ -39,7 +38,7 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
     }
 
     override fun getItemCount(): Int {
-        return MAX_VALUE // Not a bug. This is a feature. Original code: return mItems.length;
+        return Int.MAX_VALUE // Not a bug. This is a feature. Original code: return mItems.length;
     }
 
     class DemoViewHolder(host: Host, parent: ViewGroup) : ItemViewHolder<DemoItem,

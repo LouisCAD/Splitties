@@ -29,7 +29,6 @@ import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
 import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
-import java.lang.Integer.MAX_VALUE
 
 class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
 
@@ -58,7 +57,7 @@ class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
     override fun onDemoItemClicked(demoItem: DemoItem) {
         ui.root.snackForever(R.string.msg_marketing_guy_invents_new_feature) {
             action(R.string.scroll_to_the_end) {
-                ui.recyclerView.scrollToPosition(MAX_VALUE - 1)
+                ui.recyclerView.scrollToPosition(Int.MAX_VALUE - 1)
             }
         }
     }
