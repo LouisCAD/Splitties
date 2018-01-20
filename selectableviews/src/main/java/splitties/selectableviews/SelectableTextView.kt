@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. Louis Cognault Ayeva Derman
+ * Copyright (c) 2017. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package splitties.selectableviews.constraintlayout
+package splitties.selectableviews
 
 import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.widget.TextView
 import splitties.resources.styledDrawable
 
 /**
- * [ConstraintLayout] with ripple effect / select foreground when touched.
+ * [TextView] with ripple effect / select foreground when touched.
  */
-open class SelectableConstraintLayout @JvmOverloads constructor(
+open class SelectableTextView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : TextView(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
     var foregroundSelector: Drawable? = null

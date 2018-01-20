@@ -21,8 +21,8 @@ import android.support.v7.widget.SwitchCompat
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
+import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
 import splitties.views.inflateAndAttach
-import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout
 
 @Deprecated(
         message = "Use IconTwoLinesSwitchListItem instead. It is more efficient and " +

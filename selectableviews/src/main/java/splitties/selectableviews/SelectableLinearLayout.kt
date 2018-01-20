@@ -25,6 +25,9 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import splitties.resources.styledDrawable
 
+/**
+ * [LinearLayout] with ripple effect / select foreground when touched.
+ */
 open class SelectableLinearLayout @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {

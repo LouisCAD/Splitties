@@ -20,8 +20,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
+import splitties.selectableviews.SelectableLinearLayout
 import splitties.views.inflateAndAttach
-import xyz.louiscad.selectableviewgroups.widget.SelectableLinearLayout
 
 @Deprecated(
         message = "Use IconOneLineListItem instead. It is more efficient.",

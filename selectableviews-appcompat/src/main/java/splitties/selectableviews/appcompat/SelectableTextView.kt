@@ -25,7 +25,7 @@ import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import splitties.resources.styledDrawable
 
-class SelectableTextView @JvmOverloads constructor(
+open class SelectableTextView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : AppCompatTextView(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
@@ -42,32 +42,32 @@ class SelectableTextView @JvmOverloads constructor(
         foregroundSelector = styledDrawable(android.R.attr.selectableItemBackground)
     }
 
-    override fun drawableStateChanged() {
+    final override fun drawableStateChanged() {
         super.drawableStateChanged()
         foregroundSelector?.state = drawableState
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    final override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         foregroundSelector?.setBounds(0, 0, w, h)
     }
 
-    override fun onDraw(canvas: Canvas) {
+    final override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         foregroundSelector?.draw(canvas)
     }
 
-    override fun jumpDrawablesToCurrentState() {
+    final override fun jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState()
         foregroundSelector?.jumpToCurrentState()
     }
 
-    override fun verifyDrawable(who: Drawable): Boolean {
+    final override fun verifyDrawable(who: Drawable): Boolean {
         return who === foregroundSelector || super.verifyDrawable(who)
     }
 
     @TargetApi(LOLLIPOP)
-    override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
+    final override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
         super.dispatchDrawableHotspotChanged(x, y)
         foregroundSelector?.setHotspot(x, y)
     }

@@ -20,8 +20,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
+import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
 import splitties.views.inflateAndAttach
-import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout
 
 @Deprecated(
         message = "Use IconTwoLinesListItem instead. It is more efficient and " +

@@ -79,6 +79,8 @@ dependencies {
     debugImplementation project(':resources')
     debugImplementation project(':fragmentargs-support')
     debugImplementation project(':selectableviews')
+    debugImplementation project(':selectableviews-appcompat')
+    debugImplementation project(':selectableviews-constraintlayout')
     debugImplementation project(':stetho-init')
     debugImplementation project(':systemservices')
     debugImplementation project(':toast')

@@ -23,6 +23,7 @@ import android.view.Gravity
 import android.widget.TextView
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
+import splitties.selectableviews.SelectableLinearLayout
 import splitties.viewdsl.appcompat.imageView
 import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.core.add
@@ -34,7 +35,6 @@ import splitties.viewdsl.core.verticalMargin
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
-import xyz.louiscad.selectableviewgroups.widget.SelectableLinearLayout
 
 class IconOneLineListItem @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0

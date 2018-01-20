@@ -22,6 +22,7 @@ import android.text.TextUtils.TruncateAt.END
 import android.util.AttributeSet
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
+import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
 import splitties.viewdsl.appcompat.imageView
 import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.constraintlayout.bottomOfParent
@@ -38,7 +39,6 @@ import splitties.viewdsl.core.verticalMargin
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
-import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout
 
 class SwitchTwoLinesIconListItem @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0

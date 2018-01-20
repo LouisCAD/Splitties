@@ -47,12 +47,13 @@ android {
 dependencies {
     debugImplementation project(':dimensions')
     debugImplementation project(':resources')
+    debugApi project(':selectableviews')
+    debugApi project(':selectableviews-constraintlayout')
     debugImplementation project(':viewdsl')
     debugImplementation project(':viewdsl-appcompat')
     debugImplementation project(':viewdsl-constraintlayout')
     debugImplementation project(':views')
     debugImplementation project(':views-appcompat')
-    debugApi project(':selectableviews')
 
     // Android Support Libraries
     implementation "com.android.support:support-annotations:$supportLibs_version"
