@@ -31,6 +31,7 @@ import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.startMargin
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalMargin
+import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
 import xyz.louiscad.selectableviewgroups.widget.SelectableLinearLayout
@@ -55,11 +56,11 @@ class IconOneLineListItem @JvmOverloads constructor(
     }
 
     init {
-        add(icon, lParams {
+        add(icon, lParams(wrapContent, wrapContent) {
             gravity = Gravity.CENTER_VERTICAL or Gravity.START
             startMargin = dip(16)
         })
-        add(firstLine, lParams {
+        add(firstLine, lParams(height = wrapContent) {
             gravity = Gravity.CENTER_VERTICAL or Gravity.START
             startMargin = dip(32)
             verticalMargin = dip(16)
