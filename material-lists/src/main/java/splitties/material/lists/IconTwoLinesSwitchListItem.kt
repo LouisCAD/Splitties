@@ -72,8 +72,8 @@ class IconTwoLinesSwitchListItem @JvmOverloads constructor(
             centerVertically()
         })
         add(firstLine, lParams(height = wrapContent) {
-            topMargin = dip(8)
             startMargin = dip(72)
+            topMargin = dip(8)
             endMargin = dip(8)
             topOfParent()
             centerHorizontally()
