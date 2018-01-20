@@ -28,7 +28,7 @@ import android.support.v4.app.Fragment as SupportFragment
 @PublishedApi @JvmField internal val cachedAttrArray = IntArray(1)
 
 inline fun <T> Context.withStyledAttributes(@AttrRes attrRes: Int, func: TypedArray.(firstIndex: Int) -> T): T {
-    val styledAttrs = if (isUiThread) {
+    val styledAttrs: TypedArray = if (isUiThread) {
         uiThreadConfinedCachedAttrArray[0] = attrRes
         obtainStyledAttributes(uiThreadConfinedCachedAttrArray)
     } else obtainStyledAttr(attrRes)
