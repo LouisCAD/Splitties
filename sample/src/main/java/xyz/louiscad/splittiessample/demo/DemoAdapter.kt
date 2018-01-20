@@ -19,7 +19,7 @@ package xyz.louiscad.splittiessample.demo
 import android.support.v7.widget.RecyclerView
 import android.view.View.OnClickListener
 import android.view.ViewGroup
-import splitties.material.lists.TwoLinesIconSwitchListItem
+import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
 import xyz.louiscad.splittiessample.R
 import java.lang.Integer.MAX_VALUE
@@ -43,12 +43,12 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
     }
 
     class DemoViewHolder(host: Host, parent: ViewGroup) : ItemViewHolder<DemoItem,
-            TwoLinesIconSwitchListItem,
+            IconTwoLinesSwitchListItem,
             DemoViewHolder.Host>(host, R.layout.list_item_demo, parent) {
 
         private val itemClickListener = OnClickListener { host.onDemoItemClicked(data) }
 
-        override fun TwoLinesIconSwitchListItem.onBind() {
+        override fun IconTwoLinesSwitchListItem.onBind() {
             icon.setImageResource(data.iconResId)
             firstLine.setText(data.titleResId)
             secondLine.setText(data.detailResId)
