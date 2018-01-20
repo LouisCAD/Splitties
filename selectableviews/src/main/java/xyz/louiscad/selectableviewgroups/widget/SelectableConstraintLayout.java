@@ -59,11 +59,11 @@ public class SelectableConstraintLayout extends ConstraintLayout {
     @SuppressWarnings("WeakerAccess")
     protected void init(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray ta = context.obtainStyledAttributes(attrs,
-                R.styleable.SelectableRelativeLayout,
+                R.styleable.SelectableConstraintLayout,
                 defStyleAttr,
                 defStyleRes
         );
-        mForegroundSelector = ta.getDrawable(R.styleable.SelectableRelativeLayout_foreground);
+        mForegroundSelector = ta.getDrawable(R.styleable.SelectableConstraintLayout_foreground);
         ta.recycle();
         if (mForegroundSelector == null) {
             mForegroundSelector = getDefaultForegroundSelector(context);
