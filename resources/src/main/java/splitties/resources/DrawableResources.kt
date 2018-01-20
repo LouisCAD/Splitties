@@ -24,7 +24,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation.AttrRes
-import android.support.annotation.BoolRes
 import android.support.annotation.DrawableRes
 import android.util.TypedValue
 import android.view.View
@@ -56,9 +55,9 @@ fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
     }
 }
 
-inline fun SupportFragment.drawable(@BoolRes drawableResId: Int) = context!!.drawable(drawableResId)
-inline fun Fragment.drawable(@BoolRes drawableResId: Int) = activity.drawable(drawableResId)
-inline fun View.drawable(@BoolRes drawableResId: Int) = context.drawable(drawableResId)
+inline fun SupportFragment.drawable(@DrawableRes drawableResId: Int) = context!!.drawable(drawableResId)
+inline fun Fragment.drawable(@DrawableRes drawableResId: Int) = activity.drawable(drawableResId)
+inline fun View.drawable(@DrawableRes drawableResId: Int) = context.drawable(drawableResId)
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -66,7 +65,7 @@ inline fun View.drawable(@BoolRes drawableResId: Int) = context.drawable(drawabl
  *
  * For theme dependent resources, the application theme will be implicitly used.
  */
-inline fun appDrawable(@BoolRes drawableResId: Int) = appCtx.drawable(drawableResId)
+inline fun appDrawable(@DrawableRes drawableResId: Int) = appCtx.drawable(drawableResId)
 
 // Styled resources below
 
