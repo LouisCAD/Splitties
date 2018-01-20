@@ -41,7 +41,7 @@ import splitties.systemservices.layoutInflater
 }
 
 /**
- * @param attachToRoot must be explicitly false if used for a [RecyclerView] item.
+ * @param attachToRoot must be explicitly false if used for a `RecyclerView` item.
  *
  * @see inflateAndAttach
  * @see LayoutInflater.inflate
