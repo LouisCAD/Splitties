@@ -23,8 +23,8 @@ import android.content.res.TypedArray
 import splitties.uithread.isUiThread
 import android.support.v4.app.Fragment as SupportFragment
 
-@PublishedApi internal val uiThreadConfinedCachedAttrArray = IntArray(1)
-@PublishedApi internal val cachedAttrArray = IntArray(1)
+@PublishedApi @JvmField internal val uiThreadConfinedCachedAttrArray = IntArray(1)
+@PublishedApi @JvmField internal val cachedAttrArray = IntArray(1)
 
 inline fun <T> Context.withStyledAttributes(attrsRes: Int, func: TypedArray.(firstIndex: Int) -> T): T {
     val styledAttrs = if (isUiThread) {
