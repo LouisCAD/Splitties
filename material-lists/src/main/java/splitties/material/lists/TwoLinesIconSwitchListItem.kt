@@ -19,9 +19,9 @@ package splitties.material.lists
 import android.content.Context
 import android.support.v7.widget.SwitchCompat
 import android.util.AttributeSet
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import splitties.views.inflateAndAttach
 import xyz.louiscad.selectableviewgroups.widget.SelectableConstraintLayout
 
 @Deprecated(
@@ -37,7 +37,7 @@ class TwoLinesIconSwitchListItem @JvmOverloads constructor(
 ) : SelectableConstraintLayout(context, attrs, defStyleAttr) {
 
     init {
-        View.inflate(context, R.layout.content_list_item_two_lines_icon_switch, this)
+        inflateAndAttach(R.layout.content_list_item_two_lines_icon_switch)
     }
 
     val icon: ImageView = findViewById(R.id.icon)
