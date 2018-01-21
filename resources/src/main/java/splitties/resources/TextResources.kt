@@ -169,7 +169,7 @@ inline fun View.styledStr(@AttrRes attr: Int) = context.styledStr(attr)
  */
 inline fun appStyledStr(@AttrRes attr: Int) = appCtx.styledStr(attr)
 
-inline fun Context.styledStr(@AttrRes attr: Int, vararg formatArgs: Any): String? = withStyledAttributes(attr) { getString(it, *formatArgs) }
+fun Context.styledStr(@AttrRes attr: Int, vararg formatArgs: Any): String? = withStyledAttributes(attr) { getString(it, *formatArgs) }
 inline fun SupportFragment.styledStr(@AttrRes attr: Int, vararg formatArgs: Any) = context!!.styledStr(attr, *formatArgs)
 inline fun Fragment.styledStr(@AttrRes attr: Int, vararg formatArgs: Any) = activity.styledStr(attr, *formatArgs)
 inline fun View.styledStr(@AttrRes attr: Int, vararg formatArgs: Any) = context.styledStr(attr, *formatArgs)
@@ -182,7 +182,7 @@ inline fun View.styledStr(@AttrRes attr: Int, vararg formatArgs: Any) = context.
  */
 inline fun appStyledStr(@AttrRes attr: Int, vararg formatArgs: Any) = appCtx.styledStr(attr, *formatArgs)
 
-inline fun Context.styledTxtArray(@AttrRes attr: Int): Array<out CharSequence>? = withStyledAttributes(attr) { getTextArray(it) }
+fun Context.styledTxtArray(@AttrRes attr: Int): Array<out CharSequence>? = withStyledAttributes(attr) { getTextArray(it) }
 inline fun SupportFragment.styledTxtArray(@AttrRes attr: Int) = context!!.styledTxtArray(attr)
 inline fun Fragment.styledTxtArray(@AttrRes attr: Int) = activity.styledTxtArray(attr)
 inline fun View.styledTxtArray(@AttrRes attr: Int) = context.styledTxtArray(attr)

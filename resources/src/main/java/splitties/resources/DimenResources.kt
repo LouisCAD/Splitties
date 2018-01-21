@@ -51,7 +51,7 @@ inline fun appDimenPxOffset(@DimenRes dimenResId: Int) = appCtx.dimenPxOffset(di
 
 // Styled resources below
 
-inline fun Context.styledDimen(@AttrRes attr: Int): Float = withStyledAttributes(attr) { getDimension(it, -1f) }
+fun Context.styledDimen(@AttrRes attr: Int): Float = withStyledAttributes(attr) { getDimension(it, -1f) }
 inline fun SupportFragment.styledDimen(@AttrRes attr: Int) = context!!.styledDimen(attr)
 inline fun Fragment.styledDimen(@AttrRes attr: Int) = activity.styledDimen(attr)
 inline fun View.styledDimen(@AttrRes attr: Int) = context.styledDimen(attr)
@@ -64,7 +64,7 @@ inline fun View.styledDimen(@AttrRes attr: Int) = context.styledDimen(attr)
  */
 inline fun appStyledDimen(@AttrRes attr: Int) = appCtx.styledDimen(attr)
 
-inline fun Context.styledDimenPxSize(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getDimensionPixelSize(it, -1) }
+fun Context.styledDimenPxSize(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getDimensionPixelSize(it, -1) }
 inline fun SupportFragment.styledDimenPxSize(@AttrRes attr: Int) = context!!.styledDimenPxSize(attr)
 inline fun Fragment.styledDimenPxSize(@AttrRes attr: Int) = activity.styledDimenPxSize(attr)
 inline fun View.styledDimenPxSize(@AttrRes attr: Int) = context.styledDimenPxSize(attr)
@@ -77,7 +77,7 @@ inline fun View.styledDimenPxSize(@AttrRes attr: Int) = context.styledDimenPxSiz
  */
 inline fun appStyledDimenPxSize(@AttrRes attr: Int) = appCtx.styledDimenPxSize(attr)
 
-inline fun Context.styledDimenPxOffset(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getDimensionPixelOffset(it, -1) }
+fun Context.styledDimenPxOffset(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getDimensionPixelOffset(it, -1) }
 inline fun SupportFragment.styledDimenPxOffset(@AttrRes attr: Int) = context!!.styledDimenPxOffset(attr)
 inline fun Fragment.styledDimenPxOffset(@AttrRes attr: Int) = activity.styledDimenPxOffset(attr)
 inline fun View.styledDimenPxOffset(@AttrRes attr: Int) = context.styledDimenPxOffset(attr)

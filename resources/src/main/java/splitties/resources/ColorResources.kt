@@ -93,7 +93,7 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
  */
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
 
-inline fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList? = withStyledAttributes(attr) { getColorStateList(it) }
+fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList? = withStyledAttributes(attr) { getColorStateList(it) }
 inline fun SupportFragment.styledColorSL(@AttrRes attr: Int) = context!!.styledColorSL(attr)
 inline fun Fragment.styledColorSL(@AttrRes attr: Int) = activity.styledColorSL(attr)
 inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
