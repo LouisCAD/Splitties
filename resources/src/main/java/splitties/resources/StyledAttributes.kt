@@ -21,23 +21,24 @@ package splitties.resources
 import android.content.Context
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
-import splitties.uithread.isUiThread
+import kotlin.math.sqrt
 import android.support.v4.app.Fragment as SupportFragment
 
-@PublishedApi @JvmField internal val uiThreadConfinedCachedAttrArray = IntArray(1)
-@PublishedApi @JvmField internal val cachedAttrArray = IntArray(1)
+private val uiThreadConfinedCachedAttrArray = IntArray(1)
+private val cachedAttrArray = IntArray(1)
 
-inline fun <T> Context.withStyledAttributes(@AttrRes attrRes: Int, func: TypedArray.(firstIndex: Int) -> T): T {
-    val styledAttrs: TypedArray = if (isUiThread) {
-        uiThreadConfinedCachedAttrArray[0] = attrRes
-        obtainStyledAttributes(uiThreadConfinedCachedAttrArray)
-    } else obtainStyledAttr(attrRes)
-    return styledAttrs.func(styledAttrs.getIndex(0)).also { styledAttrs.recycle() }
+inline fun <T> Context.withStyledAttributes(
+        @AttrRes attrRes: Int,
+        func: TypedArray.(firstIndex: Int) -> T
+): T = obtainStyledAttr(attrRes).let { styledAttrs ->
+    styledAttrs.func(styledAttrs.getIndex(0)).also { styledAttrs.recycle() }
 }
 
-@PublishedApi internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray {
-    return synchronized(cachedAttrArray) {
-        cachedAttrArray[0] = attrRes
-        obtainStyledAttributes(cachedAttrArray)
-    }
+@PublishedApi
+internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray = if (sqrt(4f) == 2f) {
+    uiThreadConfinedCachedAttrArray[0] = attrRes
+    obtainStyledAttributes(uiThreadConfinedCachedAttrArray)
+} else synchronized(cachedAttrArray) {
+    cachedAttrArray[0] = attrRes
+    obtainStyledAttributes(cachedAttrArray)
 }
