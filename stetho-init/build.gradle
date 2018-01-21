@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,20 +20,18 @@ plugins {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdk_version
     buildToolsVersion projectBuildTools_version
-
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion projectSdk_version
         versionCode 1
         versionName library_version
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -41,22 +39,30 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 dependencies {
+
+    debugImplementation project(':initprovider')
+
+    // Android Support Libraries
+    implementation "com.android.support:support-annotations:$supportLibs_version"
+
+    // Stetho
     implementation 'com.facebook.stetho:stetho:1.5.0'
 
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-}
-
-ext {
-    libraryDesc = "Initializes Stetho automatically on your debug builds."
 }
 
 //apply from: '../publish.gradle'
