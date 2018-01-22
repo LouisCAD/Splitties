@@ -13,7 +13,7 @@ Splitties, currently published in version 1.3.0 on jcenter, is being worked on f
  modules, and for a better API. The next published version will be 2.0.0-alpha1.
 
 #### What won't break 
-App Context is the only module guaranteed to have a non breaking API. You can already used it
+App Context is the only module guaranteed to have a non breaking API. You can already use it
 in stable libraries.
 
 #### What will break
