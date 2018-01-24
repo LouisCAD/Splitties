@@ -20,6 +20,7 @@ import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import splitties.views.inflate
 
 /**
  * Convenience ViewHolder class for list items that need a reference to their [Host] to dispatch
@@ -35,7 +36,7 @@ abstract class ItemViewHolder<Data : Any, V : View, Host>(protected val host: Ho
         private set
 
     constructor(host: Host, @LayoutRes layoutResId: Int, parent: ViewGroup)
-            : this(host, parent.inflateItem(layoutResId))
+            : this(host, parent.inflate(layoutResId, attachToRoot = false))
 
     /**
      * Don't create objects, use non inlined lambdas, or call methods doing so in this callback

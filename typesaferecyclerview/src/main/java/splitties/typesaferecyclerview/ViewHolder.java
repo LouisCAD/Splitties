@@ -17,9 +17,12 @@
 package splitties.typesaferecyclerview;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
+import splitties.views.LayoutInflaterKt;
 
 /**
  * Type-safe version of {@link RecyclerView.ViewHolder}.
@@ -29,25 +32,25 @@ public class ViewHolder<V extends View> extends RecyclerView.ViewHolder {
     /**
      * You can access this typed field instead of casting {@link RecyclerView.ViewHolder#itemView}.
      */
-    public final V itemView;
+    public final @NonNull V itemView;
 
     /**
      * Creates ViewHolder from the provided View.
      * @see #ViewHolder(int, ViewGroup)
      */
-    public ViewHolder(V itemView) {
+    public ViewHolder(@NonNull V itemView) {
         super(itemView);
         this.itemView = itemView;
     }
 
     /**
      * Creates a ViewHolder from a layout resource id.
-     *
      * @param layoutResId ID for an XML layout resource to load (e.g., R.layout.main_page)
      * @param parent      pass the first argument received in
      *                    {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    public ViewHolder(@LayoutRes int layoutResId, ViewGroup parent) {
-        this(LayoutInflaterKt.<V>inflateItem(parent, layoutResId));
+    @SuppressWarnings("unchecked")
+    public ViewHolder(@LayoutRes int layoutResId, @NonNull ViewGroup parent) {
+        this(LayoutInflaterKt.<V>inflate(parent, layoutResId, false));
     }
 }
