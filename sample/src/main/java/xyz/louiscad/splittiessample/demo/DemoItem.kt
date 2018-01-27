@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo;
+package xyz.louiscad.splittiessample.demo
 
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
+import android.support.annotation.DrawableRes
+import android.support.annotation.StringRes
 
 /**
  * @see DemoAdapter.DemoViewHolder
  */
-public class DemoItem extends ImmutableBasicItem {
-
-    public DemoItem(@StringRes int titleResId, @StringRes int detailResId, @DrawableRes int iconResId) {
-        super(titleResId, detailResId, iconResId);
-    }
-}
+class DemoItem(
+        @StringRes titleResId: Int,
+        @StringRes detailResId: Int,
+        @DrawableRes iconResId: Int
+) : ImmutableBasicItem(titleResId, detailResId, iconResId)
