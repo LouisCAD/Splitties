@@ -20,7 +20,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
+import splitties.views.imageResource
 import splitties.views.onClick
+import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
 
 class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
@@ -52,9 +54,9 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
         }
 
         override fun IconTwoLinesSwitchListItem.onBind() {
-            icon.setImageResource(data.iconResId)
-            firstLine.setText(data.titleResId)
-            secondLine.setText(data.detailResId)
+            icon.imageResource = data.iconResId
+            firstLine.textResource = data.titleResId
+            secondLine.textResource = data.detailResId
         }
 
         interface Host {
