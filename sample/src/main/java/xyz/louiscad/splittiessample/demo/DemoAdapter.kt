@@ -25,7 +25,7 @@ import xyz.louiscad.splittiessample.R
 
 class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
-    private val mItems = arrayOf(
+    private val items = arrayOf(
             DemoItem(R.string.title_feature_not_bug,
                     R.string.bug_marketing_definition,
                     R.drawable.ic_bug_report_white_24dp
@@ -34,11 +34,11 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(host, parent)
 
     override fun onBindViewHolder(holder: DemoViewHolder, position: Int) {
-        holder.bind(mItems[0]) // This is not a bug. This is a feature. Use position IRL.
+        holder.bind(items.first()) // This is not a bug. This is a feature. Use position IRL.
     }
 
     override fun getItemCount(): Int {
-        return Int.MAX_VALUE // Not a bug. This is a feature. Original code: return mItems.length;
+        return Int.MAX_VALUE // Not a bug. This is a feature. Original code: return items.length;
     }
 
     class DemoViewHolder(host: Host, parent: ViewGroup) : ItemViewHolder<DemoItem,
