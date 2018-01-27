@@ -17,19 +17,21 @@
 package xyz.louiscad.splittiessample.demo
 
 import android.support.v7.widget.RecyclerView
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
+import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
 
 class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
     private val items = arrayOf(
-            DemoItem(R.string.title_feature_not_bug,
+            DemoItem(
+                    R.string.title_feature_not_bug,
                     R.string.bug_marketing_definition,
                     R.drawable.ic_bug_report_white_24dp
-            ))
+            )
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(host, parent)
 
@@ -45,13 +47,14 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
             IconTwoLinesSwitchListItem,
             DemoViewHolder.Host>(host, R.layout.list_item_demo, parent) {
 
-        private val itemClickListener = OnClickListener { host.onDemoItemClicked(data) }
+        init {
+            itemView.onClick { host.onDemoItemClicked(data) }
+        }
 
         override fun IconTwoLinesSwitchListItem.onBind() {
             icon.setImageResource(data.iconResId)
             firstLine.setText(data.titleResId)
             secondLine.setText(data.detailResId)
-            setOnClickListener(itemClickListener)
         }
 
         interface Host {
