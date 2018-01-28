@@ -36,7 +36,9 @@ You can read more on this
 https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html
 ).
 
-## Multi-process apps and libraries
+## Advanced use cases
+
+### Multi-process apps and libraries
 While most apps run on single-process, on the default one, some need to
 run some components in different processes. If your app needs to access
 `appCtx` or `directBootCtx` directly, or indirectly in a component that
