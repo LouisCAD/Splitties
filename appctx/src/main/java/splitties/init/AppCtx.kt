@@ -39,15 +39,6 @@ val appCtx: Context get() = internalCtx ?: initAndGetAppCtxWithReflection()
 @SuppressLint("StaticFieldLeak")
 private var internalCtx: Context? = null
 
-@SuppressLint("PrivateApi")
-private fun initAndGetAppCtxWithReflection(): Context {
-    // Fallback, should only run once per non default process.
-    val activityThread = Class.forName("android.app.ActivityThread")
-    val ctx = activityThread.getDeclaredMethod("currentApplication").invoke(null) as Context
-    internalCtx = ctx
-    return ctx
-}
-
 /**
  * **Usage of this method is discouraged** because the [appCtx] should be automatically initialized
  * and setting it to a custom Context may cause unpredictable behavior in some parts of the app,
@@ -86,4 +77,13 @@ fun Context.canLeakMemory(): Boolean {
         is ContextWrapper -> if (baseContext === this) true else baseContext.canLeakMemory()
         else -> applicationContext === null
     }
+}
+
+@SuppressLint("PrivateApi")
+private fun initAndGetAppCtxWithReflection(): Context {
+    // Fallback, should only run once per non default process.
+    val activityThread = Class.forName("android.app.ActivityThread")
+    val ctx = activityThread.getDeclaredMethod("currentApplication").invoke(null) as Context
+    internalCtx = ctx
+    return ctx
 }
