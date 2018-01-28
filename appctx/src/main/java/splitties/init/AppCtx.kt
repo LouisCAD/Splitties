@@ -70,13 +70,11 @@ fun Context.injectAsAppCtx() {
  * This includes [Activity], [Service], the lesser used and lesser known [BackupAgent], as well as
  * any [ContextWrapper] having one of these as its base context.
  */
-fun Context.canLeakMemory(): Boolean {
-    return when (this) {
-        is Application -> false
-        is Activity, is Service, is BackupAgent -> true
-        is ContextWrapper -> if (baseContext === this) true else baseContext.canLeakMemory()
-        else -> applicationContext === null
-    }
+fun Context.canLeakMemory(): Boolean = when (this) {
+    is Application -> false
+    is Activity, is Service, is BackupAgent -> true
+    is ContextWrapper -> if (baseContext === this) true else baseContext.canLeakMemory()
+    else -> applicationContext === null
 }
 
 @SuppressLint("PrivateApi")
