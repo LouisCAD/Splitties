@@ -180,5 +180,20 @@ And of course, the same goes if you find a bug.
 
 Finally, if you find a typo, please, submit a pull-request without opening an issue.
 
+## What is a split
+A "split" is a module of the Splitties library that you can add as a
+dependency. It only includes the required transitive dependencies.
+This allows you to only add what you need in your app or library module,
+so the final apk is as small as possible and doesn't include stuff not used
+by your app.
+
+Let's say you're build an Android Wear app using the View DSL.
+Android Wear apps don't need AppCompat. Including it would be a waste of
+bandwidth and storage. The View DSL core module relies on the Android
+SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
+by using View DSL. However, if you are building a phone, tablet or computer
+Android app, there's a View DSL AppCompat split with a few extensions for
+you to use.
+
 ## License
 This library is published under Apache License version 2.0 which you can see [here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
