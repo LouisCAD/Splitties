@@ -1,23 +1,42 @@
 # App Context
-This split[*](../README.md#what-is-a-split "What is a split in Splitties?") provides
-an `appCtx` read-only property that returns your
-Application Context as well as `directBootCtx`.
+This [split](../README.md#what-is-a-split "What is a split in Splitties?") provides
+two read-only properties:
 
-You can use `appCtx` anywhere in your app (without risking leaking a
+- `appCtx` that returns your Application Context
+- `directBootCtx` for your [direct boot](
+https://developer.android.com/training/articles/direct-boot.html
+) aware components where storage is involved, if any.
+
+It also brings these 2 extensions functions on `Context` for advanced usages:
+- `injectAsAppCtx()`
+- `canLeakMemory()`
+
+You can use `appCtx` and `directBoot` anywhere in your app (without risking leaking a
 short-lived context such as an Activity or a Service).
-This makes writing code that needs a Context for non Activity specific
+This makes writing code that needs a `Context` for non Activity specific
 purposes more convenient.
 
 ## Important: use the right context!
 You may not want to use the Application Context in some cases.
+
+### Context for storage
+If you need a `Context` to access storage from a library
+(for SharedPreferences, a database or other files), you should allow
+passing a specific `Context` that could default as `appCtx`, so it is
+possible for target apps to use a special `Context` like `directBootCtx`.
+
+### Configuration dependent or themed Context
 Devices on which your app/library runs may (will) change configuration
 during the app's process lifecycle, such as screen density, language or
 orientation.
-Please, do not use this context if you rely on a scoped `Context` such as
-accessing themed resources from an Activity, or configuration dependent
-values or resources. Configuration dependent context usage may be ok if
-your component handle `onConfigurationChanged()` properly though. If you
-wonder if using Application Context is ok, test your app against
+
+Please, do not use `appCtx` or `directBootCtx` if you rely on a "scoped"
+`Context` to access themed resources from an Activity, or
+configuration dependent values/resources.
+
+Note that in some cases, configuration dependent context usage may be ok if
+your component handles `onConfigurationChanged()` properly. More generally,
+if you wonder if using Application Context is ok, test your app against
 configuration changes that may affect it and check it reacts correctly.
 
 ## How it works
@@ -44,8 +63,16 @@ run some components in different processes. If your app needs to access
 `appCtx` or `directBootCtx` directly, or indirectly in a component that
 has it's `android:process` tag in `AndroidManifest.xml` set to
 `:the_name_of_your_private_process` or
-`the_fully_qualified_name_of_your_shared_process`, you need to do the
-following:
+`the_fully_qualified_name_of_your_shared_process`, you have 3 solutions:
+1. Do nothing and let `appCtx` init itself with reflection on first access
+2. Call `injectAsAppCtx()` in the `onCreate()` method of your custom
+`Application` subclass.
+3. Subclass `AppCtxInitProvider` and declare it correctly in your
+`AndroidManifest.xml` for each non default process. This option may be the
+best one if you're making a library that has its own process as no further
+configuration will be required on the app side. See instructions below:
+
+#### How to declare an AppCtxInitProvider correctly (for multi-process usage)
 
 1. Subclass `AppCtxInitProvider`
 2. Register your subclass as a `provider` in your AndroidManifest.xml file.
@@ -79,7 +106,3 @@ import splitties.init.AppCtxInitProvider
 
 class SecondProcessInitProvider : AppCtxInitProvider()
 ```
-
-Alternatively, for an app (doesn't work for libraries), you can call
-`setAppCtx(app: Application)` from your custom application class
-`onCreate()` method to init the `appCtx` manually.
