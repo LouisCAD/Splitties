@@ -1,5 +1,6 @@
 # App Context
-This library provides an `appCtx` read-only property that returns your
+This split[*](../README.md#what-is-a-split "What is a split in Splitties?") provides
+an `appCtx` read-only property that returns your
 Application Context as well as `directBootCtx`.
 
 You can use `appCtx` anywhere in your app (without risking leaking a
