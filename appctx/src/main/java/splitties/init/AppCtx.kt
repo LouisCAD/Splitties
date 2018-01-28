@@ -34,15 +34,13 @@ import android.view.ContextThemeWrapper
  * [AppCtxInitProvider] which is initialized by Android as early as possible when your app's
  * process is created.
  */
-inline val appCtx: Context get() = internalCtx ?: initAppCtxWithReflection()
+val appCtx: Context get() = internalCtx ?: initAndGetAppCtxWithReflection()
 
-@PublishedApi
 @SuppressLint("StaticFieldLeak")
-internal var internalCtx: Context? = null
+private var internalCtx: Context? = null
 
-@PublishedApi
 @SuppressLint("PrivateApi")
-internal fun initAppCtxWithReflection(): Context {
+private fun initAndGetAppCtxWithReflection(): Context {
     // Fallback, should only run once per non default process.
     val activityThread = Class.forName("android.app.ActivityThread")
     val ctx = activityThread.getDeclaredMethod("currentApplication").invoke(null) as Context
