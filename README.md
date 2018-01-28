@@ -2,7 +2,7 @@
 ### What is this
 This project is split in small modules, distributed as independent Android libraries, so you can include in your project only what you need.
 
-I try to do my best to make the footprint of each module as small as possible and as performant as possible.
+I try to do my best to make the footprint of each module as small as possible and as efficient as possible.
 
 ### Why I made this
 I personally often copy/pasted the code which makes these libraries into the projects I worked on, so I made this library to make it a one line operation, and make potential updates to this code easier. Now, everyone can use this work.
@@ -53,7 +53,7 @@ Designed for Kotlin. Provides `lazy` implementations that can check for access o
 [Read more here](concurrency/README.md)
 
 ## Material Lists
-*List Items for RecyclerView implementing [Material Design Guidelines](https://material.io/guidelines/)*
+*List Items for RecyclerView implementing [Material Design Guidelines](https://material.io/guidelines)*
 
 **Warning! I found a few display issues when the text is longer than the width of the RecyclerView, so I don't recommend to use this right now, but it'll be fixed in next version!**
 
@@ -110,10 +110,10 @@ Just use `SelectableLinearLayout`, `SelectableRelativeLayout` or `SelectableCons
     ...
 </SelectableConstraintLayout>
 ```
-Note that the `foreground` atrribute does not clash with android's one (for API 23+), and applies to subclasses.
+Note that the `foreground` attribute does not clash with android's one (for API 23+), and applies to subclasses.
 
 ### Explanation
-`FrameLayout` is historically the only `ViewGroup` which supports a foreground drawable attribute. The foreground attribute is often used with value `@android:attr/selectableItemBackground` to provide visual feedback when the user touches a selectable element such as a list item in a RecyclerView, which translates as a Ripple effect starting from Android Lollipop. As a consequence, people usually wrap their `RelativeLayout`, `LinearLayout` or other `ViewGroup` with a `FrameLayout` just to provide this foreground attribute. This is unefficient, espacially if this is replicated as it is in a RecyclerView. The foreground attribute is part of the `View` class since Android Marshmallow now, but few apps can have their minSdk set to 23, so I made this library which provides a `foreground` attribute that defaults to `@android:attr/selectableItemBackground` for popular `ViewGroups` and `TextView`.
+`FrameLayout` is historically the only `ViewGroup` which supports a foreground drawable attribute. The foreground attribute is often used with value `@android:attr/selectableItemBackground` to provide visual feedback when the user touches a selectable element such as a list item in a RecyclerView, which translates as a Ripple effect starting from Android Lollipop. As a consequence, people usually wrap their `RelativeLayout`, `LinearLayout` or other `ViewGroup` with a `FrameLayout` just to provide this foreground attribute. This is inefficient, especially if this is replicated as it is in a RecyclerView. The foreground attribute is part of the `View` class since Android Marshmallow now, but few apps can have their minSdk set to 23, so I made this library which provides a `foreground` attribute that defaults to `@android:attr/selectableItemBackground` for popular `ViewGroups` and `TextView`.
 
 ## Stetho init
 *Have [Stetho](https://github.com/facebook/stetho) without writing any code!*
