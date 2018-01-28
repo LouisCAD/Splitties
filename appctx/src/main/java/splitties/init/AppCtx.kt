@@ -21,6 +21,7 @@ import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.app.backup.BackupAgent
+import android.content.ContentProvider
 import android.content.Context
 import android.content.ContextWrapper
 import android.view.ContextThemeWrapper
@@ -44,10 +45,10 @@ private var internalCtx: Context? = null
  * and setting it to a custom Context may cause unpredictable behavior in some parts of the app,
  * especially if some libraries rely on the true applicationContext.
  *
- * **However**, if your app needs to use [appCtx] outside of the default process and the reflection method throws an exception on some
- * devices, you may find useful to call this method from your [Application.onCreate]. This method
- * may also be useful if you need change the [appCtx] value with one from a configuration context
- * with an overriden locale for example.
+ * **However**, if your app needs to use [appCtx] outside of the default process and the reflection
+ * method throws an exception on some devices, you may find useful to call this method from your
+ * [Application.onCreate]. This method may also be useful if you need change the [appCtx] value with
+ * one from a configuration context with an overriden locale for example.
  *
  * **If you ever use this method because of non-default process, and throwing reflection init,
  * be sure to call this method before you try to access [appCtx] or [directBootCtx].**
@@ -77,6 +78,14 @@ fun Context.canLeakMemory(): Boolean = when (this) {
     else -> applicationContext === null
 }
 
+/**
+ * This methods is only run if [appCtx] is accessed while [AppCtxInitProvider] hasn't been
+ * initialized. This may happen in case you're accessing it outside the default process, or in case
+ * you are accessing it in a [ContentProvider] with a higher priority than [AppCtxInitProvider]
+ * (900 at the time of writing this doc).
+ *
+ * If you don't want this code that uses reflection to ever run, see [injectAsAppCtx].
+ */
 @SuppressLint("PrivateApi")
 private fun initAndGetAppCtxWithReflection(): Context {
     // Fallback, should only run once per non default process.
