@@ -1,8 +1,18 @@
 # Splitties
-### What is this
-This project is split in small modules, distributed as independent Android libraries, so you can include in your project only what you need.
 
-I try to do my best to make the footprint of each module as small as possible and as efficient as possible.
+Splitties is a collection of small independent Android libraries that aims
+to make developing apps and libraries for Android (including Wear, TV,
+Things, Auto and ChromeOS targeted) easier and more `fun`.
+
+Some modules are similar to what [Anko](https://github.com/Kotlin/anko)
+provides.
+
+This project is named "Splitties" because it is split in small modules,
+distributed as independent Android libraries, so you can add only the ones
+you need to your project/module, helping reduce the size of the final apk.
+
+Each module has been designed to have a small footprint and be as efficient
+as possible.
 
 ### Why I made this
 I personally often copy/pasted the code which makes these libraries into the projects I worked on, so I made this library to make it a one line operation, and make potential updates to this code easier. Now, everyone can use this work.
@@ -41,7 +51,10 @@ Stetho Init isn't expected to break, but there's no guarantees.
 ## App Context
 *Have a `Context` everywhere.*
 
-Designed for Kotlin. When you don't need configuration dependent or themed `Context`, just use `appCtx` from any Kotlin code to get a reference to your application Context. This library also provides a lazily initialized `directBootCtx` for direct boot aware apps.
+Designed for Kotlin. When you don't need a configuration dependent or
+themed `Context`, just use `appCtx` from any Kotlin code to get a
+reference to your application Context. This library also provides a
+lazily initialized `directBootCtx` for direct boot aware apps.
 
 [Read more here](appctx/README.md)
 
