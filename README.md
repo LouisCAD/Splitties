@@ -14,9 +14,6 @@ you need to your project/module, helping reduce the size of the final apk.
 Each module has been designed to have a small footprint and be as efficient
 as possible.
 
-### Why I made this
-I personally often copy/pasted the code which makes these libraries into the projects I worked on, so I made this library to make it a one line operation, and make potential updates to this code easier. Now, everyone can use this work.
-
 ***Below is a list of the libraries included in this project***
 
 * [App Context](#app-context)
