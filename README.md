@@ -17,27 +17,6 @@ as possible.
 ### Why I made this
 I personally often copy/pasted the code which makes these libraries into the projects I worked on, so I made this library to make it a one line operation, and make potential updates to this code easier. Now, everyone can use this work.
 
-### Upcoming API changes
-
-Splitties, currently published in version 1.3.0 on jcenter, is being worked on for more useful
- modules, and for a better API. The next published version will be 2.0.0-alpha1.
-
-#### What won't break 
-App Context is the only module guaranteed to have a non breaking API. You can already use it
-in stable libraries.
-
-#### What will break
-* Preferences will change `StringPref` from nullable to non null. `StringOrNull` will be added
-to continue nullable strings support in prefs.
-* Concurrency will be replaced by Ui Thread and Checked Lazy splits.
-* Material Lists will replace xml layouts by a view dsl and will undergo naming fixes
-
-#### What may break
-* Selectable Views should stay compatible but may move to Kotlin
-* TypeSafe RecyclerView may undergo public API changes not defined at the moment.
-
-Stetho Init isn't expected to break, but there's no guarantees.
-
 ***Below is a list of the libraries included in this project***
 
 * [App Context](#app-context)
