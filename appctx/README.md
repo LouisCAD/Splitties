@@ -1,4 +1,7 @@
 # App Context
+
+*Always have your application `Context` at hand with `appCtx`.*
+
 This [split](../README.md#what-is-a-split "What is a split in Splitties?") provides
 two read-only properties:
 
