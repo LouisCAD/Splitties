@@ -14,6 +14,8 @@ you need to your project/module, helping reduce the size of the final apk.
 Each module has been designed to have a small footprint and be as efficient
 as possible.
 
+## All the splits
+
 <details>
 <summary>
 <b>Click here to expand the outline of the <a href="#what-is-a-split" title="What is a split?">splits</a></b>
