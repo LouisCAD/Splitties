@@ -73,7 +73,7 @@ variant
 [Read more here](appctx/README.md)
 
 ### Arch Lifecycle
-###### TODO
+*Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.*
 
 [Read more here](arch-lifecycle/README.md)
 
