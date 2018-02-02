@@ -58,12 +58,14 @@ variant
 </details>
 
 ### Alert Dialog
+*Create simple alert dialogs with simple code*
 
-###### TODO
+[Read more here](alertdialog/README.md)
 
 ### Alert Dialog AppCompat
+*AppCompat version of [Alert Dialog](#alert-dialog)*
 
-###### TODO
+[Read more here](alertdialog-appcompat/README.md)
 
 ### App Context
 *Always have your application `Context` at hand with `appCtx`.*
@@ -71,67 +73,56 @@ variant
 [Read more here](appctx/README.md)
 
 ### Arch Lifecycle
-
 ###### TODO
 
 [Read more here](arch-lifecycle/README.md)
 
 ### Arch Room
-
 ###### TODO
 
 [Read more here](arch-room/README.md)
 
 ### Bit Flags
-
 ###### TODO
 
 [Read more here](bitflags/README.md)
 
 ### Bundle
-
 ###### TODO
 
 [Read more here](bundle/README.md)
 
 ### Checked Lazy
-
 ###### TODO
 
 [Read more here](checkedlazy/README.md)
 
 ### Dimensions
-
 ###### TODO
 
 [Read more here](dimensions/README.md)
 
 ### Exceptions
-
 ###### TODO
 
 [Read more here](exceptions/README.md)
 
 ### Fragment Args
-
 ###### TODO
 
 [Read more here](fragmentargs/README.md)
 
 ### Fragment Args Support
-
 ###### TODO
 
 [Read more here](fragmentargs-support/README.md)
 
 ### Init Provider
-
 ###### TODO
 
 [Read more here](initprovider/README.md)
 
 ### Main Handler
-
 ###### TODO
 
 [Read more here](mainhandler/README.md)
@@ -148,7 +139,6 @@ https://material.io/guidelines)*
 [Read more here](preferences/README.md)
 
 ### Resources
-
 ###### TODO
 
 [Read more here](resources/README.md)
@@ -202,43 +192,36 @@ checker.*
 [Read more here](uithread/README.md)
 
 ### View DSL
-
 ###### TODO
 
 [Read more here](viewdsl/README.md)
 
 ### View DSL AppCompat
-
 ###### TODO
 
 [Read more here](viewdsl-appcompat/README.md)
 
 ### View DSL AppCompat styles
-
 ###### TODO
 
 [Read more here](viewdsl-appcompat-styles/README.md)
 
 ### View DSL ConstraintLayout
-
 ###### TODO
 
 [Read more here](viewdsl-constraintlayout/README.md)
 
 ### View DSL Design
-
 ###### TODO
 
 [Read more here](viewdsl-design/README.md)
 
 ### Views
-
 ###### TODO
 
 [Read more here](views/README.md)
 
 ### Views AppCompat
-
 ###### TODO
 
 [Read more here](views-appcompat/README.md)
