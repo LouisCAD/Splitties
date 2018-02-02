@@ -14,7 +14,11 @@ you need to your project/module, helping reduce the size of the final apk.
 Each module has been designed to have a small footprint and be as efficient
 as possible.
 
-***Below is a list of the libraries included in this project***
+<details>
+<summary>
+<b>Click here to expand the outline of the <a href="#what-is-a-split" title="What is a split?">splits</a></b>
+</summary>
+
 * [Alert Dialog](#alert-dialog) and its [AppCompat](#alert-dialog-appcompat)
 variant
 * [App Context](#app-context)
@@ -48,6 +52,8 @@ variant
 * [View DSL Design](#view-dsl-design)
 * [Views](#views)
 * [Views AppCompat](#views-appcompat)
+
+</details>
 
 ### Alert Dialog
 
