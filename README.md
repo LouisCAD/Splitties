@@ -68,13 +68,6 @@ variant
 ### App Context
 *Always have your application `Context` at hand with `appCtx`.*
 
-###### TODO
-
-Designed for Kotlin. When you don't need a configuration dependent or
-themed `Context`, just use `appCtx` from any Kotlin code to get a
-reference to your application Context. This library also provides a
-lazily initialized `directBootCtx` for direct boot aware apps.
-
 [Read more here](appctx/README.md)
 
 ### Arch Lifecycle
