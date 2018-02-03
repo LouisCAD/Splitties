@@ -123,7 +123,8 @@ impossible or illegal `when` branches.*
 [Read more here](fragmentargs-support/README.md)
 
 ### Init Provider
-###### TODO
+*Base class for `ContentProvider`s used for automatic initialization
+purposes.*
 
 [Read more here](initprovider/README.md)
 
