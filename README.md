@@ -83,7 +83,8 @@ variant
 [Read more here](arch-room/README.md)
 
 ### Bit Flags
-###### TODO
+*`hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
+and `Byte`*
 
 [Read more here](bitflags/README.md)
 
