@@ -133,7 +133,7 @@ impossible or illegal `when` branches.*
 [Read more here](mainhandler/README.md)
 
 ### Material Lists
-*List Items for RecyclerView implementing [Material Design Guidelines](
+*List Items for RecyclerView implementing [Material Design guidelines](
 https://material.io/guidelines)*
 
 [Read more here](material-lists/README.md)
