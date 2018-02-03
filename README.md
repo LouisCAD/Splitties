@@ -113,12 +113,12 @@ impossible or illegal `when` branches.*
 [Read more here](exceptions/README.md)
 
 ### Fragment Args
-###### TODO
+*Platform Fragment arguments without ceremony thanks to delegated properties.*
 
 [Read more here](fragmentargs/README.md)
 
 ### Fragment Args Support
-###### TODO
+*Fragment arguments without ceremony thanks to delegated properties.*
 
 [Read more here](fragmentargs-support/README.md)
 
