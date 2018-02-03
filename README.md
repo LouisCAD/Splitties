@@ -129,7 +129,8 @@ purposes.*
 [Read more here](initprovider/README.md)
 
 ### Main Handler
-###### TODO
+*Top-level `mainHandler` property to stop allocating multiple `Handler`s for
+main `Looper`.*
 
 [Read more here](mainhandler/README.md)
 
