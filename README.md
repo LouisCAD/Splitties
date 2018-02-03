@@ -89,7 +89,8 @@ and `Byte`*
 [Read more here](bitflags/README.md)
 
 ### Bundle
-###### TODO
+*`BundleHelper` to use `Bundle` with property syntax for `Intent` extras
+and more.*
 
 [Read more here](bundle/README.md)
 
