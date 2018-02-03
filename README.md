@@ -107,7 +107,8 @@ when using [View DSL](#view-dsl).*
 [Read more here](dimensions/README.md)
 
 ### Exceptions
-###### TODO
+*`illegal(…)` and similar functions that return `Nothing`, handy for
+impossible or illegal `when` branches.*
 
 [Read more here](exceptions/README.md)
 
