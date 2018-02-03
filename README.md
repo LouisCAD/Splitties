@@ -95,7 +95,8 @@ and more.*
 [Read more here](bundle/README.md)
 
 ### Checked Lazy
-###### TODO
+*`uiLazy` that checks property access on UI thread, and `checkedLazy`
+to make your own variant.*
 
 [Read more here](checkedlazy/README.md)
 
