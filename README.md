@@ -101,7 +101,8 @@ to make your own variant.*
 [Read more here](checkedlazy/README.md)
 
 ### Dimensions
-###### TODO
+*Android `dp` extensions for `View` and `Context`. Particularly handy
+when using [View DSL](#view-dsl).*
 
 [Read more here](dimensions/README.md)
 
