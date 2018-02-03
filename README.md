@@ -146,7 +146,8 @@ https://material.io/guidelines)*
 [Read more here](preferences/README.md)
 
 ### Resources
-###### TODO
+*Extensions to get resources like strings, colors or drawables easily,
+with support for themed attributes.*
 
 [Read more here](resources/README.md)
 
