@@ -78,7 +78,7 @@ variant
 [Read more here](arch-lifecycle/README.md)
 
 ### Arch Room
-###### TODO
+*Room helpers to instantiate your DB and perform transactions in Kotlin.*
 
 [Read more here](arch-room/README.md)
 
