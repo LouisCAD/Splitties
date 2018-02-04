@@ -18,7 +18,8 @@ as possible.
 
 <details>
 <summary>
-<b>Click here to expand the outline of the <a href="#what-is-a-split" title="What is a split?">splits</a></b>
+<b>Click here to expand the outline of the
+<a href="#what-is-a-split" title="What is a split?">splits</a></b>
 </summary>
 
 * [Alert Dialog](#alert-dialog) and its [AppCompat](#alert-dialog-appcompat)
@@ -326,4 +327,5 @@ Android app, there's a View DSL AppCompat split with a few extensions for
 you to use.
 
 ## License
-This library is published under Apache License version 2.0 which you can see [here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
+This library is published under Apache License version 2.0 which you can see
+[here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
