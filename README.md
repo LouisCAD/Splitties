@@ -200,37 +200,38 @@ checker.*
 [Read more here](uithread/README.md)
 
 ### View DSL
-###### TODO
+*Create UIs with readable Kotlin code.*
 
 [Read more here](viewdsl/README.md)
 
 ### View DSL AppCompat
-###### TODO
+*AppCompat extension of [View DSL](#view-dsl)*
 
 [Read more here](viewdsl-appcompat/README.md)
 
 ### View DSL AppCompat styles
-###### TODO
+*AppCompat styles for [View DSL](#view-dsl)*
 
 [Read more here](viewdsl-appcompat-styles/README.md)
 
 ### View DSL ConstraintLayout
-###### TODO
+*ConstraintLayout extension of [View DSL](#view-dsl)*
 
 [Read more here](viewdsl-constraintlayout/README.md)
 
 ### View DSL Design
-###### TODO
+*Design Support Library extension of [View DSL](#view-dsl)*
 
 [Read more here](viewdsl-design/README.md)
 
 ### Views
-###### TODO
+*Extensions function and properties on `View`s.*
 
 [Read more here](views/README.md)
 
 ### Views AppCompat
-###### TODO
+*AppCompat extension of [Views](#views). Includes helpers for `ImageView`
+tinting, `ActionBar` and tooltip.*
 
 [Read more here](views-appcompat/README.md)
 
