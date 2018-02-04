@@ -2,8 +2,8 @@
 
 *Always have your application `Context` at hand with `appCtx`.*
 
-This [split](../README.md#what-is-a-split "What is a split in Splitties?") provides
-two read-only properties:
+This [split](../README.md#what-is-a-split "What is a split in Splitties?")
+provides two read-only properties:
 
 - `appCtx` that returns your Application Context
 - `directBootCtx` for your [direct boot](
@@ -14,8 +14,8 @@ It also brings these 2 extensions functions on `Context` for advanced usages:
 - `injectAsAppCtx()`
 - `canLeakMemory()`
 
-You can use `appCtx` and `directBoot` anywhere in your app (without risking leaking a
-short-lived context such as an Activity or a Service).
+You can use `appCtx` and `directBoot` anywhere in your app (without risking
+leaking a short-lived context such as an Activity or a Service).
 This makes writing code that needs a `Context` for non Activity specific
 purposes more convenient.
 
