@@ -22,7 +22,7 @@ class YourActivity : AppCompatActivity {
             okButton { irreversibleStuff() }
             cancelButton()
         }.onShow {
-            positiveButton.textColorResource = R.color.material_red_500
+            positiveButton.textColorResource = R.color.red_500
         }.show()
     }
 }
