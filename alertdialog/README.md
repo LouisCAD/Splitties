@@ -2,6 +2,9 @@
 
 *Create simple alert dialogs with simple code*
 
+You may be looking for [the AppCompat version](
+../alertdialog-appcompat/README.md).
+
 ## Example
 
 ```kotlin
