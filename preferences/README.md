@@ -54,6 +54,9 @@ The supported types are:
 * `Set<String>`
 * `Set<String>?`
 
+For **default SharedPreferences**, make an `object` that extends
+`DefaultPreferences` instead of `Preferences`.
+
 #### Why `object` and not `class`?
 
 Using a `class` instead of an `object` is not recommended because it would
