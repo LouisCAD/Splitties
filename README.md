@@ -136,8 +136,8 @@ main `Looper`.*
 [Read more here](mainhandler/README.md)
 
 ### Material Lists
-*List Items for RecyclerView implementing [Material Design guidelines](
-https://material.io/guidelines)*
+*List item Views implementing [Material Design guidelines](
+https://material.io/guidelines) (perfect for usage in a `RecyclerView`).*
 
 [Read more here](material-lists/README.md)
 
