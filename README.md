@@ -184,7 +184,8 @@ without writing any code!*
 [Read more here](systemservices/README.md)
 
 ### Toast
-*Show a toast by just calling `toast(yourText)`.*
+*Show a toast by just calling `toast(yourText)`, and dodge [API 25
+`BadTokenException`](https://github.com/drakeet/ToastCompat#why).*
 
 [Read more here](toast/README.md)
 
