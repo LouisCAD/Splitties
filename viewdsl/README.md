@@ -57,6 +57,7 @@ start/end without added boilerplate.
 included logic being taken into account.
 * Layout parameters are not mixed with View config.
 * **No reflection** involved.
+* No need for `findViewById(…)` and the implied lookup costs.
 
 ### Cons of Splitties View DSL
 
@@ -66,3 +67,41 @@ an easy one: you need to create an xml file for the View you want to style
 and to define a method to inflate it).
 * Preview requires a build (but you're less likely to need preview thanks
 to additional type safety and more expressive UI code).
+* You can't create a View id on the fly (but you can declare an id resource
+easily or reuse one declared on-the-fly from an existing xml layout).
+
+## Content
+
+Splitties View DSL is made of a few things you can build upon:
+
+* [An optional interface named `Ui`](
+src/main/java/splitties/viewdsl/core/Ui.kt) whose implementations are meant
+to contain your UI code (instead of having it spread over an xml file and
+an `Activity` or a `Fragment`).
+* The `v` extension function available on `Ui`, `View` and `Context` that
+lets you concisely create a View using an (inlined) method reference that
+takes a `Context` parameter (like all proper View constructors) with an
+optional id, an optional theme id and an optional lambda to configure the
+View.
+* The `add` extension function available on `ViewGroup` that does the same
+as `v`, but also requires a `ViewGroup.LayoutParams` (or subclass) parameter
+used to add the created View to the `ViewGroup`.
+* `lParams` extension function on `LinearLayout` and `FrameLayout` (
+[`ConstraintLayout`](../viewdsl-constraintlayout/README.md),
+and [Design Support Library ViewGroups](../viewdsl-design/README.md) have
+theirs too, and you can very easily make one for any other `ViewGroup`),
+which allows to easily set layout parameters that you can use in
+`add`, with type safety.
+* `wrapContent` and `matchParent` inline extensions properties on
+`ViewGroup` are convenience aliases to `ViewGroup.LayoutParams.WRAP_CONTENT`
+and `ViewGroup.LayoutParams.MATCH_PARENT`.
+* `horizontalMargin`, `verticalMargin` and `margin` for convenient margins
+definition in layout parameters (`ViewGroup.MarginLayoutParams` which is the
+base of nearly all LayoutParams).
+* `startMargin` and `endMargin` which are compatible below API 17 (using LTR)
+and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
+* `verticalLayout` and `horizontalLayout` which return a `LinearLayout` with
+the orientation you expect to use with `v` or `add`.
+
+**There are additional View DSL splits for ConstraintLayout and Support
+Libraries. [See in the README](../README.md#view-dsl).**
