@@ -105,3 +105,139 @@ the orientation you expect to use with `v` or `add`.
 
 **There are additional View DSL splits for ConstraintLayout and Support
 Libraries. [See in the README](../README.md#view-dsl).**
+
+## Usage
+
+### Creating and adding Views
+
+Use `v(…) { … }` to create a `View` from a `Context`, a `View` or a `Ui`:
+
+```
+v(::YourView, id = R.id.id_of_your_view, theme = R.style.your_theme) {
+    // The created View is the receiver, configure it there.
+}
+```
+
+In the snippet above:
+* `::YourView` is a method reference that automatically
+maps to the `YourView` constructor with a single `Context` parameter. It is
+equivalent to the following inline lambda: `{ YourView(it) }` where is a
+`Context`. 
+* `id` is an optional parameter.
+* `R.id.id_of_your_view` would be declared in xml, [as done in the sample](
+../sample/src/main/res/values/view_ids.xml).
+* `theme` is an optional parameter.
+* The optional lambda has the created View as a receiver so you can
+configure it.
+
+Here's a more practical example below:
+
+```kotlin
+val headlineTextView = v(::textView, R.id.tv_headline) {
+    textResource = R.string.welcome_to_my_awesome_app
+    textAppearance = R.style.TextAppearance_AppCompat_Headline
+}
+```
+
+You may have noticed we are using the `textView` function here instead of
+the `TextView` constructor. `textView` is a method from the
+[View DSL AppCompat split](../viewdsl-appcompat/README.md) and calls the
+`AppCompatTextView` constructor, just like the layout inflater is doing
+with `TextView`s from xml layouts when using an AppCompat theme. It can be
+used here as a method reference too because its only parameter is of type
+`Context`.
+
+To create a `View` and add it directly to a `ViewGroup` with
+layout parameters, you can use the `add` extension function on `ViewGroup`
+instead of a combination of `v` and `ViewGroup`'s `addView` member method:
+
+```
+add(::YourView, id = R.id.id_of_your_view, theme = R.style.your_theme, lp = lParams()) {
+    // The created View is the receiver, configure it there.
+}
+```
+
+You can see the usage is the same as with `v`, excepted the additional,
+required `lp` parameter. This parameter is the `ViewGroup.LayoutParams`
+instance that is used to add the created `View` to the `ViewGroup` on which
+the `add` extension function is called.
+
+The snippet above assumes that the receiver (aka. `this`) is a `ViewGroup`
+subclass that has an `lParams` extension function to generate typesafe layout
+parameters. This
+[split](../README.md#what-is-a-split "What is a split in Splitties?")
+includes `lParams` extension functions for `FrameLayout` and `LinearLayout`.
+`ConstraintLayout` support can be found in the
+[View DSL ConstraintLayout split](../README.md#view-dsl-constraintlayout),
+and support for
+`CoordinatorLayout` and `AppBarLayout` can be found in the
+[View DSL Design split](../README.md#view-dsl-design). You can also write
+`lParams` extension functions yourself in a few lines for any other
+`ViewGroup` (take a look at the ones from this project if you need to write
+your own).
+
+Below is a more practical example:
+
+```kotlin
+val uiRoot = v(::FrameLayout) {
+    add(::textView, lParams(gravity = Gravity.CENTER)) {
+        textResource = R.string.welcome_to_my_awesome_app
+        textAppearance = R.style.TextAppearance_AppCompat_Headline
+    }
+}
+```
+
+The `uiRoot` property is a reference to a `FrameLayout` that has a `TextView`
+at its center.
+
+In the example above, if we needed to retain a reference to the `TextView`
+for later use, we would transform the code like this:
+
+```kotlin
+val headlineTextView = v(::textView)  {
+    textResource = R.string.welcome_to_my_awesome_app
+    textAppearance = R.style.TextAppearance_AppCompat_Headline
+}
+
+val uiRoot = v(::FrameLayout) {
+    add(headlineTextView, lParams(gravity = Gravity.CENTER))
+}
+```
+
+Note that in the snippet above, the called `add` extension function is just
+an alias to `addView` with exactly the same parameters. This alias exists so
+it matches the `add` extension function that takes a `View` initialization
+lambda.
+
+### Organizing code in `Ui` implementations
+
+When doing user interfaces with xml layouts, you usually put the static part
+of the UI in one xml file, that you use in an `Activity` or a `Fragment`,
+which includes the code for the dynamic part of the UI.
+
+Splitties View DSL offers another approach, where your UI code, both static
+and dynamic is in one file, that is not an `Activity` or a `Fragment`, so
+you can easily switch from one to another with minimal refactoring.
+
+It is based on the following interface named `Ui`:
+```kotlin
+interface Ui {
+    val ctx: Context
+    val root: View
+}
+```  
+Its `ctx` property is meant to be overriden as a constructor parameter in
+the implementations of the interface. Is is used by the `v` extension
+function to pass a `Context` when creating the `View`s.
+ 
+Its `root` property is meant to be used in `setContentView(…)` in an
+`Activity` or returned from `onCreateView(…)` in a `Fragment`.
+
+See concrete examples in [`MainUi`](
+../sample/src/main/java/xyz/louiscad/splittiessample/main/MainUi.kt) and
+[`DemoUi`](
+../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoUi.kt) with
+their respective Activities [`MainActivity`](
+../sample/src/main/java/xyz/louiscad/splittiessample/main/MainActivity.kt)
+and [`DemoActivity`](
+../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoActivity.kt).
