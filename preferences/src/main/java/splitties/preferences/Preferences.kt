@@ -64,10 +64,10 @@ abstract class Preferences(name: String,
     protected fun stringOrNullPref(defaultValue: String? = null) =
             StringOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringSetPref(defaultValue: MutableSet<String>) =
+    protected fun stringSetPref(defaultValue: Set<String>) =
             StringSetPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringSetOrNullPref(defaultValue: MutableSet<String>? = null) =
+    protected fun stringSetOrNullPref(defaultValue: Set<String>? = null) =
             StringSetOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
     private var edit = false
@@ -156,26 +156,23 @@ abstract class Preferences(name: String,
         }
     }
 
-    protected inner class StringSetPref(val key: String,
-                                        val defaultValue: MutableSet<String>) {
-        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): MutableSet<String> {
+    protected inner class StringSetPref(val key: String, val defaultValue: Set<String>) {
+        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Set<String> {
             return prefs.getStringSet(key.real(prop), defaultValue)
         }
 
-        operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
-                              value: MutableSet<String>) {
+        operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Set<String>) {
             editor.putStringSet(key.real(prop), value).attemptApply()
         }
     }
 
     protected inner class StringSetOrNullPref(val key: String,
-                                              val defaultValue: MutableSet<String>? = null) {
-        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): MutableSet<String>? {
+                                              val defaultValue: Set<String>? = null) {
+        operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Set<String>? {
             return prefs.getStringSet(key.real(prop), defaultValue)
         }
 
-        operator fun setValue(thisRef: Preferences, prop: KProperty<*>,
-                              value: MutableSet<String>?) {
+        operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Set<String>?) {
             editor.putStringSet(key.real(prop), value).attemptApply()
         }
     }
