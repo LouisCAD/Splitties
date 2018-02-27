@@ -64,7 +64,8 @@ class IconTwoLinesSwitchListItem @JvmOverloads constructor(
     val switch = v(::SwitchCompat, R.id.toggle)
 
     init {
-        add(icon, lParams(wrapContent, wrapContent) {
+        val iconSize = dip(24)
+        add(icon, lParams(iconSize, iconSize) {
             verticalMargin = dip(8)
             startMargin = dip(16)
             startOfParent()

@@ -56,7 +56,8 @@ class IconOneLineListItem @JvmOverloads constructor(
     }
 
     init {
-        add(icon, lParams(wrapContent, wrapContent) {
+        val iconSize = dip(24)
+        add(icon, lParams(iconSize, iconSize) {
             gravity = Gravity.CENTER_VERTICAL or Gravity.START
             startMargin = dip(16)
         })

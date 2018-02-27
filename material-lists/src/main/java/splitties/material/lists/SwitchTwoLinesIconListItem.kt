@@ -89,7 +89,8 @@ class SwitchTwoLinesIconListItem @JvmOverloads constructor(
             endToStart = icon.id
             bottomOfParent()
         })
-        add(icon, lParams(wrapContent, wrapContent) {
+        val iconSize = dip(24)
+        add(icon, lParams(iconSize, iconSize) {
             verticalMargin = dip(8)
             endMargin = dip(16)
             centerVertically()
