@@ -66,20 +66,20 @@ inline fun <V : View> ViewGroup.add(
         @StyleRes theme: Int = NO_THEME,
         lp: ViewGroup.LayoutParams,
         initView: V.() -> Unit = {}
-) = addView(v(createView, id, theme, initView), lp)
+): V = v(createView, id, theme, initView).also { addView(it, lp) }
 
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int,
         lp: ViewGroup.LayoutParams,
         initView: V.() -> Unit = {}
-) = addView(createView(context).also { it.id = id }.apply(initView), lp)
+): V = createView(context).also { it.id = id }.apply(initView).also { addView(it, lp) }
 
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         lp: ViewGroup.LayoutParams,
         initView: V.() -> Unit = {}
-) = addView(createView(context).apply(initView), lp)
+): V = createView(context).apply(initView).also { addView(it, lp) }
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun ViewGroup.add(view: View, lp: ViewGroup.LayoutParams) = addView(view, lp)
