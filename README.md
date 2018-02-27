@@ -1,184 +1,330 @@
 # Splitties
-### What is this
-This project is split in small modules, distributed as independent Android libraries, so you can include in your project only what you need.
 
-I try to do my best to make the footprint of each module as small as possible and as performant as possible.
+Splitties is a collection of small independent Android libraries that aims
+to make developing apps and libraries for Android (including Wear, TV,
+Things, Auto and ChromeOS targeted) easier and more `fun`.
 
-### Why I made this
-I personally often copy/pasted the code which makes these libraries into the projects I worked on, so I made this library to make it a one line operation, and make potential updates to this code easier. Now, everyone can use this work.
+Some modules are similar to what [Anko](https://github.com/Kotlin/anko)
+provides.
 
-### Upcoming API changes
+This project is named "Splitties" because it is split in small modules,
+distributed as independent Android libraries, so you can add only the ones
+you need to your project/module, helping reduce the size of the final apk.
 
-Splitties, currently published in version 1.3.0 on jcenter, is being worked on for more useful
- modules, and for a better API. The next published version will be 2.0.0-alpha1.
+Each module has been designed to have a small footprint and be as efficient
+as possible.
 
-#### What won't break 
-App Context is the only module guaranteed to have a non breaking API. You can already use it
-in stable libraries.
+## All the splits
 
-#### What will break
-* Preferences will change `StringPref` from nullable to non null. `StringOrNull` will be added
-to continue nullable strings support in prefs.
-* Concurrency will be replaced by Ui Thread and Checked Lazy splits.
-* Material Lists will replace xml layouts by a view dsl and will undergo naming fixes
+<details>
+<summary>
+<b>Click here to expand the outline of the
+<a href="#what-is-a-split" title="What is a split?">splits</a></b>
+</summary>
 
-#### What may break
-* Selectable Views should stay compatible but may move to Kotlin
-* TypeSafe RecyclerView may undergo public API changes not defined at the moment.
-
-Stetho Init isn't expected to break, but there's no guarantees.
-
-***Below is a list of the libraries included in this project***
-
+* [Alert Dialog](#alert-dialog) and its [AppCompat](#alert-dialog-appcompat)
+variant
 * [App Context](#app-context)
-* [Concurrency](#concurrency)
+* [Arch Lifecycle](#arch-lifecycle)
+* [Arch Room](#arch-room)
+* [Bit Flags](#bit-flags)
+* [Bundle](#bundle)
+* [Checked Lazy](#checked-lazy)
+* [Dimensions](#dimensions)
+* [Exceptions](#exceptions)
+* [Fragment Args](#fragment-args)
+* [Fragment Args support](#fragment-args-support)
+* [Init Provider](#init-provider)
+* [Main Handler](#main-handler)
 * [Material Lists](#material-lists)
 * [Preferences](#preferences)
-* [Selectable Views](#selectable-views)
+* [Resources](#resources)
+* [Selectable Views](#selectable-views) plus its
+[AppCompat](#selectable-views-appcompat) and
+[ConstraintLayout](#selectable-views-constraintlayout) extensions
+* [Snackbar](#snackbar)
 * [Stetho init](#stetho-init)
+* [System Services](#system-services)
+* [Toast](#toast)
 * [Typesafe RecyclerView](#typesafe-recyclerview)
+* [UI Thread](#ui-thread)
+* [View DSL](#view-dsl) plus its [AppCompat](#view-dsl-appcompat),
+[AppCompat styles](#view-dsl-appcompat-styles),
+[ConstraintLayout](#view-dsl-constraintlayout) and
+[Design](#view-dsl-design) extensions
+* [Views](#views) plus its [AppCompat](#views-appcompat) extensions
 
-## App Context
-*Have a `Context` everywhere.*
+</details>
 
-Designed for Kotlin.
-### Why?
-I was tired of searching for a reference to the current context everytime, and tired of not being able to use it in Kotlin's `object` singletons, so I found a safe way to have a reference to the application Context everywhere.
-### Usage
-When you don't need configuration dependent or themed `Context`, just use `appCtx` from any Kotlin code to get a reference to your application Context. This library also provides a lazily initialized `directBootCtx` for direct boot aware apps.
+### Alert Dialog
+*Create simple alert dialogs with simple code*
+
+[Read more here](alertdialog/README.md)
+
+### Alert Dialog AppCompat
+*AppCompat version of [Alert Dialog](#alert-dialog)*
+
+[Read more here](alertdialog-appcompat/README.md)
+
+### App Context
+*Always have your application `Context` at hand with `appCtx`.*
 
 [Read more here](appctx/README.md)
 
-## Concurrency
-*Single thread `lazy` implementations, with reporting via [Timber](https://github.com/JakeWharton/timber) support.*
+### Arch Lifecycle
+*Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.*
 
-Designed for Kotlin.
-### What it does
-Provides `lazy` implementations that can check for access on single thread or UI thread.
+[Read more here](arch-lifecycle/README.md)
 
-Also provides the `mainLooper` and `isUiThread` properties.
+### Arch Room
+*Room helpers to instantiate your DB and perform transactions in Kotlin.*
 
-### Usage
-Write `lazy` as usual, but make sure you have `import splitties.concurrency.lazy` in your imports. If not, you're using the wrong implementation. Note that you can still use regular lazy implementations with this import thanks to inline proxy function to Kotlin's stdlib lazy methods.
-You can customize the behavior when a violation occurs. The default one is to throw and `IllegalStateException` but as it's done in the sample, you can change it to report using [Timber](https://github.com/JakeWharton/timber) or to ignore it. When using the report mode, it's easy to forward it to your favorite error reporting system such as [Firebase Crash Reporting](https://firebase.google.com/docs/crash/) using a custom Timber Tree.
+[Read more here](arch-room/README.md)
 
-[Read more here](concurrency/README.md)
+### Bit Flags
+*`hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
+and `Byte`*
 
-## Material Lists
-*List Items for RecyclerView implementing [Material Design Guidelines](https://material.io/guidelines/)*
+[Read more here](bitflags/README.md)
 
-**Warning! I found a few display issues when the text is longer than the width of the RecyclerView, so I don't recommend to use this right now, but it'll be fixed in next version!**
+### Bundle
+*`BundleHelper` to use `Bundle` with property syntax for `Intent` extras
+and more.*
 
-Written in Java only, but the simple API is Kotlin friendly. Uses ConstraintLayout and LinearLayout.
+[Read more here](bundle/README.md)
 
-You can directly use the layout files.
-Not all lists items documented in the guidelines are implemented for now. If you want another one not implemented, please, file an issue.
+### Checked Lazy
+*`uiLazy` that checks property access on UI thread, and `checkedLazy`
+to make your own variant.*
 
-The goal of this library is to finally provide the most efficient and lightweight implementation for all [list items](https://material.io/guidelines/components/lists.html) and [list control](https://material.io/guidelines/components/lists-controls.html) items described in the Material Design Guidelines.
+[Read more here](checkedlazy/README.md)
 
-Here are the available list items:
+### Dimensions
+*Android `dp` extensions for `View` and `Context`. Particularly handy
+when using [View DSL](#view-dsl).*
 
-* `R.layout.list_item_single_line_icon`
-* `R.layout.list_item_switch_two_lines_icon`
-* `R.layout.list_item_two_lines_icon_switch`
-* `R.layout.list_item_two_lines_icon`
+[Read more here](dimensions/README.md)
 
-See an example in the sample.
+### Exceptions
+*`illegal(…)` and similar functions that return `Nothing`, handy for
+impossible or illegal `when` branches.*
 
-## Preferences
+[Read more here](exceptions/README.md)
+
+### Fragment Args
+*Platform Fragment arguments without ceremony thanks to delegated properties.*
+
+[Read more here](fragmentargs/README.md)
+
+### Fragment Args Support
+*Fragment arguments without ceremony thanks to delegated properties.*
+
+[Read more here](fragmentargs-support/README.md)
+
+### Init Provider
+*Base class for `ContentProvider`s used for automatic initialization
+purposes.*
+
+[Read more here](initprovider/README.md)
+
+### Main Handler
+*Top-level `mainHandler` property to stop allocating multiple `Handler`s for
+main `Looper`.*
+
+[Read more here](mainhandler/README.md)
+
+### Material Lists
+*List item Views implementing [Material Design guidelines](
+https://material.io/guidelines) (perfect for usage in a `RecyclerView`).*
+
+[Read more here](material-lists/README.md)
+
+### Preferences
 *Property syntax for Android's SharedPreferences.*
 
-For use in Kotlin.
+[Read more here](preferences/README.md)
 
-### Usage
-Define your preferences in an `object` or a `class` like in the example below:
-```kotlin
-import splitties.preferences.Preferences
+### Resources
+*Extensions to get resources like strings, colors or drawables easily,
+with support for themed attributes.*
 
-object GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0) // Key is the property name.
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
-}
-```
-### How it works
-This library uses Kotlin's property delegation to make using SharedPreferences as easy as accessing a property on an object. It relies on the `appCtx` module of this library to allow usage in `object` in Kotlin, and can support storage on device encrypted storage for devices supporting Direct Boot. See [the source code](preferences/src/main/java/splitties/preferences) for more information
+[Read more here](resources/README.md)
 
-## Selectable Views
-*Selectable TextView, ViewGroups and RecyclerView list items made easy.*
+### Selectable Views
+*Selectable Views with `foreground` property before API 23.*
 
-Made in Java. Works exactly the same in Kotlin.
-### What it does
-It adds a `foreground` attribute to `TextView` and common ViewGroups (`ConstraintLayout`, `LinearLayout` and `RelativeLayout`) which defaults to `@android:attr/selectableItemBackground`, allowing visual feedback when the user selects the View. This can be useful in a `RecyclerView`.
-### Usage
-Just use `SelectableLinearLayout`, `SelectableRelativeLayout` or `SelectableConstraintLayout` in your layouts, or extend them, and if you want to customize the foreground, follow this example:
-```xml
-<SelectableConstraintLayout
-    ...
-    app:foreground="@drawable/your_state_drawable>
-    ...
-</SelectableConstraintLayout>
-```
-Note that the `foreground` atrribute does not clash with android's one (for API 23+), and applies to subclasses.
-### Explanation
-`FrameLayout` is historically the only `ViewGroup` which supports a foreground drawable attribute. The foreground attribute is often used with value `@android:attr/selectableItemBackground` to provide visual feedback when the user touches a selectable element such as a list item in a RecyclerView, which translates as a Ripple effect starting from Android Lollipop. As a consequence, people usually wrap their `RelativeLayout`, `LinearLayout` or other `ViewGroup` with a `FrameLayout` just to provide this foreground attribute. This is unefficient, espacially if this is replicated as it is in a RecyclerView. The foreground attribute is part of the `View` class since Android Marshmallow now, but few apps can have their minSdk set to 23, so I made this library which provides a `foreground` attribute that defaults to `@android:attr/selectableItemBackground` for popular `ViewGroups` and `TextView`.
+[Read more here](selectableviews/README.md)
 
-## Stetho init
-*Have [Stetho](https://github.com/facebook/stetho) without writing any code!*
+### Selectable Views AppCompat
+*[Selectable Views](#selectable-views) for AppCompatTextView.*
 
-Made in Java (because using Kotlin here would be overkill).
-### What it does
-This library uses a Content Provider (like Firebase) to initialize Stetho automatically. You just have to include the dependency on your debug build and voilà!
-### Usage
-Just add the dependency to your debug build like in the example below:
-```groovy
-debugCompile "xyz.louiscad.splitties:splitties-stetho-init:$splittiesVersion"
-```
+[Read more here](selectableviews-appcompat/README.md)
 
-## Typesafe RecyclerView
-Written in Kotlin and Java. Works similarly in both languages.
-### What it does
-It makes using RecyclerView simpler, with less boilerplate for basic or less basic usages.
-### Usage
-Download or clone the project and open it in Android Studio to see the sample. Alternatively, take a look at these classes:
-[DemoAdapter](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/adapter/DemoAdapter.java), [DemoListItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/widget/DemoListItem.java), [DemoItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/model/DemoItem.java) and [ImmutableBasicItem](https://github.com/LouisCAD/Splitties/blob/master/sample/src/main/java/xyz/louiscad/splittiessample/ui/model/ImmutableBasicItem.java).
-### Explanation
-This modules consists of two `ViewHolder` subclasses that make it typesafe, and easier to use for the common use case which is to bind a ViewHolder to a POJO. See the sample to understand how it works.
+### Selectable Views ConstraintLayout
+*[Selectable Views](#selectable-views) for ConstraintLayout.*
+
+[Read more here](selectableviews-constraintlayout/README.md)
+
+### Snackbar
+*Grab a snack without ceremony with `snack(…)` and `longSnack(…)`*
+
+[Read more here](snackbar/README.md)
+
+### Stetho init
+*Have [Stetho](https://github.com/facebook/stetho) for your debug builds,
+without writing any code!*
+
+[Read more here](stetho-init/README.md)
+
+### System Services
+*No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.*
+
+[Read more here](systemservices/README.md)
+
+### Toast
+*Show a toast by just calling `toast(yourText)`, and dodge [API 25
+`BadTokenException`](https://github.com/drakeet/ToastCompat#why).*
+
+[Read more here](toast/README.md)
+
+### Typesafe RecyclerView
+*Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of
+`RecyclerView`.*
+
+[Read more here](typesaferecyclerview/README.md)
+
+### UI Thread
+*Properties related to Android UI thread, and `checkUiThread()` precondition
+checker.*
+
+[Read more here](uithread/README.md)
+
+### View DSL
+*Create UIs with readable Kotlin code.*
+
+[Read more here](viewdsl/README.md)
+
+### View DSL AppCompat
+*AppCompat extension of [View DSL](#view-dsl)*
+
+[Read more here](viewdsl-appcompat/README.md)
+
+### View DSL AppCompat styles
+*AppCompat styles for [View DSL](#view-dsl)*
+
+[Read more here](viewdsl-appcompat-styles/README.md)
+
+### View DSL ConstraintLayout
+*ConstraintLayout extension of [View DSL](#view-dsl)*
+
+[Read more here](viewdsl-constraintlayout/README.md)
+
+### View DSL Design
+*Design Support Library extension of [View DSL](#view-dsl)*
+
+[Read more here](viewdsl-design/README.md)
+
+### Views
+*Extensions function and properties on `View`s.*
+
+[Read more here](views/README.md)
+
+### Views AppCompat
+*AppCompat extension of [Views](#views). Includes helpers for `ImageView`
+tinting, `ActionBar` and tooltip.*
+
+[Read more here](views-appcompat/README.md)
 
 ## Download
-If you use gradle and have `jcenter()` (default for new Android Studio projects) in your repositories, in your project's `build.gradle` file, add the version of the library:
+
+#### Gradle instructions
+Make sure you have `jcenter()` in the repositories defined in your project's
+(root) `build.gradle` file (default for new Android Studio projects).
+
+Add the version of the library to not repeat yourself if you use multiple
+artifacts, and make sure their versions are in sync:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '1.3.0'
+        splitties_version = '2.0.0-alpha1'
     }
 }
 ```
 Here are all the artifacts of this library. Just use the ones you need:
 ```groovy
-compile "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
-compile "xyz.louiscad.splitties:splitties-concurrency:$splitties_version"
-compile "xyz.louiscad.splitties:splitties-material-lists:$splitties_version"
-compile "xyz.louiscad.splitties:splitties-preferences:$splitties_version"
-compile "xyz.louiscad.splitties:splitties-selectableviews:$splitties_version"
-debugCompile "xyz.louiscad.splitties:splitties-stetho-init:$splitties_version"
-compile "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-alertdialog:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-arch-room:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-bitflags:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-bundle:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-checkedlazy:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-dimensions:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-exceptions:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-initprovider:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-fragmentargs:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-mainhandler:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-material-lists:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-preferences:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-resources:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-fragmentargs-support:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-selectableviews:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
+debugImplementation "xyz.louiscad.splitties:splitties-stetho-init:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-systemservices:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-toast:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-uithread:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-snackbar:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-viewdsl:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-views:$splitties_version"
+implementation "xyz.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 ```
-For maven and alternative build-systems, check the [Bintray page](https://bintray.com/louiscad/splitties/splitties).
+
+### Other build systems
+For maven and alternative build-systems, check the [Bintray page](
+https://bintray.com/louiscad/splitties/splitties).
 
 ## New versions notifications
-To get notified for new versions, be sure to click on "Watch" on the [splitties Bintray page](https://bintray.com/louiscad/splitties/splitties).
+To get notified for new versions, be sure to click on "Watch" on the
+[splitties Bintray page](https://bintray.com/louiscad/splitties/splitties).
 
 ## Improve this library
-Included classes are not exhaustive, so if you find some code that follows this library's philosophy and you think it should be here, feel free to open an issue.
+If you want this library to have **a new feature or an improvement** in a
+new or in an existing module, please, open an issue or vote/comment a
+similar one first, so it can be discussed.
 
-Documentation contributions are also welcome, but only high quality is expected.
+**Documentation contributions** are also welcome.
+For typos or other small improvements, feel free to submit a PR
+(pull request) directly.
+For more significant doc contributions, please, open an issue first so it
+can be discussed.
 
-And of course, the same goes if you find a bug.
+**If you find a bug**, please open an issue with all the important details.
+If you know a simple fix that is not API breaking and that does not have
+side-effects that need to be considered, you may also directly submit a PR.
 
-Finally, if you find a typo, please, submit a pull-request without opening an issue.
+## What is a split
+A "split" is a module of the Splitties library that you can add as a
+dependency. It only includes the required transitive dependencies.
+This allows you to only add what you need in your app or library module,
+so the final apk is as small as possible and doesn't include stuff not used
+by your app.
+
+Let's say you're build an Android Wear app using the View DSL.
+Android Wear apps don't need AppCompat. Including it would be a waste of
+bandwidth and storage. The View DSL core module relies on the Android
+SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
+by using View DSL. However, if you are building a phone, tablet or computer
+Android app, there's a View DSL AppCompat split with a few extensions for
+you to use.
 
 ## License
-This library is published under Apache License version 2.0 which you can see [here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
+This library is published under Apache License version 2.0 which you can see
+[here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
