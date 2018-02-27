@@ -45,17 +45,17 @@ import android.support.v4.app.Fragment as SupportFragment
     return createToast(txt(resId), duration)
 }
 
-inline fun Context.toast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_SHORT)
-inline fun SupportFragment.toast(@StringRes msgResId: Int) = ctx.createToast(msgResId, Toast.LENGTH_SHORT)
-inline fun Fragment.toast(@StringRes msgResId: Int) = ctx.createToast(msgResId, Toast.LENGTH_SHORT)
-inline fun View.toast(@StringRes msgResId: Int) = context.createToast(msgResId, Toast.LENGTH_SHORT)
-inline fun toast(@StringRes msgResId: Int) = appCtx.createToast(msgResId, Toast.LENGTH_SHORT)
+inline fun Context.toast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_SHORT).show()
+inline fun SupportFragment.toast(@StringRes msgResId: Int) = ctx.toast(msgResId)
+inline fun Fragment.toast(@StringRes msgResId: Int) = ctx.toast(msgResId)
+inline fun View.toast(@StringRes msgResId: Int) = context.toast(msgResId)
+inline fun toast(@StringRes msgResId: Int) = appCtx.toast(msgResId)
 
-inline fun Context.longToast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_LONG)
-inline fun SupportFragment.longToast(@StringRes msgResId: Int) = ctx.createToast(msgResId, Toast.LENGTH_LONG)
-inline fun Fragment.longToast(@StringRes msgResId: Int) = ctx.createToast(msgResId, Toast.LENGTH_LONG)
-inline fun View.longToast(@StringRes msgResId: Int) = context.createToast(msgResId, Toast.LENGTH_LONG)
-inline fun longToast(@StringRes msgResId: Int) = appCtx.createToast(msgResId, Toast.LENGTH_LONG)
+inline fun Context.longToast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_LONG).show()
+inline fun SupportFragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
+inline fun Fragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
+inline fun View.longToast(@StringRes msgResId: Int) = context.longToast(msgResId)
+inline fun longToast(@StringRes msgResId: Int) = appCtx.longToast(msgResId)
 
 @PublishedApi internal inline val SupportFragment.ctx: Context get() = context ?: appCtx
 @PublishedApi internal inline val Fragment.ctx: Context get() = activity ?: appCtx
