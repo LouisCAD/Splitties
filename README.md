@@ -48,13 +48,11 @@ variant
 * [Toast](#toast)
 * [Typesafe RecyclerView](#typesafe-recyclerview)
 * [UI Thread](#ui-thread)
-* [View DSL](#view-dsl)
-* [View DSL AppCompat](#view-dsl-appcompat)
-* [View DSL AppCompat styles](#view-dsl-appcompat-styles)
-* [View DSL ConstraintLayout](#view-dsl-constraintlayout)
-* [View DSL Design](#view-dsl-design)
-* [Views](#views)
-* [Views AppCompat](#views-appcompat)
+* [View DSL](#view-dsl) plus its [AppCompat](#view-dsl-appcompat),
+[AppCompat styles](#view-dsl-appcompat-styles),
+[ConstraintLayout](#view-dsl-constraintlayout) and
+[Design](#view-dsl-design) extensions
+* [Views](#views) plus its [AppCompat](#views-appcompat) extensions
 
 </details>
 
