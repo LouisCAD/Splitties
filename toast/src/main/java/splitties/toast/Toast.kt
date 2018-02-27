@@ -51,11 +51,23 @@ inline fun Fragment.toast(@StringRes msgResId: Int) = ctx.toast(msgResId)
 inline fun View.toast(@StringRes msgResId: Int) = context.toast(msgResId)
 inline fun toast(@StringRes msgResId: Int) = appCtx.toast(msgResId)
 
+inline fun Context.toast(msg: CharSequence) = createToast(msg, Toast.LENGTH_SHORT).show()
+inline fun SupportFragment.toast(msg: CharSequence) = ctx.toast(msg)
+inline fun Fragment.toast(msg: CharSequence) = ctx.toast(msg)
+inline fun View.toast(msg: CharSequence) = context.toast(msg)
+inline fun toast(msg: CharSequence) = appCtx.toast(msg)
+
 inline fun Context.longToast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_LONG).show()
 inline fun SupportFragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
 inline fun Fragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
 inline fun View.longToast(@StringRes msgResId: Int) = context.longToast(msgResId)
 inline fun longToast(@StringRes msgResId: Int) = appCtx.longToast(msgResId)
+
+inline fun Context.longToast(msg: CharSequence) = createToast(msg, Toast.LENGTH_LONG).show()
+inline fun SupportFragment.longToast(msg: CharSequence) = ctx.longToast(msg)
+inline fun Fragment.longToast(msg: CharSequence) = ctx.longToast(msg)
+inline fun View.longToast(msg: CharSequence) = context.longToast(msg)
+inline fun longToast(msg: CharSequence) = appCtx.longToast(msg)
 
 @PublishedApi internal inline val SupportFragment.ctx: Context get() = context ?: appCtx
 @PublishedApi internal inline val Fragment.ctx: Context get() = activity ?: appCtx
