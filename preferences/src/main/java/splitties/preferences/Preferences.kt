@@ -178,6 +178,6 @@ abstract class Preferences(name: String,
     }
 
     companion object {
-        private val PROP_NAME = "__splitties__"
+        private const val PROP_NAME = "__splitties__"
     }
 }
