@@ -28,6 +28,10 @@ inline fun <reified VM : ViewModel> FragmentActivity.activityScope() = uiLazy {
 }
 
 inline fun <reified VM : ViewModel> Fragment.activityScope() = uiLazy {
+    ViewModelProviders.of(activity!!).get(VM::class.java)
+}
+
+inline fun <reified VM : ViewModel> Fragment.fragmentScope() = uiLazy {
     ViewModelProviders.of(this).get(VM::class.java)
 }
 
@@ -36,5 +40,9 @@ inline fun <reified VM : ViewModel> FragmentActivity.activityScope(factory: View
 }
 
 inline fun <reified VM : ViewModel> Fragment.activityScope(factory: ViewModelProvider.Factory) = uiLazy {
+    ViewModelProviders.of(activity!!, factory).get(VM::class.java)
+}
+
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(factory: ViewModelProvider.Factory) = uiLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
