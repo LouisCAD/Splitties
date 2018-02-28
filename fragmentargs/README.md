@@ -1,4 +1,4 @@
-# Fragment Args Support
+# Fragment Args
 
 *Fragment arguments without ceremony thanks to delegated properties.*
 
