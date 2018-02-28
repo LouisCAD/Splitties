@@ -22,7 +22,6 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
 import splitties.uithread.isUiThread
-import android.support.v4.app.Fragment as SupportFragment
 
 private val uiThreadConfinedCachedAttrArray = IntArray(1)
 private val cachedAttrArray = IntArray(1)
