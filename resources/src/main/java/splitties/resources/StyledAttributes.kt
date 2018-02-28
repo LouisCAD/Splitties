@@ -21,7 +21,7 @@ package splitties.resources
 import android.content.Context
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
-import kotlin.math.sqrt
+import splitties.uithread.isUiThread
 import android.support.v4.app.Fragment as SupportFragment
 
 private val uiThreadConfinedCachedAttrArray = IntArray(1)
@@ -35,7 +35,7 @@ inline fun <T> Context.withStyledAttributes(
 }
 
 @PublishedApi
-internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray = if (sqrt(4f) == 2f) {
+internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray = if (isUiThread) {
     uiThreadConfinedCachedAttrArray[0] = attrRes
     obtainStyledAttributes(uiThreadConfinedCachedAttrArray)
 } else synchronized(cachedAttrArray) {
