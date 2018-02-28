@@ -1,8 +1,19 @@
 # Fragment Args
 
-*Platform Fragment arguments without ceremony thanks to delegated properties.*
+*Fragment arguments without ceremony thanks to delegated properties.*
 
-**WARNING: [Platform Fragments will be deprecated in Android P.](
-https://github.com/LouisCAD/Splitties/issues/29)**
+### Example
 
-Use [Fragments Args Support instead](../fragmentargs-support/README.md).
+```kotlin
+class YourFragment : Fragment() {
+
+    var someRequiredId: Int by arg()
+    var optionalArg: String? by argOrNull()
+
+    private fun yourMethod() = yourCode()
+}
+
+fun createYourFragment(someId: Int): Fragment = YourFragment().apply {
+    someRequiredId = someId
+}
+```
