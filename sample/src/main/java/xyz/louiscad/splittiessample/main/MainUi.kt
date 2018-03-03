@@ -21,7 +21,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
 import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
 import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.widget.NestedScrollView
@@ -42,6 +41,7 @@ import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.design.pin
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
@@ -92,9 +92,8 @@ class MainUi(override val ctx: MainActivity) : Ui {
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                add(::Toolbar, defaultLParams(height = styledDimenPxSize(R.attr.actionBarSize)) {
-                    collapseMode = COLLAPSE_MODE_PIN
-                }) {
+                val actionBarSize = styledDimenPxSize(R.attr.actionBarSize)
+                add(::Toolbar, defaultLParams(height = actionBarSize, collapseMode = pin)) {
                     ctx.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
                 }
