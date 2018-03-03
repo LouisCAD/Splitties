@@ -27,9 +27,10 @@ import splitties.resources.txt
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.margin
-import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
-import splitties.viewdsl.design.lParams
+import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.defaultLParams
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
@@ -49,8 +50,8 @@ class DemoUi(override val ctx: DemoActivity) : Ui {
 
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, lParams(width = matchParent)) {
-            add(::Toolbar, lParams {
+        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {
+            add(::Toolbar, defaultLParams {
                 scrollFlags = SCROLL_FLAG_ENTER_ALWAYS
             }) {
                 subtitle = txt(R.string.subtitle_items_count_hint)
@@ -58,10 +59,8 @@ class DemoUi(override val ctx: DemoActivity) : Ui {
                 ctx.setSupportActionBar(this)
             }
         }
-        add(recyclerView, lParams(width = matchParent, height = matchParent) {
-            behavior = AppBarLayout.ScrollingViewBehavior()
-        })
-        add(fab, lParams(gravity = Gravity.BOTTOM or Gravity.END) {
+        add(recyclerView, contentScrollingWithAppBarLParams())
+        add(fab, defaultLParams(gravity = Gravity.BOTTOM or Gravity.END) {
             margin = dip(16)
         })
     }

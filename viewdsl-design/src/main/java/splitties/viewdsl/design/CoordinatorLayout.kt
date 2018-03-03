@@ -18,24 +18,39 @@
 
 package splitties.viewdsl.design
 
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.Gravity
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY,
         initParams: CoordinatorLayout.LayoutParams.() -> Unit
 ) = CoordinatorLayout.LayoutParams(width, height).also { it.gravity = gravity }.apply(initParams)
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY
 ) = CoordinatorLayout.LayoutParams(width, height).also { it.gravity = gravity }
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent
 ) = CoordinatorLayout.LayoutParams(width, height)
+
+inline fun CoordinatorLayout.appBarLParams(
+        height: Int = wrapContent,
+        initParams: CoordinatorLayout.LayoutParams.() -> Unit = {}
+) = defaultLParams(width = matchParent, height = height, initParams = initParams)
+
+@Suppress("unused")
+fun CoordinatorLayout.contentScrollingWithAppBarLParams() = scrollingContentLParams
+
+private val scrollingContentLParams = CoordinatorLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT).also {
+    it.behavior = AppBarLayout.ScrollingViewBehavior()
+}

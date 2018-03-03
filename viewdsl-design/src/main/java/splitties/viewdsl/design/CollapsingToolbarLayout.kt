@@ -21,20 +21,28 @@ package splitties.viewdsl.design
 import android.support.design.widget.CollapsingToolbarLayout
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
+import android.support.design.widget.CollapsingToolbarLayout.LayoutParams as LP
 
-inline fun CollapsingToolbarLayout.lParams(
+@Suppress("unused") val CollapsingToolbarLayout.PIN get() = LP.COLLAPSE_MODE_PIN
+@Suppress("unused") val CollapsingToolbarLayout.PARALLAX get() = LP.COLLAPSE_MODE_PARALLAX
+
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
-        initParams: CollapsingToolbarLayout.LayoutParams.() -> Unit
-) = CollapsingToolbarLayout.LayoutParams(width, height).apply(initParams)
+        collapseMode: Int = LP.COLLAPSE_MODE_OFF,
+        parallaxMultiplier: Float = 0.5f // Default value as of 27.1.0
+) = LP(width, height).also {
+    it.collapseMode = collapseMode
+    it.parallaxMultiplier = parallaxMultiplier
+}
 
-inline fun CollapsingToolbarLayout.lParams(
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
-        collapseMode: Int
-) = CollapsingToolbarLayout.LayoutParams(width, height).also { it.collapseMode = collapseMode }
+        initParams: LP.() -> Unit
+) = LP(width, height).apply(initParams)
 
-inline fun CollapsingToolbarLayout.lParams(
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent
-) = CollapsingToolbarLayout.LayoutParams(width, height)
+) = LP(width, height)

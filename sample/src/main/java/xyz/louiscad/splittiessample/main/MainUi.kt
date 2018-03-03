@@ -18,10 +18,7 @@ package xyz.louiscad.splittiessample.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.support.design.widget.AppBarLayout
-import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
-import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
 import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.widget.NestedScrollView
@@ -41,12 +38,17 @@ import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalLayout
+import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
+import splitties.viewdsl.design.PIN
+import splitties.viewdsl.design.SCROLL
+import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.defaultLParams
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
-import splitties.viewdsl.design.lParams as dLParams
 
 class MainUi(override val ctx: MainActivity) : Ui {
 
@@ -85,25 +87,21 @@ class MainUi(override val ctx: MainActivity) : Ui {
 
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay,
-                dLParams(width = matchParent, height = dip(180))) {
-            add(::CollapsingToolbarLayout, dLParams(height = matchParent) {
-                scrollFlags = SCROLL_FLAG_SCROLL or SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams(dip(180))) {
+            add(::CollapsingToolbarLayout, defaultLParams(height = matchParent) {
+                scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                add(::Toolbar, dLParams(height = styledDimenPxSize(R.attr.actionBarSize)) {
-                    collapseMode = COLLAPSE_MODE_PIN
-                }) {
+                val actionBarSize = styledDimenPxSize(R.attr.actionBarSize)
+                add(::Toolbar, defaultLParams(height = actionBarSize, collapseMode = PIN)) {
                     ctx.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
                 }
             }
         }
-        add(content, dLParams(width = matchParent, height = matchParent) {
-            behavior = AppBarLayout.ScrollingViewBehavior()
-        })
-        add(fab, dLParams {
+        add(content, contentScrollingWithAppBarLParams())
+        add(fab, defaultLParams {
             anchorId = R.id.app_bar
             anchorGravity = Gravity.BOTTOM or Gravity.END
             margin = dip(16)
