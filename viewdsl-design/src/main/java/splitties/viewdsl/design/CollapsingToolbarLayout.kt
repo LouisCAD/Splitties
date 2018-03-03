@@ -22,19 +22,19 @@ import android.support.design.widget.CollapsingToolbarLayout
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 
-inline fun CollapsingToolbarLayout.lParams(
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
         initParams: CollapsingToolbarLayout.LayoutParams.() -> Unit
 ) = CollapsingToolbarLayout.LayoutParams(width, height).apply(initParams)
 
-inline fun CollapsingToolbarLayout.lParams(
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
         collapseMode: Int
 ) = CollapsingToolbarLayout.LayoutParams(width, height).also { it.collapseMode = collapseMode }
 
-inline fun CollapsingToolbarLayout.lParams(
+inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent
 ) = CollapsingToolbarLayout.LayoutParams(width, height)

@@ -41,12 +41,12 @@ import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalLayout
+import splitties.viewdsl.design.defaultLParams
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
-import splitties.viewdsl.design.lParams as dLParams
 
 class MainUi(override val ctx: MainActivity) : Ui {
 
@@ -86,13 +86,13 @@ class MainUi(override val ctx: MainActivity) : Ui {
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay,
-                dLParams(width = matchParent, height = dip(180))) {
-            add(::CollapsingToolbarLayout, dLParams(height = matchParent) {
+                defaultLParams(width = matchParent, height = dip(180))) {
+            add(::CollapsingToolbarLayout, defaultLParams(height = matchParent) {
                 scrollFlags = SCROLL_FLAG_SCROLL or SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                add(::Toolbar, dLParams(height = styledDimenPxSize(R.attr.actionBarSize)) {
+                add(::Toolbar, defaultLParams(height = styledDimenPxSize(R.attr.actionBarSize)) {
                     collapseMode = COLLAPSE_MODE_PIN
                 }) {
                     ctx.setSupportActionBar(this)
@@ -100,10 +100,10 @@ class MainUi(override val ctx: MainActivity) : Ui {
                 }
             }
         }
-        add(content, dLParams(width = matchParent, height = matchParent) {
+        add(content, defaultLParams(width = matchParent, height = matchParent) {
             behavior = AppBarLayout.ScrollingViewBehavior()
         })
-        add(fab, dLParams {
+        add(fab, defaultLParams {
             anchorId = R.id.app_bar
             anchorGravity = Gravity.BOTTOM or Gravity.END
             margin = dip(16)

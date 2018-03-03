@@ -22,20 +22,20 @@ import android.support.design.widget.CoordinatorLayout
 import android.view.Gravity
 import splitties.viewdsl.core.wrapContent
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY,
         initParams: CoordinatorLayout.LayoutParams.() -> Unit
 ) = CoordinatorLayout.LayoutParams(width, height).also { it.gravity = gravity }.apply(initParams)
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY
 ) = CoordinatorLayout.LayoutParams(width, height).also { it.gravity = gravity }
 
-inline fun CoordinatorLayout.lParams(
+inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent
 ) = CoordinatorLayout.LayoutParams(width, height)

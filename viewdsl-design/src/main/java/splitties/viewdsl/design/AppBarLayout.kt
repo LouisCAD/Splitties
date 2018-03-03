@@ -22,13 +22,13 @@ import android.support.design.widget.AppBarLayout
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 
-inline fun AppBarLayout.lParams(
+inline fun AppBarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
         initParams: AppBarLayout.LayoutParams.() -> Unit
 ) = AppBarLayout.LayoutParams(width, height).apply(initParams)
 
-inline fun AppBarLayout.lParams(
+inline fun AppBarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent
 ) = AppBarLayout.LayoutParams(width, height)
