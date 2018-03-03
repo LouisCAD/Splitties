@@ -21,14 +21,24 @@ package splitties.viewdsl.design
 import android.support.design.widget.AppBarLayout
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
+import android.support.design.widget.AppBarLayout.LayoutParams as LP
+
+@Suppress("unused") val AppBarLayout.SCROLL get() = LP.SCROLL_FLAG_SCROLL
+@Suppress("unused") val AppBarLayout.EXIT_UNTIL_COLLAPSED get() = LP.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED
+@Suppress("unused") val AppBarLayout.ENTER_ALWAYS get() = LP.SCROLL_FLAG_ENTER_ALWAYS
+@Suppress("unused") val AppBarLayout.ENTER_ALWAYS_COLLAPSED: Int
+    get() = LP.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED
+@Suppress("unused") val AppBarLayout.SNAP get() = LP.SCROLL_FLAG_SNAP
 
 inline fun AppBarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
-        initParams: AppBarLayout.LayoutParams.() -> Unit
-) = AppBarLayout.LayoutParams(width, height).apply(initParams)
+        scrollFlags: Int = ENTER_ALWAYS,
+        initParams: LP.() -> Unit
+) = LP(width, height).also { it.scrollFlags = scrollFlags }.apply(initParams)
 
 inline fun AppBarLayout.defaultLParams(
         width: Int = matchParent,
-        height: Int = wrapContent
-) = AppBarLayout.LayoutParams(width, height)
+        height: Int = wrapContent,
+        scrollFlags: Int = ENTER_ALWAYS
+) = LP(width, height).also { it.scrollFlags = scrollFlags }

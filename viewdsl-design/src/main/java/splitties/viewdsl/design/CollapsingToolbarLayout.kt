@@ -23,8 +23,8 @@ import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 import android.support.design.widget.CollapsingToolbarLayout.LayoutParams as LP
 
-@Suppress("unused") val CollapsingToolbarLayout.pin get() = LP.COLLAPSE_MODE_PIN
-@Suppress("unused") val CollapsingToolbarLayout.parallax get() = LP.COLLAPSE_MODE_PARALLAX
+@Suppress("unused") val CollapsingToolbarLayout.PIN get() = LP.COLLAPSE_MODE_PIN
+@Suppress("unused") val CollapsingToolbarLayout.PARALLAX get() = LP.COLLAPSE_MODE_PARALLAX
 
 inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
