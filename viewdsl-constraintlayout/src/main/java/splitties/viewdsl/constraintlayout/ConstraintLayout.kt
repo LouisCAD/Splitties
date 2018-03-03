@@ -43,13 +43,7 @@ inline fun ConstraintLayout.lParams(
     val realWidth = if (matchParentWidth) MATCH_CONSTRAINT else width
     val realHeight = if (matchParentHeight) MATCH_CONSTRAINT else height
     return ConstraintLayout.LayoutParams(realWidth, realHeight).apply {
-        if (matchParentWidth) {
-            startToStart = parentId
-            endToEnd = parentId
-        }
-        if (matchParentHeight) {
-            topToTop = parentId
-            bottomToBottom = parentId
-        }
+        if (matchParentWidth) centerHorizontally()
+        if (matchParentHeight) centerVertically()
     }
 }
