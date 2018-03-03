@@ -23,7 +23,6 @@ import android.view.View
 
 private typealias LP = ConstraintLayout.LayoutParams
 
-const val MATCH_CONSTRAINT = LP.MATCH_CONSTRAINT
 @Suppress("unused") inline val LP.parentId get() = LP.PARENT_ID
 @Suppress("unused") inline val LP.packed get() = LP.CHAIN_PACKED
 @Suppress("unused") inline val LP.spread get() = LP.CHAIN_SPREAD
