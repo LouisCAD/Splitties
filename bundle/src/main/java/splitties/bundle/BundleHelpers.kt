@@ -40,15 +40,14 @@ inline fun <T : BundleHelper, R> Bundle.with(t: T, crossinline f: T.() -> R): R 
 }
 
 open class BundleHelper {
-    @PublishedApi
-    internal var currentBundle: Bundle? = null
+    @PublishedApi internal var currentBundle: Bundle? = null
 }
 
 @Suppress("unused") inline fun BundleHelper.bundle() = BundleDelegate
 @Suppress("unused") inline fun BundleHelper.bundleOrNull() = BundleOrNullDelegate
 
-inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = true)
-inline fun <T> BundleHelper.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate<T>(this, key, noNull = false)
+inline fun <T : Any> BundleHelper.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate(this, key, noNull = true)
+inline fun <T> BundleHelper.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate(this, key, noNull = false)
 
 private val BundleHelper.bundle: Bundle
     get() {

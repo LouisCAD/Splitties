@@ -34,8 +34,7 @@ inline fun ConstraintLayout.lParams(
         height: Int = MATCH_CONSTRAINT
 ): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height)
 
-@PublishedApi
-internal fun ConstraintLayout.createConstraintLayoutParams(
+@PublishedApi internal fun ConstraintLayout.createConstraintLayoutParams(
         width: Int,
         height: Int
 ): ConstraintLayout.LayoutParams {
