@@ -18,8 +18,12 @@
 
 package splitties.viewdsl.design
 
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.Gravity
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 
 inline fun CoordinatorLayout.defaultLParams(
@@ -39,3 +43,19 @@ inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent
 ) = CoordinatorLayout.LayoutParams(width, height)
+
+inline fun CoordinatorLayout.appBarLParams(
+        height: Int = wrapContent,
+        initParams: CoordinatorLayout.LayoutParams.() -> Unit = {}
+) = defaultLParams(width = matchParent, height = height, initParams = initParams)
+
+@Suppress("unused")
+fun CoordinatorLayout.contentScrollingWithAppBarLParams() = scrollingContentLParams
+
+private val appBarLParams = CoordinatorLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).also {
+    it.behavior = AppBarLayout.ScrollingViewBehavior()
+}
+
+private val scrollingContentLParams = CoordinatorLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT).also {
+    it.behavior = AppBarLayout.ScrollingViewBehavior()
+}

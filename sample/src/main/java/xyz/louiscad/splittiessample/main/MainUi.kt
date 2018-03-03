@@ -41,6 +41,8 @@ import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
 import splitties.viewdsl.design.SCROLL
+import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
@@ -85,8 +87,7 @@ class MainUi(override val ctx: MainActivity) : Ui {
 
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay,
-                defaultLParams(width = matchParent, height = dip(180))) {
+        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams(dip(180))) {
             add(::CollapsingToolbarLayout, defaultLParams(height = matchParent) {
                 scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
             }) {
@@ -99,9 +100,7 @@ class MainUi(override val ctx: MainActivity) : Ui {
                 }
             }
         }
-        add(content, defaultLParams(width = matchParent, height = matchParent) {
-            behavior = AppBarLayout.ScrollingViewBehavior()
-        })
+        add(content, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams {
             anchorId = R.id.app_bar
             anchorGravity = Gravity.BOTTOM or Gravity.END
