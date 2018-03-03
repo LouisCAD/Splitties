@@ -28,9 +28,12 @@ import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically
 import splitties.viewdsl.constraintlayout.endOfParent
+import splitties.viewdsl.constraintlayout.endToStartOf
 import splitties.viewdsl.constraintlayout.lParams
 import splitties.viewdsl.constraintlayout.startOfParent
+import splitties.viewdsl.constraintlayout.startToStartOf
 import splitties.viewdsl.constraintlayout.topOfParent
+import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.startMargin
@@ -79,14 +82,14 @@ class SwitchTwoLinesIconListItem @JvmOverloads constructor(
             endMargin = dip(16)
             startOfParent()
             topOfParent()
-            endToStart = icon.id
+            endToStartOf(icon)
         })
         add(secondLine, lParams(height = wrapContent) {
             verticalMargin = dip(8)
             endMargin = dip(8)
-            startToStart = firstLine.id
-            topToBottom = firstLine.id
-            endToStart = icon.id
+            startToStartOf(firstLine)
+            topToBottomOf(firstLine)
+            endToStartOf(icon)
             bottomOfParent()
         })
         val iconSize = dip(24)

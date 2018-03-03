@@ -19,87 +19,29 @@
 package splitties.viewdsl.constraintlayout
 
 import android.support.constraint.ConstraintLayout
-import android.support.constraint.ConstraintLayout.LayoutParams.CHAIN_PACKED
-import android.support.constraint.ConstraintLayout.LayoutParams.CHAIN_SPREAD
-import android.support.constraint.ConstraintLayout.LayoutParams.CHAIN_SPREAD_INSIDE
-import android.support.constraint.ConstraintLayout.LayoutParams.PARENT_ID
-import android.view.View
 import splitties.viewdsl.core.matchParent
-
-private typealias LP = ConstraintLayout.LayoutParams
-
-const val MATCH_CONSTRAINT = LP.MATCH_CONSTRAINT
-@Suppress("unused") inline val LP.parentId get() = PARENT_ID
-@Suppress("unused") inline val LP.packed get() = CHAIN_PACKED
-@Suppress("unused") inline val LP.spread get() = CHAIN_SPREAD
-@Suppress("unused") inline val LP.spreadInside get() = CHAIN_SPREAD_INSIDE
-
-inline fun LP.centerHorizontally() {
-    startToStart = parentId
-    endToEnd = parentId
-}
-
-inline fun LP.centerVertically() {
-    topToTop = parentId
-    bottomToBottom = parentId
-}
-
-inline fun LP.centerInParent() {
-    centerHorizontally()
-    centerVertically()
-}
-
-inline fun LP.match(view: View) {
-    val id = view.id
-    topToTop = id
-    leftToLeft = id
-    bottomToBottom = id
-    rightToRight = id
-}
-
-inline fun LP.topOfParent() {
-    topToTop = parentId
-}
-
-inline fun LP.bottomOfParent() {
-    bottomToBottom = parentId
-}
-
-inline fun LP.startOfParent() {
-    startToStart = parentId
-}
-
-inline fun LP.endOfParent() {
-    endToEnd = parentId
-}
-
-inline fun LP.leftOfParent() {
-    leftToLeft = parentId
-}
-
-inline fun LP.rightOfParent() {
-    rightToRight = parentId
-}
-
 
 inline fun ConstraintLayout.lParams(
         width: Int = MATCH_CONSTRAINT,
         height: Int = MATCH_CONSTRAINT,
-        initParams: LP.() -> Unit
-): LP = createConstraintLayoutParams(width, height).also(initParams)
+        initParams: ConstraintLayout.LayoutParams.() -> Unit
+): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).also(initParams)
 
 inline fun ConstraintLayout.lParams(
         width: Int = MATCH_CONSTRAINT,
         height: Int = MATCH_CONSTRAINT
-): LP = createConstraintLayoutParams(width, height)
+): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height)
 
 @PublishedApi
-internal fun ConstraintLayout.createConstraintLayoutParams(width: Int, height: Int): LP {
+internal fun ConstraintLayout.createConstraintLayoutParams(
+        width: Int,
+        height: Int
+): ConstraintLayout.LayoutParams {
     val matchParentWidth = width == matchParent
     val matchParentHeight = height == matchParent
     val realWidth = if (matchParentWidth) MATCH_CONSTRAINT else width
     val realHeight = if (matchParentHeight) MATCH_CONSTRAINT else height
-    return LP(realWidth, realHeight).apply {
+    return ConstraintLayout.LayoutParams(realWidth, realHeight).apply {
         if (matchParentWidth) {
             startToStart = parentId
             endToEnd = parentId
