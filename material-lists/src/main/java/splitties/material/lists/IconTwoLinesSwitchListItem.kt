@@ -28,9 +28,12 @@ import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically
 import splitties.viewdsl.constraintlayout.endOfParent
+import splitties.viewdsl.constraintlayout.endToStartOf
 import splitties.viewdsl.constraintlayout.lParams
 import splitties.viewdsl.constraintlayout.startOfParent
+import splitties.viewdsl.constraintlayout.startToStartOf
 import splitties.viewdsl.constraintlayout.topOfParent
+import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.startMargin
@@ -77,14 +80,14 @@ class IconTwoLinesSwitchListItem @JvmOverloads constructor(
             endMargin = dip(8)
             startOfParent()
             topOfParent()
-            endToStart = switch.id
+            endToStartOf(switch)
         })
         add(secondLine, lParams(height = wrapContent) {
             endMargin = dip(8)
             bottomMargin = dip(8)
-            startToStart = firstLine.id
-            topToBottom = firstLine.id
-            endToStart = switch.id
+            startToStartOf(firstLine)
+            topToBottomOf(firstLine)
+            endToStartOf(switch)
             bottomOfParent()
         })
         add(switch, lParams(wrapContent, wrapContent) {
