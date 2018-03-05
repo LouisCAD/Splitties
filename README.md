@@ -236,6 +236,7 @@ tinting, `ActionBar` and tooltip.*
 [Read more here](views-appcompat/README.md)
 
 ## Download
+**IMPORTANT NOTE**: The 2.0.0-alpha1 version is not released yet. Subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/22) to know when it is. If you want to use the older 1.3.0 version, [checkout this tag](https://github.com/LouisCAD/Splitties/tree/v1.3.0).
 
 #### Gradle instructions
 Make sure you have `jcenter()` in the repositories defined in your project's
