@@ -121,8 +121,8 @@ v(::YourView, id = R.id.id_of_your_view, theme = R.style.your_theme) {
 In the snippet above:
 * `::YourView` is a method reference that automatically
 maps to the `YourView` constructor with a single `Context` parameter. It is
-equivalent to the following inline lambda: `{ YourView(it) }` where is a
-`Context`. 
+equivalent to the following inline lambda: `{ YourView(it) }` where `it` is
+a `Context`.
 * `id` is an optional parameter.
 * `R.id.id_of_your_view` would be declared in xml, [as done in the sample](
 ../sample/src/main/res/values/view_ids.xml).
