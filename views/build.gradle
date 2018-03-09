@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdk_version
@@ -45,9 +39,9 @@ android {
 }
 
 dependencies {
-    debugImplementation project(':dimensions')
-    debugImplementation project(':resources')
-    debugImplementation project(':systemservices')
+    implementation project(':dimensions')
+    implementation project(':resources')
+    implementation project(':systemservices')
 
     // Android Support Libraries
     implementation "com.android.support:support-annotations:$supportLibs_version"
@@ -63,5 +57,4 @@ dependencies {
     })
 }
 
-//apply from: '../publish.gradle'
-apply from: '../no-version-ranges.gradle'
+apply from: '../publish.gradle'

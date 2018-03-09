@@ -61,40 +61,38 @@ android {
 
 dependencies {
     // This project's libraries
-    debugImplementation project(':alertdialog')
-    debugImplementation project(':alertdialog-appcompat')
-    debugImplementation project(':appctx')
-    debugImplementation project(':arch-lifecycle')
-    debugImplementation project(':arch-room')
-    debugImplementation project(':bitflags')
-    debugImplementation project(':bundle')
-    debugImplementation project(':checkedlazy')
-    debugImplementation project(':dimensions')
-    debugImplementation project(':exceptions')
-    debugImplementation project(':initprovider')
-    debugImplementation project(':mainhandler')
-    debugImplementation project(':material-lists')
-    debugImplementation project(':preferences')
-    debugImplementation project(':resources')
-    debugImplementation project(':fragmentargs')
-    debugImplementation project(':selectableviews')
-    debugImplementation project(':selectableviews-appcompat')
-    debugImplementation project(':selectableviews-constraintlayout')
-    debugImplementation project(':stetho-init')
-    debugImplementation project(':systemservices')
-    debugImplementation project(':toast')
-    debugImplementation project(':typesaferecyclerview')
-    debugImplementation project(':uithread')
-    debugImplementation project(':snackbar')
-    debugImplementation project(':viewdsl')
-    debugImplementation project(':viewdsl-appcompat')
-    debugImplementation project(':viewdsl-appcompat-styles')
-    debugImplementation project(':viewdsl-constraintlayout')
-    debugImplementation project(':viewdsl-design')
-    debugImplementation project(':views')
-    debugImplementation project(':views-appcompat')
-
-    releaseImplementation "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
+    implementation project(':alertdialog')
+    implementation project(':alertdialog-appcompat')
+    implementation project(':appctx')
+    implementation project(':arch-lifecycle')
+    implementation project(':arch-room')
+    implementation project(':bitflags')
+    implementation project(':bundle')
+    implementation project(':checkedlazy')
+    implementation project(':dimensions')
+    implementation project(':exceptions')
+    implementation project(':initprovider')
+    implementation project(':mainhandler')
+    implementation project(':material-lists')
+    implementation project(':preferences')
+    implementation project(':resources')
+    implementation project(':fragmentargs')
+    implementation project(':selectableviews')
+    implementation project(':selectableviews-appcompat')
+    implementation project(':selectableviews-constraintlayout')
+    implementation project(':stetho-init')
+    implementation project(':systemservices')
+    implementation project(':toast')
+    implementation project(':typesaferecyclerview')
+    implementation project(':uithread')
+    implementation project(':snackbar')
+    implementation project(':viewdsl')
+    implementation project(':viewdsl-appcompat')
+    implementation project(':viewdsl-appcompat-styles')
+    implementation project(':viewdsl-constraintlayout')
+    implementation project(':viewdsl-design')
+    implementation project(':views')
+    implementation project(':views-appcompat')
 
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibs_version"
@@ -113,11 +111,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Kotlinx coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines_version"
 
     // Tests
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
