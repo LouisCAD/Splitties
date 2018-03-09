@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdk_version
@@ -45,16 +39,11 @@ android {
 }
 
 dependencies {
-    debugImplementation project(':initprovider')
-    debugImplementation project(':exceptions')
+    implementation project(':initprovider')
+    implementation project(':exceptions')
 
     implementation "com.android.support:support-annotations:$supportLibs_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
-ext {
-    libraryDesc = "Initializes a val named appCtx you can use anywhere."
-}
-
-//apply from: '../publish.gradle'
-apply from: '../no-version-ranges.gradle'
+apply from: '../publish.gradle'

@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdk_version
@@ -45,8 +39,8 @@ android {
 }
 
 dependencies {
-    debugImplementation project(':checkedlazy')
-    debugImplementation project(':exceptions')
+    implementation project(':checkedlazy')
+    implementation project(':exceptions')
 
     // Android Support Libraries
     implementation "com.android.support:support-annotations:$supportLibs_version"
@@ -65,9 +59,4 @@ dependencies {
     })
 }
 
-ext {
-    libraryDesc = "Extensions for convenient Android Architecture Components in Kotlin."
-}
-
-//apply from: '../publish.gradle'
-apply from: '../no-version-ranges.gradle'
+apply from: '../publish.gradle'
