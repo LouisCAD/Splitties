@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id "com.jfrog.bintray" version "1.7.3"
-    id "com.github.dcendents.android-maven" version "1.5"
-}
-
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion projectSdk_version
@@ -46,26 +40,20 @@ android {
 }
 
 dependencies {
-
-    debugImplementation project(':views')
+    api project(':views')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
-    implementation "com.android.support:recyclerview-v7:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:recyclerview-v7:$supportLibs_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 }
 
-ext {
-    libraryDesc = "Helps reduce boilerplate when using RecyclerView"
-}
-
-//apply from: '../publish.gradle'
-apply from: '../no-version-ranges.gradle'
+apply from: '../publish.gradle'

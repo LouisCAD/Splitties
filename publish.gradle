@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,149 +14,79 @@
  * limitations under the License.
  */
 
-def pomConfig = {
-    licenses {
-        license {
-            name 'The Apache Software License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-        }
-    }
-    developers {
-        developer {
-            id 'louiscad'
-            name 'Louis CAD'
-            email 'louis.cognault@gmail.com'
-        }
-    }
-    scm {
-        connection 'https://github.com/LouisCAD/Splitties.git'
-        developerConnection 'https://github.com/LouisCAD/Splitties.git'
-        url siteUrl
-    }
+apply from: '../no-version-ranges.gradle'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+group = 'com.louiscad.splitties'
+project.archivesBaseName = "splitties-${project.name}"
+version = library_version
+def gitUrl = 'https://github.com/LouisCAD/Splitties.git'
+def siteUrl = 'https://github.com/LouisCAD/Splitties'
+def libraryDesc = 'A collection of light, general purpose Android libraries in Kotlin.'
+
+// TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+android.libraryVariants.all {
+    it.generateBuildConfig.enabled = false
 }
 
-def publicationNames = []
-publishing.publications {
-    android.libraryVariants.all { variant ->
-        if (variant.buildType.name == "debug") return // Prevents publishing debug library
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
 
-        def flavored = !variant.flavorName.isEmpty()
+artifacts {
+    archives sourcesJar
+}
 
-        /**
-         * Translates "_" in flavor names to "-" for artifactIds, because "-" in flavor name is an
-         * illegal character, but is well used in artifactId names.
-         */
-        def baseVariantArtifactId = flavored ? variant.flavorName.replace('_', '-') : project.name
-        def variantArtifactId = "splitties-$baseVariantArtifactId"
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom.project {
+            packaging 'aar'
 
-        /**
-         * If the javadoc destinationDir wasn't changed per flavor, the libraryVariants would
-         * overwrite the javaDoc as all variants would write in the same directory
-         * before the last javadoc jar would have been built, which would cause the last javadoc
-         * jar to include classes from other flavors that it doesn't include.
-         *
-         * Yes, tricky.
-         *
-         * Note that "${buildDir}/docs/javadoc" is the default javadoc destinationDir.
-         */
-        def javaDocDestDir = file("${buildDir}/docs/javadoc ${flavored ? variantArtifactId : ""}")
+            name "Splitties"
+            description libraryDesc
+            url siteUrl
 
-        /**
-         * Includes
-         */
-        def sourceDirs = variant.sourceSets.collect {
-            it.javaDirectories // Also includes kotlin sources if any.
-        }
-        def javadoc = task("${variant.name}Javadoc", type: Javadoc) {
-            description "Generates Javadoc for ${variant.name}."
-            source = variant.javaCompile.source // Yes, javaCompile is deprecated,
-            // but I didn't find any working alternative. Please, tweet @Louis_CAD if you find one.
-            destinationDir = javaDocDestDir
-            classpath += files(android.getBootClasspath().join(File.pathSeparator))
-            classpath += files(configurations.compile)
-            options.links("http://docs.oracle.com/javase/7/docs/api/")
-            options.links("http://d.android.com/reference/")
-            exclude '**/BuildConfig.java'
-            exclude '**/R.java'
-            failOnError false
-        }
-        def javadocJar = task("${variant.name}JavadocJar", type: Jar, dependsOn: javadoc) {
-            description "Puts Javadoc for ${variant.name} in a jar."
-            classifier = 'javadoc'
-            from javadoc.destinationDir
-        }
-        def sourcesJar = task("${variant.name}SourcesJar", type: Jar) {
-            description "Puts sources for ${variant.name} in a jar."
-            from sourceDirs
-            classifier = 'sources'
-        }
-
-        def publicationName = "splitties${variant.name.capitalize()}"
-        publicationNames.add(publicationName)
-
-        "$publicationName"(MavenPublication) {
-            artifactId variantArtifactId
-            group groupId
-            version libraryVersion
-
-            artifact variant.outputs[0].packageLibrary // This is the aar library
-            artifact sourcesJar
-            artifact javadocJar
-
-            pom {
-                packaging 'aar'
-                withXml {
-                    def root = asNode()
-                    root.appendNode("name", 'Splitties')
-                    root.appendNode("url", siteUrl)
-                    root.children().last() + pomConfig
-                    def depsNode = root["dependencies"][0] ?: root.appendNode("dependencies")
-
-                    def addDep = {
-                        if (it.group == null) return // Avoid empty dependency nodes
-                        def dependencyNode = depsNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                        if (it.hasProperty('optional') && it.optional) {
-                            dependencyNode.appendNode('optional', 'true')
-                        }
-                    }
-
-                    // Add deps that everyone has
-                    configurations.compile.allDependencies.each addDep
-                    // Add flavor specific deps
-                    if (flavored) {
-                        configurations["${variant.flavorName}Compile"].allDependencies.each addDep
-                    }
-                    // NOTE: This library doesn't use builtTypes specific dependencies, so no need to add them.
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                 }
+            }
+            developers {
+                developer {
+                    id 'louiscad'
+                    name 'Louis CAD'
+                    email 'louis.cognault@gmail.com'
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
+                url siteUrl
             }
         }
     }
 }
 
-group = groupId
-version = libraryVersion
+bintray {
+    user = bintray_user
+    key = bintray_api_key
+    configurations = ['archives']
 
-afterEvaluate {
-    bintray {
-        user = bintray_user
-        key = bintray_api_key
-        publications = publicationNames
-
-        override = true
-        pkg {
-            repo = 'splitties'
-            name = "splitties"
-            desc = libraryDesc
-            websiteUrl = siteUrl
-            issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
-            vcsUrl = gitUrl
-            licenses = ['Apache-2.0']
-            labels = ['aar', 'android', 'kotlin']
-            publicDownloadNumbers = true
-            githubRepo = 'LouisCAD/Splitties'
-        }
+    override = true
+    pkg {
+        repo = 'maven'
+        name = "splitties"
+        desc = libraryDesc
+        websiteUrl = siteUrl
+        issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
+        vcsUrl = gitUrl
+        licenses = ['Apache-2.0']
+        labels = ['aar', 'android', 'kotlin']
+        publicDownloadNumbers = true
+        githubRepo = 'LouisCAD/Splitties'
     }
 }
