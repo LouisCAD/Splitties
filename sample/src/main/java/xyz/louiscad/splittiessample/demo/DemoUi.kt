@@ -16,10 +16,12 @@
 
 package xyz.louiscad.splittiessample.demo
 
+import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import splitties.dimensions.dip
@@ -36,7 +38,7 @@ import splitties.views.imageResource
 import splitties.views.setPaddingDp
 import xyz.louiscad.splittiessample.R
 
-class DemoUi(override val ctx: DemoActivity) : Ui {
+class DemoUi(override val ctx: Context) : Ui {
 
     val recyclerView = v(::RecyclerView, R.id.recycler_view) {
         clipToPadding = false
@@ -56,7 +58,7 @@ class DemoUi(override val ctx: DemoActivity) : Ui {
             }) {
                 subtitle = txt(R.string.subtitle_items_count_hint)
                 popupTheme = R.style.AppTheme_PopupOverlay
-                ctx.setSupportActionBar(this)
+                (ctx as? AppCompatActivity)?.setSupportActionBar(this)
             }
         }
         add(recyclerView, contentScrollingWithAppBarLParams())
