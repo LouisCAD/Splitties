@@ -230,14 +230,28 @@ tinting, `ActionBar` and tooltip.*
 [Read more here](views-appcompat/README.md)
 
 ## Download
-**IMPORTANT NOTE**: The 2.0.0-alpha1 version is not released yet. Subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/22) to know when it is. If you want to use the older 1.3.0 version, [checkout this tag](https://github.com/LouisCAD/Splitties/tree/v1.3.0).
+**IMPORTANT NOTE**: The 2.0.0-alpha1 version is is pending jcenter sync.
+That means that for the time being, you need to add the bintray repo manually.
+
+To do so, add the following config snippet to your root project `build.gradle`
+file:
+```groovy
+allprojects {
+    repositories {
+        maven { url "https://dl.bintray.com/louiscad/maven" }
+    }
+}
+```
+Subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/22) to
+know when it is on jcenter.
 
 #### Gradle instructions
 Make sure you have `jcenter()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
 Add the version of the library to not repeat yourself if you use multiple
-artifacts, and make sure their versions are in sync:
+artifacts, and make sure their versions are in sync by adding an ext property
+into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
