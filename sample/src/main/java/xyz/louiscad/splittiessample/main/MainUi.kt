@@ -16,12 +16,14 @@
 
 package xyz.louiscad.splittiessample.main
 
+import android.content.Context
 import android.os.Build.VERSION.SDK_INT
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.widget.NestedScrollView
+import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
@@ -50,7 +52,7 @@ import splitties.views.setCompoundDrawables
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
 
-class MainUi(override val ctx: MainActivity) : Ui {
+class MainUi(override val ctx: Context) : Ui {
 
     val launchDemoBtn = v(::coloredButton) {
         textResource = R.string.go_to_the_demo
@@ -95,7 +97,7 @@ class MainUi(override val ctx: MainActivity) : Ui {
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
                 val actionBarSize = styledDimenPxSize(R.attr.actionBarSize)
                 add(::Toolbar, defaultLParams(height = actionBarSize, collapseMode = PIN)) {
-                    ctx.setSupportActionBar(this)
+                    (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
                 }
             }
