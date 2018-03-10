@@ -112,14 +112,9 @@ impossible or illegal `when` branches.*
 [Read more here](exceptions/README.md)
 
 ### Fragment Args
-*Platform Fragment arguments without ceremony thanks to delegated properties.*
-
-[Read more here](fragmentargs/README.md)
-
-### Fragment Args Support
 *Fragment arguments without ceremony thanks to delegated properties.*
 
-[Read more here](fragmentargs-support/README.md)
+[Read more here](fragmentargs/README.md)
 
 ### Init Provider
 *Base class for `ContentProvider`s used for automatic initialization
@@ -253,39 +248,38 @@ allProjects {
 ```
 Here are all the artifacts of this library. Just use the ones you need:
 ```groovy
-implementation "xyz.louiscad.splitties:splitties-alertdialog:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-appctx:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-arch-room:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-bitflags:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-bundle:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-checkedlazy:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-dimensions:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-exceptions:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-initprovider:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-fragmentargs:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-mainhandler:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-material-lists:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-preferences:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-fragmentargs-support:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-selectableviews:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
-debugImplementation "xyz.louiscad.splitties:splitties-stetho-init:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-systemservices:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-toast:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-uithread:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-snackbar:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-viewdsl:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-views:$splitties_version"
-implementation "xyz.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
+implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
+implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
+implementation "com.louiscad.splitties:splitties-arch-room:$splitties_version"
+implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
+implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
+implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
+implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
+implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
+implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
+implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
+implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
+implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
+implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
+implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
+implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
+implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
+implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
+implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
+implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 ```
 
 ### Other build systems
