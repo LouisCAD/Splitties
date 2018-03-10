@@ -33,7 +33,6 @@ variant
 * [Dimensions](#dimensions)
 * [Exceptions](#exceptions)
 * [Fragment Args](#fragment-args)
-* [Fragment Args support](#fragment-args-support)
 * [Init Provider](#init-provider)
 * [Main Handler](#main-handler)
 * [Material Lists](#material-lists)
