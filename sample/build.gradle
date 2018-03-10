@@ -80,7 +80,7 @@ dependencies {
     implementation project(':selectableviews')
     implementation project(':selectableviews-appcompat')
     implementation project(':selectableviews-constraintlayout')
-    implementation project(':stetho-init')
+    debugImplementation project(':stetho-init')
     implementation project(':systemservices')
     implementation project(':toast')
     implementation project(':typesaferecyclerview')
