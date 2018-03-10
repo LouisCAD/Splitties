@@ -282,11 +282,11 @@ implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_vers
 
 ### Other build systems
 For maven and alternative build-systems, check the [Bintray page](
-https://bintray.com/louiscad/splitties/splitties).
+https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
 To get notified for new versions, be sure to click on "Watch" on the
-[splitties Bintray page](https://bintray.com/louiscad/splitties/splitties).
+[splitties Bintray page](https://bintray.com/louiscad/maven/splitties).
 
 ## Improve this library
 If you want this library to have **a new feature or an improvement** in a
