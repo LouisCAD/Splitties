@@ -39,17 +39,17 @@ android {
 }
 
 dependencies {
-    implementation project(':dimensions')
-    implementation project(':resources')
-    implementation project(':systemservices')
-    implementation project(':views')
+    api project(':dimensions')
+    api project(':resources')
+    api project(':systemservices')
+    api project(':views')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
     api "com.android.support:appcompat-v7:$supportLibs_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

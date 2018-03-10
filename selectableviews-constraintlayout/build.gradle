@@ -43,13 +43,13 @@ dependencies {
     api project(':views')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
 
     // Constraint Layout
     api "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

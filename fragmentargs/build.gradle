@@ -39,16 +39,16 @@ android {
 }
 
 dependencies {
-    implementation project(':exceptions')
-    implementation project(':uithread')
-    implementation project(':bundle')
+    api project(':exceptions')
+    api project(':uithread')
+    api project(':bundle')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
     api "com.android.support:support-fragment:$supportLibs_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

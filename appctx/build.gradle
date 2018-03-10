@@ -39,11 +39,11 @@ android {
 }
 
 dependencies {
-    implementation project(':initprovider')
-    implementation project(':exceptions')
+    api project(':initprovider')
+    api project(':exceptions')
 
-    implementation "com.android.support:support-annotations:$supportLibs_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 apply from: '../publish.gradle'

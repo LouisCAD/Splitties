@@ -39,13 +39,13 @@ android {
 }
 
 dependencies {
-    implementation project(':appctx')
+    api project(':appctx')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 apply from: '../publish.gradle'

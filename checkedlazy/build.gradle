@@ -39,11 +39,11 @@ android {
 }
 
 dependencies {
-    implementation project(':uithread')
-    implementation project(':exceptions')
+    api project(':uithread')
+    api project(':exceptions')
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation "com.jakewharton.timber:timber:$timber_version"
