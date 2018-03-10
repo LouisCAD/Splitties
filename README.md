@@ -335,4 +335,4 @@ you to use.
 
 ## License
 This library is published under Apache License version 2.0 which you can see
-[here](https://github.com/LouisCAD/Reusables/blob/master/LICENSE).
+[here](https://github.com/LouisCAD/Splitties/blob/master/LICENSE).
