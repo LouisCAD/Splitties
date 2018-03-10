@@ -16,12 +16,19 @@
 
 apply from: '../no-version-ranges.gradle'
 apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
-def publishedGroupId = 'com.louiscad.splitties'
+group = 'com.louiscad.splitties'
 project.archivesBaseName = "splitties-${project.name}"
+version = library_version
 def gitUrl = 'https://github.com/LouisCAD/Splitties.git'
 def siteUrl = 'https://github.com/LouisCAD/Splitties'
 def libraryDesc = 'A collection of light, general purpose Android libraries in Kotlin.'
+
+// TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+android.libraryVariants.all {
+    it.generateBuildConfig.enabled = false
+}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -35,42 +42,34 @@ artifacts {
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                groupId publishedGroupId
+        pom.project {
+            packaging 'aar'
 
-                name "Splitties"
-                description libraryDesc
+            name "Splitties"
+            description libraryDesc
+            url siteUrl
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                }
+            }
+            developers {
+                developer {
+                    id 'louiscad'
+                    name 'Louis CAD'
+                    email 'louis.cognault@gmail.com'
+                }
+            }
+            scm {
+                connection gitUrl
+                developerConnection gitUrl
                 url siteUrl
-
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'louiscad'
-                        name 'Louis CAD'
-                        email 'louis.cognault@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
             }
         }
     }
 }
-
-apply plugin: 'com.jfrog.bintray'
-
-version = library_version
-group = publishedGroupId
 
 bintray {
     user = bintray_user
