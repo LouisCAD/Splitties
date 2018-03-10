@@ -39,18 +39,18 @@ android {
 }
 
 dependencies {
-    implementation project(':checkedlazy')
-    implementation project(':exceptions')
+    api project(':checkedlazy')
+    api project(':exceptions')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
     api "com.android.support:support-fragment:$supportLibs_version"
 
     // Android Architecture Components (lifecycle)
     api "android.arch.lifecycle:extensions:$arch_lifecycle_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

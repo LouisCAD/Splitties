@@ -39,18 +39,18 @@ android {
 }
 
 dependencies {
-    implementation project(':dimensions')
-    implementation project(':resources')
+    api project(':dimensions')
+    api project(':resources')
     api project(':selectableviews')
     api project(':selectableviews-constraintlayout')
-    implementation project(':viewdsl')
-    implementation project(':viewdsl-appcompat')
-    implementation project(':viewdsl-constraintlayout')
-    implementation project(':views')
-    implementation project(':views-appcompat')
+    api project(':viewdsl')
+    api project(':viewdsl-appcompat')
+    api project(':viewdsl-constraintlayout')
+    api project(':views')
+    api project(':views-appcompat')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
     api "com.android.support:appcompat-v7:$supportLibs_version"
     api "com.android.support:recyclerview-v7:$supportLibs_version"
 
@@ -58,7 +58,7 @@ dependencies {
     api "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'

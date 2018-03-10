@@ -39,16 +39,16 @@ android {
 }
 
 dependencies {
-    implementation project(':appctx')
+    api project(':appctx')
 
     // Android Support Libraries
-    implementation "com.android.support:support-annotations:$supportLibs_version"
+    api "com.android.support:support-annotations:$supportLibs_version"
 
     // Android Architecture Components (Room)
     api "android.arch.persistence.room:runtime:$arch_room_version"
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
