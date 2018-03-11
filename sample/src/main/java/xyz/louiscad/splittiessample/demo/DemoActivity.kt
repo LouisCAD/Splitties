@@ -18,7 +18,6 @@ package xyz.louiscad.splittiessample.demo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import splitties.checkedlazy.uiLazy
 import splitties.snackbar.action
 import splitties.snackbar.onDismiss
@@ -30,20 +29,15 @@ import splitties.views.appcompat.showHomeAsUp
 import splitties.views.onClick
 import xyz.louiscad.splittiessample.R
 
-class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
+class DemoActivity : AppCompatActivity(), DemoUi.Host {
 
-    private val ui by uiLazy { DemoUi(this) }
+    private val ui by uiLazy { DemoUi(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(ui)
         configActionBar {
             showHomeAsUp = true
-        }
-        ui.recyclerView.let {
-            it.setHasFixedSize(true)
-            it.layoutManager = LinearLayoutManager(this)
-            it.adapter = DemoAdapter(this)
         }
         ui.fab.onClick {
             ui.root.snack(R.string.title_feature_not_available) {
@@ -57,7 +51,7 @@ class DemoActivity : AppCompatActivity(), DemoAdapter.DemoViewHolder.Host {
     override fun onDemoItemClicked(demoItem: DemoItem) {
         ui.root.snackForever(R.string.msg_marketing_guy_invents_new_feature) {
             action(R.string.scroll_to_the_end) {
-                ui.recyclerView.scrollToPosition(Int.MAX_VALUE - 1)
+                ui.demoListView.scrollToPosition(Int.MAX_VALUE - 1)
             }
         }
     }

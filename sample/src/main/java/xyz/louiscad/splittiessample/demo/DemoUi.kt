@@ -18,11 +18,10 @@ package xyz.louiscad.splittiessample.demo
 
 import android.content.Context
 import android.support.design.widget.AppBarLayout
-import android.support.design.widget.AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import splitties.dimensions.dip
 import splitties.resources.txt
@@ -37,13 +36,18 @@ import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
 import xyz.louiscad.splittiessample.R
+import xyz.louiscad.splittiessample.extensions.recyclerView
 
-class DemoUi(override val ctx: Context) : Ui {
+class DemoUi(override val ctx: Context, host: Host) : Ui {
 
-    val recyclerView = v(::RecyclerView, R.id.recycler_view) {
+    interface Host : DemoAdapter.DemoViewHolder.Host
+
+    val demoListView = v(::recyclerView, R.id.recycler_view) {
         clipToPadding = false
         setPaddingDp(top = 8)
-        isVerticalScrollBarEnabled = true
+        setHasFixedSize(true)
+        layoutManager = LinearLayoutManager(context)
+        adapter = DemoAdapter(host)
     }
 
     val fab = v(::FloatingActionButton) {
@@ -53,15 +57,13 @@ class DemoUi(override val ctx: Context) : Ui {
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {
-            add(::Toolbar, defaultLParams {
-                scrollFlags = SCROLL_FLAG_ENTER_ALWAYS
-            }) {
+            add(::Toolbar, defaultLParams()) {
                 subtitle = txt(R.string.subtitle_items_count_hint)
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)
             }
         }
-        add(recyclerView, contentScrollingWithAppBarLParams())
+        add(demoListView, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams(gravity = Gravity.BOTTOM or Gravity.END) {
             margin = dip(16)
         })
