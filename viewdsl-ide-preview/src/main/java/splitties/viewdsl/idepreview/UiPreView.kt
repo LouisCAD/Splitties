@@ -30,6 +30,23 @@ import splitties.viewdsl.core.matchParent
 import java.lang.reflect.Constructor
 import java.lang.reflect.Proxy
 
+/**
+ * This class is dedicated to previewing `Ui` subclasses in the IDE with an xml file referencing it.
+ * Add it to your debug build and use this class in xml layout files in your debug sources. See the
+ * sample for complete examples.
+ *
+ * Here is an example xml layout file that would preview a `MainUi` class in the `main` package:
+ *
+ * ```xml
+ * <splitties.viewdsl.idepreview.UiPreView
+ *     xmlns:android="http://schemas.android.com/apk/res/android"
+ *     xmlns:app="http://schemas.android.com/apk/res-auto"
+ *     android:layout_width="match_parent"
+ *     android:layout_height="match_parent"
+ *     android:theme="@style/AppTheme.NoActionBar"
+ *     app:class_package_name_relative="main.MainUi"/>
+ * ```
+ */
 class UiPreView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
