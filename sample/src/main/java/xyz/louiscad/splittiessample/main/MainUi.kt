@@ -22,7 +22,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import splitties.dimensions.dip
@@ -51,6 +50,7 @@ import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
+import xyz.louiscad.splittiessample.extensions.nestedScrollView
 
 class MainUi(override val ctx: Context) : Ui {
 
@@ -69,7 +69,7 @@ class MainUi(override val ctx: Context) : Ui {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
 
-    val content = v(::NestedScrollView) {
+    val content = v(::nestedScrollView) {
         add(::verticalLayout, lParams(width = matchParent)) {
             add(launchDemoBtn, lParams {
                 gravity = Gravity.CENTER_HORIZONTAL
