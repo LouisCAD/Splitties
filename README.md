@@ -49,8 +49,9 @@ variant
 * [UI Thread](#ui-thread)
 * [View DSL](#view-dsl) plus its [AppCompat](#view-dsl-appcompat),
 [AppCompat styles](#view-dsl-appcompat-styles),
-[ConstraintLayout](#view-dsl-constraintlayout) and
-[Design](#view-dsl-design) extensions
+[ConstraintLayout](#view-dsl-constraintlayout),
+[Design](#view-dsl-design) and
+[Preview](#view-dsl-ide-preview) extensions
 * [Views](#views) plus its [AppCompat](#views-appcompat) extensions
 
 </details>
@@ -218,6 +219,11 @@ checker.*
 
 [Read more here](viewdsl-design/README.md)
 
+### View DSL IDE preview
+*Preview [View DSL](#view-dsl) UIs in the IDE*
+
+[Read more here](viewdsl-ide-preview/README.md)
+
 ### Views
 *Extensions function and properties on `View`s.*
 
@@ -291,6 +297,7 @@ implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_ve
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 ```

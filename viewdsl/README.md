@@ -241,3 +241,6 @@ their respective Activities [`MainActivity`](
 ../sample/src/main/java/xyz/louiscad/splittiessample/main/MainActivity.kt)
 and [`DemoActivity`](
 ../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoActivity.kt).
+
+Note that you can preview `Ui` implementations in the IDE. [See the the
+View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
