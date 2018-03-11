@@ -16,7 +16,7 @@
   -->
 <resources>
     <declare-styleable name="UiPreView">
-        <attr name="class_fully_qualified_name" format="string"/>
-        <attr name="class_package_name_relative" format="string"/>
+        <attr name="splitties_class_fully_qualified_name" format="string"/>
+        <attr name="splitties_class_package_name_relative" format="string"/>
     </declare-styleable>
 </resources>

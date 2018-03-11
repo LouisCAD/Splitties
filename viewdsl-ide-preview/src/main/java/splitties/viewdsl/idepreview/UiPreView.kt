@@ -55,8 +55,8 @@ class UiPreView @JvmOverloads constructor(
         require(isInEditMode) { "Only intended for use in IDE!" }
         val className = withStyledAttributes(attrs, R.styleable.UiPreView, defStyleAttr, 0) { ta ->
             val packageNameSuffix = str(R.string.splitties_view_dsl_ide_preview_package_name_suffix)
-            ta.getString(R.styleable.UiPreView_class_fully_qualified_name)
-                    ?: ta.getString(R.styleable.UiPreView_class_package_name_relative)?.let {
+            ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)
+                    ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
                         val packageName = context.packageName.removeSuffix(packageNameSuffix)
                         "$packageName.$it"
                     }

@@ -21,4 +21,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/AppTheme.NoActionBar"
-    app:class_package_name_relative="demo.DemoUi"/>
+    app:splitties_class_package_name_relative="demo.DemoUi"/>
