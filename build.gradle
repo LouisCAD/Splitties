@@ -37,7 +37,6 @@ allprojects {
     repositories {
         google()
         jcenter()
-        //maven { url "https://dl.bintray.com/louiscad/maven" }
     }
     ext {
         projectBuildTools_version = '27.0.3'
