@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-apply from: '../no-version-ranges.gradle'
+if (isRelease) apply from: '../no-version-ranges.gradle'
+
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.jfrog.artifactory'
 
 group = 'com.louiscad.splitties'
 project.archivesBaseName = "splitties-${project.name}"
@@ -24,6 +26,17 @@ version = library_version
 def gitUrl = 'https://github.com/LouisCAD/Splitties.git'
 def siteUrl = 'https://github.com/LouisCAD/Splitties'
 def libraryDesc = 'A collection of light, general purpose Android libraries in Kotlin.'
+
+
+if (isSnapshot) bintrayUpload.doFirst {
+    throw new IllegalStateException("This snapshot can't be deployed to bintray and jcenter!")
+} else artifactoryPublish.doFirst {
+    throw new IllegalStateException("This release can't be deployed as a snapshot!")
+}
+
+bintrayUpload.dependsOn install
+artifactoryPublish.dependsOn install
+install.group = 'publishing'
 
 // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
 android.libraryVariants.all {
@@ -66,6 +79,33 @@ install {
                 connection gitUrl
                 developerConnection gitUrl
                 url siteUrl
+            }
+        }
+    }
+}
+
+artifactoryPublish {
+    publishConfigs('archives')
+}
+
+afterEvaluate {
+    artifactory {
+        contextUrl = artifactory_contextUrl
+        publish {
+            repository {
+                repoKey = 'oss-snapshot-local'
+                username = bintray_user
+                password = bintray_api_key
+                maven = true
+            }
+            defaults {
+                publishConfigs('archives')
+                publishArtifacts = true
+                publishPom = true
+                publishIvy = false
+            }
+            resolve {
+                repoKey = 'jcenter'
             }
         }
     }
