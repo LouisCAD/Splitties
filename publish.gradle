@@ -17,8 +17,6 @@
 if (isRelease) apply from: '../no-version-ranges.gradle'
 
 apply plugin: 'com.github.dcendents.android-maven'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.jfrog.artifactory'
 
 group = 'com.louiscad.splitties'
 project.archivesBaseName = "splitties-${project.name}"
@@ -26,17 +24,6 @@ version = library_version
 def gitUrl = 'https://github.com/LouisCAD/Splitties.git'
 def siteUrl = 'https://github.com/LouisCAD/Splitties'
 def libraryDesc = 'A collection of light, general purpose Android libraries in Kotlin.'
-
-
-if (isSnapshot) bintrayUpload.doFirst {
-    throw new IllegalStateException("This snapshot can't be deployed to bintray and jcenter!")
-} else artifactoryPublish.doFirst {
-    throw new IllegalStateException("This release can't be deployed as a snapshot!")
-}
-
-bintrayUpload.dependsOn install
-artifactoryPublish.dependsOn install
-install.group = 'publishing'
 
 // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
 android.libraryVariants.all {
@@ -53,6 +40,7 @@ artifacts {
 }
 
 install {
+    group = 'publishing'
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom.project {
@@ -84,11 +72,9 @@ install {
     }
 }
 
-artifactoryPublish {
-    publishConfigs('archives')
-}
-
-afterEvaluate {
+if (isSnapshot) {
+    apply plugin: 'com.jfrog.artifactory'
+    artifactoryPublish.dependsOn install
     artifactory {
         contextUrl = artifactory_contextUrl
         publish {
@@ -104,29 +90,28 @@ afterEvaluate {
                 publishPom = true
                 publishIvy = false
             }
-            resolve {
-                repoKey = 'jcenter'
-            }
         }
     }
-}
-
-bintray {
-    user = bintray_user
-    key = bintray_api_key
-    configurations = ['archives']
-
-    override = true
-    pkg {
-        repo = 'maven'
-        name = "splitties"
-        desc = libraryDesc
-        websiteUrl = siteUrl
-        issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
-        vcsUrl = gitUrl
-        licenses = ['Apache-2.0']
-        labels = ['aar', 'android', 'kotlin']
-        publicDownloadNumbers = true
-        githubRepo = 'LouisCAD/Splitties'
+} else {
+    assert isRelease
+    apply plugin: 'com.jfrog.bintray'
+    bintrayUpload.dependsOn install
+    bintray {
+        user = bintray_user
+        key = bintray_api_key
+        configurations = ['archives']
+        override = true
+        pkg {
+            repo = 'maven'
+            name = "splitties"
+            desc = libraryDesc
+            websiteUrl = siteUrl
+            issueTrackerUrl = 'https://github.com/LouisCAD/Splitties/issues'
+            vcsUrl = gitUrl
+            licenses = ['Apache-2.0']
+            labels = ['aar', 'android', 'kotlin']
+            publicDownloadNumbers = true
+            githubRepo = 'LouisCAD/Splitties'
+        }
     }
 }
