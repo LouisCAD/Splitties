@@ -126,4 +126,4 @@ kotlin {
     }
 }
 
-apply from: '../no-version-ranges.gradle'
+if (isRelease) apply from: '../no-version-ranges.gradle'
