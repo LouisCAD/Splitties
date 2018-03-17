@@ -95,6 +95,13 @@ if (isSnapshot) {
 } else {
     assert isRelease
     apply plugin: 'com.jfrog.bintray'
+    bintrayUpload.doFirst {
+        def gitTag = 'git describe --tags --dirty'.execute().text.trim()
+        def expectedTag = "v$library_version"
+        if (gitTag != expectedTag) {
+            throw new IllegalStateException("Expected git tag '$expectedTag' but got '$gitTag'")
+        }
+    }
     bintrayUpload.dependsOn install
     bintray {
         user = bintray_user
