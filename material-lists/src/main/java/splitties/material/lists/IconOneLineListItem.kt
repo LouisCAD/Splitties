@@ -18,7 +18,6 @@ package splitties.material.lists
 
 import android.content.Context
 import android.text.TextUtils.TruncateAt.END
-import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
 import splitties.dimensions.dip
@@ -36,13 +35,14 @@ import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
 
-class IconOneLineListItem @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) : SelectableLinearLayout(context, attrs, defStyleAttr) {
-    constructor(context: Context) : this(context, null)
+class IconOneLineListItem(
+        context: Context,
+        disableDefaultTint: Boolean
+) : SelectableLinearLayout(context) {
+    constructor(context: Context) : this(context, disableDefaultTint = false)
 
     val icon = v(::imageView, R.id.icon) {
-        imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
     /**

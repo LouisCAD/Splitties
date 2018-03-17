@@ -19,7 +19,6 @@ package splitties.material.lists
 import android.content.Context
 import android.support.v7.widget.SwitchCompat
 import android.text.TextUtils.TruncateAt.END
-import android.util.AttributeSet
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
@@ -43,13 +42,14 @@ import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
 
-class IconTwoLinesSwitchListItem @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) : SelectableConstraintLayout(context, attrs, defStyleAttr) {
-    constructor(context: Context) : this(context, null)
+class IconTwoLinesSwitchListItem(
+        context: Context,
+        disableDefaultTint: Boolean
+) : SelectableConstraintLayout(context) {
+    constructor(context: Context) : this(context, disableDefaultTint = false)
 
     val icon = v(::imageView, R.id.icon) {
-        imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
     val firstLine = v(::textView, R.id.firstLine) {
