@@ -76,7 +76,7 @@ if (isSnapshot) {
     apply plugin: 'com.jfrog.artifactory'
     artifactoryPublish.dependsOn install
     artifactory {
-        contextUrl = artifactory_contextUrl
+        contextUrl = 'https://oss.jfrog.org/artifactory'
         publish {
             repository {
                 repoKey = 'oss-snapshot-local'
