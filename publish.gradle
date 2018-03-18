@@ -74,6 +74,14 @@ install {
 
 if (isSnapshot) {
     apply plugin: 'com.jfrog.artifactory'
+    artifactoryPublish.doFirst {
+        def runFromIde = System.getProperties()['idea.platform.prefix'] != null
+        if (runFromIde) {
+            def command = "./gradlew artifactoryPublish"
+            def errorMsg = "artifactoryPublish doesn\'t work from IDE"
+            throw new IllegalStateException("$errorMsg. Please run \"$command\" from command line.")
+        }
+    }
     artifactoryPublish.dependsOn install
     artifactory {
         contextUrl = 'https://oss.jfrog.org/artifactory'
