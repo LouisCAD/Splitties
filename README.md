@@ -237,7 +237,7 @@ tinting, `ActionBar` and tooltip.*
 
 ## Download
 
-#### Gradle instructions
+### Gradle instructions
 Make sure you have `jcenter()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
@@ -287,6 +287,30 @@ debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$split
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 ```
+#### Snapshots
+Let's say you need a new feature or a fix that did
+not make it to a release yet:
+
+You can grab it in the latest snapshot by adding the
+snapshots repository and changing the library version to the -SNAPSHOT
+version in your root project `build.gradle` file:
+
+```groovy
+allProjects {
+    repositories {
+        google()
+        jcenter() // Add snapshots repo below
+        maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+    }
+    ext {
+        splitties_version = '2.0.0-SNAPSHOT' // Change this line
+    }
+}
+```
+
+If you need to, you can browse the deployed snapshots [here on artifactory](
+https://oss.jfrog.org/webapp/#/artifacts/browse/tree/General/oss-snapshot-local/com/louiscad/splitties
+).
 
 ### Other build systems
 For maven and alternative build-systems, check the [Bintray page](
