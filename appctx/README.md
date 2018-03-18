@@ -14,8 +14,8 @@ It also brings these 2 extensions functions on `Context` for advanced usages:
 - `injectAsAppCtx()`
 - `canLeakMemory()`
 
-You can use `appCtx` and `directBoot` anywhere in your app (without risking
-leaking a short-lived context such as an Activity or a Service).
+You can use `appCtx` and `directBootCtx` anywhere in your app (without
+risking leaking a short-lived context such as an Activity or a Service).
 This makes writing code that needs a `Context` for non Activity specific
 purposes more convenient.
 
