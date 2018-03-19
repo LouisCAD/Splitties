@@ -1,6 +1,6 @@
 # Releasing this library:
 
-## Releasing an stable, beta or alpha version
+## Releasing a stable, beta or alpha version
 
 1. Change the `library_version` ext property in root project's `build.gradle`
 file to a non-SNAPSHOT version.
