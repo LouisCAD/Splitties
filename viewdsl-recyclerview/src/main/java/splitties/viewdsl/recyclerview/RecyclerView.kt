@@ -16,11 +16,10 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package xyz.louiscad.splittiessample.extensions
+package splitties.viewdsl.recyclerview
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import splitties.views.inflate
-import xyz.louiscad.splittiessample.R
 
 inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)

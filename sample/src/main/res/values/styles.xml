@@ -33,8 +33,4 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="WithScrollbarsStyle">
-        <item name="android:scrollbars">horizontal|vertical</item>
-    </style>
-
 </resources>

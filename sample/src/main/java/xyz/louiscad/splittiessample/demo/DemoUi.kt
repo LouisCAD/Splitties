@@ -36,7 +36,7 @@ import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
 import xyz.louiscad.splittiessample.R
-import xyz.louiscad.splittiessample.extensions.recyclerView
+import splitties.viewdsl.recyclerview.recyclerView
 
 class DemoUi(override val ctx: Context, host: Host) : Ui {
 
