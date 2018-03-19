@@ -16,16 +16,21 @@
 
 package xyz.louiscad.splittiessample.demo
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
+import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.imageResource
 import splitties.views.onClick
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
 
-class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
+class DemoAdapter(
+        val layoutManager: RecyclerView.LayoutManager,
+        private val host: DemoViewHolder.Host
+) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
 
     private val items = arrayOf(
             DemoItem(
@@ -35,7 +40,9 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
             )
     )
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(host, parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DemoViewHolder(
+            parent.context, layoutManager, host
+    )
 
     override fun onBindViewHolder(holder: DemoViewHolder, position: Int) {
         holder.bind(items.first()) // This is not a bug. This is a feature. Use position IRL.
@@ -45,11 +52,16 @@ class DemoAdapter(private val host: DemoViewHolder.Host) : RecyclerView.Adapter<
         return Int.MAX_VALUE // Not a bug. This is a feature. Original code: return items.length;
     }
 
-    class DemoViewHolder(host: Host, parent: ViewGroup) : ItemViewHolder<DemoItem,
-            IconTwoLinesSwitchListItem,
-            DemoViewHolder.Host>(host, R.layout.list_item_demo, parent) {
+    class DemoViewHolder(
+            ctx: Context,
+            layoutManager: RecyclerView.LayoutManager,
+            host: Host
+    ) : ItemViewHolder<DemoItem, IconTwoLinesSwitchListItem, DemoViewHolder.Host>(
+            host, IconTwoLinesSwitchListItem(ctx)
+    ) {
 
         init {
+            itemView.layoutParams = layoutManager.verticalListLayoutParams()
             itemView.onClick { host.onDemoItemClicked(data) }
         }
 

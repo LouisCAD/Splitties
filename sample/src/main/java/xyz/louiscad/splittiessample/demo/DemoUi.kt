@@ -32,11 +32,11 @@ import splitties.viewdsl.core.v
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
 import xyz.louiscad.splittiessample.R
-import splitties.viewdsl.recyclerview.recyclerView
 
 class DemoUi(override val ctx: Context, host: Host) : Ui {
 
@@ -47,7 +47,7 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
         setPaddingDp(top = 8)
         setHasFixedSize(true)
         layoutManager = LinearLayoutManager(context)
-        adapter = DemoAdapter(host)
+        adapter = DemoAdapter(layoutManager, host)
     }
 
     val fab = v(::FloatingActionButton) {
