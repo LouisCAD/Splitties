@@ -14,13 +14,27 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE")
-
-package xyz.louiscad.splittiessample.extensions
+package splitties.viewdsl.recyclerview
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import splitties.views.inflate
-import xyz.louiscad.splittiessample.R
 
+@Suppress("NOTHING_TO_INLINE")
 inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)
+
+inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
+        block: RecyclerView.LayoutParams.() -> Unit = {}
+): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
+    width = MATCH_PARENT
+    height = WRAP_CONTENT
+}.apply(block)
+
+inline fun RecyclerView.LayoutManager.horizontalListLayoutParams(
+        block: RecyclerView.LayoutParams.() -> Unit = {}
+): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
+    width = WRAP_CONTENT
+    height = MATCH_PARENT
+}.apply(block)
