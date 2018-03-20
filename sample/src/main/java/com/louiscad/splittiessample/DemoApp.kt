@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.prefs
+package com.louiscad.splittiessample
 
-import splitties.preferences.Preferences
+import android.app.Application
+import android.support.v7.app.AppCompatDelegate
 
-object GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0)
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
+class DemoApp : Application() {
+    companion object {
+        init {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+        }
+    }
 }

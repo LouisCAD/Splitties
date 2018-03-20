@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample
+package com.louiscad.splittiessample
 
-import splitties.init.AppCtxInitProvider
-import splitties.init.appCtx
-import splitties.init.consume
-import splitties.initprovider.InitProvider
+import android.app.Application
+import android.content.ContentProvider
+import timber.log.Timber
 
 /**
- * Just present here and in the manifest to call [AppCtxInitProvider] implementation
- * for the second process of this app so [appCtx] is initialized.
- * @see AppCtxInitProvider
+ * Initializes some app wide things (e.g. the logging library Timber).
+ * This object needs to be invoked (`AppInit`) in a [ContentProvider] or an [Application].
  */
-class SecondProcessInitProvider : InitProvider() {
-    override fun onCreate() = consume { AppInit }
+object AppInit {
+    init {
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+    }
 }

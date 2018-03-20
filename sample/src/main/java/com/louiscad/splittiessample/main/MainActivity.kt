@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.main
+package com.louiscad.splittiessample.main
 
 import android.app.UiModeManager
 import android.os.Bundle
@@ -26,11 +26,11 @@ import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.viewdsl.core.setContentView
 import splitties.views.onClick
-import xyz.louiscad.splittiessample.R
-import xyz.louiscad.splittiessample.demo.DemoActivity
-import xyz.louiscad.splittiessample.extensions.start
-import xyz.louiscad.splittiessample.extensions.toggleNightMode
-import xyz.louiscad.splittiessample.prefs.GamePreferences
+import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.demo.DemoActivity
+import com.louiscad.splittiessample.extensions.start
+import com.louiscad.splittiessample.extensions.toggleNightMode
+import com.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
 

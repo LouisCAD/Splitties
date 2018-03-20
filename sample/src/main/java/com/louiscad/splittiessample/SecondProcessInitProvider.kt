@@ -14,11 +14,18 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample
+package com.louiscad.splittiessample
 
-import splitties.initprovider.InitProvider
+import splitties.init.AppCtxInitProvider
+import splitties.init.appCtx
 import splitties.init.consume
+import splitties.initprovider.InitProvider
 
-class AppInitProvider : InitProvider() {
+/**
+ * Just present here and in the manifest to call [AppCtxInitProvider] implementation
+ * for the second process of this app so [appCtx] is initialized.
+ * @see AppCtxInitProvider
+ */
+class SecondProcessInitProvider : InitProvider() {
     override fun onCreate() = consume { AppInit }
 }

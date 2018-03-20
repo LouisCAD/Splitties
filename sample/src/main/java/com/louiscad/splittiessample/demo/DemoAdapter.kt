@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo
+package com.louiscad.splittiessample.demo
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
@@ -25,7 +25,7 @@ import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.imageResource
 import splitties.views.onClick
 import splitties.views.textResource
-import xyz.louiscad.splittiessample.R
+import com.louiscad.splittiessample.R
 
 class DemoAdapter(
         val layoutManager: RecyclerView.LayoutManager,

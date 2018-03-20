@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo
+package com.louiscad.splittiessample.demo
 
 import android.content.Context
 import android.support.design.widget.AppBarLayout
@@ -36,7 +36,7 @@ import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
-import xyz.louiscad.splittiessample.R
+import com.louiscad.splittiessample.R
 
 class DemoUi(override val ctx: Context, host: Host) : Ui {
 

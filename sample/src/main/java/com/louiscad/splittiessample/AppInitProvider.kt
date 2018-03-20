@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample
+package com.louiscad.splittiessample
 
-import android.app.Application
-import android.content.ContentProvider
-import timber.log.Timber
+import splitties.initprovider.InitProvider
+import splitties.init.consume
 
-/**
- * Initializes some app wide things (e.g. the logging library Timber).
- * This object needs to be invoked (`AppInit`) in a [ContentProvider] or an [Application].
- */
-object AppInit {
-    init {
-        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
-    }
+class AppInitProvider : InitProvider() {
+    override fun onCreate() = consume { AppInit }
 }

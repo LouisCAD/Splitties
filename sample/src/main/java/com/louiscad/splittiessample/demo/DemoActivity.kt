@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo
+package com.louiscad.splittiessample.demo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -27,7 +27,7 @@ import splitties.viewdsl.core.setContentView
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
 import splitties.views.onClick
-import xyz.louiscad.splittiessample.R
+import com.louiscad.splittiessample.R
 
 class DemoActivity : AppCompatActivity(), DemoUi.Host {
 

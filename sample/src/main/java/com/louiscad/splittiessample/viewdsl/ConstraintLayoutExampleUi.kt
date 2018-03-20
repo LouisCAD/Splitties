@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.viewdsl
+package com.louiscad.splittiessample.viewdsl
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -31,7 +31,7 @@ import splitties.viewdsl.core.v
 import splitties.viewdsl.core.wrapContent
 import splitties.views.centerText
 import splitties.views.textAppearance
-import xyz.louiscad.splittiessample.R
+import com.louiscad.splittiessample.R
 
 class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.extensions
+package com.louiscad.splittiessample.extensions
 
 import android.app.UiModeManager
 import android.content.res.Configuration

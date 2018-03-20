@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo
+package com.louiscad.splittiessample.extensions
 
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 
-/**
- * @see DemoAdapter.DemoViewHolder
- */
-class DemoItem(
-        @StringRes titleResId: Int,
-        @StringRes detailResId: Int,
-        @DrawableRes iconResId: Int
-) : ImmutableBasicItem(titleResId, detailResId, iconResId)
+inline fun <reified A : Activity> Context.start() = startActivity(Intent(this, A::class.java))
+
+inline fun <reified A : Activity> Context.start(configIntent: Intent.() -> Unit = {}) {
+    startActivity(Intent(this, A::class.java).apply(configIntent))
+}
+
+inline fun Context.startActivity(action: String, configIntent: Intent.() -> Unit) {
+    startActivity(Intent(action).apply(configIntent))
+}

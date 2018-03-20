@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.demo
+package com.louiscad.splittiessample.demo
 
 import android.support.annotation.DrawableRes
 import android.support.annotation.StringRes

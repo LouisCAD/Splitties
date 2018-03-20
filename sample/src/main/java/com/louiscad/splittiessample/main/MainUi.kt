@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package xyz.louiscad.splittiessample.main
+package com.louiscad.splittiessample.main
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
@@ -50,7 +50,7 @@ import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
-import xyz.louiscad.splittiessample.R
+import com.louiscad.splittiessample.R
 
 class MainUi(override val ctx: Context) : Ui {
 
