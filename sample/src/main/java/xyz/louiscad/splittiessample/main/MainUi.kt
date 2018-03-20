@@ -45,12 +45,12 @@ import splitties.viewdsl.design.SCROLL
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.support.compat.nestedScrollView
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
 import xyz.louiscad.splittiessample.R
-import xyz.louiscad.splittiessample.extensions.nestedScrollView
 
 class MainUi(override val ctx: Context) : Ui {
 
