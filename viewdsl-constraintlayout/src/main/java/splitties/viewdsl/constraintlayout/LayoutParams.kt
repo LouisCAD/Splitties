@@ -92,6 +92,10 @@ inline fun LP.bottomToBottomOf(view: View) {
     bottomToBottom = view.idOrThrow
 }
 
+inline fun LP.baselineToBaselineOf(view: View) {
+    baselineToBaseline = view.idOrThrow
+}
+
 inline fun LP.startToStartOf(view: View) {
     startToStart = view.idOrThrow
 }
