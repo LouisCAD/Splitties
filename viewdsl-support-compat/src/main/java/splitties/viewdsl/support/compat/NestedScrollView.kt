@@ -16,11 +16,10 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package xyz.louiscad.splittiessample.extensions
+package splitties.viewdsl.support.compat
 
 import android.content.Context
 import android.support.v4.widget.NestedScrollView
 import splitties.views.inflate
-import xyz.louiscad.splittiessample.R
 
 inline fun nestedScrollView(ctx: Context): NestedScrollView = ctx.inflate(R.layout.nestedscrollview_with_scrollbars)

@@ -92,6 +92,7 @@ dependencies {
     implementation project(':viewdsl-constraintlayout')
     implementation project(':viewdsl-design')
     implementation project(':viewdsl-recyclerview')
+    implementation project(':viewdsl-support-compat')
     debugImplementation project(':viewdsl-ide-preview')
     implementation project(':views')
     implementation project(':views-appcompat')
