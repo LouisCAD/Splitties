@@ -42,7 +42,6 @@ dependencies {
     api project(':dimensions')
     api project(':resources')
     api project(':views')
-    api project(':views-appcompat')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"
