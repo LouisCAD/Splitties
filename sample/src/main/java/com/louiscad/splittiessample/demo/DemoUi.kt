@@ -23,6 +23,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
+import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.txt
 import splitties.viewdsl.core.Ui
@@ -36,10 +37,8 @@ import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
-import com.louiscad.splittiessample.R
 
 class DemoUi(override val ctx: Context, host: Host) : Ui {
-
     interface Host : DemoAdapter.DemoViewHolder.Host
 
     val demoListView = v(::recyclerView, R.id.recycler_view) {
@@ -49,11 +48,9 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
         layoutManager = LinearLayoutManager(context)
         adapter = DemoAdapter(layoutManager, host)
     }
-
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_computer_white_24dp
     }
-
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {

@@ -57,18 +57,15 @@ class MainUi(override val ctx: Context) : Ui {
     val launchDemoBtn = v(::coloredButton) {
         textResource = R.string.go_to_the_demo
     }
-
     val toggleNightModeBtn = v(::button) {
         compoundDrawablePadding = dip(4)
         if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
         setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
     }
-
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
-
     val content = v(::nestedScrollView) {
         add(::verticalLayout, lParams(width = matchParent)) {
             add(launchDemoBtn, lParams {
@@ -86,7 +83,6 @@ class MainUi(override val ctx: Context) : Ui {
             }
         }
     }
-
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams(dip(180))) {
