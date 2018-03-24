@@ -15,6 +15,9 @@
  */
 package com.louiscad.splittiessample.extensions
 
+import android.app.Activity
+import android.content.Intent
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 
@@ -30,4 +33,15 @@ inline fun FragmentActivity.fragmentTransaction(
             if (now) it.commitNow() else it.commit()
         }
     }
+}
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun FragmentTransaction.addToBackStack(): FragmentTransaction = addToBackStack(null)
+
+inline fun <reified A : Activity> Fragment.start(configIntent: Intent.() -> Unit = {}) {
+    startActivity(Intent(activity, A::class.java).apply(configIntent))
+}
+
+inline fun Fragment.startActivity(action: String, configIntent: Intent.() -> Unit) {
+    startActivity(Intent(action).apply(configIntent))
 }
