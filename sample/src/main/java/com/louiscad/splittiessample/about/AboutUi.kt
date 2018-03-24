@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package com.louiscad.splittiessample.viewdsl
+package com.louiscad.splittiessample.about
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.support.design.widget.AppBarLayout
+import android.support.design.widget.CoordinatorLayout
+import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.viewdsl.appcompat.textView
@@ -29,14 +32,18 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.wrapContent
+import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.defaultLParams
+import splitties.views.appcompat.Toolbar
 import splitties.views.centerText
 import splitties.views.textAppearance
 import splitties.views.textResource
 
-class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
+class AboutUi(override val ctx: Context) : Ui {
 
-    override val root = v(::ConstraintLayout) {
-        val firstLine = add(::textView, R.id.firstLine, lParams(height = wrapContent) {
+    private val mainContent = v(::ConstraintLayout) {
+        val headlineTv = add(::textView, R.id.tv_headline, lParams(height = wrapContent) {
             topOfParent()
             centerHorizontally()
             topMargin = dip(16)
@@ -45,14 +52,34 @@ class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
             textResource = R.string.lib_name
             centerText()
         }
-        add(::textView, R.id.secondLine, lParams(height = wrapContent) {
-            topToBottomOf(firstLine)
+        val authorTv = add(::textView, R.id.tv_author, lParams(height = wrapContent) {
+            topToBottomOf(headlineTv)
+            centerHorizontally()
+            topMargin = dip(8)
+        }) {
+            textAppearance = R.style.TextAppearance_AppCompat_Small
+            textResource = R.string.a_lib_by_louiscad
+            centerText()
+        }
+        add(::textView, R.id.tv_license_name, lParams(height = wrapContent) {
+            topToBottomOf(authorTv)
             centerHorizontally()
             topMargin = dip(8)
         }) {
             textAppearance = R.style.TextAppearance_AppCompat_Caption
-            textResource = R.string.a_lib_by_louiscad
+            textResource = R.string.licensed_under_apache_2
             centerText()
         }
+    }
+
+    override val root = v(::CoordinatorLayout) {
+        fitsSystemWindows = true
+        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {
+            add(::Toolbar, defaultLParams()) {
+                popupTheme = R.style.AppTheme_PopupOverlay
+                (ctx as? AppCompatActivity)?.setSupportActionBar(this)
+            }
+        }
+        add(mainContent, contentScrollingWithAppBarLParams())
     }
 }

@@ -16,4 +16,5 @@
   -->
 <resources>
     <item name="action_settings" type="id"/>
+    <item name="action_about" type="id"/>
 </resources>

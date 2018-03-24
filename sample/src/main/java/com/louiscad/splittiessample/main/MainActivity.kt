@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
@@ -61,10 +62,14 @@ class MainActivity : AppCompatActivity() {
         menu.addItem(R.id.action_settings, R.string.action_settings, order = 100) {
             neverShowAsAction()
         }
+        menu.addItem(R.id.action_about, R.string.about, order = 101) {
+            neverShowAsAction()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_settings -> true.also { _ -> toast("No settings yet!") }
+        R.id.action_about -> true.also { _ -> start<AboutActivity>() }
         else -> super.onOptionsItemSelected(item)
     }
 
