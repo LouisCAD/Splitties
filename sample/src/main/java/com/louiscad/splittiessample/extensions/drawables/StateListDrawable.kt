@@ -17,6 +17,7 @@ package com.louiscad.splittiessample.extensions.drawables
 
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
+import android.support.annotation.AttrRes
 import android.util.StateSet
 import splitties.exceptions.unsupported
 
@@ -60,15 +61,21 @@ inline fun drawableStateList(
         addStates: StateListDrawable.() -> Unit
 ): Drawable = StateListDrawable().apply(addStates)
 
+/**
+ * For [state] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ */
 inline fun <D : Drawable> StateListDrawable.addForState(
         newDrawableRef: () -> D,
-        state: Int,
+        @AttrRes state: Int,
         drawableConfig: D.() -> Unit
 ) = addState(intArrayOf(state), newDrawableRef().apply(drawableConfig))
 
+/**
+ * For [stateSet] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ */
 inline fun <D : Drawable> StateListDrawable.addForStates(
         newDrawableRef: () -> D,
-        vararg stateSet: Int,
+        @AttrRes vararg stateSet: Int,
         drawableConfig: D.() -> Unit
 ) = addState(stateSet, newDrawableRef().apply(drawableConfig))
 
