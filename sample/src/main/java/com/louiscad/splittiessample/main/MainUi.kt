@@ -23,8 +23,9 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.view.Gravity
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.gravityCenterHorizontal
+import com.louiscad.splittiessample.extensions.gravityEndBottom
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
@@ -69,11 +70,11 @@ class MainUi(override val ctx: Context) : Ui {
     val content = v(::nestedScrollView) {
         add(::verticalLayout, lParams(width = matchParent)) {
             add(launchDemoBtn, lParams {
-                gravity = Gravity.CENTER_HORIZONTAL
+                gravity = gravityCenterHorizontal
                 topMargin = dip(8)
             })
             add(toggleNightModeBtn, lParams {
-                gravity = Gravity.CENTER_HORIZONTAL
+                gravity = gravityCenterHorizontal
                 bottomMargin = dip(8)
             })
             add(::textView, lParams {
@@ -100,7 +101,7 @@ class MainUi(override val ctx: Context) : Ui {
         add(content, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams {
             anchorId = R.id.app_bar
-            anchorGravity = Gravity.BOTTOM or Gravity.END
+            anchorGravity = gravityEndBottom
             margin = dip(16)
         })
     }

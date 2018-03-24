@@ -22,8 +22,8 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.gravityEndBottom
 import splitties.dimensions.dip
 import splitties.resources.txt
 import splitties.viewdsl.core.Ui
@@ -61,7 +61,7 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
             }
         }
         add(demoListView, contentScrollingWithAppBarLParams())
-        add(fab, defaultLParams(gravity = Gravity.BOTTOM or Gravity.END) {
+        add(fab, defaultLParams(gravity = gravityEndBottom) {
             margin = dip(16)
         })
     }
