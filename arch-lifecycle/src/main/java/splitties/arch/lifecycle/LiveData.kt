@@ -21,24 +21,27 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
 
-inline fun <T> LifecycleOwner.observe(liveData: LiveData<T>, crossinline observer: (t: T?) -> Unit) {
-    liveData.observe(this, Observer {
-        observer(it)
-    })
-}
+inline fun <T> LifecycleOwner.observe(
+        liveData: LiveData<T>,
+        crossinline observer: (t: T?) -> Unit
+): Observer<T> = Observer<T> {
+    observer(it)
+}.also { liveData.observe(this, it) }
 
-inline fun <T : Any> LifecycleOwner.observeNotNull(liveData: LiveData<T>, crossinline observer: (t: T) -> Unit) {
-    liveData.observe(this, Observer {
-        if (it != null) observer(it)
-    })
-}
+inline fun <T : Any> LifecycleOwner.observeNotNull(
+        liveData: LiveData<T>,
+        crossinline observer: (t: T) -> Unit
+): Observer<T> = Observer<T> {
+    if (it != null) observer(it)
+}.also { liveData.observe(this, it) }
 
 @JvmName("observeWithLiveDataOfNullable")
-inline fun <T : Any> LifecycleOwner.observeNotNull(liveData: LiveData<T?>, crossinline observer: (t: T) -> Unit) {
-    liveData.observe(this, Observer {
-        if (it != null) observer(it)
-    })
-}
+inline fun <T : Any> LifecycleOwner.observeNotNull(
+        liveData: LiveData<T?>,
+        crossinline observer: (t: T) -> Unit
+): Observer<T?> = Observer<T?> {
+    if (it != null) observer(it)
+}.also { liveData.observe(this, it) }
 
 /**
  * Applies the given function on the main thread to each value emitted by source
