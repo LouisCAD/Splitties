@@ -16,9 +16,9 @@
 
 package com.louiscad.splittiessample.viewdsl
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.support.constraint.ConstraintLayout
+import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.constraintlayout.centerHorizontally
@@ -31,7 +31,7 @@ import splitties.viewdsl.core.v
 import splitties.viewdsl.core.wrapContent
 import splitties.views.centerText
 import splitties.views.textAppearance
-import com.louiscad.splittiessample.R
+import splitties.views.textResource
 
 class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
 
@@ -42,8 +42,7 @@ class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
             topMargin = dip(16)
         }) {
             textAppearance = R.style.TextAppearance_AppCompat_Headline
-            @SuppressLint("SetTextI18n")
-            text = "Splitties"
+            textResource = R.string.lib_name
             centerText()
         }
         add(::textView, R.id.secondLine, lParams(height = wrapContent) {
@@ -52,8 +51,7 @@ class ConstraintLayoutExampleUi(override val ctx: Context) : Ui {
             topMargin = dip(8)
         }) {
             textAppearance = R.style.TextAppearance_AppCompat_Caption
-            @SuppressLint("SetTextI18n")
-            text = "A library by Louis CAD"
+            textResource = R.string.a_lib_by_louiscad
             centerText()
         }
     }
