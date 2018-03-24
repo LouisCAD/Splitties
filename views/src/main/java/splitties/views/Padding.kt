@@ -32,6 +32,14 @@ inline var View.verticalPadding: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = setPadding(paddingLeft, value, paddingRight, value)
 
+inline var View.topPadding: Int
+    get() = paddingTop
+    set(value) = setPadding(paddingLeft, value, paddingRight, paddingBottom)
+
+inline var View.bottomPadding: Int
+    get() = paddingBottom
+    set(value) = setPadding(paddingLeft, paddingTop, paddingRight, value)
+
 fun View.setPaddingDp(start: Int = 0,
                       top: Int = 0,
                       end: Int = 0,
