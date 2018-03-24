@@ -20,6 +20,10 @@ import android.view.View
 import splitties.dimensions.dip
 import kotlin.DeprecationLevel.HIDDEN
 
+inline var View.padding: Int
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
+    set(value) = setPadding(value, value, value, value)
+
 inline var View.horizontalPadding: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = setPadding(value, paddingTop, value, paddingBottom)
@@ -27,10 +31,6 @@ inline var View.horizontalPadding: Int
 inline var View.verticalPadding: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = setPadding(paddingLeft, value, paddingRight, value)
-
-inline var View.padding: Int
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setPadding(value, value, value, value)
 
 fun View.setPaddingDp(start: Int = 0,
                       top: Int = 0,
