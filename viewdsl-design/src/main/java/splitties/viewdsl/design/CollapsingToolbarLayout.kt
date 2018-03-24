@@ -19,6 +19,7 @@
 package splitties.viewdsl.design
 
 import android.support.design.widget.CollapsingToolbarLayout
+import splitties.resources.styledDimenPxSize
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 import android.support.design.widget.CollapsingToolbarLayout.LayoutParams as LP
@@ -46,3 +47,11 @@ inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent
 ) = LP(width, height)
+
+inline fun CollapsingToolbarLayout.actionBarLParams(
+        collapseMode: Int = LP.COLLAPSE_MODE_OFF,
+        parallaxMultiplier: Float = 0.5f // Default value as of 27.1.0
+) = LP(matchParent, styledDimenPxSize(R.attr.actionBarSize)).also {
+    it.collapseMode = collapseMode
+    it.parallaxMultiplier = parallaxMultiplier
+}

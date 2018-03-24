@@ -24,11 +24,11 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
+import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
-import splitties.resources.styledDimenPxSize
 import splitties.viewdsl.appcompat.button
 import splitties.viewdsl.appcompat.styles.coloredButton
 import splitties.viewdsl.appcompat.textView
@@ -42,6 +42,7 @@ import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
 import splitties.viewdsl.design.SCROLL
+import splitties.viewdsl.design.actionBarLParams
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
@@ -50,7 +51,6 @@ import splitties.views.appcompat.Toolbar
 import splitties.views.imageResource
 import splitties.views.setCompoundDrawables
 import splitties.views.textResource
-import com.louiscad.splittiessample.R
 
 class MainUi(override val ctx: Context) : Ui {
 
@@ -95,8 +95,7 @@ class MainUi(override val ctx: Context) : Ui {
             }) {
                 fitsSystemWindows = true
                 setContentScrimColor(styledColor(R.attr.colorPrimary))
-                val actionBarSize = styledDimenPxSize(R.attr.actionBarSize)
-                add(::Toolbar, defaultLParams(height = actionBarSize, collapseMode = PIN)) {
+                add(::Toolbar, actionBarLParams(collapseMode = PIN)) {
                     (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
                 }
