@@ -20,17 +20,21 @@ import android.app.UiModeManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
+import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.demo.DemoActivity
+import com.louiscad.splittiessample.extensions.menu.addItem
+import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
+import com.louiscad.splittiessample.extensions.start
+import com.louiscad.splittiessample.extensions.toggleNightMode
+import com.louiscad.splittiessample.prefs.GamePreferences
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
+import splitties.toast.toast
 import splitties.viewdsl.core.setContentView
 import splitties.views.onClick
-import com.louiscad.splittiessample.R
-import com.louiscad.splittiessample.demo.DemoActivity
-import com.louiscad.splittiessample.extensions.start
-import com.louiscad.splittiessample.extensions.toggleNightMode
-import com.louiscad.splittiessample.prefs.GamePreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,9 +57,15 @@ class MainActivity : AppCompatActivity() {
         ui.toggleNightModeBtn.onClick { toggleNightMode() }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu) = super.onCreateOptionsMenu(menu).also { _ ->
+        menu.addItem(R.id.action_settings, R.string.action_settings, order = 100) {
+            neverShowAsAction()
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_settings -> true.also { _ -> toast("No settings yet!") }
+        else -> super.onOptionsItemSelected(item)
     }
 
     companion object {
