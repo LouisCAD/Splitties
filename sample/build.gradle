@@ -22,7 +22,7 @@ android {
     compileSdkVersion projectSdk_version
     buildToolsVersion projectBuildTools_version
     defaultConfig {
-        applicationId "xyz.louiscad.splittiessample"
+        applicationId "com.louiscad.splittiessample"
         minSdkVersion 14
         targetSdkVersion projectSdk_version
         versionCode 1
