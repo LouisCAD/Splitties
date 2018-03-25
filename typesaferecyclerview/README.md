@@ -13,5 +13,5 @@ See the sample to understand how it works.
 When using `ViewHolder`, use the one from Splitties to get the typesafe one.
 
 See it in action in the sample: [DemoAdapter](
-../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoAdapter.kt
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoAdapter.kt
 ).

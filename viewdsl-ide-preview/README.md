@@ -27,7 +27,7 @@ subpackage (relative to the app/library package name).
 ```
 
 Here's a screenshot of how it looks like with [DemoUi from the sample](
-../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoUi.kt):
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt):
 
 ![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20example.png)
 ## Important info

@@ -234,13 +234,13 @@ Its `root` property is meant to be used in `setContentView(…)` in an
 `Activity` or returned from `onCreateView(…)` in a `Fragment`.
 
 See concrete examples in [`MainUi`](
-../sample/src/main/java/xyz/louiscad/splittiessample/main/MainUi.kt) and
+../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt) and
 [`DemoUi`](
-../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoUi.kt) with
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt) with
 their respective Activities [`MainActivity`](
-../sample/src/main/java/xyz/louiscad/splittiessample/main/MainActivity.kt)
+../sample/src/main/java/com/louiscad/splittiessample/main/MainActivity.kt)
 and [`DemoActivity`](
-../sample/src/main/java/xyz/louiscad/splittiessample/demo/DemoActivity.kt).
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
 
 Note that you can preview `Ui` implementations in the IDE. [See the the
 View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
