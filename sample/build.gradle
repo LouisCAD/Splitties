@@ -69,6 +69,7 @@ dependencies {
     implementation project(':exceptions')
     implementation project(':initprovider')
     implementation project(':mainhandler')
+    implementation project(':material-colors')
     implementation project(':material-lists')
     implementation project(':preferences')
     implementation project(':resources')
@@ -92,6 +93,7 @@ dependencies {
     debugImplementation project(':viewdsl-ide-preview')
     implementation project(':views')
     implementation project(':views-appcompat')
+    implementation project(':views-cardview')
 
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibs_version"
@@ -102,9 +104,6 @@ dependencies {
 
     // Timber log utility
     implementation "com.jakewharton.timber:timber:$timber_version"
-
-    implementation 'com.dmitrymalkovich.android:material-design-dimens:1.2'
-    implementation 'com.actinarium.aligned:aligned:0.1'
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
