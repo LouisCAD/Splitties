@@ -53,10 +53,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-
-    /**packagingOptions {
-        pickFirst "META-INF/appctx_release.kotlin_module"
-    }*/
 }
 
 dependencies {
