@@ -24,6 +24,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.contentScrimColor
 import com.louiscad.splittiessample.extensions.gravityCenterHorizontal
 import com.louiscad.splittiessample.extensions.gravityEndBottom
 import splitties.dimensions.dip
@@ -91,7 +92,7 @@ class MainUi(override val ctx: Context) : Ui {
                 scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
             }) {
                 fitsSystemWindows = true
-                setContentScrimColor(styledColor(R.attr.colorPrimary))
+                contentScrimColor = styledColor(R.attr.colorPrimary)
                 add(::Toolbar, actionBarLParams(collapseMode = PIN)) {
                     (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
