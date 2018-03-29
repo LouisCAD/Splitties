@@ -36,7 +36,7 @@ impossible or illegal `when` branches.
 purposes.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple `Handler`s for
 main `Looper`.
-- **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines]
+- **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
 - **[Resources:](resources)** Extensions to get resources like strings, colors or drawables easily,
