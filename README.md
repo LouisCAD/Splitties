@@ -16,16 +16,16 @@ as possible.
 
 ## All the splits
 
-- **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code
+- **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of
-[Alert Dialog](alertdialog)
+[Alert Dialog](alertdialog).
 - **[App Context:](appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[Arch Lifecycle:](arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe
 `Lifecycle`s.
 - **[Arch Room:](arch-room)** Room helpers to instantiate your DB and perform transactions in
 Kotlin.
 - **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
-`Short` and `Byte`
+`Short` and `Byte`.
 - **[Bundle:](bundle)** `BundleHelper` to use `Bundle` with property syntax for `Intent` extras
 and more.
 - **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and
@@ -63,12 +63,12 @@ easy basic usage of `RecyclerView`.
 - **[UI Thread:](uithread)** Properties related to Android UI thread, and `checkUiThread()`
 precondition checker.
 - **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
-- **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl)
+- **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl).
 - **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for
-[View DSL](viewdsl)
+[View DSL](viewdsl).
 - **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
-[View DSL](viewdsl)
-- **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl)
+[View DSL](viewdsl).
+- **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl).
 - **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE.
 - **[Views:](views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers
