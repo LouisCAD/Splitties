@@ -16,224 +16,53 @@ as possible.
 
 ## All the splits
 
-<details>
-<summary>
-<b>Click here to expand the outline of the
-<a href="#what-is-a-split" title="What is a split?">splits</a></b>
-</summary>
-
-* [Alert Dialog](#alert-dialog) and its [AppCompat](#alert-dialog-appcompat)
-variant
-* [App Context](#app-context)
-* [Arch Lifecycle](#arch-lifecycle)
-* [Arch Room](#arch-room)
-* [Bit Flags](#bit-flags)
-* [Bundle](#bundle)
-* [Checked Lazy](#checked-lazy)
-* [Dimensions](#dimensions)
-* [Exceptions](#exceptions)
-* [Fragment Args](#fragment-args)
-* [Init Provider](#init-provider)
-* [Main Handler](#main-handler)
-* [Material Lists](#material-lists)
-* [Preferences](#preferences)
-* [Resources](#resources)
-* [Selectable Views](#selectable-views) plus its
-[AppCompat](#selectable-views-appcompat) and
-[ConstraintLayout](#selectable-views-constraintlayout) extensions
-* [Snackbar](#snackbar)
-* [Stetho init](#stetho-init)
-* [System Services](#system-services)
-* [Toast](#toast)
-* [Typesafe RecyclerView](#typesafe-recyclerview)
-* [UI Thread](#ui-thread)
-* [View DSL](#view-dsl) plus its [AppCompat](#view-dsl-appcompat),
-[AppCompat styles](#view-dsl-appcompat-styles),
-[ConstraintLayout](#view-dsl-constraintlayout),
-[Design](#view-dsl-design) and
-[Preview](#view-dsl-ide-preview) extensions
-* [Views](#views) plus its [AppCompat](#views-appcompat) extensions
-
-</details>
-
-### Alert Dialog
-*Create simple alert dialogs with simple code*
-
-[Read more here](alertdialog/README.md)
-
-### Alert Dialog AppCompat
-*AppCompat version of [Alert Dialog](#alert-dialog)*
-
-[Read more here](alertdialog-appcompat/README.md)
-
-### App Context
-*Always have your application `Context` at hand with `appCtx`.*
-
-[Read more here](appctx/README.md)
-
-### Arch Lifecycle
-*Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.*
-
-[Read more here](arch-lifecycle/README.md)
-
-### Arch Room
-*Room helpers to instantiate your DB and perform transactions in Kotlin.*
-
-[Read more here](arch-room/README.md)
-
-### Bit Flags
-*`hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
-and `Byte`*
-
-[Read more here](bitflags/README.md)
-
-### Bundle
-*`BundleHelper` to use `Bundle` with property syntax for `Intent` extras
-and more.*
-
-[Read more here](bundle/README.md)
-
-### Checked Lazy
-*`uiLazy` that checks property access on UI thread, and `checkedLazy`
-to make your own variant.*
-
-[Read more here](checkedlazy/README.md)
-
-### Dimensions
-*Android `dp` extensions for `View` and `Context`. Particularly handy
-when using [View DSL](#view-dsl).*
-
-[Read more here](dimensions/README.md)
-
-### Exceptions
-*`illegal(…)` and similar functions that return `Nothing`, handy for
-impossible or illegal `when` branches.*
-
-[Read more here](exceptions/README.md)
-
-### Fragment Args
-*Fragment arguments without ceremony thanks to delegated properties.*
-
-[Read more here](fragmentargs/README.md)
-
-### Init Provider
-*Base class for `ContentProvider`s used for automatic initialization
-purposes.*
-
-[Read more here](initprovider/README.md)
-
-### Main Handler
-*Top-level `mainHandler` property to stop allocating multiple `Handler`s for
-main `Looper`.*
-
-[Read more here](mainhandler/README.md)
-
-### Material Lists
-*List item Views implementing [Material Design guidelines](
+- **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code
+- **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of [Alert Dialog](alertdialog)
+- **[App Context:](appctx)** Always have your application `Context` at hand with `appCtx`.
+- **[Arch Lifecycle:](arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.
+- **[Arch Room:](arch-room)** Room helpers to instantiate your DB and perform transactions in Kotlin.
+- **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
+and `Byte`
+- **[Bundle:](bundle)** `BundleHelper` to use `Bundle` with property syntax for `Intent` extras
+and more.
+- **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and `checkedLazy`
+to make your own variant.
+- **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly handy
+when using [View DSL](viewdsl).
+- **[Exceptions:](exceptions)** `illegal(…)` and similar functions that return `Nothing`, handy for
+impossible or illegal `when` branches.
+- **[Fragment Args:](fragmentargs)** Fragment arguments without ceremony thanks to delegated properties.
+- **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic initialization
+purposes.
+- **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple `Handler`s for
+main `Looper`.
+- **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines]
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).*
-
-[Read more here](material-lists/README.md)
-
-### Preferences
-*Property syntax for Android's SharedPreferences.*
-
-[Read more here](preferences/README.md)
-
-### Resources
-*Extensions to get resources like strings, colors or drawables easily,
-with support for themed attributes.*
-
-[Read more here](resources/README.md)
-
-### Selectable Views
-*Selectable Views with `foreground` property before API 23.*
-
-[Read more here](selectableviews/README.md)
-
-### Selectable Views AppCompat
-*[Selectable Views](#selectable-views) for AppCompatTextView.*
-
-[Read more here](selectableviews-appcompat/README.md)
-
-### Selectable Views ConstraintLayout
-*[Selectable Views](#selectable-views) for ConstraintLayout.*
-
-[Read more here](selectableviews-constraintlayout/README.md)
-
-### Snackbar
-*Grab a snack without ceremony with `snack(…)` and `longSnack(…)`*
-
-[Read more here](snackbar/README.md)
-
-### Stetho init
-*Have [Stetho](https://github.com/facebook/stetho) for your debug builds,
-without writing any code!*
-
-[Read more here](stetho-init/README.md)
-
-### System Services
-*No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.*
-
-[Read more here](systemservices/README.md)
-
-### Toast
-*Show a toast by just calling `toast(yourText)`, and dodge [API 25
-`BadTokenException`](https://github.com/drakeet/ToastCompat#why).*
-
-[Read more here](toast/README.md)
-
-### Typesafe RecyclerView
-*Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of
-`RecyclerView`.*
-
-[Read more here](typesaferecyclerview/README.md)
-
-### UI Thread
-*Properties related to Android UI thread, and `checkUiThread()` precondition
-checker.*
-
-[Read more here](uithread/README.md)
-
-### View DSL
-*Create UIs with readable Kotlin code.*
-
-[Read more here](viewdsl/README.md)
-
-### View DSL AppCompat
-*AppCompat extension of [View DSL](#view-dsl)*
-
-[Read more here](viewdsl-appcompat/README.md)
-
-### View DSL AppCompat styles
-*AppCompat styles for [View DSL](#view-dsl)*
-
-[Read more here](viewdsl-appcompat-styles/README.md)
-
-### View DSL ConstraintLayout
-*ConstraintLayout extension of [View DSL](#view-dsl)*
-
-[Read more here](viewdsl-constraintlayout/README.md)
-
-### View DSL Design
-*Design Support Library extension of [View DSL](#view-dsl)*
-
-[Read more here](viewdsl-design/README.md)
-
-### View DSL IDE preview
-*Preview [View DSL](#view-dsl) UIs in the IDE*
-
-[Read more here](viewdsl-ide-preview/README.md)
-
-### Views
-*Extensions function and properties on `View`s.*
-
-[Read more here](views/README.md)
-
-### Views AppCompat
-*AppCompat extension of [Views](#views). Includes helpers for `ImageView`
-tinting, `ActionBar` and tooltip.*
-
-[Read more here](views-appcompat/README.md)
+- **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
+- **[Resources:](resources)** Extensions to get resources like strings, colors or drawables easily,
+with support for themed attributes.
+- **[Selectable Views:](selectableviews)** Selectable Views with `foreground` property before API 23.
+- **[Selectable Views AppCompat:](selectableviews-appcompat)** [Selectable Views](selectableviews) for AppCompatTextView.
+- **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)** [Selectable Views](selectableviews) for ConstraintLayout.
+- **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`
+- **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug builds,
+without writing any code!
+- **[System Services:](systemservices)** No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
+- **[Toast:](toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
+`BadTokenException`](https://github.com/drakeet/ToastCompat#why).
+- **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of
+`RecyclerView`.
+- **[UI Thread:](uithread)** Properties related to Android UI thread, and `checkUiThread()` precondition
+checker.
+- **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
+- **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl)
+- **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for [View DSL](viewdsl)
+- **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of [View DSL](viewdsl)
+- **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl)
+- **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE
+- **[Views:](views)** Extensions function and properties on `View`s.
+- **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers for `ImageView`
+tinting, `ActionBar` and tooltip.
 
 ## Download
 
