@@ -17,52 +17,62 @@ as possible.
 ## All the splits
 
 - **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code
-- **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of [Alert Dialog](alertdialog)
+- **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of
+[Alert Dialog](alertdialog)
 - **[App Context:](appctx)** Always have your application `Context` at hand with `appCtx`.
-- **[Arch Lifecycle:](arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.
-- **[Arch Room:](arch-room)** Room helpers to instantiate your DB and perform transactions in Kotlin.
-- **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
-and `Byte`
+- **[Arch Lifecycle:](arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe
+`Lifecycle`s.
+- **[Arch Room:](arch-room)** Room helpers to instantiate your DB and perform transactions in
+Kotlin.
+- **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
+`Short` and `Byte`
 - **[Bundle:](bundle)** `BundleHelper` to use `Bundle` with property syntax for `Intent` extras
 and more.
-- **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and `checkedLazy`
-to make your own variant.
-- **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly handy
-when using [View DSL](viewdsl).
+- **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and
+`checkedLazy` to make your own variant.
+- **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
+handy when using [View DSL](viewdsl).
 - **[Exceptions:](exceptions)** `illegal(…)` and similar functions that return `Nothing`, handy for
 impossible or illegal `when` branches.
-- **[Fragment Args:](fragmentargs)** Fragment arguments without ceremony thanks to delegated properties.
-- **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic initialization
-purposes.
-- **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple `Handler`s for
-main `Looper`.
+- **[Fragment Args:](fragmentargs)** Fragment arguments without ceremony thanks to delegated
+properties.
+- **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic
+initialization purposes.
+- **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
+`Handler`s for main `Looper`.
 - **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
 - **[Resources:](resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
-- **[Selectable Views:](selectableviews)** Selectable Views with `foreground` property before API 23.
-- **[Selectable Views AppCompat:](selectableviews-appcompat)** [Selectable Views](selectableviews) for AppCompatTextView.
-- **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)** [Selectable Views](selectableviews) for ConstraintLayout.
+- **[Selectable Views:](selectableviews)** Selectable Views with `foreground` property before
+API 23.
+- **[Selectable Views AppCompat:](selectableviews-appcompat)** [Selectable Views](selectableviews)
+for AppCompatTextView.
+- **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)**
+[Selectable Views](selectableviews) for ConstraintLayout.
 - **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`
-- **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug builds,
-without writing any code!
-- **[System Services:](systemservices)** No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
+- **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
+builds, without writing any code!
+- **[System Services:](systemservices)** No more
+`context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
 - **[Toast:](toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
-- **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of
-`RecyclerView`.
-- **[UI Thread:](uithread)** Properties related to Android UI thread, and `checkUiThread()` precondition
-checker.
+- **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
+easy basic usage of `RecyclerView`.
+- **[UI Thread:](uithread)** Properties related to Android UI thread, and `checkUiThread()`
+precondition checker.
 - **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
 - **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl)
-- **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for [View DSL](viewdsl)
-- **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of [View DSL](viewdsl)
+- **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for
+[View DSL](viewdsl)
+- **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
+[View DSL](viewdsl)
 - **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl)
-- **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE
+- **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE.
 - **[Views:](views)** Extensions function and properties on `View`s.
-- **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers for `ImageView`
-tinting, `ActionBar` and tooltip.
+- **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers
+for `ImageView` tinting, `ActionBar` and tooltip.
 
 ## Download
 
