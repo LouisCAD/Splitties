@@ -14,7 +14,7 @@ you need to your project/module, helping reduce the size of the final apk.
 Each module has been designed to have a small footprint and be as efficient
 as possible.
 
-## All the splits
+## All the [splits](#what-is-a-split "What is a split in Splitties?")
 
 - **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of
