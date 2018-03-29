@@ -139,7 +139,7 @@ Let's say you need a new feature or a fix that did
 not make it to a release yet:
 
 You can grab it in the latest snapshot by adding the
-snapshots repository and changing the library version to the -SNAPSHOT
+snapshots repository and changing the library version to the `-SNAPSHOT`
 version in your root project `build.gradle` file:
 
 ```groovy
