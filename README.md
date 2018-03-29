@@ -51,7 +51,7 @@ API 23.
 for AppCompatTextView.
 - **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)**
 [Selectable Views](selectableviews) for ConstraintLayout.
-- **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`
+- **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
 - **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
 builds, without writing any code!
 - **[System Services:](systemservices)** No more
