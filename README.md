@@ -90,7 +90,12 @@ allProjects {
     }
 }
 ```
-Here are all the artifacts of this library. Just use the ones you need:
+
+<details>
+<summary>
+<b>Here are all the artifacts of this library. Just use the ones you need. (Click to expand)</b>
+</summary>
+
 ```groovy
 implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
 implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
@@ -126,6 +131,9 @@ debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$split
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 ```
+
+</details>
+
 #### Snapshots
 Let's say you need a new feature or a fix that did
 not make it to a release yet:
