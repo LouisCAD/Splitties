@@ -23,6 +23,7 @@ import android.view.View
 import android.widget.FrameLayout
 import splitties.exceptions.illegalArg
 import splitties.exceptions.unsupported
+import splitties.init.injectAsAppCtx
 import splitties.resources.str
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.lParams
@@ -53,6 +54,7 @@ class UiPreView @JvmOverloads constructor(
 
     init {
         require(isInEditMode) { "Only intended for use in IDE!" }
+        context.injectAsAppCtx()
         val className = withStyledAttributes(attrs, R.styleable.UiPreView, defStyleAttr, 0) { ta ->
             val packageNameSuffix = str(R.string.splitties_view_dsl_ide_preview_package_name_suffix)
             ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)

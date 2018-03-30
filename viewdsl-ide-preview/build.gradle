@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    api project(':appctx')
     api project(':viewdsl')
 
     // Android Support Libraries
