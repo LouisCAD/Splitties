@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions
+package splitties.views.design
 
 import android.support.annotation.ColorInt
 import android.support.design.widget.CollapsingToolbarLayout
