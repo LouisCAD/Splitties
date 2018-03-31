@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions.views
 
-import android.support.design.widget.TextInputLayout
-import android.widget.EditText
-import splitties.exceptions.illegal
+package splitties.views.design
 
-var TextInputLayout.text: CharSequence?
-    get() = editTextNow.text
-    set(value) = editTextNow.setText(text)
+@PublishedApi internal const val NO_GETTER = "Property does not have a getter"
 
-val TextInputLayout.string: String
-    get() = editTextNow.text.toString()
-
-private inline val TextInputLayout.editTextNow: EditText
-    get() = editText ?: illegal("No EditText found! Make sure it has been added first.")
+/**
+ * Usage example:
+ * `@Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter`
+ */
+@PublishedApi
+internal inline val noGetter: Nothing get() = throw UnsupportedOperationException(NO_GETTER)
