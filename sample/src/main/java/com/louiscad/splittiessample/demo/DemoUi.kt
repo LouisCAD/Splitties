@@ -22,7 +22,6 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
-import com.louiscad.splittiessample.extensions.gravityEndBottom
 import splitties.dimensions.dip
 import splitties.resources.txt
 import splitties.viewdsl.core.Ui
@@ -34,6 +33,7 @@ import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
 import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
+import splitties.views.gravityEndBottom
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
 

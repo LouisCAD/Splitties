@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package com.louiscad.splittiessample.extensions
+package splitties.views
 
 import android.view.Gravity
 import android.view.View
