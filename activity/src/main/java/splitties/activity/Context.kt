@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.louiscad.splittiessample.extensions
+package splitties.activity
 
 import android.app.Activity
 import android.content.Context
