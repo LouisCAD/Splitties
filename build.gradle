@@ -51,7 +51,7 @@ allprojects {
 
         // Dependencies versions
         supportLibs_version = '27.1.0'
-        arch_lifecycle_version = '1.1.0'
+        arch_lifecycle_version = '1.1.1'
         arch_room_version = '1.0.0'
         constraintLayout_version = '1.1.0-beta6'
         timber_version = '4.7.0'

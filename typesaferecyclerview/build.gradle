@@ -51,9 +51,8 @@ dependencies {
 
     // Test dependencies
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 apply from: '../publish.gradle'

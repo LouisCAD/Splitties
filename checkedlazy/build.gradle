@@ -49,9 +49,7 @@ dependencies {
     testImplementation "com.jakewharton.timber:timber:$timber_version"
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 apply from: '../publish.gradle'
