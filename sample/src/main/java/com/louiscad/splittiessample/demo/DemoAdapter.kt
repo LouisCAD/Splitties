@@ -19,18 +19,19 @@ package com.louiscad.splittiessample.demo
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.louiscad.splittiessample.R
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
 import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.imageResource
 import splitties.views.onClick
+import splitties.views.recyclerview.verticalLayoutManager
 import splitties.views.textResource
-import com.louiscad.splittiessample.R
 
 class DemoAdapter(
-        val layoutManager: RecyclerView.LayoutManager,
         private val host: DemoViewHolder.Host
 ) : RecyclerView.Adapter<DemoAdapter.DemoViewHolder>() {
+    val layoutManager = verticalLayoutManager()
 
     private val items = arrayOf(
             DemoItem(

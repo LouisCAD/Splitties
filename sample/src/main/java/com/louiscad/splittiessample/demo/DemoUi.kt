@@ -21,7 +21,6 @@ import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.gravityEndBottom
 import splitties.dimensions.dip
@@ -45,8 +44,9 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
         clipToPadding = false
         setPaddingDp(top = 8)
         setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(context)
-        adapter = DemoAdapter(layoutManager, host)
+        val demoAdapter = DemoAdapter(host)
+        adapter = demoAdapter
+        layoutManager = demoAdapter.layoutManager
     }
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_computer_white_24dp
