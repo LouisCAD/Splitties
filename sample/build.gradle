@@ -57,6 +57,7 @@ android {
 
 dependencies {
     // This project's libraries
+    implementation project(':activity')
     implementation project(':alertdialog')
     implementation project(':alertdialog-appcompat')
     implementation project(':appctx')
