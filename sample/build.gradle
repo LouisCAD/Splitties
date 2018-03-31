@@ -94,6 +94,7 @@ dependencies {
     implementation project(':views')
     implementation project(':views-appcompat')
     implementation project(':views-cardview')
+    implementation project(':views-recyclerview')
 
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibs_version"
