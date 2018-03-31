@@ -27,7 +27,7 @@ import kotlin.DeprecationLevel.HIDDEN
  * Sets a drawable resource as the content of this ImageView.
  *
  * **This does Bitmap reading and decoding on the UI thread, which can cause a latency hiccup.**
- * If that's a concern, consider using [imageDrawable] or [imageBitMap] and [BitmapFactory] instead.
+ * If that's a concern, consider using [imageDrawable] or [imageBitmap] and [BitmapFactory] instead.
  */
 inline var ImageView.imageResource: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
@@ -45,6 +45,6 @@ inline var ImageView.imageDrawable: Drawable?
  * Sets a Bitmap as the content of this ImageView.
  * @see BitmapFactory
  */
-inline var ImageView.imageBitMap: Bitmap
+inline var ImageView.imageBitmap: Bitmap
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = setImageBitmap(value)
