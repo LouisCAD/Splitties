@@ -68,6 +68,7 @@ dependencies {
     implementation project(':checkedlazy')
     implementation project(':dimensions')
     implementation project(':exceptions')
+    implementation project(':fragments')
     implementation project(':initprovider')
     implementation project(':mainhandler')
     implementation project(':material-colors')
