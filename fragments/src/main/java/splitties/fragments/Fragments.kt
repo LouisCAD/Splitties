@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions
+package splitties.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -24,14 +24,11 @@ import android.support.v4.app.FragmentTransaction
 inline fun FragmentActivity.fragmentTransaction(
         now: Boolean = true,
         allowStateLoss: Boolean = false,
-        transactionBody: FragmentTransaction.() -> Unit) {
-    supportFragmentManager.beginTransaction().let {
-        it.transactionBody()
-        if (allowStateLoss) {
-            if (now) it.commitNowAllowingStateLoss() else it.commitAllowingStateLoss()
-        } else {
-            if (now) it.commitNow() else it.commit()
-        }
+        transactionBody: FragmentTransaction.() -> Unit
+): Unit = supportFragmentManager.beginTransaction().apply(transactionBody).let { ft ->
+    when {
+        allowStateLoss -> if (now) ft.commitNowAllowingStateLoss() else ft.commitAllowingStateLoss()
+        else -> if (now) ft.commitNow() else ft.commit()
     }
 }
 
