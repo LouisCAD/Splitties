@@ -41,6 +41,8 @@ android {
 dependencies {
     api project(':viewdsl')
     api project(':viewdsl-appcompat')
+    api project(':viewdsl-recyclerview')
+    api project(':views-design')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"

@@ -39,9 +39,6 @@ android {
 }
 
 dependencies {
-    api project(':dimensions')
-    api project(':resources')
-    api project(':systemservices')
     api project(':views')
 
     // Android Support Libraries

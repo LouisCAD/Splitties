@@ -39,9 +39,9 @@ android {
 }
 
 dependencies {
+    api project(':bundle')
     api project(':exceptions')
     api project(':uithread')
-    api project(':bundle')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"

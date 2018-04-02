@@ -40,7 +40,6 @@ android {
 
 dependencies {
     api project(':resources')
-    api project(':views')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"
