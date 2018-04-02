@@ -28,7 +28,7 @@ import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
 import com.louiscad.splittiessample.prefs.GamePreferences
-import splitties.activity.start
+import splitties.activities.start
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager

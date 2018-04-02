@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.activity
+package splitties.activities
 
 import android.app.Activity
 import android.content.Context
