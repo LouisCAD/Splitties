@@ -28,6 +28,11 @@ import android.os.VibrationEffect as VibrationEffectApi26
 
 sealed class VibrationEffect {
     companion object {
+
+        /** The default vibration strength of the device. */
+        @SuppressLint("InlinedApi")
+        const val DEFAULT_AMPLITUDE = VibrationEffectApi26.DEFAULT_AMPLITUDE
+
         /**
          * Creates a waveform vibration that is **pre-Oreo compatible**.
          *
@@ -49,7 +54,7 @@ sealed class VibrationEffect {
          * values of 0 will cause the pair to be ignored.
          * @param amplitudes The amplitude values of the timing / amplitude pairs, **ignored on
          * pre-Oreo devices**. Amplitude values must be between 0 and 255, or equal to
-         * [VibrationEffectApi26.DEFAULT_AMPLITUDE]. An amplitude value of 0 implies the motor is
+         * [VibrationEffect.DEFAULT_AMPLITUDE]. An amplitude value of 0 implies the motor is
          * off.
          * @param repeat The index into the timings array at which to repeat, or -1 if you you don't
          * want to repeat.
@@ -68,11 +73,11 @@ sealed class VibrationEffect {
          *
          * @param milliseconds The number of milliseconds to vibrate. Must be a positive number.
          * @param amplitude The strength of the vibration, **ignored on pre-Oreo devices**. Must
-         * be a value between 1 and 255, or [VibrationEffectApi26.DEFAULT_AMPLITUDE].
+         * be a value between 1 and 255, or [VibrationEffect.DEFAULT_AMPLITUDE].
          */
         fun createOneShot(
                 milliseconds: Long,
-                @SuppressLint("InlinedApi") amplitude: Int = VibrationEffectApi26.DEFAULT_AMPLITUDE
+                amplitude: Int = DEFAULT_AMPLITUDE
         ): VibrationEffect = OneShot(milliseconds, amplitude)
     }
 }
