@@ -24,9 +24,11 @@ import android.view.MenuItem
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
+import com.louiscad.splittiessample.extensions.VibrationEffect
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
+import com.louiscad.splittiessample.extensions.vibrate
 import com.louiscad.splittiessample.prefs.GamePreferences
 import splitties.activities.start
 import splitties.preferences.edit
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 lastTimePlayed = System.currentTimeMillis()
             } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
             // TODO: 02/03/2017 With a UI showing prefs values.
-            vibrator.vibrate(pattern, -1)
+            vibrator.vibrate(VibrationEffect.createWaveform(pattern))
             ui.root.longSnack(R.string.cant_dislike_md)
         }
         ui.toggleNightModeBtn.onClick { toggleNightMode() }
