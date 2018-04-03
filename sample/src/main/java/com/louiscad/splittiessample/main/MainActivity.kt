@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 lastTimePlayed = System.currentTimeMillis()
             } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
             // TODO: 02/03/2017 With a UI showing prefs values.
-            vibrator.vibrate(VibrationEffect.createWaveform(pattern))
+            vibrator.vibrate(vibe)
             ui.root.longSnack(R.string.cant_dislike_md)
         }
         ui.toggleNightModeBtn.onClick { toggleNightMode() }
@@ -76,6 +76,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val pattern = longArrayOf(0, 1, 50, 1)
+        private val vibe = VibrationEffect.createWaveform(longArrayOf(0, 1, 50, 1))
     }
 }
