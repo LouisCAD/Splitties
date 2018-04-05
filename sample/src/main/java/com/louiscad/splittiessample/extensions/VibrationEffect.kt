@@ -40,8 +40,8 @@ sealed class VibrationEffect {
          * each pair, the value in the amplitude array determines the strength of the vibration and
          * the value in the timing array determines how long it vibrates for.
          *
-         * *Even indexes are off durations, and odd indexes are on durations. Therefore,* **the first
-         * value is the time to wait before turning the vibrator on.**
+         * *Even indexes are off durations, and odd indexes are on durations. Therefore,* **the
+         * first value is the time to wait before turning the vibrator on.**
          * An amplitude of 0
          * implies no vibration (i.e. off), and any pairs with a timing value of 0 will be ignored.
          *
