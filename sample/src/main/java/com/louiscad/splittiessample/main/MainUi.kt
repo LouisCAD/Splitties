@@ -24,6 +24,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.setSingleView
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
@@ -45,7 +46,7 @@ import splitties.viewdsl.design.actionBarLParams
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
-import splitties.viewdsl.support.compat.nestedScrollView
+import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.design.contentScrimColor
 import splitties.views.gravityCenterHorizontal
@@ -68,8 +69,8 @@ class MainUi(override val ctx: Context) : Ui {
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
-    val content = v(::nestedScrollView) {
-        add(::verticalLayout, lParams(width = matchParent)) {
+    val content = v(::recyclerView) {
+        setSingleView(v(::verticalLayout) {
             add(launchDemoBtn, lParams {
                 gravity = gravityCenterHorizontal
                 topMargin = dip(8)
@@ -83,7 +84,7 @@ class MainUi(override val ctx: Context) : Ui {
             }) {
                 textResource = R.string.large_text
             }
-        }
+        })
     }
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
