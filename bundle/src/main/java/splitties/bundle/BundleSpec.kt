@@ -22,7 +22,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import splitties.exceptions.illegal
-import splitties.uithread.checkUiThread
+import splitties.uithread.isUiThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -35,15 +35,23 @@ inline fun <T : BundleSpec> Intent.putExtras(t: T, crossinline f: T.() -> Unit) 
 }
 
 inline fun <T : BundleSpec, R> Bundle.with(t: T, crossinline f: T.() -> R): R {
-    checkUiThread()
-    t.currentBundle = this
+    this.putIn(t)
     val r = t.f()
-    t.currentBundle = null
+    removeBundleFrom(t)
     return r
 }
 
+@PublishedApi internal fun Bundle.putIn(spec: BundleSpec) {
+    if (isUiThread) spec.currentBundle = this else spec.bundleByThread.set(this)
+}
+
+@PublishedApi internal fun removeBundleFrom(spec: BundleSpec) {
+    if (isUiThread) spec.currentBundle = null else spec.bundleByThread.remove()
+}
+
 open class BundleSpec {
-    @PublishedApi internal var currentBundle: Bundle? = null
+    internal val bundleByThread by lazy { ThreadLocal<Bundle?>() }
+    internal var currentBundle: Bundle? = null
 }
 
 @Suppress("unused") inline fun BundleSpec.bundle() = BundleDelegate
@@ -58,10 +66,8 @@ inline fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<Any?, T> 
 }
 
 private val BundleSpec.bundle: Bundle
-    get() {
-        checkUiThread()
-        return currentBundle ?: illegal("Bundle property accessed outside with() function!")
-    }
+    get() = (if (isUiThread) currentBundle else bundleByThread.get())
+            ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
 
 object BundleDelegate {
 
@@ -106,6 +112,8 @@ internal class ExplicitBundleDelegate<T>(private val spec: BundleSpec,
         spec.bundle.put(key, value)
     }
 }
+
+private inline val currentThread get() = Thread.currentThread()
 
 @Deprecated("Name changed.", ReplaceWith("BundleSpec", "splitties.bundle.BundleSpec"))
 typealias BundleHelper = BundleSpec
