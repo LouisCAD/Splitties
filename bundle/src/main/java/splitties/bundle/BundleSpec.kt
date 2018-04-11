@@ -26,7 +26,10 @@ import splitties.uithread.checkUiThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-inline fun <T : BundleSpec, R> Activity.withExtras(t: T, crossinline f: T.() -> R) = intent.extras.with(t, f)
+inline fun <T : BundleSpec, R> Activity.withExtras(t: T, crossinline f: T.() -> R): R {
+    return intent.extras.with(t, f)
+}
+
 inline fun <T : BundleSpec> Intent.putExtras(t: T, crossinline f: T.() -> Unit) {
     replaceExtras((extras ?: Bundle()).apply { with(t, f) })
 }
@@ -46,8 +49,13 @@ open class BundleSpec {
 @Suppress("unused") inline fun BundleSpec.bundle() = BundleDelegate
 @Suppress("unused") inline fun BundleSpec.bundleOrNull() = BundleOrNullDelegate
 
-inline fun <T : Any> BundleSpec.bundle(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate(this, key, noNull = true)
-inline fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<Any?, T> = ExplicitBundleDelegate(this, key, noNull = false)
+inline fun <T : Any> BundleSpec.bundle(key: String): ReadWriteProperty<Any?, T> {
+    return ExplicitBundleDelegate(this, key, noNull = true)
+}
+
+inline fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<Any?, T> {
+    return ExplicitBundleDelegate(this, key, noNull = false)
+}
 
 private val BundleSpec.bundle: Bundle
     get() {
