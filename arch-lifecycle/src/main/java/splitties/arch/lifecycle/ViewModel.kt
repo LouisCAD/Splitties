@@ -46,3 +46,23 @@ inline fun <reified VM : ViewModel> Fragment.activityScope(factory: ViewModelPro
 inline fun <reified VM : ViewModel> Fragment.fragmentScope(factory: ViewModelProvider.Factory) = uiLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
+
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(noinline factory: () -> VM) = uiLazy {
+    ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
+}
+
+inline fun <reified VM : ViewModel> Fragment.activityScope(noinline factory: () -> VM) = uiLazy {
+    ViewModelProviders.of(activity!!, TypeSafeViewModelFactory(factory)).get(VM::class.java)
+}
+
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(noinline factory: () -> VM) = uiLazy {
+    ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
+}
+
+@PublishedApi
+internal class TypeSafeViewModelFactory<VM : ViewModel>(
+        private val factory: () -> VM
+) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>) = factory() as T
+}
