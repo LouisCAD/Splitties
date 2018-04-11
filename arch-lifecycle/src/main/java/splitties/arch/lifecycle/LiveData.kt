@@ -54,6 +54,6 @@ inline fun <T : Any> LifecycleOwner.observeNotNull(
  * @param Y           a type of resulting LiveData.
  * @return            a LiveData which emits resulting values
  */
-inline fun <X, Y> LiveData<X>.map(crossinline transform: (X?) -> Y): LiveData<Y> = Transformations.map(this, { input ->
-    transform(input)
-})!!
+inline fun <X, Y> LiveData<X>.map(
+        crossinline transform: (X?) -> Y
+): LiveData<Y> = Transformations.map(this, { input -> transform(input) })
