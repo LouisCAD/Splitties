@@ -21,7 +21,7 @@ import splitties.exceptions.illegal
 
 var TextInputLayout.text: CharSequence?
     get() = editTextNow.text
-    set(value) = editTextNow.setText(text)
+    set(value) = editTextNow.setText(value)
 
 val TextInputLayout.string: String
     get() = editTextNow.text.toString()
