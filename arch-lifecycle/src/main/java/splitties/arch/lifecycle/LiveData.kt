@@ -57,3 +57,19 @@ inline fun <T : Any> LifecycleOwner.observeNotNull(
 inline fun <X, Y> LiveData<X>.map(
         crossinline transform: (X?) -> Y
 ): LiveData<Y> = Transformations.map(this, { input -> transform(input) })
+
+inline fun <X, Y> LiveData<X>.mapNotNull(
+        crossinline transform: (X) -> Y
+): LiveData<Y> = Transformations.map(this, { input: X? ->
+    input?.let { transform(it) }
+})
+
+inline fun <X, Y> LiveData<X>.switchMap(
+        crossinline transform: (X?) -> LiveData<Y>?
+): LiveData<Y> = Transformations.switchMap(this, { input -> transform(input) })
+
+inline fun <X, Y> LiveData<X>.switchMapNotNull(
+        crossinline transform: (X) -> LiveData<Y>?
+): LiveData<Y> = Transformations.switchMap(this, { input: X? ->
+    input?.let { transform(it) }
+})
