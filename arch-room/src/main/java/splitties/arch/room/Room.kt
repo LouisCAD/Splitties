@@ -16,6 +16,7 @@
 
 package splitties.arch.room
 
+import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
@@ -41,4 +42,16 @@ inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     } finally {
         endTransaction()
     }
+}
+
+fun RoomDatabase.Builder<*>.onCreate(block: (db: SupportSQLiteDatabase) -> Unit) {
+    addCallback(object: RoomDatabase.Callback() {
+        override fun onCreate(db: SupportSQLiteDatabase) = block(db)
+    })
+}
+
+fun RoomDatabase.Builder<*>.onOpen(block: (db: SupportSQLiteDatabase) -> Unit) {
+    addCallback(object: RoomDatabase.Callback() {
+        override fun onOpen(db: SupportSQLiteDatabase) = block(db)
+    })
 }
