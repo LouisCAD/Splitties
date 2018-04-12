@@ -103,8 +103,19 @@ and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
 * `verticalLayout` and `horizontalLayout` which return a `LinearLayout` with
 the orientation you expect to use with `v` or `add`.
 
-**There are additional View DSL splits for ConstraintLayout and Support
-Libraries. [See in the README](../README.md#view-dsl).**
+**There are additional splits for extended support. View DSL…**
+* [AppCompat](../viewdsl-appcompat) provides proper styling to `Button`,
+`TextView`, `EdiText` and other widgets.
+* [AppCompat styles](../viewdsl-appcompat-styles) provides pre-styled AppCompat
+views like `coloredFlatButton`.
+* [ConstraintLayout](../viewdsl-constraintlayout) provides support for
+`ConstraintLayout.LayoutParameters`.
+* [Design](../viewdsl-design) provides extensions for design support library
+`ViewGroup`s and bottom sheets.
+* [IDE preview](../viewdsl-ide-preview) provides the ability to preview your
+user interfaces right from the IDE.
+* [RecyclerView](../viewdsl-recyclerview) provides extensions to have
+scrollbars and proper `itemView` layout parameters.
 
 ## Usage
 
@@ -141,7 +152,7 @@ val headlineTextView = v(::textView, R.id.tv_headline) {
 
 You may have noticed we are using the `textView` function here instead of
 the `TextView` constructor. `textView` is a method from the
-[View DSL AppCompat split](../viewdsl-appcompat/README.md) and calls the
+[View DSL AppCompat split](../viewdsl-appcompat) and calls the
 `AppCompatTextView` constructor, just like the layout inflater is doing
 with `TextView`s from xml layouts when using an AppCompat theme. It can be
 used here as a method reference too because its only parameter is of type
@@ -168,10 +179,10 @@ parameters. This
 [split](../README.md#what-is-a-split "What is a split in Splitties?")
 includes `lParams` extension functions for `FrameLayout` and `LinearLayout`.
 `ConstraintLayout` support can be found in the
-[View DSL ConstraintLayout split](../README.md#view-dsl-constraintlayout),
+[View DSL ConstraintLayout split](../viewdsl-constraintlayout),
 and support for
 `CoordinatorLayout` and `AppBarLayout` can be found in the
-[View DSL Design split](../README.md#view-dsl-design). You can also write
+[View DSL Design split](../viewdsl-design). You can also write
 `lParams` extension functions yourself in a few lines for any other
 `ViewGroup` (take a look at the ones from this project if you need to write
 your own).
