@@ -155,9 +155,10 @@ allProjects {
 }
 ```
 
-If you need to, you can browse the deployed snapshots [here on artifactory](
+If you need to, you can browse the deployed snapshots on artifactory with [the native browser](
+https://oss.jfrog.org/list/oss-snapshot-local/com/louiscad/splitties/) or [the web app](
 https://oss.jfrog.org/webapp/#/artifacts/browse/tree/General/oss-snapshot-local/com/louiscad/splitties
-).
+) so you can pick a specific snapshot.
 
 ### Other build systems
 For maven and alternative build-systems, check the [Bintray page](
