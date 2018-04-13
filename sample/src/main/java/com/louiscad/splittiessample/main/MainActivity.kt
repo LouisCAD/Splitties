@@ -30,6 +30,7 @@ import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
 import com.louiscad.splittiessample.extensions.vibrate
 import com.louiscad.splittiessample.prefs.GamePreferences
+import kotlinx.coroutines.experimental.launch
 import splitties.activities.start
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
@@ -48,12 +49,14 @@ class MainActivity : AppCompatActivity() {
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         ui.launchDemoBtn.onClick { start<DemoActivity>() }
         ui.fab.onClick {
-            GamePreferences.edit {
-                currentLevel++
-                bossesFought++
-                lastTimePlayed = System.currentTimeMillis()
-            } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
-            // TODO: 02/03/2017 With a UI showing prefs values.
+            launch {
+                GamePreferences().edit {
+                    currentLevel++
+                    bossesFought++
+                    lastTimePlayed = System.currentTimeMillis()
+                } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
+                // TODO: 02/03/2017 With a UI showing prefs values.
+            }
             vibrator.vibrate(vibe)
             ui.root.longSnack(R.string.cant_dislike_md)
         }
