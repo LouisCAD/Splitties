@@ -23,4 +23,5 @@ import android.widget.Button
 import splitties.views.inflate
 
 inline fun coloredButton(ctx: Context): Button = ctx.inflate(R.layout.button_colored)
+inline fun flatButton(ctx: Context): Button = ctx.inflate(R.layout.button_borderless)
 inline fun coloredFlatButton(ctx: Context): Button = ctx.inflate(R.layout.button_borderless_colored)
