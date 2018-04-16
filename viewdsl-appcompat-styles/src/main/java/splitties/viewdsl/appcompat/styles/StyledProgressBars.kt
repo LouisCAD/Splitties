@@ -23,4 +23,5 @@ import android.widget.ProgressBar
 import splitties.views.inflate
 
 inline fun progressBar(ctx: Context): ProgressBar = ctx.inflate(R.layout.progress_bar_appcompat)
+inline fun largeProgressBar(ctx: Context) = ProgressBar(ctx, null, android.R.attr.progressBarStyleLarge)
 inline fun horizontalProgressBar(ctx: Context): ProgressBar = ctx.inflate(R.layout.progress_bar_horizontal)
