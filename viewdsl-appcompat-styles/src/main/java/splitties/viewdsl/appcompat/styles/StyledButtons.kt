@@ -20,8 +20,10 @@ package splitties.viewdsl.appcompat.styles
 
 import android.content.Context
 import android.widget.Button
+import android.widget.ImageButton
 import splitties.views.inflate
 
 inline fun coloredButton(ctx: Context): Button = ctx.inflate(R.layout.button_colored)
 inline fun flatButton(ctx: Context): Button = ctx.inflate(R.layout.button_borderless)
 inline fun coloredFlatButton(ctx: Context): Button = ctx.inflate(R.layout.button_borderless_colored)
+inline fun imgActionButton(ctx: Context): ImageButton = ctx.inflate(R.layout.image_button_action)
