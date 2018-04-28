@@ -46,9 +46,8 @@ import splitties.systemservices.layoutInflater
  * @see inflateAndAttach
  * @see LayoutInflater.inflate
  */
-@Suppress("UNCHECKED_CAST")
 inline fun <V : View> ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean): V {
-    return layoutInflater.inflate(layoutRes, this, attachToRoot) as V
+    @Suppress("UNCHECKED_CAST") return layoutInflater.inflate(layoutRes, this, attachToRoot) as V
 }
 
 /**
