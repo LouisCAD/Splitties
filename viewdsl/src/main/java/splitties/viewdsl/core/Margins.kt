@@ -18,26 +18,27 @@ package splitties.viewdsl.core
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
+import android.support.annotation.Px
 import android.view.ViewGroup
 import kotlin.DeprecationLevel.HIDDEN
 
 inline var ViewGroup.MarginLayoutParams.horizontalMargin: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) {
+    set(@Px value) {
         leftMargin = value
         rightMargin = value
     }
 
 inline var ViewGroup.MarginLayoutParams.verticalMargin: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) {
+    set(@Px value) {
         topMargin = value
         bottomMargin = value
     }
 
 inline var ViewGroup.MarginLayoutParams.margin: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) {
+    set(@Px value) {
         leftMargin = value
         topMargin = value
         rightMargin = value
@@ -46,14 +47,14 @@ inline var ViewGroup.MarginLayoutParams.margin: Int
 
 inline var ViewGroup.MarginLayoutParams.startMargin: Int
     get() = if (SDK_INT >= JELLY_BEAN_MR1) marginStart else leftMargin
-    set(value) {
+    set(@Px value) {
         if (SDK_INT >= JELLY_BEAN_MR1) marginStart = value
         else leftMargin = value
     }
 
 inline var ViewGroup.MarginLayoutParams.endMargin: Int
     get() = if (SDK_INT >= JELLY_BEAN_MR1) marginEnd else rightMargin
-    set(value) {
+    set(@Px value) {
         if (SDK_INT >= JELLY_BEAN_MR1) marginEnd = value
         else rightMargin = value
     }
