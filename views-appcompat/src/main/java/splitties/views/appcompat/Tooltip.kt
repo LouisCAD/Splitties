@@ -28,7 +28,7 @@ inline fun View.contentDescAsTooltip() {
     tooltipTxt = contentDescription
 }
 
-var View.tooltipTxt: CharSequence
+var View.tooltipTxt: CharSequence?
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) = if (SDK_INT >= O) tooltipText = value else {
         TooltipCompat.setTooltipText(this, value)
