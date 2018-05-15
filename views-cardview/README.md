@@ -1,4 +1,8 @@
 # Views CardView
 
-The documentation of this split has not been written yet, but feel free to
-take a look at the source code to see what it's all about.
+*CardView extension of [Views](../views)*
+
+## Content
+
+This split provides a write only `contentPadding` extension function that
+allows to set the padding of the content of a `CardView` using property syntax.
