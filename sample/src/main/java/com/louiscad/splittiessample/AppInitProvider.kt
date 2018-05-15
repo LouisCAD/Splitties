@@ -17,8 +17,7 @@
 package com.louiscad.splittiessample
 
 import splitties.initprovider.InitProvider
-import splitties.init.consume
 
 class AppInitProvider : InitProvider() {
-    override fun onCreate() = consume { AppInit }
+    override fun onCreate() = true.also { _ -> AppInit }
 }
