@@ -1,4 +1,20 @@
 # Views RecyclerView
 
-The documentation of this split has not been written yet, but feel free to
-take a look at the source code to see what it's all about.
+## Content
+
+### RecyclerView extensions
+
+The `fixedSize` extension property for `RecyclerView` is an alias to the
+`hasFixedSize()` and `setHasFixedSize(…)` methods.
+
+### functions to create a LinearLayoutManager
+
+The `verticalLayoutManager` and `horizontalLayoutManager` functions allow you
+to instantiate and customize a `LinearLayoutManager` with more idiomatic
+Kotlin code.
+
+### functions to create a GridLayoutManager
+
+The `gridLayoutManager` and `horizontalGridLayoutManager` functions allow you
+to instantiate and customize a `GridLayoutManager` with more idiomatic Kotlin
+code.
