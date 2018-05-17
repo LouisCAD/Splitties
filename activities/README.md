@@ -1,5 +1,7 @@
 # Activities
 
+*Start activities with minimal boilerplate.*
+
 ## Content
 
 The `start` extension function for `Context` takes advantage of reified type
