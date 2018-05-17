@@ -44,6 +44,13 @@ inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     }
 }
 
+inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R = try {
+    beginTransaction()
+    body(this).also { setTransactionSuccessful() }
+} finally {
+    endTransaction()
+}
+
 fun RoomDatabase.Builder<*>.onCreate(block: (db: SupportSQLiteDatabase) -> Unit) {
     addCallback(object: RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) = block(db)

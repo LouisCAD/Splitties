@@ -22,5 +22,8 @@ can things like migrations.
 `transaction { … }` is the inline version of `runInTransaction`, with your
 database as receiver.
 
+`inTransaction { … }` does the same as `transaction { … }` but returns
+the value of the last expression of the lambda.
+
 Inlining brings a slight performance improvement at runtime and reduces the
 number of classes, making the apk smaller.
