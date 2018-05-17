@@ -60,6 +60,13 @@ inline fun <V : View> Ui.v(
 
 // add functions for ViewGroups below
 
+private const val deprecationMessageForAdd = "Use v + add or v + addView instead of just add. " +
+        "It makes promoting a view as property easier as you don't have to extract the " +
+        "parameters manually. Since ReplaceWith has a bug (see KT-24125 on YouTrack), there's no " +
+        "migration provided at the moment. Subscribe to  issue #82 on GitHub to get notified " +
+        "when the migration is ready (after ReplaceWith is fixed in Kotlin)."
+
+@Deprecated(deprecationMessageForAdd)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -68,6 +75,7 @@ inline fun <V : View> ViewGroup.add(
         initView: V.() -> Unit = {}
 ): V = v(createView, id, theme, initView).also { addView(it, lp) }
 
+@Deprecated(deprecationMessageForAdd)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int,
@@ -75,6 +83,7 @@ inline fun <V : View> ViewGroup.add(
         initView: V.() -> Unit = {}
 ): V = createView(context).also { it.id = id }.apply(initView).also { addView(it, lp) }
 
+@Deprecated(deprecationMessageForAdd)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         lp: ViewGroup.LayoutParams,
@@ -82,4 +91,4 @@ inline fun <V : View> ViewGroup.add(
 ): V = createView(context).apply(initView).also { addView(it, lp) }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun ViewGroup.add(view: View, lp: ViewGroup.LayoutParams) = addView(view, lp)
+inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

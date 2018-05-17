@@ -43,15 +43,15 @@ import splitties.views.textResource
 class AboutUi(override val ctx: Context) : Ui {
 
     private val mainContent = v(::ConstraintLayout) {
-        val headlineTv = add(::textView, R.id.tv_headline, lParams(height = wrapContent) {
-            topOfParent()
-            centerHorizontally()
-            topMargin = dip(16)
-        }) {
+        val headlineTv = add(v(::textView, R.id.tv_headline) {
             textAppearance = R.style.TextAppearance_AppCompat_Headline
             textResource = R.string.lib_name
             centerText()
-        }
+        }, lParams(height = wrapContent) {
+            topOfParent()
+            centerHorizontally()
+            topMargin = dip(16)
+        })
         val authorTv = add(::textView, R.id.tv_author, lParams(height = wrapContent) {
             topToBottomOf(headlineTv)
             centerHorizontally()
