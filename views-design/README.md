@@ -1,5 +1,7 @@
 # Views Design
 
+*Design Support library extension of [Views](../views).*
+
 ## Content
 
 ### CollapsingToolbarLayout extensions
