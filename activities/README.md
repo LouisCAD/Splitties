@@ -4,6 +4,8 @@
 
 ## Content
 
+### Starting Activities
+
 The `start` extension function for `Context` takes advantage of reified type
 parameters to allow you to write such code: `start<AboutActivity>()`.
 
