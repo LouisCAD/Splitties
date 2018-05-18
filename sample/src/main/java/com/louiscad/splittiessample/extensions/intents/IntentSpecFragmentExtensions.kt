@@ -18,6 +18,8 @@ package com.louiscad.splittiessample.extensions.intents
 import android.content.Intent
 import android.support.v4.app.Fragment
 import splitties.bundle.BundleSpec
+import splitties.intents.ActivityIntentSpec
+import splitties.intents.intent
 
 // Activity
 
