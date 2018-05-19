@@ -18,6 +18,7 @@ package splitties.intents
 import android.content.Context
 import android.content.Intent
 import splitties.bundle.BundleSpec
+import splitties.bundle.putExtras
 import splitties.exceptions.unsupported
 import splitties.init.appCtx
 
@@ -31,7 +32,9 @@ inline fun <ISpec : IntentSpec<*, Nothing>> ISpec.intent(
 
 inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.intent(
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
-) = Intent(appCtx, klass).also { it.configIntent(this, extrasSpec) }
+) = Intent(appCtx, klass).also { intent ->
+    intent.putExtras(extrasSpec) { intent.configIntent(this@intent, extrasSpec) }
+}
 
 inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.intent(
         configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
@@ -42,17 +45,17 @@ inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.in
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
-inline fun <ISpec: ActivityIntentSpec<*, Nothing>> Context.start(
+inline fun <ISpec : ActivityIntentSpec<*, Nothing>> Context.start(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
 
-inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
+inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = startActivity(intentSpec.intent(configIntent))
 
-inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
+inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = startActivity(intentSpec.intent(configIntent))
@@ -62,17 +65,17 @@ inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> C
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
-inline fun <ISpec: BroadcastReceiverIntentSpec<*, Nothing>> Context.sendBroadcast(
+inline fun <ISpec : BroadcastReceiverIntentSpec<*, Nothing>> Context.sendBroadcast(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
 
-inline fun <ISpec: BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
+inline fun <ISpec : BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = sendBroadcast(intentSpec.intent(configIntent))
 
-inline fun <ISpec: BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
+inline fun <ISpec : BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = sendBroadcast(intentSpec.intent(configIntent))
