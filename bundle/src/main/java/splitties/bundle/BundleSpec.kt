@@ -26,15 +26,22 @@ import splitties.uithread.isUiThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-inline fun <Spec : BundleSpec, R> Activity.withExtras(spec: Spec, block: Spec.() -> R): R {
-    return intent.extras.with(spec, block)
-}
+inline fun <Spec : BundleSpec, R> Activity.withExtras(
+        spec: Spec,
+        crossinline block: Spec.() -> R
+): R = intent.extras.with(spec, block)
 
-inline fun <Spec : BundleSpec> Intent.putExtras(spec: Spec, block: Spec.() -> Unit) {
+inline fun <Spec : BundleSpec> Intent.putExtras(
+        spec: Spec,
+        crossinline block: Spec.() -> Unit
+) {
     replaceExtras((extras ?: Bundle()).apply { with(spec, block) })
 }
 
-inline fun <Spec : BundleSpec, R> Bundle.with(spec: Spec, block: Spec.() -> R): R = try {
+inline fun <Spec : BundleSpec, R> Bundle.with(
+        spec: Spec,
+        crossinline block: Spec.() -> R
+): R = try {
     this.putIn(spec)
     spec.block()
 } finally {
