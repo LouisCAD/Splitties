@@ -75,7 +75,9 @@ Let's take the example shown in the [Bundle](../bundle) README, adding an
 ```kotlin
 class DemoActivity : AppCompatActivity() {
 
-    companion object : ActivityIntentSpec<DemoActivity, ExtrasSpec> by activitySpec(ExtrasSpec)
+    companion object : ActivityIntentSpec<DemoActivity, ExtrasSpec> by activitySpec(ExtrasSpec) {
+        const val someText = "Splitties is great!"
+    }
 
     object ExtrasSpec : BundleHelper() {
         var showGreetingToast: Boolean by bundle() // Required extra
@@ -86,9 +88,7 @@ class DemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         withExtras(ExtrasSpec) { // Populates ExtrasSpec with actual extras
             if (showGreetingToast) toast(android.R.string.ok)
-            optionalExtras?.forEach {
-                Timber.i("Character from optional extra: $it")
-            }
+            optionalExtras?.let { longToast(it) }
         }
         restOfYourCode()
     }
@@ -97,8 +97,9 @@ class DemoActivity : AppCompatActivity() {
 class StartDemoActivity : AppCompatActivity() {
 
     private fun someFunction(isUserPolite: Boolean = false) {
-        start(DemoActivity) { _, extrasSpec -> // Magic happens here!
+        start(DemoActivity) { intentSpec, extrasSpec -> // Magic happens here!
             extrasSpec.showGreetingToast = isUserPolite
+            extrasSpec.optionalExtra = intentSpec.someText
         }
     }
 }
