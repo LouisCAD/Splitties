@@ -18,9 +18,16 @@ package splitties.intents
 import android.content.Context
 import android.content.Intent
 import splitties.bundle.BundleSpec
+import splitties.exceptions.unsupported
 import splitties.init.appCtx
 
 // Intent
+@JvmName("new")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+inline fun <ISpec : IntentSpec<*, Nothing>> ISpec.intent(
+        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+): Nothing = unsupported()
 
 inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.intent(
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
@@ -31,6 +38,14 @@ inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.in
 ) = Intent(appCtx, klass).also { it.configIntent(this) }
 
 // Activity
+
+@JvmName("new")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+inline fun <ISpec: ActivityIntentSpec<*, Nothing>> Context.start(
+        intentSpec: ISpec,
+        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+): Nothing = unsupported()
 
 inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
         intentSpec: ISpec,
@@ -44,6 +59,14 @@ inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> C
 
 // BroadcastReceiver
 
+@JvmName("new")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+inline fun <ISpec: BroadcastReceiverIntentSpec<*, Nothing>> Context.sendBroadcast(
+        intentSpec: ISpec,
+        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+): Nothing = unsupported()
+
 inline fun <ISpec: BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
@@ -53,3 +76,5 @@ inline fun <ISpec: BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : Bund
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = sendBroadcast(intentSpec.intent(configIntent))
+
+internal const val noExtrasSpecMsg = "This IntentSpec has no ExtrasSpec. Use single arg lambda."

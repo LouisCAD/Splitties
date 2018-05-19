@@ -18,8 +18,17 @@ package splitties.intents
 import android.content.Intent
 import android.support.v4.app.Fragment
 import splitties.bundle.BundleSpec
+import splitties.exceptions.unsupported
 
 // Activity
+
+@JvmName("new")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+inline fun <ISpec: ActivityIntentSpec<*, Nothing>> Fragment.start(
+        intentSpec: ISpec,
+        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+): Nothing = unsupported()
 
 inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Fragment.start(
         intentSpec: ISpec,
