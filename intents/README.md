@@ -66,7 +66,7 @@ the `intent` extension function mentioned above, and the optional expected
 lambda has the same parameters as for `intent`. Finally, it calls
 `sendBroadcast` with the created `Intent`.
 
-### Example
+## Example
 
 Let's take the example shown in the [Bundle](../bundle) README, adding an
 `IntentSpec` to it. Notice the new `companion object` and how we start the
