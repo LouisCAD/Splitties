@@ -69,6 +69,7 @@ dependencies {
     implementation project(':fragments')
     implementation project(':fragmentargs')
     implementation project(':initprovider')
+    implementation project(':intents')
     implementation project(':material-colors')
     implementation project(':material-lists')
     implementation project(':preferences')

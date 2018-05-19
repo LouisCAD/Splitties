@@ -15,7 +15,7 @@
  */
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.louiscad.splittiessample.extensions
+package splitties.intents
 
 import android.app.PendingIntent
 import android.content.Intent
