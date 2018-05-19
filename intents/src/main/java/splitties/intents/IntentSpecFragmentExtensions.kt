@@ -32,7 +32,7 @@ inline fun <ISpec: ActivityIntentSpec<*, Nothing>> Fragment.start(
 
 inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Fragment.start(
         intentSpec: ISpec,
-        configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
+        crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = startActivity(intentSpec.intent(configIntent))
 
 inline fun <ISpec: ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Fragment.start(
