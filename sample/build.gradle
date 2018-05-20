@@ -65,6 +65,7 @@ dependencies {
     implementation project(':bitflags')
     implementation project(':bundle')
     implementation project(':checkedlazy')
+    implementation project(':collections')
     implementation project(':exceptions')
     implementation project(':fragments')
     implementation project(':fragmentargs')
