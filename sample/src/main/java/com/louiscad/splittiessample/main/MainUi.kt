@@ -24,7 +24,6 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
-import com.louiscad.splittiessample.extensions.setSingleView
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
@@ -46,6 +45,7 @@ import splitties.viewdsl.design.actionBarLParams
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.recyclerview.experimental.setSingleView
 import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.design.contentScrimColor

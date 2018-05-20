@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions
+package splitties.viewdsl.recyclerview.experimental
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import splitties.typesaferecyclerview.ViewHolder
 import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.recyclerview.verticalLayoutManager
 
 internal class SingleViewAdapter<V : View>(
         private val view: V
-) : RecyclerView.Adapter<ViewHolder<V>>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val layoutManager: RecyclerView.LayoutManager = verticalLayoutManager()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = view.apply {
         layoutParams = layoutManager.verticalListLayoutParams()
-    }.let(::ViewHolder)
+    }.let { object : RecyclerView.ViewHolder(it) {} }
 
-    override fun onBindViewHolder(holder: ViewHolder<V>, position: Int) = Unit
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = Unit
     override fun getItemCount() = 1
 }
