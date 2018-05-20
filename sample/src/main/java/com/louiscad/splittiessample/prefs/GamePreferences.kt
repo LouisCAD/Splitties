@@ -16,7 +16,7 @@
 
 package com.louiscad.splittiessample.prefs
 
-import com.louiscad.splittiessample.extensions.SuspendPrefsAccessor
+import splitties.preferences.experimental.SuspendPrefsAccessor
 import splitties.preferences.Preferences
 
 class GamePreferences private constructor() : Preferences("gameState") {
