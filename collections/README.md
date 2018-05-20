@@ -1,6 +1,6 @@
 # Collections
 
-*`forEachByIndex` to iterate on `List`s without allocating an `Iterator`.*
+*`forEach` for `List`s without `Iterator` allocation.*
 
 ## Content
 
