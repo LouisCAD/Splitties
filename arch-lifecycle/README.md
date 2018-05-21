@@ -22,7 +22,7 @@ use on a delegated property in your `Activity` or `Fragment`:
 
 ```kotlin
 class YourActivity : AppCompatActivity() {
-    private val viewModel: YourViewModel by activityScope<YourViewModel>()
+    private val viewModel: YourViewModel by activityScope()
     private val anotherViewModel by activityScope<AnotherViewModel>()
 }
 ```
