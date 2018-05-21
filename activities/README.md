@@ -15,3 +15,9 @@ edit it (e.g. adding flags) before the activity is started with it.
 The `startActivity` extension function for `Context` is designed for implicit
 intents. It expects the `Intent` action as first parameter, and takes a
 lambda to edit the intent further, like `start`.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-activities:$splitties_version"
+```

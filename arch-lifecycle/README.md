@@ -67,3 +67,9 @@ class YourViewModel : ViewModel() {
 Note that the `map` lambda runs on UI thread, so very light operations like
 getting a property is right, but long/blocking operations are not (would
 result in lags or ANRs).
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
+```

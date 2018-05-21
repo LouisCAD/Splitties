@@ -1,6 +1,6 @@
 # Bundle
 
-*`BundleHelper` to use `Bundle` with property syntax for `Intent` extras
+*`BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.*
 
 ## Non-exhaustive list of use cases
@@ -17,7 +17,7 @@ Can be used for `Activity` extras, but also in `Service` extras,
 
 1. Let's say you have an `Activity` subclass named `YourActivity`.
 1. In `YourActivity`, add a nested `object` named `ExtrasSpec`.
-2. Make it extend `BundleHelper`.
+2. Make it extend `BundleSpec`.
 3. For each required `Intent` extra you need, in `ExtrasSpec`, add a
 `var` property with explicit type, delegated `by bundle()`.
 3. For each optional `Intent` extra you need, still in `ExtrasSpec`, add a
@@ -43,7 +43,7 @@ See the examples below.
 See the implementation of the `put(…)` extension on `Bundle` to check all
 the supported types (it is likely to suit your needs).
 
-You may only access the delegated properties of a `BundleHelper` subclass
+You may only access the delegated properties of a `BundleSpec` subclass
 from the UI thread, inside the `withExtras(…) { … }` lambda or inside the
 `someBundle.with(…) { … }` lambda. If you violate this rule, an
 `IllegalStateException` will be thrown.
@@ -63,7 +63,7 @@ cost of data serialization in Bundles).
 ```kotlin
 class DemoActivity : AppCompatActivity() {
 
-    object ExtrasSpec : BundleHelper() {
+    object ExtrasSpec : BundleSpec() {
         var showGreetingToast: Boolean by bundle() // Required extra
         var optionalExtra: String? by bundleOrNull() // Optional extra
     }
@@ -97,7 +97,7 @@ class StartDemoActivity : AppCompatActivity() {
 ```kotlin
 class AirplaneModeReceiver : BroadcastReceiver() {
 
-    object ExtrasSpec : BundleHelper() {
+    object ExtrasSpec : BundleSpec() {
         var isAirplaneModeOn: Boolean by bundle("state")
     }
 
@@ -114,7 +114,7 @@ class AirplaneModeReceiver : BroadcastReceiver() {
 ```kotlin
 class DemoActivity : AppCompatActivity() {
 
-    private object InstanceStateSpec : BundleHelper() {
+    private object InstanceStateSpec : BundleSpec() {
         var startTime: Long by bundle()
     }
 
@@ -135,4 +135,10 @@ class DemoActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 }
+```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
 ```

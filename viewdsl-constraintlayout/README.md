@@ -67,3 +67,9 @@ These methods check the view on which the constraint depends has a valid `id`
 code that doesn't work as expected. (`View` ids are crucial to
 `ConstraintLayout`) This fail fast behavior is there to protect you from
 getting broken UIs that may escape your scrutiny.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
+```

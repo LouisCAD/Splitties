@@ -20,3 +20,9 @@ debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_ver
 Assuming your Android device is visible from adb on your computer, you can
 now navigate to [chrome://inspect](chrome://inspect) to see your updated
 debug app in Chrome Dev Tools, no further configuration required.
+
+## Download
+
+```groovy
+debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+```

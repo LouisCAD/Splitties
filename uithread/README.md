@@ -17,3 +17,9 @@ Here's the list:
 Thread.
 * `checkUiThread()`: Throws an `IllegalStateException` if not run on the UI
 Thread.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
+```

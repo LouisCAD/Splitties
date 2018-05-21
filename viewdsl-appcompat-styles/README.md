@@ -55,3 +55,9 @@ Styled `ProgressBar`s:
 * `progressBar`
 * `largeProgressBar`
 * `horizontalProgressBar`
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
+```

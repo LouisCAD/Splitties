@@ -20,3 +20,9 @@ class YourClass {
     val expensiveObject by checkedLazy(noUiThreadChecker) { doHeavyInstantiation() }
 }
 ```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
+```

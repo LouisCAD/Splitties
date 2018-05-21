@@ -49,3 +49,9 @@ Lowercase the first letter in your code and you're good to go!
 [You can also see the list here, directly in the source.](
 src/main/java/splitties/viewdsl/appcompat/AppCompatViews.kt
 )
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
+```

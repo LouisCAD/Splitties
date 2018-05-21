@@ -14,3 +14,9 @@ generator).
 
 * Red 500: `R.color.red_500` / `@color/red_500`
 * Cyan accent 400: `R.color.cyan_a400` / `@color/cyan_a400`
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
+```

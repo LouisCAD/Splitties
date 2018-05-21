@@ -32,3 +32,9 @@ your Fragments (e.g. adding, replacing…).
 
 The `addToBackStack()` extension function for `FragmentTransaction` calls
 `addToBackStack(null)`. It effectively makes the name parameter optional.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
+```

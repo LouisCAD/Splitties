@@ -255,3 +255,9 @@ and [`DemoActivity`](
 
 Note that you can preview `Ui` implementations in the IDE. [See the the
 View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
+```

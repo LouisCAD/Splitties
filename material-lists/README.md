@@ -24,3 +24,9 @@ requests are welcome as long as the code style is kept intact (you can
 debate about it in an issue if you feel there's room for improvement).
 
 See an example in the [sample module](../sample).
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
+```

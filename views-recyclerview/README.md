@@ -18,3 +18,9 @@ Kotlin code.
 The `gridLayoutManager` and `horizontalGridLayoutManager` functions allow you
 to instantiate and customize a `GridLayoutManager` with more idiomatic Kotlin
 code.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+```

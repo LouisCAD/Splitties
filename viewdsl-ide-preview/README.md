@@ -96,3 +96,9 @@ This will override the default value from the library.
 
 Alternatively, you can use the `splitties_class_fully_qualified_name`
 attribute instead and specify the full class name with its package.
+
+## Download
+
+```groovy
+debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
+```

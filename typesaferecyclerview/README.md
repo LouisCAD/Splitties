@@ -15,3 +15,9 @@ When using `ViewHolder`, use the one from Splitties to get the typesafe one.
 See it in action in the sample: [DemoAdapter](
 ../sample/src/main/java/com/louiscad/splittiessample/demo/DemoAdapter.kt
 ).
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+```

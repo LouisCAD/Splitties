@@ -69,3 +69,9 @@ However, you may make an abstract subclass of `Preferences` for specific
 use cases where adding logic to base `Preferences` or sharing some
 properties may be desirable. (If you do, please open an issue to tell us
 about this use case. It may become an example shown here.)
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
+```

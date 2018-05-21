@@ -69,3 +69,9 @@ arguments.
 There's also optional format arguments.
 * `styledTxtArray(…)` takes an array theme attribute and returns an
 `Array<out CharSequence>?`
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
+```

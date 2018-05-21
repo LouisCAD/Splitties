@@ -109,3 +109,9 @@ import splitties.init.AppCtxInitProvider
 
 class SecondProcessInitProvider : AppCtxInitProvider()
 ```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
+```

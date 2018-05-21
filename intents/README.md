@@ -79,7 +79,7 @@ class DemoActivity : AppCompatActivity() {
         const val someText = "Splitties is great!"
     }
 
-    object ExtrasSpec : BundleHelper() {
+    object ExtrasSpec : BundleSpec() {
         var showGreetingToast: Boolean by bundle() // Required extra
         var optionalExtra: String? by bundleOrNull() // Optional extra
     }
@@ -103,4 +103,10 @@ class StartDemoActivity : AppCompatActivity() {
         }
     }
 }
+```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
 ```

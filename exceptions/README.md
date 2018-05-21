@@ -9,3 +9,9 @@ Here's the list of these functions:
 * `illegalArg(…)` (shortcut to `throw IllegalArgumentException(…)`)
 * `unsupported(…)` (shortcut to `throw UnsupportedOperationException(…)`)
 * `unsupportedAction(…)` (designed for unsupported `Intent` actions)
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
+```

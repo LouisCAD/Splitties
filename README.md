@@ -16,6 +16,7 @@ as possible.
 
 ## All the [splits](#what-is-a-split "What is a split in Splitties?")
 
+- **[Activities:](activities)** Start activities with minimal boilerplate.
 - **[Alert Dialog:](alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](alertdialog-appcompat)** AppCompat version of
 [Alert Dialog](alertdialog).
@@ -26,20 +27,26 @@ as possible.
 Kotlin.
 - **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short` and `Byte`.
-- **[Bundle:](bundle)** `BundleHelper` to use `Bundle` with property syntax for `Intent` extras
+- **[Bundle:](bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.
+- **[Collections:](collections)** `forEach` for `List`s without `Iterator` allocation.
 - **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and
 `checkedLazy` to make your own variant.
 - **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
 handy when using [View DSL](viewdsl).
 - **[Exceptions:](exceptions)** `illegal(…)` and similar functions that return `Nothing`, handy for
 impossible or illegal `when` branches.
+- **[Fragments:](fragments)** Start activities from fragments and do transactions with minimal
+boilerplate.
 - **[Fragment Args:](fragmentargs)** Fragment arguments without ceremony thanks to delegated
 properties.
 - **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic
 initialization purposes.
+- **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
+- **[Material Colors:](material-colors)** [2014 Material Design color palettes](
+https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
@@ -70,9 +77,14 @@ precondition checker.
 [View DSL](viewdsl).
 - **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl).
 - **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE.
+- **[View DSL RecyclerView:](viewdsl-recyclerview)** RecyclerView extension of [View DSL](viewdsl).
 - **[Views:](views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers
 for `ImageView` tinting, `ActionBar` and tooltip.
+- **[Views CardView:](views-cardview)** CardView extension of [Views](views). Provides a
+`contentPadding` property.
+- **[Views Design:](views-design)** Design Support library extension of [Views](views).
+- **[Views RecyclerView:](views-recyclerview)** RecyclerView extension of [Views](views).
 
 ## Download
 
@@ -86,7 +98,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '2.0.0-alpha1'
+        splitties_version = '2.0.0-alpha2'
     }
 }
 ```
@@ -97,6 +109,7 @@ allProjects {
 </summary>
 
 ```groovy
+implementation "com.louiscad.splitties:splitties-activities:$splitties_version"
 implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
 implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
@@ -105,31 +118,39 @@ implementation "com.louiscad.splitties:splitties-arch-room:$splitties_version"
 implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
 implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
 implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
+implementation "com.louiscad.splitties:splitties-collections:$splitties_version"
 implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
 implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
+implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
+implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
 implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
+implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
 implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
+implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
 implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
 implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
 implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
 implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
 implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
 implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
 implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
 implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
-implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
 ```
 
 </details>

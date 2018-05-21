@@ -21,3 +21,9 @@ for dismissal (using `onDismiss(…)`).
 Note that `snackbar(…)`, `longSnack(…)` and `snackForever(…)` return the
 created `Snackbar` instance. That means you can as well add `onDismiss(…)`
 on the result of the call instead of inside the optional inline lambda.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
+```

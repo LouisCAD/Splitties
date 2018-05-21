@@ -41,3 +41,9 @@ updates it when configuration changes so you can avoid restarting your
 `Activity` when the device rotates, goes into multi-window mode or undergoes
 any other window size related config change if the rest of your content
 handles this without needing to be recreated.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+```

@@ -16,3 +16,9 @@ val minTapTargetSize = dip(48)
 ```kotlin
 val circleDiameter = dp(48)
 ```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
+```

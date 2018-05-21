@@ -17,3 +17,9 @@ fun createYourFragment(someId: Int): Fragment = YourFragment().apply {
     someRequiredId = someId
 }
 ```
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
+```

@@ -18,3 +18,9 @@ user selects the View (ripple effect on Lollipop and newer Android versions).
 Just use `SelectableLinearLayout` and `SelectableTextView` instead of
 `LinearLayout` and `TextView`, and change the `foregroundSelector`
 `Drawable` if the default doesn't suit your needs.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
+```

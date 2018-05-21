@@ -137,3 +137,9 @@ final apk slightly bigger, but there is no significant runtime impact. This
 method may get deprecated in the future for a version that would provide a
 `suspend` lambda instead of a "regular" one that doesn't support suspension
 points.
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-views:$splitties_version"
+```

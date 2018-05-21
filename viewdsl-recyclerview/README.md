@@ -35,3 +35,9 @@ layout parameters manually.
 
 This split provides two extension functions on `RecyclerView.LayoutManager`
 to make it easy: `verticalListLayoutParams` and `horizontalListLayoutParams`. 
+
+## Download
+
+```groovy
+implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
+```
