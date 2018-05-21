@@ -44,7 +44,7 @@ See the implementation of the `put(…)` extension on `Bundle` to check all
 the supported types (it is likely to suit your needs).
 
 You may only access the delegated properties of a `BundleSpec` subclass
-from the UI thread, inside the `withExtras(…) { … }` lambda or inside the
+inside the `withExtras(…) { … }` lambda or inside the
 `someBundle.with(…) { … }` lambda. If you violate this rule, an
 `IllegalStateException` will be thrown.
 
