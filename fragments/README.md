@@ -36,5 +36,5 @@ The `addToBackStack()` extension function for `FragmentTransaction` calls
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
+implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
 ```
