@@ -43,10 +43,10 @@ class YourActivity : AppCompatActivity() {
     private val viewModel by activityScope<YourViewModel>()
     
     override fun onCreate(savedInstanceState: Bundle?) {
-        viewModel.yourLiveData.observe { data: YourData? ->
+        observe(viewModel.yourLiveData) { data: YourData? ->
             updateUi(data)
         }
-        viewModel.anotherLiveData.observeNotNull {
+        observeNotNull(viewModel.anotherLiveData) {
             doSomething(it.someProperty)
             doSomethingElse(it)
         }
