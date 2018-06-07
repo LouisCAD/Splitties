@@ -22,17 +22,28 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import splitties.bundle.put
 import splitties.exceptions.illegal
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 @Suppress("unused") inline fun Fragment.arg() = FragmentArgDelegate
 @Suppress("unused") inline fun Fragment.argOrNull() = FragmentArgOrNullDelegate
+@Suppress("unused")
+fun <T : Any> Fragment.argOrDefault(defaultValue: T): ReadWriteProperty<Fragment, T> {
+    return FragmentArgOrDefaultDelegate(defaultValue)
+}
+
+@Suppress("unused")
+fun <T : Any> Fragment.argOrElse(defaultValue: () -> T): ReadWriteProperty<Fragment, T> {
+    return FragmentArgOrElseDelegate(defaultValue)
+}
 
 object FragmentArgDelegate {
 
-    @Suppress("UNCHECKED_CAST")
     operator fun <T : Any> getValue(thisRef: Fragment, property: KProperty<*>): T {
         val key = property.name
-        val args = thisRef.arguments ?: illegal("Cannot read property $key if no arguments have been set")
+        val args = thisRef.arguments
+                ?: illegal("Cannot read property $key if no arguments have been set")
+        @Suppress("UNCHECKED_CAST")
         return args.get(key).also {
             checkNotNull(it) { "Property $key could not be read" }
         } as T
@@ -45,12 +56,40 @@ object FragmentArgDelegate {
 
 object FragmentArgOrNullDelegate {
 
-    @Suppress("UNCHECKED_CAST")
     operator fun <T> getValue(thisRef: Fragment, property: KProperty<*>): T {
+        @Suppress("UNCHECKED_CAST")
         return thisRef.arguments?.get(property.name) as T
     }
 
     operator fun <T> setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
+        thisRef.putArg(property.name, value)
+    }
+}
+
+private class FragmentArgOrDefaultDelegate<T : Any>(
+        private val defaultValue: T
+) : ReadWriteProperty<Fragment, T> {
+
+    override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        @Suppress("UNCHECKED_CAST")
+        return thisRef.arguments?.get(property.name) as T? ?: defaultValue
+    }
+
+    override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
+        thisRef.putArg(property.name, value)
+    }
+}
+
+private class FragmentArgOrElseDelegate<T : Any>(
+        private val defaultValue: () -> T
+) : ReadWriteProperty<Fragment, T> {
+
+    override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {
+        @Suppress("UNCHECKED_CAST")
+        return thisRef.arguments?.get(property.name) as T? ?: defaultValue()
+    }
+
+    override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: T) {
         thisRef.putArg(property.name, value)
     }
 }
