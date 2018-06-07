@@ -9,6 +9,8 @@ class YourFragment : Fragment() {
 
     var someRequiredId: Int by arg()
     var optionalArg: String? by argOrNull()
+    var nonNullOptionalArg: String by argOrDefault("")
+    var anotherNonNullOptionalArg: String by argOrElse { "splitties rock!".capitalize() }
 
     private fun yourMethod() = yourCode()
 }
