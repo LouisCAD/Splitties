@@ -13,24 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+@file:Suppress("UNCHECKED_CAST", "unused")
+
 package splitties.fragmentargs
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import splitties.bundle.put
-import kotlin.properties.Delegates
+import splitties.exceptions.illegal
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-@Suppress("unused")
+fun <T : Any> Fragment.arg() = FragmentArgDelegate as ReadWriteProperty<Fragment, T>
+fun <T> Fragment.argOrNull() = FragmentArgOrNullDelegate as ReadWriteProperty<Fragment, T?>
+
 fun <T : Any> Fragment.argOrDefault(defaultValue: T): ReadWriteProperty<Fragment, T> {
-    Delegates
     return FragmentArgOrDefaultDelegate(defaultValue)
 }
 
-@Suppress("unused")
 fun <T : Any> Fragment.argOrElse(defaultValue: () -> T): ReadWriteProperty<Fragment, T> {
     return FragmentArgOrElseDelegate(defaultValue)
+}
+
+private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
+
+    override operator fun getValue(thisRef: Fragment, property: KProperty<*>): Any {
+        val key = property.name
+        val args = thisRef.arguments
+                ?: illegal("Cannot read property $key if no arguments have been set")
+        return args.get(key).also {
+            checkNotNull(it) { "Property $key could not be read" }
+        }
+    }
+
+    override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: Any) {
+        thisRef.putArg(property.name, value)
+    }
+}
+
+private object FragmentArgOrNullDelegate : ReadWriteProperty<Fragment, Any?> {
+
+    override operator fun getValue(thisRef: Fragment, property: KProperty<*>): Any? {
+        return thisRef.arguments?.get(property.name)
+    }
+
+    override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: Any?) {
+        thisRef.putArg(property.name, value)
+    }
 }
 
 private class FragmentArgOrDefaultDelegate<T : Any>(
