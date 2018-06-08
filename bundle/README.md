@@ -64,7 +64,8 @@ cost of data serialization in Bundles).
 class DemoActivity : AppCompatActivity() {
 
     object ExtrasSpec : BundleSpec() {
-        var showGreetingToast: Boolean by bundle() // Required extra
+        var userName: String by bundle() // Required extra
+        var showGreetingToast by bundleOrDefault(false) // Optional extra, defaults to false
         var optionalExtra: String? by bundleOrNull() // Optional extra
     }
 
@@ -82,9 +83,10 @@ class DemoActivity : AppCompatActivity() {
 
 class StartDemoActivity : AppCompatActivity() {
 
-    private fun someFunction(isUserPolite: Boolean = false) {
+    private fun someFunction(name: String, isUserPolite: Boolean = false) {
         startActivity(Intent(this, DemoActivity::class.java).apply {
             putExtras(DemoActivity.ExtrasSpec) {
+                userName = name
                 showGreetingToast = isUserPolite
             }
         })
