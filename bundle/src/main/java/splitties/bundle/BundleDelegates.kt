@@ -26,6 +26,14 @@ import kotlin.reflect.KProperty
 fun <T : Any> BundleSpec.bundle() = BundleDelegate as ReadWriteProperty<BundleSpec, T>
 fun <T> BundleSpec.bundleOrNull() = BundleOrNullDelegate as ReadWriteProperty<BundleSpec, T?>
 
+fun <T : Any> BundleSpec.bundleOrDefault(defaultValue: T): ReadWriteProperty<BundleSpec, T> {
+    return BundleOrDefaultDelegate(defaultValue)
+}
+
+fun <T : Any> BundleSpec.bundleOrElse(defaultValue: () -> T): ReadWriteProperty<BundleSpec, T> {
+    return BundleOrElseDelegate(defaultValue)
+}
+
 fun <T : Any> BundleSpec.bundle(key: String): ReadWriteProperty<BundleSpec, T> {
     return ExplicitBundleDelegate(key, noNull = true)
 }
@@ -40,7 +48,6 @@ private val BundleSpec.bundle: Bundle
 
 private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
-    @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): Any {
         val key = property.name
         return thisRef.bundle[key].also {
@@ -55,7 +62,6 @@ private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
 private object BundleOrNullDelegate : ReadWriteProperty<BundleSpec, Any?> {
 
-    @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): Any? {
         return thisRef.bundle[property.name]
     }
@@ -65,11 +71,36 @@ private object BundleOrNullDelegate : ReadWriteProperty<BundleSpec, Any?> {
     }
 }
 
+private class BundleOrDefaultDelegate<T : Any>(
+        private val defaultValue: T
+) : ReadWriteProperty<BundleSpec, T> {
+
+    override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
+        return thisRef.bundle[property.name] as T? ?: defaultValue
+    }
+
+    override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: T) {
+        thisRef.bundle.put(property.name, value)
+    }
+}
+
+private class BundleOrElseDelegate<T : Any>(
+        private val defaultValue: () -> T
+) : ReadWriteProperty<BundleSpec, T> {
+
+    override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
+        return thisRef.bundle[property.name] as T? ?: defaultValue()
+    }
+
+    override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: T) {
+        thisRef.bundle.put(property.name, value)
+    }
+}
+
 private class ExplicitBundleDelegate<T>(
         private val key: String,
         private val noNull: Boolean) : ReadWriteProperty<BundleSpec, T> {
 
-    @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
         return thisRef.bundle[key].also {
             if (noNull) checkNotNull(it) { "Property $key could not be read" }
