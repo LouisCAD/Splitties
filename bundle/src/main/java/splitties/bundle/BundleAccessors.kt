@@ -19,8 +19,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import splitties.uithread.isUiThread
+import kotlin.DeprecationLevel.ERROR
 
-@Deprecated("Name changed.", ReplaceWith("BundleSpec", "splitties.bundle.BundleSpec"))
+@Deprecated("Name changed.", ReplaceWith("BundleSpec", "splitties.bundle.BundleSpec"), ERROR)
 typealias BundleHelper = BundleSpec
 
 inline fun <Spec : BundleSpec, R> Activity.withExtras(
