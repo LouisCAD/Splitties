@@ -30,7 +30,7 @@ fun <T : Any> BundleSpec.bundle(key: String): ReadWriteProperty<BundleSpec, T> {
     return ExplicitBundleDelegate(key, noNull = true)
 }
 
-fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T> {
+fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T?> {
     return ExplicitBundleDelegate(key, noNull = false)
 }
 
