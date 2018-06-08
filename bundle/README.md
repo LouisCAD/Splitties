@@ -19,9 +19,10 @@ Can be used for `Activity` extras, but also in `Service` extras,
 1. In `YourActivity`, add a nested `object` named `ExtrasSpec`.
 2. Make it extend `BundleSpec`.
 3. For each required `Intent` extra you need, in `ExtrasSpec`, add a
-`var` property with explicit type, delegated `by bundle()`.
+`var` property with explicit non null type, delegated `by bundle()`.
 3. For each optional `Intent` extra you need, still in `ExtrasSpec`, add a
-`var` property with explicit nullable type, delegated `by bundleOrNull()`.
+`var` property with either and explicit nullable type, delegated `by bundleOrNull()`,
+or with a non null type, delegated `by bundleOrDefault(…)` or `by bundleOrElse { … }`.
 4. When setting up the `Intent` to start your `Activity`, call
 `putExtras(YourActivity.ExtrasSpec) { … }` on it, setting values on the
 `ExtrasSpec` properties in the lambda.
@@ -51,10 +52,10 @@ inside the `withExtras(…) { … }` lambda or inside the
 The implementation has been optimized for efficiency. The delegates under
 `bundle()` and `bundleOrNull()` are singletons and are shared for all
 properties app-wide.
-The versions that accept a key can't be singletons, but since you're likely
-using them in `object` backed specs, they are instantiated only once per
-property, having a minimal memory impact (especially when compared to the
-cost of data serialization in Bundles).
+The versions that accept a key or a default value can't be singletons, but since
+you're likely using them in `object` backed specs, they are instantiated only
+once per property, having a minimal memory impact (especially when compared to
+the cost of data serialization in Bundles).
 
 ## Examples
 
@@ -64,7 +65,8 @@ cost of data serialization in Bundles).
 class DemoActivity : AppCompatActivity() {
 
     object ExtrasSpec : BundleSpec() {
-        var showGreetingToast: Boolean by bundle() // Required extra
+        var userName: String by bundle() // Required extra
+        var showGreetingToast by bundleOrDefault(false) // Optional extra, defaults to false
         var optionalExtra: String? by bundleOrNull() // Optional extra
     }
 
@@ -82,9 +84,10 @@ class DemoActivity : AppCompatActivity() {
 
 class StartDemoActivity : AppCompatActivity() {
 
-    private fun someFunction(isUserPolite: Boolean = false) {
+    private fun someFunction(name: String, isUserPolite: Boolean = false) {
         startActivity(Intent(this, DemoActivity::class.java).apply {
             putExtras(DemoActivity.ExtrasSpec) {
+                userName = name
                 showGreetingToast = isUserPolite
             }
         })
