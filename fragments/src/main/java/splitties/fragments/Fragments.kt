@@ -39,6 +39,6 @@ inline fun <reified A : Activity> Fragment.start(configIntent: Intent.() -> Unit
     startActivity(Intent(activity, A::class.java).apply(configIntent))
 }
 
-inline fun Fragment.startActivity(action: String, configIntent: Intent.() -> Unit) {
+inline fun Fragment.startActivity(action: String, configIntent: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(configIntent))
 }

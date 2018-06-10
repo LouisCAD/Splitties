@@ -24,6 +24,6 @@ inline fun <reified A : Activity> Context.start(configIntent: Intent.() -> Unit 
     startActivity(Intent(this, A::class.java).apply(configIntent))
 }
 
-inline fun Context.startActivity(action: String, configIntent: Intent.() -> Unit) {
+inline fun Context.startActivity(action: String, configIntent: Intent.() -> Unit = {}) {
     startActivity(Intent(action).apply(configIntent))
 }
