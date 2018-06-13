@@ -20,10 +20,11 @@ import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.matchParent
+import splitties.viewdsl.core.v
 import splitties.viewdsl.core.wrapContent
 import android.widget.LinearLayout.LayoutParams as LP
 
 inline fun TextInputLayout.addInput(
         @IdRes id: Int,
         initView: TextInputEditText.() -> Unit = {}
-) = add(::TextInputEditText, id, LP(matchParent, wrapContent), initView)
+) = add(v(::TextInputEditText, id, initView = initView), LP(matchParent, wrapContent))
