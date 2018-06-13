@@ -52,34 +52,34 @@ class AboutUi(override val ctx: Context) : Ui {
             centerHorizontally()
             topMargin = dip(16)
         })
-        val authorTv = add(::textView, R.id.tv_author, lParams(height = wrapContent) {
-            topToBottomOf(headlineTv)
-            centerHorizontally()
-            topMargin = dip(8)
-        }) {
+        val authorTv = add(v(::textView, R.id.tv_author) {
             textAppearance = R.style.TextAppearance_AppCompat_Small
             textResource = R.string.a_lib_by_louiscad
             centerText()
-        }
-        add(::textView, R.id.tv_license_name, lParams(height = wrapContent) {
-            topToBottomOf(authorTv)
+        }, lParams(height = wrapContent) {
+            topToBottomOf(headlineTv)
             centerHorizontally()
             topMargin = dip(8)
-        }) {
+        })
+        add(v(::textView, R.id.tv_license_name) {
             textAppearance = R.style.TextAppearance_AppCompat_Caption
             textResource = R.string.licensed_under_apache_2
             centerText()
-        }
+        }, lParams(height = wrapContent) {
+            topToBottomOf(authorTv)
+            centerHorizontally()
+            topMargin = dip(8)
+        })
     }
 
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {
-            add(::Toolbar, defaultLParams()) {
+        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(v(::Toolbar) {
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)
-            }
-        }
+            }, defaultLParams())
+        }, appBarLParams())
         add(mainContent, contentScrollingWithAppBarLParams())
     }
 }

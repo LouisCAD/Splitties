@@ -53,13 +53,13 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
     }
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams()) {
-            add(::Toolbar, defaultLParams()) {
+        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(v(::Toolbar) {
                 subtitle = txt(R.string.subtitle_items_count_hint)
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)
-            }
-        }
+            }, defaultLParams())
+        }, appBarLParams())
         add(demoListView, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams(gravity = gravityEndBottom) {
             margin = dip(16)
