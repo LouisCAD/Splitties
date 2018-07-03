@@ -62,11 +62,12 @@ inline fun <V : View> Ui.v(
 
 private const val deprecationMessageForAdd = "Use v + add or v + addView instead of just add. " +
         "It makes promoting a view as property easier as you don't have to extract the " +
-        "parameters manually. Since ReplaceWith has a bug (see KT-24125 on YouTrack), there's no " +
-        "migration provided at the moment. Subscribe to  issue #82 on GitHub to get notified " +
-        "when the migration is ready (after ReplaceWith is fixed in Kotlin)."
+        "parameters manually."
 
-@Deprecated(deprecationMessageForAdd)
+@Deprecated(deprecationMessageForAdd, ReplaceWith(
+        expression = "add(v(createView, id, theme, initView), lp)",
+        imports = ["splitties.viewdsl.core.v"]
+))
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -75,7 +76,10 @@ inline fun <V : View> ViewGroup.add(
         initView: V.() -> Unit = {}
 ): V = v(createView, id, theme, initView).also { addView(it, lp) }
 
-@Deprecated(deprecationMessageForAdd)
+@Deprecated(deprecationMessageForAdd, ReplaceWith(
+        expression = "add(v(createView, id, initView), lp)",
+        imports = ["splitties.viewdsl.core.v"]
+))
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int,
@@ -83,7 +87,10 @@ inline fun <V : View> ViewGroup.add(
         initView: V.() -> Unit = {}
 ): V = createView(context).also { it.id = id }.apply(initView).also { addView(it, lp) }
 
-@Deprecated(deprecationMessageForAdd)
+@Deprecated(deprecationMessageForAdd, ReplaceWith(
+        expression = "add(v(createView, initView), lp)",
+        imports = ["splitties.viewdsl.core.v"]
+))
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         lp: ViewGroup.LayoutParams,

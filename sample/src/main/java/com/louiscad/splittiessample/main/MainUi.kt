@@ -79,27 +79,27 @@ class MainUi(override val ctx: Context) : Ui {
                 gravity = gravityCenterHorizontal
                 bottomMargin = dip(8)
             })
-            add(::textView, lParams {
-                margin = dimenPxSize(R.dimen.text_margin)
-            }) {
+            add(v(::textView) {
                 textResource = R.string.large_text
-            }
+            }, lParams {
+                margin = dimenPxSize(R.dimen.text_margin)
+            })
         })
     }
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
-        add(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay, appBarLParams(dip(180))) {
-            add(::CollapsingToolbarLayout, defaultLParams(height = matchParent) {
-                scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
-            }) {
+        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(v(::CollapsingToolbarLayout) {
                 fitsSystemWindows = true
                 contentScrimColor = styledColor(R.attr.colorPrimary)
-                add(::Toolbar, actionBarLParams(collapseMode = PIN)) {
+                add(v(::Toolbar) {
                     (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
-                }
-            }
-        }
+                }, actionBarLParams(collapseMode = PIN))
+            }, defaultLParams(height = matchParent) {
+                scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
+            })
+        }, appBarLParams(dip(180)))
         add(content, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams {
             anchorId = R.id.app_bar

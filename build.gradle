@@ -17,13 +17,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.41'
+    ext.kotlin_version = '1.2.51'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha17'
+        classpath 'com.android.tools.build:gradle:3.2.0-beta02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
@@ -45,7 +45,7 @@ allprojects {
 
         // Libraries
         groupId = "com.louiscad.splitties"
-        library_version = "2.0.0-SNAPSHOT"
+        library_version = "2.0.0-alpha4"
         isSnapshot = library_version.endsWith("-SNAPSHOT")
         isRelease = !isSnapshot
 
@@ -54,8 +54,8 @@ allprojects {
         arch_lifecycle_version = '1.1.1'
         arch_room_version = '1.0.0'
         constraintLayout_version = '1.1.0'
-        timber_version = '4.7.0'
-        kotlinxCoroutines_version = '0.22.5'
+        timber_version = '4.7.1'
+        kotlinxCoroutines_version = '0.23.4'
     }
 }
 

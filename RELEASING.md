@@ -11,11 +11,11 @@ file to a non-SNAPSHOT version.
 5. Run `./gradlew clean bintrayUpload`.
 6. Run `git push origin`.
 7. Sign in on Bintray and publish the packages.
-8. Publish release on GitHub.
-6. Change the `library_version` ext property in root project back to a
+8. Change the `library_version` ext property in root project back to a
 -SNAPSHOT version.
-7. Run `git commit -am "Prepare next development version."`.
-8. Run `git push origin && git push origin --tags`.
+9. Run `git commit -am "Prepare next development version."`.
+10. Run `git push origin && git push origin --tags`.
+11. Publish release on GitHub.
 
 ## Publishing a SNAPSHOT
 
