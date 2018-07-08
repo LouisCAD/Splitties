@@ -75,15 +75,16 @@ precondition checker.
 [View DSL](viewdsl).
 - **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
 [View DSL](viewdsl).
-- **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl).
 - **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE.
+- **[View DSL Material:](viewdsl-material)** Material Design library extension of
+[View DSL](viewdsl).
 - **[View DSL RecyclerView:](viewdsl-recyclerview)** RecyclerView extension of [View DSL](viewdsl).
 - **[Views:](views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers
 for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](views-cardview)** CardView extension of [Views](views). Provides a
 `contentPadding` property.
-- **[Views Design:](views-design)** Design Support library extension of [Views](views).
+- **[Views Material:](views-material)** Material Design library extension of [Views](views).
 - **[Views RecyclerView:](views-recyclerview)** RecyclerView extension of [Views](views).
 
 ## Download
@@ -143,13 +144,13 @@ implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-material:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-material:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
 ```
 
