@@ -54,14 +54,17 @@ import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Context.COMPANION_DEVICE_SERVICE
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Context.CONSUMER_IR_SERVICE
+import android.content.Context.CROSS_PROFILE_APPS_SERVICE
 import android.content.Context.DEVICE_POLICY_SERVICE
 import android.content.Context.DISPLAY_SERVICE
 import android.content.Context.DOWNLOAD_SERVICE
 import android.content.Context.DROPBOX_SERVICE
+import android.content.Context.EUICC_SERVICE
 import android.content.Context.FINGERPRINT_SERVICE
 import android.content.Context.HARDWARE_PROPERTIES_SERVICE
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Context.INPUT_SERVICE
+import android.content.Context.IPSEC_SERVICE
 import android.content.Context.JOB_SCHEDULER_SERVICE
 import android.content.Context.KEYGUARD_SERVICE
 import android.content.Context.LAUNCHER_APPS_SERVICE
@@ -98,16 +101,17 @@ import android.content.Context.VIBRATOR_SERVICE
 import android.content.Context.WALLPAPER_SERVICE
 import android.content.Context.WIFI_AWARE_SERVICE
 import android.content.Context.WIFI_P2P_SERVICE
+import android.content.Context.WIFI_RTT_RANGING_SERVICE
 import android.content.Context.WIFI_SERVICE
 import android.content.Context.WINDOW_SERVICE
 import android.content.RestrictionsManager
+import android.content.pm.CrossProfileApps
 import android.content.pm.LauncherApps
 import android.content.pm.ShortcutManager
 import android.hardware.ConsumerIrManager
 import android.hardware.SensorManager
 import android.hardware.camera2.CameraManager
 import android.hardware.display.DisplayManager
-import android.hardware.fingerprint.FingerprintManager
 import android.hardware.input.InputManager
 import android.hardware.usb.UsbManager
 import android.location.LocationManager
@@ -118,10 +122,12 @@ import android.media.projection.MediaProjectionManager
 import android.media.session.MediaSessionManager
 import android.media.tv.TvInputManager
 import android.net.ConnectivityManager
+import android.net.IpSecManager
 import android.net.nsd.NsdManager
 import android.net.wifi.WifiManager
 import android.net.wifi.aware.WifiAwareManager
 import android.net.wifi.p2p.WifiP2pManager
+import android.net.wifi.rtt.WifiRttManager
 import android.nfc.NfcManager
 import android.os.BatteryManager
 import android.os.DropBoxManager
@@ -136,6 +142,7 @@ import android.telecom.TelecomManager
 import android.telephony.CarrierConfigManager
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
+import android.telephony.euicc.EuiccManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -209,7 +216,10 @@ inline val mediaProjectionManager: MediaProjectionManager @RequiresApi(21) get()
 inline val usageStatsManager: UsageStatsManager @RequiresApi(22) get() = getSystemService(USAGE_STATS_SERVICE)
 inline val subscriptionManager: SubscriptionManager @RequiresApi(22) get() = getSystemService(TELEPHONY_SUBSCRIPTION_SERVICE)
 
-inline val fingerPrintManager: FingerprintManager @RequiresApi(23) get() = getSystemService(FINGERPRINT_SERVICE)
+@Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+@Deprecated("Use android.hardware.biometrics.BiometricPrompt instead (back-ported into JetPack).")
+inline val fingerPrintManager: android.hardware.fingerprint.FingerprintManager
+    @RequiresApi(23) get() = getSystemService(FINGERPRINT_SERVICE)
 inline val networkStatsManager: NetworkStatsManager @RequiresApi(23) get() = getSystemService(NETWORK_STATS_SERVICE)
 inline val carrierConfigManager: CarrierConfigManager @RequiresApi(23) get() = getSystemService(CARRIER_CONFIG_SERVICE)
 inline val midiManager: MidiManager @RequiresApi(23) get() = getSystemService(MIDI_SERVICE)
@@ -223,6 +233,11 @@ inline val companionDeviceManager: CompanionDeviceManager @RequiresApi(26) get()
 inline val storageStatsManager: StorageStatsManager @RequiresApi(26) get() = getSystemService(STORAGE_STATS_SERVICE)
 inline val textClassificationManager: TextClassificationManager @RequiresApi(26) get() = getSystemService(TEXT_CLASSIFICATION_SERVICE)
 inline val wifiAwareManager: WifiAwareManager @RequiresApi(26) get() = getSystemService(WIFI_AWARE_SERVICE)
+
+inline val crossProfileApps: CrossProfileApps @RequiresApi(28) get() = getSystemService(CROSS_PROFILE_APPS_SERVICE)
+inline val euiccManager: EuiccManager @RequiresApi(28) get() = getSystemService(EUICC_SERVICE)
+inline val ipSecManager: IpSecManager @RequiresApi(28) get() = getSystemService(IPSEC_SERVICE)
+inline val wifiRttManager: WifiRttManager @RequiresApi(28) get() = getSystemService(WIFI_RTT_RANGING_SERVICE)
 
 @Suppress("UNCHECKED_CAST")
 @PublishedApi internal fun <T> getSystemService(name: String) = appCtx.getSystemService(name) as T
