@@ -13,14 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package splitties.views.material
 
-package splitties.views.design
+import androidx.annotation.ColorInt
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
-@PublishedApi internal const val NO_GETTER = "Property does not have a getter"
-
-/**
- * Usage example:
- * `@Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter`
- */
-@PublishedApi
-internal inline val noGetter: Nothing get() = throw UnsupportedOperationException(NO_GETTER)
+inline var CollapsingToolbarLayout.contentScrimColor: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    set(@ColorInt value) = setContentScrimColor(value)

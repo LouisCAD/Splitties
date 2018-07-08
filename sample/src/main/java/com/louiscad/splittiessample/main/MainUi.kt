@@ -48,7 +48,7 @@ import splitties.viewdsl.design.defaultLParams
 import splitties.viewdsl.recyclerview.experimental.setSingleView
 import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
-import splitties.views.design.contentScrimColor
+import splitties.views.material.contentScrimColor
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource

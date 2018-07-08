@@ -41,7 +41,7 @@ dependencies {
     api project(':viewdsl')
     api project(':viewdsl-appcompat')
     api project(':viewdsl-recyclerview')
-    api project(':views-design')
+    api project(':views-material')
 
     // Android Support Libraries
     api 'androidx.annotation:annotation:1.0.0-beta01'

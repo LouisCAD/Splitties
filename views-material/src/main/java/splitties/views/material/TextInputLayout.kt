@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.views.design
+package splitties.views.material
 
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout

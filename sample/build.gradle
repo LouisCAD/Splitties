@@ -83,7 +83,7 @@ dependencies {
     implementation project(':viewdsl-constraintlayout')
     implementation project(':viewdsl-design')
     debugImplementation project(':viewdsl-ide-preview')
-    implementation project(':views-design')
+    implementation project(':views-material')
 
     // Android Support Libraries
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
