@@ -88,7 +88,7 @@ as `v`, but also requires a `ViewGroup.LayoutParams` (or subclass) parameter
 used to add the created View to the `ViewGroup`.
 * `lParams` extension function on `LinearLayout` and `FrameLayout` (
 [`ConstraintLayout`](../viewdsl-constraintlayout/README.md),
-and [Design Support Library ViewGroups](../viewdsl-design/README.md) have
+and [Material Design library ViewGroups](../viewdsl-material/README.md) have
 theirs too, and you can very easily make one for any other `ViewGroup`),
 which allows to easily set layout parameters that you can use in
 `add`, with type safety.
@@ -110,7 +110,7 @@ the orientation you expect to use with `v` or `add`.
 views like `coloredFlatButton`.
 * [ConstraintLayout](../viewdsl-constraintlayout) provides support for
 `ConstraintLayout.LayoutParameters`.
-* [Design](../viewdsl-design) provides extensions for design support library
+* [Material](../viewdsl-material) provides extensions for Material Design library
 `ViewGroup`s and bottom sheets.
 * [IDE preview](../viewdsl-ide-preview) provides the ability to preview your
 user interfaces right from the IDE.
@@ -182,7 +182,7 @@ includes `lParams` extension functions for `FrameLayout` and `LinearLayout`.
 [View DSL ConstraintLayout split](../viewdsl-constraintlayout),
 and support for
 `CoordinatorLayout` and `AppBarLayout` can be found in the
-[View DSL Design split](../viewdsl-design). You can also write
+[View DSL Material Design split](../viewdsl-material). You can also write
 `lParams` extension functions yourself in a few lines for any other
 `ViewGroup` (take a look at the ones from this project if you need to write
 your own).
