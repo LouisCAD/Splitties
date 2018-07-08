@@ -22,8 +22,8 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Build.VERSION_CODES.O
 import android.os.Vibrator
-import android.support.annotation.RequiresApi
-import android.support.annotation.RequiresPermission
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import android.os.VibrationEffect as VibrationEffectApi26
 
 sealed class VibrationEffect {

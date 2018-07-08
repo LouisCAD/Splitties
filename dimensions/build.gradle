@@ -27,7 +27,7 @@ android {
         versionCode 1
         versionName library_version
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -41,7 +41,7 @@ android {
 dependencies {
 
     // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
+    api 'androidx.annotation:annotation:1.0.0-beta01'
 
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

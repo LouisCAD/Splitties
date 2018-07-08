@@ -15,8 +15,8 @@
  */
 package splitties.viewdsl.recyclerview.experimental
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 fun RecyclerView.setSingleView(view: View) {
     val contentAdapter = SingleViewAdapter(view)

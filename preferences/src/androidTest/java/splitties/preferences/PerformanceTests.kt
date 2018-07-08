@@ -17,9 +17,9 @@
 package splitties.preferences
 
 import android.content.Context
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
 import android.util.Log
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
 import splitties.preferences.no_cache_prefs.NoCachePreferences

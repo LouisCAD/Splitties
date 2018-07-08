@@ -22,13 +22,13 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.os.Build.VERSION.SDK_INT
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 import splitties.resources.txt
 import splitties.systemservices.layoutInflater

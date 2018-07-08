@@ -16,9 +16,9 @@
 
 package com.louiscad.splittiessample.demo
 
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Designed for [RecyclerView] items that won't change title, detail and icon.

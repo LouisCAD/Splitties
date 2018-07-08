@@ -18,10 +18,10 @@
 
 package splitties.viewdsl.design
 
-import android.support.design.widget.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
-import android.support.design.widget.AppBarLayout.LayoutParams as LP
+import com.google.android.material.appbar.AppBarLayout.LayoutParams as LP
 
 @Suppress("unused") val AppBarLayout.SCROLL get() = LP.SCROLL_FLAG_SCROLL
 @Suppress("unused") val AppBarLayout.EXIT_UNTIL_COLLAPSED

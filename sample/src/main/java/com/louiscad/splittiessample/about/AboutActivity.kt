@@ -16,7 +16,7 @@
 package com.louiscad.splittiessample.about
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import splitties.viewdsl.core.setContentView
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp

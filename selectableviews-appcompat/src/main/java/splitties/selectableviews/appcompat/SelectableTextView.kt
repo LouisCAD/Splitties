@@ -21,8 +21,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
 import splitties.resources.styledDrawable
 
 open class SelectableTextView @JvmOverloads constructor(

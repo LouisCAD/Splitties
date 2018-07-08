@@ -20,7 +20,7 @@ package splitties.resources
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.annotation.AttrRes
+import androidx.annotation.AttrRes
 import splitties.uithread.isUiThread
 
 private val uiThreadConfinedCachedAttrArray = IntArray(1)

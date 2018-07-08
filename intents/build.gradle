@@ -25,7 +25,7 @@ android {
         targetSdkVersion projectSdk_version
         versionCode 1
         versionName library_version
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -44,8 +44,8 @@ dependencies {
     api project(':exceptions')
 
     // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
-    compileOnly "com.android.support:support-fragment:$supportLibs_version"
+    api 'androidx.annotation:annotation:1.0.0-beta01'
+    compileOnly 'androidx.fragment:fragment:1.0.0-beta01'
 
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -53,7 +53,7 @@ dependencies {
     // Test dependencies
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 }
 
 apply from: '../publish.gradle'

@@ -18,11 +18,11 @@
 
 package splitties.viewdsl.design
 
-import android.support.design.widget.CollapsingToolbarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import splitties.resources.styledDimenPxSize
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
-import android.support.design.widget.CollapsingToolbarLayout.LayoutParams as LP
+import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams as LP
 
 @Suppress("unused") val CollapsingToolbarLayout.PIN get() = LP.COLLAPSE_MODE_PIN
 @Suppress("unused") val CollapsingToolbarLayout.PARALLAX get() = LP.COLLAPSE_MODE_PARALLAX

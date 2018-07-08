@@ -16,7 +16,7 @@
 
 package splitties.views.recyclerview
 
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 
 inline fun verticalLayoutManager(
         reverseLayout: Boolean = false,

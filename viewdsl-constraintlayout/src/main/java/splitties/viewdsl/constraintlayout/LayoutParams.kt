@@ -19,7 +19,7 @@
 package splitties.viewdsl.constraintlayout
 
 import android.view.View
-import android.support.constraint.ConstraintLayout.LayoutParams as LP
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams as LP
 
 @Suppress("unused") inline val LP.parentId get() = LP.PARENT_ID
 @Suppress("unused") inline val LP.packed get() = LP.CHAIN_PACKED

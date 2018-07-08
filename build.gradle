@@ -40,8 +40,8 @@ allprojects {
         jcenter()
     }
     ext {
-        projectBuildTools_version = '27.0.3'
-        projectSdk_version = 27
+        projectBuildTools_version = '28.0.1'
+        projectSdk_version = 28
 
         // Libraries
         groupId = "com.louiscad.splitties"

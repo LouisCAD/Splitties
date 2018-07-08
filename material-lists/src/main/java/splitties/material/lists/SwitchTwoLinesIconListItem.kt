@@ -17,8 +17,8 @@
 package splitties.material.lists
 
 import android.content.Context
-import android.support.v7.widget.SwitchCompat
 import android.text.TextUtils.TruncateAt.END
+import androidx.appcompat.widget.SwitchCompat
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.selectableviews.constraintlayout.SelectableConstraintLayout

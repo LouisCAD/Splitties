@@ -14,4 +14,8 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.material.lists"/>
+<manifest package="splitties.material.lists"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk tools:overrideLibrary="androidx.constraintlayout.widget"/>
+</manifest>

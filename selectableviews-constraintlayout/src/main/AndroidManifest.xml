@@ -14,4 +14,8 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.selectableviews.constraintlayout"/>
+<manifest package="splitties.selectableviews.constraintlayout"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-sdk tools:overrideLibrary="androidx.constraintlayout.widget"/>
+</manifest>

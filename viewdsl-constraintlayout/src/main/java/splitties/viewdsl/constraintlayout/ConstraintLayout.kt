@@ -18,7 +18,7 @@
 
 package splitties.viewdsl.constraintlayout
 
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import splitties.viewdsl.core.matchParent
 
 @PublishedApi internal const val MATCH_CONSTRAINT = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT

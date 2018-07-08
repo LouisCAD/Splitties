@@ -19,12 +19,12 @@
 package splitties.resources
 
 import android.content.Context
-import android.support.annotation.ArrayRes
-import android.support.annotation.AttrRes
-import android.support.annotation.PluralsRes
-import android.support.annotation.StringRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.ArrayRes
+import androidx.annotation.AttrRes
+import androidx.annotation.PluralsRes
+import androidx.annotation.StringRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 
 inline fun Context.txt(@StringRes stringResId: Int): CharSequence = resources.getText(stringResId)

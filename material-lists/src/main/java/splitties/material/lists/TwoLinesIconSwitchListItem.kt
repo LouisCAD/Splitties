@@ -17,10 +17,10 @@
 package splitties.material.lists
 
 import android.content.Context
-import android.support.v7.widget.SwitchCompat
 import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
 import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
 import splitties.views.inflateAndAttach
 

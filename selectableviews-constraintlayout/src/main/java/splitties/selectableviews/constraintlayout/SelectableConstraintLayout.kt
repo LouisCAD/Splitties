@@ -21,8 +21,8 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import androidx.constraintlayout.widget.ConstraintLayout
 import splitties.resources.styledDrawable
 
 /**

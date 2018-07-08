@@ -75,7 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/firstLine"
         tools:text="@string/second_line_sample"/>
 
-    <android.support.v7.widget.SwitchCompat
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/toggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

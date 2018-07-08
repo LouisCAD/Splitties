@@ -19,7 +19,7 @@ package splitties.init
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.N
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 
 /**
  * Lazily creates a device protected storage Context on Android N+ devices,

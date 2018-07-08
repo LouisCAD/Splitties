@@ -20,9 +20,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
-import android.support.annotation.RequiresApi
-import android.support.annotation.StringRes
 import android.widget.Button
+import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import kotlin.DeprecationLevel.HIDDEN
 
 inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {

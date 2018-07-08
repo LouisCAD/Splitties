@@ -17,11 +17,11 @@
 package splitties.viewdsl.core
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
 
 /**
  * Called so to remind that function references (that are inlined) are recommended for

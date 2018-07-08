@@ -19,19 +19,6 @@
 package splitties.viewdsl.appcompat
 
 import android.content.Context
-import android.support.v7.widget.AppCompatAutoCompleteTextView
-import android.support.v7.widget.AppCompatButton
-import android.support.v7.widget.AppCompatCheckBox
-import android.support.v7.widget.AppCompatCheckedTextView
-import android.support.v7.widget.AppCompatEditText
-import android.support.v7.widget.AppCompatImageButton
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatMultiAutoCompleteTextView
-import android.support.v7.widget.AppCompatRadioButton
-import android.support.v7.widget.AppCompatRatingBar
-import android.support.v7.widget.AppCompatSeekBar
-import android.support.v7.widget.AppCompatSpinner
-import android.support.v7.widget.AppCompatTextView
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.CheckBox
@@ -45,13 +32,26 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.appcompat.widget.AppCompatRatingBar
+import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.appcompat.widget.AppCompatSpinner
+import androidx.appcompat.widget.AppCompatTextView
 
-/** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
+/** Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content. */
 private const val FILE_INFO = 0
 
 inline fun textView(ctx: Context): TextView = AppCompatTextView(ctx)
 inline fun imageView(ctx: Context): ImageView = AppCompatImageView(ctx)
-inline fun button(ctx: Context): Button = AppCompatButton(ctx)
+inline fun button(ctx: Context): Button = AppCompatButton(ctx) //TODO: Support MaterialButton
 inline fun editText(ctx: Context): EditText = AppCompatEditText(ctx)
 inline fun spinner(ctx: Context): Spinner = AppCompatSpinner(ctx)
 inline fun imageButton(ctx: Context): ImageButton = AppCompatImageButton(ctx)

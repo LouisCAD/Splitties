@@ -17,10 +17,10 @@
 package com.louiscad.splittiessample.about
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.viewdsl.appcompat.textView

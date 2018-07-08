@@ -18,7 +18,7 @@ package com.louiscad.splittiessample.extensions
 
 import android.app.UiModeManager
 import android.content.res.Configuration
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import splitties.exceptions.illegalArg
 
 fun AppCompatActivity.toggleNightMode() {

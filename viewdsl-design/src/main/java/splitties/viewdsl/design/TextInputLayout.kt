@@ -15,9 +15,9 @@
  */
 package splitties.viewdsl.design
 
-import android.support.annotation.IdRes
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
+import androidx.annotation.IdRes
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v

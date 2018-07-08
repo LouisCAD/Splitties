@@ -15,9 +15,9 @@
  */
 package splitties.viewdsl.recyclerview.experimental
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.recyclerview.verticalLayoutManager
 

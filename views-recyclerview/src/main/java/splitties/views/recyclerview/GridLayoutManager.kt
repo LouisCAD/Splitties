@@ -16,8 +16,8 @@
 package splitties.views.recyclerview
 
 import android.content.Context
-import android.support.annotation.IntegerRes
-import android.support.v7.widget.GridLayoutManager
+import androidx.annotation.IntegerRes
+import androidx.recyclerview.widget.GridLayoutManager
 import splitties.resources.int
 
 inline fun gridLayoutManager(

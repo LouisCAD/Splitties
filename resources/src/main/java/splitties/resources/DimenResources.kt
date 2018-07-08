@@ -3,10 +3,10 @@
 package splitties.resources
 
 import android.content.Context
-import android.support.annotation.AttrRes
-import android.support.annotation.DimenRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.DimenRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 
 inline fun Context.dimen(@DimenRes dimenResId: Int): Float = resources.getDimension(dimenResId)

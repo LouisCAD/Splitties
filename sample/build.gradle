@@ -29,7 +29,7 @@ android {
         versionName "1.0"
         resConfigs "en", "fr"
         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         debug {
@@ -86,11 +86,11 @@ dependencies {
     implementation project(':views-design')
 
     // Android Support Libraries
-    implementation "com.android.support:appcompat-v7:$supportLibs_version"
-    implementation "com.android.support:design:$supportLibs_version"
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'com.google.android.material:material:1.0.0-beta01'
 
     // Constraint Layout
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha1'
 
     // Timber log utility
     implementation "com.jakewharton.timber:timber:$timber_version"
@@ -104,7 +104,7 @@ dependencies {
     // Test dependencies
     testImplementation 'junit:junit:4.12'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
 }
 kotlin {
     experimental {

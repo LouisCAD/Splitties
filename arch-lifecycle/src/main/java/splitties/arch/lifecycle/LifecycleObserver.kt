@@ -16,16 +16,16 @@
 
 package splitties.arch.lifecycle
 
-import android.arch.lifecycle.GenericLifecycleObserver
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.Lifecycle.Event.ON_ANY
-import android.arch.lifecycle.Lifecycle.Event.ON_CREATE
-import android.arch.lifecycle.Lifecycle.Event.ON_DESTROY
-import android.arch.lifecycle.Lifecycle.Event.ON_PAUSE
-import android.arch.lifecycle.Lifecycle.Event.ON_RESUME
-import android.arch.lifecycle.Lifecycle.Event.ON_START
-import android.arch.lifecycle.Lifecycle.Event.ON_STOP
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.GenericLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.Event.ON_ANY
+import androidx.lifecycle.Lifecycle.Event.ON_CREATE
+import androidx.lifecycle.Lifecycle.Event.ON_DESTROY
+import androidx.lifecycle.Lifecycle.Event.ON_PAUSE
+import androidx.lifecycle.Lifecycle.Event.ON_RESUME
+import androidx.lifecycle.Lifecycle.Event.ON_START
+import androidx.lifecycle.Lifecycle.Event.ON_STOP
+import androidx.lifecycle.LifecycleOwner
 import splitties.exceptions.illegal
 
 /**

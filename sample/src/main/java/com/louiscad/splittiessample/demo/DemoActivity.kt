@@ -17,7 +17,8 @@
 package com.louiscad.splittiessample.demo
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.louiscad.splittiessample.R
 import splitties.checkedlazy.uiLazy
 import splitties.snackbar.action
 import splitties.snackbar.onDismiss
@@ -27,7 +28,6 @@ import splitties.viewdsl.core.setContentView
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
 import splitties.views.onClick
-import com.louiscad.splittiessample.R
 
 class DemoActivity : AppCompatActivity(), DemoUi.Host {
 

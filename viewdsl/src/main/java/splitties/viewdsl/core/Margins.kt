@@ -18,8 +18,8 @@ package splitties.viewdsl.core
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
-import android.support.annotation.Px
 import android.view.ViewGroup
+import androidx.annotation.Px
 import kotlin.DeprecationLevel.HIDDEN
 
 inline var ViewGroup.MarginLayoutParams.horizontalMargin: Int
