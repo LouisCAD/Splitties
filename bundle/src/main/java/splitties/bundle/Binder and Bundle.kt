@@ -20,14 +20,14 @@ import android.os.Bundle
 import android.os.IBinder
 import kotlin.LazyThreadSafetyMode.PUBLICATION
 
-/** @see [android.support.v4.app.BundleCompat.putBinder] */
+/** @see [androidx.core.app.BundleCompat.putBinder] */
 private val putIBinderMethod by lazy(PUBLICATION) {
     Bundle::class.java.getMethod("putIBinder", String::class.java, IBinder::class.java).also {
         it.isAccessible = true
     }
 }
 
-/** @see [android.support.v4.app.BundleCompat.putBinder] */
+/** @see [androidx.core.app.BundleCompat.putBinder] */
 internal fun Bundle.putBinderCompat(key: String, binder: IBinder) {
     putIBinderMethod.invoke(this, key, binder)
 }

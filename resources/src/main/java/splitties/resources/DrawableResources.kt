@@ -32,7 +32,7 @@ import splitties.init.appCtx
 private val tmpValue by lazy { TypedValue() }
 
 /**
- * @see [android.support.v4.content.ContextCompat.getDrawable]
+ * @see [androidx.core.content.ContextCompat.getDrawable]
  */
 fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
     @Suppress("CascadeIf")
