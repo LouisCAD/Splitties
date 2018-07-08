@@ -42,11 +42,11 @@ dependencies {
     api project(':uithread')
 
     // Android Support Libraries
-    api 'androidx.annotation:annotation:1.0.0-beta01'
-    compileOnly 'androidx.fragment:fragment:1.0.0-beta01'
+    api Libs.androidX.annotation
+    compileOnly Libs.androidX.fragment
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlib
 }
 
 apply from: '../publish.gradle'

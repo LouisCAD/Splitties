@@ -39,7 +39,7 @@ android {
 
 dependencies {
     api project(':exceptions')
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlib
 }
 
 apply from: '../publish.gradle'

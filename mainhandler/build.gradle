@@ -41,12 +41,12 @@ dependencies {
     api project(':uithread')
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlib
 
     // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    testImplementation Libs.junit
+    testImplementation Libs.kotlin.testJunit
+    androidTestImplementation Libs.androidX.espressoCore
 }
 
 apply from: '../publish.gradle'

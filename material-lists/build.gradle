@@ -44,20 +44,20 @@ dependencies {
     api project(':viewdsl-constraintlayout')
 
     // Android Support Libraries
-    api 'androidx.annotation:annotation:1.0.0-beta01'
-    api 'androidx.appcompat:appcompat:1.0.0-beta01'
-    api 'androidx.recyclerview:recyclerview:1.0.0-beta01'
+    api Libs.androidX.annotation
+    api Libs.androidX.appCompat
+    api Libs.androidX.recyclerView
 
     // ConstraintLayout
-    api 'androidx.constraintlayout:constraintlayout:2.0.0-alpha1'
+    api Libs.androidX.constraintLayout
 
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlib
 
     // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha3'
+    testImplementation Libs.junit
+    testImplementation Libs.kotlin.testJunit
+    androidTestImplementation Libs.androidX.espressoCore
 }
 
 apply from: '../publish.gradle'
