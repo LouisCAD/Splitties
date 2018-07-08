@@ -28,9 +28,9 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.v
-import splitties.viewdsl.design.appBarLParams
-import splitties.viewdsl.design.contentScrollingWithAppBarLParams
-import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.material.appBarLParams
+import splitties.viewdsl.material.contentScrollingWithAppBarLParams
+import splitties.viewdsl.material.defaultLParams
 import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.gravityEndBottom

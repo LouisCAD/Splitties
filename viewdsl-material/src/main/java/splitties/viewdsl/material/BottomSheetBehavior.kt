@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.design
+package splitties.viewdsl.material
 
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior

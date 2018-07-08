@@ -1,10 +1,10 @@
-# View DSL Design
+# View DSL Material
 
-*Design Support Library extension of [View DSL](../viewdsl)*
+*Material Design library extension of [View DSL](../viewdsl)*
 
 ## Content
 
-The Android Design Support libraries has a few `ViewGroup` subclasses that
+The Material Design library has a few `ViewGroup` subclasses that
 have their own `LayoutParams`. This split provides extensions on these
 `ViewGroup`s to create their associated `LayoutParams` for use with View DSL
 in the `add` function.
@@ -107,5 +107,5 @@ Like `add`, it has an optional initialization lambda.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-viewdsl-material:$splitties_version"
 ```

@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package splitties.viewdsl.design
+package splitties.viewdsl.material
 
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import splitties.resources.styledDimenPxSize

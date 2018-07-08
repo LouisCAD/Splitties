@@ -81,7 +81,7 @@ dependencies {
     implementation project(':uithread')
     implementation project(':viewdsl-appcompat-styles')
     implementation project(':viewdsl-constraintlayout')
-    implementation project(':viewdsl-design')
+    implementation project(':viewdsl-material')
     debugImplementation project(':viewdsl-ide-preview')
     implementation project(':views-material')
 
