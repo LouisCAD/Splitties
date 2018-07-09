@@ -49,7 +49,7 @@ object Libs {
         const val appCompat = "androidx.appcompat:appcompat:1.0.0-beta01"
         const val lifecycle = "androidx.lifecycle:lifecycle-extensions:2.0.0-beta01"
         const val room = "androidx.room:room-runtime:2.0.0-beta01"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha1"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:1.1.2"
         const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
         const val testRunner = "androidx.test:runner:1.1.0-alpha3"
     }

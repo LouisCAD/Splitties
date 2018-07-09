@@ -14,8 +14,4 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.viewdsl.constraintlayout"
-          xmlns:tools="http://schemas.android.com/tools">
-
-    <uses-sdk tools:overrideLibrary="androidx.constraintlayout.widget"/>
-</manifest>
+<manifest package="splitties.viewdsl.constraintlayout"/>
