@@ -22,7 +22,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-beta02'
+        classpath 'com.android.tools.build:gradle:3.2.0-beta05'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
