@@ -70,27 +70,27 @@ abstract class Preferences(name: String,
     protected fun stringSetOrNullPref(defaultValue: Set<String>? = null) =
             StringSetOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    private var edit = false
+    private var isEditing = false
     private var useCommit = false
     private var useCommitForEdit = false
 
     fun beginEdit(blocking: Boolean = false) {
         useCommitForEdit = blocking
-        edit = true
+        isEditing = true
     }
 
     fun endEdit() {
         if (useCommitForEdit) editor.commit() else editor.apply()
-        edit = false
+        isEditing = false
     }
 
     fun abortEdit() {
         editor = editor // Invalidates the editor stored in the delegate
-        edit = false
+        isEditing = false
     }
 
     private fun SharedPreferences.Editor.attemptApply() {
-        if (edit) return
+        if (isEditing) return
         if (useCommit) commit() else apply()
     }
 
