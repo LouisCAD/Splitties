@@ -89,6 +89,9 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibs_version"
     implementation "com.android.support:design:$supportLibs_version"
 
+    // Android KTX
+    implementation "androidx.core:core-ktx:0.3"
+
     // Constraint Layout
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
 

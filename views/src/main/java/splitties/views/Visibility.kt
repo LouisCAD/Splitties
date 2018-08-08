@@ -25,7 +25,11 @@ import android.view.View
  * See [showIf] and [gone] if you want to have [View.GONE] instead.
  */
 inline var View.visible: Boolean
+    //@Deprecated("Use AndroidX KTX extensions", ReplaceWith("isVisible", "androidx.core.view.isVisible"))
+    //TODO: Uncomment line above when https://youtrack.jetbrains.com/issue/KT-25990 is fixed.
+    @Deprecated("Replace it by isVisible from AndroidX core KTX 0.3")
     get() = visibility == View.VISIBLE
+    @Deprecated("Replace it by isInvisible = !value from AndroidX core KTX 0.3")
     set(value) {
         visibility = if (value) View.VISIBLE else View.INVISIBLE
     }
@@ -38,6 +42,7 @@ inline var View.visible: Boolean
  * @see showIf
  * @see visible
  */
+@Deprecated("Use AndroidX core KTX 0.3 extensions", ReplaceWith("isGone", "androidx.core.view.isGone"))
 inline var View.gone: Boolean
     get() = visibility == View.GONE
     set(value) {
@@ -51,6 +56,9 @@ inline var View.gone: Boolean
  * @see gone
  */
 @Suppress("NOTHING_TO_INLINE")
+//@Deprecated("Use AndroidX KTX extensions", ReplaceWith("isVisible = condition", "androidx.core.view.isVisible"))
+//TODO: Uncomment line above and remove line below when https://youtrack.jetbrains.com/issue/KT-25991 is fixed.
+@Deprecated("Replace it by isVisible from AndroidX core KTX 0.3")
 inline fun View.showIf(condition: Boolean) {
     visibility = if (condition) View.VISIBLE else View.GONE
 }
