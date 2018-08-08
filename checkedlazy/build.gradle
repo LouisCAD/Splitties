@@ -48,7 +48,7 @@ dependencies {
     testImplementation Libs.timber
     testImplementation Libs.junit
     testImplementation Libs.kotlin.testJunit
-    androidTestImplementation Libs.androidX.espressoCore
+    androidTestImplementation Libs.androidX.test.espresso.core
 }
 
 apply from: '../publish.gradle'

@@ -44,7 +44,7 @@ dependencies {
     api Libs.androidX.annotation
 
     // Android Architecture Components (Room)
-    api Libs.androidX.room
+    api Libs.androidX.room.runtime
 
     // Kotlin
     api Libs.kotlin.stdlib
@@ -52,7 +52,7 @@ dependencies {
     // Test dependencies
     testImplementation Libs.junit
     testImplementation Libs.kotlin.testJunit
-    androidTestImplementation Libs.androidX.espressoCore
+    androidTestImplementation Libs.androidX.test.espresso.core
 }
 
 apply from: '../publish.gradle'
