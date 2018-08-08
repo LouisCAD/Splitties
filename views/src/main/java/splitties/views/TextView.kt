@@ -44,6 +44,10 @@ var TextView.textAppearance: Int
     set(@StyleRes value) = if (SDK_INT < M) setTextAppearance(context, value)
     else setTextAppearance(value)
 
+inline var TextView.lines: Int
+    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
+    set(value) = setLines(value)
+
 fun TextView.centerText() {
     if (SDK_INT >= JELLY_BEAN_MR1) textAlignment = View.TEXT_ALIGNMENT_CENTER
     gravity = Gravity.CENTER
