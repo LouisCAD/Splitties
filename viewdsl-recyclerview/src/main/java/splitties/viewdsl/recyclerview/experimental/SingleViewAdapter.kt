@@ -19,13 +19,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import splitties.viewdsl.recyclerview.verticalListLayoutParams
+import splitties.views.recyclerview.horizontalLayoutManager
 import splitties.views.recyclerview.verticalLayoutManager
 
 internal class SingleViewAdapter<V : View>(
-        private val view: V
+        private val view: V,
+        vertical: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val layoutManager: RecyclerView.LayoutManager = verticalLayoutManager()
+    val layoutManager = if (vertical) verticalLayoutManager() else horizontalLayoutManager()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = view.apply {
         layoutParams = layoutManager.verticalListLayoutParams()

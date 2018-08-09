@@ -45,8 +45,7 @@ import splitties.viewdsl.design.actionBarLParams
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
-import splitties.viewdsl.recyclerview.experimental.setSingleView
-import splitties.viewdsl.recyclerview.recyclerView
+import splitties.viewdsl.recyclerview.experimental.wrapInRecyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.design.contentScrimColor
 import splitties.views.gravityCenterHorizontal
@@ -69,23 +68,21 @@ class MainUi(override val ctx: Context) : Ui {
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
-    val content = v(::recyclerView) {
-        setSingleView(v(::verticalLayout) {
-            add(launchDemoBtn, lParams {
-                gravity = gravityCenterHorizontal
-                topMargin = dip(8)
-            })
-            add(toggleNightModeBtn, lParams {
-                gravity = gravityCenterHorizontal
-                bottomMargin = dip(8)
-            })
-            add(v(::textView) {
-                textResource = R.string.large_text
-            }, lParams {
-                margin = dimenPxSize(R.dimen.text_margin)
-            })
+    val content = v(::verticalLayout) {
+        add(launchDemoBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
         })
-    }
+        add(toggleNightModeBtn, lParams {
+            gravity = gravityCenterHorizontal
+            bottomMargin = dip(8)
+        })
+        add(v(::textView) {
+            textResource = R.string.large_text
+        }, lParams {
+            margin = dimenPxSize(R.dimen.text_margin)
+        })
+    }.wrapInRecyclerView()
     override val root = v(::CoordinatorLayout) {
         fitsSystemWindows = true
         add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {

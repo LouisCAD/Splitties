@@ -15,12 +15,16 @@
  */
 package splitties.viewdsl.recyclerview.experimental
 
-import android.support.v7.widget.RecyclerView
+import android.support.annotation.IdRes
 import android.view.View
+import splitties.viewdsl.core.v
+import splitties.viewdsl.recyclerview.recyclerView
 
-@Deprecated("Remove explicit RecyclerView and use wrapInRecyclerView(…) instead.")
-fun RecyclerView.setSingleView(view: View) {
-    val contentAdapter = SingleViewAdapter(view, vertical = true)
+fun View.wrapInRecyclerView(
+        horizontal: Boolean = false,
+        @IdRes id: Int = View.NO_ID
+) = v(::recyclerView, id) {
+    val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
     layoutManager = contentAdapter.layoutManager
     adapter = contentAdapter
 }
