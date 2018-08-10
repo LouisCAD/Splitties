@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    api project(':collections')
     api project(':views')
 
     // Android Support Libraries

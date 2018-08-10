@@ -37,10 +37,19 @@ import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.toast.toast
+import splitties.viewdsl.appcompat.experimental.appCompatViewFactory
+import splitties.viewdsl.core.experimental.VIEW_FACTORY
+import splitties.viewdsl.core.experimental.ViewFactory
 import splitties.viewdsl.core.setContentView
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {
+
+    private val viewFactory = ViewFactory().also { it.add(appCompatViewFactory) }
+    override fun getSystemService(name: String) = when(name) {
+        VIEW_FACTORY -> viewFactory
+        else -> super.getSystemService(name)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
