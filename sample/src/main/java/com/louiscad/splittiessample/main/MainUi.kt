@@ -33,11 +33,11 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.experimental.button
 import splitties.viewdsl.core.experimental.textView
+import splitties.viewdsl.core.experimental.verticalLayout
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.v
-import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
 import splitties.viewdsl.design.SCROLL
@@ -68,7 +68,7 @@ class MainUi(override val ctx: Context) : Ui {
     val fab = v(::FloatingActionButton) {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
-    val content = v(::verticalLayout) {
+    val content = verticalLayout {
         add(launchDemoBtn, lParams {
             gravity = gravityCenterHorizontal
             topMargin = dip(8)
