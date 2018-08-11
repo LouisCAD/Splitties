@@ -31,8 +31,11 @@ typealias NewViewRef<V> = (Context) -> V
 
 const val NO_THEME = 0
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.withTheme(theme: Int) = ContextThemeWrapper(this, theme)
+
 fun Context.wrapCtxIfNeeded(theme: Int): Context {
-    return if (theme == NO_THEME) this else ContextThemeWrapper(this, theme)
+    return if (theme == NO_THEME) this else withTheme(theme)
 }
 
 // v functions below
