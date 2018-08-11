@@ -59,7 +59,7 @@ class MainUi(override val ctx: Context) : Ui {
     val launchDemoBtn = button(style = ButtonStyle.colored) {
         textResource = R.string.go_to_the_demo
     }
-    val toggleNightModeBtn = button {
+    val toggleNightModeBtn = button(style = ButtonStyle) {
         compoundDrawablePadding = dip(4)
         if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
         setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)

@@ -20,7 +20,6 @@ import android.annotation.SuppressLint
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation.RequiresApi
-import android.util.Log
 import android.widget.Button
 import splitties.dimensions.dip
 import splitties.viewdsl.appcompat.styles.R
@@ -29,7 +28,6 @@ import splitties.viewdsl.core.experimental.styles.Style
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityCenterVertical
 import splitties.views.textAppearance
-import kotlin.system.measureNanoTime
 
 object ButtonStyle : MutatingStyle<Button> {
     val colored: Style<Button> get() = Colored
@@ -38,42 +36,32 @@ object ButtonStyle : MutatingStyle<Button> {
 
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
+        R.style.Widget_AppCompat_Button // is the cloned theme for reference
         setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
         textAppearance = R.style.TextAppearance_AppCompat_Widget_Button
+        applyCommonStyle()
+    }
+
+    internal fun Button.applyCommonStyle() {
         minHeight = dip(48)
         minWidth = dip(88)
         if (SDK_INT >= LOLLIPOP) {
-                if (buttonStateListAnimMaterialResId == 0) {
-                    buttonStateListAnimMaterialResId = resources.getIdentifier("button_state_list_anim_material", "anim", "android")
-                }
-            val lookupTime = measureNanoTime {
-                val id = buttonStateListAnimMaterialResId
-                if (id != 0) AnimatorInflater.loadStateListAnimator(context, id)
-            }
-            val copiedTime = measureNanoTime {
-                AnimatorInflater.loadStateListAnimator(context, R.animator.button_state_list_anim_material)
-            }
-            Log.i("ButtonStyle", "lookupTime: $lookupTime")
-            Log.i("ButtonStyle", "copiedTime: $copiedTime")
+            if (buttonStateListAnimMaterialResId == 0) buttonStateListAnimMaterialResId = resources
+                    .getIdentifier("button_state_list_anim_material", "anim", "android")
             val id = buttonStateListAnimMaterialResId
             if (id != 0) stateListAnimator = AnimatorInflater.loadStateListAnimator(context, id)
-            //stateListAnimator = AnimatorInflater.loadStateListAnimator(context, R.animator.button_state_list_anim_material)
         }
         isFocusable = true
         isClickable = true
         gravity = gravityCenterVertical or gravityCenterHorizontal
-    }
-
-    internal fun Button.applyCommonStyle() {
-        TODO()
     }
 }
 
 private object Colored : MutatingStyle<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
-        R.style.Widget_AppCompat_Button_Colored // is the cloned theme
-        with(ButtonStyle) { applyStyle() }
+        R.style.Widget_AppCompat_Button_Colored // is the cloned theme for reference
+        with(ButtonStyle) { applyCommonStyle() }
         setBackgroundResource(R.drawable.abc_btn_colored_material)
         textAppearance = R.style.TextAppearance_AppCompat_Widget_Button_Colored
     }
