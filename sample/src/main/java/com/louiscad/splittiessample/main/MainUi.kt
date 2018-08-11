@@ -23,8 +23,6 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
-import android.widget.TextView
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
@@ -33,7 +31,8 @@ import splitties.resources.styledColorSL
 import splitties.viewdsl.appcompat.styles.coloredButton
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
-import splitties.viewdsl.core.experimental.v
+import splitties.viewdsl.core.experimental.button
+import splitties.viewdsl.core.experimental.textView
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
@@ -60,7 +59,7 @@ class MainUi(override val ctx: Context) : Ui {
     val launchDemoBtn = v(::coloredButton) {
         textResource = R.string.go_to_the_demo
     }
-    val toggleNightModeBtn = v<Button> {
+    val toggleNightModeBtn = button {
         compoundDrawablePadding = dip(4)
         if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
         setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
@@ -78,7 +77,7 @@ class MainUi(override val ctx: Context) : Ui {
             gravity = gravityCenterHorizontal
             bottomMargin = dip(8)
         })
-        add(v<TextView> {
+        add(textView {
             textResource = R.string.large_text
         }, lParams {
             margin = dimenPxSize(R.dimen.text_margin)
