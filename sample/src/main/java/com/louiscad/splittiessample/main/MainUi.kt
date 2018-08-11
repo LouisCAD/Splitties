@@ -28,7 +28,7 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
-import splitties.viewdsl.appcompat.styles.coloredButton
+import splitties.viewdsl.appcompat.styles.experimental.ButtonStyle
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.experimental.button
@@ -56,7 +56,7 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn = v(::coloredButton) {
+    val launchDemoBtn = button(style = ButtonStyle.colored) {
         textResource = R.string.go_to_the_demo
     }
     val toggleNightModeBtn = button {

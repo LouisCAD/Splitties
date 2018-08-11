@@ -32,6 +32,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
+import splitties.viewdsl.core.experimental.styles.InstantiatingStyle
+import splitties.viewdsl.core.experimental.styles.MutatingStyle
+import splitties.viewdsl.core.experimental.styles.Style
+
+typealias ViewInstantiator = (Class<out View>, Context, Style<out View>?) -> View?
 
 class ViewFactory {
 
@@ -39,15 +44,20 @@ class ViewFactory {
         val appInstance = ViewFactory()
     }
 
-    fun add(factory: (Class<out View>, Context, Style<out View>?) -> View?) {
+    fun add(factory: ViewInstantiator) {
         _list.add(factory)
     }
 
     operator fun <V : View> invoke(clazz: Class<out V>, context: Context, style: Style<out V>?): V {
+        if (style is InstantiatingStyle) return style.instantiateStyledView(context)
         _list.forEachReversedByIndex { factory ->
             factory(clazz, context, style)?.let { view ->
                 check(clazz.isInstance(view)) {
                     "Expected type $clazz but got ${view.javaClass}! Faulty factory: $factory"
+                }
+                @Suppress("UNCHECKED_CAST")
+                if (style is MutatingStyle) with(style as MutatingStyle<V>) {
+                    (view as V).applyStyle()
                 }
                 @Suppress("UNCHECKED_CAST")
                 return view as V
@@ -56,10 +66,10 @@ class ViewFactory {
         illegalArg("No factory found for this type: $clazz")
     }
 
-    private val _list: MutableList<(Class<out View>, Context, Style<out View>?) -> View?> = mutableListOf(::instantiateView)
+    private val _list: MutableList<ViewInstantiator> = mutableListOf(::instantiateView)
 }
 
-inline fun <reified V: View> instantiateView(
+inline fun <reified V : View> instantiateView(
         clazz: Class<out V>,
         context: Context,
         @Suppress("UNUSED_PARAMETER") style: Style<out V>?

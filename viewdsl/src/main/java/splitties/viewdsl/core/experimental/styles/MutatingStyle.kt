@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core.experimental
+package splitties.viewdsl.core.experimental.styles
 
 import android.view.View
 
-interface Style<V: View>
+interface MutatingStyle<V : View> : Style<V> {
+    fun V.applyStyle()
+}

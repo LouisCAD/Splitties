@@ -43,7 +43,7 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
-import splitties.viewdsl.core.experimental.Style
+import splitties.viewdsl.core.experimental.styles.Style
 
 /** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
 inline fun <reified V: View> instantiateAppCompatView(
