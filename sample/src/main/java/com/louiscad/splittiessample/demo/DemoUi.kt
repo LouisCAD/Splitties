@@ -31,7 +31,7 @@ import splitties.viewdsl.core.v
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.defaultLParams
-import splitties.viewdsl.recyclerview.recyclerView
+import splitties.viewdsl.recyclerview.experimental.recyclerView
 import splitties.views.appcompat.Toolbar
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource
@@ -40,7 +40,7 @@ import splitties.views.setPaddingDp
 class DemoUi(override val ctx: Context, host: Host) : Ui {
     interface Host : DemoAdapter.DemoViewHolder.Host
 
-    val demoListView = v(::recyclerView, R.id.recycler_view) {
+    val demoListView = recyclerView(R.id.recycler_view) {
         clipToPadding = false
         setPaddingDp(top = 8)
         setHasFixedSize(true)
