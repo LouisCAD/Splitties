@@ -45,24 +45,24 @@ import android.widget.Spinner
 import android.widget.TextView
 import splitties.viewdsl.core.experimental.Style
 
-/**
- * /** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
- */
-val appCompatViewFactory = { clazz: Class<out View>, context: Context, _: Style<out View>? ->
-    when (clazz) {
-        TextView::class.java -> AppCompatTextView(context)
-        Button::class.java -> AppCompatButton(context)
-        ImageView::class.java -> AppCompatImageView(context)
-        EditText::class.java -> AppCompatEditText(context)
-        Spinner::class.java -> AppCompatSpinner(context)
-        ImageButton::class.java -> AppCompatImageButton(context)
-        CheckBox::class.java -> AppCompatCheckBox(context)
-        RadioButton::class.java -> AppCompatRadioButton(context)
-        CheckedTextView::class.java -> AppCompatCheckedTextView(context)
-        AutoCompleteTextView::class.java -> AppCompatAutoCompleteTextView(context)
-        MultiAutoCompleteTextView::class.java -> AppCompatMultiAutoCompleteTextView(context)
-        RatingBar::class.java -> AppCompatRatingBar(context)
-        SeekBar::class.java -> AppCompatSeekBar(context)
-        else -> null
-    }
-}
+/** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
+inline fun <reified V: View> instantiateAppCompatView(
+        clazz: Class<out V>,
+        context: Context,
+        @Suppress("UNUSED_PARAMETER") style: Style<out V>?
+): V? = when (clazz) {
+    TextView::class.java -> AppCompatTextView(context)
+    Button::class.java -> AppCompatButton(context)
+    ImageView::class.java -> AppCompatImageView(context)
+    EditText::class.java -> AppCompatEditText(context)
+    Spinner::class.java -> AppCompatSpinner(context)
+    ImageButton::class.java -> AppCompatImageButton(context)
+    CheckBox::class.java -> AppCompatCheckBox(context)
+    RadioButton::class.java -> AppCompatRadioButton(context)
+    CheckedTextView::class.java -> AppCompatCheckedTextView(context)
+    AutoCompleteTextView::class.java -> AppCompatAutoCompleteTextView(context)
+    MultiAutoCompleteTextView::class.java -> AppCompatMultiAutoCompleteTextView(context)
+    RatingBar::class.java -> AppCompatRatingBar(context)
+    SeekBar::class.java -> AppCompatSeekBar(context)
+    else -> null
+} as V?

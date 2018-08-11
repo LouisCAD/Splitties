@@ -34,6 +34,11 @@ import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
 
 class ViewFactory {
+
+    companion object {
+        val appInstance = ViewFactory()
+    }
+
     fun add(factory: (Class<out View>, Context, Style<out View>?) -> View?) {
         _list.add(factory)
     }
@@ -51,22 +56,26 @@ class ViewFactory {
         illegalArg("No factory found for this type: $clazz")
     }
 
-    private val _list = mutableListOf({ clazz: Class<out View>, context: Context, _: Style<out View>? ->
-        when (clazz) {
-            TextView::class.java -> TextView(context)
-            Button::class.java -> Button(context)
-            ImageView::class.java -> ImageView(context)
-            EditText::class.java -> EditText(context)
-            Spinner::class.java -> Spinner(context)
-            ImageButton::class.java -> ImageButton(context)
-            CheckBox::class.java -> CheckBox(context)
-            RadioButton::class.java -> RadioButton(context)
-            CheckedTextView::class.java -> CheckedTextView(context)
-            AutoCompleteTextView::class.java -> AutoCompleteTextView(context)
-            MultiAutoCompleteTextView::class.java -> MultiAutoCompleteTextView(context)
-            RatingBar::class.java -> RatingBar(context)
-            SeekBar::class.java -> SeekBar(context)
-            else -> null
-        }
-    })
+    private val _list: MutableList<(Class<out View>, Context, Style<out View>?) -> View?> = mutableListOf(::instantiateView)
 }
+
+inline fun <reified V: View> instantiateView(
+        clazz: Class<out V>,
+        context: Context,
+        @Suppress("UNUSED_PARAMETER") style: Style<out V>?
+): V? = when (clazz) {
+    TextView::class.java -> TextView(context)
+    Button::class.java -> Button(context)
+    ImageView::class.java -> ImageView(context)
+    EditText::class.java -> EditText(context)
+    Spinner::class.java -> Spinner(context)
+    ImageButton::class.java -> ImageButton(context)
+    CheckBox::class.java -> CheckBox(context)
+    RadioButton::class.java -> RadioButton(context)
+    CheckedTextView::class.java -> CheckedTextView(context)
+    AutoCompleteTextView::class.java -> AutoCompleteTextView(context)
+    MultiAutoCompleteTextView::class.java -> MultiAutoCompleteTextView(context)
+    RatingBar::class.java -> RatingBar(context)
+    SeekBar::class.java -> SeekBar(context)
+    else -> null
+} as V?

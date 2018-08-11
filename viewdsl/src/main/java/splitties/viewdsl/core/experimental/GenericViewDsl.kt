@@ -25,9 +25,9 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.wrapCtxIfNeeded
 
 const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
-inline val Context.viewFactory: ViewFactory
+val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
-    get() = getSystemService(VIEW_FACTORY) as ViewFactory
+    get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
 
 inline fun <reified V : View> Context.v(
         @IdRes id: Int = View.NO_ID,
