@@ -22,6 +22,7 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation.RequiresApi
 import android.widget.Button
 import splitties.dimensions.dip
+import splitties.resources.dimenPxSize
 import splitties.viewdsl.appcompat.styles.R
 import splitties.viewdsl.core.experimental.styles.MutatingStyle
 import splitties.viewdsl.core.experimental.styles.Style
@@ -30,7 +31,10 @@ import splitties.views.gravityCenterVertical
 import splitties.views.textAppearance
 
 object ButtonStyle : MutatingStyle<Button> {
-    val colored: Style<Button> get() = Colored
+    inline val colored: Style<Button> get() = Colored
+    inline val flat: Style<Button> get() = Borderless
+    inline val flatColored: Style<Button> get() = BorderlessColored
+    inline val alertDialogButtonBar: Style<Button> get() = ButtonBarAlertDialog
 
     @RequiresApi(LOLLIPOP) private var buttonStateListAnimMaterialResId = 0
 
@@ -38,14 +42,17 @@ object ButtonStyle : MutatingStyle<Button> {
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button // is the cloned theme for reference
         setBackgroundResource(R.drawable.abc_btn_default_mtrl_shape)
-        textAppearance = R.style.TextAppearance_AppCompat_Widget_Button
-        applyCommonStyle()
+        applyCommonStyle(useDefaultTextAppearance = true)
     }
 
-    internal fun Button.applyCommonStyle() {
+    internal fun Button.applyCommonStyle(
+            enableStateListAnimator: Boolean = true,
+            useDefaultTextAppearance: Boolean = false
+    ) {
+        if (useDefaultTextAppearance) textAppearance = R.style.TextAppearance_AppCompat_Widget_Button
         minHeight = dip(48)
         minWidth = dip(88)
-        if (SDK_INT >= LOLLIPOP) {
+        if (SDK_INT >= LOLLIPOP && enableStateListAnimator) {
             if (buttonStateListAnimMaterialResId == 0) buttonStateListAnimMaterialResId = resources
                     .getIdentifier("button_state_list_anim_material", "anim", "android")
             val id = buttonStateListAnimMaterialResId
@@ -57,12 +64,47 @@ object ButtonStyle : MutatingStyle<Button> {
     }
 }
 
-private object Colored : MutatingStyle<Button> {
+@PublishedApi
+internal object Colored : MutatingStyle<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button_Colored // is the cloned theme for reference
         with(ButtonStyle) { applyCommonStyle() }
         setBackgroundResource(R.drawable.abc_btn_colored_material)
         textAppearance = R.style.TextAppearance_AppCompat_Widget_Button_Colored
+    }
+}
+
+@PublishedApi
+internal object Borderless : MutatingStyle<Button> {
+    @SuppressLint("PrivateResource")
+    override fun Button.applyStyle() {
+        R.style.Widget_AppCompat_Button_Borderless // is the cloned theme for reference
+        with(ButtonStyle) {
+            applyCommonStyle(enableStateListAnimator = false, useDefaultTextAppearance = true)
+        }
+        setBackgroundResource(R.drawable.abc_btn_borderless_material)
+    }
+}
+
+@PublishedApi
+internal object BorderlessColored : MutatingStyle<Button> {
+    @SuppressLint("PrivateResource")
+    override fun Button.applyStyle() {
+        R.style.Widget_AppCompat_Button_Borderless_Colored // is the cloned theme for reference
+        with(ButtonStyle) { applyCommonStyle(enableStateListAnimator = false) }
+        setBackgroundResource(R.drawable.abc_btn_borderless_material)
+        textAppearance = R.style.TextAppearance_AppCompat_Widget_Button_Colored
+    }
+}
+
+@PublishedApi
+internal object ButtonBarAlertDialog : MutatingStyle<Button> {
+    @SuppressLint("PrivateResource")
+    override fun Button.applyStyle() {
+        R.style.Widget_AppCompat_Button_ButtonBar_AlertDialog // is the cloned theme for reference
+        with(BorderlessColored) { applyStyle() }
+        minWidth = dip(64)
+        minHeight = dimenPxSize(R.dimen.abc_alert_dialog_button_bar_height)
     }
 }
