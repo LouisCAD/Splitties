@@ -24,6 +24,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppCompatStyles">
+        <item name="buttonColoredStyle">@style/Widget.AppCompat.Button.Colored</item>
+        <item name="buttonBorderlessColoredStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="buttonBorderlessStyle">@style/Widget.AppCompat.Button.Borderless</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

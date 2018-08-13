@@ -17,11 +17,14 @@
 package splitties.viewdsl.core
 
 import android.content.Context
+import android.support.annotation.AttrRes
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
+import android.util.AttributeSet
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
+import splitties.viewdsl.core.experimental.v
 
 /**
  * Called so to remind that function references (that are inlined) are recommended for
@@ -60,6 +63,32 @@ inline fun <V : View> Ui.v(
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ) = ctx.v(createView, id, theme, initView)
+
+typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
+
+inline fun <V : View> Context.styledV(
+        createView: NewViewWithStyleAttrRef<V>,
+        @AttrRes styleThemeAttribute: Int,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = createView(wrapCtxIfNeeded(theme), null, styleThemeAttribute).also { it.id = id }.apply(initView)
+
+inline fun <V : View> View.styledV(
+        createView: NewViewWithStyleAttrRef<V>,
+        @AttrRes styleThemeAttribute: Int,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+) = context.styledV(createView, styleThemeAttribute, id, theme, initView)
+
+inline fun <V : View> Ui.styledV(
+        createView: NewViewWithStyleAttrRef<V>,
+        @AttrRes styleThemeAttribute: Int,
+        @IdRes id: Int = android.view.View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+) = ctx.styledV(createView, styleThemeAttribute, id, theme, initView)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

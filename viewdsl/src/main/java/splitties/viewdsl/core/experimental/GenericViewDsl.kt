@@ -17,6 +17,7 @@ package splitties.viewdsl.core.experimental
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.ContextWrapper
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.view.View
@@ -29,6 +30,13 @@ const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
 val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
+
+fun Context.withViewFactory(viewFactory: ViewFactory) = object : ContextWrapper(this) {
+    override fun getSystemService(name: String): Any? = when(name) {
+        VIEW_FACTORY -> viewFactory
+        else -> super.getSystemService(name)
+    }
+}
 
 inline fun <reified V : View> Context.v(
         @IdRes id: Int = View.NO_ID,

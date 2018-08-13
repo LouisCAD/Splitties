@@ -23,6 +23,7 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.AppCompatButton
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
@@ -37,6 +38,7 @@ import splitties.viewdsl.core.experimental.verticalLayout
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
+import splitties.viewdsl.core.styledV
 import splitties.viewdsl.core.v
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
@@ -56,7 +58,7 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn = button(style = ButtonStyle.colored) {
+    val launchDemoBtn = styledV(::AppCompatButton, R.attr.buttonColoredStyle) {
         textResource = R.string.go_to_the_demo
     }
     val toggleNightModeBtn = button(style = ButtonStyle) {

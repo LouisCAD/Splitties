@@ -17,6 +17,7 @@
 package com.louiscad.splittiessample.main
 
 import android.app.UiModeManager
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -38,20 +39,20 @@ import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.toast.toast
 import splitties.viewdsl.appcompat.experimental.instantiateAppCompatView
-import splitties.viewdsl.core.experimental.VIEW_FACTORY
 import splitties.viewdsl.core.experimental.ViewFactory
+import splitties.viewdsl.core.experimental.withViewFactory
 import splitties.viewdsl.core.setContentView
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewFactory = ViewFactory().also { it.add(::instantiateAppCompatView) }
-    override fun getSystemService(name: String): Any? = when(name) {
-        VIEW_FACTORY -> viewFactory
-        else -> super.getSystemService(name)
+    override fun attachBaseContext(newBase: Context) {
+        val factory = ViewFactory().also { it.add(::instantiateAppCompatView) }
+        super.attachBaseContext(newBase.withViewFactory(factory))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        theme.applyStyle(R.style.AppCompatStyles, false)
         super.onCreate(savedInstanceState)
         val ui = MainUi(this)
         setContentView(ui)
