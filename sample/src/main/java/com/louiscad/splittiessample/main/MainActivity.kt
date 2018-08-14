@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        theme.applyStyle(R.style.AppCompatStyles, false)
+        theme.applyStyle(R.style.AppCompatStyles_Buttons, false)
         super.onCreate(savedInstanceState)
         val ui = MainUi(this)
         setContentView(ui)

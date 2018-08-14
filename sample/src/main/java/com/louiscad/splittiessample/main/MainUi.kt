@@ -58,7 +58,7 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn = styledV(::AppCompatButton, R.attr.buttonColoredStyle) {
+    val launchDemoBtn = styledV(::AppCompatButton, R.attr.Widget_AppCompat_Button_Colored) {
         textResource = R.string.go_to_the_demo
     }
     val toggleNightModeBtn = button(style = ButtonStyle) {

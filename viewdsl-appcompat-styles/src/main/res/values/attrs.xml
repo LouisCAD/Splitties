@@ -14,8 +14,13 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<resources>
-    <attr name="buttonColoredStyle" format="reference"/>
-    <attr name="buttonBorderlessColoredStyle" format="reference"/>
-    <attr name="buttonBorderlessStyle" format="reference"/>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+    <attr name="Widget.AppCompat.Button" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Borderless" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Borderless.Colored" format="reference"/>
+    <attr name="Widget.AppCompat.Button.ButtonBar.AlertDialog" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Colored" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Small" format="reference"/>
+    <attr name="Widget.AppCompat.ButtonBar" format="reference"/>
+    <attr name="Widget.AppCompat.ButtonBar.AlertDialog" format="reference"/>
 </resources>
