@@ -47,8 +47,7 @@ class AboutUi(override val ctx: Context) : Ui {
             textResource = R.string.lib_name
             centerText()
         }, lParams(height = wrapContent) {
-            topOfParent()
-            centerHorizontally()
+            centerHorizontally(); topOfParent()
             topMargin = dip(16)
         })
         val authorTv = add(textView(R.id.tv_author) {
@@ -56,8 +55,7 @@ class AboutUi(override val ctx: Context) : Ui {
             textResource = R.string.a_lib_by_louiscad
             centerText()
         }, lParams(height = wrapContent) {
-            topToBottomOf(headlineTv)
-            centerHorizontally()
+            centerHorizontally(); topToBottomOf(headlineTv)
             topMargin = dip(8)
         })
         add(textView(R.id.tv_license_name) {
@@ -65,8 +63,7 @@ class AboutUi(override val ctx: Context) : Ui {
             textResource = R.string.licensed_under_apache_2
             centerText()
         }, lParams(height = wrapContent) {
-            topToBottomOf(authorTv)
-            centerHorizontally()
+            centerHorizontally(); topToBottomOf(authorTv)
             topMargin = dip(8)
         })
     }
