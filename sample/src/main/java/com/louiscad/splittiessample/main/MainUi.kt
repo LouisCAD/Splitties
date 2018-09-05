@@ -18,37 +18,34 @@ package com.louiscad.splittiessample.main
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.AppCompatButton
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
 import splitties.viewdsl.appcompat.styles.experimental.ButtonStyle
+import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
-import splitties.viewdsl.core.experimental.button
-import splitties.viewdsl.core.experimental.textView
-import splitties.viewdsl.core.experimental.verticalLayout
+import splitties.viewdsl.core.button
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
-import splitties.viewdsl.core.styledV
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.textView
+import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
 import splitties.viewdsl.design.SCROLL
 import splitties.viewdsl.design.actionBarLParams
 import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.appBarLayout
+import splitties.viewdsl.design.collapsingToolbarLayout
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.coordinatorLayout
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.design.floatingActionButton
 import splitties.viewdsl.recyclerview.experimental.wrapInRecyclerView
-import splitties.views.appcompat.Toolbar
 import splitties.views.design.contentScrimColor
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityEndBottom
@@ -58,16 +55,16 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn = styledV(::AppCompatButton, R.attr.Widget_AppCompat_Button_Colored) {
+    val launchDemoBtn = button(style = ButtonStyle.colored) {
         textResource = R.string.go_to_the_demo
     }
-    val toggleNightModeBtn = button(style = ButtonStyle) {
+    val toggleNightModeBtn = button {
         compoundDrawablePadding = dip(4)
         if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
         setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
     }
-    val fab = v(::FloatingActionButton) {
+    val fab = floatingActionButton {
         imageResource = R.drawable.ic_favorite_white_24dp
     }
     val content = verticalLayout {
@@ -85,13 +82,13 @@ class MainUi(override val ctx: Context) : Ui {
             margin = dimenPxSize(R.dimen.text_margin)
         })
     }.wrapInRecyclerView()
-    override val root = v(::CoordinatorLayout) {
+    override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
-            add(v(::CollapsingToolbarLayout) {
+        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(collapsingToolbarLayout {
                 fitsSystemWindows = true
                 contentScrimColor = styledColor(R.attr.colorPrimary)
-                add(v(::Toolbar) {
+                add(toolbar {
                     (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                     popupTheme = R.style.AppTheme_PopupOverlay
                 }, actionBarLParams(collapseMode = PIN))

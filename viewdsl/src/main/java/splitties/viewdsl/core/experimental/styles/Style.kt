@@ -15,6 +15,18 @@
  */
 package splitties.viewdsl.core.experimental.styles
 
+import android.content.Context
 import android.view.View
+import splitties.viewdsl.core.ViewFactory
+import splitties.viewdsl.core.experimental.ViewInstantiator
 
-interface Style<V: View>
+interface Style<in V : View>
+
+interface MutatingStyle<V : View> : Style<V> {
+    fun V.applyStyle()
+}
+
+/** These styles bypass all [ViewInstantiator]s installed in the [ViewFactory]. */
+interface InstantiatingStyle<V : View> : Style<V> {
+    fun instantiateStyledView(context: Context): V
+}

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core.experimental
+package splitties.viewdsl.core
 
 import android.content.Context
 import android.support.annotation.IdRes
@@ -32,8 +32,6 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
-import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.experimental.styles.Style
 
 // TextView

@@ -17,32 +17,31 @@
 package com.louiscad.splittiessample.about
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
+import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.constraintlayout.centerHorizontally
+import splitties.viewdsl.constraintlayout.constraintLayout
 import splitties.viewdsl.constraintlayout.lParams
 import splitties.viewdsl.constraintlayout.topOfParent
 import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
-import splitties.viewdsl.core.experimental.textView
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.wrapContent
 import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.appBarLayout
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.coordinatorLayout
 import splitties.viewdsl.design.defaultLParams
-import splitties.views.appcompat.Toolbar
 import splitties.views.centerText
 import splitties.views.textAppearance
 import splitties.views.textResource
 
 class AboutUi(override val ctx: Context) : Ui {
 
-    private val mainContent = v(::ConstraintLayout) {
+    private val mainContent = constraintLayout {
         val headlineTv = add(textView(R.id.tv_headline) {
             textAppearance = R.style.TextAppearance_AppCompat_Headline
             textResource = R.string.lib_name
@@ -72,10 +71,10 @@ class AboutUi(override val ctx: Context) : Ui {
         })
     }
 
-    override val root = v(::CoordinatorLayout) {
+    override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
-            add(v(::Toolbar) {
+        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(toolbar {
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)
             }, defaultLParams())

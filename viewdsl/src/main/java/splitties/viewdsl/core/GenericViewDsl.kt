@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core.experimental
+package splitties.viewdsl.core
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,12 +21,9 @@ import android.content.ContextWrapper
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.view.View
-import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.experimental.styles.Style
-import splitties.viewdsl.core.wrapCtxIfNeeded
 
-const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
+private const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
 val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance

@@ -25,8 +25,8 @@ import splitties.resources.styledColorSL
 import splitties.selectableviews.SelectableLinearLayout
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
-import splitties.viewdsl.core.experimental.imageView
-import splitties.viewdsl.core.experimental.textView
+import splitties.viewdsl.core.imageView
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.startMargin
 import splitties.viewdsl.core.verticalMargin

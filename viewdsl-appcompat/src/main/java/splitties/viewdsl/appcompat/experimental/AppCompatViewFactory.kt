@@ -16,6 +16,7 @@
 package splitties.viewdsl.appcompat.experimental
 
 import android.content.Context
+import android.support.annotation.AttrRes
 import android.support.v7.widget.AppCompatAutoCompleteTextView
 import android.support.v7.widget.AppCompatButton
 import android.support.v7.widget.AppCompatCheckBox
@@ -29,6 +30,7 @@ import android.support.v7.widget.AppCompatRatingBar
 import android.support.v7.widget.AppCompatSeekBar
 import android.support.v7.widget.AppCompatSpinner
 import android.support.v7.widget.AppCompatTextView
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -45,11 +47,14 @@ import android.widget.Spinner
 import android.widget.TextView
 import splitties.viewdsl.core.experimental.styles.Style
 
-/** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
-inline fun <reified V: View> instantiateAppCompatView(
+/**
+ * Matches [android.support.v7.app.AppCompatViewInflater.createView] content plus other AppCompat
+ * only views.
+ */
+inline fun <reified V : View> instantiateAppCompatView(
         clazz: Class<out V>,
         context: Context,
-        @Suppress("UNUSED_PARAMETER") style: Style<out V>?
+        @Suppress("UNUSED_PARAMETER") style: Style<V>?
 ): V? = when (clazz) {
     TextView::class.java -> AppCompatTextView(context)
     Button::class.java -> AppCompatButton(context)
@@ -64,5 +69,30 @@ inline fun <reified V: View> instantiateAppCompatView(
     MultiAutoCompleteTextView::class.java -> AppCompatMultiAutoCompleteTextView(context)
     RatingBar::class.java -> AppCompatRatingBar(context)
     SeekBar::class.java -> AppCompatSeekBar(context)
+    // AppCompat only views below
+    Toolbar::class.java -> splitties.views.appcompat.Toolbar(context)
+    splitties.views.appcompat.Toolbar::class.java -> splitties.views.appcompat.Toolbar(context)
+    else -> null
+} as V?
+
+/** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
+inline fun <reified V : View> instantiateThemeAttrStyledAppCompatView(
+        clazz: Class<out V>,
+        context: Context,
+        @AttrRes styleThemeAttribute: Int
+): V? = when (clazz) {
+    TextView::class.java -> AppCompatTextView(context, null, styleThemeAttribute)
+    Button::class.java -> AppCompatButton(context, null, styleThemeAttribute)
+    ImageView::class.java -> AppCompatImageView(context, null, styleThemeAttribute)
+    EditText::class.java -> AppCompatEditText(context, null, styleThemeAttribute)
+    Spinner::class.java -> AppCompatSpinner(context, null, styleThemeAttribute)
+    ImageButton::class.java -> AppCompatImageButton(context, null, styleThemeAttribute)
+    CheckBox::class.java -> AppCompatCheckBox(context, null, styleThemeAttribute)
+    RadioButton::class.java -> AppCompatRadioButton(context, null, styleThemeAttribute)
+    CheckedTextView::class.java -> AppCompatCheckedTextView(context, null, styleThemeAttribute)
+    AutoCompleteTextView::class.java -> AppCompatAutoCompleteTextView(context, null, styleThemeAttribute)
+    MultiAutoCompleteTextView::class.java -> AppCompatMultiAutoCompleteTextView(context, null, styleThemeAttribute)
+    RatingBar::class.java -> AppCompatRatingBar(context, null, styleThemeAttribute)
+    SeekBar::class.java -> AppCompatSeekBar(context, null, styleThemeAttribute)
     else -> null
 } as V?

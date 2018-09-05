@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core.experimental
+package splitties.viewdsl.core
 
 import android.content.Context
 import android.support.annotation.IdRes
@@ -21,9 +21,6 @@ import android.support.annotation.StyleRes
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
 
 // LinearLayout (vertical)
 

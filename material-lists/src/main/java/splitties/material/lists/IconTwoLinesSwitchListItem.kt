@@ -33,8 +33,8 @@ import splitties.viewdsl.constraintlayout.topOfParent
 import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
-import splitties.viewdsl.core.experimental.imageView
-import splitties.viewdsl.core.experimental.textView
+import splitties.viewdsl.core.imageView
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.startMargin
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalMargin

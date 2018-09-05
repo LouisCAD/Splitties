@@ -39,15 +39,19 @@ import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.toast.toast
 import splitties.viewdsl.appcompat.experimental.instantiateAppCompatView
-import splitties.viewdsl.core.experimental.ViewFactory
-import splitties.viewdsl.core.experimental.withViewFactory
+import splitties.viewdsl.appcompat.experimental.instantiateThemeAttrStyledAppCompatView
+import splitties.viewdsl.core.experimental.ViewFactoryImpl
 import splitties.viewdsl.core.setContentView
+import splitties.viewdsl.core.withViewFactory
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {
 
     override fun attachBaseContext(newBase: Context) {
-        val factory = ViewFactory().also { it.add(::instantiateAppCompatView) }
+        val factory = ViewFactoryImpl().also {
+            it.add(::instantiateAppCompatView)
+            it.addForThemeAttrStyled(::instantiateThemeAttrStyledAppCompatView)
+        }
         super.attachBaseContext(newBase.withViewFactory(factory))
     }
 
