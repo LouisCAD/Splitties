@@ -25,16 +25,15 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.viewdsl.appcompat.styles.R
 import splitties.viewdsl.core.experimental.styles.MutatingStyle
-import splitties.viewdsl.core.experimental.styles.Style
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityCenterVertical
 import splitties.views.textAppearance
 
 object ButtonStyle : MutatingStyle<Button> {
-    inline val colored: Style<Button> get() = Colored
-    inline val flat: Style<Button> get() = Borderless
-    inline val flatColored: Style<Button> get() = BorderlessColored
-    inline val alertDialogButtonBar: Style<Button> get() = ButtonBarAlertDialog
+    inline val colored: MutatingStyle<Button> get() = Colored
+    inline val flat: MutatingStyle<Button> get() = Borderless
+    inline val flatColored: MutatingStyle<Button> get() = BorderlessColored
+    inline val alertDialogButtonBar: MutatingStyle<Button> get() = ButtonBarAlertDialog
 
     @RequiresApi(LOLLIPOP) private var buttonStateListAnimMaterialResId = 0
 
