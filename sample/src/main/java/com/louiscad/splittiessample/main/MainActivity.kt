@@ -43,6 +43,7 @@ import splitties.viewdsl.appcompat.experimental.instantiateThemeAttrStyledAppCom
 import splitties.viewdsl.core.experimental.ViewFactoryImpl
 import splitties.viewdsl.core.setContentView
 import splitties.viewdsl.core.withViewFactory
+import splitties.viewdsl.design.experimental.instantiateDesignView
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         val factory = ViewFactoryImpl().also {
             it.add(::instantiateAppCompatView)
             it.addForThemeAttrStyled(::instantiateThemeAttrStyledAppCompatView)
+            it.add(::instantiateDesignView)
         }
         super.attachBaseContext(newBase.withViewFactory(factory))
     }
