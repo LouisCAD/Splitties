@@ -14,4 +14,16 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.viewdsl.design"/>
+<manifest package="splitties.viewdsl.design"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <provider
+            android:name=".experimental.DesignViewInstantiatorInjectProvider"
+            android:authorities="${applicationId}.splitties.viewdsl.design.experimental.init"
+            android:enabled="true"
+            android:exported="false"
+            android:initOrder="20">
+        </provider>
+    </application>
+</manifest>

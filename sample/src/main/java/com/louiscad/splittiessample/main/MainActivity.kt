@@ -17,7 +17,6 @@
 package com.louiscad.splittiessample.main
 
 import android.app.UiModeManager
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -38,24 +37,10 @@ import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.toast.toast
-import splitties.viewdsl.appcompat.experimental.instantiateAppCompatView
-import splitties.viewdsl.appcompat.experimental.instantiateThemeAttrStyledAppCompatView
-import splitties.viewdsl.core.experimental.ViewFactoryImpl
 import splitties.viewdsl.core.setContentView
-import splitties.viewdsl.core.withViewFactory
-import splitties.viewdsl.design.experimental.instantiateDesignView
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {
-
-    override fun attachBaseContext(newBase: Context) {
-        val factory = ViewFactoryImpl().also {
-            it.add(::instantiateAppCompatView)
-            it.addForThemeAttrStyled(::instantiateThemeAttrStyledAppCompatView)
-            it.add(::instantiateDesignView)
-        }
-        super.attachBaseContext(newBase.withViewFactory(factory))
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         theme.applyStyle(R.style.AppCompatStyles_Buttons, false)

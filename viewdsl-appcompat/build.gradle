@@ -40,6 +40,7 @@ android {
 dependencies {
     api project(':viewdsl')
     api project(':views-appcompat')
+    api project(':initprovider')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"
