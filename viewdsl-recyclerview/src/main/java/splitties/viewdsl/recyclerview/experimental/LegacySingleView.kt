@@ -15,16 +15,9 @@
  */
 package splitties.viewdsl.recyclerview.experimental
 
-import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
-import splitties.viewdsl.recyclerview.R
-import splitties.views.inflate
+import splitties.viewdsl.recyclerview.SingleViewAdapter
 
 @Deprecated("Remove explicit RecyclerView and use wrapInRecyclerView(…) instead.")
 fun RecyclerView.setSingleView(view: View) {
@@ -32,21 +25,3 @@ fun RecyclerView.setSingleView(view: View) {
     layoutManager = contentAdapter.layoutManager
     adapter = contentAdapter
 }
-
-inline fun Context.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
-) = v({ it.inflate(R.layout.recyclerview_with_scrollbars) }, id, theme, initView)
-
-inline fun View.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
-) = context.recyclerView(id, theme, initView)
-
-inline fun Ui.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
-) = ctx.recyclerView(id, theme, initView)

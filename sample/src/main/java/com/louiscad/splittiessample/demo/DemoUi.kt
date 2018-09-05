@@ -31,7 +31,7 @@ import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.coordinatorLayout
 import splitties.viewdsl.design.defaultLParams
 import splitties.viewdsl.design.floatingActionButton
-import splitties.viewdsl.recyclerview.experimental.recyclerView
+import splitties.viewdsl.recyclerview.recyclerView
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource
 import splitties.views.setPaddingDp

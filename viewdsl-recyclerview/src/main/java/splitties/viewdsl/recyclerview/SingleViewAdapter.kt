@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.recyclerview.experimental
+package splitties.viewdsl.recyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import splitties.viewdsl.recyclerview.verticalListLayoutParams
 import splitties.views.recyclerview.horizontalLayoutManager
 import splitties.views.recyclerview.verticalLayoutManager
 
