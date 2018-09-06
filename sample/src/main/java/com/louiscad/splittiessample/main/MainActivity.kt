@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> true.also { _ -> toast("No settings yet!") }
-        R.id.action_about -> true.also { _ -> start<AboutActivity>() }
+        R.id.action_settings -> toast("No settings yet!").let { true }
+        R.id.action_about -> start<AboutActivity>().let { true }
         else -> super.onOptionsItemSelected(item)
     }
 
