@@ -43,7 +43,7 @@ import splitties.views.onClick
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        theme.applyStyle(R.style.AppCompatStyles_Buttons, false)
+        theme.applyStyle(R.style.AppCompatStyles_Buttons, false) //TODO: Call it lazily or eagerly? When exactly and where?
         super.onCreate(savedInstanceState)
         val ui = MainUi(this)
         setContentView(ui)
@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                     lastTimePlayed = System.currentTimeMillis()
                 } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
                 // TODO: 02/03/2017 With a UI showing prefs values.
+                //TODO: Use PrefsAdapter in a bottom sheet for real example
             }
             vibrator.vibrate(vibe)
             ui.root.longSnack(R.string.cant_dislike_md)
