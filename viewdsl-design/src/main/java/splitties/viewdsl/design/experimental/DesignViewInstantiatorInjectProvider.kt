@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.recyclerview.experimental
+package splitties.viewdsl.design.experimental
 
-import android.support.annotation.IdRes
-import android.view.View
-import splitties.viewdsl.core.v
-import splitties.viewdsl.recyclerview.recyclerView
+import splitties.initprovider.InitProvider
+import splitties.viewdsl.core.experimental.ViewFactoryImpl
 
-fun View.wrapInRecyclerView(
-        horizontal: Boolean = false,
-        @IdRes id: Int = View.NO_ID
-) = v(::recyclerView, id) {
-    val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
-    layoutManager = contentAdapter.layoutManager
-    adapter = contentAdapter
+class DesignViewInstantiatorInjectProvider : InitProvider() {
+    override fun onCreate(): Boolean {
+        ViewFactoryImpl.appInstance.apply {
+            add(::instantiateDesignView)
+        }
+        return true
+    }
 }

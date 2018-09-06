@@ -43,6 +43,7 @@ import splitties.views.onClick
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        theme.applyStyle(R.style.AppCompatStyles_Buttons, false) //TODO: Call it lazily or eagerly? When exactly and where?
         super.onCreate(savedInstanceState)
         val ui = MainUi(this)
         setContentView(ui)
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                     lastTimePlayed = System.currentTimeMillis()
                 } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
                 // TODO: 02/03/2017 With a UI showing prefs values.
+                //TODO: Use PrefsAdapter in a bottom sheet for real example
             }
             vibrator.vibrate(vibe)
             ui.root.longSnack(R.string.cant_dislike_md)
@@ -73,8 +75,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> true.also { _ -> toast("No settings yet!") }
-        R.id.action_about -> true.also { _ -> start<AboutActivity>() }
+        R.id.action_settings -> toast("No settings yet!").let { true }
+        R.id.action_about -> start<AboutActivity>().let { true }
         else -> super.onOptionsItemSelected(item)
     }
 

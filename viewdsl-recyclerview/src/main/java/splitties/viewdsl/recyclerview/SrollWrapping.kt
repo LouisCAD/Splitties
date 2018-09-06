@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.recyclerview.experimental
+package splitties.viewdsl.recyclerview
 
-import android.support.v7.widget.RecyclerView
+import android.support.annotation.IdRes
 import android.view.View
 
-@Deprecated("Remove explicit RecyclerView and use wrapInRecyclerView(…) instead.")
-fun RecyclerView.setSingleView(view: View) {
-    val contentAdapter = SingleViewAdapter(view, vertical = true)
+fun View.wrapInRecyclerView(
+        horizontal: Boolean = false,
+        @IdRes id: Int = View.NO_ID
+) = recyclerView(id) {
+    val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
     layoutManager = contentAdapter.layoutManager
     adapter = contentAdapter
 }

@@ -22,8 +22,6 @@ import android.text.TextUtils.TruncateAt.END
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
-import splitties.viewdsl.appcompat.imageView
-import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically
 import splitties.viewdsl.constraintlayout.endOfParent
@@ -35,6 +33,8 @@ import splitties.viewdsl.constraintlayout.topOfParent
 import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
+import splitties.viewdsl.core.imageView
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.startMargin
 import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalMargin
@@ -54,17 +54,17 @@ class SwitchTwoLinesIconListItem(
 
     val switch = v(::SwitchCompat, R.id.toggle)
 
-    val icon = v(::imageView, R.id.icon) {
+    val icon = imageView(R.id.icon) {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
-    val firstLine = v(::textView, R.id.firstLine) {
+    val firstLine = textView(R.id.firstLine) {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead
     }
 
-    val secondLine = v(::textView, R.id.secondLine) {
+    val secondLine = textView(R.id.secondLine) {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Small

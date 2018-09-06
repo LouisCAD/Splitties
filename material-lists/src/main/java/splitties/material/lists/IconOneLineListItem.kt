@@ -23,13 +23,12 @@ import android.widget.TextView
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.selectableviews.SelectableLinearLayout
-import splitties.viewdsl.appcompat.imageView
-import splitties.viewdsl.appcompat.textView
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
+import splitties.viewdsl.core.imageView
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.startMargin
-import splitties.viewdsl.core.v
 import splitties.viewdsl.core.verticalMargin
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
@@ -41,7 +40,7 @@ class IconOneLineListItem(
 ) : SelectableLinearLayout(context) {
     constructor(context: Context) : this(context, disableDefaultTint = false)
 
-    val icon = v(::imageView, R.id.icon) {
+    val icon = imageView(R.id.icon) {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
@@ -49,7 +48,7 @@ class IconOneLineListItem(
      * The one-line list item keeps the [firstLine] name for its only [TextView] to make
      * switching to and from [IconTwoLinesListItem] easier.
      */
-    val firstLine = v(::textView, R.id.firstLine) {
+    val firstLine = textView(R.id.firstLine) {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead

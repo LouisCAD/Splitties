@@ -17,22 +17,21 @@
 package com.louiscad.splittiessample.demo
 
 import android.content.Context
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.txt
+import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.margin
-import splitties.viewdsl.core.v
 import splitties.viewdsl.design.appBarLParams
+import splitties.viewdsl.design.appBarLayout
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
+import splitties.viewdsl.design.coordinatorLayout
 import splitties.viewdsl.design.defaultLParams
+import splitties.viewdsl.design.floatingActionButton
 import splitties.viewdsl.recyclerview.recyclerView
-import splitties.views.appcompat.Toolbar
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource
 import splitties.views.setPaddingDp
@@ -40,7 +39,7 @@ import splitties.views.setPaddingDp
 class DemoUi(override val ctx: Context, host: Host) : Ui {
     interface Host : DemoAdapter.DemoViewHolder.Host
 
-    val demoListView = v(::recyclerView, R.id.recycler_view) {
+    val demoListView = recyclerView(R.id.recycler_view) {
         clipToPadding = false
         setPaddingDp(top = 8)
         setHasFixedSize(true)
@@ -48,13 +47,13 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
         adapter = demoAdapter
         layoutManager = demoAdapter.layoutManager
     }
-    val fab = v(::FloatingActionButton) {
+    val fab = floatingActionButton {
         imageResource = R.drawable.ic_computer_white_24dp
     }
-    override val root = v(::CoordinatorLayout) {
+    override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(v(::AppBarLayout, R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
-            add(v(::Toolbar) {
+        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+            add(toolbar {
                 subtitle = txt(R.string.subtitle_items_count_hint)
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)

@@ -31,8 +31,11 @@ typealias NewViewRef<V> = (Context) -> V
 
 const val NO_THEME = 0
 
+@Suppress("NOTHING_TO_INLINE")
+inline fun Context.withTheme(theme: Int) = ContextThemeWrapper(this, theme)
+
 fun Context.wrapCtxIfNeeded(theme: Int): Context {
-    return if (theme == NO_THEME) this else ContextThemeWrapper(this, theme)
+    return if (theme == NO_THEME) this else withTheme(theme)
 }
 
 // v functions below
@@ -58,7 +61,10 @@ inline fun <V : View> Ui.v(
         initView: V.() -> Unit = {}
 ) = ctx.v(createView, id, theme, initView)
 
-// add functions for ViewGroups below
+@Suppress("NOTHING_TO_INLINE")
+inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
+
+//region Deprecated add functions.
 
 private const val deprecationMessageForAdd = "Use v + add or v + addView instead of just add. " +
         "It makes promoting a view as property easier as you don't have to extract the " +
@@ -96,6 +102,4 @@ inline fun <V : View> ViewGroup.add(
         lp: ViewGroup.LayoutParams,
         initView: V.() -> Unit = {}
 ): V = createView(context).apply(initView).also { addView(it, lp) }
-
-@Suppress("NOTHING_TO_INLINE")
-inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
+//endregion
