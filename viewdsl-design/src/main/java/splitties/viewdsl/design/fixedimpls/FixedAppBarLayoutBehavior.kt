@@ -27,7 +27,8 @@ import android.view.View
  * [the file in this repo](https://github.com/DreaminginCodeZH/Douya/blob/70566834f268712fd44e762312b2b0fffada5e53/app/src/main/java/me/zhanghai/android/douya/ui/FixNestedScrollAppBarLayout.java)
  * inspired by [this gist](https://gist.github.com/chrisbanes/8391b5adb9ee42180893300850ed02f2).
  */
-class FixedAppBarLayoutBehavior : AppBarLayout.Behavior() {
+@PublishedApi
+internal class FixedAppBarLayoutBehavior : AppBarLayout.Behavior() {
 
     override fun onNestedScroll(
             coordinatorLayout: CoordinatorLayout,
