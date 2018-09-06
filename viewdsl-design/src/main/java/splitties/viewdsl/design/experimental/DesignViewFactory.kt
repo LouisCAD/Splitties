@@ -19,6 +19,7 @@ import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
@@ -26,14 +27,17 @@ import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.view.View
 import splitties.viewdsl.core.experimental.styles.Style
+import splitties.viewdsl.design.fixedimpls.FixedAppBarLayoutBehavior
 
-inline fun <reified V: View> instantiateDesignView(
+inline fun <reified V : View> instantiateDesignView(
         clazz: Class<out V>,
         context: Context,
         @Suppress("UNUSED_PARAMETER") style: Style<V>?
 ): V? = when (clazz) {
     FloatingActionButton::class.java -> FloatingActionButton(context)
-    AppBarLayout::class.java -> AppBarLayout(context)
+    AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
+        override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
+    }
     NavigationView::class.java -> NavigationView(context)
     BottomNavigationView::class.java -> BottomNavigationView(context)
     CollapsingToolbarLayout::class.java -> CollapsingToolbarLayout(context)
