@@ -19,6 +19,7 @@ import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.ConfigChangesHandlingCollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
@@ -40,7 +41,7 @@ inline fun <reified V : View> instantiateDesignView(
     }
     NavigationView::class.java -> NavigationView(context)
     BottomNavigationView::class.java -> BottomNavigationView(context)
-    CollapsingToolbarLayout::class.java -> CollapsingToolbarLayout(context)
+    CollapsingToolbarLayout::class.java -> ConfigChangesHandlingCollapsingToolbarLayout(context)
     TabLayout::class.java -> TabLayout(context)
     TextInputLayout::class.java -> TextInputLayout(context)
     TextInputEditText::class.java -> TextInputEditText(context)
