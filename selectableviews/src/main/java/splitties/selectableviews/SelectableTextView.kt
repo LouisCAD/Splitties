@@ -16,11 +16,11 @@
 
 package splitties.selectableviews
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
+import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.widget.TextView
 import splitties.resources.styledDrawable
@@ -69,7 +69,7 @@ open class SelectableTextView @JvmOverloads constructor(
         return who === foregroundSelector || super.verifyDrawable(who)
     }
 
-    @TargetApi(LOLLIPOP)
+    @RequiresApi(LOLLIPOP)
     final override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
         super.dispatchDrawableHotspotChanged(x, y)
         foregroundSelector?.setHotspot(x, y)
