@@ -18,7 +18,14 @@
 package com.louiscad.splittiessample.extensions.menu
 
 import android.view.MenuItem
+import splitties.bitflags.withFlag
 
 inline fun MenuItem.neverShowAsAction() = setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
-inline fun MenuItem.alwaysShowAsAction() = setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-inline fun MenuItem.showAsActionIfRoom() = setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+inline fun MenuItem.alwaysShowAsAction(withText: Boolean = false) {
+    val flags = MenuItem.SHOW_AS_ACTION_ALWAYS
+    setShowAsAction(if (withText) flags.withFlag(MenuItem.SHOW_AS_ACTION_WITH_TEXT) else flags)
+}
+inline fun MenuItem.showAsActionIfRoom(withText: Boolean = false) {
+    val flags = MenuItem.SHOW_AS_ACTION_IF_ROOM
+    setShowAsAction(if (withText) flags.withFlag(MenuItem.SHOW_AS_ACTION_WITH_TEXT) else flags)
+}
