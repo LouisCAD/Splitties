@@ -21,8 +21,8 @@ package splitties.views
 import android.view.View
 
 /**
- * Registers the [l] lambda as [View.OnClickListener] to this View.
+ * Registers the [block] lambda as [View.OnClickListener] to this View.
  *
  * If this View is not clickable, it becomes clickable.
  */
-inline fun View.onClick(noinline l: (v: View?) -> Unit) = setOnClickListener(l)
+inline fun View.onClick(crossinline block: () -> Unit) = setOnClickListener { block() }
