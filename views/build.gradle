@@ -45,6 +45,9 @@ dependencies {
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"
 
+    // Android KTX
+    api "androidx.core:core-ktx:0.3"
+
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
