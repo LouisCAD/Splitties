@@ -22,7 +22,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-beta05'
+        classpath 'com.android.tools.build:gradle:3.2.0-rc02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
@@ -39,12 +39,12 @@ allprojects {
         jcenter()
     }
     ext {
-        projectBuildTools_version = '28.0.1'
+        projectBuildTools_version = '28.0.2'
         projectSdk_version = 28
 
         // Libraries
         groupId = "com.louiscad.splitties"
-        library_version = "2.0.0-SNAPSHOT"
+        library_version = "3.0.0-SNAPSHOT"
         isSnapshot = library_version.endsWith("-SNAPSHOT")
         isRelease = !isSnapshot
 
