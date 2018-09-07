@@ -18,7 +18,6 @@ package splitties.preferences.experimental
 import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.withContext
 import splitties.preferences.Preferences
-import splitties.uithread.isUiThread
 
 /**
  * **Requires** you have the following dependency in your project:
@@ -26,12 +25,7 @@ import splitties.uithread.isUiThread
  */
 abstract class SuspendPrefsAccessor<out Prefs : Preferences>(prefsConstructorRef: () -> Prefs) {
     suspend operator fun invoke(): Prefs {
-        return if (prefDelegate.isInitialized()) prefs else withContext(IO) {
-            check(!isUiThread) {
-                "Instantiating SharedPreferences performs I/O, which is not allowed on UI thread."
-            }
-            prefs
-        }
+        return if (prefDelegate.isInitialized()) prefs else withContext(IO) { prefs }
     }
 
     private val prefDelegate = lazy(prefsConstructorRef)
