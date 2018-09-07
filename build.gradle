@@ -47,14 +47,6 @@ allprojects {
         library_version = "3.0.0-SNAPSHOT"
         isSnapshot = library_version.endsWith("-SNAPSHOT")
         isRelease = !isSnapshot
-
-        // Dependencies versions
-        supportLibs_version = '27.1.1'
-        arch_lifecycle_version = '1.1.1'
-        arch_room_version = '1.0.0'
-        constraintLayout_version = '1.1.0'
-        timber_version = '4.7.1'
-        kotlinxCoroutines_version = '0.23.4'
     }
 }
 
