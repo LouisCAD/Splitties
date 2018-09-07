@@ -41,6 +41,19 @@ fun Intent.toPendingActivity(
 /**
  * @param reqCode Can be left to default (0) if this [PendingIntent] is unique as defined from
  * [Intent.filterEquals].
+ * @param options are ignored below API 16.
+ */
+fun Array<Intent>.toPendingActivities(
+        reqCode: Int = 0,
+        flags: Int = 0,
+        options: Bundle? = null
+): PendingIntent = if (SDK_INT >= JELLY_BEAN) {
+    PendingIntent.getActivities(appCtx, reqCode, this, flags, options)
+} else PendingIntent.getActivities(appCtx, reqCode, this, flags)
+
+/**
+ * @param reqCode Can be left to default (0) if this [PendingIntent] is unique as defined from
+ * [Intent.filterEquals].
  */
 fun Intent.toPendingForegroundService(
         reqCode: Int = 0,
