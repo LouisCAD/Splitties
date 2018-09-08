@@ -20,6 +20,11 @@ import android.view.View
 import splitties.uithread.isUiThread
 import java.util.concurrent.atomic.AtomicInteger
 
+/**
+ * Generates a view id that doesn't clash with AAPT generated ids.
+ * Specially optimized for usage on main thread to be synchronization free.
+ * Backwards compatible below API 17.
+ */
 fun generateViewId(): Int = when {
     isUiThread -> uiThreadLastGeneratedId.also {
         uiThreadLastGeneratedId = (if (it == 1) aaptIdsStart else it) - 1
