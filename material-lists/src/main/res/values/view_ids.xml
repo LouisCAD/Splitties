@@ -17,8 +17,5 @@
 
 <resources>
     <item name="icon" type="id"/>
-    <item name="tv_headline" type="id"/>
-    <item name="tv_author" type="id"/>
-    <item name="tv_license_name" type="id"/>
     <item name="toggle" type="id"/>
 </resources>

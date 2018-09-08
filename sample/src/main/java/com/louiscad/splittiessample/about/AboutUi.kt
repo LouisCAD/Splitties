@@ -42,7 +42,7 @@ import splitties.views.textResource
 class AboutUi(override val ctx: Context) : Ui {
 
     private val mainContent = constraintLayout {
-        val headlineTv = add(textView(R.id.tv_headline) {
+        val headlineTv = add(textView {
             textAppearance = R.style.TextAppearance_AppCompat_Headline
             textResource = R.string.lib_name
             centerText()
@@ -50,7 +50,7 @@ class AboutUi(override val ctx: Context) : Ui {
             centerHorizontally(); topOfParent()
             topMargin = dip(16)
         })
-        val authorTv = add(textView(R.id.tv_author) {
+        val authorTv = add(textView {
             textAppearance = R.style.TextAppearance_AppCompat_Small
             textResource = R.string.a_lib_by_louiscad
             centerText()
@@ -58,7 +58,7 @@ class AboutUi(override val ctx: Context) : Ui {
             centerHorizontally(); topToBottomOf(headlineTv)
             topMargin = dip(8)
         })
-        add(textView(R.id.tv_license_name) {
+        add(textView {
             textAppearance = R.style.TextAppearance_AppCompat_Caption
             textResource = R.string.licensed_under_apache_2
             centerText()
