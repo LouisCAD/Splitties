@@ -28,9 +28,6 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.v
 import splitties.views.inflate
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)
-
 inline fun Context.recyclerView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
