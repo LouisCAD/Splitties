@@ -30,7 +30,8 @@ import splitties.views.inflateAndAttach
         replaceWith = ReplaceWith(
                 expression = "IconTwoLinesSwitchListItem",
                 imports = ["splitties.material.lists.IconTwoLinesSwitchListItem"]
-        )
+        ),
+        level = DeprecationLevel.ERROR
 )
 class TwoLinesIconSwitchListItem @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

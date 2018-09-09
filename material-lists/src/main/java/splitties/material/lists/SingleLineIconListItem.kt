@@ -28,7 +28,8 @@ import splitties.views.inflateAndAttach
         replaceWith = ReplaceWith(
                 expression = "IconOneLineListItem",
                 imports = ["splitties.material.lists.IconOneLineListItem"]
-        )
+        ),
+        level = DeprecationLevel.ERROR
 )
 class SingleLineIconListItem @JvmOverloads constructor(
         context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
