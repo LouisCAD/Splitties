@@ -18,6 +18,7 @@ package splitties.viewdsl.appcompat
 import android.content.Context
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
@@ -47,3 +48,23 @@ inline fun Ui.toolbar(
         style: Style<Toolbar>? = null,
         initView: Toolbar.() -> Unit = {}
 ) = ctx.toolbar(id, theme, style, initView)
+
+// SwitchCompat
+
+inline fun Context.switch(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: SwitchCompat.() -> Unit = {}
+) = v(::SwitchCompat, id, theme, initView)
+
+inline fun View.switch(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: SwitchCompat.() -> Unit = {}
+) = context.switch(id, theme, initView)
+
+inline fun Ui.switch(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: SwitchCompat.() -> Unit = {}
+) = ctx.switch(id, theme, initView)
