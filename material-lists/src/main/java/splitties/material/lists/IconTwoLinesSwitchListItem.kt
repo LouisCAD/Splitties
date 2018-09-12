@@ -17,11 +17,11 @@
 package splitties.material.lists
 
 import android.content.Context
-import android.support.v7.widget.SwitchCompat
 import android.text.TextUtils.TruncateAt.END
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
+import splitties.viewdsl.appcompat.switch
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically
 import splitties.viewdsl.constraintlayout.endOfParent
@@ -34,9 +34,8 @@ import splitties.viewdsl.constraintlayout.topToBottomOf
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.imageView
-import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.startMargin
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.verticalMargin
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
@@ -64,7 +63,7 @@ class IconTwoLinesSwitchListItem(
         textAppearance = R.style.TextAppearance_AppCompat_Small
     }
 
-    val switch = v(::SwitchCompat, R.id.toggle)
+    val switch = switch(R.id.toggle)
 
     init {
         val iconSize = dip(24)
