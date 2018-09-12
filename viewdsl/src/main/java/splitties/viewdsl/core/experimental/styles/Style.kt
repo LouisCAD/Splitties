@@ -30,3 +30,10 @@ interface MutatingStyle<V : View> : Style<V> {
 interface InstantiatingStyle<V : View> : Style<V> {
     fun instantiateStyledView(context: Context): V
 }
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <V: View> V.apply(mutatingStyle: MutatingStyle<V>) {
+    with(mutatingStyle) {
+        applyStyle()
+    }
+}
