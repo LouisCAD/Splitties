@@ -32,20 +32,16 @@ inline fun horizontalLayout(ctx: Context) = LinearLayout(ctx)
 inline fun LinearLayout.lParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
-        initParams: LinearLayout.LayoutParams.() -> Unit
+        initParams: LinearLayout.LayoutParams.() -> Unit = {}
 ) = LinearLayout.LayoutParams(width, height).apply(initParams)
-
-inline fun LinearLayout.lParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent
-) = LinearLayout.LayoutParams(width, height)
 
 inline fun LinearLayout.lParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = -1,
-        weight: Float = 0f
+        weight: Float = 0f,
+        initParams: LinearLayout.LayoutParams.() -> Unit = {}
 ) = LinearLayout.LayoutParams(width, height).also {
     it.gravity = gravity
     it.weight = weight
-}
+}.apply(initParams)

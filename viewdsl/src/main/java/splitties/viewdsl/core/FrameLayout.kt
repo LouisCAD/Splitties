@@ -30,15 +30,5 @@ inline fun FrameLayout.lParams(
         height: Int = wrapContent,
         @SuppressLint("InlinedApi")
         gravity: Int = FrameLayout.LayoutParams.UNSPECIFIED_GRAVITY,
-        initParams: FrameLayout.LayoutParams.() -> Unit
+        initParams: FrameLayout.LayoutParams.() -> Unit = {}
 ) = FrameLayout.LayoutParams(width, height).also { it.gravity = gravity }.apply(initParams)
-
-/**
- * Default gravity is treated by FrameLayout as: [Gravity.TOP] or [Gravity.START].
- */
-inline fun FrameLayout.lParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        @SuppressLint("InlinedApi")
-        gravity: Int = FrameLayout.LayoutParams.UNSPECIFIED_GRAVITY
-) = FrameLayout.LayoutParams(width, height).also { it.gravity = gravity }
