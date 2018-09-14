@@ -24,10 +24,15 @@ import splitties.collections.forEachWithIndex
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.startMargin
+import android.support.constraint.ConstraintLayout.LayoutParams as LP
+
+@Suppress("unused") inline val ConstraintLayout.packed get() = LP.CHAIN_PACKED
+@Suppress("unused") inline val ConstraintLayout.spread get() = LP.CHAIN_SPREAD
+@Suppress("unused") inline val ConstraintLayout.spreadInside get() = LP.CHAIN_SPREAD_INSIDE
 
 inline fun ConstraintLayout.horizontalChain(
         views: List<View>,
-        style: Int = ConstraintLayout.LayoutParams.CHAIN_SPREAD,
+        style: Int = spread,
         defaultWidth: Int = matchConstraints,
         defaultHeight: Int = matchConstraints,
         initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { startOfParent() },
@@ -67,7 +72,7 @@ inline fun ConstraintLayout.horizontalChain(
 
 inline fun ConstraintLayout.verticalChain(
         views: List<View>,
-        style: Int = ConstraintLayout.LayoutParams.CHAIN_SPREAD,
+        style: Int = spread,
         defaultWidth: Int = matchConstraints,
         defaultHeight: Int = matchConstraints,
         initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { topOfParent() },
