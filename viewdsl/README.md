@@ -2,87 +2,81 @@
 
 *Create UIs with readable Kotlin code.*
 
-## Why a View DSL over xml layouts?
+There's a whole document about [View DSL vs xml layouts](Kotlin-UIs-vs-xml-layouts.md)
+if you are not convinced yet.
 
-### Pros of xml layouts
-
-* You can almost instantly preview a layout file (despite the huge RAM and CPU
-usage)
-* You can directly use xml styles with the `style` attribute
-* You can declare a new id resource on the fly with `@+id/some_new_id`
-
-### Cons of xml layouts
-
-* You repeat `android` and `app` over and over, cluttering the code, resulting
-in **hardly readable code**.
-* Layout parameters and view attributes are mixed together and are not so well
-ordered in some cases such as when using `ConstraintLayout`.
-* Some things that affect your Views can only be done from code, leading to 2
-problems: You can't preview them, and your **UI code is split over at least
-2 files**.
-* xml layout inflation involves **reflection**, which can slow down UI
-creating, on large layouts and/or lower end devices.
-* Some attributes that could make layout files easier to read like
-**`horitontalMargin` and `verticalMargin` are only available on API 26+
-in xml**.
-* **If you support API 16 and lower, LTR support is subpar**.
-When specifying start/end margins, you still need to specify left and right
-values for API 16 or older (while start could default to left when RTL is not
-supported…). You also need to keep them in sync manually when you change the
-values.
-* You can't take advantage of Kotlin extensions and other Kotlin features.
-* If you want to make your UI dynamic, you need to use code, and xml is not
-really code, so you need to split your UI logic, being more error-prone in
-the long run.
-* Reusing parts of UI is hard and verbose, because you can only include other
-files, but there's no things like functions for example.
-
-### Pros of Splitties View DSL
-
-* It is **concise** (most layouts converted from xml end up shorter, sometimes
-even when counting the import lines).
-* Is is **more expressive** and you can make it even better by defining
-extension function or properties on the Views, LayoutParams, etc, so you can
-hide a set of operations behind a simple function call. There are no
-restrictions on the language features you can use in your UI code, you're not
-just limited to xml available attributes and resources.
-* You can **reuse UI code** in much more and easier ways than you can do
-with xml layouts + code.
-* Your **`Ui` can implement an interface** so you can easily swap
-implementations. This can be handy for A/B testing, allowing more user
-preferences to tweak or completely change the UI, and more.
-* Layout direction defaults to LTR before API 17 and you can keep using
-start/end without added boilerplate.
-* **You can preview layouts in Android Studio** (requires build), with any
-included logic being taken into account.
-* Layout parameters are not mixed with View config.
-* **No reflection** involved.
-* No need for `findViewById(…)` and the implied lookup costs.
-
-### Cons of Splitties View DSL
-
-* Using xml defined styles (the ones you use with the `style` attribute)
-can't be done directly in code and requires a small workaround (thankfully
-an easy one: you need to create an xml file for the View you want to style
-and to define a method to inflate it).
-* Preview requires a build (but you're less likely to need preview thanks
-to additional type safety and more expressive UI code).
-* You can't create a View id on the fly (but you can declare an id resource
-easily or reuse one declared on-the-fly from an existing xml layout).
+TL;DR: Kotlin code is more concise than xml, and a small library like this
+one is the proof of what is already possible with this great language.
 
 ## Content
 
-Splitties View DSL is made of a few things you can build upon:
+Splitties View DSL has been designed to be simple.
 
-* [An optional interface named `Ui`](
-src/main/java/splitties/viewdsl/core/Ui.kt) whose implementations are meant
-to contain your UI code (instead of having it spread over an xml file and
-an `Activity` or a `Fragment`).
+Consequently, you'll find no class in this split (API-wise, as strictly speaking,
+all functions and properties, even top-level ones and extensions belong to a class
+in the bytecode). That means you won't have to learn a whole new API to use
+Splitties View DSL. You'll just have to discover the extension functions and
+properties as you need them to craft your Android user interfaces with Kotlin code.
+
+It turns out that you just need a few extension functions and properties to
+make UI-related code at least as readable as xml counterparts. Note that while
+putting all of your UI code directly in an `Activity` or a `Fragment` is
+possible with Splitties View DSL (and can surely help for throwaway prototyping),
+we will be recommending a cleaner, yet simple approach (spoiler: a custom class).
+
+_Opening the project in your IDE and navigating the sample UI code while reading
+this documentation may certainly help you have a hands-on experience and be
+comfortable more quickly writing UIs with Kotlin, a programming language that is
+probably already familiar to you._
+
+## Extensions to create views with minimal code but maximum flexibility
+
+Just calling the constructor, then calling needed methods in an `apply { ...}`
+block could be enough, but Splitties provides something more readable, more
+concise, and with a few features, like themes, styles, and seamless AppCompat
+support, without the boilerplate.
+
+### The most generic way: `v`
+
+**TK (for all docs of the project): take inspiration from kotlinx.coroutines guide and Android KTX comparison doc.
+kotlinx.coroutines is interesting because it show snippets after each concept to understand step by step.
+Android KTX is interesting because it's so concise and familiar to Android devs.**
+
+TK: Highlight the difference between the two signatures and the fact that they are both inlined.
+Also, talk about styles support.
+
 * The `v` extension function available on `Ui`, `View` and `Context` that
 lets you concisely create a View using an (inlined) method reference that
 takes a `Context` parameter (like all proper View constructors) with an
 optional id, an optional theme id and an optional lambda to configure the
 View.
+
+### `styledV`, the generic way, which supports xml defined styles
+TK: Don't be too lengthy explaining how it works.
+
+### The most beautiful ways: explicitly named aliases to the generic way
+
+TK: frameLayout, textView, button, horizontalLayout, etc.
+
+## View extensions
+
+TK: Talk about views split and what can be added.
+
+## `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
+
+TK: Explain it's to prevent repeating the word again and again when it's already obvious you're adding a view,
+and add it is inline.
+
+## The `lParams` extension functions
+
+TK: Add a beware section for missing imports that lead to wrong layout params type in nested
+ViewGroups of different types, and write advise explicitly to remember that fact.
+
+## ViewGroup extensions
+
+TK: Talk about things like margin (common stuff), then about what can be added for more specific
+ViewGroups
+ 
 * The `add` extension function available on `ViewGroup` that does the same
 as `v`, but also requires a `ViewGroup.LayoutParams` (or subclass) parameter
 used to add the created View to the `ViewGroup`.
@@ -102,6 +96,74 @@ base of nearly all LayoutParams).
 and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
 * `verticalLayout` and `horizontalLayout` which return a `LinearLayout` with
 the orientation you expect to use with `v` or `add`.
+
+## The `Ui` interface
+
+This section doesn't just writes so many words about how **the `Ui` interface
+has only 2 properties**. It explains why **it is useful**, how to **use it the right
+way**, and the **possibilities** it gives you.
+
+### Why
+
+As said above, you can put your UI code directly in an `Activity` or a `Fragment`,
+but the fact you can doesn't mean you should. Mixing UI code with business logic,
+data storage code, network calls and miscellaneous boilerplate in the same
+"god" class will quickly make further work (like feature additions and maintenance)
+very hard, because you're likely not a god programmer, and even if you are, your
+coworkers, or successors, are likely not.
+
+Xml layouts alleviate this issue by forcing you to put most of your UI code into
+a separate xml file, but you often need complementary code (e.g. to handle
+transitions, dynamic visibility), and this is often put into a `Fragment` or an
+`Activity`, which makes things worse, as you now have your UI code spread over
+at least two places that are tightly coupled.
+
+### What
+
+With Splitties View DSL, there's an [optional interface named `Ui`](
+src/main/java/splitties/viewdsl/core/Ui.kt), whose implementations are meant
+to contain your UI code.
+
+It has a `ctx` property because in Android, a `Context` is needed to create a
+`View`.
+It has a `root` property because you need a `View` to display in the end.
+
+Since you're using Kotlin code, you can put all the UI related logic in it too,
+in a single place this time.
+
+Also, since `Ui` is an interface, you can get creative by creating sub-interfaces
+or sub-classes to have different implementations of the same UI, which is nice for
+A/B testing, user preferences (different styles that the user can pick),
+configuration (like screen orientation), and more.
+
+### Implementing the `Ui` interface
+
+When writing a `Ui` implementation, override the `ctx` property as the first
+constructor parameter (e.g. `class MainUi(override val ctx: Context) : Ui {`),
+and override the `root` parameter as a property with a backing field by
+assigning it a `View` (e.g. `override val root = coordinatorLayout { ... }`).
+
+Then create your views (usually putting them as final properties, like `root`),
+and add them to the `ViewGroup`s they belong to, so they are direct, or indirect
+children of `root` (in the likely case where you have multiple views in your UI
+and `root` is therefore a `ViewGroup`).
+
+### Using `Ui` implementations
+
+To use a `Ui` implementation from an Activity, just call `setContentView(ui)`.
+To use it from any other place, just get the `root` property. In a `Fragment`,
+that will mean returning it from `onCreateView(…)`.
+
+You can also use any function or property you've declared in your sub-interface
+or implementation.
+
+Here are two examples:
+* Using a public property of type `Button` to set it an `OnClickListener` in
+the place where the `Ui` is used (like an `Activity` or a `Fragment` that connects
+your UI to a `ViewModel` and any other components).
+* Call a method called `animateGoalReached()`.
+
+## Additional modules
 
 **There are additional splits for extended support. View DSL…**
 * [AppCompat](../viewdsl-appcompat) provides proper styling to `Button`,
