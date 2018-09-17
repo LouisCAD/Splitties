@@ -5,12 +5,23 @@
 There's a whole document about [View DSL vs xml layouts](Kotlin-UIs-vs-xml-layouts.md)
 if you are not convinced yet.
 
-TL;DR: Kotlin code is more concise than xml, and a small library like this
+*TL;DR:* Kotlin code is more concise than xml, and a small library like this
 one is the proof of what is already possible with this great language.
 
-## Content
+Splitties View DSL has been designed to be:
+* Simple
+* Concise
+* Expressive
+* Explicit
+* Efficient
+* Reliable
+* Flexible
 
-Splitties View DSL has been designed to be simple.
+That's 7 key considerations, which are all necessary to make a great library.
+
+## Introduction
+
+As said above, Splitties View DSL has been designed to be *simple*.
 
 Consequently, you'll find no class in this split (API-wise, as strictly speaking,
 all functions and properties, even top-level ones and extensions belong to a class
@@ -24,14 +35,46 @@ putting all of your UI code directly in an `Activity` or a `Fragment` is
 possible with Splitties View DSL (and can surely help for throwaway prototyping),
 we will be recommending a cleaner, yet simple approach (spoiler: a custom class).
 
+Before we dive into the details of the API, let's take a look at a simple example:
+
+```kotlin
+val launchDemoBtn = button(style = ButtonStyle.colored) {
+    textResource = R.string.go_to_the_demo
+}
+```
+
+**This example was meaningless**, because no one ever publishes an app with only
+one button. Also, the snippet above just creates a button. If you want it into
+a `ViewGroup`, or as the content of an `Activity` or a `Fragment`, you need to
+do so explicitly.
+
+There are **real examples in the sample**. You can start by taking a look at
+[`MainUi`](../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt).
+You can also see a simple example that uses `ConstraintLayout` in [`AboutUi`](
+../sample/src/main/java/com/louiscad/splittiessample/about/AboutUi.kt
+).
+
 _Opening the project in your IDE and navigating the sample UI code while reading
 this documentation may certainly help you have a hands-on experience and be
 comfortable more quickly writing UIs with Kotlin, a programming language that is
 probably already familiar to you._
 
+## Table of contents
+
+* [The extensions]()
+  * [Creating and configuring views]()
+  * [Laying out the views]()
+* [The `Ui` interface]()
+  * [Why this interface]()
+  * [What it is made of]()
+  * [Implementing the interface]()
+  * [Using the implementations]()
+* [Additional modules]()
+* [Download](#download)
+
 ## Extensions to create views with minimal code but maximum flexibility
 
-Just calling the constructor, then calling needed methods in an `apply { ...}`
+Just calling the constructor, then calling needed methods in an `apply { ... }`
 block could be enough, but Splitties provides something more readable, more
 concise, and with a few features, like themes, styles, and seamless AppCompat
 support, without the boilerplate.
@@ -42,7 +85,7 @@ support, without the boilerplate.
 kotlinx.coroutines is interesting because it show snippets after each concept to understand step by step.
 Android KTX is interesting because it's so concise and familiar to Android devs.**
 
-TK: Highlight the difference between the two signatures and the fact that they are both inlined.
+**TK:** Highlight the difference between the two signatures and the fact that they are both inlined.
 Also, talk about styles support.
 
 * The `v` extension function available on `Ui`, `View` and `Context` that
@@ -52,29 +95,29 @@ optional id, an optional theme id and an optional lambda to configure the
 View.
 
 ### `styledV`, the generic way, which supports xml defined styles
-TK: Don't be too lengthy explaining how it works.
+**TK:** Don't be too lengthy explaining how it works.
 
 ### The most beautiful ways: explicitly named aliases to the generic way
 
-TK: frameLayout, textView, button, horizontalLayout, etc.
+**TK:** frameLayout, textView, button, horizontalLayout, etc.
 
-## View extensions
+### View extensions
 
-TK: Talk about views split and what can be added.
+**TK:** Talk about views split and what can be added.
 
-## `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
+### `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
 
-TK: Explain it's to prevent repeating the word again and again when it's already obvious you're adding a view,
+**TK:** Explain it's to prevent repeating the word again and again when it's already obvious you're adding a view,
 and add it is inline.
 
-## The `lParams` extension functions
+### The `lParams` extension functions
 
-TK: Add a beware section for missing imports that lead to wrong layout params type in nested
+**TK:** Add a beware section for missing imports that lead to wrong layout params type in nested
 ViewGroups of different types, and write advise explicitly to remember that fact.
 
-## ViewGroup extensions
+### ViewGroup extensions
 
-TK: Talk about things like margin (common stuff), then about what can be added for more specific
+**TK:** Talk about things like margin (common stuff), then about what can be added for more specific
 ViewGroups
  
 * The `add` extension function available on `ViewGroup` that does the same

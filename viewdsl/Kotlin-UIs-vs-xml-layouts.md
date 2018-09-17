@@ -1,10 +1,19 @@
-## Why a Kotlin View DSL over xml layouts?
+# Why a Kotlin View DSL over xml layouts?
 
 There are reasons Splitties View DSL, an alternative to xml layouts has been
 built for Android.
 
 This document is a simple pros and cons of each approach so you can judge by
 yourself.
+
+## Facts
+
+* If we don't count imports and copyright headers, the xml version of [MainUi](
+../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt
+) (from the sample) was more than 100% lengthier (50 lines with Kotlin,
+102 lines in xml).
+
+## Pros and cons
 
 ### Pros of xml layouts
 
