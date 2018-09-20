@@ -61,25 +61,31 @@ probably already familiar to you._
 
 ## Table of contents
 
-* [The extensions]()
-  * [Creating and configuring views]()
-  * [Laying out the views]()
-* [The `Ui` interface]()
-  * [Why this interface]()
-  * [What it is made of]()
-  * [Implementing the interface]()
-  * [Using the implementations]()
-* [Additional modules]()
+* [The extensions](#the-extensions)
+  * [Creating and configuring views](#creating-and-configuring-views)
+  * [Laying out the views](#laying-out-the-views)
+* [The `Ui` interface](#the-ui-interface)
+  * [Why this interface](#why-this-interface)
+  * [What it is made of](#what-it-is-made-of)
+  * [Implementing the interface](#implementing-the-ui-interface)
+  * [Using Ui implementations](#using-ui-implementations)
+* [Additional modules](#additional-modules)
 * [Download](#download)
 
-## Extensions to create views with minimal code but maximum flexibility
+## The extensions
+
+Splitties is primarily made of extension functions and properties, to create
+views with minimal code but maximum flexibility.
 
 Just calling the constructor, then calling needed methods in an `apply { ... }`
-block could be enough, but Splitties provides something more readable, more
-concise, and with a few features, like themes, styles, and seamless AppCompat
+block could be enough to use Kotlin instead of xml for your user interfaces,
+but Splitties View DSL provides something more readable, more concise,
+and with a few features, like themes, styles, and seamless AppCompat
 support, without the boilerplate.
 
-### The most generic way: `v`
+### Creating and configuring views
+
+#### The most generic way: `v`
 
 **TK (for all docs of the project): take inspiration from kotlinx.coroutines guide and Android KTX comparison doc.
 kotlinx.coroutines is interesting because it show snippets after each concept to understand step by step.
@@ -94,28 +100,30 @@ takes a `Context` parameter (like all proper View constructors) with an
 optional id, an optional theme id and an optional lambda to configure the
 View.
 
-### `styledV`, the generic way, which supports xml defined styles
+#### `styledV`, the generic way, which supports xml defined styles
 **TK:** Don't be too lengthy explaining how it works.
 
-### The most beautiful ways: explicitly named aliases to the generic way
+#### The most beautiful ways: explicitly named aliases to the generic way
 
 **TK:** frameLayout, textView, button, horizontalLayout, etc.
 
-### View extensions
+#### View extensions
 
-**TK:** Talk about views split and what can be added.
+**TK:** Talk about Views split and what can be added.
 
-### `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
+### Laying out the views
+
+#### `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
 
 **TK:** Explain it's to prevent repeating the word again and again when it's already obvious you're adding a view,
 and add it is inline.
 
-### The `lParams` extension functions
+#### The `lParams` extension functions
 
 **TK:** Add a beware section for missing imports that lead to wrong layout params type in nested
 ViewGroups of different types, and write advise explicitly to remember that fact.
 
-### ViewGroup extensions
+#### ViewGroup extensions
 
 **TK:** Talk about things like margin (common stuff), then about what can be added for more specific
 ViewGroups
@@ -140,13 +148,13 @@ and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
 * `verticalLayout` and `horizontalLayout` which return a `LinearLayout` with
 the orientation you expect to use with `v` or `add`.
 
-## The `Ui` interface
+## The Ui interface
 
 This section doesn't just writes so many words about how **the `Ui` interface
 has only 2 properties**. It explains why **it is useful**, how to **use it the right
 way**, and the **possibilities** it gives you.
 
-### Why
+### Why this interface
 
 As said above, you can put your UI code directly in an `Activity` or a `Fragment`,
 but the fact you can doesn't mean you should. Mixing UI code with business logic,
@@ -161,7 +169,7 @@ transitions, dynamic visibility), and this is often put into a `Fragment` or an
 `Activity`, which makes things worse, as you now have your UI code spread over
 at least two places that are tightly coupled.
 
-### What
+### What it is made of
 
 With Splitties View DSL, there's an [optional interface named `Ui`](
 src/main/java/splitties/viewdsl/core/Ui.kt), whose implementations are meant
@@ -179,7 +187,7 @@ or sub-classes to have different implementations of the same UI, which is nice f
 A/B testing, user preferences (different styles that the user can pick),
 configuration (like screen orientation), and more.
 
-### Implementing the `Ui` interface
+### Implementing the Ui interface
 
 When writing a `Ui` implementation, override the `ctx` property as the first
 constructor parameter (e.g. `class MainUi(override val ctx: Context) : Ui {`),
@@ -191,7 +199,7 @@ and add them to the `ViewGroup`s they belong to, so they are direct, or indirect
 children of `root` (in the likely case where you have multiple views in your UI
 and `root` is therefore a `ViewGroup`).
 
-### Using `Ui` implementations
+### Using Ui implementations
 
 To use a `Ui` implementation from an Activity, just call `setContentView(ui)`.
 To use it from any other place, just get the `root` property. In a `Fragment`,
