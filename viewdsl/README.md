@@ -83,10 +83,6 @@ but Splitties View DSL provides something more readable, more concise,
 and with a few features, like themes, styles, and seamless AppCompat
 support, without the boilerplate.
 
-### Creating and configuring views
-
-#### The most generic way: `v`
-
 **TK (for all docs of the project): take inspiration from kotlinx.coroutines guide and Android KTX comparison doc.
 kotlinx.coroutines is interesting because it show snippets after each concept to understand step by step.
 Android KTX is interesting because it's so concise and familiar to Android devs.**
@@ -94,11 +90,61 @@ Android KTX is interesting because it's so concise and familiar to Android devs.
 **TK:** Highlight the difference between the two signatures and the fact that they are both inlined.
 Also, talk about styles support.
 
-* The `v` extension function available on `Ui`, `View` and `Context` that
-lets you concisely create a View using an (inlined) method reference that
-takes a `Context` parameter (like all proper View constructors) with an
-optional id, an optional theme id and an optional lambda to configure the
-View.
+### Creating and configuring views
+
+#### The most generic way: `v`
+
+The `v` extension functions are a primitive of Splitties View DSL.
+They are generic, so they allow you to instantiate a `View` of any type.
+
+There are 6 functions named `v`, because there's two overload types, and they
+are made available for `Ui`, `View` and `Context` receiver types.
+
+With respect to efficiency, they are all **inline**. That means no unnecessary
+allocation that would slightly decrease performance otherwise.
+
+Both overloads allow the following **optional** parameters:
+* `@IdRes id: Int`, the id of the View. Example argument: `R.id.btn_submit`
+* `@StyleRes theme: Int`, resource of a theme overlay that will be applied to
+the View. Example argument: `R.style.AppTheme_AppBarOverlay`
+* `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
+
+The first overload of `v` takes a required first parameter that is a function
+taking a `Context`, and returning a `View`. Since constructors are also
+methods in Kotlin, you can directly use a method reference like so:
+`v(::View)`.
+The same goes for any other `View` subclass (e.g. `v(::FrameLayout)`).
+You can also use a lambda instead: `v({ FrameLayout(it) })`. In fact, that's
+how you should do it while autocomplete for method references is not optimal,
+then use the IDE quick action (<kbd>alt</kbd>/<kbd>⌥ option</kbd> + <kbd>⏎ enter</kbd>)
+to convert it to method reference.
+You can of course use any custom method reference that is not a reference to
+a constructor as long as that method takes a `Context` parameter and returns a
+`View` or any subclass of it.
+Here's a simple but typical example:
+```kotlin
+val myView: MyCustomView = v(::MyCustomView, R.id.my_view) {
+    backgroundColor = Color.BLACK
+}
+```
+
+The second overload of `v` takes no required parameter, but relies on explicit
+(reified) type parameter to work properly. Just `v<TextView>()` is enough to
+instantiate a `TextView`. However, this version relies on a "view factory" that
+can automatically provide subclasses of the requested type as necessary. If
+you use the View DSL AppCompat, you'll automatically receive instances of
+`AppCompatButton` with `v<Button>` thanks to the underlying View factory.
+An extra optional parameter `style: Style<V>` allows you to provide a style for
+the View, that will be applied before the `initView` lambda is executed (if any).
+Note that a style is just a function that can be applied to the created view.
+Some are provided by a few of the [additional modules](#additional-modules),
+but creating your own is also possible, and easy.
+Here's a simple example:
+```kotlin
+val submitBtn = v<Button>(R.id.btn_submit) {
+    textResource = R.string.submit
+}
+```
 
 #### `styledV`, the generic way, which supports xml defined styles
 **TK:** Don't be too lengthy explaining how it works.
