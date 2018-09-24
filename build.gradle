@@ -40,7 +40,7 @@ allprojects {
         jcenter()
     }
     ext {
-        projectBuildTools_version = '28.0.2'
+        projectBuildTools_version = '28.0.3'
         projectSdk_version = 27
 
         // Libraries
