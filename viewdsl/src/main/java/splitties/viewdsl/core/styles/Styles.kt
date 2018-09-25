@@ -13,10 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core
+package splitties.viewdsl.core.styles
 
 import android.view.View
+import splitties.viewdsl.core.Style
 
-interface Style<in V : View> {
-    fun V.applyStyle()
+@Suppress("NOTHING_TO_INLINE")
+inline fun <V: View> V.apply(style: Style<V>): V {
+    with(style) {
+        applyStyle()
+    }
+    return this
 }
