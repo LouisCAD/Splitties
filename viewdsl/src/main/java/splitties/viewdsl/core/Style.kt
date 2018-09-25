@@ -13,27 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.core.experimental.styles
+package splitties.viewdsl.core
 
-import android.content.Context
 import android.view.View
-import splitties.viewdsl.core.ViewFactory
-import splitties.viewdsl.core.experimental.ViewInstantiator
 
-interface Style<in V : View>
-
-interface MutatingStyle<V : View> : Style<V> {
+interface Style<in V : View> {
     fun V.applyStyle()
 }
 
-/** These styles bypass all [ViewInstantiator]s installed in the [ViewFactory]. */
-interface InstantiatingStyle<V : View> : Style<V> {
-    fun instantiateStyledView(context: Context): V
-}
-
 @Suppress("NOTHING_TO_INLINE")
-inline fun <V: View> V.apply(mutatingStyle: MutatingStyle<V>) {
-    with(mutatingStyle) {
+inline fun <V: View> V.apply(style: Style<V>): V {
+    with(style) {
         applyStyle()
     }
+    return this
 }

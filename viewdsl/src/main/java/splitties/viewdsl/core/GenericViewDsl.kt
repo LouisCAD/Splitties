@@ -21,7 +21,6 @@ import android.content.ContextWrapper
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.view.View
-import splitties.viewdsl.core.experimental.styles.Style
 
 private const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
 val Context.viewFactory: ViewFactory
@@ -29,7 +28,7 @@ val Context.viewFactory: ViewFactory
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
 
 fun Context.withViewFactory(viewFactory: ViewFactory) = object : ContextWrapper(this) {
-    override fun getSystemService(name: String): Any? = when(name) {
+    override fun getSystemService(name: String): Any? = when (name) {
         VIEW_FACTORY -> viewFactory
         else -> super.getSystemService(name)
     }
@@ -40,7 +39,10 @@ inline fun <reified V : View> Context.v(
         @StyleRes theme: Int = NO_THEME,
         style: Style<V>? = null,
         initView: V.() -> Unit = {}
-): V = viewFactory(V::class.java, wrapCtxIfNeeded(theme), style).also { it.id = id }.apply(initView)
+): V = viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
+    it.id = id
+    style?.run { it.applyStyle() }
+}.apply(initView)
 
 inline fun <reified V : View> View.v(
         @IdRes id: Int = View.NO_ID,

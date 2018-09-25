@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.appcompat.styles.experimental
+package splitties.viewdsl.appcompat.styles
 
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
@@ -23,17 +23,16 @@ import android.support.annotation.RequiresApi
 import android.widget.Button
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
-import splitties.viewdsl.appcompat.styles.R
-import splitties.viewdsl.core.experimental.styles.MutatingStyle
+import splitties.viewdsl.core.Style
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityCenterVertical
 import splitties.views.textAppearance
 
-object ButtonStyle : MutatingStyle<Button> {
-    inline val colored: MutatingStyle<Button> get() = Colored
-    inline val flat: MutatingStyle<Button> get() = Borderless
-    inline val flatColored: MutatingStyle<Button> get() = BorderlessColored
-    inline val alertDialogButtonBar: MutatingStyle<Button> get() = ButtonBarAlertDialog
+object ButtonStyle : Style<Button> {
+    inline val colored: Style<Button> get() = Colored
+    inline val flat: Style<Button> get() = Borderless
+    inline val flatColored: Style<Button> get() = BorderlessColored
+    inline val alertDialogButtonBar: Style<Button> get() = ButtonBarAlertDialog
 
     @RequiresApi(LOLLIPOP) private var buttonStateListAnimMaterialResId = 0
 
@@ -64,7 +63,7 @@ object ButtonStyle : MutatingStyle<Button> {
 }
 
 @PublishedApi
-internal object Colored : MutatingStyle<Button> {
+internal object Colored : Style<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button_Colored // is the cloned theme for reference
@@ -75,7 +74,7 @@ internal object Colored : MutatingStyle<Button> {
 }
 
 @PublishedApi
-internal object Borderless : MutatingStyle<Button> {
+internal object Borderless : Style<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button_Borderless // is the cloned theme for reference
@@ -87,7 +86,7 @@ internal object Borderless : MutatingStyle<Button> {
 }
 
 @PublishedApi
-internal object BorderlessColored : MutatingStyle<Button> {
+internal object BorderlessColored : Style<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button_Borderless_Colored // is the cloned theme for reference
@@ -98,7 +97,7 @@ internal object BorderlessColored : MutatingStyle<Button> {
 }
 
 @PublishedApi
-internal object ButtonBarAlertDialog : MutatingStyle<Button> {
+internal object ButtonBarAlertDialog : Style<Button> {
     @SuppressLint("PrivateResource")
     override fun Button.applyStyle() {
         R.style.Widget_AppCompat_Button_ButtonBar_AlertDialog // is the cloned theme for reference
