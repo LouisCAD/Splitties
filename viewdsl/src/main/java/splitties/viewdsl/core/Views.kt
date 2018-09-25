@@ -32,7 +32,6 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
-import splitties.viewdsl.core.experimental.styles.Style
 
 // TextView
 

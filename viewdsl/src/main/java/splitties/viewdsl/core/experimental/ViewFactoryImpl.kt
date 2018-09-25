@@ -35,12 +35,9 @@ import android.widget.TextView
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
 import splitties.viewdsl.core.ViewFactory
-import splitties.viewdsl.core.experimental.styles.InstantiatingStyle
-import splitties.viewdsl.core.experimental.styles.MutatingStyle
-import splitties.viewdsl.core.experimental.styles.Style
 import java.lang.reflect.Constructor
 
-typealias ViewInstantiator = (Class<out View>, Context, Style<View>?) -> View?
+typealias ViewInstantiator = (Class<out View>, Context) -> View?
 typealias ThemeAttrStyledViewInstantiator = (Class<out View>, Context, Int) -> View?
 
 class ViewFactoryImpl : ViewFactory {
@@ -56,19 +53,13 @@ class ViewFactoryImpl : ViewFactory {
         themeAttrStyledViewInstantiators.add(factory)
     }
 
-    override operator fun <V : View> invoke(clazz: Class<out V>, context: Context, style: Style<V>?): V {
-        if (style is InstantiatingStyle) return style.instantiateStyledView(context)
+    override operator fun <V : View> invoke(clazz: Class<out V>, context: Context): V {
         viewInstantiators.forEachReversedByIndex { factory ->
             @Suppress("UNCHECKED_CAST")
-            factory(clazz, context, style as Style<View>?)?.let { view ->
+            factory(clazz, context)?.let { view ->
                 check(clazz.isInstance(view)) {
                     "Expected type $clazz but got ${view.javaClass}! Faulty factory: $factory"
                 }
-                @Suppress("UNCHECKED_CAST")
-                if (style is MutatingStyle) with(style as MutatingStyle<V>) {
-                    (view as V).applyStyle()
-                }
-                @Suppress("UNCHECKED_CAST")
                 return view as V
             }
         }
@@ -100,8 +91,7 @@ class ViewFactoryImpl : ViewFactory {
 
 private inline fun <reified V : View> instantiateView(
         clazz: Class<out V>,
-        context: Context,
-        @Suppress("UNUSED_PARAMETER") style: Style<V>?
+        context: Context
 ): V? = when (clazz) {
     TextView::class.java -> TextView(context)
     Button::class.java -> Button(context)

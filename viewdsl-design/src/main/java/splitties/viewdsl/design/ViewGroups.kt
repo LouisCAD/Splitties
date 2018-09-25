@@ -23,8 +23,8 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
+import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.experimental.styles.Style
 import splitties.viewdsl.core.v
 
 // CoordinatorLayout

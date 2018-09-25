@@ -24,7 +24,7 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
-import splitties.viewdsl.appcompat.styles.experimental.ButtonStyle
+import splitties.viewdsl.appcompat.styles.ButtonStyle
 import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add

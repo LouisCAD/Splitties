@@ -21,8 +21,8 @@ import android.support.annotation.StyleRes
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
+import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.experimental.styles.Style
 import splitties.viewdsl.core.v
 
 // FloatingActionButton

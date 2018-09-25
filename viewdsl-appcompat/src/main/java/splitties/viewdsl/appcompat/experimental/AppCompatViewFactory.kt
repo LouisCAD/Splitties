@@ -45,7 +45,6 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
-import splitties.viewdsl.core.experimental.styles.Style
 
 /**
  * Matches [android.support.v7.app.AppCompatViewInflater.createView] content plus other AppCompat
@@ -53,8 +52,7 @@ import splitties.viewdsl.core.experimental.styles.Style
  */
 inline fun <reified V : View> instantiateAppCompatView(
         clazz: Class<out V>,
-        context: Context,
-        @Suppress("UNUSED_PARAMETER") style: Style<V>?
+        context: Context
 ): V? = when (clazz) {
     TextView::class.java -> AppCompatTextView(context)
     Button::class.java -> AppCompatButton(context)

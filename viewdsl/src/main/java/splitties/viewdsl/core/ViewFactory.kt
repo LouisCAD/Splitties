@@ -20,14 +20,13 @@ import android.support.annotation.AttrRes
 import android.util.AttributeSet
 import android.view.View
 import splitties.viewdsl.core.experimental.ViewFactoryImpl
-import splitties.viewdsl.core.experimental.styles.Style
 
 interface ViewFactory {
     companion object {
         val appInstance: ViewFactory = ViewFactoryImpl.appInstance
     }
 
-    operator fun <V : View> invoke(clazz: Class<out V>, context: Context, style: Style<V>?): V
+    operator fun <V : View> invoke(clazz: Class<out V>, context: Context): V
     fun <V : View> getThemeAttributeStyledView(
             clazz: Class<out V>,
             context: Context,
