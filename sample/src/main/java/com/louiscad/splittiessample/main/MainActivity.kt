@@ -25,6 +25,7 @@ import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
 import com.louiscad.splittiessample.extensions.VibrationEffect
+import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         ui.launchDemoBtn.onClick { start<DemoActivity>() }
         ui.fab.onClick {
-            launch {
+            coroutineScope.launch {
                 GamePreferences().edit {
                     currentLevel++
                     bossesFought++
