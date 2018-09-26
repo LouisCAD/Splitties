@@ -15,6 +15,7 @@
  */
 package splitties.preferences.experimental
 
+import android.content.SharedPreferences
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.withContext
@@ -23,6 +24,12 @@ import splitties.preferences.Preferences
 /**
  * **Requires** you have the following dependency in your project:
  * `org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0`
+ *
+ * This class is meant to be a subclass of the `companion object` of your [Preferences] subclass.
+ * It allows to always load the underlying [SharedPreferences] and its associated xml file off the
+ * main/UI thread using constructor like syntax.
+ *
+ * **IMPORTANT**: Make sure that your `Preferences` subclass constructor is private!
  */
 abstract class SuspendPrefsAccessor<out Prefs : Preferences>(prefsConstructorRef: () -> Prefs) {
     suspend operator fun invoke(): Prefs = if (prefDelegate.isInitialized()) {
