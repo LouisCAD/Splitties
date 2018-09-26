@@ -15,35 +15,19 @@
  */
 package splitties.preferences.experimental
 
-import android.os.AsyncTask
-import kotlinx.coroutines.experimental.CoroutineDispatcher
-import kotlinx.coroutines.experimental.asCoroutineDispatcher
+import kotlinx.coroutines.experimental.Dispatchers
+import kotlinx.coroutines.experimental.IO
 import kotlinx.coroutines.experimental.withContext
 import splitties.preferences.Preferences
-import splitties.uithread.isUiThread
 
 /**
  * **Requires** you have the following dependency in your project:
- * `org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5`
+ * `org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0`
  */
-abstract class SuspendPrefsAccessor<out Prefs : Preferences>(
-        private val initDispatcher: CoroutineDispatcher,
-        prefsConstructorRef: () -> Prefs
-) {
-    constructor(createPrefs: () -> Prefs) : this(
-            AsyncTask.THREAD_POOL_EXECUTOR.asCoroutineDispatcher(),
-            createPrefs
-    )
-
-    suspend operator fun invoke(): Prefs {
-        return if (prefDelegate.isInitialized()) prefs else withContext(initDispatcher) {
-            check(!isUiThread) {
-                "Instantiating SharedPreferences performs I/O, which is not allowed on UI thread."
-            }
-            prefs
-        }
-    }
+abstract class SuspendPrefsAccessor<out Prefs : Preferences>(prefsConstructorRef: () -> Prefs) {
+    suspend operator fun invoke(): Prefs = if (prefDelegate.isInitialized()) {
+        prefDelegate.value
+    } else withContext(Dispatchers.IO) { prefDelegate.value }
 
     private val prefDelegate = lazy(prefsConstructorRef)
-    private val prefs by prefDelegate
 }
