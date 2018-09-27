@@ -136,7 +136,8 @@ you use the View DSL AppCompat, you'll automatically receive instances of
 `AppCompatButton` with `v<Button>` thanks to the underlying View factory.
 An extra optional parameter `style: Style<V>` allows you to provide a style for
 the View, that will be applied before the `initView` lambda is executed (if any).
-Note that a style is just a function that can be applied to the created view.
+Note that the [`Style`](/src/main/java/splitties/viewdsl/core/Style.kt) interface
+has only one function that can be applied to the created view.
 Some are provided by a few of the [additional modules](#additional-modules),
 but creating your own is also possible, and easy.
 Here's a simple example:
@@ -147,7 +148,52 @@ val submitBtn = v<Button>(R.id.btn_submit) {
 ```
 
 #### `styledV`, the generic way, which supports xml defined styles
-**TK:** Don't be too lengthy explaining how it works.
+
+There are some times where you need to use an xml defined style,
+such as when using a style defined in AppCompat like `Widget.AppCompat.ActionButton`.
+
+While the most used styles such as AppCompat button styles have been ported to Kotlin
+in the [additional modules](#additional-modules) with
+[`Style`](/src/main/java/splitties/viewdsl/core/Style.kt) implementations,
+you may still need to use other styles, that are defined in xml.
+You could rewrite them in Kotlin, but since it can be a bit time consuming,
+we provided a way to use them with minimal code.
+
+`styledV` works exactly like the first `v` overload described above, but has an
+additional **required** parameter: `@AttrRes styleAttr: Int`. Also, its first
+parameter is optional as long as the type parameter is specified or inferred.
+When not explicitly referencing a constructor, the "view factory" mentioned
+above for the second `v` overload is used, with its benefits.
+
+As you can see, it doesn't expect a style resource (e.g.
+`R.style.Widget.AppCompat.ActionButton`), but a theme attribute resource (e.g.
+`R.attr.Widget.AppCompat.ActionButton`). This is because of a limitation in
+Android where you can programmatically only use xml styles that are inside a theme.
+That's doesn't mean that you will have to pollute all the themes you're using
+with styles definitions though.
+
+Android allows you to combine multiple themes with the `applyStyle(…)` method
+that you can call on any `theme`, which any `Context` has. That way, you can
+apply a theme that already includes references the xml styles you need with
+only one line of code (you can find some in the
+[additional modules](#additional-modules)).
+
+Here's a short example:
+```kotlin
+context.theme.applyStyle(R.style.AppCompatStyles_ActionButton, false)
+val clapButton = styledV<ImageButton>(styleAttr = R.attr.Widget_AppCompat_ActionButton) {
+    imageResource = R.drawable.ic_clap_white_24dp
+}
+```
+
+The first line makes sure the `theme` associated to the `context` can resolve all
+the style attributes defined into `R.style.AppCompatStyles_ActionButton`, such as
+`R.attr.Widget_AppCompat_ActionButton`.
+
+You can write your own theme + `attrs.xml` file that references your custom
+xml styles, or the ones that a library may provide to you. The convention
+is to use the name of the style as the name for the attr, so it's easy to
+see the relation without being confused.
 
 #### The most beautiful ways: explicitly named aliases to the generic way
 
