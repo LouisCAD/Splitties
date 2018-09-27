@@ -15,6 +15,31 @@
   ~ limitations under the License.
   -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+
+    <attr name="Widget.AppCompat.ActionMode" format="reference"/>
+    <attr name="Widget.AppCompat.ActivityChooserView" format="reference"/>
+    <attr name="Widget.AppCompat.AutoCompleteTextView" format="reference"/>
+    <attr name="Widget.AppCompat.DrawerArrowToggle" format="reference"/>
+    <attr name="Widget.AppCompat.DropDownItem.Spinner" format="reference"/>
+    <attr name="Widget.AppCompat.EditText" format="reference"/>
+    <attr name="Widget.AppCompat.ImageButton" format="reference"/>
+    <attr name="Widget.AppCompat.ListMenuView" format="reference"/>
+    <attr name="Widget.AppCompat.ListPopupWindow" format="reference"/>
+    <attr name="Widget.AppCompat.PopupMenu" format="reference"/>
+    <attr name="Widget.AppCompat.PopupMenu.Overflow" format="reference"/>
+    <attr name="Widget.AppCompat.PopupWindow" format="reference"/>
+    <attr name="Widget.AppCompat.TextView.SpinnerItem" format="reference"/>
+
+    <attr name="Widget.AppCompat.ActionBar" format="reference"/>
+    <attr name="Widget.AppCompat.ActionBar.Solid" format="reference"/>
+    <attr name="Widget.AppCompat.ActionBar.TabBar" format="reference"/>
+    <attr name="Widget.AppCompat.ActionBar.TabText" format="reference"/>
+    <attr name="Widget.AppCompat.ActionBar.TabView" format="reference"/>
+
+    <attr name="Widget.AppCompat.ActionButton" format="reference"/>
+    <attr name="Widget.AppCompat.ActionButton.CloseMode" format="reference"/>
+    <attr name="Widget.AppCompat.ActionButton.Overflow" format="reference"/>
+
     <attr name="Widget.AppCompat.Button" format="reference"/>
     <attr name="Widget.AppCompat.Button.Borderless" format="reference"/>
     <attr name="Widget.AppCompat.Button.Borderless.Colored" format="reference"/>
@@ -23,4 +48,58 @@
     <attr name="Widget.AppCompat.Button.Small" format="reference"/>
     <attr name="Widget.AppCompat.ButtonBar" format="reference"/>
     <attr name="Widget.AppCompat.ButtonBar.AlertDialog" format="reference"/>
+
+    <attr name="Widget.AppCompat.CompoundButton.CheckBox" format="reference"/>
+    <attr name="Widget.AppCompat.CompoundButton.RadioButton" format="reference"/>
+    <attr name="Widget.AppCompat.CompoundButton.Switch" format="reference"/>
+
+    <attr name="Widget.AppCompat.Light.ActionMode.Inverse" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActivityChooserView" format="reference"/>
+    <attr name="Widget.AppCompat.Light.AutoCompleteTextView" format="reference"/>
+    <attr name="Widget.AppCompat.Light.DropDownItem.Spinner" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ListPopupWindow" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ListView.DropDown" format="reference"/>
+    <attr name="Widget.AppCompat.Light.PopupMenu" format="reference"/>
+    <attr name="Widget.AppCompat.Light.PopupMenu.Overflow" format="reference"/>
+    <attr name="Widget.AppCompat.Light.SearchView" format="reference"/>
+    <attr name="Widget.AppCompat.Light.Spinner.DropDown.ActionBar" format="reference"/>
+
+    <attr name="Widget.AppCompat.Light.ActionBar" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.Solid" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.Solid.Inverse" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabBar" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabBar.Inverse" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabText" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabText.Inverse" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabView" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionBar.TabView.Inverse" format="reference"/>
+
+    <attr name="Widget.AppCompat.Light.ActionButton" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionButton.CloseMode" format="reference"/>
+    <attr name="Widget.AppCompat.Light.ActionButton.Overflow" format="reference"/>
+
+    <attr name="Widget.AppCompat.ListView" format="reference"/>
+    <attr name="Widget.AppCompat.ListView.DropDown" format="reference"/>
+    <attr name="Widget.AppCompat.ListView.Menu" format="reference"/>
+
+    <attr name="Widget.AppCompat.ProgressBar" format="reference"/>
+    <attr name="Widget.AppCompat.ProgressBar.Horizontal" format="reference"/>
+
+    <attr name="Widget.AppCompat.RatingBar" format="reference"/>
+    <attr name="Widget.AppCompat.RatingBar.Indicator" format="reference"/>
+    <attr name="Widget.AppCompat.RatingBar.Small" format="reference"/>
+
+    <attr name="Widget.AppCompat.SearchView" format="reference"/>
+    <attr name="Widget.AppCompat.SearchView.ActionBar" format="reference"/>
+
+    <attr name="Widget.AppCompat.SeekBar" format="reference"/>
+    <attr name="Widget.AppCompat.SeekBar.Discrete" format="reference"/>
+
+    <attr name="Widget.AppCompat.Spinner" format="reference"/>
+    <attr name="Widget.AppCompat.Spinner.DropDown" format="reference"/>
+    <attr name="Widget.AppCompat.Spinner.DropDown.ActionBar" format="reference"/>
+    <attr name="Widget.AppCompat.Spinner.Underlined" format="reference"/>
+
+    <attr name="Widget.AppCompat.Toolbar" format="reference"/>
+    <attr name="Widget.AppCompat.Toolbar.Button.Navigation" format="reference"/>
 </resources>
