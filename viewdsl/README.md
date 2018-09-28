@@ -200,7 +200,7 @@ see the relation without being confused.
 Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can use
 `button(…) { … }`. The parameters are exactly the same as `v`.
 
-Such methods exist for most `View` and `ViewGroup`s included in Android, and
+Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
 
 You can see implementations for [Views](src/main/java/splitties/viewdsl/core/Views.kt)
