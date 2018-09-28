@@ -197,7 +197,21 @@ see the relation without being confused.
 
 #### The most beautiful ways: explicitly named aliases to the generic way
 
-**TK:** frameLayout, textView, button, horizontalLayout, etc.
+Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can use
+`button(…) { … }`. The parameters are exactly the same as `v`.
+
+Such methods exist for most `View` and `ViewGroup`s included in Android, and
+there's more in the [additional modules](#additional-modules).
+
+You can see implementations for [Views](src/main/java/splitties/viewdsl/core/Views.kt)
+and [ViewGroups](src/main/java/splitties/viewdsl/core/ViewsGroups.kt).
+
+These methods are a bit more natural to read and to write, but they are really
+just **inline** aliases, purely syntactic sugar.
+
+You can define your own if you want. Just make sure to write it first for
+`Context` and add two overloads for `View` and `Ui` that delegate to the
+one for `Context`. Also, remember to make them inline to avoid lambda allocation.
 
 #### View extensions
 
