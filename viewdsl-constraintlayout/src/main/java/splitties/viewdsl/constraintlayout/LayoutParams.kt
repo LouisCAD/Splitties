@@ -67,9 +67,8 @@ inline fun LP.rightOfParent() {
 }
 
 @PublishedApi internal val View.existingOrNewId: Int
-    get() {
-        val currentId = id
-        return if (currentId == View.NO_ID) assignAndGetGeneratedId() else currentId
+    get() =  id.let { currentId ->
+        if (currentId == View.NO_ID) assignAndGetGeneratedId() else currentId
     }
 
 inline fun LP.centerOn(view: View) {
