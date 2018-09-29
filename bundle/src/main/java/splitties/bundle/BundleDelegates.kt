@@ -19,7 +19,7 @@ package splitties.bundle
 
 import android.os.Bundle
 import splitties.exceptions.illegal
-import splitties.uithread.isUiThread
+import splitties.mainthread.isMainThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -43,7 +43,7 @@ fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T?> 
 }
 
 private val BundleSpec.bundle: Bundle
-    get() = (if (isUiThread) currentBundle else bundleByThread.get())
+    get() = (if (isMainThread) currentBundle else bundleByThread.get())
             ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
 
 private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {

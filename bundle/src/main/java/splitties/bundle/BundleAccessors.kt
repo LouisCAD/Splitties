@@ -18,7 +18,7 @@ package splitties.bundle
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import splitties.uithread.isUiThread
+import splitties.mainthread.isMainThread
 import kotlin.DeprecationLevel.ERROR
 
 @Deprecated("Name changed.", ReplaceWith("BundleSpec", "splitties.bundle.BundleSpec"), ERROR)
@@ -47,9 +47,9 @@ inline fun <Spec : BundleSpec, R> Bundle.with(
 }
 
 @PublishedApi internal fun Bundle.putIn(spec: BundleSpec) {
-    if (isUiThread) spec.currentBundle = this else spec.bundleByThread.set(this)
+    if (isMainThread) spec.currentBundle = this else spec.bundleByThread.set(this)
 }
 
 @PublishedApi internal fun removeBundleFrom(spec: BundleSpec) {
-    if (isUiThread) spec.currentBundle = null else spec.bundleByThread.remove()
+    if (isMainThread) spec.currentBundle = null else spec.bundleByThread.remove()
 }

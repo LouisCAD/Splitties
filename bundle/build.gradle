@@ -39,7 +39,7 @@ android {
 
 dependencies {
     api project(':exceptions')
-    api project(':uithread')
+    api project(':mainthread')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"

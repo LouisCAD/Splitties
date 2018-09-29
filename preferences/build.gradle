@@ -40,7 +40,7 @@ android {
 
 dependencies {
     api project(':appctx')
-    api project(':uithread')
+    api project(':mainthread')
 
     // Kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

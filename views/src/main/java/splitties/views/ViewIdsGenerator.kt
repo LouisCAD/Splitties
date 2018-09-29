@@ -17,7 +17,7 @@ package splitties.views
 
 import android.os.Build.VERSION.SDK_INT
 import android.view.View
-import splitties.uithread.isUiThread
+import splitties.mainthread.isMainThread
 import java.util.concurrent.atomic.AtomicInteger
 
 fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
@@ -32,8 +32,8 @@ fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
  */
 @Suppress("NOTHING_TO_INLINE") // Used only once in this file.
 private inline fun generateViewId(): Int = when {
-    isUiThread -> uiThreadLastGeneratedId.also {
-        uiThreadLastGeneratedId = (if (it == 1) aaptIdsStart else it) - 1
+    isMainThread -> mainThreadLastGeneratedId.also {
+        mainThreadLastGeneratedId = (if (it == 1) aaptIdsStart else it) - 1
     }
     SDK_INT >= 17 -> View.generateViewId()
     else -> generatedViewIdCompat()
@@ -41,7 +41,7 @@ private inline fun generateViewId(): Int = when {
 
 /** aapt-generated IDs have the high byte nonzero. Clamp to the range under that. */
 private const val aaptIdsStart = 0x00FFFFFF
-private var uiThreadLastGeneratedId = aaptIdsStart - 1
+private var mainThreadLastGeneratedId = aaptIdsStart - 1
 
 private val nextGeneratedId = AtomicInteger(1)
 private fun generatedViewIdCompat(): Int {

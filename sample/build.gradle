@@ -78,7 +78,7 @@ dependencies {
     implementation project(':systemservices')
     implementation project(':toast')
     implementation project(':typesaferecyclerview')
-    implementation project(':uithread')
+    implementation project(':mainthread')
     implementation project(':viewdsl-appcompat-styles')
     implementation project(':viewdsl-constraintlayout')
     implementation project(':viewdsl-design')

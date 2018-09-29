@@ -67,8 +67,7 @@ builds, without writing any code!
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
 - **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
 easy basic usage of `RecyclerView`.
-- **[UI Thread:](uithread)** Properties related to Android UI thread, and `checkUiThread()`
-precondition checker.
+- **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
 - **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
 - **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl).
 - **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for
@@ -126,6 +125,7 @@ implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version
 implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
 implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
 implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
+implementation "com.louiscad.splitties:splitties-mainthread:$splitties_version"
 implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
 implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
 implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
@@ -138,7 +138,6 @@ debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_ver
 implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
 implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
 implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"

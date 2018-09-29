@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    api project(':uithread')
+    api project(':mainthread')
     api project(':exceptions')
 
     // Kotlin
