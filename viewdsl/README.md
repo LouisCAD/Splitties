@@ -215,14 +215,22 @@ one for `Context`. Also, remember to make them inline to avoid lambda allocation
 
 #### View extensions
 
-**TK:** Talk about Views split and what can be added.
+For even more expressive UI code, Splitties View DSL has a transitive dependency on
+the [Views split](../views) that provides a useful set of Kotlin-friendly extension
+functions and properties dedicated to `View`s and some of their subclasses.
 
 ### Laying out the views
 
 #### `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
 
-**TK:** Explain it's to prevent repeating the word again and again when it's already obvious you're adding a view,
-and add it is inline.
+To add a `View` to a `ViewGroup` in code, you can use `View.addView(…)`. However,
+this can become quite redundant to have `View` repeated over and over when it's
+already obvious that you are in a UI centric class that passes a parameter that is
+clearly a `View`.
+
+That's why this split has an **inline** alias to it named just `add(…)` for `ViewGroup`.
+It has the extra benefit of returning the passed `View`, which can be handy in some
+situations.
 
 #### The `lParams` extension functions
 
