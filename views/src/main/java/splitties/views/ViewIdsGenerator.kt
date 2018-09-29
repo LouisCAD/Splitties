@@ -20,6 +20,16 @@ import android.view.View
 import splitties.mainthread.isMainThread
 import java.util.concurrent.atomic.AtomicInteger
 
+/**
+ * 1. Generates a View id that doesn't collide with AAPT generated ones (`R.id.xxx`),
+ * more efficiently than [View.generateViewId] if called on the main thread.
+ * 2. Assigns it to the View.
+ * 3. Disables instance state saving for increased efficiency.
+ * as state can't be restored to a view that has its id changing across Activity restarts.
+ * 4. Returns the generated id.
+ *
+ * Note that unlike [View.generateViewId], this method is backwards compatible, below API 17.
+ */
 fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
     id = generatedId
     isSaveEnabled = false // New id will be generated, so can't restore saved state.
@@ -33,6 +43,7 @@ fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
 @Suppress("NOTHING_TO_INLINE") // Used only once in this file.
 private inline fun generateViewId(): Int = when {
     isMainThread -> mainThreadLastGeneratedId.also {
+        // Decrement here to avoid any collision with other generated ids which are incremented.
         mainThreadLastGeneratedId = (if (it == 1) aaptIdsStart else it) - 1
     }
     SDK_INT >= 17 -> View.generateViewId()
