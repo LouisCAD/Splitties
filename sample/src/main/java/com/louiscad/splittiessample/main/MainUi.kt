@@ -19,12 +19,12 @@ package com.louiscad.splittiessample.main
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
 import android.support.v7.app.AppCompatActivity
+import android.widget.Button
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
-import splitties.viewdsl.appcompat.styles.ButtonStyle
 import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
@@ -32,6 +32,7 @@ import splitties.viewdsl.core.button
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
+import splitties.viewdsl.core.styledV
 import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
@@ -55,7 +56,11 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn = button(style = ButtonStyle.colored) {
+    init {
+        ctx.theme.applyStyle(R.style.AppCompatStyles_Button, false)
+    }
+
+    val launchDemoBtn = styledV<Button>(styleAttr = R.attr.Widget_AppCompat_Button_Borderless_Colored) {
         textResource = R.string.go_to_the_demo
     }
     val toggleNightModeBtn = button {
