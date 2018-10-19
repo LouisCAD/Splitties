@@ -234,6 +234,26 @@ situations.
 
 #### The `lParams` extension functions
 
+The `ViewGroup.add(…)` functions requires an instance of `ViewGroup.LayoutParams`,
+but creating them at hand would be cumbersome.
+
+Splitties provides several methods named `lParams(…) { … }` for the 2 Android's
+built-in `ViewGroup`s: `LinearLayout` and `FrameLayout`. You can find support
+for additional `ViewGroup`s in the [additional modules](#additional-modules).
+
+Here's the contract that every `lParams` function must respect:
+1. The receiver is the type of the target `ViewGroup` subclass.
+2. The function returns the `LayoutParams` for the target `ViewGroup`.
+3. The first parameter is `width` and defaults to `wrapContent`, unless otherwise noted.
+4. The second parameter is `height` and defaults to the same value as `width`.
+5. There may be additional parameters, with default values if possible.
+6. The last parameter is a lambda with `LayoutParams` as a receiver and is executed exactly once,
+last (i.e. after any logic that the `lParams` implementation may have).
+7. If the `lParams` function targets a `ViewGroup` that has a superclass that also has its own
+`LayoutParams`, and its own `lParams` function, it should be named `defaultLParams` instead to
+prevent any overload resolution ambiguity. A great example is `AppBarLayout` that is a child class
+of `LinearLayout` and has such extension functions for `LayoutParams`.
+
 **TK:** Add a beware section for missing imports that lead to wrong layout params type in nested
 ViewGroups of different types, and write advise explicitly to remember that fact.
 
