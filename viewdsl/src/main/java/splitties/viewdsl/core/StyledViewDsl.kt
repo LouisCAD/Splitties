@@ -43,7 +43,7 @@ inline fun <reified V : View> View.styledV(
 inline fun <reified V : View> Ui.styledV(
         createView: NewViewWithStyleAttrRef<V> = ctx.viewFactory::getThemeAttrStyledView,
         @AttrRes styleAttr: Int,
-        @IdRes id: Int = android.view.View.NO_ID,
+        @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.styledV(createView, styleAttr, id, theme, initView)
