@@ -380,10 +380,30 @@ their respective Activities [`MainActivity`](
 and [`DemoActivity`](
 ../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
 
-Note that you can preview `Ui` implementations in the IDE. [See the the
-View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
-
 ### Possibilities brought by the `Ui` interface
+
+#### IDE Preview
+
+You can preview `Ui` implementations in the IDE. [See the
+View DSL IDE preview split](../viewdsl-ide-preview/README.md).
+
+#### Easier multi form factors support
+
+#TK
+
+#### Multiplatform user interface contracts
+
+#TK
+
+#### Testing
+
+#TK
+
+#### Redesign
+
+#TK
+
+#### A/B Testing
 
 #TK
 
