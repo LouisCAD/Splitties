@@ -52,7 +52,7 @@ inline fun ConstraintLayout.horizontalChain(
             initParams(view)
             if (index == 0) {
                 initFirstViewParams()
-                verticalChainStyle = style
+                horizontalChainStyle = style
             } else {
                 startToEndOf(previousView)
                 if (alignVerticallyOnFirstView) alignVerticallyOn(previousView)
