@@ -30,13 +30,8 @@ import splitties.viewdsl.core.matchParent
 inline fun ConstraintLayout.lParams(
         width: Int = matchConstraints,
         height: Int = matchConstraints,
-        initParams: ConstraintLayout.LayoutParams.() -> Unit
-): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).also(initParams)
-
-inline fun ConstraintLayout.lParams(
-        width: Int = matchConstraints,
-        height: Int = matchConstraints
-): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height)
+        initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
+): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).apply(initParams)
 
 @PublishedApi internal fun ConstraintLayout.createConstraintLayoutParams(
         width: Int,

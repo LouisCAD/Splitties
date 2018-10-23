@@ -18,16 +18,7 @@
 
 package splitties.viewdsl.core
 
-import android.content.Context
 import android.widget.LinearLayout
-
-inline fun verticalLayout(ctx: Context) = LinearLayout(ctx).apply {
-    orientation = LinearLayout.VERTICAL
-}
-
-inline fun horizontalLayout(ctx: Context) = LinearLayout(ctx)
-
-// LayoutParams below
 
 inline fun LinearLayout.lParams(
         width: Int = wrapContent,

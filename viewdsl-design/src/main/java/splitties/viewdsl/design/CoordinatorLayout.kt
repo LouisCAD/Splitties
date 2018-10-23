@@ -30,19 +30,8 @@ inline fun CoordinatorLayout.defaultLParams(
         width: Int = wrapContent,
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY,
-        initParams: LP.() -> Unit
+        initParams: LP.() -> Unit = {}
 ) = LP(width, height).also { it.gravity = gravity }.apply(initParams)
-
-inline fun CoordinatorLayout.defaultLParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        gravity: Int = Gravity.NO_GRAVITY
-) = LP(width, height).also { it.gravity = gravity }
-
-inline fun CoordinatorLayout.defaultLParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent
-) = LP(width, height)
 
 inline fun CoordinatorLayout.appBarLParams(
         height: Int = wrapContent,
