@@ -64,7 +64,7 @@ probably already familiar to you._
 * [The extensions](#the-extensions)
   * [Creating and configuring views](#creating-and-configuring-views)
   * [Laying out the views](#laying-out-the-views)
-* [The `Ui` interface](#the-ui-interface)
+* [The interface for user interfaces, named `Ui`](#the-interface-for-user-interfaces-named-ui)
   * [Why this interface](#why-this-interface)
   * [What it is made of](#what-it-is-made-of)
   * [Implementing the interface](#implementing-the-ui-interface)
@@ -96,8 +96,9 @@ are made available for 3 receiver types: `Ui`, `View` and `Context`.
 With respect to efficiency, they are all **inline**. That means no unnecessary
 allocation that would slightly decrease performance otherwise.
 
-Both overloads allow the following **optional** parameters:
-* `@IdRes id: Int`, the id of the View. Example argument: `R.id.btn_submit`
+Both overloads allow the following 3 **optional** parameters:
+* `@IdRes id: Int`, the id of the View. Example argument: `R.id.input_name`, given
+you declared it in xml, [as done in the sample](../sample/src/main/res/values/view_ids.xml)
 * `@StyleRes theme: Int`, resource of a theme overlay that will be applied to
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
 * `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
@@ -227,20 +228,25 @@ That's why this split has an **inline** alias to it named just `add(…)` for `V
 It has the extra benefit of returning the passed `View`, which can be handy in some
 situations.
 
-#### The `lParams` extension functions
+The `ViewGroup.add(…)` function requires an instance of `ViewGroup.LayoutParams`,
+see how Splitties helps instantiating it with minimal, yet explicit code.
 
-The `ViewGroup.add(…)` functions requires an instance of `ViewGroup.LayoutParams`,
-but creating them at hand would be cumbersome.
+#### ViewGroups extension functions to instantiate LayoutParams
 
 Splitties provides several methods named `lParams(…) { … }` for the 2 Android's
 built-in `ViewGroup`s: `LinearLayout` and `FrameLayout`. You can find support
 for additional `ViewGroup`s in the [additional modules](#additional-modules).
 
-Here's the contract that every `lParams` function must respect:
+These methods make it easy to instantiate LayoutParams with typesafe and readable code (unlike xml).
+
+Here's the contract that every `lParams` or alike function must respect:
 1. The receiver is the type of the target `ViewGroup` subclass.
 2. The function returns the `LayoutParams` for the target `ViewGroup`.
 3. The first parameter is `width` and defaults to `wrapContent`, unless otherwise noted.
-4. The second parameter is `height` and defaults to the same value as `width`.
+4. The second parameter is `height` and defaults to the same value as `width`, unless otherwise
+noted.
+5. The `width` or `height` parameters may be missing in case they shall always have the same value
+for this target `ViewGroup` or for this function.
 5. There may be additional parameters, with default values if possible.
 6. The last parameter is a lambda with `LayoutParams` as a receiver and is executed exactly once,
 last (i.e. after any logic that the `lParams` implementation may have).
@@ -248,6 +254,9 @@ last (i.e. after any logic that the `lParams` implementation may have).
 `LayoutParams`, and its own `lParams` function, it should be named `defaultLParams` instead to
 prevent any overload resolution ambiguity. A great example is `AppBarLayout` that is a child class
 of `LinearLayout` and has such extension functions for `LayoutParams`.
+8. In case the function is specialized for non default use case (e.g. adding an `AppBarLayout` into
+a `CoordinatorLayout`), it can have a custom name, but should always end with `LParams` (e.g.
+`appBarLParams`).
 
 ##### **WARNING** regarding `lParams` and `defaultLParams` usage:
 
@@ -255,35 +264,26 @@ of `LinearLayout` and has such extension functions for `LayoutParams`.
 However, unless you prepend `lParams` or `defaultLParams` call with `this.`, the received is picked
 implicitly, and can be indirect, possibly causing the wrong `lParams` method to be used.
 
-Here's a short, example:
+Here's **a short, example**:
 
-You're in a `FrameLayout` (because you're writing a subclass of it, or because you're in a
-`frameLayout` lambda).
-You call `constraintLayout { ... }` and start adding views inside it, but when you call `lParams`,
+You're in a `FrameLayout` (because you're writing a subclass of it, or because of a lambda
+receiver, like inside `frameLayout { … }`).
+You call `constraintLayout { … }` and start adding views inside it, but when you call `lParams`,
 you may use the implementation for `FrameLayout`, and wonder why the
 `ConstraintLayout.LayoutParams` properties and extensions are not available.
+
 To highlight such errors, you can prepend `this.` to your suspicious `lParams` calls, and if they
 are in red, then you used the wrong one for the `ViewGroup` you're in. The IDE should quickly
-fix add the proper import at this point, and you can then safely remove the `this.` prefix.
+fix it, adding the proper import at this point.
+
+After this is done, you can then safely remove the `this.` prefix.
 
 To avoid this issue, you can be alert when you're typing/auto-completing `lParams` and
 `defaultLParams` and make sure that you're selecting the extension for the type of the `ViewGroup`
 you're in (direct parent of the child View you are adding).
 
-#### ViewGroup extensions
-
-**TK:** Talk about things like margin (common stuff), then about what can be added for more specific
-ViewGroups
+#### Other extensions for `ViewGroup`
  
-* The `add` extension function available on `ViewGroup` that does the same
-as `v`, but also requires a `ViewGroup.LayoutParams` (or subclass) parameter
-used to add the created View to the `ViewGroup`.
-* `lParams` extension function on `LinearLayout` and `FrameLayout` (
-[`ConstraintLayout`](../viewdsl-constraintlayout/README.md),
-and [Design Support Library ViewGroups](../viewdsl-design/README.md) have
-theirs too, and you can very easily make one for any other `ViewGroup`),
-which allows to easily set layout parameters that you can use in
-`add`, with type safety.
 * `wrapContent` and `matchParent` inline extensions properties on
 `ViewGroup` are convenience aliases to `ViewGroup.LayoutParams.WRAP_CONTENT`
 and `ViewGroup.LayoutParams.MATCH_PARENT`.
@@ -292,14 +292,21 @@ definition in layout parameters (`ViewGroup.MarginLayoutParams` which is the
 base of nearly all LayoutParams).
 * `startMargin` and `endMargin` which are compatible below API 17 (using LTR)
 and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
-* `verticalLayout` and `horizontalLayout` which return a `LinearLayout` with
-the orientation you expect to use with `v` or `add`.
 
-## The Ui interface
+## The interface for user interfaces, named `Ui`
 
 This section doesn't just writes so many words about how **the `Ui` interface
 has only 2 properties**. It explains why **it is useful**, how to **use it the right
-way**, and the **possibilities** it gives you.
+way**, and the **possibilities** it offers.
+
+FYI, the declaration of this interface looks like this:
+
+```kotlin
+interface Ui {
+    val ctx: Context
+    val root: View
+}
+```
 
 ### Why this interface
 
@@ -348,9 +355,10 @@ and `root` is therefore a `ViewGroup`).
 
 ### Using Ui implementations
 
-To use a `Ui` implementation from an Activity, just call `setContentView(ui)`.
-To use it from any other place, just get the `root` property. In a `Fragment`,
-that will mean returning it from `onCreateView(…)`.
+To use a `Ui` implementation from an `Activity` subclass, just call
+`setContentView(ui)`.
+To use it from any other place, just get the `root` property. In a `Fragment`
+subclass, that will mean returning it from `onCreateView(…)`.
 
 You can also use any function or property you've declared in your sub-interface
 or implementation.
@@ -360,6 +368,24 @@ Here are two examples:
 the place where the `Ui` is used (like an `Activity` or a `Fragment` that connects
 your UI to a `ViewModel` and any other components).
 * Call a method called `animateGoalReached()`.
+
+### Simple examples
+
+See concrete examples in [`MainUi`](
+../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt) and
+[`DemoUi`](
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt) with
+their respective Activities [`MainActivity`](
+../sample/src/main/java/com/louiscad/splittiessample/main/MainActivity.kt)
+and [`DemoActivity`](
+../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
+
+Note that you can preview `Ui` implementations in the IDE. [See the the
+View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
+
+### Possibilities brought by the `Ui` interface
+
+#TK
 
 ## Additional modules
 
@@ -376,145 +402,6 @@ views like `coloredFlatButton`.
 user interfaces right from the IDE.
 * [RecyclerView](../viewdsl-recyclerview) provides extensions to have
 scrollbars and proper `itemView` layout parameters.
-
-## Usage
-
-### Creating and adding Views
-
-Use `v(…) { … }` to create a `View` from a `Context`, a `View` or a `Ui`:
-
-```
-v(::YourView, id = R.id.id_of_your_view, theme = R.style.your_theme) {
-    // The created View is the receiver, configure it there.
-}
-```
-
-In the snippet above:
-* `::YourView` is a method reference that automatically
-maps to the `YourView` constructor with a single `Context` parameter. It is
-equivalent to the following inline lambda: `{ YourView(it) }` where `it` is
-a `Context`.
-* `id` is an optional parameter.
-* `R.id.id_of_your_view` would be declared in xml, [as done in the sample](
-../sample/src/main/res/values/view_ids.xml).
-* `theme` is an optional parameter.
-* The optional lambda has the created View as a receiver so you can
-configure it.
-
-Here's a more practical example below:
-
-```kotlin
-val headlineTextView = v(::textView, R.id.tv_headline) {
-    textResource = R.string.welcome_to_my_awesome_app
-    textAppearance = R.style.TextAppearance_AppCompat_Headline
-}
-```
-
-You may have noticed we are using the `textView` function here instead of
-the `TextView` constructor. `textView` is a method from the
-[View DSL AppCompat split](../viewdsl-appcompat) and calls the
-`AppCompatTextView` constructor, just like the layout inflater is doing
-with `TextView`s from xml layouts when using an AppCompat theme. It can be
-used here as a method reference too because its only parameter is of type
-`Context`.
-
-To create a `View` and add it directly to a `ViewGroup` with
-layout parameters, you can use the `add` extension function on `ViewGroup`
-instead of a combination of `v` and `ViewGroup`'s `addView` member method:
-
-```
-add(::YourView, id = R.id.id_of_your_view, theme = R.style.your_theme, lp = lParams()) {
-    // The created View is the receiver, configure it there.
-}
-```
-
-You can see the usage is the same as with `v`, excepted the additional,
-required `lp` parameter. This parameter is the `ViewGroup.LayoutParams`
-instance that is used to add the created `View` to the `ViewGroup` on which
-the `add` extension function is called.
-
-The snippet above assumes that the receiver (aka. `this`) is a `ViewGroup`
-subclass that has an `lParams` extension function to generate typesafe layout
-parameters. This
-[split](../README.md#what-is-a-split "What is a split in Splitties?")
-includes `lParams` extension functions for `FrameLayout` and `LinearLayout`.
-`ConstraintLayout` support can be found in the
-[View DSL ConstraintLayout split](../viewdsl-constraintlayout),
-and support for
-`CoordinatorLayout` and `AppBarLayout` can be found in the
-[View DSL Design split](../viewdsl-design). You can also write
-`lParams` extension functions yourself in a few lines for any other
-`ViewGroup` (take a look at the ones from this project if you need to write
-your own).
-
-Below is a more practical example:
-
-```kotlin
-val uiRoot = v(::FrameLayout) {
-    add(::textView, lParams(gravity = Gravity.CENTER)) {
-        textResource = R.string.welcome_to_my_awesome_app
-        textAppearance = R.style.TextAppearance_AppCompat_Headline
-    }
-}
-```
-
-The `uiRoot` property is a reference to a `FrameLayout` that has a `TextView`
-at its center.
-
-In the example above, if we needed to retain a reference to the `TextView`
-for later use, we would transform the code like this:
-
-```kotlin
-val headlineTextView = v(::textView)  {
-    textResource = R.string.welcome_to_my_awesome_app
-    textAppearance = R.style.TextAppearance_AppCompat_Headline
-}
-
-val uiRoot = v(::FrameLayout) {
-    add(headlineTextView, lParams(gravity = Gravity.CENTER))
-}
-```
-
-Note that in the snippet above, the called `add` extension function is just
-an alias to `addView` with exactly the same parameters. This alias exists so
-it matches the `add` extension function that takes a `View` initialization
-lambda.
-
-### Organizing code in `Ui` implementations
-
-When doing user interfaces with xml layouts, you usually put the static part
-of the UI in one xml file, that you use in an `Activity` or a `Fragment`,
-which includes the code for the dynamic part of the UI.
-
-Splitties View DSL offers another approach, where your UI code, both static
-and dynamic is in one file, that is not an `Activity` or a `Fragment`, so
-you can easily switch from one to another with minimal refactoring.
-
-It is based on the following interface named `Ui`:
-```kotlin
-interface Ui {
-    val ctx: Context
-    val root: View
-}
-```  
-Its `ctx` property is meant to be overriden as a constructor parameter in
-the implementations of the interface. Is is used by the `v` extension
-function to pass a `Context` when creating the `View`s.
- 
-Its `root` property is meant to be used in `setContentView(…)` in an
-`Activity` or returned from `onCreateView(…)` in a `Fragment`.
-
-See concrete examples in [`MainUi`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt) and
-[`DemoUi`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt) with
-their respective Activities [`MainActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainActivity.kt)
-and [`DemoActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
-
-Note that you can preview `Ui` implementations in the IDE. [See the the
-View DSL IDE preview split](../viewdsl-ide-preview/README.md). 
 
 ## Download
 
