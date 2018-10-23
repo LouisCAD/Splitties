@@ -52,7 +52,7 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
     }
     override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+        add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
             add(toolbar {
                 subtitle = txt(R.string.subtitle_items_count_hint)
                 popupTheme = R.style.AppTheme_PopupOverlay

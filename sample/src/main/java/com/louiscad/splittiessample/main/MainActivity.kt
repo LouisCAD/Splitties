@@ -31,6 +31,7 @@ import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
 import com.louiscad.splittiessample.extensions.vibrate
 import com.louiscad.splittiessample.prefs.GamePreferences
+import com.louiscad.splittiessample.sayhello.SayHelloActivity
 import kotlinx.coroutines.experimental.launch
 import splitties.activities.start
 import splitties.preferences.edit
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui)
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         ui.launchDemoBtn.onClick { start<DemoActivity>() }
+        ui.bePoliteBtn.onClick { start<SayHelloActivity>() }
         ui.fab.onClick {
             coroutineScope.launch {
                 GamePreferences().edit {

@@ -25,6 +25,7 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
+import splitties.viewdsl.appcompat.styles.ButtonStyle
 import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
@@ -39,6 +40,7 @@ import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
 import splitties.viewdsl.design.PIN
 import splitties.viewdsl.design.SCROLL
 import splitties.viewdsl.design.actionBarLParams
+import splitties.viewdsl.design.anchorTo
 import splitties.viewdsl.design.appBarLParams
 import splitties.viewdsl.design.appBarLayout
 import splitties.viewdsl.design.collapsingToolbarLayout
@@ -63,6 +65,9 @@ class MainUi(override val ctx: Context) : Ui {
     val launchDemoBtn = styledV<Button>(styleAttr = R.attr.Widget_AppCompat_Button_Borderless_Colored) {
         textResource = R.string.go_to_the_demo
     }
+    val bePoliteBtn = button(style = ButtonStyle.colored) {
+        textResource = R.string.be_polite
+    }
     val toggleNightModeBtn = button {
         compoundDrawablePadding = dip(4)
         if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
@@ -77,6 +82,10 @@ class MainUi(override val ctx: Context) : Ui {
             gravity = gravityCenterHorizontal
             topMargin = dip(8)
         })
+        add(bePoliteBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
+        })
         add(toggleNightModeBtn, lParams {
             gravity = gravityCenterHorizontal
             bottomMargin = dip(8)
@@ -87,24 +96,24 @@ class MainUi(override val ctx: Context) : Ui {
             margin = dimenPxSize(R.dimen.text_margin)
         })
     }.wrapInRecyclerView()
+    private val appBar = appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
+        add(collapsingToolbarLayout {
+            fitsSystemWindows = true
+            contentScrimColor = styledColor(R.attr.colorPrimary)
+            add(toolbar {
+                (ctx as? AppCompatActivity)?.setSupportActionBar(this)
+                popupTheme = R.style.AppTheme_PopupOverlay
+            }, actionBarLParams(collapseMode = PIN))
+        }, defaultLParams(height = matchParent) {
+            scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
+        })
+    }
     override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
-            add(collapsingToolbarLayout {
-                fitsSystemWindows = true
-                contentScrimColor = styledColor(R.attr.colorPrimary)
-                add(toolbar {
-                    (ctx as? AppCompatActivity)?.setSupportActionBar(this)
-                    popupTheme = R.style.AppTheme_PopupOverlay
-                }, actionBarLParams(collapseMode = PIN))
-            }, defaultLParams(height = matchParent) {
-                scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
-            })
-        }, appBarLParams(dip(180)))
+        add(appBar, appBarLParams(dip(180)))
         add(content, contentScrollingWithAppBarLParams())
         add(fab, defaultLParams {
-            anchorId = R.id.app_bar
-            anchorGravity = gravityEndBottom
+            anchorTo(appBar, gravity = gravityEndBottom)
             margin = dip(16)
         })
     }

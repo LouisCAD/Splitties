@@ -70,7 +70,7 @@ class AboutUi(override val ctx: Context) : Ui {
 
     override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(appBarLayout(R.id.app_bar, R.style.AppTheme_AppBarOverlay) {
+        add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
             add(toolbar {
                 popupTheme = R.style.AppTheme_PopupOverlay
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)

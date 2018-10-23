@@ -16,6 +16,6 @@
   -->
 
 <resources>
-    <item name="app_bar" type="id"/>
+    <item name="input_name" type="id"/>
     <item name="recycler_view" type="id"/>
 </resources>
