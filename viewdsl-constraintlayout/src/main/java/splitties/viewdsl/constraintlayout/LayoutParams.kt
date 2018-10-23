@@ -19,7 +19,7 @@
 package splitties.viewdsl.constraintlayout
 
 import android.view.View
-import splitties.views.assignAndGetGeneratedId
+import splitties.views.existingOrNewId
 import android.support.constraint.ConstraintLayout.LayoutParams as LP
 
 @Suppress("unused") inline val LP.parentId get() = LP.PARENT_ID
@@ -65,11 +65,6 @@ inline fun LP.leftOfParent() {
 inline fun LP.rightOfParent() {
     rightToRight = parentId
 }
-
-@PublishedApi internal val View.existingOrNewId: Int
-    get() =  id.let { currentId ->
-        if (currentId == View.NO_ID) assignAndGetGeneratedId() else currentId
-    }
 
 inline fun LP.centerOn(view: View) {
     val id = view.existingOrNewId

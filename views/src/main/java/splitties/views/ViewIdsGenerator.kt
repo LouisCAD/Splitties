@@ -36,6 +36,15 @@ fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
 }
 
 /**
+ * If this [View] has a valid id (different from 0/[View.NO_ID]), returns it.
+ * Otherwise, calls [assignAndGetGeneratedId], and returns the new assigned id.
+ */
+val View.existingOrNewId: Int
+    get() =  id.let { currentId ->
+        if (currentId == View.NO_ID) assignAndGetGeneratedId() else currentId
+    }
+
+/**
  * Generates a view id that doesn't clash with AAPT generated ids.
  * Specially optimized for usage on main thread to be synchronization free.
  * Backwards compatible below API 17.
