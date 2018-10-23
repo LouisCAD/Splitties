@@ -92,7 +92,7 @@ internal object BorderlessColored : Style<Button> {
         R.style.Widget_AppCompat_Button_Borderless_Colored // is the cloned theme for reference
         with(ButtonStyle) { applyCommonStyle(enableStateListAnimator = false) }
         setBackgroundResource(R.drawable.abc_btn_borderless_material)
-        textAppearance = R.style.TextAppearance_AppCompat_Widget_Button_Colored
+        textAppearance = R.style.TextAppearance_AppCompat_Widget_Button_Borderless_Colored
     }
 }
 
