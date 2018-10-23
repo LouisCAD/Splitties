@@ -266,7 +266,7 @@ To highlight such errors, you can prepend `this.` to your suspicious `lParams` c
 are in red, then you used the wrong one for the `ViewGroup` you're in. The IDE should quickly
 fix add the proper import at this point, and you can then safely remove the `this.` prefix.
 
-To avoid this issue, you can be alert when you're typing/autocompleting `lParams` and
+To avoid this issue, you can be alert when you're typing/auto-completing `lParams` and
 `defaultLParams` and make sure that you're selecting the extension for the type of the `ViewGroup`
 you're in (direct parent of the child View you are adding).
 
