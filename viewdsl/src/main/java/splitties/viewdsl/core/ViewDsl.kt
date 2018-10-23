@@ -52,14 +52,14 @@ inline fun <V : View> View.v(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-) = context.v(createView, id, theme, initView)
+): V = context.v(createView, id, theme, initView)
 
 inline fun <V : View> Ui.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = android.view.View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-) = ctx.v(createView, id, theme, initView)
+): V = ctx.v(createView, id, theme, initView)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

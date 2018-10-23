@@ -27,4 +27,4 @@ import android.widget.LinearLayout.LayoutParams as LP
 inline fun TextInputLayout.addInput(
         @IdRes id: Int,
         initView: TextInputEditText.() -> Unit = {}
-) = add(v(::TextInputEditText, id, initView = initView), LP(matchParent, wrapContent))
+): TextInputEditText = add(v(::TextInputEditText, id, initView = initView), LP(matchParent, wrapContent))

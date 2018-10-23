@@ -28,7 +28,7 @@ import splitties.viewdsl.core.Ui
 @Suppress("unused") // Scopes visibility of the function to where it's meant to be used.
 inline fun <V : View> Ui.bottomSheetBehavior(
         initBehavior: BottomSheetBehavior<V>.() -> Unit = {}
-) = BottomSheetBehavior<V>().apply(initBehavior)
+): BottomSheetBehavior<V> = BottomSheetBehavior<V>().apply(initBehavior)
 
 /**
  * Returns `false` if the associated bottom sheet was already expanded, returns `true` and expands

@@ -27,7 +27,7 @@ val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
 
-fun Context.withViewFactory(viewFactory: ViewFactory) = object : ContextWrapper(this) {
+fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : ContextWrapper(this) {
     override fun getSystemService(name: String): Any? = when (name) {
         VIEW_FACTORY -> viewFactory
         else -> super.getSystemService(name)
@@ -49,11 +49,11 @@ inline fun <reified V : View> View.v(
         @StyleRes theme: Int = NO_THEME,
         style: Style<V>? = null,
         initView: V.() -> Unit = {}
-) = context.v(id, theme, style, initView)
+): V = context.v(id, theme, style, initView)
 
 inline fun <reified V : View> Ui.v(
         @IdRes id: Int = android.view.View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         style: Style<V>? = null,
         initView: V.() -> Unit = {}
-) = ctx.v(id, theme, style, initView)
+): V = ctx.v(id, theme, style, initView)

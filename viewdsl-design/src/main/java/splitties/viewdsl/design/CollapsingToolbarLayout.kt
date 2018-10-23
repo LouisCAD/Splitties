@@ -31,7 +31,7 @@ inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
         initParams: LP.() -> Unit = {}
-) = LP(width, height).apply(initParams)
+): LP = LP(width, height).apply(initParams)
 
 inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
@@ -39,7 +39,7 @@ inline fun CollapsingToolbarLayout.defaultLParams(
         collapseMode: Int = LP.COLLAPSE_MODE_OFF,
         parallaxMultiplier: Float = 0.5f, // Default value as of 27.1.1
         initParams: LP.() -> Unit = {}
-) = LP(width, height).also {
+): LP = LP(width, height).also {
     it.collapseMode = collapseMode
     it.parallaxMultiplier = parallaxMultiplier
 }.apply(initParams)
@@ -47,7 +47,7 @@ inline fun CollapsingToolbarLayout.defaultLParams(
 inline fun CollapsingToolbarLayout.actionBarLParams(
         collapseMode: Int = LP.COLLAPSE_MODE_OFF,
         parallaxMultiplier: Float = 0.5f // Default value as of 27.1.1
-) = LP(matchParent, styledDimenPxSize(R.attr.actionBarSize)).also {
+): LP = LP(matchParent, styledDimenPxSize(R.attr.actionBarSize)).also {
     it.collapseMode = collapseMode
     it.parallaxMultiplier = parallaxMultiplier
 }

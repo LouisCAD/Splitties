@@ -31,4 +31,6 @@ inline fun FrameLayout.lParams(
         @SuppressLint("InlinedApi")
         gravity: Int = FrameLayout.LayoutParams.UNSPECIFIED_GRAVITY,
         initParams: FrameLayout.LayoutParams.() -> Unit = {}
-) = FrameLayout.LayoutParams(width, height).also { it.gravity = gravity }.apply(initParams)
+): FrameLayout.LayoutParams = FrameLayout.LayoutParams(width, height).also {
+    it.gravity = gravity
+}.apply(initParams)

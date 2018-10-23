@@ -28,16 +28,16 @@ inline fun CoordinatorLayout.defaultLParams(
         height: Int = wrapContent,
         gravity: Int = Gravity.NO_GRAVITY,
         initParams: LP.() -> Unit = {}
-) = LP(width, height).also { it.gravity = gravity }.apply(initParams)
+): LP = LP(width, height).also { it.gravity = gravity }.apply(initParams)
 
 inline fun CoordinatorLayout.appBarLParams(
         height: Int = wrapContent,
         initParams: LP.() -> Unit = {}
-) = defaultLParams(width = matchParent, height = height, initParams = initParams)
+): LP = defaultLParams(width = matchParent, height = height, initParams = initParams)
 
 fun CoordinatorLayout.contentScrollingWithAppBarLParams(
         initParams: LP.() -> Unit = {}
-) = defaultLParams(matchParent, matchParent) {
+): LP = defaultLParams(matchParent, matchParent) {
     behavior = AppBarLayout.ScrollingViewBehavior()
     initParams()
 }
