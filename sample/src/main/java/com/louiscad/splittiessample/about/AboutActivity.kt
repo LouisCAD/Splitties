@@ -18,16 +18,11 @@ package com.louiscad.splittiessample.about
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import splitties.viewdsl.core.setContentView
-import splitties.views.appcompat.configActionBar
-import splitties.views.appcompat.showHomeAsUp
 
 class AboutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(AboutUi(this))
-        configActionBar {
-            showHomeAsUp = true
-        }
     }
 }

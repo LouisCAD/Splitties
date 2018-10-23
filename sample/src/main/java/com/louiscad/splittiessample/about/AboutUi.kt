@@ -17,10 +17,9 @@
 package com.louiscad.splittiessample.about
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.dimensions.dip
-import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.constraintlayout.centerHorizontally
 import splitties.viewdsl.constraintlayout.constraintLayout
 import splitties.viewdsl.constraintlayout.lParams
@@ -30,11 +29,8 @@ import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.wrapContent
-import splitties.viewdsl.design.appBarLParams
-import splitties.viewdsl.design.appBarLayout
 import splitties.viewdsl.design.contentScrollingWithAppBarLParams
 import splitties.viewdsl.design.coordinatorLayout
-import splitties.viewdsl.design.defaultLParams
 import splitties.views.centerText
 import splitties.views.textAppearance
 import splitties.views.textResource
@@ -70,12 +66,7 @@ class AboutUi(override val ctx: Context) : Ui {
 
     override val root = coordinatorLayout {
         fitsSystemWindows = true
-        add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
-            add(toolbar {
-                popupTheme = R.style.AppTheme_PopupOverlay
-                (ctx as? AppCompatActivity)?.setSupportActionBar(this)
-            }, defaultLParams())
-        }, appBarLParams())
+        addDefaultAppBar(ctx)
         add(mainContent, contentScrollingWithAppBarLParams())
     }
 }
