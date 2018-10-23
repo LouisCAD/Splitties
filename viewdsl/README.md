@@ -79,16 +79,9 @@ views with minimal code but maximum flexibility.
 
 Just calling the constructor, then calling needed methods in an `apply { ... }`
 block could be enough to use Kotlin instead of xml for your user interfaces,
-but Splitties View DSL provides something more readable, more concise,
+but **Splitties View DSL allows something more readable**, more concise,
 and with a few features, like themes, styles, and seamless AppCompat
-support, without the boilerplate.
-
-**TK (for all docs of the project): take inspiration from kotlinx.coroutines guide and Android KTX comparison doc.
-kotlinx.coroutines is interesting because it show snippets after each concept to understand step by step.
-Android KTX is interesting because it's so concise and familiar to Android devs.**
-
-**TK:** Highlight the difference between the two signatures and the fact that they are both inlined.
-Also, talk about styles support.
+support, **without the boilerplate**.
 
 ### Creating and configuring views
 
@@ -97,8 +90,8 @@ Also, talk about styles support.
 The `v` extension functions are a primitive of Splitties View DSL.
 They are generic, so they allow you to instantiate a `View` of any type.
 
-There are 6 functions named `v`, because there's two overload types, and they
-are made available for `Ui`, `View` and `Context` receiver types.
+There are 6 functions named `v`, because there's **2 overload types**, and they
+are made available for 3 receiver types: `Ui`, `View` and `Context`.
 
 With respect to efficiency, they are all **inline**. That means no unnecessary
 allocation that would slightly decrease performance otherwise.
@@ -109,7 +102,7 @@ Both overloads allow the following **optional** parameters:
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
 * `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
 
-The first overload of `v` takes a required first parameter that is a function
+**The first overload** of `v` takes a required first parameter that is a function
 taking a `Context`, and returning a `View`. Since constructors are also
 methods in Kotlin, you can directly use a method reference like so:
 `v(::View)`.
@@ -121,14 +114,15 @@ to convert it to method reference.
 You can of course use any custom method reference that is not a reference to
 a constructor as long as that method takes a `Context` parameter and returns a
 `View` or any subclass of it.
-Here's a simple but typical example:
+
+Here's a simple but typical example of this first overload:
 ```kotlin
 val myView: MyCustomView = v(::MyCustomView, R.id.my_view) {
     backgroundColor = Color.BLACK
 }
 ```
 
-The second overload of `v` takes no required parameter, but relies on explicit
+**The second overload** of `v` takes no required parameter, but relies on explicit
 (reified) type parameter to work properly. Just `v<TextView>()` is enough to
 instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
@@ -140,7 +134,8 @@ Note that the [`Style`](/src/main/java/splitties/viewdsl/core/Style.kt) interfac
 has only one function that can be applied to the created view.
 Some are provided by a few of the [additional modules](#additional-modules),
 but creating your own is also possible, and easy.
-Here's a simple example:
+
+Here's a simple example of this second overload:
 ```kotlin
 val submitBtn = v<Button>(R.id.btn_submit) {
     textResource = R.string.submit
@@ -254,8 +249,26 @@ last (i.e. after any logic that the `lParams` implementation may have).
 prevent any overload resolution ambiguity. A great example is `AppBarLayout` that is a child class
 of `LinearLayout` and has such extension functions for `LayoutParams`.
 
-**TK:** Add a beware section for missing imports that lead to wrong layout params type in nested
-ViewGroups of different types, and write advise explicitly to remember that fact.
+##### **WARNING** regarding `lParams` and `defaultLParams` usage:
+
+`lParams` and similar functions are resolved based on the type of their receiver.
+However, unless you prepend `lParams` or `defaultLParams` call with `this.`, the received is picked
+implicitly, and can be indirect, possibly causing the wrong `lParams` method to be used.
+
+Here's a short, example:
+
+You're in a `FrameLayout` (because you're writing a subclass of it, or because you're in a
+`frameLayout` lambda).
+You call `constraintLayout { ... }` and start adding views inside it, but when you call `lParams`,
+you may use the implementation for `FrameLayout`, and wonder why the
+`ConstraintLayout.LayoutParams` properties and extensions are not available.
+To highlight such errors, you can prepend `this.` to your suspicious `lParams` calls, and if they
+are in red, then you used the wrong one for the `ViewGroup` you're in. The IDE should quickly
+fix add the proper import at this point, and you can then safely remove the `this.` prefix.
+
+To avoid this issue, you can be alert when you're typing/autocompleting `lParams` and
+`defaultLParams` and make sure that you're selecting the extension for the type of the `ViewGroup`
+you're in (direct parent of the child View you are adding).
 
 #### ViewGroup extensions
 
