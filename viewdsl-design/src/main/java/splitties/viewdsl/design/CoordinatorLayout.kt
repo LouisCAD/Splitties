@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE")
-
 package splitties.viewdsl.design
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.Gravity
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.wrapContent
 import android.support.design.widget.CoordinatorLayout.LayoutParams as LP
@@ -39,8 +36,9 @@ inline fun CoordinatorLayout.appBarLParams(
 ) = defaultLParams(width = matchParent, height = height, initParams = initParams)
 
 @Suppress("unused")
-fun CoordinatorLayout.contentScrollingWithAppBarLParams() = scrollingContentLParams
-
-private val scrollingContentLParams = LP(MATCH_PARENT, MATCH_PARENT).also {
-    it.behavior = AppBarLayout.ScrollingViewBehavior()
+fun CoordinatorLayout.contentScrollingWithAppBarLParams(
+        initParams: LP.() -> Unit = {}
+) = defaultLParams(matchParent, matchParent) {
+    behavior = AppBarLayout.ScrollingViewBehavior()
+    initParams()
 }
