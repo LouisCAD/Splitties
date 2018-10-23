@@ -35,7 +35,6 @@ inline fun CoordinatorLayout.appBarLParams(
         initParams: LP.() -> Unit = {}
 ) = defaultLParams(width = matchParent, height = height, initParams = initParams)
 
-@Suppress("unused")
 fun CoordinatorLayout.contentScrollingWithAppBarLParams(
         initParams: LP.() -> Unit = {}
 ) = defaultLParams(matchParent, matchParent) {
