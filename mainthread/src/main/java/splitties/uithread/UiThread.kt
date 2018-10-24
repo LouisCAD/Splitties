@@ -19,8 +19,8 @@ import splitties.mainthread.checkMainThread
 import splitties.mainthread.isMainThread
 import splitties.mainthread.mainThread
 
-private const val UI_THREAD_NAMING_DEPRECATION_MESSAGE = "Although the UI thread is the" +
-        "main thread by default, this is not always the case. Prefer referring to the main" +
+private const val UI_THREAD_NAMING_DEPRECATION_MESSAGE = "Although the UI thread is the " +
+        "main thread by default, this is not always the case. Prefer referring to the main " +
         "thread instead."
 
 @Deprecated(UI_THREAD_NAMING_DEPRECATION_MESSAGE,
