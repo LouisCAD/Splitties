@@ -387,13 +387,77 @@ and [`DemoActivity`](
 You can preview `Ui` implementations in the IDE. [See the
 View DSL IDE preview split](../viewdsl-ide-preview/README.md).
 
+#### Modular user interface contracts
+
+While having a dedicated class for user interface, that is agnostic
+from where it will be used (Activity, Fragment, IDE Preview…), is a
+great first step to a modular user interface code, you can go further.
+
+Instead of exposing your `Ui` implementation directly to the Activity or
+Fragment, you can decide to write several interfaces that define a contract
+that your Activity, Fragment, ViewModel (beware of leaks), or whatever will
+need, and implement all of these with one or more classes.
+
+For example, let's say you are developing an email app. You write two interfaces:
+`InboxUi` and `ComposeUi` that both extend the `Ui` interface. You add to the
+interfaces all the functions (including any `suspend fun`), properties and other
+symbols you may need to expose to the Activity, Fragment, ViewModel or whatever.
+Then you implement these two interfaces, with either one class or two, depending
+on whether you want to display them separately or not.
+
 #### Easier multi form factors support
 
-#TK
+Modular UI contracts open the door to a great benefit: an easier way to
+support multiple form factors (smartphones, smartwatches, tablets, laptops, cars…).
+
+In the previous example, we highlighted the fact that you could have multiple
+interfaces that expose the needed symbols, and then decide to implement these
+interfaces in one, or multiple classes.
+
+This can help you support different form factors with zero, or only a few
+changes in non-UI code as it is no longer.
+
+It is planned to add such examples in the samples of this repository.
+If you want to have them faster, please open an issue so the examples can be
+discussed. Also, maybe you, or someone you know, can contribute.
 
 #### Multiplatform user interface contracts
 
-#TK
+Here's an example of how you may write multiplatform user interface contracts:
+
+In Kotlin common code, you would write an interface that is platform agnostic
+but declares the needed symbols that all platforms can share:
+
+Continuing our email app example, you would write these two interfaces: 
+```kotlin
+interface InboxUiContract {
+    // Whatever you need
+}
+
+interface ComposeUiContract {
+    // Whatever you need
+}
+```
+
+Then write to sub-interfaces for each platform you want to support, Android and
+iOS in this example:
+```kotlin
+interface AndroidInboxUi : InboxUiContract, Ui
+```
+
+```kotlin
+interface IOSInboxUi : InboxUiContract {
+    val root: UIView
+}
+```
+
+And you may finally implement them for each platform, still supporting multiple
+form-factors and platform variants if needed.
+
+_The two common interfaces (`InboxUiContract` and `ComposeUiContract`) could
+be replaced by abstract classes in case you need to have backing fields, final
+declarations or final implementations, as long as they don't reference
+Splitties `Ui` interface and no platform specific code._
 
 #### Testing
 
