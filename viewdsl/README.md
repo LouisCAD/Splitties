@@ -461,15 +461,23 @@ Splitties `Ui` interface and no platform specific code._
 
 #### Testing
 
-#TK
+Having your user interface as an `interface` can make it easy to mock it, and
+simulate user interactions for testing purposes.
 
 #### Redesign
 
-#TK
+If you expect an `interface` for the user interface, then it becomes easy to
+replace an implementation by another one in case you're redesigning your app.
+You can also split your UI contracts (the `interface`s) into smaller subsets
+before starting a redesign if needed, this can be helpful if you want to move
+some UI controls to another area of the application, or just organize things
+differently.
 
 #### A/B Testing
 
-#TK
+When you have multiple UI `interface`s implementations, you can then swap them
+at runtime for A/B testing, allowing you to test which UI works the best for
+what you determined.
 
 ## Additional modules
 
