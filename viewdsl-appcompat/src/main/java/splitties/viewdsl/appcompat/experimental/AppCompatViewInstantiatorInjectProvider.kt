@@ -19,11 +19,8 @@ import splitties.initprovider.InitProvider
 import splitties.viewdsl.core.experimental.ViewFactoryImpl
 
 class AppCompatViewInstantiatorInjectProvider : InitProvider() {
-    override fun onCreate(): Boolean {
-        ViewFactoryImpl.appInstance.apply {
-            add(::instantiateAppCompatView)
-            addForThemeAttrStyled(::instantiateThemeAttrStyledAppCompatView)
-        }
-        return true
-    }
+    override fun onCreate() = ViewFactoryImpl.appInstance.apply {
+        add(::instantiateAppCompatView)
+        addForThemeAttrStyled(::instantiateThemeAttrStyledAppCompatView)
+    }.let { true }
 }
