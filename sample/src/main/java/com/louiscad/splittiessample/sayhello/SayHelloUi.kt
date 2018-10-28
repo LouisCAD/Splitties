@@ -20,11 +20,11 @@ import android.support.design.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.snackbar.snack
-import splitties.viewdsl.appcompat.styles.ButtonStyle
+import splitties.viewdsl.appcompat.styles.AppCompatStyles
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
-import splitties.viewdsl.core.button
 import splitties.viewdsl.core.editText
+import splitties.viewdsl.core.invoke
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.verticalLayout
@@ -34,10 +34,11 @@ import splitties.views.gravityEnd
 import splitties.views.onClick
 
 class SayHelloUi(override val ctx: Context) : Ui {
+    private val appCompatStyles = AppCompatStyles()
     private val nameInput = editText(R.id.input_name) {
         hint = "Your name"
     }
-    private val sayHelloBtn = button(style = ButtonStyle.colored) { text = "Say hello!" }
+    private val sayHelloBtn = appCompatStyles.button.colored(ctx) { text = "Say hello!" }
     override val root: CoordinatorLayout = coordinatorLayout {
         fitsSystemWindows = true
         addDefaultAppBar(ctx)

@@ -64,7 +64,7 @@ probably already familiar to you._
 * [The extensions](#the-extensions)
   * [Creating and configuring views](#creating-and-configuring-views)
     * [The most generic way: `v`](#the-most-generic-way-v)
-    * [`styledV`, the generic way, which supports xml defined styles](#styledv-the-generic-way-which-supports-xml-defined-styles)
+    * [`styledView`, the generic way, which supports xml defined styles](#styledview-the-generic-way-which-supports-xml-defined-styles)
     * [The most beautiful ways: explicitly named aliases to the generic way](#the-most-beautiful-ways-explicitly-named-aliases-to-the-generic-way)
     * [View extensions](#view-extensions)
   * [Laying out the views](#laying-out-the-views)
@@ -160,7 +160,7 @@ val submitBtn = v<Button>(R.id.btn_submit) {
 }
 ```
 
-#### `styledV`, the generic way, which supports xml defined styles
+#### `styledView`, the generic way, which supports xml defined styles
 
 There are some times where you need to use an xml defined style,
 such as when using a style defined in AppCompat like `Widget.AppCompat.ActionButton`.
@@ -172,17 +172,19 @@ you may still need to use other styles, that are defined in xml.
 You could rewrite them in Kotlin, but since it can be a bit time consuming,
 we provided a way to use them with minimal code.
 
-`styledV` works exactly like the first `v` overload described above, but has an
-additional **required** parameter: `@AttrRes styleAttr: Int`. Also, its first
+`styledView` works exactly like the first `v` overload described above, but has an
+additional **required** parameter: `style: XmlStyle<V>`. Also, its first
 parameter is optional as long as the type parameter is specified or inferred.
 When not explicitly referencing a constructor, the "view factory" mentioned
 above for the second `v` overload is used, with its benefits.
 
-As you can see, it doesn't expect a style resource (e.g.
+The `XmlStyle` class (which will be inline by Kotlin 1.3) has a single `Int` value.
+It also has a type parameter, that is useful for type inference.
+As you can see, its constructor doesn't expect a style resource (e.g.
 `R.style.Widget.AppCompat.ActionButton`), but a theme attribute resource (e.g.
 `R.attr.Widget.AppCompat.ActionButton`). This is because of a limitation in
 Android where you can programmatically only use xml styles that are inside a theme.
-That's doesn't mean that you will have to pollute all the themes you're using
+That doesn't mean that you will have to pollute all the themes you're using
 with styles definitions though.
 
 Android allows you to combine multiple themes with the `applyStyle(…)` method
@@ -193,20 +195,23 @@ only one line of code (you can find some in the
 
 Here's a short example:
 ```kotlin
-context.theme.applyStyle(R.style.AppCompatStyles_ActionButton, false)
-val clapButton = styledV<ImageButton>(styleAttr = R.attr.Widget_AppCompat_ActionButton) {
+context.theme.applyStyle(R.style.AppCompatStyles, false)
+val clapButton = styledView(style = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)) {
     imageResource = R.drawable.ic_clap_white_24dp
 }
 ```
 
 The first line makes sure the `theme` associated to the `context` can resolve all
-the style attributes defined into `R.style.AppCompatStyles_ActionButton`, such as
+the style attributes defined into `R.style.AppCompatStyles`, such as
 `R.attr.Widget_AppCompat_ActionButton`.
 
 You can write your own theme + `attrs.xml` file that references your custom
 xml styles, or the ones that a library may provide to you. The convention
 is to use the name of the style as the name for the attr, so it's easy to
-see the relation without being confused.
+see the relation without being confused. After this is done, you can make
+a class to group related styles, as done for AppCompat in the
+[AppCompat styles split](../viewdsl-appcompat-styles), so you get type
+inference, and a nicer syntax.
 
 #### The most beautiful ways: explicitly named aliases to the generic way
 

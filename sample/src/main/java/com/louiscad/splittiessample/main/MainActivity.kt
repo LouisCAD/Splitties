@@ -45,7 +45,6 @@ import splitties.views.onClick
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        theme.applyStyle(R.style.AppCompatStyles_Button, false) //TODO: Call it lazily or eagerly? When exactly and where?
         super.onCreate(savedInstanceState)
         val ui = MainUi(this)
         setContentView(ui)

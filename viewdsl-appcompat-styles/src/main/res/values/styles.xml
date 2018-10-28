@@ -15,7 +15,6 @@
   ~ limitations under the License.
   -->
 <resources>
-    <!-- TODO: Move it to viewdsl-appcompat-styles-xml -->
     <style name="AppCompatStyles">
         <item name="Widget.AppCompat.ActionMode">@style/Widget.AppCompat.ActionMode</item>
         <item name="Widget.AppCompat.ActivityChooserView">@style/Widget.AppCompat.ActivityChooserView</item>
@@ -30,20 +29,14 @@
         <item name="Widget.AppCompat.PopupMenu.Overflow">@style/Widget.AppCompat.PopupMenu.Overflow</item>
         <item name="Widget.AppCompat.PopupWindow">@style/Widget.AppCompat.PopupWindow</item>
         <item name="Widget.AppCompat.TextView.SpinnerItem">@style/Widget.AppCompat.TextView.SpinnerItem</item>
-    </style>
-    <style name="AppCompatStyles.ActionBar">
         <item name="Widget.AppCompat.ActionBar">@style/Widget.AppCompat.ActionBar</item>
         <item name="Widget.AppCompat.ActionBar.Solid">@style/Widget.AppCompat.ActionBar.Solid</item>
         <item name="Widget.AppCompat.ActionBar.TabBar">@style/Widget.AppCompat.ActionBar.TabBar</item>
         <item name="Widget.AppCompat.ActionBar.TabText">@style/Widget.AppCompat.ActionBar.TabText</item>
         <item name="Widget.AppCompat.ActionBar.TabView">@style/Widget.AppCompat.ActionBar.TabView</item>
-    </style>
-    <style name="AppCompatStyles.ActionButton">
         <item name="Widget.AppCompat.ActionButton">@style/Widget.AppCompat.ActionButton</item>
         <item name="Widget.AppCompat.ActionButton.CloseMode">@style/Widget.AppCompat.ActionButton.CloseMode</item>
         <item name="Widget.AppCompat.ActionButton.Overflow">@style/Widget.AppCompat.ActionButton.Overflow</item>
-    </style>
-    <style name="AppCompatStyles.Button">
         <item name="Widget.AppCompat.Button">@style/Widget.AppCompat.Button</item>
         <item name="Widget.AppCompat.Button.Borderless">@style/Widget.AppCompat.Button.Borderless</item>
         <item name="Widget.AppCompat.Button.Borderless.Colored">@style/Widget.AppCompat.Button.Borderless.Colored</item>
@@ -52,13 +45,9 @@
         <item name="Widget.AppCompat.Button.Small">@style/Widget.AppCompat.Button.Small</item>
         <item name="Widget.AppCompat.ButtonBar">@style/Widget.AppCompat.ButtonBar</item>
         <item name="Widget.AppCompat.ButtonBar.AlertDialog">@style/Widget.AppCompat.ButtonBar.AlertDialog</item>
-    </style>
-    <style name="AppCompatStyles.CompoundButton">
         <item name="Widget.AppCompat.CompoundButton.CheckBox">@style/Widget.AppCompat.CompoundButton.CheckBox</item>
         <item name="Widget.AppCompat.CompoundButton.RadioButton">@style/Widget.AppCompat.CompoundButton.RadioButton</item>
         <item name="Widget.AppCompat.CompoundButton.Switch">@style/Widget.AppCompat.CompoundButton.Switch</item>
-    </style>
-    <style name="AppCompatStyles.Light">
         <item name="Widget.AppCompat.Light.ActionMode.Inverse">@style/Widget.AppCompat.Light.ActionMode.Inverse</item>
         <item name="Widget.AppCompat.Light.ActivityChooserView">@style/Widget.AppCompat.Light.ActivityChooserView</item>
         <item name="Widget.AppCompat.Light.AutoCompleteTextView">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
@@ -69,8 +58,6 @@
         <item name="Widget.AppCompat.Light.PopupMenu.Overflow">@style/Widget.AppCompat.Light.PopupMenu.Overflow</item>
         <item name="Widget.AppCompat.Light.SearchView">@style/Widget.AppCompat.Light.SearchView</item>
         <item name="Widget.AppCompat.Light.Spinner.DropDown.ActionBar">@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar</item>
-    </style>
-    <style name="AppCompatStyles.Light.ActionBar">
         <item name="Widget.AppCompat.Light.ActionBar">@style/Widget.AppCompat.Light.ActionBar</item>
         <item name="Widget.AppCompat.Light.ActionBar.Solid">@style/Widget.AppCompat.Light.ActionBar.Solid</item>
         <item name="Widget.AppCompat.Light.ActionBar.Solid.Inverse">@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse</item>
@@ -80,41 +67,25 @@
         <item name="Widget.AppCompat.Light.ActionBar.TabText.Inverse">@style/Widget.AppCompat.Light.ActionBar.TabText.Inverse</item>
         <item name="Widget.AppCompat.Light.ActionBar.TabView">@style/Widget.AppCompat.Light.ActionBar.TabView</item>
         <item name="Widget.AppCompat.Light.ActionBar.TabView.Inverse">@style/Widget.AppCompat.Light.ActionBar.TabView.Inverse</item>
-    </style>
-    <style name="AppCompatStyles.Light.ActionButton">
         <item name="Widget.AppCompat.Light.ActionButton">@style/Widget.AppCompat.Light.ActionButton</item>
         <item name="Widget.AppCompat.Light.ActionButton.CloseMode">@style/Widget.AppCompat.Light.ActionButton.CloseMode</item>
         <item name="Widget.AppCompat.Light.ActionButton.Overflow">@style/Widget.AppCompat.Light.ActionButton.Overflow</item>
-    </style>
-    <style name="AppCompatStyles.ListView">
         <item name="Widget.AppCompat.ListView">@style/Widget.AppCompat.ListView</item>
         <item name="Widget.AppCompat.ListView.DropDown">@style/Widget.AppCompat.ListView.DropDown</item>
         <item name="Widget.AppCompat.ListView.Menu">@style/Widget.AppCompat.ListView.Menu</item>
-    </style>
-    <style name="AppCompatStyles.ProgressBar">
         <item name="Widget.AppCompat.ProgressBar">@style/Widget.AppCompat.ProgressBar</item>
         <item name="Widget.AppCompat.ProgressBar.Horizontal">@style/Widget.AppCompat.ProgressBar.Horizontal</item>
-    </style>
-    <style name="AppCompatStyles.RatingBar">
         <item name="Widget.AppCompat.RatingBar">@style/Widget.AppCompat.RatingBar</item>
         <item name="Widget.AppCompat.RatingBar.Indicator">@style/Widget.AppCompat.RatingBar.Indicator</item>
         <item name="Widget.AppCompat.RatingBar.Small">@style/Widget.AppCompat.RatingBar.Small</item>
-    </style>
-    <style name="AppCompatStyles.SearchView">
         <item name="Widget.AppCompat.SearchView">@style/Widget.AppCompat.SearchView</item>
         <item name="Widget.AppCompat.SearchView.ActionBar">@style/Widget.AppCompat.SearchView.ActionBar</item>
-    </style>
-    <style name="AppCompatStyles.SeekBar">
         <item name="Widget.AppCompat.SeekBar">@style/Widget.AppCompat.SeekBar</item>
         <item name="Widget.AppCompat.SeekBar.Discrete">@style/Widget.AppCompat.SeekBar.Discrete</item>
-    </style>
-    <style name="AppCompatStyles.Spinner">
         <item name="Widget.AppCompat.Spinner">@style/Widget.AppCompat.Spinner</item>
         <item name="Widget.AppCompat.Spinner.DropDown">@style/Widget.AppCompat.Spinner.DropDown</item>
         <item name="Widget.AppCompat.Spinner.DropDown.ActionBar">@style/Widget.AppCompat.Spinner.DropDown.ActionBar</item>
         <item name="Widget.AppCompat.Spinner.Underlined">@style/Widget.AppCompat.Spinner.Underlined</item>
-    </style>
-    <style name="AppCompatStyles.Toolbar">
         <item name="Widget.AppCompat.Toolbar">@style/Widget.AppCompat.Toolbar</item>
         <item name="Widget.AppCompat.Toolbar.Button.Navigation">@style/Widget.AppCompat.Toolbar.Button.Navigation</item>
     </style>

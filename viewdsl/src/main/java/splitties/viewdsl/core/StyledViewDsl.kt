@@ -16,7 +16,6 @@
 package splitties.viewdsl.core
 
 import android.content.Context
-import android.support.annotation.AttrRes
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.util.AttributeSet
@@ -24,26 +23,33 @@ import android.view.View
 
 typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
 
-inline fun <reified V : View> Context.styledV(
+inline fun <reified V : View> Context.styledView(
         createView: NewViewWithStyleAttrRef<V> = viewFactory::getThemeAttrStyledView,
-        @AttrRes styleAttr: Int,
+        style: XmlStyle<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = createView(wrapCtxIfNeeded(theme), null, styleAttr).also { it.id = id }.apply(initView)
+): V = createView(wrapCtxIfNeeded(theme), null, style.styleAttr).also { it.id = id }.apply(initView)
 
-inline fun <reified V : View> View.styledV(
+inline fun <reified V : View> View.styledView(
         createView: NewViewWithStyleAttrRef<V> = context.viewFactory::getThemeAttrStyledView,
-        @AttrRes styleAttr: Int,
+        style: XmlStyle<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = context.styledV(createView, styleAttr, id, theme, initView)
+): V = context.styledView(createView, style, id, theme, initView)
 
-inline fun <reified V : View> Ui.styledV(
+inline fun <reified V : View> Ui.styledView(
         createView: NewViewWithStyleAttrRef<V> = ctx.viewFactory::getThemeAttrStyledView,
-        @AttrRes styleAttr: Int,
+        style: XmlStyle<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.styledV(createView, styleAttr, id, theme, initView)
+): V = ctx.styledView(createView, style, id, theme, initView)
+
+inline operator fun <reified V : View> XmlStyle<V>.invoke(
+        ctx: Context,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = ctx.styledView(style = this, id = id, theme = theme, initView = initView)
