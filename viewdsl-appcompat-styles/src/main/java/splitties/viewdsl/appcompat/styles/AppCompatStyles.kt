@@ -60,6 +60,7 @@ class ButtonAppCompatStyles internal constructor(
     inline val borderlessColored get() = flatColored
 }
 
+// TODO: Make inline when switching to Kotlin 1.3
 class TextViewAppCompatStyles internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
