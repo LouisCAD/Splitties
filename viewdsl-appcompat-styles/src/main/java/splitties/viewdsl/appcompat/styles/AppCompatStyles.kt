@@ -17,6 +17,8 @@ package splitties.viewdsl.appcompat.styles
 
 import android.content.res.Resources
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.SeekBar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.styles.XmlStyle
 
@@ -26,9 +28,11 @@ fun Ui.AppCompatStyles(): AppCompatStyles {
     return AppCompatStyles.instance
 }
 
+// TODO: Make all properties inline when switching to Kotlin 1.3
 class AppCompatStyles private constructor() {
-    // TODO: Make inline when switching to Kotlin 1.3
     val button = ButtonAppCompatStyles(null)
+    val seekBar = SeekBarAppCompatStyles(null)
+    @JvmField val actionButton = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
 
     companion object {
         internal val instance = AppCompatStyles()
@@ -47,4 +51,10 @@ class ButtonAppCompatStyles internal constructor(val nothing: Nothing?) {
     @JvmField
     val flatColored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
     inline val borderlessColored get() = flatColored
+}
+
+// TODO: Make inline when switching to Kotlin 1.3
+class SeekBarAppCompatStyles internal constructor(val nothing: Nothing?) {
+    @JvmField val continuous = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
+    @JvmField val discrete = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
 }
