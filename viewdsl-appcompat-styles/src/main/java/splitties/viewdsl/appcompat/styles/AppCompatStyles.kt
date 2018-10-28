@@ -27,17 +27,8 @@ fun Ui.AppCompatStyles(): AppCompatStyles {
 }
 
 class AppCompatStyles private constructor() {
-    //TODO: Replace @JvmField with inline val when switching to Kotlin 1.3
-    val button = ButtonAppCompatStyles()
-
-    class ButtonAppCompatStyles internal constructor() {
-        @JvmField val default = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
-        @JvmField val colored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
-        @JvmField val flat = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
-        @JvmField
-        val flatColored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
-        inline val borderlessColored get() = flatColored
-    }
+    // TODO: Make inline when switching to Kotlin 1.3
+    val button = ButtonAppCompatStyles(null)
 
     companion object {
         internal val instance = AppCompatStyles()
@@ -46,4 +37,14 @@ class AppCompatStyles private constructor() {
             theme.applyStyle(R.style.AppCompatStyles, false)
         }
     }
+}
+
+// TODO: Make inline when switching to Kotlin 1.3
+class ButtonAppCompatStyles internal constructor(val nothing: Nothing?) {
+    @JvmField val default = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
+    @JvmField val colored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
+    @JvmField val flat = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
+    @JvmField
+    val flatColored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
+    inline val borderlessColored get() = flatColored
 }

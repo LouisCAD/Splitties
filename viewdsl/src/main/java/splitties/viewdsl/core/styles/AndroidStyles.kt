@@ -18,12 +18,14 @@ package splitties.viewdsl.core.styles
 import android.widget.ProgressBar
 
 object AndroidStyles {
-    val progressBar = ProgressbarAndroidStyles()
+    // TODO: Make inline when switching to Kotlin 1.3
+    val progressBar = ProgressbarAndroidStyles(null)
+}
 
-    class ProgressbarAndroidStyles internal constructor() {
-        @JvmField val smallSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
-        @JvmField val spinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
-        @JvmField val largeSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
-        @JvmField val horizontal = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
-    }
+// TODO: Make inline when switching to Kotlin 1.3
+class ProgressbarAndroidStyles internal constructor(val nothing: Nothing?) {
+    @JvmField val smallSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
+    @JvmField val spinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
+    @JvmField val largeSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
+    @JvmField val horizontal = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
 }
