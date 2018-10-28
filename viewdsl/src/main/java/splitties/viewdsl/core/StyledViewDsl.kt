@@ -20,6 +20,7 @@ import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.util.AttributeSet
 import android.view.View
+import splitties.viewdsl.core.styles.XmlStyle
 
 typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
 

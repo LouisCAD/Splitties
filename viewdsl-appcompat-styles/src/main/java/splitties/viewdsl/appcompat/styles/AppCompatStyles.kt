@@ -18,7 +18,7 @@ package splitties.viewdsl.appcompat.styles
 import android.content.res.Resources
 import android.widget.Button
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.XmlStyle
+import splitties.viewdsl.core.styles.XmlStyle
 
 @Suppress("FunctionName")
 fun Ui.AppCompatStyles(): AppCompatStyles {
