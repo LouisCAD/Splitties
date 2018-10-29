@@ -19,11 +19,11 @@ import android.widget.ProgressBar
 
 object AndroidStyles {
     // TODO: Make inline when switching to Kotlin 1.3
-    val progressBar = ProgressbarAndroidStyles(null)
+    val progressBar = ProgressBarAndroidStyles(null)
 }
 
 // TODO: Make inline when switching to Kotlin 1.3
-class ProgressbarAndroidStyles internal constructor(
+class ProgressBarAndroidStyles internal constructor(
         @Deprecated("", level = DeprecationLevel.HIDDEN) val nothing: Nothing?
 ) {
     @JvmField val smallSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
