@@ -15,6 +15,7 @@
  */
 package splitties.viewdsl.core.styles
 
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.RatingBar
 import kotlin.DeprecationLevel.HIDDEN
@@ -23,6 +24,7 @@ import kotlin.DeprecationLevel.HIDDEN
 object AndroidStyles {
     val progressBar = ProgressBarAndroidStyles(null)
     val ratingBar = RatingBarAndroidStyles(null)
+    val button = ButtonAndroidStyles(null)
 }
 
 // TODO: Make inline when switching to Kotlin 1.3
@@ -42,4 +44,18 @@ class RatingBarAndroidStyles internal constructor(
     @JvmField val small = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleSmall)
     @JvmField val default = XmlStyle<RatingBar>(android.R.attr.ratingBarStyle)
     @JvmField val indicator = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleIndicator)
+}
+
+// TODO: Make inline when switching to Kotlin 1.3
+class ButtonAndroidStyles internal constructor(
+        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+) {
+    /** Small Button style. */
+    @JvmField val small = XmlStyle<Button>(android.R.attr.buttonStyleSmall)
+    /** Normal Button style. */
+    @JvmField val default = XmlStyle<Button>(android.R.attr.buttonStyle)
+    /** Style for buttons without an explicit border, often used in groups. */
+    @JvmField val borderless = XmlStyle<Button>(android.R.attr.borderlessButtonStyle)
+    /** Button style to inset into an EditText. */
+    @JvmField val inset = XmlStyle<Button>(android.R.attr.buttonStyleInset)
 }
