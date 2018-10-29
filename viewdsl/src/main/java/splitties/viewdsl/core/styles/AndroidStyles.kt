@@ -16,10 +16,12 @@
 package splitties.viewdsl.core.styles
 
 import android.widget.ProgressBar
+import android.widget.RatingBar
 
 object AndroidStyles {
     // TODO: Make inline when switching to Kotlin 1.3
     val progressBar = ProgressBarAndroidStyles(null)
+    val ratingBar = RatingBarAndroidStyles(null)
 }
 
 // TODO: Make inline when switching to Kotlin 1.3
@@ -30,4 +32,13 @@ class ProgressBarAndroidStyles internal constructor(
     @JvmField val spinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
     @JvmField val largeSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
     @JvmField val horizontal = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
+}
+
+// TODO: Make inline when switching to Kotlin 1.3
+class RatingBarAndroidStyles internal constructor(
+        @Deprecated("", level = DeprecationLevel.HIDDEN) val nothing: Nothing?
+) {
+    @JvmField val small = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleSmall)
+    @JvmField val default = XmlStyle<RatingBar>(android.R.attr.ratingBarStyle)
+    @JvmField val indicator = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleIndicator)
 }
