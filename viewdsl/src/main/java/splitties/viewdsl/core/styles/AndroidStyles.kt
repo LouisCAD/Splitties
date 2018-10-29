@@ -18,8 +18,8 @@ package splitties.viewdsl.core.styles
 import android.widget.ProgressBar
 import android.widget.RatingBar
 
+// TODO: Make all properties inline when switching to Kotlin 1.3
 object AndroidStyles {
-    // TODO: Make inline when switching to Kotlin 1.3
     val progressBar = ProgressBarAndroidStyles(null)
     val ratingBar = RatingBarAndroidStyles(null)
 }
