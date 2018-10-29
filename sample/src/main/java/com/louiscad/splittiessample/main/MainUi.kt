@@ -29,7 +29,7 @@ import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.button
-import splitties.viewdsl.core.invoke
+import splitties.viewdsl.core.styles.invoke
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent

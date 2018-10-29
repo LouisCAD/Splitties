@@ -24,7 +24,7 @@ import splitties.viewdsl.appcompat.styles.AppCompatStyles
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.editText
-import splitties.viewdsl.core.invoke
+import splitties.viewdsl.core.styles.invoke
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.matchParent
 import splitties.viewdsl.core.verticalLayout
