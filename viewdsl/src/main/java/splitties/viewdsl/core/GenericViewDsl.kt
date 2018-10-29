@@ -37,23 +37,19 @@ fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : Contex
 inline fun <reified V : View> Context.v(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<V>? = null,
         initView: V.() -> Unit = {}
 ): V = viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
     it.id = id
-    style?.run { it.applyStyle() }
 }.apply(initView)
 
 inline fun <reified V : View> View.v(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<V>? = null,
         initView: V.() -> Unit = {}
-): V = context.v(id, theme, style, initView)
+): V = context.v(id, theme, initView)
 
 inline fun <reified V : View> Ui.v(
         @IdRes id: Int = android.view.View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<V>? = null,
         initView: V.() -> Unit = {}
-): V = ctx.v(id, theme, style, initView)
+): V = ctx.v(id, theme, initView)

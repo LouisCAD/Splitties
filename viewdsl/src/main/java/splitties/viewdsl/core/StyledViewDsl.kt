@@ -47,10 +47,3 @@ inline fun <reified V : View> Ui.styledView(
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.styledView(createView, style, id, theme, initView)
-
-inline operator fun <reified V : View> XmlStyle<V>.invoke(
-        ctx: Context,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
-): V = ctx.styledView(style = this, id = id, theme = theme, initView = initView)

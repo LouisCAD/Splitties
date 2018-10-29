@@ -23,7 +23,6 @@ import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.CoordinatorLayout
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.v
 
@@ -53,43 +52,37 @@ inline fun Ui.coordinatorLayout(
 inline fun Context.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<AppBarLayout>? = null,
         initView: AppBarLayout.() -> Unit = {}
-) = v(id, theme, style, initView)
+) = v(id, theme, initView)
 
 inline fun View.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<AppBarLayout>? = null,
         initView: AppBarLayout.() -> Unit = {}
-) = context.appBarLayout(id, theme, style, initView)
+) = context.appBarLayout(id, theme, initView)
 
 inline fun Ui.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<AppBarLayout>? = null,
         initView: AppBarLayout.() -> Unit = {}
-) = ctx.appBarLayout(id, theme, style, initView)
+) = ctx.appBarLayout(id, theme, initView)
 
 // CollapsingToolbarLayout
 
 inline fun Context.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<CollapsingToolbarLayout>? = null,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = v(id, theme, style, initView)
+) = v(id, theme, initView)
 
 inline fun View.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<CollapsingToolbarLayout>? = null,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = context.collapsingToolbarLayout(id, theme, style, initView)
+) = context.collapsingToolbarLayout(id, theme, initView)
 
 inline fun Ui.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<CollapsingToolbarLayout>? = null,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = ctx.collapsingToolbarLayout(id, theme, style, initView)
+) = ctx.collapsingToolbarLayout(id, theme, initView)

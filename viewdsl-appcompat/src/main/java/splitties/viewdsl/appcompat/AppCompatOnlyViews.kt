@@ -22,7 +22,6 @@ import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.v
 
@@ -31,23 +30,20 @@ import splitties.viewdsl.core.v
 inline fun Context.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<Toolbar>? = null,
         initView: Toolbar.() -> Unit = {}
-) = v(id, theme, style, initView)
+) = v(id, theme, initView)
 
 inline fun View.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<Toolbar>? = null,
         initView: Toolbar.() -> Unit = {}
-) = context.toolbar(id, theme, style, initView)
+) = context.toolbar(id, theme, initView)
 
 inline fun Ui.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<Toolbar>? = null,
         initView: Toolbar.() -> Unit = {}
-) = ctx.toolbar(id, theme, style, initView)
+) = ctx.toolbar(id, theme, initView)
 
 // SwitchCompat
 

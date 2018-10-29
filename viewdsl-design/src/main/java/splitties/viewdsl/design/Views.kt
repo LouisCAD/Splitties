@@ -21,7 +21,6 @@ import android.support.annotation.StyleRes
 import android.support.design.widget.FloatingActionButton
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.v
 
@@ -30,20 +29,17 @@ import splitties.viewdsl.core.v
 inline fun Context.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<FloatingActionButton>? = null,
         initView: FloatingActionButton.() -> Unit = {}
-) = v(id, theme, style, initView)
+) = v(id, theme, initView)
 
 inline fun View.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<FloatingActionButton>? = null,
         initView: FloatingActionButton.() -> Unit = {}
-) = context.floatingActionButton(id, theme, style, initView)
+) = context.floatingActionButton(id, theme, initView)
 
 inline fun Ui.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
-        style: Style<FloatingActionButton>? = null,
         initView: FloatingActionButton.() -> Unit = {}
-) = ctx.floatingActionButton(id, theme, style, initView)
+) = ctx.floatingActionButton(id, theme, initView)

@@ -38,7 +38,7 @@ we will be recommending a cleaner, yet simple approach (spoiler: a custom class)
 Before we dive into the details of the API, let's take a look at a simple example:
 
 ```kotlin
-val launchDemoBtn = button(style = ButtonStyle.colored) {
+val launchDemoBtn = button {
     textResource = R.string.go_to_the_demo
 }
 ```
@@ -146,12 +146,6 @@ instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
 you use the View DSL AppCompat, you'll automatically receive instances of
 `AppCompatButton` with `v<Button>` thanks to the underlying View factory.
-An extra optional parameter `style: Style<V>` allows you to provide a style for
-the View, that will be applied before the `initView` lambda is executed (if any).
-Note that the [`Style`](/src/main/java/splitties/viewdsl/core/Style.kt) interface
-has only one function that can be applied to the created view.
-Some are provided by a few of the [additional modules](#additional-modules),
-but creating your own is also possible, and easy.
 
 Here's a simple example of this second overload:
 ```kotlin
@@ -164,13 +158,6 @@ val submitBtn = v<Button>(R.id.btn_submit) {
 
 There are some times where you need to use an xml defined style,
 such as when using a style defined in AppCompat like `Widget.AppCompat.ActionButton`.
-
-While the most used styles such as AppCompat button styles have been ported to Kotlin
-in the [additional modules](#additional-modules) with
-[`Style`](/src/main/java/splitties/viewdsl/core/Style.kt) implementations,
-you may still need to use other styles, that are defined in xml.
-You could rewrite them in Kotlin, but since it can be a bit time consuming,
-we provided a way to use them with minimal code.
 
 `styledView` works exactly like the first `v` overload described above, but has an
 additional **required** parameter: `style: XmlStyle<V>`. Also, its first

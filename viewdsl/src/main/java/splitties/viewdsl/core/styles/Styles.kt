@@ -20,7 +20,6 @@ import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.Style
 import splitties.viewdsl.core.styledView
 
 inline operator fun <reified V : View> XmlStyle<V>.invoke(
@@ -29,11 +28,3 @@ inline operator fun <reified V : View> XmlStyle<V>.invoke(
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.styledView(style = this, id = id, theme = theme, initView = initView)
-
-@Suppress("NOTHING_TO_INLINE")
-inline fun <V : View> V.apply(style: Style<V>): V {
-    with(style) {
-        applyStyle()
-    }
-    return this
-}
