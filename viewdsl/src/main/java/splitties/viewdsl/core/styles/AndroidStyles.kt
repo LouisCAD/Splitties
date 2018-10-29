@@ -28,9 +28,9 @@ object AndroidStyles {
 class ProgressBarAndroidStyles internal constructor(
         @Deprecated("", level = DeprecationLevel.HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val smallSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
-    @JvmField val spinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
-    @JvmField val largeSpinner = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
+    @JvmField val small = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
+    @JvmField val default = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
+    @JvmField val large = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
     @JvmField val horizontal = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
 }
 
