@@ -35,27 +35,7 @@ constructors like `progressBarStyle` and `buttonStyle`.
 
 ## Content
 
-**IMPORTANT NOTE:** *This module has **not** been checked for completeness.
-That means it currently doesn't provide all the styles defined in AppCompat.
-If you need a style that is missing here, feel free to open an issue or
-directly submit a pull request adding the style you needed.*
-
-This split is an extension to [View DSL AppCompat](../viewdsl-appcompat).
-It provides functions to use with View DSL:
-
-Styled `Button`s:
-* `flatButton`
-* `coloredFlatButton`
-* `coloredButton`
-
-Styled `ImageButton`s:
-* `imgActionButton`
-
-Styled `ProgressBar`s:
-* `progressBar`
-* `largeProgressBar`
-* `horizontalProgressBar`
-
+**IMPORTANT NOTE:** This split is being merged into [View DSL AppCompat](../viewdsl-appcompat).
 ## Download
 
 ```groovy

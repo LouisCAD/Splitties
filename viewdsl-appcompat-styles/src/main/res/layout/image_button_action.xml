@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ImageButton
-    style="@style/Widget.AppCompat.ActionButton"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="ContentDescription"/>
