@@ -35,7 +35,7 @@ fun Ui.AppCompatStyles(): AppCompatStyles {
 class AppCompatStyles private constructor() {
     val button = ButtonAppCompatStyles(null)
     val seekBar = SeekBarAppCompatStyles(null)
-    val spinner = SpinnerAppCompatStyles(null)
+    @JvmField val spinner = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
     val textView = TextViewAppCompatStyles(null)
     @JvmField val actionButton = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
 
@@ -73,13 +73,4 @@ class SeekBarAppCompatStyles internal constructor(
 ) {
     @JvmField val continuous = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
     @JvmField val discrete = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
-}
-
-// TODO: Make inline when switching to Kotlin 1.3
-class SpinnerAppCompatStyles internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
-) {
-    @JvmField val default = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
-    @JvmField val dropDown = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_DropDown)
-    @JvmField val underlined = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)
 }
