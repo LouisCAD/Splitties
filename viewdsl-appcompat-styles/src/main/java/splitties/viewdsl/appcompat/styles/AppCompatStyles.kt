@@ -35,7 +35,6 @@ fun Ui.AppCompatStyles(): AppCompatStyles {
 class AppCompatStyles private constructor() {
     val button = ButtonAppCompatStyles(null)
     val seekBar = SeekBarAppCompatStyles(null)
-    @JvmField val spinner = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
     val textView = TextViewAppCompatStyles(null)
     @JvmField val actionButton = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
 
