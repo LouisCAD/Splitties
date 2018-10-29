@@ -71,7 +71,7 @@ class TextViewAppCompatStyles internal constructor(
 class SeekBarAppCompatStyles internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val continuous = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
+    @JvmField val default = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
     @JvmField val discrete = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
 }
 
