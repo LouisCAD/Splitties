@@ -64,7 +64,10 @@ probably already familiar to you._
 * [The extensions](#the-extensions)
   * [Creating and configuring views](#creating-and-configuring-views)
     * [The most generic way: `v`](#the-most-generic-way-v)
-    * [`styledView`, the generic way, which supports xml defined styles](#styledview-the-generic-way-which-supports-xml-defined-styles)
+    * [Using styles defined in xml](#using-styles-defined-in-xml)
+      * [Using Android styles](#using-android-styles)
+      * [Using AppCompat styles](#using-appcompat-styles)
+      * [Using any other xml style](#using-any-other-xml-style)
     * [The most beautiful ways: explicitly named aliases to the generic way](#the-most-beautiful-ways-explicitly-named-aliases-to-the-generic-way)
     * [View extensions](#view-extensions)
   * [Laying out the views](#laying-out-the-views)
@@ -154,22 +157,69 @@ val submitBtn = v<Button>(R.id.btn_submit) {
 }
 ```
 
-#### `styledView`, the generic way, which supports xml defined styles
+#### Using styles defined in xml
 
 There are some times where you need to use an xml defined style,
-such as when using a style defined in AppCompat like `Widget.AppCompat.ActionButton`.
+such as when using a style defined in AppCompat like `Widget_AppCompat_Button_Colored`.
 
-`styledView` works exactly like the first `v` overload described above, but has an
-additional **required** parameter: `style: XmlStyle<V>`. Also, its first
-parameter is optional as long as the type parameter is specified or inferred.
-When not explicitly referencing a constructor, the "view factory" mentioned
-above for the second `v` overload is used, with its benefits.
+Splitties makes it really easy to use xml styles defined in Android and AppCompat.
 
-The `XmlStyle` class (which will be inline by Kotlin 1.3) has a single `Int` value.
-It also has a type parameter, that is useful for type inference.
+It also gives you the ability to do the same for custom or third-party styles defined
+in xml.
+
+##### Using Android styles
+
+Let's say you want to create a horizontal `ProgressBar` instance. First, type the
+following with autocomplete/auto-imports:
+```kotlin
+val progressbar = AndroidStyles.progressBar.horizontal.invoke(ctx)
+```
+
+Then, remove `.invoke` to have function call syntax directly on the `horizontal`
+property. It should look like this:
+
+```kotlin
+val progressbar = AndroidStyles.progressBar.horizontal(ctx)
+```
+
+Other styles defined in the Android platform are provided in `AndroidStyles`.
+Just let auto-completion guide you.
+
+Note that you have **exactly the same optional parameters as `v`**, including the optional lambda.
+
+##### Using AppCompat styles
+
+Since AppCompat styles are not included by default inside the theme, you need to
+load them first. This is simply done with the following code:
+```kotlin
+private val appCompatStyles = AppCompatStyles(ctx)
+```
+
+You can then use styles using the `AppCompatStyles` instance. Here's an example:
+```kotlin
+val bePoliteBtn = appCompatStyles.button.colored(ctx) {
+    textResource = R.string.be_polite
+}
+```
+
+Don't forget to first write `.invoke` before the parenthesis to have the IDE import
+the function (you can immediately remove it afterwards).
+
+##### Using any other xml style
+
+The `colored`, `horizontal` and other properties you can find in the `AndroidStyles`
+and the `AppCompatStyles` have the `XmlStyle` type. It is easy to instantiate it and
+support any xml style after the style is loaded into the current theme, but before
+we see how it's done, let's see what is this type.
+
+The `XmlStyle` class (which will be inline when Splitties switches to Kotlin 1.3)
+has:
+* A type parameter, for the target `View` type.
+* A single `Int` value, a theme attribute (`@AttrRes`, not `@StyleRes`).
+
 As you can see, its constructor doesn't expect a style resource (e.g.
-`R.style.Widget.AppCompat.ActionButton`), but a theme attribute resource (e.g.
-`R.attr.Widget.AppCompat.ActionButton`). This is because of a limitation in
+`R.style.Widget_AppCompat_ActionButton`), but a theme attribute resource (e.g.
+`R.attr.Widget_AppCompat_ActionButton`). This is because of a limitation in
 Android where you can programmatically only use xml styles that are inside a theme.
 That doesn't mean that you will have to pollute all the themes you're using
 with styles definitions though.
@@ -177,27 +227,32 @@ with styles definitions though.
 Android allows you to combine multiple themes with the `applyStyle(…)` method
 that you can call on any `theme`, which any `Context` has. That way, you can
 apply a theme that already includes references the xml styles you need with
-only one line of code (you can find some in the
-[additional modules](#additional-modules)).
+only one line of code. This is what the `AppCompatStyles(ctx)` function
+mentioned does under the hood.
 
 Here's a short example:
 ```kotlin
-context.theme.applyStyle(R.style.AppCompatStyles, false)
-val clapButton = styledView(style = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)) {
+ctx.theme.applyStyle(R.style.ThirdPartyStyles, false)
+val clapButton = XmlStyle<Button>(R.attr.Widget_ThirdParty_FancyButton)(ctx) {
     imageResource = R.drawable.ic_clap_white_24dp
 }
 ```
 
-The first line makes sure the `theme` associated to the `context` can resolve all
-the style attributes defined into `R.style.AppCompatStyles`, such as
-`R.attr.Widget_AppCompat_ActionButton`.
+The first line makes sure the `theme` associated to the `Context` named `ctx`
+can resolve all the style attributes defined into `R.style.ThirdPartyStyles`,
+such as `R.attr.Widget_ThirdParty_FancyButton`.
 
-You can write your own theme + `attrs.xml` file that references your custom
-xml styles, or the ones that a library may provide to you. The convention
-is to use the name of the style as the name for the attr, so it's easy to
-see the relation without being confused. After this is done, you can make
-a class to group related styles, as done for AppCompat in the
-[AppCompat styles split](../viewdsl-appcompat-styles), so you get type
+To make this work, you have to do the following:
+1. Declare `ThirdPartyStyles` in xml (usually in a file named `styles.xml`)
+2. Declare the `Widget_ThirdParty_FancyButton` attribute (usually in a file named
+`attrs.xml`)
+3. Declare `Widget_ThirdParty_FancyButton` into `ThirdPartyStyles` and
+make sure it references the style target resource
+(named `Widget_ThirdParty_FancyButton` too). Using the same name for the target
+style and the attribute is a recommendation (for clarity), but not a requirement.
+
+After this is done, you can make a class to group related styles, as done in the
+[View DSL AppCompat split](../viewdsl-appcompat), so you get type
 inference, and a nicer syntax.
 
 #### The most beautiful ways: explicitly named aliases to the generic way

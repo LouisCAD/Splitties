@@ -24,15 +24,15 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
-import splitties.viewdsl.appcompat.styles.AppCompatStyles
+import splitties.viewdsl.appcompat.AppCompatStyles
 import splitties.viewdsl.appcompat.toolbar
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.button
-import splitties.viewdsl.core.styles.invoke
 import splitties.viewdsl.core.lParams
 import splitties.viewdsl.core.margin
 import splitties.viewdsl.core.matchParent
+import splitties.viewdsl.core.styles.invoke
 import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.verticalLayout
 import splitties.viewdsl.design.EXIT_UNTIL_COLLAPSED
@@ -57,7 +57,7 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    private val appCompatStyles = AppCompatStyles()
+    private val appCompatStyles = AppCompatStyles(ctx)
 
     val launchDemoBtn = appCompatStyles.button.flatColored(ctx) {
         textResource = R.string.go_to_the_demo

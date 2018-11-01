@@ -79,7 +79,7 @@ dependencies {
     implementation project(':toast')
     implementation project(':typesaferecyclerview')
     implementation project(':mainthread')
-    implementation project(':viewdsl-appcompat-styles')
+    implementation project(':viewdsl-appcompat')
     implementation project(':viewdsl-constraintlayout')
     implementation project(':viewdsl-design')
     debugImplementation project(':viewdsl-ide-preview')

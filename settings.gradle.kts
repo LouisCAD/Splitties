@@ -48,7 +48,6 @@ include(
         ":typesaferecyclerview",
         ":viewdsl",
         ":viewdsl-appcompat",
-        ":viewdsl-appcompat-styles",
         ":viewdsl-constraintlayout",
         ":viewdsl-design",
         ":viewdsl-ide-preview",

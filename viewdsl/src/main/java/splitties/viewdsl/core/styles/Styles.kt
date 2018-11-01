@@ -18,13 +18,20 @@ package splitties.viewdsl.core.styles
 import android.content.Context
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
+import android.util.AttributeSet
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
-import splitties.viewdsl.core.styledView
+import splitties.viewdsl.core.getThemeAttrStyledView
+import splitties.viewdsl.core.viewFactory
+import splitties.viewdsl.core.wrapCtxIfNeeded
+
+typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
 
 inline operator fun <reified V : View> XmlStyle<V>.invoke(
         ctx: Context,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.styledView(style = this, id = id, theme = theme, initView = initView)
+): V = ctx.viewFactory.getThemeAttrStyledView<V>(ctx.wrapCtxIfNeeded(theme), null, styleAttr).also {
+    it.id = id
+}.apply(initView)

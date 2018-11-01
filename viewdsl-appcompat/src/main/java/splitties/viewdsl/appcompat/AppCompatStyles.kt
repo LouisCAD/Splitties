@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.viewdsl.appcompat.styles
+package splitties.viewdsl.appcompat
 
+import android.content.Context
 import android.content.res.Resources
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
-import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.styles.XmlStyle
 import kotlin.DeprecationLevel.HIDDEN
 
 @Suppress("FunctionName")
-fun Ui.AppCompatStyles(): AppCompatStyles {
+fun AppCompatStyles(ctx: Context): AppCompatStyles {
     AppCompatStyles.loadInto(ctx.theme)
     return AppCompatStyles.instance
 }
@@ -41,8 +41,7 @@ class AppCompatStyles private constructor() {
 
     companion object {
         internal val instance = AppCompatStyles()
-        @Suppress("NOTHING_TO_INLINE")
-        internal inline fun loadInto(theme: Resources.Theme) {
+        @Suppress("NOTHING_TO_INLINE") internal inline fun loadInto(theme: Resources.Theme) {
             theme.applyStyle(R.style.AppCompatStyles, false)
         }
     }
@@ -55,6 +54,7 @@ class ButtonAppCompatStyles internal constructor(
     @JvmField val default = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
     @JvmField val colored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
     @JvmField val flat = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
+    inline val borderless get() = flat
     @JvmField
     val flatColored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
     inline val borderlessColored get() = flatColored
