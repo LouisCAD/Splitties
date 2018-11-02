@@ -20,10 +20,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.support.annotation.IdRes
+import android.support.annotation.LayoutRes
 import android.support.annotation.StyleRes
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
+import splitties.views.inflate
 import kotlin.DeprecationLevel.ERROR
 
 /** Called so to remind that function references (that are inlined) are recommended for [view]. */
@@ -91,6 +93,27 @@ inline fun <reified V : View> Ui.view(
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.view(id, theme, initView)
+
+inline fun <reified V : View> Context.inflate(
+        @LayoutRes layoutResId: Int,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = view({ inflate(layoutResId) }, id, theme, initView)
+
+inline fun <reified V : View> View.inflate(
+        @LayoutRes layoutResId: Int,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = context.inflate(layoutResId, id, theme, initView)
+
+inline fun <reified V : View> Ui.inflate(
+        @LayoutRes layoutResId: Int,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = ctx.inflate(layoutResId, id, theme, initView)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

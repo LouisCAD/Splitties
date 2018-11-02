@@ -70,6 +70,7 @@ probably already familiar to you._
       * [Using any other xml style](#using-any-other-xml-style)
     * [The most beautiful ways: explicitly named aliases to the generic way](#the-most-beautiful-ways-explicitly-named-aliases-to-the-generic-way)
     * [View extensions](#view-extensions)
+    * [Inflating existing xml layouts](#inflating-existing-xml-layouts)
   * [Laying out the views](#laying-out-the-views)
     * [`ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`](#viewgroupadd-an-alias-to-viewgroupaddview)
     * [ViewGroups extension functions to instantiate LayoutParams](#viewgroups-extension-functions-to-instantiate-layoutparams)
@@ -278,6 +279,16 @@ one for `Context`. Also, remember to make them inline to avoid lambda allocation
 For even more expressive UI code, Splitties View DSL has a transitive dependency on
 the [Views split](../views) that provides a useful set of Kotlin-friendly extension
 functions and properties dedicated to `View`s and some of their subclasses.
+
+#### Inflating existing xml layouts
+
+Splitties View DSL works well with xml layouts too!
+
+The `inflate` extension functions is a variant to the `view` function [mentioned
+earlier in this guide](#the-most-generic-way-view) which has an additional first
+parameter: the layout resource id you want to inflate.
+
+Just like `view`, it is defined for `Context`, `View` and `Ui`.
 
 ### Laying out the views
 
