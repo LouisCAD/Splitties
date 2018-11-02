@@ -18,4 +18,6 @@
 <resources>
     <item name="icon" type="id"/>
     <item name="toggle" type="id"/>
+    <item name="firstLine" type="id"/>
+    <item name="secondLine" type="id"/>
 </resources>
