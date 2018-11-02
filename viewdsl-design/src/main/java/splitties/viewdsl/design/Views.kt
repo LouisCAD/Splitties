@@ -30,7 +30,7 @@ inline fun Context.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FloatingActionButton.() -> Unit = {}
-) = v(id, theme, initView)
+): FloatingActionButton = v(id, theme, initView)
 
 inline fun View.floatingActionButton(
         @IdRes id: Int = View.NO_ID,

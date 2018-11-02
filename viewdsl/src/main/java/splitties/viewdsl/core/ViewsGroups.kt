@@ -28,11 +28,10 @@ inline fun Context.verticalLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: LinearLayout.() -> Unit = {}
-) = v({ ctx ->
-    LinearLayout(ctx).apply {
-        orientation = LinearLayout.VERTICAL
-    }
-}, id, theme, initView)
+): LinearLayout = v(::LinearLayout, id, theme) {
+    orientation = LinearLayout.VERTICAL
+    initView()
+}
 
 inline fun View.verticalLayout(
         @IdRes id: Int = View.NO_ID,
@@ -52,7 +51,7 @@ inline fun Context.horizontalLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: LinearLayout.() -> Unit = {}
-) = v(::LinearLayout, id, theme, initView)
+): LinearLayout = v(::LinearLayout, id, theme, initView)
 
 inline fun View.horizontalLayout(
         @IdRes id: Int = View.NO_ID,
@@ -72,7 +71,7 @@ inline fun Context.frameLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FrameLayout.() -> Unit = {}
-) = v(::FrameLayout, id, theme, initView)
+): FrameLayout = v(::FrameLayout, id, theme, initView)
 
 inline fun View.frameLayout(
         @IdRes id: Int = View.NO_ID,

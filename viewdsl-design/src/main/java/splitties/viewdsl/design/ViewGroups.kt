@@ -32,7 +32,7 @@ inline fun Context.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CoordinatorLayout.() -> Unit = {}
-) = v(::CoordinatorLayout, id, theme, initView)
+): CoordinatorLayout = v(::CoordinatorLayout, id, theme, initView)
 
 inline fun View.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
@@ -53,7 +53,7 @@ inline fun Context.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AppBarLayout.() -> Unit = {}
-) = v(id, theme, initView)
+): AppBarLayout = v(id, theme, initView)
 
 inline fun View.appBarLayout(
         @IdRes id: Int = View.NO_ID,
@@ -73,7 +73,7 @@ inline fun Context.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = v(id, theme, initView)
+): CollapsingToolbarLayout = v(id, theme, initView)
 
 inline fun View.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,

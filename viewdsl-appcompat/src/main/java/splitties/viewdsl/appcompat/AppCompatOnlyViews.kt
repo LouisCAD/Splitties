@@ -31,7 +31,7 @@ inline fun Context.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Toolbar.() -> Unit = {}
-) = v(id, theme, initView)
+): Toolbar = v(id, theme, initView)
 
 inline fun View.toolbar(
         @IdRes id: Int = View.NO_ID,
@@ -51,7 +51,7 @@ inline fun Context.switch(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: SwitchCompat.() -> Unit = {}
-) = v(::SwitchCompat, id, theme, initView)
+): SwitchCompat = v(::SwitchCompat, id, theme, initView)
 
 inline fun View.switch(
         @IdRes id: Int = View.NO_ID,

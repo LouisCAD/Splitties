@@ -30,7 +30,7 @@ inline fun Context.constraintLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ConstraintLayout.() -> Unit = {}
-) = v(::ConstraintLayout, id, theme, initView)
+): ConstraintLayout = v(::ConstraintLayout, id, theme, initView)
 
 inline fun View.constraintLayout(
         @IdRes id: Int = View.NO_ID,

@@ -39,7 +39,7 @@ inline fun Context.textView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: TextView.() -> Unit = {}
-) = v(id, theme, initView)
+): TextView = v(id, theme, initView)
 
 inline fun View.textView(
         @IdRes id: Int = View.NO_ID,
@@ -59,7 +59,7 @@ inline fun Context.button(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Button.() -> Unit = {}
-) = v(id, theme, initView)
+): Button = v(id, theme, initView)
 
 inline fun View.button(
         @IdRes id: Int = View.NO_ID,
@@ -79,7 +79,7 @@ inline fun Context.imageView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ImageView.() -> Unit = {}
-) = v(id, theme, initView)
+): ImageView = v(id, theme, initView)
 
 inline fun View.imageView(
         @IdRes id: Int = View.NO_ID,
@@ -99,7 +99,7 @@ inline fun Context.editText(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: EditText.() -> Unit = {}
-) = v(id, theme, initView)
+): EditText = v(id, theme, initView)
 
 inline fun View.editText(
         @IdRes id: Int = View.NO_ID,
@@ -119,7 +119,7 @@ inline fun Context.spinner(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Spinner.() -> Unit = {}
-) = v(id, theme, initView)
+): Spinner = v(id, theme, initView)
 
 inline fun View.spinner(
         @IdRes id: Int = View.NO_ID,
@@ -139,7 +139,7 @@ inline fun Context.imageButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ImageButton.() -> Unit = {}
-) = v(id, theme, initView)
+): ImageButton = v(id, theme, initView)
 
 inline fun View.imageButton(
         @IdRes id: Int = View.NO_ID,
@@ -159,7 +159,7 @@ inline fun Context.checkBox(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CheckBox.() -> Unit = {}
-) = v(id, theme, initView)
+): CheckBox = v(id, theme, initView)
 
 inline fun View.checkBox(
         @IdRes id: Int = View.NO_ID,
@@ -179,7 +179,7 @@ inline fun Context.radioButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RadioButton.() -> Unit = {}
-) = v(id, theme, initView)
+): RadioButton = v(id, theme, initView)
 
 inline fun View.radioButton(
         @IdRes id: Int = View.NO_ID,
@@ -199,7 +199,7 @@ inline fun Context.checkedTextView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CheckedTextView.() -> Unit = {}
-) = v(id, theme, initView)
+): CheckedTextView = v(id, theme, initView)
 
 inline fun View.checkedTextView(
         @IdRes id: Int = View.NO_ID,
@@ -219,7 +219,7 @@ inline fun Context.autoCompleteTextView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AutoCompleteTextView.() -> Unit = {}
-) = v(id, theme, initView)
+): AutoCompleteTextView = v(id, theme, initView)
 
 inline fun View.autoCompleteTextView(
         @IdRes id: Int = View.NO_ID,
@@ -239,7 +239,7 @@ inline fun Context.multiAutoCompleteTextView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: MultiAutoCompleteTextView.() -> Unit = {}
-) = v(id, theme, initView)
+): MultiAutoCompleteTextView = v(id, theme, initView)
 
 inline fun View.multiAutoCompleteTextView(
         @IdRes id: Int = View.NO_ID,
@@ -259,7 +259,7 @@ inline fun Context.ratingBar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RatingBar.() -> Unit = {}
-) = v(id, theme, initView)
+): RatingBar = v(id, theme, initView)
 
 inline fun View.ratingBar(
         @IdRes id: Int = View.NO_ID,
@@ -279,7 +279,7 @@ inline fun Context.seekBar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: SeekBar.() -> Unit = {}
-) = v(id, theme, initView)
+): SeekBar = v(id, theme, initView)
 
 inline fun View.seekBar(
         @IdRes id: Int = View.NO_ID,
