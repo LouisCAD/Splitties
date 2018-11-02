@@ -39,8 +39,40 @@ fun Context.wrapCtxIfNeeded(theme: Int): Context {
     return if (theme == NO_THEME) this else withTheme(theme)
 }
 
-// v functions below
+// view functions below
 
+inline fun <V : View> Context.view(
+        createView: NewViewRef<V>,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
+
+inline fun <V : View> View.view(
+        createView: NewViewRef<V>,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = context.view(createView, id, theme, initView)
+
+inline fun <V : View> Ui.view(
+        createView: NewViewRef<V>,
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = ctx.view(createView, id, theme, initView)
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
+
+//region Deprecated v functions.
+
+private const val deprecationMessageForV = "Use view instead of v."
+
+@Deprecated(deprecationMessageForV, ReplaceWith(
+        expression = "view(createView, id, theme, initView)",
+        imports = ["splitties.viewdsl.core.view"]
+))
 inline fun <V : View> Context.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -48,6 +80,10 @@ inline fun <V : View> Context.v(
         initView: V.() -> Unit = {}
 ): V = createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
 
+@Deprecated(deprecationMessageForV, ReplaceWith(
+        expression = "view(createView, id, theme, initView)",
+        imports = ["splitties.viewdsl.core.view"]
+))
 inline fun <V : View> View.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -55,25 +91,27 @@ inline fun <V : View> View.v(
         initView: V.() -> Unit = {}
 ): V = context.v(createView, id, theme, initView)
 
+@Deprecated(deprecationMessageForV, ReplaceWith(
+        expression = "view(createView, id, theme, initView)",
+        imports = ["splitties.viewdsl.core.view"]
+))
 inline fun <V : View> Ui.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.v(createView, id, theme, initView)
-
-@Suppress("NOTHING_TO_INLINE")
-inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
+//endregion
 
 //region Deprecated add functions.
 
-private const val deprecationMessageForAdd = "Use v + add or v + addView instead of just add. " +
+private const val deprecationMessageForAdd = "Use view + add or view + addView instead of just add. " +
         "It makes promoting a view as property easier as you don't have to extract the " +
         "parameters manually."
 
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(v(createView, id, theme, initView), lp)",
-        imports = ["splitties.viewdsl.core.v"]
+        expression = "add(view(createView, id, theme, initView), lp)",
+        imports = ["splitties.viewdsl.core.view"]
 ), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
@@ -84,8 +122,8 @@ inline fun <V : View> ViewGroup.add(
 ): V = v(createView, id, theme, initView).also { addView(it, lp) }
 
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(v(createView, id, initView), lp)",
-        imports = ["splitties.viewdsl.core.v"]
+        expression = "add(view(createView, id, initView), lp)",
+        imports = ["splitties.viewdsl.core.view"]
 ), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
@@ -95,8 +133,8 @@ inline fun <V : View> ViewGroup.add(
 ): V = createView(context).also { it.id = id }.apply(initView).also { addView(it, lp) }
 
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(v(createView, initView), lp)",
-        imports = ["splitties.viewdsl.core.v"]
+        expression = "add(view(createView, initView), lp)",
+        imports = ["splitties.viewdsl.core.view"]
 ), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
