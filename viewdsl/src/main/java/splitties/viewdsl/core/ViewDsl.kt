@@ -57,7 +57,7 @@ inline fun <V : View> View.v(
 
 inline fun <V : View> Ui.v(
         createView: NewViewRef<V>,
-        @IdRes id: Int = android.view.View.NO_ID,
+        @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.v(createView, id, theme, initView)
