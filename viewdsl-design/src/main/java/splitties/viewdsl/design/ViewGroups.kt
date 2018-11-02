@@ -24,7 +24,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.view
 
 // CoordinatorLayout
 
@@ -32,7 +32,7 @@ inline fun Context.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CoordinatorLayout.() -> Unit = {}
-): CoordinatorLayout = v(::CoordinatorLayout, id, theme, initView)
+): CoordinatorLayout = view(::CoordinatorLayout, id, theme, initView)
 
 inline fun View.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
@@ -53,7 +53,7 @@ inline fun Context.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AppBarLayout.() -> Unit = {}
-): AppBarLayout = v(id, theme, initView)
+): AppBarLayout = view(id, theme, initView)
 
 inline fun View.appBarLayout(
         @IdRes id: Int = View.NO_ID,
@@ -73,7 +73,7 @@ inline fun Context.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-): CollapsingToolbarLayout = v(id, theme, initView)
+): CollapsingToolbarLayout = view(id, theme, initView)
 
 inline fun View.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,

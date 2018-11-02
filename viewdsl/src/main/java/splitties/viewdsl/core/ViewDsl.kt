@@ -16,7 +16,9 @@
 
 package splitties.viewdsl.core
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.ContextWrapper
 import android.support.annotation.IdRes
 import android.support.annotation.StyleRes
 import android.view.ContextThemeWrapper
@@ -24,10 +26,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlin.DeprecationLevel.ERROR
 
-/**
- * Called so to remind that function references (that are inlined) are recommended for
- * [v] and [add].
- */
+/** Called so to remind that function references (that are inlined) are recommended for [view]. */
 typealias NewViewRef<V> = (Context) -> V
 
 const val NO_THEME = 0
@@ -38,8 +37,6 @@ inline fun Context.withTheme(theme: Int) = ContextThemeWrapper(this, theme)
 fun Context.wrapCtxIfNeeded(theme: Int): Context {
     return if (theme == NO_THEME) this else withTheme(theme)
 }
-
-// view functions below
 
 inline fun <V : View> Context.view(
         createView: NewViewRef<V>,
@@ -61,6 +58,39 @@ inline fun <V : View> Ui.view(
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.view(createView, id, theme, initView)
+
+private const val VIEW_FACTORY = "splitties:viewdsl:viewfactory"
+
+val Context.viewFactory: ViewFactory
+    @SuppressLint("WrongConstant")
+    get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
+
+fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : ContextWrapper(this) {
+    override fun getSystemService(name: String): Any? = when (name) {
+        VIEW_FACTORY -> viewFactory
+        else -> super.getSystemService(name)
+    }
+}
+
+inline fun <reified V : View> Context.view(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
+    it.id = id
+}.apply(initView)
+
+inline fun <reified V : View> View.view(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = context.view(id, theme, initView)
+
+inline fun <reified V : View> Ui.view(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: V.() -> Unit = {}
+): V = ctx.view(id, theme, initView)
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

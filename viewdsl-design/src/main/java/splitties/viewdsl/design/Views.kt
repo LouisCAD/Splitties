@@ -22,7 +22,7 @@ import android.support.design.widget.FloatingActionButton
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.view
 
 // FloatingActionButton
 
@@ -30,7 +30,7 @@ inline fun Context.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FloatingActionButton.() -> Unit = {}
-): FloatingActionButton = v(id, theme, initView)
+): FloatingActionButton = view(id, theme, initView)
 
 inline fun View.floatingActionButton(
         @IdRes id: Int = View.NO_ID,

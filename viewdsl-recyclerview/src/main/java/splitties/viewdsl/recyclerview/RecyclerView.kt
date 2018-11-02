@@ -25,14 +25,14 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import splitties.viewdsl.core.NO_THEME
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.view
 import splitties.views.inflate
 
 inline fun Context.recyclerView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RecyclerView.() -> Unit = {}
-) = v({ it.inflate(R.layout.recyclerview_with_scrollbars) }, id, theme, initView)
+) = view({ it.inflate(R.layout.recyclerview_with_scrollbars) }, id, theme, initView)
 
 inline fun View.recyclerView(
         @IdRes id: Int = View.NO_ID,

@@ -22,7 +22,7 @@ import android.support.constraint.ConstraintLayout
 import android.view.View
 import splitties.viewdsl.core.NO_THEME
 import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.view
 
 // ConstraintLayout
 
@@ -30,7 +30,7 @@ inline fun Context.constraintLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ConstraintLayout.() -> Unit = {}
-): ConstraintLayout = v(::ConstraintLayout, id, theme, initView)
+): ConstraintLayout = view(::ConstraintLayout, id, theme, initView)
 
 inline fun View.constraintLayout(
         @IdRes id: Int = View.NO_ID,

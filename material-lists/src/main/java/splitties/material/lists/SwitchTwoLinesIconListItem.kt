@@ -36,7 +36,7 @@ import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.imageView
 import splitties.viewdsl.core.textView
 import splitties.viewdsl.core.startMargin
-import splitties.viewdsl.core.v
+import splitties.viewdsl.core.view
 import splitties.viewdsl.core.verticalMargin
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
@@ -52,7 +52,7 @@ class SwitchTwoLinesIconListItem(
     inline val toggle
         get() = switch
 
-    val switch = v(::SwitchCompat, R.id.toggle)
+    val switch = view(::SwitchCompat, R.id.toggle)
 
     val icon = imageView(R.id.icon) {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)

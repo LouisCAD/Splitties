@@ -13,7 +13,7 @@ If you're curious to see how it works, look for the method `createView` in the
 
 ## How AppCompat works with Splitties View DSL
 
-Since the `LayoutInflater` only works on xml, if you use `v(::Button)` with View DSL,
+Since the `LayoutInflater` only works on xml, if you use `view(::Button)` with View DSL,
 you get a `Button` instance, not an `AppCompatButton` instance. This means it
 will not have AppCompat features and styling.
 

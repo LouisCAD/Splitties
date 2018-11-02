@@ -63,7 +63,7 @@ probably already familiar to you._
 
 * [The extensions](#the-extensions)
   * [Creating and configuring views](#creating-and-configuring-views)
-    * [The most generic way: `v`](#the-most-generic-way-v)
+    * [The most generic way: `view`](#the-most-generic-way-view)
     * [Using styles defined in xml](#using-styles-defined-in-xml)
       * [Using Android styles](#using-android-styles)
       * [Using AppCompat styles](#using-appcompat-styles)
@@ -105,12 +105,12 @@ support, **without the boilerplate**.
 
 ### Creating and configuring views
 
-#### The most generic way: `v`
+#### The most generic way: `view`
 
-The `v` extension functions are a primitive of Splitties View DSL.
+The `view` extension functions are a primitive of Splitties View DSL.
 They are generic, so they allow you to instantiate a `View` of any type.
 
-There are 6 functions named `v`, because there's **2 overload types**, and they
+There are 6 functions named `view`, because there's **2 overload types**, and they
 are made available for 3 receiver types: `Ui`, `View` and `Context`.
 
 With respect to efficiency, they are all **inline**. That means no unnecessary
@@ -123,12 +123,12 @@ you declared it in xml, [as done in the sample](../sample/src/main/res/values/vi
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
 * `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
 
-**The first overload** of `v` takes a required first parameter that is a function
+**The first overload** of `view` takes a required first parameter that is a function
 taking a `Context`, and returning a `View`. Since constructors are also
 methods in Kotlin, you can directly use a method reference like so:
-`v(::View)`.
-The same goes for any other `View` subclass (e.g. `v(::FrameLayout)`).
-You can also use a lambda instead: `v({ FrameLayout(it) })`. In fact, that's
+`view(::View)`.
+The same goes for any other `View` subclass (e.g. `view(::FrameLayout)`).
+You can also use a lambda instead: `view({ FrameLayout(it) })`. In fact, that's
 how you should do it while autocomplete for method references is not optimal,
 then use the IDE quick action (<kbd>alt</kbd>/<kbd>⌥ option</kbd> + <kbd>⏎ enter</kbd>)
 to convert it to method reference.
@@ -138,12 +138,12 @@ a constructor as long as that method takes a `Context` parameter and returns a
 
 Here's a simple but typical example of this first overload:
 ```kotlin
-val myView: MyCustomView = v(::MyCustomView, R.id.my_view) {
+val myView: MyCustomView = view(::MyCustomView, R.id.my_view) {
     backgroundColor = Color.BLACK
 }
 ```
 
-**The second overload** of `v` takes no required parameter, but relies on explicit
+**The second overload** of `view` takes no required parameter, but relies on explicit
 (reified) type parameter to work properly. Just `v<TextView>()` is enough to
 instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
@@ -185,7 +185,7 @@ val progressbar = AndroidStyles.progressBar.horizontal(ctx)
 Other styles defined in the Android platform are provided in `AndroidStyles`.
 Just let auto-completion guide you.
 
-Note that you have **exactly the same optional parameters as `v`**, including the optional lambda.
+Note that you have **exactly the same optional parameters as `view`**, including the optional lambda.
 
 ##### Using AppCompat styles
 
@@ -258,7 +258,7 @@ inference, and a nicer syntax.
 #### The most beautiful ways: explicitly named aliases to the generic way
 
 Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can use
-`button(…) { … }`. The parameters are exactly the same as `v`.
+`button(…) { … }`. The parameters are exactly the same as `view`.
 
 Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
