@@ -7,6 +7,13 @@
 This split includes extensions on view related classes. They are helpful when
 dealing with views programmatically.
 
+### Depends on AndroidX core KTX
+
+Android core KTX already bundles its share of useful extensions for Views.
+For example, it includes `View` visibility extension properties like `isVisible`.
+To avoid duplication, Splitties deprecated symbols made redundant by Android
+core KTX, and included the dependency transitively instead.
+
 ### View background properties
 
 `bg` is an alias to the `background` property for `View, but works below 
@@ -49,14 +56,6 @@ bottomPadding
 
 You can also use the `setPaddingDp` extension function that offers default
 parameter values.
-
-### View visibility properties
-
-This split has 2 `Boolean` extension properties dedicated to `View`
-visibility: `visible` and `gone`.
-
-There's also a `showIf(…)` extension function that makes the `View` gone if
-the argument is false, visible otherwise.
 
 ### Gravity flags aliases
 
@@ -128,15 +127,19 @@ implicitly true).
 
 `clearCompoundDrawables()` clears all compound drawables the `TextView` has.
 
+### Click
+
+`onClick { … }` extension method for `View` avoids `it` shadowing if you have
+other lambdas, while also being more expressive than `setOnClickListener { … }`.
+
+`onLongClick { … }` is similar to `onClick { … }`, but also removes the need
+to have an extra line in the lambda to return `true` or `false`.
+
 ### Other
 
-This split also includes an `onClick { … }` extension method for `View`. It
-is slightly less efficient than using `setOnClickListener { … }` as of Kotlin
-1.2 since it has to generate a SAM class converter, making the dex and the
-final apk slightly bigger, but there is no significant runtime impact. This
-method may get deprecated in the future for a version that would provide a
-`suspend` lambda instead of a "regular" one that doesn't support suspension
-points.
+`assignAndGetGeneratedId()` extension for `View` is a backwards compatible
+and more efficient version of `View.generateViewId()` that was introduced
+in Android API 17.
 
 ## Download
 

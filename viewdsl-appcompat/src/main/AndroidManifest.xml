@@ -14,4 +14,16 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.viewdsl.appcompat"/>
+<manifest package="splitties.viewdsl.appcompat"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <provider
+            android:name=".experimental.AppCompatViewInstantiatorInjectProvider"
+            android:authorities="${applicationId}.splitties.viewdsl.appcompat.experimental.init"
+            android:enabled="true"
+            android:initOrder="21"
+            android:exported="false">
+        </provider>
+    </application>
+</manifest>

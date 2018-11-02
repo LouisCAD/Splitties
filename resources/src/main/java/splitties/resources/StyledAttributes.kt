@@ -18,10 +18,11 @@
 
 package splitties.resources
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.support.annotation.AttrRes
-import splitties.uithread.isUiThread
+import splitties.mainthread.isMainThread
 
 private val uiThreadConfinedCachedAttrArray = IntArray(1)
 private val cachedAttrArray = IntArray(1)
@@ -34,7 +35,8 @@ inline fun <T> Context.withStyledAttributes(
 }
 
 @PublishedApi
-internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray = if (isUiThread) {
+@SuppressLint("Recycle") // Recycled in function above.
+internal fun Context.obtainStyledAttr(@AttrRes attrRes: Int): TypedArray = if (isMainThread) {
     uiThreadConfinedCachedAttrArray[0] = attrRes
     obtainStyledAttributes(uiThreadConfinedCachedAttrArray)
 } else synchronized(cachedAttrArray) {

@@ -34,11 +34,6 @@ Here's a screenshot of how it looks like with [DemoUi from the sample](
 
 ### Known issues and their workaround
 
-* `AppBarLayout` from the design support library has an issue with IDE
-preview when not instantiated directly from xml on Lollipop+. [The issue has
-been reported here on Android's issue tracker](
-https://issuetracker.google.com/issues/73092289). The workaround is to
-select API 19 or lower in the preview interface.
 * If preview doesn't work or doesn't reflect latest changes, it's likely
 because you didn't build your project. IDE preview currently only works with
 compiled classes and xml layouts, so make sure your project is built before

@@ -35,11 +35,5 @@ inline fun AppBarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
         scrollFlags: Int = ENTER_ALWAYS,
-        initParams: LP.() -> Unit
-) = LP(width, height).also { it.scrollFlags = scrollFlags }.apply(initParams)
-
-inline fun AppBarLayout.defaultLParams(
-        width: Int = matchParent,
-        height: Int = wrapContent,
-        scrollFlags: Int = ENTER_ALWAYS
-) = LP(width, height).also { it.scrollFlags = scrollFlags }
+        initParams: LP.() -> Unit = {}
+): LP = LP(width, height).also { it.scrollFlags = scrollFlags }.apply(initParams)

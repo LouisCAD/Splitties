@@ -16,11 +16,12 @@
 
 package splitties.selectableviews
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
+import android.support.annotation.CallSuper
+import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import splitties.resources.styledDrawable
@@ -45,32 +46,32 @@ open class SelectableLinearLayout @JvmOverloads constructor(
         foregroundSelector = styledDrawable(android.R.attr.selectableItemBackground)
     }
 
-    final override fun drawableStateChanged() {
+    @CallSuper override fun drawableStateChanged() {
         super.drawableStateChanged()
         foregroundSelector?.state = drawableState
     }
 
-    final override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    @CallSuper override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         foregroundSelector?.setBounds(0, 0, w, h)
     }
 
-    final override fun onDraw(canvas: Canvas) {
+    @CallSuper override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         foregroundSelector?.draw(canvas)
     }
 
-    final override fun jumpDrawablesToCurrentState() {
+    @CallSuper override fun jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState()
         foregroundSelector?.jumpToCurrentState()
     }
 
-    final override fun verifyDrawable(who: Drawable): Boolean {
+    @CallSuper override fun verifyDrawable(who: Drawable): Boolean {
         return who === foregroundSelector || super.verifyDrawable(who)
     }
 
-    @TargetApi(LOLLIPOP)
-    final override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
+    @RequiresApi(LOLLIPOP)
+    @CallSuper override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
         super.dispatchDrawableHotspotChanged(x, y)
         foregroundSelector?.setHotspot(x, y)
     }

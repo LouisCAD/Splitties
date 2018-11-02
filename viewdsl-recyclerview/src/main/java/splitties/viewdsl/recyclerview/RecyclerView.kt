@@ -17,13 +17,33 @@
 package splitties.viewdsl.recyclerview
 
 import android.content.Context
+import android.support.annotation.IdRes
+import android.support.annotation.StyleRes
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import splitties.views.inflate
+import splitties.viewdsl.core.NO_THEME
+import splitties.viewdsl.core.Ui
+import splitties.viewdsl.core.inflate
 
-@Suppress("NOTHING_TO_INLINE")
-inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)
+inline fun Context.recyclerView(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: RecyclerView.() -> Unit = {}
+): RecyclerView = inflate(R.layout.recyclerview_with_scrollbars, id, theme, initView)
+
+inline fun View.recyclerView(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: RecyclerView.() -> Unit = {}
+) = context.recyclerView(id, theme, initView)
+
+inline fun Ui.recyclerView(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: RecyclerView.() -> Unit = {}
+) = ctx.recyclerView(id, theme, initView)
 
 inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
         block: RecyclerView.LayoutParams.() -> Unit = {}

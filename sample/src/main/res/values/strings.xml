@@ -123,4 +123,6 @@
     <string name="licensed_under_apache_2">Licensed under Apache v2.0</string>
     <string name="about">About</string>
     <string name="title_activity_about">@string/about</string>
+    <string name="say_hello">Say Hello</string>
+    <string name="be_polite_with_permissions">Be polite with permissions</string>
 </resources>

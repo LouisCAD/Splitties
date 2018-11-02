@@ -13,16 +13,14 @@ If you're curious to see how it works, look for the method `createView` in the
 
 ## How AppCompat works with Splitties View DSL
 
-Since the `LayoutInflater` only works on xml, if you use `Button` with View DSL,
+Since the `LayoutInflater` only works on xml, if you use `view(::Button)` with View DSL,
 you get a `Button` instance, not an `AppCompatButton` instance. This means it
 will not have AppCompat features and styling.
 
-Fortunately, this split provides `camelCase` functions for the AppCompat
-versions of these widgets.
+However, if you use `button()`, or `v<Button>()`, it will automatically delegate to
+this split if in the dependencies, returning an `AppCompatButton` instance.
 
-If your project uses AppCompat and you need to create
-a `TextView` or a `Button` with View DSL, use `textView` and `button`. Don't
-forget to this for other widgets too, or you'll get styling issues.
+This works for all AppCompat widgets.
 
 ## Supported widgets
 
@@ -44,11 +42,36 @@ Here's the full list:
 * `RatingBar`
 * `SeekBar`
 
-Lowercase the first letter in your code and you're good to go!
+Just call the related method that is the camelCase version of the PascalCase constructor.
+For example, you can call `seekBar(…) { … }` and you'll receive an `AppCompatSeekBar` instance.
 
-[You can also see the list here, directly in the source.](
-src/main/java/splitties/viewdsl/appcompat/AppCompatViews.kt
-)
+As an alternative, you can also use these types with the reified type parameter version of `v`,
+like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's how
+the more specialized inline functions like `button` do under the "hood".
+
+Note that automatically doesn't mean magically. In fact, no reflection is involved (contrary
+to xml inflation).
+
+[You can also see the source of the function that maps to AppCompat widgets versions](
+src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewFactory.kt
+), and the [InitProvider that makes it zero initialization on your side](
+src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
+).
+
+## Multi-process apps
+
+If your app needs to use AppCompat themed widgets in the non default process, you'll need to
+manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
+[this InitProvider](
+src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
+) into a package of an android library/app module of your project, then declare it in the
+`AndroidManifest.xml` of the module exactly like it is done [here](
+src/main/AndroidManifest.xml
+). To do so, copy paste it, then fix the package of the class under the `android:name` xml attribute
+of the `provider` tag, then specify the `android:process` value to the one of your non default
+process.
+
+Be sure to test it to make sure you set it up properly.
 
 ## Download
 

@@ -30,28 +30,24 @@ import android.support.design.widget.CollapsingToolbarLayout.LayoutParams as LP
 inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
-        collapseMode: Int = LP.COLLAPSE_MODE_OFF,
-        parallaxMultiplier: Float = 0.5f // Default value as of 27.1.0
-) = LP(width, height).also {
-    it.collapseMode = collapseMode
-    it.parallaxMultiplier = parallaxMultiplier
-}
+        initParams: LP.() -> Unit = {}
+): LP = LP(width, height).apply(initParams)
 
 inline fun CollapsingToolbarLayout.defaultLParams(
         width: Int = matchParent,
         height: Int = wrapContent,
-        initParams: LP.() -> Unit
-) = LP(width, height).apply(initParams)
-
-inline fun CollapsingToolbarLayout.defaultLParams(
-        width: Int = matchParent,
-        height: Int = wrapContent
-) = LP(width, height)
+        collapseMode: Int = LP.COLLAPSE_MODE_OFF,
+        parallaxMultiplier: Float = 0.5f, // Default value as of 27.1.1
+        initParams: LP.() -> Unit = {}
+): LP = LP(width, height).also {
+    it.collapseMode = collapseMode
+    it.parallaxMultiplier = parallaxMultiplier
+}.apply(initParams)
 
 inline fun CollapsingToolbarLayout.actionBarLParams(
         collapseMode: Int = LP.COLLAPSE_MODE_OFF,
-        parallaxMultiplier: Float = 0.5f // Default value as of 27.1.0
-) = LP(matchParent, styledDimenPxSize(R.attr.actionBarSize)).also {
+        parallaxMultiplier: Float = 0.5f // Default value as of 27.1.1
+): LP = LP(matchParent, styledDimenPxSize(R.attr.actionBarSize)).also {
     it.collapseMode = collapseMode
     it.parallaxMultiplier = parallaxMultiplier
 }

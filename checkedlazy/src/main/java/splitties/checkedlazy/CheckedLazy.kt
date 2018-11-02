@@ -21,7 +21,7 @@ package splitties.checkedlazy
 /**
  * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of UI thread.
  */
-fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initializer, uiChecker)
+fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl(initializer, uiChecker)
 
 /**
  * Creates a new instance of the [Lazy] that uses the specified initialization
@@ -41,7 +41,7 @@ fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl<T>(initial
  * @param readChecker This method may check any condition external to this [Lazy].
  */
 fun <T> checkedLazy(readChecker: () -> Unit, initializer: () -> T): Lazy<T> {
-    return CheckedAccessLazyImpl<T>(initializer, readChecker)
+    return CheckedAccessLazyImpl(initializer, readChecker)
 }
 
 /**

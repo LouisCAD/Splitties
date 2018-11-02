@@ -2,20 +2,24 @@
 
 ## Releasing a stable, beta or alpha version
 
-1. Change the `library_version` ext property in root project's `build.gradle`
+1. Checkout the `develop` branch, if not already done.
+2. Change the `library_version` ext property in root project's `build.gradle`
 file to a non-SNAPSHOT version.
-2. Update the `README.md` with the new version.
-3. Run `git commit -am "Prepare for release X.Y.Z"`
+3. Update the `README.md` with the new version.
+4. Run `git commit -am "Prepare for release X.Y.Z"`
 (where X.Y.Z is the new version).
-4. `git tag -a vX.Y.Z -m "Version X.Y.Z"` (where X.Y.Z is the new version).
-5. Run `./gradlew clean bintrayUpload`.
-6. Run `git push origin`.
-7. Sign in on Bintray and publish the packages.
-8. Change the `library_version` ext property in root project back to a
+5. `git tag -a vX.Y.Z -m "Version X.Y.Z"` (where X.Y.Z is the new version).
+6. Run `./gradlew clean bintrayUpload`.
+7. Run `git push origin`.
+8. Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.
+9. Sign in on Bintray and publish the packages.
+10. Run `git push origin --tags`.
+11. Merge the pull request for the new version on GitHub.
+12. Publish release on GitHub.
+13. Change the `library_version` ext property in root project back to a
 -SNAPSHOT version.
-9. Run `git commit -am "Prepare next development version."`.
-10. Run `git push origin && git push origin --tags`.
-11. Publish release on GitHub.
+14. Run `git commit -am "Prepare next development version."`.
+15. Run `git push origin`.
 
 ## Publishing a SNAPSHOT
 

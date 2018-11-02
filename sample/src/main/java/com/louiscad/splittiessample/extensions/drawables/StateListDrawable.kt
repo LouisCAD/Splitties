@@ -63,6 +63,8 @@ inline fun drawableStateList(
 
 /**
  * For [state] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ *
+ * Use minus (`-`) for [state] = false.
  */
 inline fun <D : Drawable> StateListDrawable.addForState(
         newDrawableRef: () -> D,
@@ -72,6 +74,8 @@ inline fun <D : Drawable> StateListDrawable.addForState(
 
 /**
  * For [stateSet] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ *
+ * Use minus (`-`) for state = false in [stateSet] values.
  */
 inline fun <D : Drawable> StateListDrawable.addForStates(
         newDrawableRef: () -> D,

@@ -24,12 +24,15 @@ import android.view.MenuItem
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
-import com.louiscad.splittiessample.extensions.VibrationEffect
+import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
-import com.louiscad.splittiessample.extensions.vibrate
 import com.louiscad.splittiessample.prefs.GamePreferences
+import com.louiscad.splittiessample.preview.permissions.PermissionsExampleActivity
+import com.louiscad.splittiessample.preview.vibrator.VibrationEffect
+import com.louiscad.splittiessample.preview.vibrator.vibrate
+import com.louiscad.splittiessample.sayhello.SayHelloActivity
 import kotlinx.coroutines.experimental.launch
 import splitties.activities.start
 import splitties.preferences.edit
@@ -48,14 +51,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui)
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         ui.launchDemoBtn.onClick { start<DemoActivity>() }
+        ui.bePoliteWithPermissionsBtn.onClick { start<PermissionsExampleActivity>() }
+        ui.sayHelloBtn.onClick { start<SayHelloActivity>() }
         ui.fab.onClick {
-            launch {
+            coroutineScope.launch {
                 GamePreferences().edit {
                     currentLevel++
                     bossesFought++
                     lastTimePlayed = System.currentTimeMillis()
                 } // TODO: 02/03/2017 Prove this working by moving it to a dedicated activity for prefs
                 // TODO: 02/03/2017 With a UI showing prefs values.
+                //TODO: Use PrefsAdapter in a bottom sheet for real example
             }
             vibrator.vibrate(vibe)
             ui.root.longSnack(R.string.cant_dislike_md)
@@ -73,8 +79,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_settings -> true.also { _ -> toast("No settings yet!") }
-        R.id.action_about -> true.also { _ -> start<AboutActivity>() }
+        R.id.action_settings -> toast("No settings yet!").let { true }
+        R.id.action_about -> start<AboutActivity>().let { true }
         else -> super.onOptionsItemSelected(item)
     }
 

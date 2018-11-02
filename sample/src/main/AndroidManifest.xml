@@ -19,6 +19,7 @@
           xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
     <application
         android:name=".DemoApp"
@@ -45,8 +46,7 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
             android:label="@string/title_activity_demo"
             android:launchMode="singleTop"
-            android:parentActivityName=".main.MainActivity"
-            tools:ignore="UnusedAttribute">
+            android:parentActivityName=".main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.louiscad.splittiessample.main.MainActivity"/>
@@ -56,8 +56,26 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
             android:label="@string/title_activity_about"
             android:launchMode="singleTop"
-            android:parentActivityName=".main.MainActivity"
-            tools:ignore="UnusedAttribute">
+            android:parentActivityName=".main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.louiscad.splittiessample.main.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".sayhello.SayHelloActivity"
+            android:label="@string/say_hello"
+            android:launchMode="singleTop"
+            android:parentActivityName=".main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.louiscad.splittiessample.main.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".preview.permissions.PermissionsExampleActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="Permissions request example"
+            android:launchMode="singleTop"
+            android:parentActivityName=".main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.louiscad.splittiessample.main.MainActivity"/>

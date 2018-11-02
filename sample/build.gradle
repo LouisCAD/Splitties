@@ -78,8 +78,8 @@ dependencies {
     implementation project(':systemservices')
     implementation project(':toast')
     implementation project(':typesaferecyclerview')
-    implementation project(':uithread')
-    implementation project(':viewdsl-appcompat-styles')
+    implementation project(':mainthread')
+    implementation project(':viewdsl-appcompat')
     implementation project(':viewdsl-constraintlayout')
     implementation project(':viewdsl-design')
     debugImplementation project(':viewdsl-ide-preview')
@@ -88,6 +88,9 @@ dependencies {
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibs_version"
     implementation "com.android.support:design:$supportLibs_version"
+
+    // Android KTX
+    implementation "androidx.core:core-ktx:0.3"
 
     // Constraint Layout
     implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"

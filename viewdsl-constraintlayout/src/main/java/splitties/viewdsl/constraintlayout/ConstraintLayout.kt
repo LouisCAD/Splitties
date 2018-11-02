@@ -21,18 +21,17 @@ package splitties.viewdsl.constraintlayout
 import android.support.constraint.ConstraintLayout
 import splitties.viewdsl.core.matchParent
 
-@PublishedApi internal const val MATCH_CONSTRAINT = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+/**
+ * **A LESS CAPITALIZED ALIAS** to [ConstraintLayout.LayoutParams.MATCH_CONSTRAINT] that is only
+ * visible inside [ConstraintLayout]s.
+ */
+@Suppress("unused") inline val ConstraintLayout.matchConstraints get() = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 
 inline fun ConstraintLayout.lParams(
-        width: Int = MATCH_CONSTRAINT,
-        height: Int = MATCH_CONSTRAINT,
-        initParams: ConstraintLayout.LayoutParams.() -> Unit
-): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).also(initParams)
-
-inline fun ConstraintLayout.lParams(
-        width: Int = MATCH_CONSTRAINT,
-        height: Int = MATCH_CONSTRAINT
-): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height)
+        width: Int = matchConstraints,
+        height: Int = matchConstraints,
+        initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
+): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).apply(initParams)
 
 @PublishedApi internal fun ConstraintLayout.createConstraintLayoutParams(
         width: Int,
@@ -40,8 +39,8 @@ inline fun ConstraintLayout.lParams(
 ): ConstraintLayout.LayoutParams {
     val matchParentWidth = width == matchParent
     val matchParentHeight = height == matchParent
-    val realWidth = if (matchParentWidth) MATCH_CONSTRAINT else width
-    val realHeight = if (matchParentHeight) MATCH_CONSTRAINT else height
+    val realWidth = if (matchParentWidth) matchConstraints else width
+    val realHeight = if (matchParentHeight) matchConstraints else height
     return ConstraintLayout.LayoutParams(realWidth, realHeight).apply {
         if (matchParentWidth) centerHorizontally()
         if (matchParentHeight) centerVertically()

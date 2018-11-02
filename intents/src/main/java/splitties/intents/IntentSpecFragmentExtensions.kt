@@ -20,7 +20,7 @@ import android.support.v4.app.Fragment
 import splitties.bundle.BundleSpec
 import splitties.exceptions.unsupported
 
-// Activity
+// WARNING. If this file is renamed, edit the proguard-rules.pro file accordingly.
 
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")

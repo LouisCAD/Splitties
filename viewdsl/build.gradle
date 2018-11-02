@@ -30,7 +30,6 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
     sourceSets {
@@ -39,6 +38,7 @@ android {
 }
 
 dependencies {
+    api project(':collections')
     api project(':views')
 
     // Android Support Libraries
