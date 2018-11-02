@@ -290,6 +290,13 @@ parameter: the layout resource id you want to inflate.
 
 Just like `view`, it is defined for `Context`, `View` and `Ui`.
 
+Here's a short example:
+```kotlin
+val mySecretFancyView = inflate(R.layout.my_fancy_layout) {
+    isVisible = false
+}
+```
+
 ### Laying out the views
 
 #### `ViewGroup.add(…)`, an alias to `ViewGroup.addView(…)`
