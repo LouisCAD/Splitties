@@ -94,23 +94,27 @@ inline fun <reified V : View> Ui.view(
         initView: V.() -> Unit = {}
 ): V = ctx.view(id, theme, initView)
 
+const val XML_DEFINED_ID = -1
+
 inline fun <reified V : View> Context.inflate(
         @LayoutRes layoutResId: Int,
-        @IdRes id: Int = View.NO_ID,
+        @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = view({ inflate(layoutResId) }, id, theme, initView)
+): V = wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also {
+    if (id != XML_DEFINED_ID) it.id = id
+}.apply(initView)
 
 inline fun <reified V : View> View.inflate(
         @LayoutRes layoutResId: Int,
-        @IdRes id: Int = View.NO_ID,
+        @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = context.inflate(layoutResId, id, theme, initView)
 
 inline fun <reified V : View> Ui.inflate(
         @LayoutRes layoutResId: Int,
-        @IdRes id: Int = View.NO_ID,
+        @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
 ): V = ctx.inflate(layoutResId, id, theme, initView)
