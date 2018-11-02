@@ -49,8 +49,7 @@ val View.existingOrNewId: Int
  * Specially optimized for usage on main thread to be synchronization free.
  * Backwards compatible below API 17.
  */
-@Suppress("NOTHING_TO_INLINE") // Used only once in this file.
-private inline fun generateViewId(): Int = when {
+fun generateViewId(): Int = when {
     isMainThread -> mainThreadLastGeneratedId.also {
         // Decrement here to avoid any collision with other generated ids which are incremented.
         mainThreadLastGeneratedId = (if (it == 1) aaptIdsStart else it) - 1
