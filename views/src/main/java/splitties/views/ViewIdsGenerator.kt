@@ -45,9 +45,10 @@ val View.existingOrNewId: Int
     }
 
 /**
- * Generates a view id that doesn't clash with AAPT generated ids.
- * Specially optimized for usage on main thread to be synchronization free.
- * Backwards compatible below API 17.
+ * Generates a View id that doesn't collide with AAPT generated ones (`R.id.xxx`).
+ *
+ * Specially **optimized for usage on main thread** to be synchronization free.
+ * **Backwards compatible** below API 17.
  */
 fun generateViewId(): Int = when {
     isMainThread -> mainThreadLastGeneratedId.also {
