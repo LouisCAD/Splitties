@@ -124,5 +124,5 @@
     <string name="about">About</string>
     <string name="title_activity_about">@string/about</string>
     <string name="say_hello">Say Hello</string>
-    <string name="be_polite">Be polite</string>
+    <string name="be_polite_with_permissions">Be polite with permissions</string>
 </resources>

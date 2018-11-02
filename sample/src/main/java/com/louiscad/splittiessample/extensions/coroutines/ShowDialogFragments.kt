@@ -47,7 +47,6 @@ inline fun <DF : DialogFragment> FragmentActivity.showAsync(
         setup: DF.() -> Unit = {}
 ) = supportFragmentManager.showAsync(lifecycle, newDialogRef, tag, setup)
 
-
 suspend inline fun <DF : DialogFragment> FragmentManager.show(
         lifecycle: Lifecycle,
         newDialogRef: () -> DF,
@@ -71,4 +70,3 @@ suspend inline fun <DF : DialogFragment> FragmentActivity.show(
         tag: String? = null,
         setup: DF.() -> Unit = {}
 ) = supportFragmentManager.show(lifecycle, newDialogRef, tag, setup)
-

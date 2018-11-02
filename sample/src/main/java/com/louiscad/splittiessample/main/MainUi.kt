@@ -62,8 +62,11 @@ class MainUi(override val ctx: Context) : Ui {
     val launchDemoBtn = appCompatStyles.button.flatColored(ctx) {
         textResource = R.string.go_to_the_demo
     }
-    val bePoliteBtn = appCompatStyles.button.colored(ctx) {
-        textResource = R.string.be_polite
+    val bePoliteWithPermissionsBtn = appCompatStyles.button.colored(ctx) {
+        textResource = R.string.be_polite_with_permissions
+    }
+    val sayHelloBtn = appCompatStyles.button.flat(ctx) {
+        textResource = R.string.say_hello
     }
     val toggleNightModeBtn = button {
         compoundDrawablePadding = dip(4)
@@ -79,7 +82,11 @@ class MainUi(override val ctx: Context) : Ui {
             gravity = gravityCenterHorizontal
             topMargin = dip(8)
         })
-        add(bePoliteBtn, lParams {
+        add(bePoliteWithPermissionsBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
+        })
+        add(sayHelloBtn, lParams {
             gravity = gravityCenterHorizontal
             topMargin = dip(8)
         })

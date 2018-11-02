@@ -29,6 +29,7 @@ import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
 import com.louiscad.splittiessample.prefs.GamePreferences
+import com.louiscad.splittiessample.preview.permissions.PermissionsExampleActivity
 import com.louiscad.splittiessample.preview.vibrator.VibrationEffect
 import com.louiscad.splittiessample.preview.vibrator.vibrate
 import com.louiscad.splittiessample.sayhello.SayHelloActivity
@@ -50,7 +51,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui)
         uiModeManager.nightMode = UiModeManager.MODE_NIGHT_AUTO
         ui.launchDemoBtn.onClick { start<DemoActivity>() }
-        ui.bePoliteBtn.onClick { start<SayHelloActivity>() }
+        ui.bePoliteWithPermissionsBtn.onClick { start<PermissionsExampleActivity>() }
+        ui.sayHelloBtn.onClick { start<SayHelloActivity>() }
         ui.fab.onClick {
             coroutineScope.launch {
                 GamePreferences().edit {
