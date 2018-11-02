@@ -24,13 +24,13 @@ import android.view.MenuItem
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
-import com.louiscad.splittiessample.extensions.VibrationEffect
 import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
-import com.louiscad.splittiessample.extensions.vibrate
 import com.louiscad.splittiessample.prefs.GamePreferences
+import com.louiscad.splittiessample.preview.vibrator.VibrationEffect
+import com.louiscad.splittiessample.preview.vibrator.vibrate
 import com.louiscad.splittiessample.sayhello.SayHelloActivity
 import kotlinx.coroutines.experimental.launch
 import splitties.activities.start
