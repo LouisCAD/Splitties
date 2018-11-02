@@ -22,6 +22,7 @@ import android.support.annotation.StyleRes
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
+import kotlin.DeprecationLevel.ERROR
 
 /**
  * Called so to remind that function references (that are inlined) are recommended for
@@ -73,7 +74,7 @@ private const val deprecationMessageForAdd = "Use v + add or v + addView instead
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
         expression = "add(v(createView, id, theme, initView), lp)",
         imports = ["splitties.viewdsl.core.v"]
-))
+), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -85,7 +86,7 @@ inline fun <V : View> ViewGroup.add(
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
         expression = "add(v(createView, id, initView), lp)",
         imports = ["splitties.viewdsl.core.v"]
-))
+), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         @IdRes id: Int,
@@ -96,7 +97,7 @@ inline fun <V : View> ViewGroup.add(
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
         expression = "add(v(createView, initView), lp)",
         imports = ["splitties.viewdsl.core.v"]
-))
+), level = ERROR)
 inline fun <V : View> ViewGroup.add(
         createView: NewViewRef<V>,
         lp: ViewGroup.LayoutParams,
