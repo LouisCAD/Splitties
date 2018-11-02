@@ -288,7 +288,10 @@ The `inflate` extension functions is a variant to the `view` function [mentioned
 earlier in this guide](#the-most-generic-way-view) which has an additional first
 parameter: the layout resource id you want to inflate.
 
-Just like `view`, it is defined for `Context`, `View` and `Ui`.
+Also, if the xml layout defines an id for the root view, it will be kept, unless
+you specified an explicit id (including `View.NO_ID`).
+
+Just like `view`, `inflate` is defined for `Context`, `View` and `Ui`.
 
 Here's a short example:
 ```kotlin
