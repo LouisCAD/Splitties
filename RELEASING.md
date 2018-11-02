@@ -14,8 +14,8 @@ file to a non-SNAPSHOT version.
 8. Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.
 9. Sign in on Bintray and publish the packages.
 10. Run `git push origin --tags`.
-11. Publish release on GitHub.
-12. Merge the pull request for the new version on GitHub.
+11. Merge the pull request for the new version on GitHub.
+12. Publish release on GitHub.
 13. Change the `library_version` ext property in root project back to a
 -SNAPSHOT version.
 14. Run `git commit -am "Prepare next development version."`.
