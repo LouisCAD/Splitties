@@ -94,15 +94,16 @@ inline fun <reified V : View> Ui.view(
         initView: V.() -> Unit = {}
 ): V = ctx.view(id, theme, initView)
 
-const val XML_DEFINED_ID = -1
+@PublishedApi
+internal const val XML_DEFINED_ID = -1
 
 inline fun <reified V : View> Context.inflate(
         @LayoutRes layoutResId: Int,
         @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also {
-    if (id != XML_DEFINED_ID) it.id = id
+): V = wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also { inflatedView ->
+    if (id != XML_DEFINED_ID) inflatedView.id = id
 }.apply(initView)
 
 inline fun <reified V : View> View.inflate(
