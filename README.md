@@ -70,8 +70,6 @@ easy basic usage of `RecyclerView`.
 - **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
 - **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
 - **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl).
-- **[View DSL AppCompat styles:](viewdsl-appcompat-styles)** AppCompat styles for
-[View DSL](viewdsl).
 - **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
 [View DSL](viewdsl).
 - **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl).
@@ -140,7 +138,6 @@ implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
 implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
