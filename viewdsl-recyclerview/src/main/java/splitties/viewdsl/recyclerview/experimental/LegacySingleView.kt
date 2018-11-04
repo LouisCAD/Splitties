@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@file:JvmName("RecyclerViewKt")
+
 package splitties.viewdsl.recyclerview.experimental
 
 import android.support.v7.widget.RecyclerView
