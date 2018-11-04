@@ -45,6 +45,7 @@ initialization purposes.
 - **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
+- **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
 - **[Material Colors:](material-colors)** [2014 Material Design color palettes](
 https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](material-lists)** List item Views implementing [Material Design guidelines](
@@ -67,7 +68,6 @@ builds, without writing any code!
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
 - **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
 easy basic usage of `RecyclerView`.
-- **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
 - **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
 - **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl).
 - **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
