@@ -92,6 +92,15 @@ layout resource id. [Read a bit more here](README.md#inflating-existing-xml-layo
 Using xml styles with Splitties is now possible, with efficient and clean code.
 [Read more here](README.md#using-styles-defined-in-xml).
 
+### Improved documentation
+
+[The documentation of Splitties View DSL](README.md) has been improved in several ways:
+
+- More clarity overall
+- New warning for a way you could misuse `lParams` because of missing import.
+- Coverage of multiple possibilities brought by the `Ui` interface, like multiplatform
+and multi form-factor support.
+
 ## Migrating from 2.0.0-alpha4 to 2.0.0-alpha6 step by step
 
 TK
