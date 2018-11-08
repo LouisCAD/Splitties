@@ -260,7 +260,7 @@ done.
 
 After you have upgraded to the new version, compile your project.
 When the build is completed, you'll be able to see all the warnings from
-usage of deprecated symbols from Splitties.
+usage of deprecated symbols from Splitties inside the "Build" too window from the IDE.
 
 All the deprecated warnings contain information on how to use the replacement.
 Some also have a `replaceWith` so you can automatically change it with IDE quick action.
