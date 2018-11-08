@@ -6,6 +6,19 @@ allow a smoother migration to the changes. Before migrating, please read
 this guide, because there's a small important step to perform before
 upgrading the dependencies.
 
+## Table of contents
+
+* [Changes in Splitties View DSL 2.0.0-alpha6](#changes-in-splitties-view-dsl-2.0.0-alpha6)
+  * [`v` deprecated](#v-deprecated)
+  * [New functions to instantiate views](#new-functions-to-instantiate-views)
+    * [New primitives: `view`](#new-primitives-view)
+    * [New inline aliases for common views](#new-inline-aliases-for-common-views)
+  * [Improved xml compatibility](#improved-xml-compatibility)
+    * [Easily include xml layouts](#easily-include-xml-layouts)
+    * [Xml styles support](#xml-styles-support)
+  * [Improved documentation](#improved-documentation)
+* [Migrating from 2.0.0-alpha4 to 2.0.0-alpha6 step by step](#migrating-from-2.0.0-alpha4-to-2.0.0-alpha6-step-by-step)
+
 ## Changes in Splitties View DSL 2.0.0-alpha6
 
 ### `v` deprecated
