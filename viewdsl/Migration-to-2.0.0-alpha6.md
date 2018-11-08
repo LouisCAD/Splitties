@@ -20,10 +20,10 @@ upgrading the dependencies.
     * [Xml styles support](#xml-styles-support)
   * [Improved documentation](#improved-documentation)
 * [Migrating from 2.0.0-alpha4 to 2.0.0-alpha6 step by step](#migrating-from-200-alpha4-to-200-alpha6-step-by-step)
-  * [1. Add explicit type arguments before upgrading to 2.0.0-alpha6](#1.-add-explicit-type-arguments-before-upgrading-to-200-alpha6)
-  * [2. Remove dependencies on removed splits](#2.-remove-dependencies-on-removed-splits)
-  * [3. Upgrade the dependencies version and sync gradle](#3.-upgrade-the-dependencies-version-and-sync-gradle)
-  * [4. Compile your project to see all the deprecated symbols usage, and replace them](#4.-compile-your-project-to-see-all-the-deprecated-symbols-usage,-and-replace-them)
+  * [1. Add explicit type arguments before upgrading to 2.0.0-alpha6](#1-add-explicit-type-arguments-before-upgrading-to-200-alpha6)
+  * [2. Remove dependencies on removed splits](#2-remove-dependencies-on-removed-splits)
+  * [3. Upgrade the dependencies version and sync gradle](#3-upgrade-the-dependencies-version-and-sync-gradle)
+  * [4. Compile your project to see all the deprecated symbols usage, and replace them](#4-compile-your-project-to-see-all-the-deprecated-symbols-usage-and-replace-them)
 
 ## Changes in Splitties View DSL 2.0.0-alpha6
 
