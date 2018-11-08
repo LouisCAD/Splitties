@@ -8,7 +8,7 @@ upgrading the dependencies.
 
 ## Table of contents
 
-* [Changes in Splitties View DSL 2.0.0-alpha6](#changes-in-splitties-view-dsl-2.0.0-alpha6)
+* [Changes in Splitties View DSL 2.0.0-alpha6](#changes-in-splitties-view-dsl-200-alpha6)
   * [View DSL AppCompat Styles split merged into View DSL AppCompat](#view-dsl-appcompat-styles-split-merged-into-view-dsl-appcompat)
   * [`v` deprecated](#v-deprecated)
   * [Functions designed for old `v` are deprecated too](#functions-designed-for-old-v-are-deprecated-too)
@@ -19,8 +19,8 @@ upgrading the dependencies.
     * [Easily include xml layouts](#easily-include-xml-layouts)
     * [Xml styles support](#xml-styles-support)
   * [Improved documentation](#improved-documentation)
-* [Migrating from 2.0.0-alpha4 to 2.0.0-alpha6 step by step](#migrating-from-2.0.0-alpha4-to-2.0.0-alpha6-step-by-step)
-  * [1. Add explicit type arguments before upgrading to 2.0.0-alpha6](#1.-add-explicit-type-arguments-before-upgrading-to-2.0.0-alpha6)
+* [Migrating from 2.0.0-alpha4 to 2.0.0-alpha6 step by step](#migrating-from-200-alpha4-to-200-alpha6-step-by-step)
+  * [1. Add explicit type arguments before upgrading to 2.0.0-alpha6](#1.-add-explicit-type-arguments-before-upgrading-to-200-alpha6)
   * [2. Remove dependencies on removed splits](#2.-remove-dependencies-on-removed-splits)
   * [3. Upgrade the dependencies version and sync gradle](#3.-upgrade-the-dependencies-version-and-sync-gradle)
   * [4. Compile your project to see all the deprecated symbols usage, and replace them](#4.-compile-your-project-to-see-all-the-deprecated-symbols-usage,-and-replace-them)
