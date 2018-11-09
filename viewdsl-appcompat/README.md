@@ -58,6 +58,11 @@ src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewFactory.kt
 src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
 ).
 
+There's also support for `Toolbar` with the `toolbar` function, and `SwitchCompat` with
+the `switch` function.
+
+Note that the returned `Toolbar` handles config changes.
+
 ## Multi-process apps
 
 If your app needs to use AppCompat themed widgets in the non default process, you'll need to
@@ -71,7 +76,7 @@ src/main/AndroidManifest.xml
 of the `provider` tag, then specify the `android:process` value to the one of your non default
 process.
 
-Be sure to test it to make sure you set it up properly.
+Be sure to test it to make sure you have set it up properly.
 
 ## Download
 
