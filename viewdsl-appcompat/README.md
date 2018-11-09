@@ -46,7 +46,7 @@ Just call the related method that is the camelCase version of the PascalCase con
 For example, you can call `seekBar(…) { … }` and you'll receive an `AppCompatSeekBar` instance.
 
 As an alternative, you can also use these types with the reified type parameter version of `v`,
-like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's how
+like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's what
 the more specialized inline functions like `button` do under the "hood".
 
 Note that automatically doesn't mean magically. In fact, no reflection is involved (contrary
