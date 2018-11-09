@@ -150,8 +150,6 @@ used for the `TextInputEditText` that it creates and adds to the layout.
 The id is required so the content of the user input is saved in instance
 state even if the host Activity is killed by the system.
 
-Like `add`, it has an optional initialization lambda.
-
 ## Download
 
 ```groovy
