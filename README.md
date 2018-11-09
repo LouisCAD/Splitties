@@ -42,7 +42,8 @@ boilerplate.
 properties.
 - **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic
 initialization purposes.
-- **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs.
+- **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs, and
+create `PendingIntent`s the clean and easy way.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
 - **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
