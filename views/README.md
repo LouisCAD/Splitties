@@ -113,6 +113,9 @@ a color resource id using property syntax.
 `textAppearance` allows to set the text appearance of a `TextView` from a
 text appearance style resource id using property syntax, even below API 23.
 
+`lines` allows to set the exact number of lines of a `TextView` using
+property syntax.
+
 `centerText()` sets gravity to center and center aligns the text.
 `alignTextToStart()` sets gravity to start and start aligns the text.
 `alignTextToEnd()` sets gravity to end and end aligns the text.
