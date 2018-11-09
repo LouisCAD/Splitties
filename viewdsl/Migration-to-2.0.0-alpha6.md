@@ -265,8 +265,21 @@ usage of deprecated symbols from Splitties inside the "Build" too window from th
 All the deprecated warnings contain information on how to use the replacement.
 Some also have a `replaceWith` so you can automatically change it with IDE quick action.
 
-After all this is done, you can read the [new documentation](README.md) if not done yet,
-and enjoy the new version!
+Here's a **tip to make refactoring much faster**:
+Android Studio and IntelliJ IDEA have an option named **"Replace in Path"**.
+Once you isolate something you want to replace with something else. For example,
+replacing `v(::AppBarLayout, ` with `appBarLayout(`, use the "Replace in Path"
+option, fill the two required text fields, click the "Open in Find Window" button,
+review all changes, and exclude if needed, then apply the changes.
+
+When all this is done, it is recommended to review all the changed files using
+the "Commit" action from the IDE, and then perform code reformatting (using
+cmd/ctrl + option/alt + enter) to make sure imports are well ordered and are not
+missing. Only then, you should try running your app to ensure you didn't make
+any mistake, and commit the changes.
+
+After this great refactoring (and self congratulation 😉), you can read the
+[new documentation](README.md) if not done yet, and enjoy the new version!
 
 If you ever encounter a problem related to this update, or have a question, feel
 free to open an issue!
