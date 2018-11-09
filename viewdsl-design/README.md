@@ -2,15 +2,61 @@
 
 *Design Support Library extension of [View DSL](../viewdsl)*
 
-## Content
+## Table of contents
 
-The Android Design Support libraries has a few `ViewGroup` subclasses that
-have their own `LayoutParams`. This split provides extensions on these
-`ViewGroup`s to create their associated `LayoutParams` for use with View DSL
-in the `add` function.
+* [Functions to instantiate Views and ViewGroups from the Design Support Library](#functions-to-instantiate-views-and-viewgroups-from-the-design-support-library)
+  * [Multi-process apps](#multi-process-apps)
+* [Extensions on ViewGroups from the Design Support Library](#extensions-on-viewgroups-from-the-design-support-library)
+  * [`AppBarLayout` extensions](#appbarlayout-extensions)
+    * [`defaultLParams`](#defaultlparams-1)
+    * [Values for `scrollFlags`](#values-for-scrollflags)
+  * [`CollapsingToolbarLayout` extensions](#collapsingtoolbarlayout-extensions)
+    * [`defaultLParams`](#defaultlparams-2)
+    * [`actionBarLParams`](#actionbarlparams)
+    * [Values for `collapseMode`](#values-for-collapsemode)
+  * [`CoordinatorLayout` extensions](#coordinatorlayout-extensions)
+    * [`defaultLParams`](#defaultlparams-3)
+    * [`appBarLParams`](#appbarlparams)
+    * [`contentScrollingWithAppBarLParams()`](#contentscrollingwithappbarlparams())
+* [Bottom sheet behavior extensions](#bottom-sheet-behavior-extensions)
+  * [`bottomSheetBehavior`](#bottomsheetbehavior)
+  * [Bottom sheet state extensions](#bottom-sheet-state-extensions)
+* [TextInputLayout helper](#textinputlayout-helper)
+* [Download](#download)
 
-It also provides extensions for using `BottomSheetBehavior` with View DSL,
-and using `TextInputLayout`.
+## Functions to instantiate Views and ViewGroups from the Design Support Library
+
+Instead of using `v<AppBarLayout>(…) { … }` and similar, you can use
+`appBarLayout(…) { … }`.
+
+All widgets from the Design Support Library are supported.
+
+To see the list, check the implementations for
+[Views](src/main/java/splitties/viewdsl/design/Views.kt) and
+[ViewGroups](src/main/java/splitties/viewdsl/design/ViewGroups.kt).
+
+Note that there two bonuses in this split:
+* When calling `appBarLayout(…) { … }`, you get an implementation that fixes a
+scrolling bug from Design Support Library where first click is ignored.
+* When calling `collapsingToolbarLayout(…) { … }`, you get an implementation that
+handles config changes.
+
+### Multi-process apps
+
+If your app needs to use AppCompat themed widgets in the non default process, you'll need to
+manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
+[this InitProvider](
+src/main/java/splitties/viewdsl/design/experimental/DesignViewInstantiatorInjectProvider.kt
+) into a package of an android library/app module of your project, then declare it in the
+`AndroidManifest.xml` of the module exactly like it is done [here](
+src/main/AndroidManifest.xml
+). To do so, copy paste it, then fix the package of the class under the `android:name` xml attribute
+of the `provider` tag, then specify the `android:process` value to the one of your non default
+process.
+
+Be sure to test it to make sure you have set it up properly.
+
+## Extensions on ViewGroups from the Design Support Library
 
 ### `AppBarLayout` extensions
 
@@ -73,19 +119,21 @@ Use it when adding an `AppBarLayout`.
 
 #### `contentScrollingWithAppBarLParams()`
 
-If you `CoordinatorLayout` has an `AppbarLayout` and scrolling content
+If your `CoordinatorLayout` has an `AppbarLayout` and scrolling content
 (e.g. a `RecyclerView`),
 use this method to add the scrolling content View. It sets an
 `AppBarLayout.ScrollingViewBehavior` under the hood.
 
-### Bottom sheet behavior
+This function accepts an optional config lambda.
 
-#### `bottomSheetBehavior`
+## Bottom sheet behavior extensions
+
+### `bottomSheetBehavior`
 
 This extension function on `Ui` that takes an optional initialization lambda
 creates a `BottomSheetBehavior` to use on `CoordinatorLayout.LayoutParams`.
 
-#### Bottom sheet state extensions
+### Bottom sheet state extensions
 
 This split also includes extensions on `BottomSheetBehavior`:
 * `hidden` and `expanded`: read-write extension properties.
@@ -94,7 +142,7 @@ This split also includes extensions on `BottomSheetBehavior`:
 They make playing with your bottom sheets programmatically a breeze.
 See their KDoc to see their exact behavior.
 
-### TextInputLayout helper
+## TextInputLayout helper
 
 The `addInput` extension function on `TextInputLayout` takes a required id
 used for the `TextInputEditText` that it creates and adds to the layout.
