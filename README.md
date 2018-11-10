@@ -30,7 +30,7 @@ Kotlin.
 - **[Bundle:](bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.
 - **[Collections:](collections)** `forEach` for `List`s without `Iterator` allocation.
-- **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and
+- **[Checked Lazy:](checkedlazy)** `mainThreadLazy` that checks property access on main thread, and
 `checkedLazy` to make your own variant.
 - **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
 handy when using [View DSL](viewdsl).
