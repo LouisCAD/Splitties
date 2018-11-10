@@ -17,7 +17,7 @@
   * [`CoordinatorLayout` extensions](#coordinatorlayout-extensions)
     * [`defaultLParams`](#defaultlparams-3)
     * [`appBarLParams`](#appbarlparams)
-    * [`contentScrollingWithAppBarLParams()`](#contentscrollingwithappbarlparams())
+    * [`contentScrollingWithAppBarLParams()`](#contentscrollingwithappbarlparams)
 * [Bottom sheet behavior extensions](#bottom-sheet-behavior-extensions)
   * [`bottomSheetBehavior`](#bottomsheetbehavior)
   * [Bottom sheet state extensions](#bottom-sheet-state-extensions)
