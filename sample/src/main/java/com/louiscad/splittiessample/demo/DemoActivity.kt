@@ -19,7 +19,7 @@ package com.louiscad.splittiessample.demo
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
-import splitties.checkedlazy.uiLazy
+import splitties.checkedlazy.mainThreadLazy
 import splitties.snackbar.action
 import splitties.snackbar.onDismiss
 import splitties.snackbar.snack
@@ -31,7 +31,7 @@ import splitties.views.onClick
 
 class DemoActivity : AppCompatActivity(), DemoUi.Host {
 
-    private val ui by uiLazy { DemoUi(this, this) }
+    private val ui by mainThreadLazy { DemoUi(this, this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
