@@ -19,9 +19,19 @@
 package splitties.checkedlazy
 
 /**
- * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of UI thread.
+ * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of main thread.
  */
-fun <T> uiLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl(initializer, uiChecker)
+@Deprecated(
+        "Although the UI thread is the main thread by default, this is not always the case. " +
+                "Prefer referring to the main thread instead.",
+        ReplaceWith("mainThreadLazy(initializer)", "splitties.checkedlazy.mainThreadLazy")
+)
+fun <T> uiLazy(initializer: () -> T): Lazy<T> = mainThreadLazy(initializer)
+
+/**
+ * Returns a lazy that throws an [IllegalStateException] if its value is accessed outside of main thread.
+ */
+fun <T> mainThreadLazy(initializer: () -> T): Lazy<T> = CheckedAccessLazyImpl(initializer, mainThreadChecker)
 
 /**
  * Creates a new instance of the [Lazy] that uses the specified initialization
