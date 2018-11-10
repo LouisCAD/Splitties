@@ -89,7 +89,7 @@ specify them in most of the cases.
 
 It also has two optional parameters:
 - `collapseMode`, which defaults to `COLLAPSE_MODE_OFF`
-- `parallaxMultiplier`, which defaults to `0.5f` (default value as of 27.1.0)
+- `parallaxMultiplier`, which defaults to `0.5f` (default value as of 27.1.1)
 
 Use it when you add a `View` to a `CollapsingToolbarLayout`.
 
