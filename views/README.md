@@ -113,6 +113,9 @@ a color resource id using property syntax.
 `textAppearance` allows to set the text appearance of a `TextView` from a
 text appearance style resource id using property syntax, even below API 23.
 
+`lines` allows to set the exact number of lines of a `TextView` using
+property syntax.
+
 `centerText()` sets gravity to center and center aligns the text.
 `alignTextToStart()` sets gravity to start and start aligns the text.
 `alignTextToEnd()` sets gravity to end and end aligns the text.
@@ -137,9 +140,16 @@ to have an extra line in the lambda to return `true` or `false`.
 
 ### Other
 
-`assignAndGetGeneratedId()` extension for `View` is a backwards compatible
-and more efficient version of `View.generateViewId()` that was introduced
+The `generateViewId()` top level function is a backwards compatible and
+more efficient version of `View.generateViewId()` that was introduced
 in Android API 17.
+
+The `assignAndGetGeneratedId()` extension function for `View` calls
+`generateViewId()` assigns it to the view and returns new generated id.
+
+The `existingOrNewId` extension property for `View` calls
+`assignAndGetGeneratedId()` if the view has no id (`0`/`View.NO_ID`),
+and returns the `id` of the View, existing or just generated.
 
 ## Download
 

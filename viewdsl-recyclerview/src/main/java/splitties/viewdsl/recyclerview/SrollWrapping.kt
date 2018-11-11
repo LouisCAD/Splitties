@@ -16,13 +16,15 @@
 package splitties.viewdsl.recyclerview
 
 import android.support.annotation.IdRes
+import android.support.v7.widget.RecyclerView
 import android.view.View
 
 fun View.wrapInRecyclerView(
         horizontal: Boolean = false,
-        @IdRes id: Int = View.NO_ID
+        @IdRes id: Int = View.NO_ID,
+        initView: RecyclerView.() -> Unit = {}
 ) = recyclerView(id) {
     val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
     layoutManager = contentAdapter.layoutManager
     adapter = contentAdapter
-}
+}.apply(initView)

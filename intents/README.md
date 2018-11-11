@@ -1,25 +1,39 @@
 # Intents
 
-*Transform `companion object`s into powerful typesafe intent specs.*
+*Transform `companion object`s into powerful typesafe intent specs, and
+create `PendingIntent`s the clean and easy way.*
 
-## The problem about intents in Android
+## Table of contents
+
+* [Using `companion object`s as typesafe and key-safe intent specs](#using-companion-objects-as-typesafe-and-key-safe-intent-specs)
+  * [The problem about intents in Android](#the-problem-about-intents-in-android)
+  * [The solution](#the-solution)
+  * [IntentSpec interfaces](#intentspec-interfaces)
+  * [IntentSpec implementations providers](#intentspec-implementations-providers)
+  * [Using an IntentSpec](#using-an-intentspec)
+  * [IntentSpec example](#intentspec-example)
+* [Creating `PendingIntent`s the clean and easy way](#creating-pendingintents-the-clean-and-easy-way)
+* [Download](#download)
+
+## Using `companion object`s as typesafe and key-safe intent specs
+
+### The problem about intents in Android
 
 An Android component that can receive an Intent (like an `Activity` or a
 `BroacastReceiver`) can expect an action, or extras. In case of an action,
 the string must match exactly in order to work properly. In case of an extra,
 the type must also match. This makes it not typesafe at all. You need to write
-some doc to document which constants to use, and which types are the extras,
-and you need to be sure to read the doc, to ensure you do it right.
+some documentation to explain which constants to use, with which types,
+and you need to be sure to read the doc afterwards, to ensure you do it right.
 
 *There should be a better way.*
 
-## The solution
+### The solution
 
 This split provides a few interfaces that your `companion object`s can
-implement using delegation so they become an intent specification that you
-can use to build and `Intent` or start an `Activity` in a type safe way.
-
-## Content
+implement using delegation so they become an intent specification, that you
+can use to build and `Intent`, start an `Activity`, start a `Service` or send
+a broadcast in a type safe way.
 
 ### IntentSpec interfaces
 
@@ -35,7 +49,7 @@ defining the intent spec of an `Activity`, `BroadcastReceiver` or `Service`.
 
 ### IntentSpec implementations providers
 
-A few methods provide implementation of these interfaces:
+A few methods provide implementation of the interfaces mentioned above:
 * `activitySpec`
 * `activityWithoutExtrasSpec` where `ExtrasSpec` is `Nothing`
 * `receiverSpec`
@@ -66,7 +80,7 @@ the `intent` extension function mentioned above, and the optional expected
 lambda has the same parameters as for `intent`. Finally, it calls
 `sendBroadcast` with the created `Intent`.
 
-## Example
+### IntentSpec example
 
 Let's take the example shown in the [Bundle](../bundle) README, adding an
 `IntentSpec` to it. Notice the new `companion object` and how we start the
@@ -104,6 +118,30 @@ class StartDemoActivity : AppCompatActivity() {
     }
 }
 ```
+
+## Creating `PendingIntent`s the clean and easy way
+
+It's fair to say that the `PendingIntent` Android API is not designed for Kotlin,
+and for a reason, it has been there since API level 1, the first Android version.
+
+As a result, code using this API is not always the most readable part of a
+Kotlin codebase.
+
+This split provides several extension functions for `Intent` that return a
+`PendingIntent`:
+* `toPendingActivity()`
+* `toPendingService()`
+* `toPendingForegroundService()`, which also works before API 26
+* `toPendingBroadcast()`
+
+and an extension for `Array<Intent>`: `toPendingActivities()`.
+
+All these functions have two optional parameters that default to zero:
+`reqCode` and `flags`.
+
+The `toPendingActivity()` and `toPendingActivities()` functions also have
+an `options: Bundle?` parameter that defaults to `null` (and is ignored
+below API 16).
 
 ## Download
 

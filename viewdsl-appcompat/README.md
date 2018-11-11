@@ -46,7 +46,7 @@ Just call the related method that is the camelCase version of the PascalCase con
 For example, you can call `seekBar(…) { … }` and you'll receive an `AppCompatSeekBar` instance.
 
 As an alternative, you can also use these types with the reified type parameter version of `v`,
-like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's how
+like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's what
 the more specialized inline functions like `button` do under the "hood".
 
 Note that automatically doesn't mean magically. In fact, no reflection is involved (contrary
@@ -57,6 +57,11 @@ src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewFactory.kt
 ), and the [InitProvider that makes it zero initialization on your side](
 src/main/java/splitties/viewdsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
 ).
+
+There's also support for `Toolbar` with the `toolbar` function, and `SwitchCompat` with
+the `switch` function.
+
+Note that the returned `Toolbar` handles config changes.
 
 ## Multi-process apps
 
@@ -71,7 +76,7 @@ src/main/AndroidManifest.xml
 of the `provider` tag, then specify the `android:process` value to the one of your non default
 process.
 
-Be sure to test it to make sure you set it up properly.
+Be sure to test it to make sure you have set it up properly.
 
 ## Download
 
