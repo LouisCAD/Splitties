@@ -22,7 +22,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import splitties.viewdsl.recyclerview.SingleViewAdapter
 
-@Deprecated("Remove explicit RecyclerView and use wrapInRecyclerView(…) instead.")
+@Deprecated("Remove explicit RecyclerView and use wrapInRecyclerView(…) instead.", level = DeprecationLevel.ERROR)
 fun RecyclerView.setSingleView(view: View) {
     val contentAdapter = SingleViewAdapter(view, vertical = true)
     layoutManager = contentAdapter.layoutManager

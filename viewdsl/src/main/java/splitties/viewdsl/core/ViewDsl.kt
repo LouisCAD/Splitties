@@ -130,7 +130,7 @@ private const val deprecationMessageForV = "Use view instead of v."
 @Deprecated(deprecationMessageForV, ReplaceWith(
         expression = "view(createView, id, theme, initView)",
         imports = ["splitties.viewdsl.core.view"]
-))
+), level = ERROR)
 inline fun <V : View> Context.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
@@ -141,24 +141,24 @@ inline fun <V : View> Context.v(
 @Deprecated(deprecationMessageForV, ReplaceWith(
         expression = "view(createView, id, theme, initView)",
         imports = ["splitties.viewdsl.core.view"]
-))
+), level = ERROR)
 inline fun <V : View> View.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = context.v(createView, id, theme, initView)
+): V = context.view(createView, id, theme, initView)
 
 @Deprecated(deprecationMessageForV, ReplaceWith(
         expression = "view(createView, id, theme, initView)",
         imports = ["splitties.viewdsl.core.view"]
-))
+), level = ERROR)
 inline fun <V : View> Ui.v(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.v(createView, id, theme, initView)
+): V = ctx.view(createView, id, theme, initView)
 //endregion
 
 //region Deprecated add functions.
@@ -177,7 +177,7 @@ inline fun <V : View> ViewGroup.add(
         @StyleRes theme: Int = NO_THEME,
         lp: ViewGroup.LayoutParams,
         initView: V.() -> Unit = {}
-): V = v(createView, id, theme, initView).also { addView(it, lp) }
+): V = view(createView, id, theme, initView).also { addView(it, lp) }
 
 @Deprecated(deprecationMessageForAdd, ReplaceWith(
         expression = "add(view(createView, id, initView), lp)",

@@ -24,7 +24,8 @@ package splitties.checkedlazy
 @Deprecated(
         "Although the UI thread is the main thread by default, this is not always the case. " +
                 "Prefer referring to the main thread instead.",
-        ReplaceWith("mainThreadLazy(initializer)", "splitties.checkedlazy.mainThreadLazy")
+        ReplaceWith("mainThreadLazy(initializer)", "splitties.checkedlazy.mainThreadLazy"),
+        level = DeprecationLevel.ERROR
 )
 fun <T> uiLazy(initializer: () -> T): Lazy<T> = mainThreadLazy(initializer)
 

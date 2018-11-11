@@ -43,12 +43,14 @@ private const val deprecationMsgExtensionFunction = "extension function availabl
         "Context, View and Ui."
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Replace v(::verticalLayout) with verticalLayout() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::verticalLayout) with verticalLayout() $deprecationMsgExtensionFunction",
+        level = DeprecationLevel.ERROR)
 inline fun verticalLayout(ctx: Context) = LinearLayout(ctx).apply {
     orientation = LinearLayout.VERTICAL
 }
 
 @Suppress("DeprecatedCallableAddReplaceWith")
-@Deprecated("Replace v(::horizontalLayout) with horizontalLayout() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::horizontalLayout) with horizontalLayout() $deprecationMsgExtensionFunction",
+        level = DeprecationLevel.ERROR)
 inline fun horizontalLayout(ctx: Context) = LinearLayout(ctx)
 //endregion

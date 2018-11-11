@@ -22,17 +22,18 @@ import android.widget.Button
 import android.widget.ImageButton
 import splitties.viewdsl.appcompat.AppCompatStyles
 import splitties.viewdsl.core.styles.invoke
+import kotlin.DeprecationLevel.ERROR
 
 private const val deprecationMessage = "Use AppCompatStyles properties with invoke operator instead"
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun coloredButton(ctx: Context): Button = AppCompatStyles(ctx).button.colored(ctx)
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun flatButton(ctx: Context): Button = AppCompatStyles(ctx).button.flat(ctx)
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun coloredFlatButton(ctx: Context): Button = AppCompatStyles(ctx).button.flatColored(ctx)
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun imgActionButton(ctx: Context): ImageButton = AppCompatStyles(ctx).actionButton(ctx)

@@ -64,5 +64,5 @@ private const val deprecationMsgExtensionFunction = "extension function availabl
         "Context, View and Ui."
 
 @Suppress("NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith")
-@Deprecated("Replace v(::recyclerView) with recyclerView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::recyclerView) with recyclerView() $deprecationMsgExtensionFunction", level = DeprecationLevel.ERROR)
 inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)

@@ -24,19 +24,22 @@ private const val UI_THREAD_NAMING_DEPRECATION_MESSAGE = "Although the UI thread
         "thread instead."
 
 @Deprecated(UI_THREAD_NAMING_DEPRECATION_MESSAGE,
-        ReplaceWith("mainThread", "splitties.mainthread.mainThread")
+        ReplaceWith("mainThread", "splitties.mainthread.mainThread"),
+        level = DeprecationLevel.ERROR
 )
 inline val uiThread
     get() = mainThread
 
 @Deprecated(UI_THREAD_NAMING_DEPRECATION_MESSAGE,
-        ReplaceWith("isMainThread", "splitties.mainthread.isMainThread")
+        ReplaceWith("isMainThread", "splitties.mainthread.isMainThread"),
+        level = DeprecationLevel.ERROR
 )
 val isUiThread
     inline get() = isMainThread
 
 @Deprecated(UI_THREAD_NAMING_DEPRECATION_MESSAGE,
-        ReplaceWith("checkMainThread()", "splitties.mainthread.checkMainThread")
+        ReplaceWith("checkMainThread()", "splitties.mainthread.checkMainThread"),
+        level = DeprecationLevel.ERROR
 )
 @Suppress("NOTHING_TO_INLINE")
 inline fun checkUiThread() = checkMainThread()
