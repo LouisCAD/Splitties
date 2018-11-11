@@ -21,6 +21,7 @@ import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.SupervisorJob
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Returns a [CoroutineScope] that uses [Dispatchers.Main] by default, and that is cancelled when
@@ -62,5 +63,5 @@ val Lifecycle.job: Job
         }
     }
 
-private val cachedLifecycleJobs = mutableMapOf<Lifecycle, Job>()
-private val cachedLifecycleCoroutineScopes = mutableMapOf<Lifecycle, CoroutineScope>()
+private val cachedLifecycleJobs = ConcurrentHashMap<Lifecycle, Job>()
+private val cachedLifecycleCoroutineScopes = ConcurrentHashMap<Lifecycle, CoroutineScope>()
