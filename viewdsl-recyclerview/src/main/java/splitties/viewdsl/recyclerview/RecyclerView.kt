@@ -26,6 +26,7 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import splitties.viewdsl.core.NO_THEME
 import splitties.viewdsl.core.Ui
 import splitties.viewdsl.core.inflate
+import splitties.views.inflate
 
 inline fun Context.recyclerView(
         @IdRes id: Int = View.NO_ID,
@@ -58,3 +59,10 @@ inline fun RecyclerView.LayoutManager.horizontalListLayoutParams(
     width = WRAP_CONTENT
     height = MATCH_PARENT
 }.apply(block)
+
+private const val deprecationMsgExtensionFunction = "extension function available on " +
+        "Context, View and Ui."
+
+@Suppress("NOTHING_TO_INLINE", "DeprecatedCallableAddReplaceWith")
+@Deprecated("Replace v(::recyclerView) with recyclerView() $deprecationMsgExtensionFunction")
+inline fun recyclerView(ctx: Context): RecyclerView = ctx.inflate(R.layout.recyclerview_with_scrollbars)

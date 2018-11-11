@@ -18,6 +18,7 @@
 
 package splitties.viewdsl.core
 
+import android.content.Context
 import android.widget.LinearLayout
 
 inline fun LinearLayout.lParams(
@@ -36,3 +37,18 @@ inline fun LinearLayout.lParams(
     it.gravity = gravity
     it.weight = weight
 }.apply(initParams)
+
+//region Deprecated verticalLayout and horizontalLayout top level functions
+private const val deprecationMsgExtensionFunction = "extension function available on " +
+        "Context, View and Ui."
+
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Replace v(::verticalLayout) with verticalLayout() $deprecationMsgExtensionFunction")
+inline fun verticalLayout(ctx: Context) = LinearLayout(ctx).apply {
+    orientation = LinearLayout.VERTICAL
+}
+
+@Suppress("DeprecatedCallableAddReplaceWith")
+@Deprecated("Replace v(::horizontalLayout) with horizontalLayout() $deprecationMsgExtensionFunction")
+inline fun horizontalLayout(ctx: Context) = LinearLayout(ctx)
+//endregion

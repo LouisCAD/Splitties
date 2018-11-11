@@ -30,7 +30,7 @@ Kotlin.
 - **[Bundle:](bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.
 - **[Collections:](collections)** `forEach` for `List`s without `Iterator` allocation.
-- **[Checked Lazy:](checkedlazy)** `uiLazy` that checks property access on UI thread, and
+- **[Checked Lazy:](checkedlazy)** `mainThreadLazy` that checks property access on main thread, and
 `checkedLazy` to make your own variant.
 - **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
 handy when using [View DSL](viewdsl).
@@ -42,7 +42,8 @@ boilerplate.
 properties.
 - **[Init Provider:](initprovider)** Base class for `ContentProvider`s used for automatic
 initialization purposes.
-- **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs.
+- **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs, and
+create `PendingIntent`s the clean and easy way.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
 - **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
@@ -95,7 +96,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '2.0.0-alpha5'
+        splitties_version = '2.0.0-alpha6'
     }
 }
 ```

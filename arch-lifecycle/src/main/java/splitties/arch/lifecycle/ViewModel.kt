@@ -21,41 +21,41 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
-import splitties.checkedlazy.uiLazy
+import splitties.checkedlazy.mainThreadLazy
 
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope() = uiLazy {
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope() = mainThreadLazy {
     ViewModelProviders.of(this).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.activityScope() = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.activityScope() = mainThreadLazy {
     ViewModelProviders.of(activity!!).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.fragmentScope() = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.fragmentScope() = mainThreadLazy {
     ViewModelProviders.of(this).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope(factory: ViewModelProvider.Factory) = uiLazy {
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.activityScope(factory: ViewModelProvider.Factory) = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.activityScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
     ViewModelProviders.of(activity!!, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.fragmentScope(factory: ViewModelProvider.Factory) = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope(noinline factory: () -> VM) = uiLazy {
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(noinline factory: () -> VM) = mainThreadLazy {
     ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.activityScope(noinline factory: () -> VM) = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.activityScope(noinline factory: () -> VM) = mainThreadLazy {
     ViewModelProviders.of(activity!!, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.fragmentScope(noinline factory: () -> VM) = uiLazy {
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(noinline factory: () -> VM) = mainThreadLazy {
     ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 

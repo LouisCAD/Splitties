@@ -16,15 +16,15 @@
 
 package com.louiscad.splittiessample.prefs
 
-import splitties.preferences.experimental.SuspendPrefsAccessor
 import splitties.preferences.Preferences
+import splitties.preferences.experimental.SuspendPrefsAccessor
 
 class GamePreferences private constructor() : Preferences("gameState") {
+    companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)
+
     var magicNumber by intPref(0)
     var currentLevel by IntPref("currentLevel", 1)
     var bossesFought by IntPref("bossBattleVictories", 0)
     var lastTimePlayed by LongPref("lastSessionTime", 0L)
     var pseudo by StringPref("playerPseudo", "Player 1")
-
-    companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)
 }
