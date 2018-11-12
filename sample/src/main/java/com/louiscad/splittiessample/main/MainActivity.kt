@@ -40,7 +40,7 @@ import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
 import splitties.systemservices.vibrator
 import splitties.toast.toast
-import splitties.viewdsl.core.setContentView
+import splitties.views.dsl.core.setContentView
 import splitties.views.onClick
 
 class MainActivity : AppCompatActivity() {

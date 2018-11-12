@@ -19,13 +19,13 @@ import android.content.Context
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
 import com.louiscad.splittiessample.R
-import splitties.viewdsl.appcompat.toolbar
-import splitties.viewdsl.core.add
-import splitties.viewdsl.design.appBarLParams
-import splitties.viewdsl.design.appBarLayout
-import splitties.viewdsl.design.defaultLParams
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
+import splitties.views.dsl.appcompat.toolbar
+import splitties.views.dsl.core.add
+import splitties.views.dsl.design.appBarLParams
+import splitties.views.dsl.design.appBarLayout
+import splitties.views.dsl.design.defaultLParams
 
 fun CoordinatorLayout.addDefaultAppBar(ctx: Context) {
     add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
