@@ -3,12 +3,10 @@
 ## Releasing a stable, beta or alpha version
 
 1. Checkout the `develop` branch, if not already done.
-2. Change the `library_version` ext property in root project's `build.gradle`
-file to a non-SNAPSHOT version.
+2. Change the `library_version` ext property in root project's `build.gradle` file to a non-SNAPSHOT version.
 3. Update the `README.md` with the new version.
 4. Update the `CHANGELOG.md` for the impending release.
-5. Run `git commit -am "Prepare for release X.Y.Z"`
-(where X.Y.Z is the new version).
+5. Run `git commit -am "Prepare for release X.Y.Z"` (where X.Y.Z is the new version).
 6. `git tag -a vX.Y.Z -m "Version X.Y.Z"` (where X.Y.Z is the new version).
 7. Run `./gradlew clean bintrayUpload`.
 8. Run `git push origin`.

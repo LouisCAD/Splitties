@@ -91,8 +91,7 @@ inline fun <D : Drawable> StateListDrawable.addForRemainingStates(
 @Deprecated(
         "Using addForStates with empty state set is misleading",
         ReplaceWith("addForRemainingStates(newDrawableRef, drawableConfig)"),
-        level = DeprecationLevel.ERROR
-)
+        level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 @Suppress("unused")
 inline fun <D : Drawable> StateListDrawable.addForStates(
         newDrawableRef: () -> D,

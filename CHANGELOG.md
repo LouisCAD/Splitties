@@ -1,5 +1,14 @@
 # Change log for Splitties
 
+## Version 2.0.0-alpha8 (2018-11-12)
+This release **breaks binary compatibility**.
+
+It removes all deprecated symbols that had their deprecation level raised to error in 2.0.0-alpha7.
+
+Make sure you don't rely on any library that uses an old version of a Splitties artifact that relies
+on these previously deprecated and now removed symbols, or your app is likely not build, or to
+crash at runtime because of not found classes.
+
 ## Version 2.0.0-alpha7 (2018-11-12)
 Raise all deprecated symbols deprecation level to error.
 

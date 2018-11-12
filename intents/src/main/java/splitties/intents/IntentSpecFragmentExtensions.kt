@@ -24,7 +24,7 @@ import splitties.exceptions.unsupported
 
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
-@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec: ActivityIntentSpec<*, Nothing>> Fragment.start(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit

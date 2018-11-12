@@ -25,7 +25,7 @@ import splitties.init.appCtx
 // Intent
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
-@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : IntentSpec<*, Nothing>> ISpec.intent(
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
@@ -44,7 +44,7 @@ inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.in
 
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
-@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : ActivityIntentSpec<*, Nothing>> Context.start(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
@@ -64,7 +64,7 @@ inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> 
 
 @JvmName("new")
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
-@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR)
+@Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : BroadcastReceiverIntentSpec<*, Nothing>> Context.sendBroadcast(
         intentSpec: ISpec,
         configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
