@@ -79,10 +79,10 @@ dependencies {
     implementation project(':toast')
     implementation project(':typesaferecyclerview')
     implementation project(':mainthread')
-    implementation project(':viewdsl-appcompat')
-    implementation project(':viewdsl-constraintlayout')
-    implementation project(':viewdsl-design')
-    debugImplementation project(':viewdsl-ide-preview')
+    implementation project(':views-dsl-appcompat')
+    implementation project(':views-dsl-constraintlayout')
+    implementation project(':views-dsl-design')
+    debugImplementation project(':views-dsl-ide-preview')
     implementation project(':views-design')
 
     // Android Support Libraries

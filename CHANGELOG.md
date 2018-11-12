@@ -21,7 +21,9 @@ Version 2.0.0-alpha5 broke the API, this version fixes this.
 This release is _mostly_ the same as 2.0.0-alpha5, but also has 2 very important things:
 - binary compatibility (minor change in Preferences experimental API excluded)
 - source compatibility, except an overload resolution ambiguity in View DSL, **see the
-[migration guide](viewdsl/Migration-to-2.0.0-alpha6.md)** for a smooth migration.
+[migration guide](
+https://github.com/LouisCAD/Splitties/blob/v2.0.0-alpha6/viewdsl/Migration-to-2.0.0-alpha6.md
+)** for a smooth migration.
 
 ### Removed splits and versions sync
 Version 2.0.0-alpha5 technically removed 2 splits (one was actually a renaming, the other one
@@ -99,7 +101,9 @@ The `wrapInRecyclerView` extension function now accepts an optional lambda to co
 ## Version 2.0.0-alpha5 (2018-11-02)
 _This release is **breaking** if you come from version 2.0.0-alpha4, especially if you were using
 View DSL. It's highly recommended to directly migrate from version 2.0.0-alpha4 to 2.0.0-alpha6,
-which has a smoother migration path, and [a guide](viewdsl/Migration-to-2.0.0-alpha6.md) to do so._
+which has a smoother migration path, and [a guide](
+https://github.com/LouisCAD/Splitties/blob/v2.0.0-alpha6/viewdsl/Migration-to-2.0.0-alpha6.md
+) to do so._
 
 ### Project wide changes
 - Add consumer proguard rules for splits with optional dependencies.

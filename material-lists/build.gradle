@@ -38,10 +38,10 @@ android {
 }
 
 dependencies {
-    api project(':selectableviews')
-    api project(':selectableviews-constraintlayout')
-    api project(':viewdsl-appcompat')
-    api project(':viewdsl-constraintlayout')
+    api project(':views-selectable')
+    api project(':views-selectable-constraintlayout')
+    api project(':views-dsl-appcompat')
+    api project(':views-dsl-constraintlayout')
 
     // Android Support Libraries
     api "com.android.support:support-annotations:$supportLibs_version"

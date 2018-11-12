@@ -27,13 +27,13 @@ import kotlinx.coroutines.experimental.launch
 import splitties.dimensions.dip
 import splitties.toast.longToast
 import splitties.toast.toast
-import splitties.viewdsl.core.add
-import splitties.viewdsl.core.contentView
-import splitties.viewdsl.core.frameLayout
-import splitties.viewdsl.core.lParams
-import splitties.viewdsl.core.margin
-import splitties.viewdsl.core.textView
 import splitties.views.centerText
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.contentView
+import splitties.views.dsl.core.frameLayout
+import splitties.views.dsl.core.lParams
+import splitties.views.dsl.core.margin
+import splitties.views.dsl.core.textView
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 

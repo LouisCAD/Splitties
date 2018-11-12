@@ -24,9 +24,9 @@ import splitties.snackbar.action
 import splitties.snackbar.onDismiss
 import splitties.snackbar.snack
 import splitties.snackbar.snackForever
-import splitties.viewdsl.core.setContentView
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
+import splitties.views.dsl.core.setContentView
 import splitties.views.onClick
 
 class DemoActivity : AppCompatActivity(), DemoUi.Host {
