@@ -16,10 +16,13 @@ file to a non-SNAPSHOT version.
 10. Run `git push origin --tags`.
 11. Merge the pull request for the new version on GitHub.
 12. Publish release on GitHub.
-13. Change the `library_version` ext property in root project back to a
+13. Checkout the `master` branch.
+14. Pull from GitHub repository to update the local `master` branch.
+15. Checkout the `develop` branch.
+16. Change the `library_version` ext property in root project back to a
 -SNAPSHOT version.
-14. Run `git commit -am "Prepare next development version."`.
-15. Run `git push origin`.
+17. Run `git commit -am "Prepare next development version."`.
+18. Run `git push origin`.
 
 ## Publishing a SNAPSHOT
 
