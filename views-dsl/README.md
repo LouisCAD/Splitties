@@ -500,7 +500,7 @@ interfaces that expose the needed symbols, and then decide to implement these
 interfaces in one, or multiple classes.
 
 This can help you support different form factors with zero, or only a few
-changes in non-UI code as it is no longer.
+changes in non-UI code as it is no longer relies on a specific implementation.
 
 It is planned to add such examples in the samples of this repository.
 If you want to have them faster, please open an issue so the examples can be
