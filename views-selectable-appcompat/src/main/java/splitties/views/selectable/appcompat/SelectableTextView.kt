@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.selectableviews
+package splitties.views.selectable.appcompat
 
 import android.content.Context
 import android.graphics.Canvas
@@ -22,16 +22,13 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation.CallSuper
 import android.support.annotation.RequiresApi
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
-import android.widget.LinearLayout
 import splitties.resources.styledDrawable
 
-/**
- * [LinearLayout] with ripple effect / select foreground when touched.
- */
-open class SelectableLinearLayout @JvmOverloads constructor(
+open class SelectableTextView @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr) {
+) : AppCompatTextView(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
     var foregroundSelector: Drawable? = null

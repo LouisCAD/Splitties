@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package splitties.selectableviews.constraintlayout
+package splitties.views.selectable
 
 import android.content.Context
 import android.graphics.Canvas
@@ -22,16 +22,16 @@ import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.support.annotation.CallSuper
 import android.support.annotation.RequiresApi
-import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
+import android.widget.LinearLayout
 import splitties.resources.styledDrawable
 
 /**
- * [ConstraintLayout] with ripple effect / select foreground when touched.
+ * [LinearLayout] with ripple effect / select foreground when touched.
  */
-open class SelectableConstraintLayout @JvmOverloads constructor(
+open class SelectableLinearLayout @JvmOverloads constructor(
         context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : LinearLayout(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
     var foregroundSelector: Drawable? = null

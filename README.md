@@ -54,12 +54,12 @@ https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
 - **[Resources:](resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
-- **[Selectable Views:](selectableviews)** Selectable Views with `foreground` property before
+- **[Selectable Views:](views-selectable)** Selectable Views with `foreground` property before
 API 23.
-- **[Selectable Views AppCompat:](selectableviews-appcompat)** [Selectable Views](selectableviews)
+- **[Selectable Views AppCompat:](views-selectable-appcompat)** [Selectable Views](views-selectable)
 for AppCompatTextView.
-- **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)**
-[Selectable Views](selectableviews) for ConstraintLayout.
+- **[Selectable Views ConstraintLayout:](views-selectable-constraintlayout)**
+[Selectable Views](views-selectable) for ConstraintLayout.
 - **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
 - **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
 builds, without writing any code!
@@ -129,9 +129,6 @@ implementation "com.louiscad.splitties:splitties-material-colors:$splitties_vers
 implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
 implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
 implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
 implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
@@ -148,6 +145,9 @@ implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_vers
 implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
 ```
 
 </details>

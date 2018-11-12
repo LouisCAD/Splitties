@@ -22,7 +22,7 @@ import android.view.Gravity
 import android.widget.TextView
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
-import splitties.selectableviews.SelectableLinearLayout
+import splitties.views.selectable.SelectableLinearLayout
 import splitties.viewdsl.core.add
 import splitties.viewdsl.core.endMargin
 import splitties.viewdsl.core.imageView

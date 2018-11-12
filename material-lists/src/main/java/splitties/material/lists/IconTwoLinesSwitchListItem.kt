@@ -20,7 +20,7 @@ import android.content.Context
 import android.text.TextUtils.TruncateAt.END
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
-import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
+import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.viewdsl.appcompat.switch
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically

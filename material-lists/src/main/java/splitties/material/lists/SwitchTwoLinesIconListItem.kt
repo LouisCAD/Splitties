@@ -21,7 +21,7 @@ import android.support.v7.widget.SwitchCompat
 import android.text.TextUtils.TruncateAt.END
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
-import splitties.selectableviews.constraintlayout.SelectableConstraintLayout
+import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.viewdsl.constraintlayout.bottomOfParent
 import splitties.viewdsl.constraintlayout.centerVertically
 import splitties.viewdsl.constraintlayout.endOfParent

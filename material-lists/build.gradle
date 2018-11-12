@@ -38,8 +38,8 @@ android {
 }
 
 dependencies {
-    api project(':selectableviews')
-    api project(':selectableviews-constraintlayout')
+    api project(':views-selectable')
+    api project(':views-selectable-constraintlayout')
     api project(':viewdsl-appcompat')
     api project(':viewdsl-constraintlayout')
 

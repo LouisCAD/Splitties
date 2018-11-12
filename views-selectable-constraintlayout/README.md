@@ -1,6 +1,6 @@
 # Selectable Views ConstraintLayout
 
-*[Selectable Views](../selectableviews) for ConstraintLayout.*
+*[Selectable Views](../views-selectable) for ConstraintLayout.*
 
 ## Usage
 
@@ -11,5 +11,5 @@ default doesn't suit your needs.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
 ```

@@ -38,9 +38,6 @@ include(
         ":preferences",
         ":resources",
         ":sample",
-        ":selectableviews",
-        ":selectableviews-appcompat",
-        ":selectableviews-constraintlayout",
         ":snackbar",
         ":stetho-init",
         ":systemservices",
@@ -56,5 +53,8 @@ include(
         ":views-appcompat",
         ":views-cardview",
         ":views-design",
-        ":views-recyclerview"
+        ":views-recyclerview",
+        ":views-selectable",
+        ":views-selectable-appcompat",
+        ":views-selectable-constraintlayout"
 )

@@ -4,8 +4,8 @@
 
 This [split](../README.md#what-is-a-split "What is a split in Splitties?")
 provides selectable `LinearLayout` and platform `TextView`. See also the
-[AppCompat](../selectableviews-appcompat/README.md) and
-[ConstraintLayout](../selectableviews-constraintlayout/README.md) versions.
+[AppCompat](../views-selectable-appcompat/README.md) and
+[ConstraintLayout](../views-selectable-constraintlayout/README.md) versions.
 
 Selectable views are particularly handy for list items that can be clicked.
 They have a `foregroundSelector` property that is like `foregound` property
@@ -22,5 +22,5 @@ Just use `SelectableLinearLayout` and `SelectableTextView` instead of
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
 ```
