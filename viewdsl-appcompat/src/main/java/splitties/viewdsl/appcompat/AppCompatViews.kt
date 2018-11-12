@@ -44,6 +44,7 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import android.widget.Spinner
 import android.widget.TextView
+import kotlin.DeprecationLevel.ERROR
 
 /** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
 private const val FILE_INFO = 0
@@ -51,41 +52,41 @@ private const val FILE_INFO = 0
 private const val deprecationMsgExtensionFunction = "extension function available on " +
         "Context, View and Ui."
 
-@Deprecated("Replace v(::textView) with textView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::textView) with textView() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun textView(ctx: Context): TextView = AppCompatTextView(ctx)
 
-@Deprecated("Replace v(::imageView) with imageView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::imageView) with imageView() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun imageView(ctx: Context): ImageView = AppCompatImageView(ctx)
 
-@Deprecated("Replace v(::button) with button() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::button) with button() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun button(ctx: Context): Button = AppCompatButton(ctx)
 
-@Deprecated("Replace v(::editText) with editText() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::editText) with editText() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun editText(ctx: Context): EditText = AppCompatEditText(ctx)
 
-@Deprecated("Replace v(::spinner) with spinner() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::spinner) with spinner() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun spinner(ctx: Context): Spinner = AppCompatSpinner(ctx)
 
-@Deprecated("Replace v(::imageButton) with imageButton() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::imageButton) with imageButton() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun imageButton(ctx: Context): ImageButton = AppCompatImageButton(ctx)
 
-@Deprecated("Replace v(::checkBox) with checkBox() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::checkBox) with checkBox() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun checkBox(ctx: Context): CheckBox = AppCompatCheckBox(ctx)
 
-@Deprecated("Replace v(::radioButton) with radioButton() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::radioButton) with radioButton() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun radioButton(ctx: Context): RadioButton = AppCompatRadioButton(ctx)
 
-@Deprecated("Replace v(::checkedTextView) with checkedTextView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::checkedTextView) with checkedTextView() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun checkedTextView(ctx: Context): CheckedTextView = AppCompatCheckedTextView(ctx)
 
-@Deprecated("Replace v(::autoCompleteTextView) with autoCompleteTextView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::autoCompleteTextView) with autoCompleteTextView() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun autoCompleteTextView(ctx: Context): AutoCompleteTextView = AppCompatAutoCompleteTextView(ctx)
 
-@Deprecated("Replace v(::multiAutoCompleteTextView) with multiAutoCompleteTextView() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::multiAutoCompleteTextView) with multiAutoCompleteTextView() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun multiAutoCompleteTextView(ctx: Context): MultiAutoCompleteTextView = AppCompatMultiAutoCompleteTextView(ctx)
 
-@Deprecated("Replace v(::ratingBar) with ratingBar() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::ratingBar) with ratingBar() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun ratingBar(ctx: Context): RatingBar = AppCompatRatingBar(ctx)
 
-@Deprecated("Replace v(::seekBar) with seekBar() $deprecationMsgExtensionFunction")
+@Deprecated("Replace v(::seekBar) with seekBar() $deprecationMsgExtensionFunction", level = ERROR)
 inline fun seekBar(ctx: Context): SeekBar = AppCompatSeekBar(ctx)

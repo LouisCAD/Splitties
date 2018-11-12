@@ -16,7 +16,7 @@
 
 package splitties.init
 
-@Deprecated("Not a good name", ReplaceWith("result.also(f)"))
+@Deprecated("Not a good name", ReplaceWith("result.also(f)"), level = DeprecationLevel.ERROR)
 inline fun consume(result: Boolean = true, f: () -> Unit): Boolean {
     f()
     return result

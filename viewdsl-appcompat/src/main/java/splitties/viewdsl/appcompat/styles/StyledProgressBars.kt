@@ -21,13 +21,14 @@ import android.content.Context
 import android.widget.ProgressBar
 import splitties.viewdsl.core.styles.AndroidStyles
 import splitties.viewdsl.core.styles.invoke
+import kotlin.DeprecationLevel.ERROR
 
 private const val deprecationMessage = "Use AndroidStyles properties with invoke operator instead"
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun progressBar(ctx: Context): ProgressBar = AndroidStyles.progressBar.default(ctx)
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun largeProgressBar(ctx: Context) = AndroidStyles.progressBar.large(ctx)
 
-@Deprecated(deprecationMessage)
+@Deprecated(deprecationMessage, level = ERROR)
 inline fun horizontalProgressBar(ctx: Context): ProgressBar = AndroidStyles.progressBar.horizontal(ctx)

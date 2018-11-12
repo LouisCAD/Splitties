@@ -1,5 +1,10 @@
 # Change log for Splitties
 
+## Version 2.0.0-alpha7 (2018-11-12)
+Raise all deprecated symbols deprecation level to error.
+
+Use this version to make sure you don't use them in your projects, next version will remove them!
+
 ## Version 2.0.0-alpha6 (2018-11-11)
 Version 2.0.0-alpha5 broke the API, this version fixes this.
 
