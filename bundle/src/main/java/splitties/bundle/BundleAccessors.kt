@@ -21,9 +21,6 @@ import android.os.Bundle
 import splitties.mainthread.isMainThread
 import kotlin.DeprecationLevel.ERROR
 
-@Deprecated("Name changed.", ReplaceWith("BundleSpec", "splitties.bundle.BundleSpec"), ERROR)
-typealias BundleHelper = BundleSpec
-
 inline fun <Spec : BundleSpec, R> Activity.withExtras(
         spec: Spec,
         crossinline block: Spec.() -> R

@@ -41,17 +41,12 @@ import splitties.viewdsl.core.view
 import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
 import splitties.views.textAppearance
-import kotlin.DeprecationLevel.ERROR
 
 class SwitchTwoLinesIconListItem(
         context: Context,
         disableDefaultTint: Boolean
 ) : SelectableConstraintLayout(context) {
     constructor(context: Context) : this(context, disableDefaultTint = false)
-
-    @Deprecated("Use switch instead", ReplaceWith("switch"), level = ERROR)
-    inline val toggle
-        get() = switch
 
     val switch = view(::SwitchCompat, R.id.toggle)
 

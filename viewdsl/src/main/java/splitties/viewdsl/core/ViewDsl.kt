@@ -26,7 +26,6 @@ import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
 import splitties.views.inflate
-import kotlin.DeprecationLevel.ERROR
 
 /** Called so to remind that function references (that are inlined) are recommended for [view]. */
 typealias NewViewRef<V> = (Context) -> V
@@ -122,81 +121,3 @@ inline fun <reified V : View> Ui.inflate(
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
-
-//region Deprecated v functions.
-
-private const val deprecationMessageForV = "Use view instead of v."
-
-@Deprecated(deprecationMessageForV, ReplaceWith(
-        expression = "view(createView, id, theme, initView)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> Context.v(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
-): V = createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
-
-@Deprecated(deprecationMessageForV, ReplaceWith(
-        expression = "view(createView, id, theme, initView)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> View.v(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
-): V = context.view(createView, id, theme, initView)
-
-@Deprecated(deprecationMessageForV, ReplaceWith(
-        expression = "view(createView, id, theme, initView)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> Ui.v(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
-): V = ctx.view(createView, id, theme, initView)
-//endregion
-
-//region Deprecated add functions.
-
-private const val deprecationMessageForAdd = "Use view + add or view + addView instead of just add. " +
-        "It makes promoting a view as property easier as you don't have to extract the " +
-        "parameters manually."
-
-@Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(view(createView, id, theme, initView), lp)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> ViewGroup.add(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        lp: ViewGroup.LayoutParams,
-        initView: V.() -> Unit = {}
-): V = view(createView, id, theme, initView).also { addView(it, lp) }
-
-@Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(view(createView, id, initView), lp)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> ViewGroup.add(
-        createView: NewViewRef<V>,
-        @IdRes id: Int,
-        lp: ViewGroup.LayoutParams,
-        initView: V.() -> Unit = {}
-): V = createView(context).also { it.id = id }.apply(initView).also { addView(it, lp) }
-
-@Deprecated(deprecationMessageForAdd, ReplaceWith(
-        expression = "add(view(createView, initView), lp)",
-        imports = ["splitties.viewdsl.core.view"]
-), level = ERROR)
-inline fun <V : View> ViewGroup.add(
-        createView: NewViewRef<V>,
-        lp: ViewGroup.LayoutParams,
-        initView: V.() -> Unit = {}
-): V = createView(context).apply(initView).also { addView(it, lp) }
-//endregion
