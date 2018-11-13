@@ -1,5 +1,74 @@
 # Change log for Splitties
 
+## Version 2.0.0-alpha9 (2018-11-13)
+This release **breaks binary and source compatibility**.
+
+It renames several package names and modules, for more consistency across the project.
+
+View DSL has a new name: Views DSL. That also applies to its additional modules.
+
+_Just like an extra `s` can make a new generation of smartphones, it can also make a new version of
+Splitties._
+
+The artifact names of all **Selectable Views** and **View DSL** changed, and so did the package
+names.
+
+Consequently, after updating the artifact names and the version,
+you'll need to update the imports. Fortunately, this is easily done with the "Replace in Path"
+IDE option present in IntelliJ IDEA and Android Studio.
+
+All you need to do is find an old import (`import splitties.viewdsl.`), select it, select the
+"Replace in Path" option paste (`import splitties.views.dsl.`) in the second input field, and
+validate.
+
+Then, you just have to the same for Selectable Views with `import splitties.selectableviews.` and
+`import splitties.views.selectable.`… and voilà! You just migrated to latest Splitties version!
+
+### New artifacts
+<details>
+<summary>
+<b>
+Here are all the artifacts added in this version. Just use the ones you need. (Click to expand)
+</b>
+</summary>
+
+```groovy
+implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
+```
+
+All the lines above assume you defined the `splitties_version` ext property in your
+root project's `build.gradle` file to `2.0.0-alpha9` as shown in this snippet:
+```groovy
+allProjects {
+    ext {
+        splitties_version = '2.0.0-alpha9'
+    }
+}
+```
+
+</details>
+
+### Removed artifacts
+This release removes all these artifacts:
+
+~`implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"`~
+~`debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"`~
+~`implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"`~
+
 ## Version 2.0.0-alpha8 (2018-11-12)
 This release **breaks binary compatibility**.
 
