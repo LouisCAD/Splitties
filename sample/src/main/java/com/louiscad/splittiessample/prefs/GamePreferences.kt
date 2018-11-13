@@ -17,7 +17,7 @@
 package com.louiscad.splittiessample.prefs
 
 import splitties.preferences.Preferences
-import splitties.preferences.experimental.SuspendPrefsAccessor
+import splitties.preferences.SuspendPrefsAccessor
 
 class GamePreferences private constructor() : Preferences("gameState") {
     companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)

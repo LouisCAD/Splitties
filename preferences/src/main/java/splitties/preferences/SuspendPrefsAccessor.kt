@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.preferences.experimental
+package splitties.preferences
 
 import android.content.SharedPreferences
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.withContext
-import splitties.preferences.Preferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * **Requires** you have the following dependency in your project:
- * `org.jetbrains.kotlinx:kotlinx-coroutines-android:0.30.2`
+ * `org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1`
  *
  * ## IMPORTANT:
  * Make sure that your `Preferences` subclass **constructor is private**!

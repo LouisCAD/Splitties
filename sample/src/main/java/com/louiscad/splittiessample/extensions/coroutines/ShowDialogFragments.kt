@@ -21,7 +21,7 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 
 inline fun <DF : DialogFragment> FragmentManager.showAsync(
         lifecycle: Lifecycle,

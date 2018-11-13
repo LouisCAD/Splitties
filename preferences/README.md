@@ -95,7 +95,7 @@ Let's see a modified version of the `GamePreferences` described above,
 before passing in review each change.
 
 ```kotlin
-import splitties.preferences.experimental.SuspendPrefsAccessor
+import splitties.preferences.SuspendPrefsAccessor
 import splitties.preferences.Preferences
 
 class GamePreferences private constructor() : Preferences("gameState") {

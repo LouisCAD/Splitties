@@ -18,7 +18,8 @@ package com.louiscad.splittiessample.extensions.coroutines
 import android.arch.lifecycle.GenericLifecycleObserver
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
-import kotlinx.coroutines.experimental.suspendCancellableCoroutine
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
     require(state != Lifecycle.State.DESTROYED) {
