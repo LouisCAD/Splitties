@@ -18,13 +18,18 @@ package splitties.views.dsl.recyclerview
 import android.support.annotation.IdRes
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 fun View.wrapInRecyclerView(
         horizontal: Boolean = false,
         @IdRes id: Int = View.NO_ID,
         initView: RecyclerView.() -> Unit = {}
-) = recyclerView(id) {
-    val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
-    layoutManager = contentAdapter.layoutManager
-    adapter = contentAdapter
-}.apply(initView)
+): RecyclerView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return recyclerView(id) {
+        val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
+        layoutManager = contentAdapter.layoutManager
+        adapter = contentAdapter
+    }.apply(initView)
+}

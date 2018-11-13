@@ -26,24 +26,35 @@ import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.inflate
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 inline fun Context.recyclerView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RecyclerView.() -> Unit = {}
-): RecyclerView = inflate(R.layout.recyclerview_with_scrollbars, id, theme, initView)
+): RecyclerView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return inflate(R.layout.recyclerview_with_scrollbars, id, theme, initView)
+}
 
 inline fun View.recyclerView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RecyclerView.() -> Unit = {}
-) = context.recyclerView(id, theme, initView)
+): RecyclerView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.recyclerView(id, theme, initView)
+}
 
 inline fun Ui.recyclerView(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: RecyclerView.() -> Unit = {}
-) = ctx.recyclerView(id, theme, initView)
+): RecyclerView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.recyclerView(id, theme, initView)
+}
 
 inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
         block: RecyclerView.LayoutParams.() -> Unit = {}
