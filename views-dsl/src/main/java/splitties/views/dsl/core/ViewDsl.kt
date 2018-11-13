@@ -26,6 +26,8 @@ import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
 import splitties.views.inflate
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /** Called so to remind that function references (that are inlined) are recommended for [view]. */
 typealias NewViewRef<V> = (Context) -> V
@@ -44,21 +46,30 @@ inline fun <V : View> Context.view(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
+}
 
 inline fun <V : View> View.view(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = context.view(createView, id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.view(createView, id, theme, initView)
+}
 
 inline fun <V : View> Ui.view(
         createView: NewViewRef<V>,
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.view(createView, id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.view(createView, id, theme, initView)
+}
 
 private const val VIEW_FACTORY = "splitties:views.dsl:viewfactory"
 
@@ -77,21 +88,30 @@ inline fun <reified V : View> Context.view(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
-    it.id = id
-}.apply(initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
+        it.id = id
+    }.apply(initView)
+}
 
 inline fun <reified V : View> View.view(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = context.view(id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.view(id, theme, initView)
+}
 
 inline fun <reified V : View> Ui.view(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.view(id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.view(id, theme, initView)
+}
 
 @PublishedApi
 internal const val XML_DEFINED_ID = -1
@@ -101,23 +121,32 @@ inline fun <reified V : View> Context.inflate(
         @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also { inflatedView ->
-    if (id != XML_DEFINED_ID) inflatedView.id = id
-}.apply(initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also { inflatedView ->
+        if (id != XML_DEFINED_ID) inflatedView.id = id
+    }.apply(initView)
+}
 
 inline fun <reified V : View> View.inflate(
         @LayoutRes layoutResId: Int,
         @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = context.inflate(layoutResId, id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.inflate(layoutResId, id, theme, initView)
+}
 
 inline fun <reified V : View> Ui.inflate(
         @LayoutRes layoutResId: Int,
         @IdRes id: Int = XML_DEFINED_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: V.() -> Unit = {}
-): V = ctx.inflate(layoutResId, id, theme, initView)
+): V {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.inflate(layoutResId, id, theme, initView)
+}
 
 @Suppress("NOTHING_TO_INLINE")
 inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }

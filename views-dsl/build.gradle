@@ -55,7 +55,8 @@ dependencies {
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
-        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+        freeCompilerArgs += ["-XXLanguage:+InlineClasses"]
+        freeCompilerArgs += ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts"]
     }
 }
 
