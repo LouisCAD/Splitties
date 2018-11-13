@@ -33,7 +33,7 @@ and more.
 - **[Checked Lazy:](checkedlazy)** `mainThreadLazy` that checks property access on main thread, and
 `checkedLazy` to make your own variant.
 - **[Dimensions:](dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
-handy when using [View DSL](viewdsl).
+handy when using [Views DSL](views-dsl).
 - **[Exceptions:](exceptions)** `illegal(…)` and similar functions that return `Nothing`, handy for
 impossible or illegal `when` branches.
 - **[Fragments:](fragments)** Start activities from fragments and do transactions with minimal
@@ -54,12 +54,12 @@ https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Preferences:](preferences)** Property syntax for Android's SharedPreferences.
 - **[Resources:](resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
-- **[Selectable Views:](selectableviews)** Selectable Views with `foreground` property before
+- **[Selectable Views:](views-selectable)** Selectable Views with `foreground` property before
 API 23.
-- **[Selectable Views AppCompat:](selectableviews-appcompat)** [Selectable Views](selectableviews)
+- **[Selectable Views AppCompat:](views-selectable-appcompat)** [Selectable Views](views-selectable)
 for AppCompatTextView.
-- **[Selectable Views ConstraintLayout:](selectableviews-constraintlayout)**
-[Selectable Views](selectableviews) for ConstraintLayout.
+- **[Selectable Views ConstraintLayout:](views-selectable-constraintlayout)**
+[Selectable Views](views-selectable) for ConstraintLayout.
 - **[Snackbar:](snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
 - **[Stetho init:](stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
 builds, without writing any code!
@@ -69,19 +69,19 @@ builds, without writing any code!
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
 - **[Typesafe RecyclerView:](typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
 easy basic usage of `RecyclerView`.
-- **[View DSL:](viewdsl)** Create UIs with readable Kotlin code.
-- **[View DSL AppCompat:](viewdsl-appcompat)** AppCompat extension of [View DSL](viewdsl).
-- **[View DSL ConstraintLayout:](viewdsl-constraintlayout)** ConstraintLayout extension of
-[View DSL](viewdsl).
-- **[View DSL Design:](viewdsl-design)** Design Support Library extension of [View DSL](viewdsl).
-- **[View DSL IDE preview:](viewdsl-ide-preview)** Preview [View DSL](viewdsl) UIs in the IDE.
-- **[View DSL RecyclerView:](viewdsl-recyclerview)** RecyclerView extension of [View DSL](viewdsl).
 - **[Views:](views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](views-appcompat)** AppCompat extension of [Views](views). Includes helpers
 for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](views-cardview)** CardView extension of [Views](views). Provides a
 `contentPadding` property.
 - **[Views Design:](views-design)** Design Support library extension of [Views](views).
+- **[Views DSL:](views-dsl)** Create UIs with readable Kotlin code.
+- **[Views DSL AppCompat:](views-dsl-appcompat)** AppCompat extension of [Views DSL](views-dsl).
+- **[Views DSL ConstraintLayout:](views-dsl-constraintlayout)** ConstraintLayout extension of
+[Views DSL](views-dsl).
+- **[Views DSL Design:](views-dsl-design)** Design Support Library extension of [Views DSL](views-dsl).
+- **[Views DSL IDE preview:](views-dsl-ide-preview)** Preview [Views DSL](views-dsl) UIs in the IDE.
+- **[Views DSL RecyclerView:](views-dsl-recyclerview)** RecyclerView extension of [Views DSL](views-dsl).
 - **[Views RecyclerView:](views-recyclerview)** RecyclerView extension of [Views](views).
 
 ## Download
@@ -96,7 +96,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '2.0.0-alpha8'
+        splitties_version = '2.0.0-alpha9'
     }
 }
 ```
@@ -129,25 +129,25 @@ implementation "com.louiscad.splitties:splitties-material-colors:$splitties_vers
 implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
 implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
 implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
 implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
 implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
 implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
 ```
 
 </details>
@@ -208,12 +208,12 @@ This allows you to only add what you need in your app or library module,
 so the final apk is as small as possible and doesn't include stuff not used
 by your app.
 
-Let's say you're build an Android Wear app using the View DSL.
+Let's say you're build an Android Wear app using the Views DSL.
 Android Wear apps don't need AppCompat. Including it would be a waste of
-bandwidth and storage. The View DSL core module relies on the Android
+bandwidth and storage. The Views DSL core module relies on the Android
 SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
-by using View DSL. However, if you are building a phone, tablet or computer
-Android app, there's a View DSL AppCompat split with a few extensions for
+by using Views DSL. However, if you are building a phone, tablet or computer
+Android app, there's a Views DSL AppCompat split with a few extensions for
 you to use.
 
 ## License

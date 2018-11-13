@@ -1,6 +1,6 @@
 # Views AppCompat
 
-*AppCompat extension of [View DSL](../viewdsl)*
+*AppCompat extension of [Views](../views)*
 
 ## Content
 

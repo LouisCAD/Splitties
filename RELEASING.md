@@ -18,8 +18,7 @@
 14. Checkout the `master` branch.
 15. Pull from GitHub repository to update the local `master` branch.
 16. Checkout the `develop` branch.
-17. Change the `library_version` ext property in root project back to a
--SNAPSHOT version.
+17. Change the `library_version` ext property in root project back to a -SNAPSHOT version.
 18. Run `git commit -am "Prepare next development version."`.
 19. Run `git push origin`.
 

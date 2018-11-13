@@ -22,16 +22,16 @@ import android.view.Gravity
 import android.widget.TextView
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
-import splitties.selectableviews.SelectableLinearLayout
-import splitties.viewdsl.core.add
-import splitties.viewdsl.core.endMargin
-import splitties.viewdsl.core.imageView
-import splitties.viewdsl.core.textView
-import splitties.viewdsl.core.lParams
-import splitties.viewdsl.core.startMargin
-import splitties.viewdsl.core.verticalMargin
-import splitties.viewdsl.core.wrapContent
 import splitties.views.appcompat.imgTintList
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.endMargin
+import splitties.views.dsl.core.imageView
+import splitties.views.dsl.core.lParams
+import splitties.views.dsl.core.startMargin
+import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.verticalMargin
+import splitties.views.dsl.core.wrapContent
+import splitties.views.selectable.SelectableLinearLayout
 import splitties.views.textAppearance
 
 class IconOneLineListItem(

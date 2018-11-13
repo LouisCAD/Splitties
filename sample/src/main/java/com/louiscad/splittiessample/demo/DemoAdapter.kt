@@ -22,7 +22,7 @@ import android.view.ViewGroup
 import com.louiscad.splittiessample.R
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
-import splitties.viewdsl.recyclerview.verticalListLayoutParams
+import splitties.views.dsl.recyclerview.verticalListLayoutParams
 import splitties.views.imageResource
 import splitties.views.onClick
 import splitties.views.recyclerview.verticalLayoutManager

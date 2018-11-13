@@ -1,7 +1,7 @@
 # Dimensions
 
 *Android `dp` extensions for `View` and `Context`. Particularly handy
-when using [View DSL](../viewdsl/README.md).*
+when using [Views DSL](../views-dsl/README.md).*
 
 `dip` and `dp` extension functions on `View` and `Context` take an `Int`
 parameter and return the value in Android's dp. The former (dip) returns an

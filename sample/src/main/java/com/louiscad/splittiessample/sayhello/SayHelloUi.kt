@@ -20,16 +20,16 @@ import android.support.design.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.snackbar.snack
-import splitties.viewdsl.appcompat.AppCompatStyles
-import splitties.viewdsl.core.Ui
-import splitties.viewdsl.core.add
-import splitties.viewdsl.core.editText
-import splitties.viewdsl.core.lParams
-import splitties.viewdsl.core.matchParent
-import splitties.viewdsl.core.styles.invoke
-import splitties.viewdsl.core.verticalLayout
-import splitties.viewdsl.design.contentScrollingWithAppBarLParams
-import splitties.viewdsl.design.coordinatorLayout
+import splitties.views.dsl.appcompat.AppCompatStyles
+import splitties.views.dsl.core.Ui
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.editText
+import splitties.views.dsl.core.lParams
+import splitties.views.dsl.core.matchParent
+import splitties.views.dsl.core.styles.invoke
+import splitties.views.dsl.core.verticalLayout
+import splitties.views.dsl.design.contentScrollingWithAppBarLParams
+import splitties.views.dsl.design.coordinatorLayout
 import splitties.views.gravityEnd
 import splitties.views.onClick
 
