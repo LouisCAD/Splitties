@@ -51,14 +51,14 @@ inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R = try
     endTransaction()
 }
 
-fun RoomDatabase.Builder<*>.onCreate(block: (db: SupportSQLiteDatabase) -> Unit) {
-    addCallback(object: RoomDatabase.Callback() {
+inline fun RoomDatabase.Builder<*>.onCreate(crossinline block: (db: SupportSQLiteDatabase) -> Unit) {
+    addCallback(object : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) = block(db)
     })
 }
 
-fun RoomDatabase.Builder<*>.onOpen(block: (db: SupportSQLiteDatabase) -> Unit) {
-    addCallback(object: RoomDatabase.Callback() {
+inline fun RoomDatabase.Builder<*>.onOpen(crossinline block: (db: SupportSQLiteDatabase) -> Unit) {
+    addCallback(object : RoomDatabase.Callback() {
         override fun onOpen(db: SupportSQLiteDatabase) = block(db)
     })
 }

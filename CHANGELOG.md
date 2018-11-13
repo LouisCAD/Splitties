@@ -1,5 +1,13 @@
 # Change log for Splitties
 
+## Version 2.0.0 (2018-11-13)
+This release targets Android SDK 27, and splits depending on support libraries use version 27.1.1.
+
+### Changes
+- Room updated to version 1.1.1 in Arch Room.
+- Lambdas of `onCreate` and `onOpen` functions in Arch Room are no `crossinline`.
+- The `LifecycleObserver` class is now marked as experimental.
+
 ## Version 2.0.0-beta1 (2018-11-13)
 This release **breaks binary and source compatibility**.
 
