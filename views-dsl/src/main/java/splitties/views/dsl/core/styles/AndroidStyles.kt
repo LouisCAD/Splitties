@@ -20,42 +20,41 @@ import android.widget.ProgressBar
 import android.widget.RatingBar
 import kotlin.DeprecationLevel.HIDDEN
 
-// TODO: Make all properties inline when switching to Kotlin 1.3
 object AndroidStyles {
-    val progressBar = ProgressBarAndroidStyles(null)
-    val ratingBar = RatingBarAndroidStyles(null)
-    val button = ButtonAndroidStyles(null)
+    inline val progressBar get() = ProgressBarAndroidStyles(null)
+    inline val ratingBar get() = RatingBarAndroidStyles(null)
+    inline val button get() = ButtonAndroidStyles(null)
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class ProgressBarAndroidStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val small = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
-    @JvmField val default = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
-    @JvmField val large = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
-    @JvmField val horizontal = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
+    inline val small get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
+    inline val default get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
+    inline val large get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleLarge)
+    inline val horizontal get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class RatingBarAndroidStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class RatingBarAndroidStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val small = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleSmall)
-    @JvmField val default = XmlStyle<RatingBar>(android.R.attr.ratingBarStyle)
-    @JvmField val indicator = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleIndicator)
+    inline val small get() = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleSmall)
+    inline val default get() = XmlStyle<RatingBar>(android.R.attr.ratingBarStyle)
+    inline val indicator get() = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleIndicator)
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class ButtonAndroidStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class ButtonAndroidStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     /** Small Button style. */
-    @JvmField val small = XmlStyle<Button>(android.R.attr.buttonStyleSmall)
+    inline val small get() = XmlStyle<Button>(android.R.attr.buttonStyleSmall)
     /** Normal Button style. */
-    @JvmField val default = XmlStyle<Button>(android.R.attr.buttonStyle)
+    inline val default get() = XmlStyle<Button>(android.R.attr.buttonStyle)
     /** Style for buttons without an explicit border, often used in groups. */
-    @JvmField val borderless = XmlStyle<Button>(android.R.attr.borderlessButtonStyle)
+    inline val borderless get() = XmlStyle<Button>(android.R.attr.borderlessButtonStyle)
     /** Button style to inset into an EditText. */
-    @JvmField val inset = XmlStyle<Button>(android.R.attr.buttonStyleInset)
+    inline val inset get() = XmlStyle<Button>(android.R.attr.buttonStyleInset)
 }

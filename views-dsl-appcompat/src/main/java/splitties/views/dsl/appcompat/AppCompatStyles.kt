@@ -31,13 +31,12 @@ fun AppCompatStyles(ctx: Context): AppCompatStyles {
     return AppCompatStyles.instance
 }
 
-// TODO: Make all properties inline when switching to Kotlin 1.3
 class AppCompatStyles private constructor() {
-    val button = ButtonAppCompatStyles(null)
-    val seekBar = SeekBarAppCompatStyles(null)
-    val spinner = SpinnerAppCompatStyles(null)
-    val textView = TextViewAppCompatStyles(null)
-    @JvmField val actionButton = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
+    inline val button get() = ButtonAppCompatStyles(null)
+    inline val seekBar get() = SeekBarAppCompatStyles(null)
+    inline val spinner get() = SpinnerAppCompatStyles(null)
+    inline val textView get() = TextViewAppCompatStyles(null)
+    inline val actionButton get() = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
 
     companion object {
         internal val instance = AppCompatStyles()
@@ -47,38 +46,37 @@ class AppCompatStyles private constructor() {
     }
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class ButtonAppCompatStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class ButtonAppCompatStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val default = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
-    @JvmField val colored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
-    @JvmField val flat = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
+    inline val default get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
+    inline val colored get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
+    inline val flat get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
     inline val borderless get() = flat
-    @JvmField
-    val flatColored = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
+    inline val flatColored get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
     inline val borderlessColored get() = flatColored
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class TextViewAppCompatStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class TextViewAppCompatStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val spinnerItem = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)
+    inline val spinnerItem get() = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class SeekBarAppCompatStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val default = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
-    @JvmField val discrete = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
+    inline val default get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
+    inline val discrete get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
 }
 
-// TODO: Make inline when switching to Kotlin 1.3
-class SpinnerAppCompatStyles internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
         @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
-    @JvmField val default = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
-    @JvmField val underlined = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)
+    inline val default get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
+    inline val underlined get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)
 }
