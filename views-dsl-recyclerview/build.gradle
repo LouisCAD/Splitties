@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    api project(':experimental')
     api project(':views-dsl')
     api project(':views-recyclerview')
 
@@ -57,6 +58,7 @@ dependencies {
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         freeCompilerArgs += ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts"]
+        freeCompilerArgs += ["-Xuse-experimental=kotlin.Experimental"]
     }
 }
 

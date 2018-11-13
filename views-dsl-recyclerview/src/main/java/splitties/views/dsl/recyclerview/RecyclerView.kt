@@ -23,6 +23,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.inflate
@@ -56,6 +57,7 @@ inline fun Ui.recyclerView(
     return ctx.recyclerView(id, theme, initView)
 }
 
+@ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
         block: RecyclerView.LayoutParams.() -> Unit = {}
 ): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
@@ -63,6 +65,7 @@ inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
     height = WRAP_CONTENT
 }.apply(block)
 
+@ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.horizontalListLayoutParams(
         block: RecyclerView.LayoutParams.() -> Unit = {}
 ): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
