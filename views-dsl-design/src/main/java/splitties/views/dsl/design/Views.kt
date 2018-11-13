@@ -23,6 +23,8 @@ import android.view.View
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 // FloatingActionButton
 
@@ -30,16 +32,25 @@ inline fun Context.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FloatingActionButton.() -> Unit = {}
-): FloatingActionButton = view(id, theme, initView)
+): FloatingActionButton {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
 
 inline fun View.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FloatingActionButton.() -> Unit = {}
-) = context.floatingActionButton(id, theme, initView)
+): FloatingActionButton {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.floatingActionButton(id, theme, initView)
+}
 
 inline fun Ui.floatingActionButton(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: FloatingActionButton.() -> Unit = {}
-) = ctx.floatingActionButton(id, theme, initView)
+): FloatingActionButton {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.floatingActionButton(id, theme, initView)
+}

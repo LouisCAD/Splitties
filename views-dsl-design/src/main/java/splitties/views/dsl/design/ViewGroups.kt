@@ -25,6 +25,8 @@ import android.view.View
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 // CoordinatorLayout
 
@@ -32,19 +34,28 @@ inline fun Context.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CoordinatorLayout.() -> Unit = {}
-): CoordinatorLayout = view(::CoordinatorLayout, id, theme, initView)
+): CoordinatorLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(::CoordinatorLayout, id, theme, initView)
+}
 
 inline fun View.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CoordinatorLayout.() -> Unit = {}
-) = context.coordinatorLayout(id, theme, initView)
+): CoordinatorLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.coordinatorLayout(id, theme, initView)
+}
 
 inline fun Ui.coordinatorLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CoordinatorLayout.() -> Unit = {}
-) = ctx.coordinatorLayout(id, theme, initView)
+): CoordinatorLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.coordinatorLayout(id, theme, initView)
+}
 
 
 // AppBarLayout
@@ -53,19 +64,28 @@ inline fun Context.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AppBarLayout.() -> Unit = {}
-): AppBarLayout = view(id, theme, initView)
+): AppBarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
 
 inline fun View.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AppBarLayout.() -> Unit = {}
-) = context.appBarLayout(id, theme, initView)
+): AppBarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.appBarLayout(id, theme, initView)
+}
 
 inline fun Ui.appBarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: AppBarLayout.() -> Unit = {}
-) = ctx.appBarLayout(id, theme, initView)
+): AppBarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.appBarLayout(id, theme, initView)
+}
 
 // CollapsingToolbarLayout
 
@@ -73,16 +93,25 @@ inline fun Context.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-): CollapsingToolbarLayout = view(id, theme, initView)
+): CollapsingToolbarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
 
 inline fun View.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = context.collapsingToolbarLayout(id, theme, initView)
+): CollapsingToolbarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.collapsingToolbarLayout(id, theme, initView)
+}
 
 inline fun Ui.collapsingToolbarLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: CollapsingToolbarLayout.() -> Unit = {}
-) = ctx.collapsingToolbarLayout(id, theme, initView)
+): CollapsingToolbarLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.collapsingToolbarLayout(id, theme, initView)
+}
