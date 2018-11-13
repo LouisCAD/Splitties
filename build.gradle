@@ -45,7 +45,7 @@ allprojects {
 
         // Libraries
         groupId = "com.louiscad.splitties"
-        library_version = "2.1.0-SNAPSHOT"
+        library_version = "2.1.0"
         isSnapshot = library_version.endsWith("-SNAPSHOT")
         isRelease = !isSnapshot
 
