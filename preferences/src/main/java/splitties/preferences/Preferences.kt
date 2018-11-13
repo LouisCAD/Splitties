@@ -138,7 +138,7 @@ abstract class Preferences(name: String,
 
     protected inner class StringPref(val key: String, val defaultValue: String) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): String {
-            return prefs.getString(key.real(prop), defaultValue)
+            return prefs.getString(key.real(prop), defaultValue)!!
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: String) {
@@ -158,7 +158,7 @@ abstract class Preferences(name: String,
 
     protected inner class StringSetPref(val key: String, val defaultValue: Set<String>) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Set<String> {
-            return prefs.getStringSet(key.real(prop), defaultValue)
+            return prefs.getStringSet(key.real(prop), defaultValue)!!
         }
 
         operator fun setValue(thisRef: Preferences, prop: KProperty<*>, value: Set<String>) {

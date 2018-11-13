@@ -1,5 +1,14 @@
 # Change log for Splitties
 
+## Version 2.1.0 (2018-11-13)
+This release targets Android SDK 28, and splits depending on support libraries use version 28.0.0.
+
+### Changes
+- System Services from API 28 are now included into the same named split.
+- Update `ConfigChangesHandlingCollapsingToolbarLayout` from View DSL Design to be compatible with
+design support library version 28.0.0.
+- Update for nullability warnings brought by SDK 28.
+
 ## Version 2.0.0 (2018-11-13)
 This release targets Android SDK 27, and splits depending on support libraries use version 27.1.1.
 

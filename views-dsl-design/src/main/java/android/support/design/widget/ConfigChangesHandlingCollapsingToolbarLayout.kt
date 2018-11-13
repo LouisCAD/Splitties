@@ -15,6 +15,7 @@
  */
 package android.support.design.widget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.support.design.R
@@ -29,11 +30,12 @@ internal class ConfigChangesHandlingCollapsingToolbarLayout @JvmOverloads constr
 ) : CollapsingToolbarLayout(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
+    @SuppressLint("RestrictedApi")
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
-        mCollapsingTextHelper.setExpandedTextAppearance(
+        collapsingTextHelper.setExpandedTextAppearance(
                 R.style.TextAppearance_Design_CollapsingToolbar_Expanded)
-        mCollapsingTextHelper.setCollapsedTextAppearance(
+        collapsingTextHelper.setCollapsedTextAppearance(
                 android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
     }
 }

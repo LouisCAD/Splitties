@@ -50,9 +50,7 @@ private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): Any {
         val key = property.name
-        return thisRef.bundle[key].also {
-            checkNotNull(it) { "Property $key could not be read" }
-        }
+        return checkNotNull(thisRef.bundle[key]) { "Property $key could not be read" }
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: Any) {
