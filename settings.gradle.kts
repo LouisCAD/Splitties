@@ -27,6 +27,7 @@ include(
         ":collections",
         ":dimensions",
         ":exceptions",
+        ":experimental",
         ":fragmentargs",
         ":fragments",
         ":initprovider",

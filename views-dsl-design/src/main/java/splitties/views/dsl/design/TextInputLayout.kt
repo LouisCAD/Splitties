@@ -22,13 +22,18 @@ import splitties.views.dsl.core.add
 import splitties.views.dsl.core.matchParent
 import splitties.views.dsl.core.view
 import splitties.views.dsl.core.wrapContent
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import android.widget.LinearLayout.LayoutParams as LP
 
 inline fun TextInputLayout.addInput(
         @IdRes id: Int,
         initView: TextInputEditText.() -> Unit = {}
-): TextInputEditText = add(view(
-        createView = ::TextInputEditText,
-        id = id,
-        initView = initView
-), LP(matchParent, wrapContent))
+): TextInputEditText {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return add(view(
+            createView = ::TextInputEditText,
+            id = id,
+            initView = initView
+    ), LP(matchParent, wrapContent))
+}

@@ -23,6 +23,8 @@ import android.view.View
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 // ConstraintLayout
 
@@ -30,16 +32,25 @@ inline fun Context.constraintLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ConstraintLayout.() -> Unit = {}
-): ConstraintLayout = view(::ConstraintLayout, id, theme, initView)
+): ConstraintLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(::ConstraintLayout, id, theme, initView)
+}
 
 inline fun View.constraintLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ConstraintLayout.() -> Unit = {}
-) = context.constraintLayout(id, theme, initView)
+): ConstraintLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.constraintLayout(id, theme, initView)
+}
 
 inline fun Ui.constraintLayout(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: ConstraintLayout.() -> Unit = {}
-) = ctx.constraintLayout(id, theme, initView)
+): ConstraintLayout {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.constraintLayout(id, theme, initView)
+}

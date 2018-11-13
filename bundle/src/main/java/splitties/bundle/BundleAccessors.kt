@@ -19,28 +19,36 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import splitties.mainthread.isMainThread
-import kotlin.DeprecationLevel.ERROR
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 inline fun <Spec : BundleSpec, R> Activity.withExtras(
         spec: Spec,
         crossinline block: Spec.() -> R
-): R = intent.extras.with(spec, block)
+): R {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return intent.extras.with(spec, block)
+}
 
 inline fun <Spec : BundleSpec> Intent.putExtras(
         spec: Spec,
         crossinline block: Spec.() -> Unit
 ) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     replaceExtras((extras ?: Bundle()).apply { with(spec, block) })
 }
 
 inline fun <Spec : BundleSpec, R> Bundle.with(
         spec: Spec,
         crossinline block: Spec.() -> R
-): R = try {
-    this.putIn(spec)
-    spec.block()
-} finally {
-    removeBundleFrom(spec)
+): R {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return try {
+        this.putIn(spec)
+        spec.block()
+    } finally {
+        removeBundleFrom(spec)
+    }
 }
 
 @PublishedApi internal fun Bundle.putIn(spec: BundleSpec) {

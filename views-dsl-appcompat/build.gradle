@@ -55,4 +55,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+        freeCompilerArgs += ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts"]
+    }
+}
+
 apply from: '../publish.gradle'

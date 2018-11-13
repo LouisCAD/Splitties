@@ -21,6 +21,8 @@ import android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED
 import android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN
 import android.view.View
 import splitties.views.dsl.core.Ui
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * Creates a [BottomSheetBehavior] and applies the passed [initBehavior] lambda on it.
@@ -28,7 +30,10 @@ import splitties.views.dsl.core.Ui
 @Suppress("unused") // Scopes visibility of the function to where it's meant to be used.
 inline fun <V : View> Ui.bottomSheetBehavior(
         initBehavior: BottomSheetBehavior<V>.() -> Unit = {}
-): BottomSheetBehavior<V> = BottomSheetBehavior<V>().apply(initBehavior)
+): BottomSheetBehavior<V> {
+    contract { callsInPlace(initBehavior, InvocationKind.EXACTLY_ONCE) }
+    return BottomSheetBehavior<V>().apply(initBehavior)
+}
 
 /**
  * Returns `false` if the associated bottom sheet was already expanded, returns `true` and expands

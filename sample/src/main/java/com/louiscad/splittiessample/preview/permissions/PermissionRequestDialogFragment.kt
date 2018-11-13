@@ -19,7 +19,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.annotation.RequiresApi
 import android.support.v4.app.DialogFragment
-import kotlinx.coroutines.experimental.CompletableDeferred
+import kotlinx.coroutines.CompletableDeferred
 
 @RequiresApi(23)
 class PermissionRequestDialogFragment : DialogFragment() {
@@ -48,7 +48,6 @@ class PermissionRequestDialogFragment : DialogFragment() {
     ) {
         val permission = permissionName ?: return
         val grantResult = grantResults[0]
-        @Suppress("DEPRECATION") // Un-deprecated in kotlinx.coroutines 1.0.0
         if (grantResult == PackageManager.PERMISSION_GRANTED) asyncGrant.complete(Unit)
         else asyncGrant.completeExceptionally(PermissionDeniedException(
                 permissionName = permission,

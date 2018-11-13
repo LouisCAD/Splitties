@@ -24,6 +24,8 @@ import android.view.View
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 // Toolbar
 
@@ -31,19 +33,28 @@ inline fun Context.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Toolbar.() -> Unit = {}
-): Toolbar = view(id, theme, initView)
+): Toolbar {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
 
 inline fun View.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Toolbar.() -> Unit = {}
-) = context.toolbar(id, theme, initView)
+): Toolbar {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.toolbar(id, theme, initView)
+}
 
 inline fun Ui.toolbar(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: Toolbar.() -> Unit = {}
-) = ctx.toolbar(id, theme, initView)
+): Toolbar {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.toolbar(id, theme, initView)
+}
 
 // SwitchCompat
 
@@ -51,16 +62,25 @@ inline fun Context.switch(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: SwitchCompat.() -> Unit = {}
-): SwitchCompat = view(::SwitchCompat, id, theme, initView)
+): SwitchCompat {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(::SwitchCompat, id, theme, initView)
+}
 
 inline fun View.switch(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: SwitchCompat.() -> Unit = {}
-) = context.switch(id, theme, initView)
+): SwitchCompat {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.switch(id, theme, initView)
+}
 
 inline fun Ui.switch(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: SwitchCompat.() -> Unit = {}
-) = ctx.switch(id, theme, initView)
+): SwitchCompat {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.switch(id, theme, initView)
+}

@@ -21,9 +21,9 @@ import android.support.v7.app.AppCompatActivity
 import androidx.core.view.isGone
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.isActive
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import splitties.dimensions.dip
 import splitties.toast.longToast
 import splitties.toast.toast

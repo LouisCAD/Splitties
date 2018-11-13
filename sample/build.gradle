@@ -109,9 +109,10 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-kotlin {
-    experimental {
-        coroutines "enable"
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs += ["-Xuse-experimental=splitties.experimental.ExperimentalSplittiesApi"]
     }
 }
 

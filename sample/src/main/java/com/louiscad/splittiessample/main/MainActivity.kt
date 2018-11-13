@@ -33,7 +33,7 @@ import com.louiscad.splittiessample.preview.permissions.PermissionsExampleActivi
 import com.louiscad.splittiessample.preview.vibrator.VibrationEffect
 import com.louiscad.splittiessample.preview.vibrator.vibrate
 import com.louiscad.splittiessample.sayhello.SayHelloActivity
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
