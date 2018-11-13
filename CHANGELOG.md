@@ -1,5 +1,25 @@
 # Change log for Splitties
 
+## Version 2.0.0-beta1 (2018-11-13)
+This release **breaks binary and source compatibility**.
+
+### Kotlin 1.3.0
+
+This is not just a compiler update for Splitties. This release already takes advantage of Kotlin 1.3
+features, beyond stable coroutines:
+
+- The `XmlStyle` class from Views DSL is now inline, for minimal footprint at runtime.
+- `SuspendPrefsAccessor` from Preferences is no longer experimental as coroutines graduated.
+- Functions that take a lambda in Views DSL (except `lParams` functions) have a contract. This
+directly translates to more freedom in your UI code as you can initialize a property later.
+- `withExtras`, `putExtras` and `with` from Bundle have a contract. This allows to initialize
+local variables from contents of a `Bundle` passing through a `BundleSpec` naturally!
+- Symbols that could change are marked as experimental, for less surprises in the future when they
+are replaced, renamed or removed (still with a deprecation cycle whenever possible). Only
+`verticalListLayoutParams` and `horizontalListLayoutParams` extension functions for
+`RecyclerView.LayoutManager` are experimental for now, but this could change, especially in alpha,
+or beta stage.
+
 ## Version 2.0.0-alpha9 (2018-11-13)
 This release **breaks binary and source compatibility**.
 
