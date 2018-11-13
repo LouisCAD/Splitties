@@ -41,7 +41,7 @@ allprojects {
     }
     ext {
         projectBuildTools_version = '28.0.3'
-        projectSdk_version = 27
+        projectSdk_version = 28
 
         // Libraries
         groupId = "com.louiscad.splitties"
@@ -50,7 +50,7 @@ allprojects {
         isRelease = !isSnapshot
 
         // Dependencies versions
-        supportLibs_version = '27.1.1'
+        supportLibs_version = '28.0.0'
         arch_lifecycle_version = '1.1.1'
         arch_room_version = '1.1.1'
         constraintLayout_version = '1.1.3'
