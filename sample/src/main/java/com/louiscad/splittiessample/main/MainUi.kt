@@ -18,10 +18,7 @@ package com.louiscad.splittiessample.main
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
@@ -60,65 +57,66 @@ import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    val launchDemoBtn: Button
-    val bePoliteWithPermissionsBtn: Button
-    val sayHelloBtn: Button
-    val toggleNightModeBtn: Button
-    val fab: FloatingActionButton
-    private val appBar: AppBarLayout
-
     private val appCompatStyles = AppCompatStyles(ctx)
+
+    val launchDemoBtn = appCompatStyles.button.flatColored(ctx) {
+        textResource = R.string.go_to_the_demo
+    }
+    val bePoliteWithPermissionsBtn = appCompatStyles.button.colored(ctx) {
+        textResource = R.string.be_polite_with_permissions
+    }
+    val sayHelloBtn = appCompatStyles.button.flat(ctx) {
+        textResource = R.string.say_hello
+    }
+    val toggleNightModeBtn = button {
+        compoundDrawablePadding = dip(4)
+        if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
+        setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
+        textResource = R.string.toggle_night_mode
+    }
+    val fab = floatingActionButton {
+        imageResource = R.drawable.ic_favorite_white_24dp
+    }
+    private val content = verticalLayout {
+        add(launchDemoBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
+        })
+        add(bePoliteWithPermissionsBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
+        })
+        add(sayHelloBtn, lParams {
+            gravity = gravityCenterHorizontal
+            topMargin = dip(8)
+        })
+        add(toggleNightModeBtn, lParams {
+            gravity = gravityCenterHorizontal
+            bottomMargin = dip(8)
+        })
+        add(textView {
+            textResource = R.string.large_text
+        }, lParams {
+            margin = dimenPxSize(R.dimen.text_margin)
+        })
+    }.wrapInRecyclerView()
+    private val appBar = appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
+        add(collapsingToolbarLayout {
+            fitsSystemWindows = true
+            contentScrimColor = styledColor(R.attr.colorPrimary)
+            add(toolbar {
+                (ctx as? AppCompatActivity)?.setSupportActionBar(this)
+                popupTheme = R.style.AppTheme_PopupOverlay
+            }, actionBarLParams(collapseMode = PIN))
+        }, defaultLParams(height = matchParent) {
+            scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
+        })
+    }
     override val root = coordinatorLayout {
         fitsSystemWindows = true
-        appBar = add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
-            add(collapsingToolbarLayout {
-                fitsSystemWindows = true
-                contentScrimColor = styledColor(R.attr.colorPrimary)
-                add(toolbar {
-                    (ctx as? AppCompatActivity)?.setSupportActionBar(this)
-                    popupTheme = R.style.AppTheme_PopupOverlay
-                }, actionBarLParams(collapseMode = PIN))
-            }, defaultLParams(height = matchParent) {
-                scrollFlags = SCROLL or EXIT_UNTIL_COLLAPSED
-            })
-        }, appBarLParams(dip(180)))
-        add(verticalLayout {
-            launchDemoBtn = add(appCompatStyles.button.flatColored(ctx) {
-                textResource = R.string.go_to_the_demo
-            }, lParams {
-                gravity = gravityCenterHorizontal
-                topMargin = dip(8)
-            })
-            bePoliteWithPermissionsBtn = add(appCompatStyles.button.colored(ctx) {
-                textResource = R.string.be_polite_with_permissions
-            }, lParams {
-                gravity = gravityCenterHorizontal
-                topMargin = dip(8)
-            })
-            sayHelloBtn = add(appCompatStyles.button.flat(ctx) {
-                textResource = R.string.say_hello
-            }, lParams {
-                gravity = gravityCenterHorizontal
-                topMargin = dip(8)
-            })
-            toggleNightModeBtn = add(button {
-                compoundDrawablePadding = dip(4)
-                if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
-                setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
-                textResource = R.string.toggle_night_mode
-            }, lParams {
-                gravity = gravityCenterHorizontal
-                bottomMargin = dip(8)
-            })
-            add(textView {
-                textResource = R.string.large_text
-            }, lParams {
-                margin = dimenPxSize(R.dimen.text_margin)
-            })
-        }.wrapInRecyclerView(), contentScrollingWithAppBarLParams())
-        fab = add(floatingActionButton {
-            imageResource = R.drawable.ic_favorite_white_24dp
-        }, defaultLParams {
+        add(appBar, appBarLParams(dip(180)))
+        add(content, contentScrollingWithAppBarLParams())
+        add(fab, defaultLParams {
             anchorTo(appBar, gravity = gravityEndBottom)
             margin = dip(16)
         })
