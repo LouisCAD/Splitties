@@ -29,30 +29,38 @@ inline fun Snackbar.action(@StringRes textResId: Int, crossinline onClick: () ->
     setAction(textResId) { onClick() }
 }
 
-inline fun Snackbar.action(text: CharSequence,
-                           @ColorInt textColor: Int,
-                           crossinline onClick: () -> Unit) {
+inline fun Snackbar.action(
+    text: CharSequence,
+    @ColorInt textColor: Int,
+    crossinline onClick: () -> Unit
+) {
     setActionTextColor(textColor)
     action(text, onClick)
 }
 
-inline fun Snackbar.action(@StringRes textResId: Int,
-                           @ColorInt textColor: Int,
-                           crossinline onClick: () -> Unit) {
+inline fun Snackbar.action(
+    @StringRes textResId: Int,
+    @ColorInt textColor: Int,
+    crossinline onClick: () -> Unit
+) {
     setActionTextColor(textColor)
     action(textResId, onClick)
 }
 
-inline fun Snackbar.action(text: CharSequence,
-                           textColor: ColorStateList,
-                           crossinline onClick: () -> Unit) {
+inline fun Snackbar.action(
+    text: CharSequence,
+    textColor: ColorStateList,
+    crossinline onClick: () -> Unit
+) {
     setActionTextColor(textColor)
     action(text, onClick)
 }
 
-inline fun Snackbar.action(@StringRes textResId: Int,
-                           textColor: ColorStateList,
-                           crossinline onClick: () -> Unit) {
+inline fun Snackbar.action(
+    @StringRes textResId: Int,
+    textColor: ColorStateList,
+    crossinline onClick: () -> Unit
+) {
     setActionTextColor(textColor)
     action(textResId, onClick)
 }

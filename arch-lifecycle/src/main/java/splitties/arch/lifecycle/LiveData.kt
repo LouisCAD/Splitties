@@ -22,23 +22,23 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.Transformations
 
 inline fun <T> LifecycleOwner.observe(
-        liveData: LiveData<T>,
-        crossinline observer: (t: T?) -> Unit
+    liveData: LiveData<T>,
+    crossinline observer: (t: T?) -> Unit
 ): Observer<T> = Observer<T> {
     observer(it)
 }.also { liveData.observe(this, it) }
 
 inline fun <T : Any> LifecycleOwner.observeNotNull(
-        liveData: LiveData<T>,
-        crossinline observer: (t: T) -> Unit
+    liveData: LiveData<T>,
+    crossinline observer: (t: T) -> Unit
 ): Observer<T> = Observer<T> {
     if (it != null) observer(it)
 }.also { liveData.observe(this, it) }
 
 @JvmName("observeWithLiveDataOfNullable")
 inline fun <T : Any> LifecycleOwner.observeNotNull(
-        liveData: LiveData<T?>,
-        crossinline observer: (t: T) -> Unit
+    liveData: LiveData<T?>,
+    crossinline observer: (t: T) -> Unit
 ): Observer<T?> = Observer<T?> {
     if (it != null) observer(it)
 }.also { liveData.observe(this, it) }
@@ -55,21 +55,21 @@ inline fun <T : Any> LifecycleOwner.observeNotNull(
  * @return            a LiveData which emits resulting values
  */
 inline fun <X, Y> LiveData<X>.map(
-        crossinline transform: (X?) -> Y
+    crossinline transform: (X?) -> Y
 ): LiveData<Y> = Transformations.map(this) { input -> transform(input) }
 
 inline fun <X, Y> LiveData<X>.mapNotNull(
-        crossinline transform: (X) -> Y
+    crossinline transform: (X) -> Y
 ): LiveData<Y> = Transformations.map(this) { input: X? ->
     input?.let { transform(it) }
 }
 
 inline fun <X, Y> LiveData<X>.switchMap(
-        crossinline transform: (X?) -> LiveData<Y>?
+    crossinline transform: (X?) -> LiveData<Y>?
 ): LiveData<Y> = Transformations.switchMap(this) { input -> transform(input) }
 
 inline fun <X, Y> LiveData<X>.switchMapNotNull(
-        crossinline transform: (X) -> LiveData<Y>?
+    crossinline transform: (X) -> LiveData<Y>?
 ): LiveData<Y> = Transformations.switchMap(this) { input: X? ->
     input?.let { transform(it) }
 }

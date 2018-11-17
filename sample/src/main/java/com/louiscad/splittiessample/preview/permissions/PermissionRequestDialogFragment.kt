@@ -42,17 +42,19 @@ class PermissionRequestDialogFragment : DialogFragment() {
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         val permission = permissionName ?: return
         val grantResult = grantResults[0]
         if (grantResult == PackageManager.PERMISSION_GRANTED) asyncGrant.complete(Unit)
-        else asyncGrant.completeExceptionally(PermissionDeniedException(
+        else asyncGrant.completeExceptionally(
+            PermissionDeniedException(
                 permissionName = permission,
                 doNotAskAgain = !shouldShowRequestPermissionRationale(permission)
-        ))
+            )
+        )
         dismissAllowingStateLoss()
     }
 }

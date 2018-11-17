@@ -32,5 +32,6 @@ import splitties.initprovider.InitProvider
  * or the [Application.onCreate] method.
  */
 open class AppCtxInitProvider : InitProvider() {
-    @CallSuper override fun onCreate() = true.also { _ -> context!!.injectAsAppCtx() }
+    @CallSuper
+    override fun onCreate() = true.also { _ -> context!!.injectAsAppCtx() }
 }

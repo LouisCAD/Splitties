@@ -24,10 +24,10 @@ import android.support.v4.app.FragmentManager
 import kotlinx.coroutines.launch
 
 inline fun <DF : DialogFragment> FragmentManager.showAsync(
-        lifecycle: Lifecycle,
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    lifecycle: Lifecycle,
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = newDialogRef().apply(setup).also {
     if (isStateSaved) lifecycle.coroutineScope.launch {
         lifecycle.awaitState(RESUMED)
@@ -36,22 +36,22 @@ inline fun <DF : DialogFragment> FragmentManager.showAsync(
 }
 
 inline fun <DF : DialogFragment> Fragment.showAsync(
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = fragmentManager!!.showAsync(lifecycle, newDialogRef, tag, setup)
 
 inline fun <DF : DialogFragment> FragmentActivity.showAsync(
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = supportFragmentManager.showAsync(lifecycle, newDialogRef, tag, setup)
 
 suspend inline fun <DF : DialogFragment> FragmentManager.show(
-        lifecycle: Lifecycle,
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    lifecycle: Lifecycle,
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = newDialogRef().apply(setup).also {
     if (isStateSaved) {
         lifecycle.awaitState(RESUMED)
@@ -60,13 +60,13 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
 }
 
 suspend inline fun <DF : DialogFragment> Fragment.show(
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = fragmentManager!!.show(lifecycle, newDialogRef, tag, setup)
 
 suspend inline fun <DF : DialogFragment> FragmentActivity.show(
-        newDialogRef: () -> DF,
-        tag: String? = null,
-        setup: DF.() -> Unit = {}
+    newDialogRef: () -> DF,
+    tag: String? = null,
+    setup: DF.() -> Unit = {}
 ) = supportFragmentManager.show(lifecycle, newDialogRef, tag, setup)

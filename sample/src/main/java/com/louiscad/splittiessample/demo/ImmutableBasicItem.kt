@@ -23,6 +23,8 @@ import android.support.v7.widget.RecyclerView
 /**
  * Designed for [RecyclerView] items that won't change title, detail and icon.
  */
-open class ImmutableBasicItem(@StringRes val titleResId: Int,
-                              @StringRes val detailResId: Int,
-                              @DrawableRes val iconResId: Int)
+open class ImmutableBasicItem(
+    @StringRes val titleResId: Int,
+    @StringRes val detailResId: Int,
+    @DrawableRes val iconResId: Int
+)

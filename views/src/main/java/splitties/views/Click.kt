@@ -36,6 +36,6 @@ inline fun View.onClick(crossinline block: () -> Unit) = setOnClickListener { bl
  * If this view is not long clickable, it becomes long clickable.
  */
 inline fun View.onLongClick(
-        consume: Boolean = true,
-        crossinline block: () -> Unit
+    consume: Boolean = true,
+    crossinline block: () -> Unit
 ) = setOnLongClickListener { block(); consume }

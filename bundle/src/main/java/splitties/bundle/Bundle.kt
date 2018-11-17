@@ -50,7 +50,9 @@ fun Bundle.put(key: String, value: Any?) {
 private fun Bundle.putArray(key: String, value: Array<*>) {
     @Suppress("UNCHECKED_CAST")
     when {
-        value.isArrayOf<CharSequence>() -> putCharSequenceArray(key, value as Array<out CharSequence>?)
+        value.isArrayOf<CharSequence>() -> {
+            putCharSequenceArray(key, value as Array<out CharSequence>?)
+        }
         value.isArrayOf<String>() -> putStringArray(key, value as Array<String>?)
         value.isArrayOf<Parcelable>() -> putParcelableArray(key, value as Array<Parcelable>?)
         else -> unsupported("Array type ${value.javaClass.canonicalName} is not supported")

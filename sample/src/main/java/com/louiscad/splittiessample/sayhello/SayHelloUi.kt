@@ -21,13 +21,8 @@ import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.snackbar.snack
 import splitties.views.dsl.appcompat.AppCompatStyles
-import splitties.views.dsl.core.Ui
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.editText
-import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.matchParent
+import splitties.views.dsl.core.*
 import splitties.views.dsl.core.styles.invoke
-import splitties.views.dsl.core.verticalLayout
 import splitties.views.dsl.design.contentScrollingWithAppBarLParams
 import splitties.views.dsl.design.coordinatorLayout
 import splitties.views.gravityEnd

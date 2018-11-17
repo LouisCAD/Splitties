@@ -23,8 +23,8 @@ import splitties.views.recyclerview.horizontalLayoutManager
 import splitties.views.recyclerview.verticalLayoutManager
 
 internal class SingleViewAdapter<V : View>(
-        private val view: V,
-        vertical: Boolean
+    private val view: V,
+    vertical: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val layoutManager = if (vertical) verticalLayoutManager() else horizontalLayoutManager()

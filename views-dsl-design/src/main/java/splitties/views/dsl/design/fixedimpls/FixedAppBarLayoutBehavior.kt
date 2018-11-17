@@ -31,33 +31,33 @@ import android.view.View
 internal class FixedAppBarLayoutBehavior : AppBarLayout.Behavior() {
 
     override fun onNestedScroll(
-            coordinatorLayout: CoordinatorLayout,
-            child: AppBarLayout,
-            target: View,
-            dxConsumed: Int,
-            dyConsumed: Int,
-            dxUnconsumed: Int,
-            dyUnconsumed: Int,
-            type: Int
+        coordinatorLayout: CoordinatorLayout,
+        child: AppBarLayout,
+        target: View,
+        dxConsumed: Int,
+        dyConsumed: Int,
+        dxUnconsumed: Int,
+        dyUnconsumed: Int,
+        type: Int
     ) = super.onNestedScroll(
-            coordinatorLayout,
-            child,
-            target,
-            dxConsumed,
-            dyConsumed,
-            dxUnconsumed,
-            dyUnconsumed,
-            type
+        coordinatorLayout,
+        child,
+        target,
+        dxConsumed,
+        dyConsumed,
+        dxUnconsumed,
+        dyUnconsumed,
+        type
     ).also { stopNestedScrollIfNeeded(dyUnconsumed, child, target, type) }
 
     override fun onNestedPreScroll(
-            coordinatorLayout: CoordinatorLayout,
-            child: AppBarLayout,
-            target: View,
-            dx: Int,
-            dy: Int,
-            consumed: IntArray,
-            type: Int
+        coordinatorLayout: CoordinatorLayout,
+        child: AppBarLayout,
+        target: View,
+        dx: Int,
+        dy: Int,
+        consumed: IntArray,
+        type: Int
     ) = super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type).also {
         stopNestedScrollIfNeeded(dy, child, target, type)
     }

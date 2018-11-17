@@ -21,27 +21,27 @@ import android.support.v7.widget.GridLayoutManager
 import splitties.resources.int
 
 inline fun gridLayoutManager(
-        spanCount: Int,
-        reverseLayout: Boolean = false,
-        setup: GridLayoutManager.() -> Unit = {}
+    spanCount: Int,
+    reverseLayout: Boolean = false,
+    setup: GridLayoutManager.() -> Unit = {}
 ) = GridLayoutManager(null, spanCount, GridLayoutManager.VERTICAL, reverseLayout).apply(setup)
 
 inline fun gridLayoutManager(
-        context: Context,
-        @IntegerRes spanCountRes: Int,
-        reverseLayout: Boolean = false,
-        setup: GridLayoutManager.() -> Unit = {}
+    context: Context,
+    @IntegerRes spanCountRes: Int,
+    reverseLayout: Boolean = false,
+    setup: GridLayoutManager.() -> Unit = {}
 ) = gridLayoutManager(context.int(spanCountRes), reverseLayout, setup)
 
 inline fun horizontalGridLayoutManager(
-        spanCount: Int,
-        reverseLayout: Boolean = false,
-        setup: GridLayoutManager.() -> Unit = {}
+    spanCount: Int,
+    reverseLayout: Boolean = false,
+    setup: GridLayoutManager.() -> Unit = {}
 ) = GridLayoutManager(null, spanCount, GridLayoutManager.HORIZONTAL, reverseLayout).apply(setup)
 
 inline fun horizontalGridLayoutManager(
-        context: Context,
-        @IntegerRes spanCountRes: Int,
-        reverseLayout: Boolean = false,
-        setup: GridLayoutManager.() -> Unit = {}
+    context: Context,
+    @IntegerRes spanCountRes: Int,
+    reverseLayout: Boolean = false,
+    setup: GridLayoutManager.() -> Unit = {}
 ) = horizontalGridLayoutManager(context.int(spanCountRes), reverseLayout, setup)

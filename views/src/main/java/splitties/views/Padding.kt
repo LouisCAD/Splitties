@@ -41,10 +41,12 @@ inline var View.bottomPadding: Int
     get() = paddingBottom
     set(@Px value) = setPadding(paddingLeft, paddingTop, paddingRight, value)
 
-fun View.setPaddingDp(start: Int = 0,
-                      top: Int = 0,
-                      end: Int = 0,
-                      bottom: Int = 0) {
+fun View.setPaddingDp(
+    start: Int = 0,
+    top: Int = 0,
+    end: Int = 0,
+    bottom: Int = 0
+) {
     val left = if (isLtr) start else end
     val right = if (isLtr) end else start
     setPadding(dip(left), dip(top), dip(right), dip(bottom))

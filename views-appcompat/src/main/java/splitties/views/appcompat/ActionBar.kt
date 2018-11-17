@@ -24,9 +24,10 @@ import kotlin.DeprecationLevel.HIDDEN
 
 @SuppressLint("LogNotTimber") // Timber is not a dependency here, but lint passes through.
 inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
-    supportActionBar?.config() ?: Log.wtf("ActionBar",
-            "No ActionBar in this Activity! Config skipped.",
-            AssertionError()
+    supportActionBar?.config() ?: Log.wtf(
+        "ActionBar",
+        "No ActionBar in this Activity! Config skipped.",
+        AssertionError()
     )
 }
 

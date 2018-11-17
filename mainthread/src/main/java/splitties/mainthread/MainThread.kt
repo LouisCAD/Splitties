@@ -21,8 +21,10 @@ package splitties.mainthread
 import android.os.Looper
 
 /** This main looper cache avoids synchronization overhead when accessed repeatedly. */
-@JvmField val mainLooper: Looper = Looper.getMainLooper()!!
-@JvmField val mainThread: Thread = mainLooper.thread
+@JvmField
+val mainLooper: Looper = Looper.getMainLooper()!!
+@JvmField
+val mainThread: Thread = mainLooper.thread
 
 val isMainThread inline get() = mainThread === Thread.currentThread()
 

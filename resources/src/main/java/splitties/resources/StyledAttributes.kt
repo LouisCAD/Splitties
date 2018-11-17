@@ -28,8 +28,8 @@ private val uiThreadConfinedCachedAttrArray = IntArray(1)
 private val cachedAttrArray = IntArray(1)
 
 inline fun <T> Context.withStyledAttributes(
-        @AttrRes attrRes: Int,
-        func: TypedArray.(firstIndex: Int) -> T
+    @AttrRes attrRes: Int,
+    func: TypedArray.(firstIndex: Int) -> T
 ): T = obtainStyledAttr(attrRes).let { styledAttrs ->
     styledAttrs.func(styledAttrs.getIndex(0)).also { styledAttrs.recycle() }
 }

@@ -28,10 +28,10 @@ import splitties.views.dsl.core.wrapCtxIfNeeded
 typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
 
 inline operator fun <reified V : View> XmlStyle<V>.invoke(
-        ctx: Context,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    ctx: Context,
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V = ctx.viewFactory.getThemeAttrStyledView<V>(ctx.wrapCtxIfNeeded(theme), null, styleAttr).also {
     it.id = id
 }.apply(initView)

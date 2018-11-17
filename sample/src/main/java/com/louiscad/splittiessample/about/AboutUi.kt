@@ -21,11 +21,7 @@ import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.dimensions.dip
 import splitties.views.centerText
-import splitties.views.dsl.constraintlayout.centerHorizontally
-import splitties.views.dsl.constraintlayout.constraintLayout
-import splitties.views.dsl.constraintlayout.lParams
-import splitties.views.dsl.constraintlayout.topOfParent
-import splitties.views.dsl.constraintlayout.topToBottomOf
+import splitties.views.dsl.constraintlayout.*
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.textView

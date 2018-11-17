@@ -16,9 +16,7 @@
 package splitties.views.dsl.design
 
 import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetBehavior.STATE_COLLAPSED
-import android.support.design.widget.BottomSheetBehavior.STATE_EXPANDED
-import android.support.design.widget.BottomSheetBehavior.STATE_HIDDEN
+import android.support.design.widget.BottomSheetBehavior.*
 import android.view.View
 import splitties.views.dsl.core.Ui
 import kotlin.contracts.InvocationKind
@@ -29,7 +27,7 @@ import kotlin.contracts.contract
  */
 @Suppress("unused") // Scopes visibility of the function to where it's meant to be used.
 inline fun <V : View> Ui.bottomSheetBehavior(
-        initBehavior: BottomSheetBehavior<V>.() -> Unit = {}
+    initBehavior: BottomSheetBehavior<V>.() -> Unit = {}
 ): BottomSheetBehavior<V> {
     contract { callsInPlace(initBehavior, InvocationKind.EXACTLY_ONCE) }
     return BottomSheetBehavior<V>().apply(initBehavior)

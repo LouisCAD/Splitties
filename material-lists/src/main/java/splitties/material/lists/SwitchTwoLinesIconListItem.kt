@@ -22,29 +22,14 @@ import android.text.TextUtils.TruncateAt.END
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.views.appcompat.imgTintList
-import splitties.views.dsl.constraintlayout.bottomOfParent
-import splitties.views.dsl.constraintlayout.centerVertically
-import splitties.views.dsl.constraintlayout.endOfParent
-import splitties.views.dsl.constraintlayout.endToStartOf
-import splitties.views.dsl.constraintlayout.lParams
-import splitties.views.dsl.constraintlayout.startOfParent
-import splitties.views.dsl.constraintlayout.startToStartOf
-import splitties.views.dsl.constraintlayout.topOfParent
-import splitties.views.dsl.constraintlayout.topToBottomOf
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.endMargin
-import splitties.views.dsl.core.imageView
-import splitties.views.dsl.core.startMargin
-import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.verticalMargin
-import splitties.views.dsl.core.view
-import splitties.views.dsl.core.wrapContent
+import splitties.views.dsl.constraintlayout.*
+import splitties.views.dsl.core.*
 import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.views.textAppearance
 
 class SwitchTwoLinesIconListItem(
-        context: Context,
-        disableDefaultTint: Boolean
+    context: Context,
+    disableDefaultTint: Boolean
 ) : SelectableConstraintLayout(context) {
     constructor(context: Context) : this(context, disableDefaultTint = false)
 

@@ -27,17 +27,17 @@ import splitties.init.appCtx
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : IntentSpec<*, Nothing>> ISpec.intent(
-        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+    configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
 
 inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.intent(
-        crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
+    crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = Intent(appCtx, klass).also { intent ->
     intent.putExtras(extrasSpec) { intent.configIntent(this@intent, extrasSpec) }
 }
 
 inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.intent(
-        configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
+    configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = Intent(appCtx, klass).also { it.configIntent(this) }
 
 // Activity
@@ -46,18 +46,18 @@ inline fun <ISpec : IntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> ISpec.in
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : ActivityIntentSpec<*, Nothing>> Context.start(
-        intentSpec: ISpec,
-        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+    intentSpec: ISpec,
+    configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
 
 inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
-        intentSpec: ISpec,
-        crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
+    intentSpec: ISpec,
+    crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = startActivity(intentSpec.intent(configIntent))
 
 inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.start(
-        intentSpec: ISpec,
-        configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
+    intentSpec: ISpec,
+    configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = startActivity(intentSpec.intent(configIntent))
 
 // BroadcastReceiver
@@ -66,18 +66,18 @@ inline fun <ISpec : ActivityIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> 
 @Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : BroadcastReceiverIntentSpec<*, Nothing>> Context.sendBroadcast(
-        intentSpec: ISpec,
-        configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
+    intentSpec: ISpec,
+    configIntent: Intent.(intentSpec: ISpec, extrasSpec: Nothing) -> Unit
 ): Nothing = unsupported()
 
 inline fun <ISpec : BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
-        intentSpec: ISpec,
-        crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
+    intentSpec: ISpec,
+    crossinline configIntent: Intent.(intentSpec: ISpec, extrasSpec: ExtrasSpec) -> Unit
 ) = sendBroadcast(intentSpec.intent(configIntent))
 
 inline fun <ISpec : BroadcastReceiverIntentSpec<*, ExtrasSpec>, ExtrasSpec : BundleSpec> Context.sendBroadcast(
-        intentSpec: ISpec,
-        configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
+    intentSpec: ISpec,
+    configIntent: Intent.(intentSpec: ISpec) -> Unit = {}
 ) = sendBroadcast(intentSpec.intent(configIntent))
 
 internal const val noExtrasSpecMsg = "This IntentSpec has no ExtrasSpec. Use single arg lambda."

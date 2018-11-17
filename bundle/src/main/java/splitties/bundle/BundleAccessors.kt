@@ -23,24 +23,24 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 inline fun <Spec : BundleSpec, R> Activity.withExtras(
-        spec: Spec,
-        crossinline block: Spec.() -> R
+    spec: Spec,
+    crossinline block: Spec.() -> R
 ): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return intent.extras.with(spec, block)
 }
 
 inline fun <Spec : BundleSpec> Intent.putExtras(
-        spec: Spec,
-        crossinline block: Spec.() -> Unit
+    spec: Spec,
+    crossinline block: Spec.() -> Unit
 ) {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     replaceExtras((extras ?: Bundle()).apply { with(spec, block) })
 }
 
 inline fun <Spec : BundleSpec, R> Bundle.with(
-        spec: Spec,
-        crossinline block: Spec.() -> R
+    spec: Spec,
+    crossinline block: Spec.() -> R
 ): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -51,10 +51,12 @@ inline fun <Spec : BundleSpec, R> Bundle.with(
     }
 }
 
-@PublishedApi internal fun Bundle.putIn(spec: BundleSpec) {
+@PublishedApi
+internal fun Bundle.putIn(spec: BundleSpec) {
     if (isMainThread) spec.currentBundle = this else spec.bundleByThread.set(this)
 }
 
-@PublishedApi internal fun removeBundleFrom(spec: BundleSpec) {
+@PublishedApi
+internal fun removeBundleFrom(spec: BundleSpec) {
     if (isMainThread) spec.currentBundle = null else spec.bundleByThread.remove()
 }

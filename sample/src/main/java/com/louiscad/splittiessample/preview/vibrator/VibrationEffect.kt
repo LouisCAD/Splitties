@@ -60,9 +60,9 @@ sealed class VibrationEffect {
          * want to repeat.
          */
         fun createWaveform(
-                timings: LongArray,
-                amplitudes: IntArray? = null,
-                repeat: Int = -1
+            timings: LongArray,
+            amplitudes: IntArray? = null,
+            repeat: Int = -1
         ): VibrationEffect = WaveForm(timings, amplitudes, repeat)
 
         /**
@@ -76,8 +76,8 @@ sealed class VibrationEffect {
          * be a value between 1 and 255, or [VibrationEffect.DEFAULT_AMPLITUDE].
          */
         fun createOneShot(
-                milliseconds: Long,
-                amplitude: Int = DEFAULT_AMPLITUDE
+            milliseconds: Long,
+            amplitude: Int = DEFAULT_AMPLITUDE
         ): VibrationEffect = OneShot(milliseconds, amplitude)
     }
 }
@@ -104,9 +104,9 @@ fun Vibrator.vibrate(vibe: VibrationEffect) {
 }
 
 private class WaveForm(
-        val timings: LongArray,
-        val amplitudes: IntArray?,
-        val repeat: Int
+    val timings: LongArray,
+    val amplitudes: IntArray?,
+    val repeat: Int
 ) : VibrationEffect()
 
 private class OneShot(val milliseconds: Long, val amplitude: Int) : VibrationEffect()

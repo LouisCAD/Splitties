@@ -40,7 +40,7 @@ private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): Any {
         val key = property.name
         val args = thisRef.arguments
-                ?: illegal("Cannot read property $key if no arguments have been set")
+            ?: illegal("Cannot read property $key if no arguments have been set")
         return args.get(key).also {
             checkNotNull(it) { "Property $key could not be read" }
         }
@@ -63,7 +63,7 @@ private object FragmentArgOrNullDelegate : ReadWriteProperty<Fragment, Any?> {
 }
 
 private class FragmentArgOrDefaultDelegate<T : Any>(
-        private val defaultValue: T
+    private val defaultValue: T
 ) : ReadWriteProperty<Fragment, T> {
 
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {
@@ -77,7 +77,7 @@ private class FragmentArgOrDefaultDelegate<T : Any>(
 }
 
 private class FragmentArgOrElseDelegate<T : Any>(
-        private val defaultValue: () -> T
+    private val defaultValue: () -> T
 ) : ReadWriteProperty<Fragment, T> {
 
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {

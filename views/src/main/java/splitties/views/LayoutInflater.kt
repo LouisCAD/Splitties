@@ -29,14 +29,16 @@ import splitties.systemservices.layoutInflater
 /**
  * @see LayoutInflater.inflate
  */
-@CheckResult inline fun <V : View> LayoutInflater.inflate(@LayoutRes layoutResId: Int): V {
+@CheckResult
+inline fun <V : View> LayoutInflater.inflate(@LayoutRes layoutResId: Int): V {
     @Suppress("UNCHECKED_CAST") return inflate(layoutResId, null, false) as V
 }
 
 /**
  * @see LayoutInflater.inflate
  */
-@CheckResult inline fun <V : View> Context.inflate(@LayoutRes layoutResId: Int): V {
+@CheckResult
+inline fun <V : View> Context.inflate(@LayoutRes layoutResId: Int): V {
     return layoutInflater.inflate(layoutResId)
 }
 

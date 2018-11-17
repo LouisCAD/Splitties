@@ -22,9 +22,9 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 fun View.wrapInRecyclerView(
-        horizontal: Boolean = false,
-        @IdRes id: Int = View.NO_ID,
-        initView: RecyclerView.() -> Unit = {}
+    horizontal: Boolean = false,
+    @IdRes id: Int = View.NO_ID,
+    initView: RecyclerView.() -> Unit = {}
 ): RecyclerView {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return recyclerView(id) {

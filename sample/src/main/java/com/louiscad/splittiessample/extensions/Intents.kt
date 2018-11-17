@@ -24,5 +24,5 @@ import kotlin.reflect.KClass
 inline fun intentOf(kClass: KClass<*>) = Intent(appCtx, kClass.java)
 
 inline fun <reified Component> intentOf(
-        configIntent: Intent.() -> Unit = {}
+    configIntent: Intent.() -> Unit = {}
 ) = Intent(appCtx, Component::class.java).apply(configIntent)

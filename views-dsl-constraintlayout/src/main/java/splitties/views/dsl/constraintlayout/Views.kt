@@ -29,27 +29,27 @@ import kotlin.contracts.contract
 // ConstraintLayout
 
 inline fun Context.constraintLayout(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: ConstraintLayout.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: ConstraintLayout.() -> Unit = {}
 ): ConstraintLayout {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return view(::ConstraintLayout, id, theme, initView)
 }
 
 inline fun View.constraintLayout(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: ConstraintLayout.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: ConstraintLayout.() -> Unit = {}
 ): ConstraintLayout {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.constraintLayout(id, theme, initView)
 }
 
 inline fun Ui.constraintLayout(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: ConstraintLayout.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: ConstraintLayout.() -> Unit = {}
 ): ConstraintLayout {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.constraintLayout(id, theme, initView)

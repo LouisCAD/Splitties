@@ -24,36 +24,14 @@ import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
+import splitties.views.*
 import splitties.views.design.contentScrimColor
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
-import splitties.views.dsl.core.Ui
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.button
-import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.margin
-import splitties.views.dsl.core.matchParent
+import splitties.views.dsl.core.*
 import splitties.views.dsl.core.styles.invoke
-import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.verticalLayout
-import splitties.views.dsl.design.EXIT_UNTIL_COLLAPSED
-import splitties.views.dsl.design.PIN
-import splitties.views.dsl.design.SCROLL
-import splitties.views.dsl.design.actionBarLParams
-import splitties.views.dsl.design.anchorTo
-import splitties.views.dsl.design.appBarLParams
-import splitties.views.dsl.design.appBarLayout
-import splitties.views.dsl.design.collapsingToolbarLayout
-import splitties.views.dsl.design.contentScrollingWithAppBarLParams
-import splitties.views.dsl.design.coordinatorLayout
-import splitties.views.dsl.design.defaultLParams
-import splitties.views.dsl.design.floatingActionButton
+import splitties.views.dsl.design.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView
-import splitties.views.gravityCenterHorizontal
-import splitties.views.gravityEndBottom
-import splitties.views.imageResource
-import splitties.views.setCompoundDrawables
-import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
@@ -70,7 +48,9 @@ class MainUi(override val ctx: Context) : Ui {
     }
     val toggleNightModeBtn = button {
         compoundDrawablePadding = dip(4)
-        if (SDK_INT >= 23) compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
+        if (SDK_INT >= 23) {
+            compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
+        }
         setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
     }
