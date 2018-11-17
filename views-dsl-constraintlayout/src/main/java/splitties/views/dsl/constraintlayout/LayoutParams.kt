@@ -22,10 +22,18 @@ import android.view.View
 import splitties.views.existingOrNewId
 import android.support.constraint.ConstraintLayout.LayoutParams as LP
 
-@Suppress("unused") inline val LP.parentId get() = LP.PARENT_ID
-@Suppress("unused") inline val LP.packed get() = LP.CHAIN_PACKED
-@Suppress("unused") inline val LP.spread get() = LP.CHAIN_SPREAD
-@Suppress("unused") inline val LP.spreadInside get() = LP.CHAIN_SPREAD_INSIDE
+@Suppress("unused")
+inline val LP.parentId
+    get() = LP.PARENT_ID
+@Suppress("unused")
+inline val LP.packed
+    get() = LP.CHAIN_PACKED
+@Suppress("unused")
+inline val LP.spread
+    get() = LP.CHAIN_SPREAD
+@Suppress("unused")
+inline val LP.spreadInside
+    get() = LP.CHAIN_SPREAD_INSIDE
 
 inline fun LP.centerHorizontally() {
     startToStart = parentId

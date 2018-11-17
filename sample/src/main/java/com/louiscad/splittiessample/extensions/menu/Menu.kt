@@ -21,9 +21,9 @@ import android.view.Menu
 import android.view.MenuItem
 
 inline fun Menu.addItem(
-        @IdRes id: Int,
-        @StringRes titleRes: Int,
-        groupId: Int = Menu.NONE,
-        order: Int = Menu.NONE,
-        block: MenuItem.() -> Unit = {}
+    @IdRes id: Int,
+    @StringRes titleRes: Int,
+    groupId: Int = Menu.NONE,
+    order: Int = Menu.NONE,
+    block: MenuItem.() -> Unit = {}
 ) = add(groupId, id, order, titleRes)!!.apply(block)

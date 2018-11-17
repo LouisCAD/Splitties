@@ -28,7 +28,7 @@ object AndroidStyles {
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val small get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleSmall)
     inline val default get() = XmlStyle<ProgressBar>(android.R.attr.progressBarStyle)
@@ -38,7 +38,7 @@ inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class RatingBarAndroidStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val small get() = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleSmall)
     inline val default get() = XmlStyle<RatingBar>(android.R.attr.ratingBarStyle)
@@ -47,7 +47,7 @@ inline class RatingBarAndroidStyles @PublishedApi internal constructor(
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class ButtonAndroidStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     /** Small Button style. */
     inline val small get() = XmlStyle<Button>(android.R.attr.buttonStyleSmall)

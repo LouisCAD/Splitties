@@ -19,4 +19,5 @@ package splitties.mainhandler
 import android.os.Handler
 import splitties.mainthread.mainLooper
 
-@JvmField val mainHandler = Handler(mainLooper)
+@JvmField
+val mainHandler = Handler(mainLooper)

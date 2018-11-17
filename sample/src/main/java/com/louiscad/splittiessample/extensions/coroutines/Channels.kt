@@ -24,8 +24,8 @@ import kotlin.coroutines.coroutineContext
 
 @ObsoleteCoroutinesApi
 suspend inline fun <E> ReceiveChannel<E>.doOnEach(
-        context: CoroutineContext = EmptyCoroutineContext,
-        noinline action: suspend (E) -> Unit
+    context: CoroutineContext = EmptyCoroutineContext,
+    noinline action: suspend (E) -> Unit
 ) = CoroutineScope(coroutineContext).launch(context) { consumeEach { action(it) } }
 
 @ObsoleteCoroutinesApi

@@ -42,30 +42,30 @@ fun Context.wrapCtxIfNeeded(theme: Int): Context {
 }
 
 inline fun <V : View> Context.view(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    createView: NewViewRef<V>,
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return createView(wrapCtxIfNeeded(theme)).also { it.id = id }.apply(initView)
 }
 
 inline fun <V : View> View.view(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    createView: NewViewRef<V>,
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.view(createView, id, theme, initView)
 }
 
 inline fun <V : View> Ui.view(
-        createView: NewViewRef<V>,
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    createView: NewViewRef<V>,
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.view(createView, id, theme, initView)
@@ -85,9 +85,9 @@ fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : Contex
 }
 
 inline fun <reified V : View> Context.view(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return viewFactory(V::class.java, wrapCtxIfNeeded(theme)).also {
@@ -96,18 +96,18 @@ inline fun <reified V : View> Context.view(
 }
 
 inline fun <reified V : View> View.view(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.view(id, theme, initView)
 }
 
 inline fun <reified V : View> Ui.view(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.view(id, theme, initView)
@@ -117,10 +117,10 @@ inline fun <reified V : View> Ui.view(
 internal const val XML_DEFINED_ID = -1
 
 inline fun <reified V : View> Context.inflate(
-        @LayoutRes layoutResId: Int,
-        @IdRes id: Int = XML_DEFINED_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @LayoutRes layoutResId: Int,
+    @IdRes id: Int = XML_DEFINED_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return wrapCtxIfNeeded(theme).inflate<V>(layoutResId).also { inflatedView ->
@@ -129,24 +129,27 @@ inline fun <reified V : View> Context.inflate(
 }
 
 inline fun <reified V : View> View.inflate(
-        @LayoutRes layoutResId: Int,
-        @IdRes id: Int = XML_DEFINED_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @LayoutRes layoutResId: Int,
+    @IdRes id: Int = XML_DEFINED_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.inflate(layoutResId, id, theme, initView)
 }
 
 inline fun <reified V : View> Ui.inflate(
-        @LayoutRes layoutResId: Int,
-        @IdRes id: Int = XML_DEFINED_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: V.() -> Unit = {}
+    @LayoutRes layoutResId: Int,
+    @IdRes id: Int = XML_DEFINED_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: V.() -> Unit = {}
 ): V {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.inflate(layoutResId, id, theme, initView)
 }
 
 @Suppress("NOTHING_TO_INLINE")
-inline fun <V : View> ViewGroup.add(view: V, lp: ViewGroup.LayoutParams): V = view.also { addView(it, lp) }
+inline fun <V : View> ViewGroup.add(
+    view: V,
+    lp: ViewGroup.LayoutParams
+): V = view.also { addView(it, lp) }

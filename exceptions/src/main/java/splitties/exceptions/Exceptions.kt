@@ -28,10 +28,14 @@ fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException
 fun illegalArg(errorMessage: String? = null): Nothing = throw IllegalArgumentException(errorMessage)
 
 /** Throws an [IllegalArgumentException] with the passed [argument]. */
-fun illegalArg(argument: Any?): Nothing = throw IllegalArgumentException("Illegal argument: $argument")
+fun illegalArg(
+    argument: Any?
+): Nothing = throw IllegalArgumentException("Illegal argument: $argument")
 
 /** Throws an [UnsupportedOperationException] with the passed message. */
-fun unsupported(errorMessage: String? = null): Nothing = throw UnsupportedOperationException(errorMessage)
+fun unsupported(
+    errorMessage: String? = null
+): Nothing = throw UnsupportedOperationException(errorMessage)
 
 /** Throws an [UnsupportedOperationException] with the unsupported action name in the message. */
 fun unsupportedAction(intent: Intent): Nothing = unsupported("Unsupported action: ${intent.action}")

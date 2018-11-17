@@ -25,9 +25,9 @@ import splitties.init.appCtx
 typealias DbConfig<DB> = RoomDatabase.Builder<DB>.() -> Unit
 
 inline fun <reified DB : RoomDatabase> roomDb(
-        ctx: Context,
-        name: String,
-        config: DbConfig<DB> = {}
+    ctx: Context,
+    name: String,
+    config: DbConfig<DB> = {}
 ): DB = Room.databaseBuilder(ctx, DB::class.java, name).apply(config).build()
 
 inline fun <reified DB : RoomDatabase> roomDb(name: String, config: DbConfig<DB> = {}): DB {

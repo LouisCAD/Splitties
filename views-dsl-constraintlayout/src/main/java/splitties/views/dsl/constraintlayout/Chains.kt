@@ -26,19 +26,25 @@ import splitties.views.dsl.core.endMargin
 import splitties.views.dsl.core.startMargin
 import android.support.constraint.ConstraintLayout.LayoutParams as LP
 
-@Suppress("unused") inline val ConstraintLayout.packed get() = LP.CHAIN_PACKED
-@Suppress("unused") inline val ConstraintLayout.spread get() = LP.CHAIN_SPREAD
-@Suppress("unused") inline val ConstraintLayout.spreadInside get() = LP.CHAIN_SPREAD_INSIDE
+@Suppress("unused")
+inline val ConstraintLayout.packed
+    get() = LP.CHAIN_PACKED
+@Suppress("unused")
+inline val ConstraintLayout.spread
+    get() = LP.CHAIN_SPREAD
+@Suppress("unused")
+inline val ConstraintLayout.spreadInside
+    get() = LP.CHAIN_SPREAD_INSIDE
 
 inline fun ConstraintLayout.horizontalChain(
-        views: List<View>,
-        style: Int = spread,
-        defaultWidth: Int = matchConstraints,
-        defaultHeight: Int = matchConstraints,
-        initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { startOfParent() },
-        initLastViewParams: ConstraintLayout.LayoutParams.() -> Unit = { endOfParent() },
-        alignVerticallyOnFirstView: Boolean = false,
-        initParams: ConstraintLayout.LayoutParams.(View) -> Unit = {}
+    views: List<View>,
+    style: Int = spread,
+    defaultWidth: Int = matchConstraints,
+    defaultHeight: Int = matchConstraints,
+    initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { startOfParent() },
+    initLastViewParams: ConstraintLayout.LayoutParams.() -> Unit = { endOfParent() },
+    alignVerticallyOnFirstView: Boolean = false,
+    initParams: ConstraintLayout.LayoutParams.(View) -> Unit = {}
 ) {
     lateinit var previousView: View
     val lastIndex = views.lastIndex
@@ -71,14 +77,14 @@ inline fun ConstraintLayout.horizontalChain(
 
 
 inline fun ConstraintLayout.verticalChain(
-        views: List<View>,
-        style: Int = spread,
-        defaultWidth: Int = matchConstraints,
-        defaultHeight: Int = matchConstraints,
-        initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { topOfParent() },
-        initLastViewParams: ConstraintLayout.LayoutParams.() -> Unit = { bottomOfParent() },
-        alignHorizontallyOnFirstView: Boolean = false,
-        initParams: ConstraintLayout.LayoutParams.(View) -> Unit = {}
+    views: List<View>,
+    style: Int = spread,
+    defaultWidth: Int = matchConstraints,
+    defaultHeight: Int = matchConstraints,
+    initFirstViewParams: ConstraintLayout.LayoutParams.() -> Unit = { topOfParent() },
+    initLastViewParams: ConstraintLayout.LayoutParams.() -> Unit = { bottomOfParent() },
+    alignHorizontallyOnFirstView: Boolean = false,
+    initParams: ConstraintLayout.LayoutParams.(View) -> Unit = {}
 ) {
     lateinit var previousView: View
     val lastIndex = views.lastIndex

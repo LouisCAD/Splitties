@@ -22,9 +22,9 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
 
 inline fun FragmentActivity.fragmentTransaction(
-        now: Boolean = true,
-        allowStateLoss: Boolean = false,
-        transactionBody: FragmentTransaction.() -> Unit
+    now: Boolean = true,
+    allowStateLoss: Boolean = false,
+    transactionBody: FragmentTransaction.() -> Unit
 ): Unit = supportFragmentManager.beginTransaction().apply(transactionBody).let { ft ->
     when {
         allowStateLoss -> if (now) ft.commitNowAllowingStateLoss() else ft.commitAllowingStateLoss()

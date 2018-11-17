@@ -35,33 +35,45 @@ inline fun <reified VM : ViewModel> Fragment.fragmentScope() = mainThreadLazy {
     ViewModelProviders.of(this).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
+    factory: ViewModelProvider.Factory
+) = mainThreadLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.activityScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
+inline fun <reified VM : ViewModel> Fragment.activityScope(
+    factory: ViewModelProvider.Factory
+) = mainThreadLazy {
     ViewModelProviders.of(activity!!, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.fragmentScope(factory: ViewModelProvider.Factory) = mainThreadLazy {
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(
+    factory: ViewModelProvider.Factory
+) = mainThreadLazy {
     ViewModelProviders.of(this, factory).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope(noinline factory: () -> VM) = mainThreadLazy {
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
+    noinline factory: () -> VM
+) = mainThreadLazy {
     ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.activityScope(noinline factory: () -> VM) = mainThreadLazy {
+inline fun <reified VM : ViewModel> Fragment.activityScope(
+    noinline factory: () -> VM
+) = mainThreadLazy {
     ViewModelProviders.of(activity!!, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 
-inline fun <reified VM : ViewModel> Fragment.fragmentScope(noinline factory: () -> VM) = mainThreadLazy {
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(
+    noinline factory: () -> VM
+) = mainThreadLazy {
     ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
 }
 
 @PublishedApi
 internal class TypeSafeViewModelFactory<VM : ViewModel>(
-        private val factory: () -> VM
+    private val factory: () -> VM
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>) = factory() as T

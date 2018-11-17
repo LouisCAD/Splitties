@@ -19,11 +19,11 @@ package splitties.views.recyclerview
 import android.support.v7.widget.LinearLayoutManager
 
 inline fun verticalLayoutManager(
-        reverseLayout: Boolean = false,
-        setup: LinearLayoutManager.() -> Unit = {}
+    reverseLayout: Boolean = false,
+    setup: LinearLayoutManager.() -> Unit = {}
 ) = LinearLayoutManager(null, LinearLayoutManager.VERTICAL, reverseLayout).apply(setup)
 
 inline fun horizontalLayoutManager(
-        reverseLayout: Boolean = false,
-        setup: LinearLayoutManager.() -> Unit = {}
+    reverseLayout: Boolean = false,
+    setup: LinearLayoutManager.() -> Unit = {}
 ) = LinearLayoutManager(null, LinearLayoutManager.HORIZONTAL, reverseLayout).apply(setup)

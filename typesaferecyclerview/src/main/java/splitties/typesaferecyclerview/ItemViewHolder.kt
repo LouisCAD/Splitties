@@ -26,8 +26,10 @@ import splitties.views.inflate
  * Convenience ViewHolder class for list items that need a reference to their [Host] to dispatch
  * UI interaction events on, and use the same [Data] for all items.
  */
-abstract class ItemViewHolder<Data : Any, V : View, Host>(protected val host: Host, itemView: V)
-    : ViewHolder<V>(itemView) {
+abstract class ItemViewHolder<Data : Any, V : View, Host>(
+    protected val host: Host,
+    itemView: V
+) : ViewHolder<V>(itemView) {
 
     /**
      * This property is updated from [bind] before [onBind] is called.

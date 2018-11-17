@@ -49,20 +49,21 @@ import java.lang.reflect.Proxy
  * ```
  */
 class UiPreView @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
         require(isInEditMode) { "Only intended for use in IDE!" }
         context.injectAsAppCtx()
         val className = withStyledAttributes(attrs, R.styleable.UiPreView, defStyleAttr, 0) { ta ->
-            val packageNameSuffix = str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
+            val packageNameSuffix =
+                str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
             ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)
-                    ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
-                        val packageName = context.packageName.removeSuffix(packageNameSuffix)
-                        "$packageName.$it"
-                    }
-                    ?: illegalArg("No class name attribute provided")
+                ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
+                    val packageName = context.packageName.removeSuffix(packageNameSuffix)
+                    "$packageName.$it"
+                }
+                ?: illegalArg("No class name attribute provided")
         }
         @Suppress("UNCHECKED_CAST")
         val uiClass = Class.forName(className) as Class<out Ui>
@@ -76,14 +77,16 @@ class UiPreView @JvmOverloads constructor(
                 it.parameterTypes.withIndex().all { (i, parameterType) ->
                     (i == 0 && parameterType == Context::class.java) || parameterType.isInterface
                 }
-            } ?: illegalArg("No suitable constructor found. Need one with Context as" +
-                    "first parameter, and only interface types for other parameters, if any.")
+            } ?: illegalArg(
+                "No suitable constructor found. Need one with Context as" +
+                        "first parameter, and only interface types for other parameters, if any."
+            )
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
             val parameters = mutableListOf<Any>(context).also { params ->
                 uiConstructor.parameterTypes.forEachIndexed { index, parameterType ->
                     if (index != 0) params += Proxy.newProxyInstance(
-                            parameterType.classLoader,
-                            arrayOf(parameterType)
+                        parameterType.classLoader,
+                        arrayOf(parameterType)
                     ) { proxy, method, args -> unsupported("Edit mode: stub implementation.") }
                 }
             }.toTypedArray()
@@ -93,9 +96,10 @@ class UiPreView @JvmOverloads constructor(
     }
 
     private inline fun <R> View.withStyledAttributes(
-            attrs: AttributeSet?, attrsRes: IntArray,
-            defStyleAttr: Int, defStyleRes: Int = 0,
-            func: (styledAttrs: TypedArray) -> R): R {
+        attrs: AttributeSet?, attrsRes: IntArray,
+        defStyleAttr: Int, defStyleRes: Int = 0,
+        func: (styledAttrs: TypedArray) -> R
+    ): R {
         val styledAttrs = context.obtainStyledAttributes(attrs, attrsRes, defStyleAttr, defStyleRes)
         return func(styledAttrs).also { styledAttrs.recycle() }
     }

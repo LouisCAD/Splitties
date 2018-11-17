@@ -28,12 +28,7 @@ import splitties.dimensions.dip
 import splitties.toast.longToast
 import splitties.toast.toast
 import splitties.views.centerText
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.contentView
-import splitties.views.dsl.core.frameLayout
-import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.margin
-import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.*
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 
@@ -58,8 +53,10 @@ class PermissionsExampleActivity : AppCompatActivity() {
                     break
                 } catch (e: PermissionDeniedException) {
                     if (e.doNotAskAgain) {
-                        longToast("You denied the permission permanently.\n" +
-                                "You can grant it in the settings.")
+                        longToast(
+                            "You denied the permission permanently.\n" +
+                                    "You can grant it in the settings."
+                        )
                         delay(3000); toast("Ciao!"); finish(); return@launch
                     } else {
                         longToast("Please accept…"); delay(2000)

@@ -27,13 +27,15 @@ import kotlin.contracts.contract
 import android.widget.LinearLayout.LayoutParams as LP
 
 inline fun TextInputLayout.addInput(
-        @IdRes id: Int,
-        initView: TextInputEditText.() -> Unit = {}
+    @IdRes id: Int,
+    initView: TextInputEditText.() -> Unit = {}
 ): TextInputEditText {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
-    return add(view(
+    return add(
+        view(
             createView = ::TextInputEditText,
             id = id,
             initView = initView
-    ), LP(matchParent, wrapContent))
+        ), LP(matchParent, wrapContent)
+    )
 }

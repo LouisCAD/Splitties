@@ -31,8 +31,8 @@ import android.text.Spanned
  * @param flags **Ignored on pre-Nougat devices**. Look for `Html.FROM_HTML_*` constants.
  */
 fun String.fromHtml(
-        flags: Int = 0,
-        imageGetter: Html.ImageGetter? = null,
-        tagHandler: Html.TagHandler? = null
+    flags: Int = 0,
+    imageGetter: Html.ImageGetter? = null,
+    tagHandler: Html.TagHandler? = null
 ): Spanned = if (SDK_INT >= N) Html.fromHtml(this, flags, imageGetter, tagHandler)
 else @Suppress("DEPRECATION") Html.fromHtml(this, imageGetter, tagHandler)

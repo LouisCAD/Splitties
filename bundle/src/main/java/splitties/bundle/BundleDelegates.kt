@@ -44,7 +44,7 @@ fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T?> 
 
 private val BundleSpec.bundle: Bundle
     get() = (if (isMainThread) currentBundle else bundleByThread.get())
-            ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
+        ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
 
 private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
@@ -70,7 +70,7 @@ private object BundleOrNullDelegate : ReadWriteProperty<BundleSpec, Any?> {
 }
 
 private class BundleOrDefaultDelegate<T : Any>(
-        private val defaultValue: T
+    private val defaultValue: T
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
@@ -83,7 +83,7 @@ private class BundleOrDefaultDelegate<T : Any>(
 }
 
 private class BundleOrElseDelegate<T : Any>(
-        private val defaultValue: () -> T
+    private val defaultValue: () -> T
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
@@ -96,8 +96,9 @@ private class BundleOrElseDelegate<T : Any>(
 }
 
 private class ExplicitBundleDelegate<T>(
-        private val key: String,
-        private val noNull: Boolean) : ReadWriteProperty<BundleSpec, T> {
+    private val key: String,
+    private val noNull: Boolean
+) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
         return thisRef.bundle[key].also {

@@ -25,12 +25,7 @@ import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.margin
-import splitties.views.dsl.design.appBarLParams
-import splitties.views.dsl.design.appBarLayout
-import splitties.views.dsl.design.contentScrollingWithAppBarLParams
-import splitties.views.dsl.design.coordinatorLayout
-import splitties.views.dsl.design.defaultLParams
-import splitties.views.dsl.design.floatingActionButton
+import splitties.views.dsl.design.*
 import splitties.views.dsl.recyclerview.recyclerView
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource

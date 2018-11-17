@@ -28,15 +28,15 @@ interface ViewFactory {
 
     operator fun <V : View> invoke(clazz: Class<out V>, context: Context): V
     fun <V : View> getThemeAttributeStyledView(
-            clazz: Class<out V>,
-            context: Context,
-            @Suppress("UNUSED_PARAMETER") attrs: AttributeSet?,
-            @AttrRes styleThemeAttribute: Int
+        clazz: Class<out V>,
+        context: Context,
+        @Suppress("UNUSED_PARAMETER") attrs: AttributeSet?,
+        @AttrRes styleThemeAttribute: Int
     ): V
 }
 
 inline fun <reified V : View> ViewFactory.getThemeAttrStyledView(
-        context: Context,
-        attrs: AttributeSet?,
-        @AttrRes styleThemeAttribute: Int
+    context: Context,
+    attrs: AttributeSet?,
+    @AttrRes styleThemeAttribute: Int
 ): V = getThemeAttributeStyledView(V::class.java, context, attrs, styleThemeAttribute)

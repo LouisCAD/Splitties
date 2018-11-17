@@ -25,8 +25,8 @@ import kotlin.DeprecationLevel.HIDDEN
 
 inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
     return AlertDialog.Builder(this)
-            .apply(dialogConfig)
-            .create()
+        .apply(dialogConfig)
+        .create()
 }
 
 inline fun AlertDialog.onShow(crossinline onShowListener: AlertDialog.() -> Unit) = apply {
@@ -66,7 +66,7 @@ var AlertDialog.Builder.message: CharSequence
     }
 
 inline fun AlertDialog.Builder.okButton(crossinline handler: (dialog: DialogInterface) -> Unit) {
-    setPositiveButton(android.R.string.ok, { dialog: DialogInterface, _: Int -> handler(dialog) })
+    setPositiveButton(android.R.string.ok) { dialog: DialogInterface, _: Int -> handler(dialog) }
 }
 
 @Suppress("NOTHING_TO_INLINE")
@@ -75,7 +75,7 @@ inline fun AlertDialog.Builder.okButton() {
 }
 
 inline fun AlertDialog.Builder.cancelButton(crossinline handler: (dialog: DialogInterface) -> Unit) {
-    setNegativeButton(android.R.string.cancel, { dialog: DialogInterface, _: Int -> handler(dialog) })
+    setNegativeButton(android.R.string.cancel) { dialog: DialogInterface, _: Int -> handler(dialog) }
 }
 
 @Suppress("NOTHING_TO_INLINE")
@@ -83,14 +83,23 @@ inline fun AlertDialog.Builder.cancelButton() {
     setNegativeButton(android.R.string.cancel, null)
 }
 
-inline fun AlertDialog.Builder.positiveButton(@StringRes textResId: Int, crossinline handler: (dialog: DialogInterface) -> Unit) {
-    setPositiveButton(textResId, { dialog: DialogInterface, _: Int -> handler(dialog) })
+inline fun AlertDialog.Builder.positiveButton(
+    @StringRes textResId: Int,
+    crossinline handler: (dialog: DialogInterface) -> Unit
+) {
+    setPositiveButton(textResId) { dialog: DialogInterface, _: Int -> handler(dialog) }
 }
 
-inline fun AlertDialog.Builder.neutralButton(@StringRes textResId: Int, crossinline handler: (dialog: DialogInterface) -> Unit) {
-    setNeutralButton(textResId, { dialog: DialogInterface, _: Int -> handler(dialog) })
+inline fun AlertDialog.Builder.neutralButton(
+    @StringRes textResId: Int,
+    crossinline handler: (dialog: DialogInterface) -> Unit
+) {
+    setNeutralButton(textResId) { dialog: DialogInterface, _: Int -> handler(dialog) }
 }
 
-inline fun AlertDialog.Builder.negativeButton(@StringRes textResId: Int, crossinline handler: (dialog: DialogInterface) -> Unit) {
-    setNegativeButton(textResId, { dialog: DialogInterface, _: Int -> handler(dialog) })
+inline fun AlertDialog.Builder.negativeButton(
+    @StringRes textResId: Int,
+    crossinline handler: (dialog: DialogInterface) -> Unit
+) {
+    setNegativeButton(textResId) { dialog: DialogInterface, _: Int -> handler(dialog) }
 }

@@ -26,7 +26,7 @@ import android.util.AttributeSet
  */
 @PublishedApi
 internal class ConfigChangesHandlingCollapsingToolbarLayout @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : CollapsingToolbarLayout(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
@@ -34,8 +34,10 @@ internal class ConfigChangesHandlingCollapsingToolbarLayout @JvmOverloads constr
     override fun onConfigurationChanged(newConfig: Configuration?) {
         super.onConfigurationChanged(newConfig)
         collapsingTextHelper.setExpandedTextAppearance(
-                R.style.TextAppearance_Design_CollapsingToolbar_Expanded)
+            R.style.TextAppearance_Design_CollapsingToolbar_Expanded
+        )
         collapsingTextHelper.setCollapsedTextAppearance(
-                android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title)
+            android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title
+        )
     }
 }
