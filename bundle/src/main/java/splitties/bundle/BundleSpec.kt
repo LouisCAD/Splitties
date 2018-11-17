@@ -19,8 +19,12 @@
 package splitties.bundle
 
 import android.os.Bundle
+import android.support.annotation.MainThread
 
 open class BundleSpec {
     internal val bundleByThread by lazy { ThreadLocal<Bundle?>() }
+    @Suppress("ANNOTATION_TARGETS_NON_EXISTENT_ACCESSOR")
+    @get:MainThread
+    @JvmField
     internal var currentBundle: Bundle? = null
 }
