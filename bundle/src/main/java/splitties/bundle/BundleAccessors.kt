@@ -25,7 +25,7 @@ import kotlin.contracts.contract
  * This function allows to read extras of an [Activity] in the passed [block] using a [BundleSpec].
  *
  * **WARNING:** This function doesn't allow writing to the passed [spec], because getting extras
- * from an [Activity] returns a defensive copy, which doesn't take changes into account.
+ * from an [Activity] [Intent] returns a defensive copy, which doesn't take changes into account.
  *
  * _Any attempt to violate this will result in an [IllegalStateException] to be thrown._
  *
@@ -37,9 +37,28 @@ inline fun <Spec : BundleSpec, R> Activity.withExtras(
     crossinline block: Spec.() -> R
 ): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return intent.withExtras(spec, block)
+}
+
+/**
+ * This function allows to read extras of an [Intent] in the passed [block] using a [BundleSpec].
+ *
+ * **WARNING:** This function doesn't allow writing to the passed [spec], because getting extras
+ * from an [Intent] returns a defensive copy, which doesn't take changes into account.
+ *
+ * _Any attempt to violate this will result in an [IllegalStateException] to be thrown._
+ *
+ * If you want to mutate the extras (i.e. setting values to properties defined in [spec]), use
+ * [putExtras] instead.
+ */
+inline fun <Spec : BundleSpec, R> Intent.withExtras(
+    spec: Spec,
+    crossinline block: Spec.() -> R
+): R {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
         spec.isReadOnly = true
-        spec.currentBundle = intent.extras ?: Bundle()
+        spec.currentBundle = extras ?: Bundle()
         spec.block()
     } finally {
         spec.currentBundle = null
@@ -49,6 +68,18 @@ inline fun <Spec : BundleSpec, R> Activity.withExtras(
 
 /**
  * This function allows to read **and write** extras of an [Activity] in the passed [block] using a
+ * [BundleSpec]. _If you don't need to write to the extras, use [withExtras] instead._
+ */
+inline fun <Spec : BundleSpec> Activity.putExtras(
+    spec: Spec,
+    crossinline block: Spec.() -> Unit
+) {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    intent.putExtras(spec, block)
+}
+
+/**
+ * This function allows to read **and write** extras of an [Intent] in the passed [block] using a
  * [BundleSpec]. _If you don't need to write to the extras, use [withExtras] instead._
  */
 inline fun <Spec : BundleSpec> Intent.putExtras(
