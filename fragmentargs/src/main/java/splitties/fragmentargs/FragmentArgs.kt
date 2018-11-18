@@ -41,9 +41,7 @@ private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
         val key = property.name
         val args = thisRef.arguments
             ?: illegal("Cannot read property $key if no arguments have been set")
-        return args.get(key).also {
-            checkNotNull(it) { "Property $key could not be read" }
-        }
+        return checkNotNull(args.get(key)) { "Property $key could not be read" }
     }
 
     override operator fun setValue(thisRef: Fragment, property: KProperty<*>, value: Any) {
