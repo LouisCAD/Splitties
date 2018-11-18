@@ -13,7 +13,7 @@ There's an optional lambda where the `Intent` is the receiver so you can
 edit it (e.g. adding flags) before the activity is started with it.
 
 The `startActivity` extension function for `Context` is designed for implicit
-intents. It expects the `Intent` action as first parameter, and takes a
+intents. It expects the `Intent` action as first parameter, and takes an optional
 lambda to edit the intent further, like `start`.
 
 ## Download
