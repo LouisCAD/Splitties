@@ -16,6 +16,7 @@
 package com.louiscad.splittiessample.preview.permissions
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
 import android.os.Bundle
 import android.provider.Settings
@@ -41,6 +42,7 @@ import timber.log.Timber
 
 class PermissionsExampleActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n") // This is an example where i18n matters less than readable code.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
