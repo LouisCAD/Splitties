@@ -29,6 +29,7 @@ import com.louiscad.splittiessample.extensions.coroutines.awaitState
 import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.yield
 import splitties.activities.startActivity
 import splitties.alertdialog.appcompat.alert
@@ -45,38 +46,7 @@ class PermissionsExampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
-            val calendarPermission = Manifest.permission.WRITE_CALENDAR
-            if (!hasPermission(calendarPermission)) {
-                val quit = alert {
-                    message = "We will ask for calendar permission.\n" +
-                            "Don't grant it too soon if you want to test all cases from this sample!"
-                }.quitOrOk()
-                if (quit) {
-                    finish(); return@launch
-                }
-            }
-            while (!hasPermission(calendarPermission)) {
-                try {
-                    requestPermission(calendarPermission)
-                    break
-                } catch (e: PermissionDeniedException) {
-                    val quit: Boolean = if (e.doNotAskAgain) {
-                        alert {
-                            message = "You denied the permission permanently.\n" +
-                                    "You can grant it in the settings."
-                        }.quitOrOk()
-                    } else alert { message = "Please accept…" }.quitOrOk()
-                    if (quit) {
-                        finish(); return@launch
-                    } else if (e.doNotAskAgain) {
-                        startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
-                            data = "package:$packageName".toUri()
-                        }
-                        yield() // Allow the activity start to take effect and pause this activity
-                        lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
-                    }
-                }
-            }
+            ensureCalendarPermissionOrFinishActivity()
             contentView = frameLayout {
                 add(textView {
                     textAppearance = R.style.TextAppearance_AppCompat_Headline
@@ -85,6 +55,45 @@ class PermissionsExampleActivity : AppCompatActivity() {
                     centerText()
                 }, lParams(gravity = gravityCenter) { margin = dip(16) })
             }
+        }
+    }
+
+    private suspend fun ensureCalendarPermissionOrFinishActivity() {
+        val calendarPermission = Manifest.permission.WRITE_CALENDAR
+        if (!hasPermission(calendarPermission)) {
+            val quit = alert {
+                message = "We will ask for calendar permission.\n" +
+                        "Don't grant it too soon if you want to test all cases from this sample!"
+            }.quitOrOk()
+            if (quit) {
+                finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
+            }
+        }
+        while (!hasPermission(calendarPermission)) {
+            try {
+                requestPermission(calendarPermission)
+                break
+            } catch (e: PermissionDeniedException) {
+                e.recoverOrFinishActivity()
+            }
+        }
+    }
+
+    private suspend fun PermissionDeniedException.recoverOrFinishActivity() {
+        val quit: Boolean = if (doNotAskAgain) {
+            alert {
+                message = "You denied the permission permanently.\n" +
+                        "You can grant it in the settings."
+            }.quitOrOk()
+        } else alert { message = "Please accept…" }.quitOrOk()
+        if (quit) {
+            finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
+        } else if (doNotAskAgain) {
+            startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
+                data = "package:$packageName".toUri()
+            }
+            yield() // Allow the activity start to take effect and pause this activity
+            lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
         }
     }
 
