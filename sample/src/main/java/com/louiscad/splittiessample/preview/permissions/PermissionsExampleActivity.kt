@@ -38,7 +38,6 @@ import splitties.views.centerText
 import splitties.views.dsl.core.*
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
-import timber.log.Timber
 
 class PermissionsExampleActivity : AppCompatActivity() {
 
@@ -47,15 +46,17 @@ class PermissionsExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
             val calendarPermission = Manifest.permission.WRITE_CALENDAR
+            if (!hasPermission(calendarPermission)) {
+                val quit = alert {
+                    message = "We will ask for calendar permission.\n" +
+                            "Don't grant it too soon if you want to test all cases from this sample!"
+                }.quitOrOk()
+                if (quit) {
+                    finish(); return@launch
+                }
+            }
             while (!hasPermission(calendarPermission)) {
                 try {
-                    val quit = alert {
-                        message = "We will ask for calendar permission. Don't grant it too soon " +
-                                "if you want to test all cases from this sample!"
-                    }.quitOrOk()
-                    if (quit) {
-                        finish(); return@launch
-                    }
                     requestPermission(calendarPermission)
                     break
                 } catch (e: PermissionDeniedException) {
@@ -71,18 +72,16 @@ class PermissionsExampleActivity : AppCompatActivity() {
                         startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
                             data = "package:$packageName".toUri()
                         }
-                        Timber.d("Before yield")
-                        yield()
-                        Timber.d("After yield")
-                        lifecycle.awaitState(Lifecycle.State.RESUMED)
-                        Timber.d("After awaitState(RESUMED)")
+                        yield() // Allow the activity start to take effect and pause this activity
+                        lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
                     }
                 }
             }
             contentView = frameLayout {
                 add(textView {
                     textAppearance = R.style.TextAppearance_AppCompat_Headline
-                    text = "Thanks for granting the permission!\nNothing to see there now… :)"
+                    text = "Thanks for granting the permission!\n" +
+                            "Nothing to see there now… :)"
                     centerText()
                 }, lParams(gravity = gravityCenter) { margin = dip(16) })
             }
