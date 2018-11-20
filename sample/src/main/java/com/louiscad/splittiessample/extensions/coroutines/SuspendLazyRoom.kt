@@ -1,4 +1,4 @@
-package com.louiscad.splittiessample.extensions.room
+package com.louiscad.splittiessample.extensions.coroutines
 
 import android.arch.persistence.room.RoomDatabase
 import kotlinx.coroutines.Dispatchers
@@ -9,7 +9,8 @@ import splitties.arch.room.roomDb
 inline fun <reified DB : RoomDatabase> roomDataBase(
     name: String,
     crossinline config: DbConfig<DB> = {}
-): LazyRoom<DB> = LazyRoom(lazy { roomDb(name, config) })
+): LazyRoom<DB> =
+    LazyRoom(lazy { roomDb(name, config) })
 
 class LazyRoom<T : RoomDatabase> @PublishedApi internal constructor(private val lazyDb: Lazy<T>) {
     suspend operator fun invoke(): T = with(lazyDb) {
