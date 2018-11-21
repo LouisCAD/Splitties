@@ -14,7 +14,7 @@ This release targets Android SDK 27, and splits depending on support libraries u
 
 ### Changes
 - Room updated to version 1.1.1 in Arch Room.
-- Lambdas of `onCreate` and `onOpen` functions in Arch Room are no `crossinline`.
+- Lambdas of `onCreate` and `onOpen` functions in Arch Room are now `crossinline`.
 - The `LifecycleObserver` class is now marked as experimental.
 
 ## Version 2.0.0-beta1 (2018-11-13)
