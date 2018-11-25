@@ -16,11 +16,12 @@
 
 package com.louiscad.splittiessample.prefs
 
+import com.louiscad.splittiessample.extensions.coroutines.SuspendLazy
+import kotlinx.coroutines.Dispatchers
 import splitties.preferences.Preferences
-import splitties.preferences.SuspendPrefsAccessor
 
 class GamePreferences private constructor() : Preferences("gameState") {
-    companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)
+    companion object : SuspendLazy<GamePreferences>(Dispatchers.IO, ::GamePreferences)
 
     var magicNumber by intPref(0)
     var currentLevel by IntPref("currentLevel", 1)

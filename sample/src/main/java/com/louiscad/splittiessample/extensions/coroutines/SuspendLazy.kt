@@ -4,7 +4,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SuspendLazy<T>(
+open class SuspendLazy<out T>(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
     initializer: () -> T
 ) {
