@@ -42,7 +42,6 @@ abstract class Preferences(
             // sharedPreferences are big enough to significantly harm the user experience because of
             // the operation happening on UI thread for the single time (per preference file) this
             // move operations will take place.
-            // noinspection NewApi
             directBootCtx.moveSharedPreferencesFrom(appCtx, name)
             directBootCtx
         } else appCtx
