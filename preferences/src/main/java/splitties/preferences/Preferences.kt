@@ -38,11 +38,7 @@ abstract class Preferences(
         val storageCtx: Context = if (availableAtDirectBoot && SDK_INT > 24) {
             // Moving the sharedPreferences from is done by the system only if you had it outside
             // the direct boot available storage or if the device was running Android M or older,
-            // and just got updated. These two cases are extremely rare, and it's unlikely that your
-            // sharedPreferences are big enough to significantly harm the user experience because of
-            // the operation happening on UI thread for the single time (per preference file) this
-            // move operations will take place.
-            // noinspection NewApi
+            // and just got updated.
             directBootCtx.moveSharedPreferencesFrom(appCtx, name)
             directBootCtx
         } else appCtx

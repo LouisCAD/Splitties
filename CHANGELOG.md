@@ -1,5 +1,19 @@
 # Change log for Splitties
 
+## Version 2.1.1 (2018-11-25)
+This release is compiled with Kotlin 1.3.10.
+
+### Changes
+- Enforce read-only in the `withExtras` extension function for `Activity`. Any attempt to mutate
+a property inside it will result in an `IllegalStateException` to be thrown, because this should be
+done in `putExtras` instead. You can see more info in the updated KDoc of these functions.
+- Add a `withExtras` extension function for `Intent` (previously only available for `Activity`).
+- Add a `putExtras` extension function for `Activity` (previously only available for `Intent`).
+- Fix nullability warning in FragmentArgDelegate.
+- Add KDoc to all public symbols from the Activities split.
+- Add KDoc to all public symbols from the AlertDialog split.
+- Add KDoc to all public symbols from the AlertDialog AppCompat split.
+
 ## Version 2.1.0 (2018-11-13)
 This release targets Android SDK 28, and splits depending on support libraries use version 28.0.0.
 

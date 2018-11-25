@@ -16,17 +16,25 @@
 package com.louiscad.splittiessample.preview.permissions
 
 import android.Manifest
+import android.annotation.SuppressLint
+import android.arch.lifecycle.Lifecycle
 import android.os.Bundle
+import android.provider.Settings
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import androidx.core.view.isGone
+import androidx.core.net.toUri
 import com.louiscad.splittiessample.R
+import com.louiscad.splittiessample.extensions.coroutines.DialogButton
+import com.louiscad.splittiessample.extensions.coroutines.awaitState
 import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
+import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.yield
+import splitties.activities.startActivity
+import splitties.alertdialog.appcompat.alert
+import splitties.alertdialog.appcompat.message
 import splitties.dimensions.dip
-import splitties.toast.longToast
-import splitties.toast.toast
 import splitties.views.centerText
 import splitties.views.dsl.core.*
 import splitties.views.gravityCenter
@@ -34,37 +42,64 @@ import splitties.views.textAppearance
 
 class PermissionsExampleActivity : AppCompatActivity() {
 
+    @SuppressLint("SetTextI18n") // This is an example where i18n matters less than readable code.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val view = frameLayout {
-            add(textView {
-                textAppearance = R.style.TextAppearance_AppCompat_Headline
-                text = "May we have the right to write in your calendar?"
-                centerText()
-            }, lParams(gravity = gravityCenter) { margin = dip(16) })
-        }
-        contentView = view
         lifecycle.coroutineScope.launch {
-            val calendarPermission = Manifest.permission.WRITE_CALENDAR
-            if (!hasPermission(calendarPermission)) while (isActive) {
-                try {
-                    delay(1000)
-                    requestPermission(calendarPermission)
-                    break
-                } catch (e: PermissionDeniedException) {
-                    if (e.doNotAskAgain) {
-                        longToast(
-                            "You denied the permission permanently.\n" +
-                                    "You can grant it in the settings."
-                        )
-                        delay(3000); toast("Ciao!"); finish(); return@launch
-                    } else {
-                        longToast("Please accept…"); delay(2000)
-                    }
-                }
+            ensureCalendarPermissionOrFinishActivity()
+            contentView = frameLayout {
+                add(textView {
+                    textAppearance = R.style.TextAppearance_AppCompat_Headline
+                    text = "Thanks for granting the permission!\n" +
+                            "Nothing to see there now… :)"
+                    centerText()
+                }, lParams(gravity = gravityCenter) { margin = dip(16) })
             }
-            view.isGone = true
-            longToast("Thanks for granting the permission!\nNothing to see there now… :)")
         }
     }
+
+    private suspend fun ensureCalendarPermissionOrFinishActivity() {
+        val calendarPermission = Manifest.permission.WRITE_CALENDAR
+        if (!hasPermission(calendarPermission)) {
+            val quit = alert {
+                message = "We will ask for calendar permission.\n" +
+                        "Don't grant it too soon if you want to test all cases from this sample!"
+            }.quitOrOk()
+            if (quit) {
+                finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
+            }
+        }
+        while (!hasPermission(calendarPermission)) {
+            try {
+                requestPermission(calendarPermission)
+                break
+            } catch (e: PermissionDeniedException) {
+                e.recoverOrFinishActivity()
+            }
+        }
+    }
+
+    private suspend fun PermissionDeniedException.recoverOrFinishActivity() {
+        val quit: Boolean = if (doNotAskAgain) {
+            alert {
+                message = "You denied the permission permanently.\n" +
+                        "You can grant it in the settings."
+            }.quitOrOk()
+        } else alert { message = "Please accept…" }.quitOrOk()
+        if (quit) {
+            finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
+        } else if (doNotAskAgain) {
+            startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
+                data = "package:$packageName".toUri()
+            }
+            yield() // Allow the activity start to take effect and pause this activity
+            lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
+        }
+    }
+
+    private suspend fun AlertDialog.quitOrOk(): Boolean = showAndAwait(
+        positiveButton = DialogButton.ok(false),
+        negativeButton = DialogButton("Quit", true),
+        dismissValue = false
+    )
 }
