@@ -20,10 +20,10 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.support.annotation.CallSuper
-import android.support.annotation.RequiresApi
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.annotation.CallSuper
+import androidx.annotation.RequiresApi
 import splitties.resources.styledDrawable
 
 /**

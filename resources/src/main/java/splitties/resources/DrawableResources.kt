@@ -22,17 +22,17 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.support.annotation.AttrRes
-import android.support.annotation.DrawableRes
-import android.support.v4.app.Fragment
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.DrawableRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 
 private val tmpValue by lazy { TypedValue() }
 
 /**
- * @see [android.support.v4.content.ContextCompat.getDrawable]
+ * @see [androidx.core.content.ContextCompat.getDrawable]
  */
 fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
     @Suppress("CascadeIf")

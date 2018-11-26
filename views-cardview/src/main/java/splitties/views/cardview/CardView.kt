@@ -15,7 +15,7 @@
  */
 package splitties.views.cardview
 
-import android.support.v7.widget.CardView
+import androidx.cardview.widget.CardView
 
 inline var CardView.contentPadding: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter

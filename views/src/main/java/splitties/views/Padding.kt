@@ -16,8 +16,8 @@
 
 package splitties.views
 
-import android.support.annotation.Px
 import android.view.View
+import androidx.annotation.Px
 import splitties.dimensions.dip
 import kotlin.DeprecationLevel.HIDDEN
 

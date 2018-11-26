@@ -16,10 +16,10 @@
 package splitties.views.dsl.constraintlayout
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
-import android.support.constraint.ConstraintLayout
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view

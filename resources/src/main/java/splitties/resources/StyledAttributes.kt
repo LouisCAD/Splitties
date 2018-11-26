@@ -21,7 +21,7 @@ package splitties.resources
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.annotation.AttrRes
+import androidx.annotation.AttrRes
 import splitties.mainthread.isMainThread
 
 private val uiThreadConfinedCachedAttrArray = IntArray(1)

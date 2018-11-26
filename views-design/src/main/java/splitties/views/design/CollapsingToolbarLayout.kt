@@ -15,8 +15,8 @@
  */
 package splitties.views.design
 
-import android.support.annotation.ColorInt
-import android.support.design.widget.CollapsingToolbarLayout
+import androidx.annotation.ColorInt
+import com.google.android.material.appbar.CollapsingToolbarLayout
 
 inline var CollapsingToolbarLayout.contentScrimColor: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter

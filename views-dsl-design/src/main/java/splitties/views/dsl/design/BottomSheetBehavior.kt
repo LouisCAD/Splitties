@@ -15,9 +15,9 @@
  */
 package splitties.views.dsl.design
 
-import android.support.design.widget.BottomSheetBehavior
-import android.support.design.widget.BottomSheetBehavior.*
 import android.view.View
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import splitties.views.dsl.core.Ui
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

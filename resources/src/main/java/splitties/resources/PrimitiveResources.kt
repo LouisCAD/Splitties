@@ -19,12 +19,12 @@
 package splitties.resources
 
 import android.content.Context
-import android.support.annotation.ArrayRes
-import android.support.annotation.AttrRes
-import android.support.annotation.BoolRes
-import android.support.annotation.IntegerRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.ArrayRes
+import androidx.annotation.AttrRes
+import androidx.annotation.BoolRes
+import androidx.annotation.IntegerRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 
 inline fun Context.bool(@BoolRes boolResId: Int): Boolean = resources.getBoolean(boolResId)

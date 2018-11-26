@@ -16,8 +16,8 @@
 package com.louiscad.splittiessample.extensions.ui
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp

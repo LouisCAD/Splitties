@@ -17,8 +17,8 @@ package com.louiscad.splittiessample.preview.permissions
 
 import android.content.pm.PackageManager
 import android.os.Build.VERSION.SDK_INT
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.louiscad.splittiessample.extensions.coroutines.show
 import splitties.init.appCtx
 

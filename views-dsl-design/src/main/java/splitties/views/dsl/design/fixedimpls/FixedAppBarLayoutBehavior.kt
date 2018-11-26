@@ -15,10 +15,10 @@
  */
 package splitties.views.dsl.design.fixedimpls
 
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.ViewCompat
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
+import com.google.android.material.appbar.AppBarLayout
 
 /**
  * Workaround for [https://issuetracker.google.com/66996774](https://issuetracker.google.com/66996774).

@@ -30,9 +30,9 @@ suspend inline fun <E> ReceiveChannel<E>.doOnEach(
 
 @ObsoleteCoroutinesApi
 suspend fun <E> ReceiveChannel<E>.consumeEachAndCancelPrevious(
-        context: CoroutineContext = EmptyCoroutineContext,
-        skipEquals: Boolean = false,
-        action: suspend CoroutineScope.(E) -> Unit
+    context: CoroutineContext = EmptyCoroutineContext,
+    skipEquals: Boolean = false,
+    action: suspend CoroutineScope.(E) -> Unit
 ): Unit = coroutineScope {
     var job: Job? = null
     var previousValue: E? = null

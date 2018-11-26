@@ -17,12 +17,12 @@ package com.louiscad.splittiessample.preview.permissions
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.arch.lifecycle.Lifecycle
 import android.os.Bundle
 import android.provider.Settings
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.coroutines.DialogButton
 import com.louiscad.splittiessample.extensions.coroutines.awaitState

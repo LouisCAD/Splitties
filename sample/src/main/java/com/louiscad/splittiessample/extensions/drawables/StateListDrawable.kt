@@ -17,8 +17,8 @@ package com.louiscad.splittiessample.extensions.drawables
 
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
-import android.support.annotation.AttrRes
 import android.util.StateSet
+import androidx.annotation.AttrRes
 import splitties.exceptions.unsupported
 
 /**

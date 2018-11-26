@@ -18,14 +18,14 @@
 
 package splitties.views.dsl.design
 
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CoordinatorLayout
 import android.view.Gravity
 import android.view.View
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
 import splitties.views.dsl.core.matchParent
 import splitties.views.dsl.core.wrapContent
 import splitties.views.existingOrNewId
-import android.support.design.widget.CoordinatorLayout.LayoutParams as LP
+import androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams as LP
 
 inline fun CoordinatorLayout.defaultLParams(
     width: Int = wrapContent,

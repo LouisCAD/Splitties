@@ -27,7 +27,7 @@ android {
         versionCode 1
         versionName library_version
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -45,7 +45,7 @@ dependencies {
     api Libs.kotlin.stdlibJdk7
     api Libs.androidX.annotation
     api Libs.androidX.fragment
-    api Libs.androidX.lifecycle.common
+    api Libs.androidX.lifecycle.extensions
     api Libs.androidX.lifecycle.viewModel
     api Libs.androidX.lifecycle.liveData
 }

@@ -17,7 +17,7 @@
 package com.louiscad.splittiessample.demo
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.checkedlazy.mainThreadLazy
 import splitties.snackbar.action

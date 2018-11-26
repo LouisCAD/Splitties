@@ -1,7 +1,7 @@
 package com.louiscad.splittiessample.extensions.coroutines
 
 import android.content.DialogInterface
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.resources.appTxt

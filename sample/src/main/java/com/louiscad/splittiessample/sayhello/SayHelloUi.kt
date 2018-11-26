@@ -16,7 +16,7 @@
 package com.louiscad.splittiessample.sayhello
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.snackbar.snack

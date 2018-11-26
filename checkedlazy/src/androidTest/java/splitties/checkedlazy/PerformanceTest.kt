@@ -18,12 +18,11 @@ package splitties.checkedlazy
 
 import android.os.Handler
 import android.os.Looper
-import android.support.test.runner.AndroidJUnit4
-import org.junit.Before
+import android.util.Log
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Test
 import org.junit.runner.RunWith
 import splitties.mainthread.mainLooper
-import timber.log.Timber
 import kotlin.system.measureNanoTime
 
 /**
@@ -33,47 +32,44 @@ import kotlin.system.measureNanoTime
 @RunWith(AndroidJUnit4::class)
 class PerformanceTest {
 
-    @Before
-    fun init() {
-        Timber.plant(Timber.DebugTree())
-    }
+    private fun d(message: String) = Log.d("PerformanceTest", message)
 
     @Test
     fun compareMainThreadChecks() {
         Handler(mainLooper).post {
-            Timber.d("looper duration:              ${benchmark {
+            d("looper duration:              ${benchmark {
                 check(Looper.myLooper() == mainLooper)
             }}")
 
-            Timber.d("thread id duration:           ${benchmark {
+            d("thread id duration:           ${benchmark {
                 check(Thread.currentThread().id == mainLooper.thread.id)
             }}")
 
-            Timber.d("thread equals duration:       ${benchmark {
+            d("thread equals duration:       ${benchmark {
                 check(mainLooper.thread == Thread.currentThread())
             }}")
 
             val mainThread = mainLooper.thread
 
-            Timber.d("cached thread id duration:    ${benchmark {
+            d("cached thread id duration:    ${benchmark {
                 check(Thread.currentThread().id == mainThread.id)
             }}")
 
             val mainThreadId = mainLooper.thread.id
 
-            Timber.d("thread cached id duration:    ${benchmark {
+            d("thread cached id duration:    ${benchmark {
                 check(Thread.currentThread().id == mainThreadId)
             }}")
 
-            Timber.d("thread ref duration:          ${benchmark {
+            d("thread ref duration:          ${benchmark {
                 check(Thread.currentThread() === mainLooper.thread)
             }}")
 
-            Timber.d("cached thread equals duration:${benchmark {
+            d("cached thread equals duration:${benchmark {
                 check(mainThread == Thread.currentThread())
             }}")
 
-            Timber.d("cached thread ref duration:   ${benchmark {
+            d("cached thread ref duration:   ${benchmark {
                 check(Thread.currentThread() === mainThread)
             }}") // This seems to be the fastest way to check ui thread.
         }

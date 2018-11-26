@@ -15,8 +15,8 @@
  */
 package splitties.views.dsl.core.styles
 
-import android.support.annotation.AttrRes
 import android.view.View
+import androidx.annotation.AttrRes
 
 @Suppress("unused") // Type parameter is used externally for type inference
 inline class XmlStyle<in V : View>(@AttrRes val styleAttr: Int)

@@ -17,9 +17,9 @@
 package splitties.snackbar
 
 import android.content.res.ColorStateList
-import android.support.annotation.ColorInt
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
+import androidx.annotation.ColorInt
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 
 inline fun Snackbar.action(text: CharSequence, crossinline onClick: () -> Unit) {
     setAction(text) { onClick() }

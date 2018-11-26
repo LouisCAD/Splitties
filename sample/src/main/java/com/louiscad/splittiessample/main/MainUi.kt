@@ -18,7 +18,7 @@ package com.louiscad.splittiessample.main
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize

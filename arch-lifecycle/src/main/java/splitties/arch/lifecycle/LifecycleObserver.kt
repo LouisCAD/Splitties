@@ -16,10 +16,10 @@
 
 package splitties.arch.lifecycle
 
-import android.arch.lifecycle.GenericLifecycleObserver
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.Lifecycle.Event.*
-import android.arch.lifecycle.LifecycleOwner
+import androidx.lifecycle.GenericLifecycleObserver
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle.Event.*
+import androidx.lifecycle.LifecycleOwner
 import splitties.exceptions.illegal
 import splitties.experimental.ExperimentalSplittiesApi
 

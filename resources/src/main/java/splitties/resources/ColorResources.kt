@@ -23,15 +23,15 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.M
-import android.support.annotation.AttrRes
-import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
-import android.support.v4.app.Fragment
 import android.view.View
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.fragment.app.Fragment
 import splitties.init.appCtx
 
 /**
- * @see [android.support.v4.content.ContextCompat.getColor]
+ * @see [androidx.core.content.ContextCompat.getColor]
  */
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = if (SDK_INT >= M) getColor(colorRes) else {
@@ -51,7 +51,7 @@ inline fun View.color(@ColorRes colorRes: Int) = context.color(colorRes)
 inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
 
 /**
- * @see [android.support.v4.content.ContextCompat.getColorStateList]
+ * @see [androidx.core.content.ContextCompat.getColorStateList]
  */
 fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList? {
     return (if (SDK_INT >= M) getColorStateList(colorRes) else {

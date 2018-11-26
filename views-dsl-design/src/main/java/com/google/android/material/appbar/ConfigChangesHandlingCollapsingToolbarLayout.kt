@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package android.support.design.widget
+package com.google.android.material.appbar
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.support.design.R
 import android.util.AttributeSet
+import com.google.android.material.R
 
 /**
  * A [CollapsingToolbarLayout] that handles configuration changes and changes its size accordingly.
@@ -37,7 +37,7 @@ internal class ConfigChangesHandlingCollapsingToolbarLayout @JvmOverloads constr
             R.style.TextAppearance_Design_CollapsingToolbar_Expanded
         )
         collapsingTextHelper.setCollapsedTextAppearance(
-            android.support.v7.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title
+            androidx.appcompat.R.style.TextAppearance_AppCompat_Widget_ActionBar_Title
         )
     }
 }

@@ -15,8 +15,8 @@
  */
 package splitties.views.design
 
-import android.support.design.widget.TextInputLayout
 import android.widget.EditText
+import com.google.android.material.textfield.TextInputLayout
 import splitties.exceptions.illegal
 
 var TextInputLayout.text: CharSequence?

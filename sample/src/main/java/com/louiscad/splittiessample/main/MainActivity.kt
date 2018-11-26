@@ -18,9 +18,9 @@ package com.louiscad.splittiessample.main
 
 import android.app.UiModeManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity

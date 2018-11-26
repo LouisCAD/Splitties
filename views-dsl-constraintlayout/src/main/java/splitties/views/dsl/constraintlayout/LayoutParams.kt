@@ -20,7 +20,7 @@ package splitties.views.dsl.constraintlayout
 
 import android.view.View
 import splitties.views.existingOrNewId
-import android.support.constraint.ConstraintLayout.LayoutParams as LP
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams as LP
 
 @Suppress("unused")
 inline val LP.parentId

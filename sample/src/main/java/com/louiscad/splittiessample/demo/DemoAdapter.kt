@@ -17,8 +17,8 @@
 package com.louiscad.splittiessample.demo
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.louiscad.splittiessample.R
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder

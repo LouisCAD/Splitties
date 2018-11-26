@@ -16,12 +16,12 @@
 package splitties.views.dsl.design
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.CoordinatorLayout
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view

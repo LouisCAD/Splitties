@@ -1,6 +1,6 @@
 package com.louiscad.splittiessample.extensions.coroutines
 
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.RoomDatabase
 import kotlinx.coroutines.Dispatchers
 import splitties.arch.room.DbConfig
 import splitties.arch.room.roomDb

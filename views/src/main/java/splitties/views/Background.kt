@@ -20,8 +20,8 @@ package splitties.views
 
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
-import android.support.annotation.ColorInt
 import android.view.View
+import androidx.annotation.ColorInt
 import kotlin.DeprecationLevel.HIDDEN
 
 /**

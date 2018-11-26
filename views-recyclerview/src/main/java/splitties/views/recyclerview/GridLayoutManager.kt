@@ -16,15 +16,16 @@
 package splitties.views.recyclerview
 
 import android.content.Context
-import android.support.annotation.IntegerRes
-import android.support.v7.widget.GridLayoutManager
+import androidx.annotation.IntegerRes
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import splitties.resources.int
 
 inline fun gridLayoutManager(
     spanCount: Int,
     reverseLayout: Boolean = false,
     setup: GridLayoutManager.() -> Unit = {}
-) = GridLayoutManager(null, spanCount, GridLayoutManager.VERTICAL, reverseLayout).apply(setup)
+) = GridLayoutManager(null, spanCount, RecyclerView.VERTICAL, reverseLayout).apply(setup)
 
 inline fun gridLayoutManager(
     context: Context,
@@ -37,7 +38,7 @@ inline fun horizontalGridLayoutManager(
     spanCount: Int,
     reverseLayout: Boolean = false,
     setup: GridLayoutManager.() -> Unit = {}
-) = GridLayoutManager(null, spanCount, GridLayoutManager.HORIZONTAL, reverseLayout).apply(setup)
+) = GridLayoutManager(null, spanCount, RecyclerView.HORIZONTAL, reverseLayout).apply(setup)
 
 inline fun horizontalGridLayoutManager(
     context: Context,

@@ -26,7 +26,7 @@ android {
         targetSdkVersion projectSdk_version
         versionCode 1
         versionName library_version
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
