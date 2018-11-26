@@ -96,7 +96,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '2.1.0'
+        splitties_version = '2.1.1'
     }
 }
 ```

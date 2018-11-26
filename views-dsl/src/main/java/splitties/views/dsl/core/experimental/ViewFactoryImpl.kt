@@ -19,19 +19,7 @@ import android.content.Context
 import android.support.annotation.AttrRes
 import android.util.AttributeSet
 import android.view.View
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.CheckedTextView
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.MultiAutoCompleteTextView
-import android.widget.RadioButton
-import android.widget.RatingBar
-import android.widget.SeekBar
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
 import splitties.views.dsl.core.ViewFactory
@@ -67,10 +55,10 @@ class ViewFactoryImpl : ViewFactory {
     }
 
     override fun <V : View> getThemeAttributeStyledView(
-            clazz: Class<out V>,
-            context: Context,
-            @Suppress("UNUSED_PARAMETER") attrs: AttributeSet?,
-            @AttrRes styleThemeAttribute: Int
+        clazz: Class<out V>,
+        context: Context,
+        @Suppress("UNUSED_PARAMETER") attrs: AttributeSet?,
+        @AttrRes styleThemeAttribute: Int
     ): V {
         themeAttrStyledViewInstantiators.forEachReversedByIndex { factory ->
             factory(clazz, context, styleThemeAttribute)?.let { view ->
@@ -86,12 +74,12 @@ class ViewFactoryImpl : ViewFactory {
 
     private val viewInstantiators: MutableList<ViewInstantiator> = mutableListOf(::instantiateView)
     private val themeAttrStyledViewInstantiators: MutableList<ThemeAttrStyledViewInstantiator> =
-            mutableListOf(::instantiateThemeAttrStyledView)
+        mutableListOf(::instantiateThemeAttrStyledView)
 }
 
 private inline fun <reified V : View> instantiateView(
-        clazz: Class<out V>,
-        context: Context
+    clazz: Class<out V>,
+    context: Context
 ): V? = when (clazz) {
     TextView::class.java -> TextView(context)
     Button::class.java -> Button(context)
@@ -110,9 +98,9 @@ private inline fun <reified V : View> instantiateView(
 } as V?
 
 private inline fun <reified V : View> instantiateThemeAttrStyledView(
-        clazz: Class<out V>,
-        context: Context,
-        @AttrRes styleThemeAttribute: Int
+    clazz: Class<out V>,
+    context: Context,
+    @AttrRes styleThemeAttribute: Int
 ): V? = when (clazz) {
     TextView::class.java -> TextView(context, null, styleThemeAttribute)
     Button::class.java -> Button(context, null, styleThemeAttribute)
@@ -124,7 +112,9 @@ private inline fun <reified V : View> instantiateThemeAttrStyledView(
     RadioButton::class.java -> RadioButton(context, null, styleThemeAttribute)
     CheckedTextView::class.java -> CheckedTextView(context, null, styleThemeAttribute)
     AutoCompleteTextView::class.java -> AutoCompleteTextView(context, null, styleThemeAttribute)
-    MultiAutoCompleteTextView::class.java -> MultiAutoCompleteTextView(context, null, styleThemeAttribute)
+    MultiAutoCompleteTextView::class.java -> {
+        MultiAutoCompleteTextView(context, null, styleThemeAttribute)
+    }
     RatingBar::class.java -> RatingBar(context, null, styleThemeAttribute)
     SeekBar::class.java -> SeekBar(context, null, styleThemeAttribute)
     else -> clazz.themeAttrStyledViewConstructor().newInstance(context, null, styleThemeAttribute)
@@ -133,15 +123,15 @@ private inline fun <reified V : View> instantiateThemeAttrStyledView(
 @Suppress("UNCHECKED_CAST")
 private fun <V : View> Class<V>.viewConstructor(): Constructor<V> {
     return cachedViewConstructors[this] as Constructor<V>?
-            ?: getConstructor(Context::class.java).also { cachedViewConstructors[this] = it }
+        ?: getConstructor(Context::class.java).also { cachedViewConstructors[this] = it }
 }
 
 @Suppress("UNCHECKED_CAST")
 private fun <V : View> Class<out V>.themeAttrStyledViewConstructor(): Constructor<out V> {
     return cachedThemeAttrStyledViewConstructors[this] as Constructor<V>?
-            ?: getConstructor(Context::class.java, AttributeSet::class.java, Int::class.java).also {
-                cachedThemeAttrStyledViewConstructors[this] = it
-            }
+        ?: getConstructor(Context::class.java, AttributeSet::class.java, Int::class.java).also {
+            cachedThemeAttrStyledViewConstructors[this] = it
+        }
 }
 
 private val cachedViewConstructors by lazy(LazyThreadSafetyMode.PUBLICATION) {

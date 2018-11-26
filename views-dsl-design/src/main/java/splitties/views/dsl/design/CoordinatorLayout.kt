@@ -28,19 +28,19 @@ import splitties.views.existingOrNewId
 import android.support.design.widget.CoordinatorLayout.LayoutParams as LP
 
 inline fun CoordinatorLayout.defaultLParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        gravity: Int = Gravity.NO_GRAVITY,
-        initParams: LP.() -> Unit = {}
+    width: Int = wrapContent,
+    height: Int = wrapContent,
+    gravity: Int = Gravity.NO_GRAVITY,
+    initParams: LP.() -> Unit = {}
 ): LP = LP(width, height).also { it.gravity = gravity }.apply(initParams)
 
 inline fun CoordinatorLayout.appBarLParams(
-        height: Int = wrapContent,
-        initParams: LP.() -> Unit = {}
+    height: Int = wrapContent,
+    initParams: LP.() -> Unit = {}
 ): LP = defaultLParams(width = matchParent, height = height, initParams = initParams)
 
 inline fun CoordinatorLayout.contentScrollingWithAppBarLParams(
-        initParams: LP.() -> Unit = {}
+    initParams: LP.() -> Unit = {}
 ): LP = defaultLParams(matchParent, matchParent) {
     behavior = AppBarLayout.ScrollingViewBehavior()
     initParams()

@@ -16,22 +16,13 @@
 package splitties.views.dsl.design.experimental
 
 import android.content.Context
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.ConfigChangesHandlingCollapsingToolbarLayout
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.NavigationView
-import android.support.design.widget.TabLayout
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
+import android.support.design.widget.*
 import android.view.View
 import splitties.views.dsl.design.fixedimpls.FixedAppBarLayoutBehavior
 
 inline fun <reified V : View> instantiateDesignView(
-        clazz: Class<out V>,
-        context: Context
+    clazz: Class<out V>,
+    context: Context
 ): V? = when (clazz) {
     FloatingActionButton::class.java -> FloatingActionButton(context)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {

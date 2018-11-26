@@ -26,9 +26,11 @@ import kotlin.reflect.KProperty
 
 @SuppressLint("CommitPrefEdits")
 @Suppress("NOTHING_TO_INLINE")
-abstract class Preferences(name: String,
-                           availableAtDirectBoot: Boolean = false,
-                           mode: Int = Context.MODE_PRIVATE) {
+abstract class Preferences(
+    name: String,
+    availableAtDirectBoot: Boolean = false,
+    mode: Int = Context.MODE_PRIVATE
+) {
 
     protected val prefs: SharedPreferences
 
@@ -36,11 +38,7 @@ abstract class Preferences(name: String,
         val storageCtx: Context = if (availableAtDirectBoot && SDK_INT > 24) {
             // Moving the sharedPreferences from is done by the system only if you had it outside
             // the direct boot available storage or if the device was running Android M or older,
-            // and just got updated. These two cases are extremely rare, and it's unlikely that your
-            // sharedPreferences are big enough to significantly harm the user experience because of
-            // the operation happening on UI thread for the single time (per preference file) this
-            // move operations will take place.
-            // noinspection NewApi
+            // and just got updated.
             directBootCtx.moveSharedPreferencesFrom(appCtx, name)
             directBootCtx
         } else appCtx
@@ -52,23 +50,34 @@ abstract class Preferences(name: String,
 
     operator fun contains(o: Any) = prefs === o
 
-    protected fun boolPref(defaultValue: Boolean = false)
-            = BoolPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun boolPref(
+        defaultValue: Boolean = false
+    ) = BoolPref(key = PROP_NAME, defaultValue = defaultValue)
 
     protected fun intPref(defaultValue: Int) = IntPref(key = PROP_NAME, defaultValue = defaultValue)
-    protected fun floatPref(defaultValue: Float) = FloatPref(key = PROP_NAME, defaultValue = defaultValue)
-    protected fun longPref(defaultValue: Long) = LongPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun floatPref(
+        defaultValue: Float
+    ) = FloatPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringPref(defaultValue: String) = StringPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun longPref(
+        defaultValue: Long
+    ) = LongPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringOrNullPref(defaultValue: String? = null) =
-            StringOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun stringPref(
+        defaultValue: String
+    ) = StringPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringSetPref(defaultValue: Set<String>) =
-            StringSetPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun stringOrNullPref(
+        defaultValue: String? = null
+    ) = StringOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
-    protected fun stringSetOrNullPref(defaultValue: Set<String>? = null) =
-            StringSetOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
+    protected fun stringSetPref(
+        defaultValue: Set<String>
+    ) = StringSetPref(key = PROP_NAME, defaultValue = defaultValue)
+
+    protected fun stringSetOrNullPref(
+        defaultValue: Set<String>? = null
+    ) = StringSetOrNullPref(key = PROP_NAME, defaultValue = defaultValue)
 
     private var isEditing = false
     private var useCommit = false
@@ -166,8 +175,10 @@ abstract class Preferences(name: String,
         }
     }
 
-    protected inner class StringSetOrNullPref(val key: String,
-                                              val defaultValue: Set<String>? = null) {
+    protected inner class StringSetOrNullPref(
+        val key: String,
+        val defaultValue: Set<String>? = null
+    ) {
         operator fun getValue(thisRef: Preferences, prop: KProperty<*>): Set<String>? {
             return prefs.getStringSet(key.real(prop), defaultValue)
         }

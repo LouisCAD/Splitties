@@ -22,10 +22,14 @@ import android.view.ViewGroup
  * **A LESS CAPITALIZED ALIAS** to [ViewGroup.LayoutParams.MATCH_PARENT] that is only
  * visible inside [ViewGroup]s.
  */
-@Suppress("unused") inline val ViewGroup.matchParent get() = ViewGroup.LayoutParams.MATCH_PARENT
+@Suppress("unused")
+inline val ViewGroup.matchParent
+    get() = ViewGroup.LayoutParams.MATCH_PARENT
 
 /**
  * **A LESS CAPITALIZED ALIAS** to [ViewGroup.LayoutParams.WRAP_CONTENT] that is only
  * visible inside [ViewGroup]s.
  */
-@Suppress("unused") inline val ViewGroup.wrapContent get() = ViewGroup.LayoutParams.WRAP_CONTENT
+@Suppress("unused")
+inline val ViewGroup.wrapContent
+    get() = ViewGroup.LayoutParams.WRAP_CONTENT

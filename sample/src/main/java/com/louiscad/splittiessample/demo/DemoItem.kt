@@ -23,7 +23,7 @@ import android.support.annotation.StringRes
  * @see DemoAdapter.DemoViewHolder
  */
 class DemoItem(
-        @StringRes titleResId: Int,
-        @StringRes detailResId: Int,
-        @DrawableRes iconResId: Int
+    @StringRes titleResId: Int,
+    @StringRes detailResId: Int,
+    @DrawableRes iconResId: Int
 ) : ImmutableBasicItem(titleResId, detailResId, iconResId)

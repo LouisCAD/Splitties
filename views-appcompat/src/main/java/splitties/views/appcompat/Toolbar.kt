@@ -28,12 +28,14 @@ import android.support.v7.widget.Toolbar as SupportToolbar
  * A [SupportToolbar] that handles configuration changes and changes its size accordingly.
  */
 class Toolbar @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet?, defStyleAttr: Int = R.attr.toolbarStyle
+    context: Context, attrs: AttributeSet?, defStyleAttr: Int = R.attr.toolbarStyle
 ) : SupportToolbar(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
     private val maxBtHeightField by lazy(NONE) {
-        SupportToolbar::class.java.getDeclaredField("mMaxButtonHeight").apply { isAccessible = true }
+        SupportToolbar::class.java.getDeclaredField("mMaxButtonHeight").apply {
+            isAccessible = true
+        }
     }
 
     @SuppressLint("PrivateResource")

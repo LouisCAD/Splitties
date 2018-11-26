@@ -29,27 +29,27 @@ import kotlin.contracts.contract
 // FloatingActionButton
 
 inline fun Context.floatingActionButton(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: FloatingActionButton.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: FloatingActionButton.() -> Unit = {}
 ): FloatingActionButton {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return view(id, theme, initView)
 }
 
 inline fun View.floatingActionButton(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: FloatingActionButton.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: FloatingActionButton.() -> Unit = {}
 ): FloatingActionButton {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.floatingActionButton(id, theme, initView)
 }
 
 inline fun Ui.floatingActionButton(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: FloatingActionButton.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: FloatingActionButton.() -> Unit = {}
 ): FloatingActionButton {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.floatingActionButton(id, theme, initView)

@@ -21,17 +21,17 @@ package splitties.views.dsl.core
 import android.widget.LinearLayout
 
 inline fun LinearLayout.lParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        initParams: LinearLayout.LayoutParams.() -> Unit = {}
+    width: Int = wrapContent,
+    height: Int = wrapContent,
+    initParams: LinearLayout.LayoutParams.() -> Unit = {}
 ): LinearLayout.LayoutParams = LinearLayout.LayoutParams(width, height).apply(initParams)
 
 inline fun LinearLayout.lParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        gravity: Int = -1,
-        weight: Float = 0f,
-        initParams: LinearLayout.LayoutParams.() -> Unit = {}
+    width: Int = wrapContent,
+    height: Int = wrapContent,
+    gravity: Int = -1,
+    weight: Float = 0f,
+    initParams: LinearLayout.LayoutParams.() -> Unit = {}
 ): LinearLayout.LayoutParams = LinearLayout.LayoutParams(width, height).also {
     it.gravity = gravity
     it.weight = weight

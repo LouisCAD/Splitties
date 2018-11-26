@@ -19,7 +19,6 @@ package splitties.bundle
 
 import android.os.Bundle
 import splitties.exceptions.illegal
-import splitties.mainthread.isMainThread
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -43,8 +42,16 @@ fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T?> 
 }
 
 private val BundleSpec.bundle: Bundle
-    get() = (if (isMainThread) currentBundle else bundleByThread.get())
-            ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
+    get() = currentBundle
+        ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
+
+private fun BundleSpec.put(key: String, value: Any?) {
+    check(!isReadOnly) {
+        "The BundleSpec is in read only mode! If you're trying to mutate extras of " +
+                "an Activity, use putExtras instead of withExtras."
+    }
+    bundle.put(key, value)
+}
 
 private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
@@ -54,7 +61,7 @@ private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: Any) {
-        thisRef.bundle.put(property.name, value)
+        thisRef.put(property.name, value)
     }
 }
 
@@ -65,12 +72,12 @@ private object BundleOrNullDelegate : ReadWriteProperty<BundleSpec, Any?> {
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: Any?) {
-        thisRef.bundle.put(property.name, value)
+        thisRef.put(property.name, value)
     }
 }
 
 private class BundleOrDefaultDelegate<T : Any>(
-        private val defaultValue: T
+    private val defaultValue: T
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
@@ -78,12 +85,12 @@ private class BundleOrDefaultDelegate<T : Any>(
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: T) {
-        thisRef.bundle.put(property.name, value)
+        thisRef.put(property.name, value)
     }
 }
 
 private class BundleOrElseDelegate<T : Any>(
-        private val defaultValue: () -> T
+    private val defaultValue: () -> T
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
@@ -91,13 +98,14 @@ private class BundleOrElseDelegate<T : Any>(
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: T) {
-        thisRef.bundle.put(property.name, value)
+        thisRef.put(property.name, value)
     }
 }
 
 private class ExplicitBundleDelegate<T>(
-        private val key: String,
-        private val noNull: Boolean) : ReadWriteProperty<BundleSpec, T> {
+    private val key: String,
+    private val noNull: Boolean
+) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
         return thisRef.bundle[key].also {
@@ -106,7 +114,7 @@ private class ExplicitBundleDelegate<T>(
     }
 
     override operator fun setValue(thisRef: BundleSpec, property: KProperty<*>, value: T) {
-        thisRef.bundle.put(key, value)
+        thisRef.put(key, value)
     }
 }
 

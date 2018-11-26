@@ -25,6 +25,7 @@ inline fun MenuItem.alwaysShowAsAction(withText: Boolean = false) {
     val flags = MenuItem.SHOW_AS_ACTION_ALWAYS
     setShowAsAction(if (withText) flags.withFlag(MenuItem.SHOW_AS_ACTION_WITH_TEXT) else flags)
 }
+
 inline fun MenuItem.showAsActionIfRoom(withText: Boolean = false) {
     val flags = MenuItem.SHOW_AS_ACTION_IF_ROOM
     setShowAsAction(if (withText) flags.withFlag(MenuItem.SHOW_AS_ACTION_WITH_TEXT) else flags)

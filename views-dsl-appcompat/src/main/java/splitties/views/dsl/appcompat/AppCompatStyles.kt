@@ -17,11 +17,7 @@ package splitties.views.dsl.appcompat
 
 import android.content.Context
 import android.content.res.Resources
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.SeekBar
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import splitties.views.dsl.core.styles.XmlStyle
 import kotlin.DeprecationLevel.HIDDEN
 
@@ -40,7 +36,8 @@ class AppCompatStyles private constructor() {
 
     companion object {
         internal val instance = AppCompatStyles()
-        @Suppress("NOTHING_TO_INLINE") internal inline fun loadInto(theme: Resources.Theme) {
+        @Suppress("NOTHING_TO_INLINE")
+        internal inline fun loadInto(theme: Resources.Theme) {
             theme.applyStyle(R.style.AppCompatStyles, false)
         }
     }
@@ -48,7 +45,7 @@ class AppCompatStyles private constructor() {
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class ButtonAppCompatStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val default get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
     inline val colored get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
@@ -60,14 +57,14 @@ inline class ButtonAppCompatStyles @PublishedApi internal constructor(
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class TextViewAppCompatStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val spinnerItem get() = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)
 }
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val default get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
     inline val discrete get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
@@ -75,7 +72,7 @@ inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
-        @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
 ) {
     inline val default get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
     inline val underlined get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)

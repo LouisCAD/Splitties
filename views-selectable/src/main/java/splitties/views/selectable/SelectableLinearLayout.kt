@@ -30,7 +30,7 @@ import splitties.resources.styledDrawable
  * [LinearLayout] with ripple effect / select foreground when touched.
  */
 open class SelectableLinearLayout @JvmOverloads constructor(
-        context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
@@ -46,32 +46,38 @@ open class SelectableLinearLayout @JvmOverloads constructor(
         foregroundSelector = styledDrawable(android.R.attr.selectableItemBackground)
     }
 
-    @CallSuper override fun drawableStateChanged() {
+    @CallSuper
+    override fun drawableStateChanged() {
         super.drawableStateChanged()
         foregroundSelector?.state = drawableState
     }
 
-    @CallSuper override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+    @CallSuper
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         foregroundSelector?.setBounds(0, 0, w, h)
     }
 
-    @CallSuper override fun onDraw(canvas: Canvas) {
+    @CallSuper
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         foregroundSelector?.draw(canvas)
     }
 
-    @CallSuper override fun jumpDrawablesToCurrentState() {
+    @CallSuper
+    override fun jumpDrawablesToCurrentState() {
         super.jumpDrawablesToCurrentState()
         foregroundSelector?.jumpToCurrentState()
     }
 
-    @CallSuper override fun verifyDrawable(who: Drawable): Boolean {
+    @CallSuper
+    override fun verifyDrawable(who: Drawable): Boolean {
         return who === foregroundSelector || super.verifyDrawable(who)
     }
 
     @RequiresApi(LOLLIPOP)
-    @CallSuper override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
+    @CallSuper
+    override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
         super.dispatchDrawableHotspotChanged(x, y)
         foregroundSelector?.setHotspot(x, y)
     }

@@ -76,7 +76,9 @@ inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
 private inline val defaultColor get() = Color.RED
 
 @ColorInt
-fun Context.styledColor(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getColor(it, defaultColor) }
+fun Context.styledColor(
+    @AttrRes attr: Int
+): Int = withStyledAttributes(attr) { getColor(it, defaultColor) }
 
 inline fun Fragment.styledColor(@AttrRes attr: Int) = context!!.styledColor(attr)
 inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
@@ -89,7 +91,10 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
  */
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
 
-fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList? = withStyledAttributes(attr) { getColorStateList(it) }
+fun Context.styledColorSL(
+    @AttrRes attr: Int
+): ColorStateList? = withStyledAttributes(attr) { getColorStateList(it) }
+
 inline fun Fragment.styledColorSL(@AttrRes attr: Int) = context!!.styledColorSL(attr)
 inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
 /**

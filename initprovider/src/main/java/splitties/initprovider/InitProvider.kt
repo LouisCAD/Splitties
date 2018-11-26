@@ -26,8 +26,26 @@ import splitties.exceptions.unsupported
  */
 abstract class InitProvider : ContentProvider() {
     final override fun insert(uri: Uri, values: ContentValues?) = unsupported()
-    final override fun query(uri: Uri, projection: Array<out String>?, selection: String?, selectionArgs: Array<out String>?, sortOrder: String?) = unsupported()
-    final override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?) = unsupported()
-    final override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?) = unsupported()
+    final override fun query(
+        uri: Uri,
+        projection: Array<out String>?,
+        selection: String?,
+        selectionArgs: Array<out String>?,
+        sortOrder: String?
+    ) = unsupported()
+
+    final override fun update(
+        uri: Uri,
+        values: ContentValues?,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ) = unsupported()
+
+    final override fun delete(
+        uri: Uri,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ) = unsupported()
+
     final override fun getType(uri: Uri) = unsupported()
 }

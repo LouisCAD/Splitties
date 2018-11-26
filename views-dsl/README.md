@@ -213,8 +213,7 @@ and the `AppCompatStyles` have the `XmlStyle` type. It is easy to instantiate it
 support any xml style after the style is loaded into the current theme, but before
 we see how it's done, let's see what is this type.
 
-The `XmlStyle` class (which will be inline when Splitties switches to Kotlin 1.3)
-has:
+The `XmlStyle` **inline** class has:
 * A type parameter, for the target `View` type.
 * A single `Int` value, a theme attribute (`@AttrRes`, not `@StyleRes`).
 

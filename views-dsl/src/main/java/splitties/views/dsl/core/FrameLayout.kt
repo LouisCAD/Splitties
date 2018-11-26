@@ -26,11 +26,11 @@ import android.widget.FrameLayout
  * Default gravity is treated by FrameLayout as: [Gravity.TOP] or [Gravity.START].
  */
 inline fun FrameLayout.lParams(
-        width: Int = wrapContent,
-        height: Int = wrapContent,
-        @SuppressLint("InlinedApi")
-        gravity: Int = FrameLayout.LayoutParams.UNSPECIFIED_GRAVITY,
-        initParams: FrameLayout.LayoutParams.() -> Unit = {}
+    width: Int = wrapContent,
+    height: Int = wrapContent,
+    @SuppressLint("InlinedApi")
+    gravity: Int = FrameLayout.LayoutParams.UNSPECIFIED_GRAVITY,
+    initParams: FrameLayout.LayoutParams.() -> Unit = {}
 ): FrameLayout.LayoutParams = FrameLayout.LayoutParams(width, height).also {
     it.gravity = gravity
 }.apply(initParams)

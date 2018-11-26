@@ -16,6 +16,6 @@
 package com.louiscad.splittiessample.preview.permissions
 
 class PermissionDeniedException(
-        val permissionName: String,
-        val doNotAskAgain: Boolean
+    val permissionName: String,
+    val doNotAskAgain: Boolean
 ) : SecurityException("Permission denied: $permissionName")

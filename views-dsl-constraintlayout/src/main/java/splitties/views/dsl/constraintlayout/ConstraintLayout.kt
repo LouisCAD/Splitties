@@ -25,17 +25,20 @@ import splitties.views.dsl.core.matchParent
  * **A LESS CAPITALIZED ALIAS** to [ConstraintLayout.LayoutParams.MATCH_CONSTRAINT] that is only
  * visible inside [ConstraintLayout]s.
  */
-@Suppress("unused") inline val ConstraintLayout.matchConstraints get() = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
+@Suppress("unused")
+inline val ConstraintLayout.matchConstraints
+    get() = ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 
 inline fun ConstraintLayout.lParams(
-        width: Int = matchConstraints,
-        height: Int = matchConstraints,
-        initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
+    width: Int = matchConstraints,
+    height: Int = matchConstraints,
+    initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
 ): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).apply(initParams)
 
-@PublishedApi internal fun ConstraintLayout.createConstraintLayoutParams(
-        width: Int,
-        height: Int
+@PublishedApi
+internal fun ConstraintLayout.createConstraintLayoutParams(
+    width: Int,
+    height: Int
 ): ConstraintLayout.LayoutParams {
     val matchParentWidth = width == matchParent
     val matchParentHeight = height == matchParent

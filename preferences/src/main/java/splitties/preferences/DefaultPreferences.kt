@@ -21,8 +21,9 @@ import splitties.init.appCtx
 /**
  * This should be overriden by only one object in an app.
  */
-abstract class DefaultPreferences(availableAtDirectBoot: Boolean = false)
-    : Preferences(defaultPrefsName, availableAtDirectBoot) {
+abstract class DefaultPreferences(
+    availableAtDirectBoot: Boolean = false
+) : Preferences(defaultPrefsName, availableAtDirectBoot) {
 
     private companion object {
         private val defaultPrefsName get() = "${appCtx.packageName}_preferences"

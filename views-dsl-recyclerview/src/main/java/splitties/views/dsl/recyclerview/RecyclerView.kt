@@ -31,27 +31,27 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 inline fun Context.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RecyclerView.() -> Unit = {}
 ): RecyclerView {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return inflate(R.layout.recyclerview_with_scrollbars, id, theme, initView)
 }
 
 inline fun View.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RecyclerView.() -> Unit = {}
 ): RecyclerView {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return context.recyclerView(id, theme, initView)
 }
 
 inline fun Ui.recyclerView(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: RecyclerView.() -> Unit = {}
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RecyclerView.() -> Unit = {}
 ): RecyclerView {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.recyclerView(id, theme, initView)
@@ -59,7 +59,7 @@ inline fun Ui.recyclerView(
 
 @ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
-        block: RecyclerView.LayoutParams.() -> Unit = {}
+    block: RecyclerView.LayoutParams.() -> Unit = {}
 ): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
     width = MATCH_PARENT
     height = WRAP_CONTENT
@@ -67,7 +67,7 @@ inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
 
 @ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.horizontalListLayoutParams(
-        block: RecyclerView.LayoutParams.() -> Unit = {}
+    block: RecyclerView.LayoutParams.() -> Unit = {}
 ): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
     width = WRAP_CONTENT
     height = MATCH_PARENT

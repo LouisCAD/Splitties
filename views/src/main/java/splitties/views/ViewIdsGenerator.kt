@@ -40,7 +40,7 @@ fun View.assignAndGetGeneratedId(): Int = generateViewId().also { generatedId ->
  * Otherwise, calls [assignAndGetGeneratedId], and returns the new assigned id.
  */
 val View.existingOrNewId: Int
-    get() =  id.let { currentId ->
+    get() = id.let { currentId ->
         if (currentId == View.NO_ID) assignAndGetGeneratedId() else currentId
     }
 

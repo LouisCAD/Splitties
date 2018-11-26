@@ -35,16 +35,21 @@ import splitties.systemservices.layoutInflater
 import splitties.systemservices.windowManager
 import kotlin.LazyThreadSafetyMode.NONE
 
-@PublishedApi internal fun Context.createToast(text: CharSequence, duration: Int): Toast {
+@PublishedApi
+internal fun Context.createToast(text: CharSequence, duration: Int): Toast {
     val ctx = if (SDK_INT == 25) SafeToastCtx(this) else this
     return Toast.makeText(ctx, text, duration)
 }
 
-@PublishedApi internal fun Context.createToast(@StringRes resId: Int, duration: Int): Toast {
+@PublishedApi
+internal fun Context.createToast(@StringRes resId: Int, duration: Int): Toast {
     return createToast(txt(resId), duration)
 }
 
-inline fun Context.toast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_SHORT).show()
+inline fun Context.toast(
+    @StringRes msgResId: Int
+) = createToast(msgResId, Toast.LENGTH_SHORT).show()
+
 inline fun Fragment.toast(@StringRes msgResId: Int) = ctx.toast(msgResId)
 inline fun View.toast(@StringRes msgResId: Int) = context.toast(msgResId)
 inline fun toast(@StringRes msgResId: Int) = appCtx.toast(msgResId)
@@ -54,7 +59,10 @@ inline fun Fragment.toast(msg: CharSequence) = ctx.toast(msg)
 inline fun View.toast(msg: CharSequence) = context.toast(msg)
 inline fun toast(msg: CharSequence) = appCtx.toast(msg)
 
-inline fun Context.longToast(@StringRes msgResId: Int) = createToast(msgResId, Toast.LENGTH_LONG).show()
+inline fun Context.longToast(
+    @StringRes msgResId: Int
+) = createToast(msgResId, Toast.LENGTH_LONG).show()
+
 inline fun Fragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
 inline fun View.longToast(@StringRes msgResId: Int) = context.longToast(msgResId)
 inline fun longToast(@StringRes msgResId: Int) = appCtx.longToast(msgResId)
@@ -64,7 +72,9 @@ inline fun Fragment.longToast(msg: CharSequence) = ctx.longToast(msg)
 inline fun View.longToast(msg: CharSequence) = context.longToast(msg)
 inline fun longToast(msg: CharSequence) = appCtx.longToast(msg)
 
-@PublishedApi internal inline val Fragment.ctx: Context get() = context ?: appCtx
+@PublishedApi
+internal inline val Fragment.ctx: Context
+    get() = context ?: appCtx
 
 /**
  * Avoids [WindowManager.BadTokenException] on API 25.
