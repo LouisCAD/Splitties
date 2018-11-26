@@ -66,7 +66,7 @@ object Libs {
     val google = Google
 
     object Kotlin {
-        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
         const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
     }
 

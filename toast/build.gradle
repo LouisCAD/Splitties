@@ -43,12 +43,9 @@ dependencies {
     api project(':resources')
     api project(':systemservices')
 
-    // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
-    compileOnly "com.android.support:support-fragment:$supportLibs_version"
-
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlibJdk7
+    api Libs.androidX.annotation
+    compileOnly Libs.androidX.fragment
 }
 
 apply from: '../publish.gradle'

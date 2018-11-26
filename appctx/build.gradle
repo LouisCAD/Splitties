@@ -41,8 +41,8 @@ dependencies {
     api project(':initprovider')
     api project(':exceptions')
 
-    api "com.android.support:support-annotations:$supportLibs_version"
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlibJdk7
+    api Libs.androidX.annotation
 }
 
 apply from: '../publish.gradle'

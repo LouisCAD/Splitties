@@ -38,8 +38,7 @@ android {
 }
 
 dependencies {
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api Libs.kotlin.stdlibJdk7
 }
 
 apply from: '../publish.gradle'

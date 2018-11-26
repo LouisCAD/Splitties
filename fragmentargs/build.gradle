@@ -42,17 +42,9 @@ dependencies {
     api project(':exceptions')
     api project(':mainthread')
 
-    // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
-    api "com.android.support:support-fragment:$supportLibs_version"
-
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    api Libs.kotlin.stdlibJdk7
+    api Libs.androidX.annotation
+    api Libs.androidX.fragment
 }
 
 apply from: '../publish.gradle'

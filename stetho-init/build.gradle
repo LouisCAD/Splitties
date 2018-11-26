@@ -40,19 +40,9 @@ android {
 dependencies {
     api project(':initprovider')
 
-    // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
-
-    // Stetho
-    api 'com.facebook.stetho:stetho:1.5.0'
-
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    api Libs.kotlin.stdlibJdk7
+    api Libs.androidX.annotation
+    api Libs.stetho
 }
 
 apply from: '../publish.gradle'

@@ -85,29 +85,13 @@ dependencies {
     debugImplementation project(':views-dsl-ide-preview')
     implementation project(':views-design')
 
-    // Android Support Libraries
-    implementation "com.android.support:appcompat-v7:$supportLibs_version"
-    implementation "com.android.support:design:$supportLibs_version"
-
-    // Android KTX
-    implementation "androidx.core:core-ktx:0.3"
-
-    // Constraint Layout
-    implementation "com.android.support.constraint:constraint-layout:$constraintLayout_version"
-
-    // Timber log utility
-    implementation "com.jakewharton.timber:timber:$timber_version"
-
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Kotlinx coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinxCoroutines_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation Libs.kotlin.stdlibJdk7
+    implementation Libs.androidX.appCompat
+    implementation Libs.androidX.coreKtx
+    implementation Libs.androidX.constraintLayout
+    implementation Libs.google.material
+    implementation Libs.timber
+    implementation Libs.kotlinX.coroutines.android
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
