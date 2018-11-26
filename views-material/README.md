@@ -1,4 +1,4 @@
-# Views Design
+# Views Material
 
 *Material Components extension of [Views](../views).*
 
