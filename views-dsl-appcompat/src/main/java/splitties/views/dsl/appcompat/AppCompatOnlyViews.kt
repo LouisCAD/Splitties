@@ -16,11 +16,11 @@
 package splitties.views.dsl.appcompat
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
-import android.support.v7.widget.SwitchCompat
-import android.support.v7.widget.Toolbar
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
+import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.widget.Toolbar
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view

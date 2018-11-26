@@ -16,8 +16,7 @@
 
 package splitties.snackbar
 
-import android.support.design.widget.BaseTransientBottomBar.BaseCallback
-import android.support.design.widget.Snackbar
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * The `event` parameter of [block] is one of:

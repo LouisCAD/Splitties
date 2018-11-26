@@ -15,10 +15,10 @@
  */
 package com.louiscad.splittiessample.extensions.menu
 
-import android.support.annotation.IdRes
-import android.support.annotation.StringRes
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.IdRes
+import androidx.annotation.StringRes
 
 inline fun Menu.addItem(
     @IdRes id: Int,

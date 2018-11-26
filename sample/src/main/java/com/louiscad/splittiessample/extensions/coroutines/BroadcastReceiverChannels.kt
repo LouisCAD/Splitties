@@ -17,27 +17,27 @@ import splitties.init.appCtx
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 inline fun CoroutineScope.conflatedBroadcastReceiverChannel(
-        action: String,
-        priority: Int = 0
+    action: String,
+    priority: Int = 0
 ): ReceiveChannel<Intent> = broadcastReceiverChannel(action, priority, capacity = Channel.CONFLATED)
 
 @Suppress("NOTHING_TO_INLINE")
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 inline fun CoroutineScope.broadcastReceiverChannel(
-        action: String,
-        priority: Int = 0,
-        capacity: Int = Channel.UNLIMITED
+    action: String,
+    priority: Int = 0,
+    capacity: Int = Channel.UNLIMITED
 ): ReceiveChannel<Intent> = broadcastReceiverChannel(
-        IntentFilter(action).also { it.priority = priority },
-        capacity
+    IntentFilter(action).also { it.priority = priority },
+    capacity
 )
 
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 fun CoroutineScope.broadcastReceiverChannel(
-        filter: IntentFilter,
-        capacity: Int = Channel.UNLIMITED
+    filter: IntentFilter,
+    capacity: Int = Channel.UNLIMITED
 ): ReceiveChannel<Intent> = produce {
     val receiveChannel = Channel<Intent>(capacity = capacity)
     val receiver = object : BroadcastReceiver() {

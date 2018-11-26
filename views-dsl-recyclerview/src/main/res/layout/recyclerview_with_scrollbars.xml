@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<android.support.v7.widget.RecyclerView style="@style/WithScrollbarsStyle"/>
+<androidx.recyclerview.widget.RecyclerView style="@style/WithScrollbarsStyle"/>

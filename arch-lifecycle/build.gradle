@@ -27,7 +27,7 @@ android {
         versionCode 1
         versionName library_version
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
@@ -42,20 +42,12 @@ dependencies {
     api project(':exceptions')
     api project(':experimental')
 
-    // Android Support Libraries
-    api "com.android.support:support-annotations:$supportLibs_version"
-    api "com.android.support:support-fragment:$supportLibs_version"
-
-    // Android Architecture Components (lifecycle)
-    api "android.arch.lifecycle:extensions:$arch_lifecycle_version"
-
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    api Libs.kotlin.stdlibJdk7
+    api Libs.androidX.annotation
+    api Libs.androidX.fragment
+    api Libs.androidX.lifecycle.extensions
+    api Libs.androidX.lifecycle.viewModel
+    api Libs.androidX.lifecycle.liveData
 }
 
 apply from: '../publish.gradle'

@@ -25,7 +25,7 @@ android {
         targetSdkVersion projectSdk_version
         versionCode 1
         versionName library_version
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -40,13 +40,7 @@ android {
 dependencies {
     api project(':mainthread')
 
-    // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    // Test dependencies
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    api Libs.kotlin.stdlibJdk7
 }
 
 apply from: '../publish.gradle'

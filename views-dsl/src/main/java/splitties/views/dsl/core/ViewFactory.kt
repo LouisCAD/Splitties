@@ -16,9 +16,9 @@
 package splitties.views.dsl.core
 
 import android.content.Context
-import android.support.annotation.AttrRes
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.AttrRes
 import splitties.views.dsl.core.experimental.ViewFactoryImpl
 
 interface ViewFactory {

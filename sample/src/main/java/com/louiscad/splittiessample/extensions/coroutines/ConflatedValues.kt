@@ -11,8 +11,8 @@ import kotlin.reflect.KProperty
  * a single channel.
  */
 abstract class ConflatedValues<CV : ConflatedValues<CV, T>, T> private constructor(
-        private val updateChannel: Channel<T>,
-        private val conflateAll: CV.() -> T
+    private val updateChannel: Channel<T>,
+    private val conflateAll: CV.() -> T
 ) : ReceiveChannel<T> by updateChannel {
     constructor(conflateAll: CV.() -> T) : this(Channel(CONFLATED), conflateAll)
 
@@ -22,7 +22,8 @@ abstract class ConflatedValues<CV : ConflatedValues<CV, T>, T> private construct
         updateChannel.offer((this as CV).conflateAll())
     }
 
-    protected fun <E> conflatedValue(initialValue: E): ReadWriteProperty<Any?, E> = Value(initialValue)
+    protected fun <E> conflatedValue(initialValue: E): ReadWriteProperty<Any?, E> =
+        Value(initialValue)
 
     private inner class Value<E>(private var value: E) : ReadWriteProperty<Any?, E> {
         override fun getValue(thisRef: Any?, property: KProperty<*>) = value

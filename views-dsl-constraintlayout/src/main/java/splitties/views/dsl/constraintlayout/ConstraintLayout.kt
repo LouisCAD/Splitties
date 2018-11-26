@@ -18,7 +18,7 @@
 
 package splitties.views.dsl.constraintlayout
 
-import android.support.constraint.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import splitties.views.dsl.core.matchParent
 
 /**

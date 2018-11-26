@@ -18,9 +18,9 @@
 
 package splitties.snackbar
 
-import android.support.annotation.StringRes
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
+import androidx.annotation.StringRes
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
 import splitties.resources.txt
 
 /**

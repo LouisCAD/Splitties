@@ -20,8 +20,8 @@ package splitties.views.appcompat
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
-import android.support.v7.widget.TooltipCompat
 import android.view.View
+import androidx.appcompat.widget.TooltipCompat
 import kotlin.DeprecationLevel.HIDDEN
 
 inline fun View.contentDescAsTooltip() {

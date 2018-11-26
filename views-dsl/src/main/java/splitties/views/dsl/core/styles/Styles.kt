@@ -16,10 +16,10 @@
 package splitties.views.dsl.core.styles
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
 import android.util.AttributeSet
 import android.view.View
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.getThemeAttrStyledView
 import splitties.views.dsl.core.viewFactory

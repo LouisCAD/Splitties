@@ -10,9 +10,9 @@ private typealias Receiver = BroadcastReceiver.(intent: Intent) -> Unit
 class BroadcastReceiver(private val filter: IntentFilter, private val receiver: Receiver) {
 
     constructor(
-            vararg actions: String,
-            priority: Int = 0,
-            receiver: Receiver
+        vararg actions: String,
+        priority: Int = 0,
+        receiver: Receiver
     ) : this(filter = IntentFilter().also {
         check(actions.isNotEmpty()) { "Need actions for the IntentFilter!" }
         it.priority = priority

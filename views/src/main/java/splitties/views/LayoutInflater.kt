@@ -19,11 +19,11 @@
 package splitties.views
 
 import android.content.Context
-import android.support.annotation.CheckResult
-import android.support.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CheckResult
+import androidx.annotation.LayoutRes
 import splitties.systemservices.layoutInflater
 
 /**

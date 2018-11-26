@@ -16,14 +16,14 @@
 package splitties.views.dsl.appcompat.experimental
 
 import android.content.Context
-import android.support.annotation.AttrRes
-import android.support.v7.widget.*
-import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.*
+import androidx.annotation.AttrRes
+import androidx.appcompat.widget.*
+import androidx.appcompat.widget.Toolbar
 
 /**
- * Matches [android.support.v7.app.AppCompatViewInflater.createView] content plus other AppCompat
+ * Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content plus other AppCompat
  * only views.
  */
 inline fun <reified V : View> instantiateAppCompatView(
@@ -49,7 +49,7 @@ inline fun <reified V : View> instantiateAppCompatView(
     else -> null
 } as V?
 
-/** Matches [android.support.v7.app.AppCompatViewInflater.createView] content. */
+/** Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content. */
 inline fun <reified V : View> instantiateThemeAttrStyledAppCompatView(
     clazz: Class<out V>,
     context: Context,

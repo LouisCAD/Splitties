@@ -19,12 +19,12 @@ package splitties.views.dsl.core
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
-import android.support.annotation.IdRes
-import android.support.annotation.LayoutRes
-import android.support.annotation.StyleRes
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.annotation.StyleRes
 import splitties.views.inflate
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract

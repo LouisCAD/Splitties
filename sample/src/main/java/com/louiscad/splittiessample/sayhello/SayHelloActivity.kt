@@ -16,7 +16,7 @@
 package com.louiscad.splittiessample.sayhello
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import splitties.views.dsl.core.setContentView
 
 class SayHelloActivity : AppCompatActivity() {

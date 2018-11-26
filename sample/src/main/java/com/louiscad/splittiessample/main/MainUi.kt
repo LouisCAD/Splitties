@@ -18,19 +18,19 @@ package com.louiscad.splittiessample.main
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
 import splitties.views.*
-import splitties.views.design.contentScrimColor
+import splitties.views.material.contentScrimColor
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.*
 import splitties.views.dsl.core.styles.invoke
-import splitties.views.dsl.design.*
+import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView
 
 class MainUi(override val ctx: Context) : Ui {

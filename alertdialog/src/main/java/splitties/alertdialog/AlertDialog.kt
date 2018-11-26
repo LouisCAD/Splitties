@@ -19,9 +19,9 @@ package splitties.alertdialog
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.support.annotation.RequiresApi
-import android.support.annotation.StringRes
 import android.widget.Button
+import androidx.annotation.RequiresApi
+import androidx.annotation.StringRes
 import kotlin.DeprecationLevel.HIDDEN
 
 /**

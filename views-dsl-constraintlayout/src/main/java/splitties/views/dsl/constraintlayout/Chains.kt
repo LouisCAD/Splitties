@@ -15,16 +15,16 @@
  */
 package splitties.views.dsl.constraintlayout
 
-import android.support.annotation.Px
-import android.support.constraint.ConstraintLayout
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Px
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import splitties.collections.forEachWithIndex
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.endMargin
 import splitties.views.dsl.core.startMargin
-import android.support.constraint.ConstraintLayout.LayoutParams as LP
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams as LP
 
 @Suppress("unused")
 inline val ConstraintLayout.packed

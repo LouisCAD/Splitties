@@ -16,10 +16,10 @@
 package splitties.views.dsl.core.experimental
 
 import android.content.Context
-import android.support.annotation.AttrRes
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
+import androidx.annotation.AttrRes
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
 import splitties.views.dsl.core.ViewFactory

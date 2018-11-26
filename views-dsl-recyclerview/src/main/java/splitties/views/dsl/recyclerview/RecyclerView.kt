@@ -17,12 +17,12 @@
 package splitties.views.dsl.recyclerview
 
 import android.content.Context
-import android.support.annotation.IdRes
-import android.support.annotation.StyleRes
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
+import androidx.recyclerview.widget.RecyclerView
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui

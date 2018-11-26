@@ -22,7 +22,7 @@ import android.content.res.Configuration
 import android.util.AttributeSet
 import splitties.resources.styledDimenPxSize
 import kotlin.LazyThreadSafetyMode.NONE
-import android.support.v7.widget.Toolbar as SupportToolbar
+import androidx.appcompat.widget.Toolbar as SupportToolbar
 
 /**
  * A [SupportToolbar] that handles configuration changes and changes its size accordingly.
