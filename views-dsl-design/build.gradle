@@ -41,7 +41,7 @@ dependencies {
     api project(':views-dsl')
     api project(':views-dsl-appcompat')
     api project(':views-dsl-recyclerview')
-    api project(':views-design')
+    api project(':views-material')
     api project(':initprovider')
 
     api Libs.kotlin.stdlibJdk7

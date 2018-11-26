@@ -25,7 +25,7 @@ import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
 import splitties.views.*
-import splitties.views.design.contentScrimColor
+import splitties.views.material.contentScrimColor
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.*

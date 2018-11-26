@@ -74,7 +74,6 @@ easy basic usage of `RecyclerView`.
 for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](views-cardview)** CardView extension of [Views](views). Provides a
 `contentPadding` property.
-- **[Views Design:](views-design)** Design Support library extension of [Views](views).
 - **[Views DSL:](views-dsl)** Create UIs with readable Kotlin code.
 - **[Views DSL AppCompat:](views-dsl-appcompat)** AppCompat extension of [Views DSL](views-dsl).
 - **[Views DSL ConstraintLayout:](views-dsl-constraintlayout)** ConstraintLayout extension of
@@ -82,6 +81,7 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views DSL Design:](views-dsl-design)** Design Support Library extension of [Views DSL](views-dsl).
 - **[Views DSL IDE preview:](views-dsl-ide-preview)** Preview [Views DSL](views-dsl) UIs in the IDE.
 - **[Views DSL RecyclerView:](views-dsl-recyclerview)** RecyclerView extension of [Views DSL](views-dsl).
+- **[Views Material:](views-material)** Material Components extension of [Views](views).
 - **[Views RecyclerView:](views-recyclerview)** RecyclerView extension of [Views](views).
 
 ## Download
@@ -137,13 +137,13 @@ implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties
 implementation "com.louiscad.splitties:splitties-views:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-material:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"

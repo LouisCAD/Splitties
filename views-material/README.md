@@ -1,6 +1,6 @@
 # Views Design
 
-*Design Support library extension of [Views](../views).*
+*Material Components extension of [Views](../views).*
 
 ## Content
 
@@ -21,5 +21,5 @@ child `EditText`.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-material:$splitties_version"
 ```

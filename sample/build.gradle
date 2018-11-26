@@ -83,7 +83,6 @@ dependencies {
     implementation project(':views-dsl-constraintlayout')
     implementation project(':views-dsl-design')
     debugImplementation project(':views-dsl-ide-preview')
-    implementation project(':views-design')
 
     implementation Libs.kotlin.stdlibJdk7
     implementation Libs.androidX.appCompat
