@@ -45,7 +45,8 @@ dependencies {
     api Libs.kotlin.stdlibJdk7
     api Libs.androidX.annotation
     api Libs.androidX.fragment
-    api Libs.androidX.lifecycle.runtime
+    api Libs.androidX.lifecycle.common
+    api Libs.androidX.lifecycle.viewModel
     api Libs.androidX.lifecycle.liveData
 }
 
