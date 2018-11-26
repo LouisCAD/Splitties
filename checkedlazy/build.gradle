@@ -44,9 +44,9 @@ dependencies {
     api Libs.kotlin.stdlibJdk7
 
     // Test dependencies
-    testImplementation Libs.timber
     testImplementation Libs.junit
     testImplementation Libs.kotlin.testJunit
+    androidTestImplementation Libs.androidX.test.ext.junit
     androidTestImplementation Libs.androidX.test.espresso.core
 }
 
