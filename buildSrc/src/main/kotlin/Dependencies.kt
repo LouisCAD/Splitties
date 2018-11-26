@@ -16,17 +16,17 @@
 
 @Suppress("unused")
 object Versions {
-    const val kotlin = "1.3.0"
+    const val kotlin = "1.3.10"
     const val junit = "4.12"
-    const val kotlinxCoroutines = "0.24.0"
-    const val okHttp = "3.10.0"
-    const val retrofit = "2.4.0"
-    const val wearOs = "2.3.0"
+    const val kotlinxCoroutines = "1.0.1"
+    const val okHttp = "3.12.0"
+    const val retrofit = "2.5.0"
+    const val wearOs = "2.4.0"
 
     val androidX = AndroidX // To be used with property v declared below.
 
     object AndroidX {
-        const val core = "1.0.0"
+        const val core = "1.0.1"
         const val lifecycle = "2.0.0"
         const val room = "2.0.0"
         const val paging = "2.0.0"
@@ -40,12 +40,12 @@ object Versions {
         const val legacy = "1.0.0"
         const val leanback = "1.0.0"
         const val emoji = "1.0.0"
-        const val constraintLayout = "1.1.2"
+        const val constraintLayout = "1.1.3"
         const val collection = "1.0.0"
         const val archCore = "2.0.0"
-        const val archWork = "1.0.0-alpha06"
-        const val espresso = "3.1.0-alpha4"
-        const val test = "1.1.0-alpha4"
+        const val archWork = "1.0.0-alpha11"
+        const val espresso = "3.1.0"
+        const val test = "1.0.0"
     }
 }
 
@@ -74,13 +74,14 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
+            const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinxCoroutines}"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutines}"
         }
     }
 
     object AndroidX {
         const val annotation = "androidx.annotation:annotation:1.0.0"
-        const val appCompat = "androidx.appcompat:appcompat:1.0.0"
+        const val appCompat = "androidx.appcompat:appcompat:1.0.2"
         const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
         const val browser = "androidx.browser:browser:1.0.0"
         const val car = "androidx.car:car:1.0.0-alpha5"
@@ -114,7 +115,7 @@ object Libs {
         const val media = "androidx.media:media:1.0.0"
         const val mediaWidget = "androidx.media-widget:media-widget:1.0.0-alpha5"
         const val media2 = "androidx.media2:media2:1.0.0-alpha02"
-        const val mediaRouter = "androidx.mediarouter:mediarouter:1.0.0-alpha5"
+        const val mediaRouter = "androidx.mediarouter:mediarouter:1.0.0"
         const val multidex = "androidx.multidex:multidex:${v.androidX.multidex}"
         const val multidexInstrumentation = "androidx.multidex:multidex-instrumentation:${v.androidX.multidex}"
         const val palette = "androidx.palette:palette:${v.androidX.palette}"
@@ -190,7 +191,7 @@ object Libs {
 
         object Slice {
             const val builders = "androidx.slice:slice-builders:${v.androidX.slice}"
-            const val buildersKtx = "androidx.slice:slice-builders-ktx:1.0.0-alpha5"
+            const val buildersKtx = "androidx.slice:slice-builders-ktx:1.0.0-alpha6"
             const val core = "androidx.slice:slice-core:${v.androidX.slice}"
             const val view = "androidx.slice:slice-view:${v.androidX.slice}"
         }
@@ -209,14 +210,18 @@ object Libs {
             const val rules = "androidx.test:rules:${v.androidX.test}"
             const val runner = "androidx.test:runner:${v.androidX.test}"
 
-            const val ext = "androidx.test.ext:truth:1.0.0-alpha4"
+            val ext = Ext
+            object Ext {
+                const val junit = "androidx.test.ext:junit:${v.androidX.test}"
+                const val truth = "androidx.test.ext:truth:${v.androidX.test}"
+            }
 
-            const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1-alpha4"
+            const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
             const val jankTestHelperV23 = "androidx.test.jank:janktesthelper-v23:1.0.1-alpha1"
 
-            const val services = "androidx.test.services:test-services:1.1.0-alpha4"
+            const val services = "androidx.test.services:test-services:1.1.0"
 
-            const val uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0-alpha4"
+            const val uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
             const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:2.2.0-alpha1"
 
             object Espresso {
