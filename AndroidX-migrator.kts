@@ -14,16 +14,24 @@ val moduleDirectories: List<File> = dir.listFiles { file: File ->
 }!!.sortedBy { it.name }
 check(moduleDirectories.size == expectedNumberOfModules)
 
-val supportedExtensions = listOf("kt", "java", "xml", "gradle")
+val sourceExtensions = listOf("kt", "java", "xml")
+val gradleExtension = "gradle"
 fun File.findSourceFiles(): List<File> = listFiles { file: File ->
-    file.extension in supportedExtensions
+    file.extension in sourceExtensions
 }.asList() + listFiles { file: File ->
     file.isDirectory
 }.flatMap { it.findSourceFiles() }
 
-val srcDirectories = moduleDirectories.map { File(it, "src") }
-val sourceFiles = srcDirectories.flatMap { it.findSourceFiles() }
+val sourceFiles: List<File> = moduleDirectories.map {
+    File(it, "src")
+}.flatMap { it.findSourceFiles() }
+val gradleFiles: List<File> = moduleDirectories.flatMap {
+    it.listFiles { file: File ->
+        file.extension == gradleExtension
+    }.asIterable()
+}
 println("There's ${sourceFiles.size} source files that may need migration")
+
 val supportLibsToAndroidXMappings = androidXClassMappingCsvFile.readLines().drop(1).map { line ->
     val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
     check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
@@ -38,11 +46,12 @@ fun String.isLegalClassName() = first().isJavaIdentifierStart() && all {
     it.isJavaIdentifierPart() || it == '.'
 }
 
+val supportedExtensions = sourceExtensions + gradleExtension
 fun File.migrateToAndroidX() {
     check(extension in supportedExtensions)
     val sourceCode = readText()
     var editedSourceCode = sourceCode
-    print("Migrating file named \"$name\" with full name: \"$absolutePath\"… ")
+    print("Migrating file named \"$name\" with full name: \"$path\"… ")
     supportLibsToAndroidXMappings.forEach { (supportLibClassName, androidXClassName) ->
         editedSourceCode = editedSourceCode.replace(supportLibClassName, androidXClassName)
     }
@@ -59,5 +68,9 @@ println("Starting batch migration")
 sourceFiles.forEach {
     it.migrateToAndroidX()
 }
+gradleFiles.forEach {
+    it.migrateToAndroidX()
+}
+
 println("AndroidX migration complete!")
 println("You now just need to update the dependencies, if not already done.")
