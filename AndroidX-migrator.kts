@@ -14,7 +14,7 @@ val moduleDirectories: List<File> = dir.listFiles { file: File ->
 }!!.sortedBy { it.name }
 check(moduleDirectories.size == expectedNumberOfModules)
 
-val supportedExtensions = listOf("kt", "java", "xml")
+val supportedExtensions = listOf("kt", "java", "xml", "gradle")
 fun File.findSourceFiles(): List<File> = listFiles { file: File ->
     file.extension in supportedExtensions
 }.asList() + listFiles { file: File ->
@@ -46,9 +46,13 @@ fun File.migrateToAndroidX() {
     supportLibsToAndroidXMappings.forEach { (supportLibClassName, androidXClassName) ->
         editedSourceCode = editedSourceCode.replace(supportLibClassName, androidXClassName)
     }
-    print("Overwriting file… ")
-    writeText(editedSourceCode)
-    println("Done. ️✅")
+    if (editedSourceCode == sourceCode) {
+        println("No changes. 🆗")
+    } else {
+        print("Overwriting file… ")
+        writeText(editedSourceCode)
+        println("Done. ️✅")
+    }
 }
 
 println("Starting batch migration")
