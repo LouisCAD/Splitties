@@ -23,8 +23,8 @@ import splitties.snackbar.snack
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.core.*
 import splitties.views.dsl.core.styles.invoke
-import splitties.views.dsl.design.contentScrollingWithAppBarLParams
-import splitties.views.dsl.design.coordinatorLayout
+import splitties.views.dsl.material.contentScrollingWithAppBarLParams
+import splitties.views.dsl.material.coordinatorLayout
 import splitties.views.gravityEnd
 import splitties.views.onClick
 

@@ -1,12 +1,12 @@
-# Views DSL Design
+# Views DSL Material
 
-*Design Support Library extension of [Views DSL](../views-dsl)*
+*Material Components extension of [Views DSL](../views-dsl)*
 
 ## Table of contents
 
-* [Functions to instantiate Views and ViewGroups from the Design Support Library](#functions-to-instantiate-views-and-viewgroups-from-the-design-support-library)
+* [Functions to instantiate Views and ViewGroups from Material Components](#functions-to-instantiate-views-and-viewgroups-from-material-components)
   * [Multi-process apps](#multi-process-apps)
-* [Extensions on ViewGroups from the Design Support Library](#extensions-on-viewgroups-from-the-design-support-library)
+* [Extensions on ViewGroups from Material Components](#extensions-on-viewgroups-from-material-components)
   * [`AppBarLayout` extensions](#appbarlayout-extensions)
     * [`defaultLParams`](#defaultlparams)
     * [Values for `scrollFlags`](#values-for-scrollflags)
@@ -24,20 +24,20 @@
 * [TextInputLayout helper](#textinputlayout-helper)
 * [Download](#download)
 
-## Functions to instantiate Views and ViewGroups from the Design Support Library
+## Functions to instantiate Views and ViewGroups from Material Components
 
 Instead of using `v<AppBarLayout>(…) { … }` and similar, you can use
 `appBarLayout(…) { … }`.
 
-All widgets from the Design Support Library are supported.
+All widgets from Material Components are supported.
 
 To see the list, check the implementations for
-[Views](src/main/java/splitties/views/dsl/design/Views.kt) and
-[ViewGroups](src/main/java/splitties/views/dsl/design/ViewGroups.kt).
+[Views](src/main/java/splitties/views/dsl/material/Views.kt) and
+[ViewGroups](src/main/java/splitties/views/dsl/material/ViewGroups.kt).
 
 Note that there two bonuses in this split:
 * When calling `appBarLayout(…) { … }`, you get an implementation that fixes a
-scrolling bug from Design Support Library where first click is ignored.
+scrolling bug from Material Components where first click is ignored.
 * When calling `collapsingToolbarLayout(…) { … }`, you get an implementation that
 handles config changes.
 
@@ -46,7 +46,7 @@ handles config changes.
 If your app needs to use AppCompat themed widgets in the non default process, you'll need to
 manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
 [this InitProvider](
-src/main/java/splitties/views/dsl/design/experimental/DesignViewInstantiatorInjectProvider.kt
+src/main/java/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
 ) into a package of an android library/app module of your project, then declare it in the
 `AndroidManifest.xml` of the module exactly like it is done [here](
 src/main/AndroidManifest.xml
@@ -56,7 +56,7 @@ process.
 
 Be sure to test it to make sure you have set it up properly.
 
-## Extensions on ViewGroups from the Design Support Library
+## Extensions on ViewGroups from Material Components
 
 ### `AppBarLayout` extensions
 
@@ -153,5 +153,5 @@ state even if the host Activity is killed by the system.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-material:$splitties_version"
 ```

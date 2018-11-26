@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package splitties.views.dsl.design
+package splitties.views.dsl.material
 
 import com.google.android.material.appbar.AppBarLayout
 import splitties.views.dsl.core.matchParent

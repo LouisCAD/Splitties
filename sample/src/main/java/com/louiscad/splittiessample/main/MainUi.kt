@@ -30,7 +30,7 @@ import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.*
 import splitties.views.dsl.core.styles.invoke
-import splitties.views.dsl.design.*
+import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView
 
 class MainUi(override val ctx: Context) : Ui {

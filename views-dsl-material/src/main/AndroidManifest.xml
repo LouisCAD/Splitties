@@ -14,13 +14,13 @@
   ~ limitations under the License.
   -->
 
-<manifest package="splitties.views.dsl.design"
+<manifest package="splitties.views.dsl.material"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
         <provider
-            android:name=".experimental.DesignViewInstantiatorInjectProvider"
-            android:authorities="${applicationId}.splitties.views.dsl.design.experimental.init"
+            android:name="splitties.views.dsl.material.experimental.MaterialViewInstantiatorInjectProvider"
+            android:authorities="${applicationId}.splitties.views.dsl.material.experimental.init"
             android:enabled="true"
             android:exported="false"
             android:initOrder="20">

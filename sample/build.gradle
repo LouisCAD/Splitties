@@ -81,7 +81,7 @@ dependencies {
     implementation project(':mainthread')
     implementation project(':views-dsl-appcompat')
     implementation project(':views-dsl-constraintlayout')
-    implementation project(':views-dsl-design')
+    implementation project(':views-dsl-material')
     debugImplementation project(':views-dsl-ide-preview')
 
     implementation Libs.kotlin.stdlibJdk7

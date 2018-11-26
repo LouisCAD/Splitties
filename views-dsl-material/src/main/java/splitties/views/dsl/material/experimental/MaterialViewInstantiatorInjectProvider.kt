@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.views.dsl.design.experimental
+package splitties.views.dsl.material.experimental
 
 import splitties.initprovider.InitProvider
 import splitties.views.dsl.core.experimental.ViewFactoryImpl
 
-class DesignViewInstantiatorInjectProvider : InitProvider() {
+class MaterialViewInstantiatorInjectProvider : InitProvider() {
     override fun onCreate(): Boolean {
         ViewFactoryImpl.appInstance.apply {
-            add(::instantiateDesignView)
+            add(::instantiateMaterialView)
         }
         return true
     }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.views.dsl.design.experimental
+package splitties.views.dsl.material.experimental
 
 import android.content.Context
 import android.view.View
@@ -27,9 +27,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import splitties.views.dsl.design.fixedimpls.FixedAppBarLayoutBehavior
+import splitties.views.dsl.material.fixedimpls.FixedAppBarLayoutBehavior
 
-inline fun <reified V : View> instantiateDesignView(
+inline fun <reified V : View> instantiateMaterialView(
     clazz: Class<out V>,
     context: Context
 ): V? = when (clazz) {

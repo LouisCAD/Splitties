@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.views.dsl.design
+package splitties.views.dsl.material
 
 import android.content.Context
 import android.view.View

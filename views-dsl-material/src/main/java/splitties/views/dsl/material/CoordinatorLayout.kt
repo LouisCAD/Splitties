@@ -16,7 +16,7 @@
 
 @file:Suppress("NOTHING_TO_INLINE")
 
-package splitties.views.dsl.design
+package splitties.views.dsl.material
 
 import android.view.Gravity
 import android.view.View

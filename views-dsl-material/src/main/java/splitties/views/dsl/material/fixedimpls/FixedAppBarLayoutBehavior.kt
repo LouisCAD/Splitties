@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package splitties.views.dsl.design.fixedimpls
+package splitties.views.dsl.material.fixedimpls
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout

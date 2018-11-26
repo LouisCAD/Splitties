@@ -25,7 +25,7 @@ import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.margin
-import splitties.views.dsl.design.*
+import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.recyclerView
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource
