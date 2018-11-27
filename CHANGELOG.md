@@ -72,7 +72,7 @@ All you need to do is find an old import (`import splitties.viewdsl.`), select i
 "Replace in Path" option paste (`import splitties.views.dsl.`) in the second input field, and
 validate.
 
-Then, you just have to the same for Selectable Views with `import splitties.selectableviews.` and
+Then, you just have to do the same for Selectable Views with `import splitties.selectableviews.` and
 `import splitties.views.selectable.`… and voilà! You just migrated to latest Splitties version!
 
 ### New artifacts
