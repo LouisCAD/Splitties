@@ -103,6 +103,7 @@ inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
         @StyleRes theme: Int = NO_THEME,
         initView: SeekBar.() -> Unit = {}
     ) = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)(ctx, id, theme, initView)
+
     inline fun discrete(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
@@ -119,6 +120,7 @@ inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
         @StyleRes theme: Int = NO_THEME,
         initView: Spinner.() -> Unit = {}
     ) = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)(ctx, id, theme, initView)
+
     inline fun underlined(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
