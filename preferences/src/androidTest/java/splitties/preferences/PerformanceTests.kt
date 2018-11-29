@@ -33,32 +33,32 @@ class PerformanceTests {
 
     companion object {
         private lateinit var appContext: Context
-        private val prefsFileName = "testPrefs"
-        private val testKey = "test"
-        private val testDefaultValue = ""
-        private val testString = "Hi, I'm a half-random string used to test preferences!"
+        private const val prefsFileName = "testPrefs"
+        private const val testKey = "test"
+        private const val testDefaultValue = ""
+        private const val testString = "Hi, I'm a half-random string used to test preferences!"
+        private const val TAG = "cachedPrefsPerfsTest"
     }
 
     @Test
     @Throws(Exception::class)
     fun testCachedPrefFieldBenefit() {
-        val TAG = "cachedPrefsPerfsTest"
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val testCount = 1000000
         val prefs = appContext.getSharedPreferences(prefsFileName, Context.MODE_PRIVATE)
         assert(prefs.edit().putString(testKey, testString).commit())
         val cacheT = measureTimeMillis {
-            kotlin.repeat(testCount) {
+            repeat(testCount) {
                 val discardMe = CacheTestPrefs.testStringField
             }
         }
         val noCacheT = measureTimeMillis {
-            kotlin.repeat(testCount) {
+            repeat(testCount) {
                 val discardMe = NoCacheTestPrefs.testStringField
             }
         }
         val vanilla = measureTimeMillis {
-            kotlin.repeat(testCount) {
+            repeat(testCount) {
                 val discardMe = prefs.getString(testKey, testDefaultValue)
             }
         }
