@@ -18,6 +18,10 @@ package splitties.preferences
 
 import android.content.Context
 import android.util.Log
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import org.junit.Test
+import org.junit.runner.RunWith
 import splitties.preferences.no_cache_prefs.NoCachePreferences
 import kotlin.system.measureTimeMillis
 
@@ -39,7 +43,7 @@ class PerformanceTests {
     @Throws(Exception::class)
     fun testCachedPrefFieldBenefit() {
         val TAG = "cachedPrefsPerfsTest"
-        appContext = InstrumentationRegistry.getTargetContext()
+        appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val testCount = 1000000
         val prefs = appContext.getSharedPreferences(prefsFileName, Context.MODE_PRIVATE)
         assert(prefs.edit().putString(testKey, testString).commit())

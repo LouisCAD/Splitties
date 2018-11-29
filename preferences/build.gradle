@@ -44,6 +44,12 @@ dependencies {
 
     api Libs.kotlin.stdlibJdk7
     compileOnly Libs.kotlinX.coroutines.android
+
+    // Test dependencies
+    testImplementation Libs.junit
+    testImplementation Libs.kotlin.testJunit
+    androidTestImplementation Libs.androidX.test.ext.junit
+    androidTestImplementation Libs.androidX.test.espresso.core
 }
 
 apply from: '../publish.gradle'
