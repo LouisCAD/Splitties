@@ -30,8 +30,9 @@ inline class AndroidStyles(@PublishedApi internal val ctx: Context) {
     inline val button get() = ButtonAndroidStyles(ctx)
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
+//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
+class ProgressBarAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun small(
@@ -59,8 +60,9 @@ inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
     ) = XmlStyle<ProgressBar>(android.R.attr.progressBarStyleHorizontal)(ctx, id, theme, initView)
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class RatingBarAndroidStyles @PublishedApi internal constructor(
+//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
+class RatingBarAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun small(
@@ -82,8 +84,9 @@ inline class RatingBarAndroidStyles @PublishedApi internal constructor(
     ) = XmlStyle<RatingBar>(android.R.attr.ratingBarStyleIndicator)(ctx, id, theme, initView)
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ButtonAndroidStyles @PublishedApi internal constructor(
+//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
+class ButtonAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     /** Small Button style. */
