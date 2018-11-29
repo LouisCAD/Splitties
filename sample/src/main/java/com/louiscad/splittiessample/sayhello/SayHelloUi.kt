@@ -22,7 +22,6 @@ import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.snackbar.snack
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.core.*
-import splitties.views.dsl.core.styles.invoke
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.dsl.material.coordinatorLayout
 import splitties.views.gravityEnd
@@ -33,7 +32,7 @@ class SayHelloUi(override val ctx: Context) : Ui {
     private val nameInput = editText(R.id.input_name) {
         hint = "Your name"
     }
-    private val sayHelloBtn = appCompatStyles.button.colored(ctx) { text = "Say hello!" }
+    private val sayHelloBtn = appCompatStyles.button.colored { text = "Say hello!" }
     override val root: CoordinatorLayout = coordinatorLayout {
         fitsSystemWindows = true
         addDefaultAppBar(ctx)

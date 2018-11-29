@@ -16,64 +16,112 @@
 package splitties.views.dsl.appcompat
 
 import android.content.Context
-import android.content.res.Resources
+import android.view.View
 import android.widget.*
+import androidx.annotation.IdRes
+import androidx.annotation.StyleRes
+import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.styles.XmlStyle
-import kotlin.DeprecationLevel.HIDDEN
+import splitties.views.dsl.core.styles.invoke
 
-@Suppress("FunctionName")
-fun AppCompatStyles(ctx: Context): AppCompatStyles {
-    AppCompatStyles.loadInto(ctx.theme)
-    return AppCompatStyles.instance
-}
-
-class AppCompatStyles private constructor() {
-    inline val button get() = ButtonAppCompatStyles(null)
-    inline val seekBar get() = SeekBarAppCompatStyles(null)
-    inline val spinner get() = SpinnerAppCompatStyles(null)
-    inline val textView get() = TextViewAppCompatStyles(null)
-    inline val actionButton get() = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)
-
-    companion object {
-        internal val instance = AppCompatStyles()
-        @Suppress("NOTHING_TO_INLINE")
-        internal inline fun loadInto(theme: Resources.Theme) {
-            theme.applyStyle(R.style.AppCompatStyles, false)
-        }
+class AppCompatStyles(@PublishedApi internal val ctx: Context) {
+    init {
+        ctx.theme.applyStyle(R.style.AppCompatStyles, false)
     }
+
+    inline val button get() = ButtonAppCompatStyles(ctx)
+    inline val seekBar get() = SeekBarAppCompatStyles(ctx)
+    inline val spinner get() = SpinnerAppCompatStyles(ctx)
+    inline val textView get() = TextViewAppCompatStyles(ctx)
+    inline fun actionButton(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: ImageButton.() -> Unit = {}
+    ) = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)(ctx, id, theme, initView)
 }
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class ButtonAppCompatStyles @PublishedApi internal constructor(
-    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @PublishedApi internal val ctx: Context
 ) {
-    inline val default get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)
-    inline val colored get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)
-    inline val flat get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)
-    inline val borderless get() = flat
-    inline val flatColored get() = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless_Colored)
-    inline val borderlessColored get() = flatColored
+    inline fun default(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = XmlStyle<Button>(R.attr.Widget_AppCompat_Button)(ctx, id, theme, initView)
+
+    inline fun colored(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Colored)(ctx, id, theme, initView)
+
+    inline fun flat(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = XmlStyle<Button>(R.attr.Widget_AppCompat_Button_Borderless)(ctx, id, theme, initView)
+
+    inline fun borderless(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = flat(id, theme, initView)
+
+    inline fun flatColored(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = XmlStyle<Button>(
+        R.attr.Widget_AppCompat_Button_Borderless_Colored
+    )(ctx, id, theme, initView)
+
+    inline fun borderlessColored(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Button.() -> Unit = {}
+    ) = flatColored(id, theme, initView)
 }
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class TextViewAppCompatStyles @PublishedApi internal constructor(
-    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @PublishedApi internal val ctx: Context
 ) {
-    inline val spinnerItem get() = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)
+    inline fun spinnerItem(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: TextView.() -> Unit = {}
+    ) = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)(ctx, id, theme, initView)
 }
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
-    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @PublishedApi internal val ctx: Context
 ) {
-    inline val default get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)
-    inline val discrete get() = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)
+    inline fun default(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: SeekBar.() -> Unit = {}
+    ) = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar)(ctx, id, theme, initView)
+    inline fun discrete(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: SeekBar.() -> Unit = {}
+    ) = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)(ctx, id, theme, initView)
 }
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
-    @Deprecated("Still required for inline classes", level = HIDDEN) val nothing: Nothing?
+    @PublishedApi internal val ctx: Context
 ) {
-    inline val default get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)
-    inline val underlined get() = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)
+    inline fun default(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Spinner.() -> Unit = {}
+    ) = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner)(ctx, id, theme, initView)
+    inline fun underlined(
+        @IdRes id: Int = View.NO_ID,
+        @StyleRes theme: Int = NO_THEME,
+        initView: Spinner.() -> Unit = {}
+    ) = XmlStyle<Spinner>(R.attr.Widget_AppCompat_Spinner_Underlined)(ctx, id, theme, initView)
 }

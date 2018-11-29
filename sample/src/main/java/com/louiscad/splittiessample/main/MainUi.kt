@@ -25,25 +25,24 @@ import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
 import splitties.resources.styledColorSL
 import splitties.views.*
-import splitties.views.material.contentScrimColor
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.*
-import splitties.views.dsl.core.styles.invoke
 import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView
+import splitties.views.material.contentScrimColor
 
 class MainUi(override val ctx: Context) : Ui {
 
     private val appCompatStyles = AppCompatStyles(ctx)
 
-    val launchDemoBtn = appCompatStyles.button.flatColored(ctx) {
+    val launchDemoBtn = appCompatStyles.button.flatColored {
         textResource = R.string.go_to_the_demo
     }
-    val bePoliteWithPermissionsBtn = appCompatStyles.button.colored(ctx) {
+    val bePoliteWithPermissionsBtn = appCompatStyles.button.colored {
         textResource = R.string.be_polite_with_permissions
     }
-    val sayHelloBtn = appCompatStyles.button.flat(ctx) {
+    val sayHelloBtn = appCompatStyles.button.flat {
         textResource = R.string.say_hello
     }
     val toggleNightModeBtn = button {
