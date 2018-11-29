@@ -32,45 +32,71 @@ val gradleFiles: List<File> = moduleDirectories.flatMap {
 }
 println("There's ${sourceFiles.size} source files that may need migration")
 
-val supportLibsToAndroidXMappings = androidXClassMappingCsvFile.readLines().drop(1).map { line ->
-    val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
-    check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
-    check(androidXClassName.isLegalClassName()) { "Illegal entry in csv: $androidXClassName" }
-    supportLibClassName to androidXClassName
-}
+val supportLibsToAndroidXMappings = androidXClassMappingCsvFile.readLines().asSequence().drop(1)
+    .map { line ->
+        val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
+        check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
+        check(androidXClassName.isLegalClassName()) { "Illegal entry in csv: $androidXClassName" }
+        supportLibClassName to androidXClassName
+    }.sortedByDescending { (supportLibClassName, _) -> supportLibClassName }.toList()
+val rawSupportLibsToAndroidXPackageMappings: List<Pair<String, String>> =
+    supportLibsToAndroidXMappings.asSequence().map { (supportLibClassName, androidXClassName) ->
+        supportLibClassName.packageNameFromClassName() to androidXClassName.packageNameFromClassName()
+    }.distinct().toList()
+val supportLibsToAndroidXStarImportMappings: List<Pair<String, String>> =
+    rawSupportLibsToAndroidXPackageMappings.map { (supportLibPackageName, _/*androidXPackageName*/) ->
+        val supportLibStarImport = "import $supportLibPackageName.*"
+        val androidXStarImports = rawSupportLibsToAndroidXPackageMappings.filter { (slpn, _) ->
+            supportLibPackageName == slpn
+        }.joinToString("\n") { (_, axpn) -> "import $axpn.*" }
+        supportLibStarImport to androidXStarImports
+    }
 println("CSV file ok.")
 
+val replaces = supportLibsToAndroidXMappings + supportLibsToAndroidXStarImportMappings
+
 fun String.simpleNameFromFullyQualified(): String = substring(indexOfFirst { it.isUpperCase() })
-fun String.packageNameFromClassName(): String = substring(0, indexOfFirst { it.isUpperCase() })
+fun String.packageNameFromClassName(): String = substring(0, indexOfFirst { it.isUpperCase() } - 1)
 fun String.isLegalClassName() = first().isJavaIdentifierStart() && all {
     it.isJavaIdentifierPart() || it == '.'
 }
 
 val supportedExtensions = sourceExtensions + gradleExtension
-fun File.migrateToAndroidX() {
+fun File.migrateToAndroidX(): Boolean {
     check(extension in supportedExtensions)
     val sourceCode = readText()
     var editedSourceCode = sourceCode
-    print("Migrating file named \"$name\" with full name: \"$path\"… ")
-    supportLibsToAndroidXMappings.forEach { (supportLibClassName, androidXClassName) ->
-        editedSourceCode = editedSourceCode.replace(supportLibClassName, androidXClassName)
+    val migratingMsg = "Migrating file named \"$name\" with full name: \"$path\"… "
+    print(migratingMsg)
+    replaces.forEach { (supportLibSnippet, androidXSnippet) ->
+        editedSourceCode = editedSourceCode.replace(supportLibSnippet, androidXSnippet)
     }
-    if (editedSourceCode == sourceCode) {
-        println("No changes. 🆗")
+    return if (editedSourceCode == sourceCode) {
+        print("\b".repeat(migratingMsg.length))
+        false
     } else {
         print("Overwriting file… ")
         writeText(editedSourceCode)
-        println("Done. ️✅")
+        println("Done.✔🆗") // Emojis can be cut off by terminal line breaks, hence the checkmark.
+        true
     }
 }
 
 println("Starting batch migration")
-sourceFiles.forEach {
+val editedSourceFilesCount = sourceFiles.count {
     it.migrateToAndroidX()
 }
-gradleFiles.forEach {
+val editedGradleFilesCount = gradleFiles.count {
     it.migrateToAndroidX()
 }
 
+println(
+    "\n$editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
+            "have been migrated (${sourceFiles.count() - editedSourceFilesCount} didn't need it)."
+)
+println(
+    "$editedGradleFilesCount gradle files have been migrated " +
+            "(${gradleFiles.count() - editedGradleFilesCount} didn't need it)."
+)
 println("AndroidX migration complete!")
 println("You now just need to update the dependencies, if not already done.")
