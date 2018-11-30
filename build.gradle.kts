@@ -17,17 +17,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = Versions.kotlin
+    val kotlin_version: String by extra { Versions.kotlin }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-rc01'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.6.2'
+        classpath("com.android.tools.build:gradle:3.3.0-rc01")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0")
+        classpath("com.github.dcendents:android-maven-gradle-plugin:2.0")
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:4.6.2")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -39,18 +39,16 @@ allprojects {
         google()
         jcenter()
     }
-    ext {
-        projectBuildTools_version = '28.0.3'
-        projectSdk_version = 28
+    val projectBuildTools_version by extra { "28.0.3" }
+    val projectSdk_version by extra { 28 }
 
-        // Libraries
-        groupId = "com.louiscad.splitties"
-        library_version = "3.0.0-SNAPSHOT"
-        isSnapshot = library_version.endsWith("-SNAPSHOT")
-        isRelease = !isSnapshot
-    }
+    // Libraries
+    val groupId by extra { "com.louiscad.splitties" }
+    val library_version by extra { "3.0.0-SNAPSHOT" }
+    val isSnapshot by extra { library_version.endsWith("-SNAPSHOT") }
+    val isRelease by extra { !isSnapshot }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+task<Delete>("clean") {
+    delete(rootProject.buildDir)
 }
