@@ -4,7 +4,7 @@ println("Let's migrate this Android project from support libraries to AndroidX."
 val dir = File(".")
 val androidXClassMappingCsvFile = File(dir, "androidx-class-mapping.csv")
 val expectedNumberOfModules = 43
-val ignoredRootDirNames = listOf("build", "buildSrc", "gradle", "projectFilesBackup")
+val ignoredRootDirNames = listOf("build", "buildSrc", "gradle", "old-dot-gradle", "projectFilesBackup")
 
 val moduleDirectories: List<File> = dir.listFiles { file: File ->
     file.isDirectory &&
@@ -12,7 +12,9 @@ val moduleDirectories: List<File> = dir.listFiles { file: File ->
             file.name !in ignoredRootDirNames &&
             file.listFiles { it: File -> it.isDirectory && it.name == "src" }.size == 1
 }!!.sortedBy { it.name }
-check(moduleDirectories.size == expectedNumberOfModules)
+check(moduleDirectories.size == expectedNumberOfModules) {
+    "Expected to migrate $expectedNumberOfModules modules but found ${moduleDirectories.size}."
+}
 
 val sourceExtensions = listOf("kt", "java", "xml")
 val gradleExtension = "gradle"
