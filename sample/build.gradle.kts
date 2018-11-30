@@ -58,48 +58,58 @@ android {
         }
     }
     sourceSets {
-        getByName("main") {
-            this.java.srcDir("src/main/kotlin")
-        }
+        names.forEach { getByName(it).java.srcDir("src/$it/kotlin") }
     }
 }
 
 dependencies {
-    // This project"s libraries
-    implementation(project(":activities"))
-    implementation(project(":alertdialog-appcompat"))
-    implementation(project(":appctx"))
-    implementation(project(":arch-lifecycle"))
-    implementation(project(":arch-room"))
-    implementation(project(":bitflags"))
-    implementation(project(":bundle"))
-    implementation(project(":checkedlazy"))
-    implementation(project(":collections"))
-    implementation(project(":exceptions"))
-    implementation(project(":fragments"))
-    implementation(project(":fragmentargs"))
-    implementation(project(":initprovider"))
-    implementation(project(":intents"))
-    implementation(project(":material-colors"))
-    implementation(project(":material-lists"))
-    implementation(project(":preferences"))
-    debugImplementation(project(":stetho-init"))
-    implementation(project(":systemservices"))
-    implementation(project(":toast"))
-    implementation(project(":typesaferecyclerview"))
-    implementation(project(":mainthread"))
-    implementation(project(":views-dsl-appcompat"))
-    implementation(project(":views-dsl-constraintlayout"))
-    implementation(project(":views-dsl-material"))
-    debugImplementation(project(":views-dsl-ide-preview"))
-
-    implementation(Libs.kotlin.stdlibJdk7)
-    implementation(Libs.androidX.appCompat)
-    implementation(Libs.androidX.coreKtx)
-    implementation(Libs.androidX.constraintLayout)
-    implementation(Libs.google.material)
-    implementation(Libs.timber)
-    implementation(Libs.kotlinX.coroutines.android)
+    arrayOf(
+        ":activities",
+        ":alertdialog-appcompat",
+        ":appctx",
+        ":arch-lifecycle",
+        ":arch-room",
+        ":bitflags",
+        ":bundle",
+        ":checkedlazy",
+        ":collections",
+        ":exceptions",
+        ":fragments",
+        ":fragmentargs",
+        ":initprovider",
+        ":intents",
+        ":material-colors",
+        ":material-lists",
+        ":preferences",
+        ":systemservices",
+        ":toast",
+        ":typesaferecyclerview",
+        ":mainthread",
+        ":views-dsl-appcompat",
+        ":views-dsl-constraintlayout",
+        ":views-dsl-material"
+    ).forEach { moduleName ->
+        implementation(project(moduleName))
+    }
+    arrayOf(
+        ":stetho-init",
+        ":views-dsl-ide-preview"
+    ).forEach { moduleName ->
+        debugImplementation(project(moduleName))
+    }
+    with(Libs) {
+        arrayOf(
+            kotlin.stdlibJdk7,
+            androidX.appCompat,
+            androidX.coreKtx,
+            androidX.constraintLayout,
+            google.material,
+            timber,
+            kotlinX.coroutines.android
+        )
+    }.forEach {
+        implementation(it)
+    }
 }
 
 tasks.withType<KotlinCompile>().forEach {
