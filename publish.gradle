@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-if (isRelease) apply from: '../no-version-ranges.gradle'
+if (isRelease) apply from: '../no-version-ranges.gradle.kts'
 
 apply plugin: 'com.github.dcendents.android-maven'
 

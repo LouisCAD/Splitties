@@ -99,4 +99,4 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     }
 }
 
-if (isRelease) apply from: '../no-version-ranges.gradle'
+if (isRelease) apply from: '../no-version-ranges.gradle.kts'
