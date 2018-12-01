@@ -4,7 +4,8 @@ println("Let's migrate this Android project from support libraries to AndroidX."
 val dir = File(".")
 val androidXClassMappingCsvFile = File(dir, "androidx-class-mapping.csv")
 val expectedNumberOfModules = 43
-val ignoredRootDirNames = listOf("build", "buildSrc", "gradle", "old-dot-gradle", "projectFilesBackup")
+val ignoredRootDirNames =
+    listOf("build", "buildSrc", "gradle", "old-dot-gradle", "projectFilesBackup")
 
 val moduleDirectories: List<File> = dir.listFiles { file: File ->
     file.isDirectory &&
@@ -85,12 +86,8 @@ fun File.migrateToAndroidX(): Boolean {
 }
 
 println("Starting batch migration")
-val editedSourceFilesCount = sourceFiles.count {
-    it.migrateToAndroidX()
-}
-val editedGradleFilesCount = gradleFiles.count {
-    it.migrateToAndroidX()
-}
+val editedSourceFilesCount = sourceFiles.count { it.migrateToAndroidX() }
+val editedGradleFilesCount = gradleFiles.count { it.migrateToAndroidX() }
 
 println(
     "\n$editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
