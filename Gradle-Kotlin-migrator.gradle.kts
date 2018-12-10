@@ -25,14 +25,6 @@ val gradleBuildFiles: List<File> = moduleDirectories.flatMap {
     it.findGradleBuildFiles()
 } + (dir.resolve("build.gradle").takeIf { it.exists() }?.let { listOf(it) } ?: emptyList())
 
-gradleBuildFiles.first().let { file ->
-    val editedCode = makeQuotesKotlinCompatible(file.readText())
-    println(editedCode)
-}
-println()
-println()
-TODO()
-
 sealed class DslNode(val content: Content) {
     class Content(
         val symbolsReplaces: List<Pair<String, String>> = emptyList(),
@@ -69,12 +61,12 @@ class PluginDefinition(
 private object Definitions {
 
     @Suppress("SpellCheckingInspection")
-    val coreExternalNativeOptions = DslNode.Content(
+    private val coreExternalNativeOptions = DslNode.Content(
         symbolsReplaces = listOf("cFlags" to "getcFlags()"),
         mutableLists = listOf("arguments", "getcFlags()", "cppFlags"),
         mutableSets = listOf("abiFilters", "targets")
     )
-    val externalNativeBuildNode = DslNode.Named(
+    private val externalNativeBuildNode = DslNode.Named(
         name = "externalNativeBuild",
         content = DslNode.Content(
             functionCalls = listOf("_initWith"),
@@ -85,7 +77,7 @@ private object Definitions {
         )
     )
     @Suppress("SpellCheckingInspection")
-    val ndkNode = DslNode.Named(
+    private val ndkNode = DslNode.Named(
         name = "ndk",
         content = DslNode.Content(
             functionCalls = listOf(
@@ -98,14 +90,14 @@ private object Definitions {
         )
     )
     @Suppress("SpellCheckingInspection")
-    val shadersNode = DslNode.Named(
+    private val shadersNode = DslNode.Named(
         name = "shaders",
         content = DslNode.Content(
             functionCalls = listOf("glslcArgs", "glslcScopedArgs")
         )
     )
 
-    val baseConfigImplContent = DslNode.Content(
+    private val baseConfigImplContent = DslNode.Content(
         functionCalls = listOf(
             "addBuildConfigField",
             "addBuildConfigFields",
@@ -123,7 +115,7 @@ private object Definitions {
         )
     )
     @Suppress("SpellCheckingInspection")
-    val defaultBuildTypeContent = DslNode.Content(
+    private val defaultBuildTypeContent = DslNode.Content(
         functionCalls = listOf(),
         mutableProperties = listOf(
             "isDebuggable",
@@ -138,7 +130,7 @@ private object Definitions {
         )
     ) + baseConfigImplContent
     @Suppress("SpellCheckingInspection")
-    val buildTypeContent = DslNode.Content(
+    private val buildTypeContent = DslNode.Content(
         functionCalls = listOf(
             "buildConfigField",
             "consumerProguardFile",
@@ -185,7 +177,7 @@ private object Definitions {
     ) + defaultBuildTypeContent
 
     @Suppress("SpellCheckingInspection")
-    val defaultProductFlavorContent = DslNode.Content(
+    private val defaultProductFlavorContent = DslNode.Content(
         functionCalls = listOf(
             "addResourceConfiguration",
             "addResourceConfigurations",
@@ -212,7 +204,7 @@ private object Definitions {
         )
     ) + baseConfigImplContent
 
-    val baseFlavorContent = DslNode.Content(
+    private val baseFlavorContent = DslNode.Content(
         functionCalls = listOf(
             "buildConfigField",
             "consumerProguardFile",
@@ -267,13 +259,13 @@ private object Definitions {
         )
     ) + defaultProductFlavorContent
 
-    val splitOptionsContent = DslNode.Content(
+    private val splitOptionsContent = DslNode.Content(
         functionCalls = listOf("exclude", "include"),
         mutableProperties = listOf("isEnabled")
     )
 
     @Suppress("SpellCheckingInspection")
-    val androidBaseExtensionContent = DslNode.Content(
+    private val androidBaseExtensionContent = DslNode.Content(
         functionCalls = listOf(
             "addVariant",
             "compileSdkVersion",
@@ -497,7 +489,7 @@ private object Definitions {
         )
     )
 
-    val androidTestedExtensionContent = DslNode.Content(
+    private val androidTestedExtensionContent = DslNode.Content(
         functionCalls = listOf("addTestVariant", "addUnitTestVariant"),
         mutableProperties = listOf("testBuildType")
     ) + androidBaseExtensionContent
@@ -611,16 +603,17 @@ fun makeQuotesKotlinCompatible(input: String): String {
     }
 }
 
+/** Returns false if block comment doesn't end or line comment doesn't end with line break. */
+fun String.isLineOrBlockComment(): Boolean {
+    if (length < 2) return false
+    if (this[0] != '/') return false
+    val blockComment = this[1] == '*'
+    return (blockComment || this[1] == '/') &&
+            if (blockComment) endsWith("*/") else lineDelimiters.any { endsWith(it) }
+}
+
 sealed class ScriptRegion(val value: String) {
-    class Comment(value: String) : ScriptRegion(value) {
-        init {
-            require(value[0] == '/')
-            val blockComment = value[1] == '*'
-            require(blockComment || value[1] == '/')
-            if (blockComment) require(value.endsWith("*/"))
-            else require(lineDelimiters.any { value.endsWith(it) })
-        }
-    }
+
 
     class StringLiteralLessCode(value: String) : ScriptRegion(value)
     class StringLiteral(value: String) : ScriptRegion(value) {
@@ -631,8 +624,18 @@ sealed class ScriptRegion(val value: String) {
         }
     }
 
+    class Comment(value: String) : ScriptRegion(value)
+
     companion object {
         val nonCodeRegionStart = listOf("\"", "//", "/*")
+    }
+}
+
+sealed class CodeOrComment(val value: String) {
+    class Code(value: String) : CodeOrComment(value)
+    class Comment(value: String) : CodeOrComment(value)
+    companion object {
+        val commentStart = listOf("//", "/*")
     }
 }
 
@@ -672,10 +675,46 @@ fun splitScriptInRegions(input: String): List<ScriptRegion> {
             input.startsWith("/*", startIndex = nonCodeStartIndex) -> {
                 val endIndex = input.indexOf("*/", startIndex = nonCodeStartIndex + 2)
                 val comment = if (endIndex == -1) input.substring(nonCodeStartIndex) else {
-                    index = endIndex + 1
+                    index = endIndex + 2
                     input.substring(startIndex = nonCodeStartIndex, endIndex = index)
                 }
                 regions += ScriptRegion.Comment(comment)
+            }
+            else -> throw IllegalStateException()
+        }
+    }
+    return regions
+}
+
+fun splitCommentsFromCode(input: String): List<CodeOrComment> {
+    val regions = mutableListOf<CodeOrComment>()
+    var index = 0
+    val commentStart = CodeOrComment.commentStart
+    outerLoop@ while (index < input.length) {
+        val nonCodeStartIndex = input.indexOfAny(commentStart, startIndex = index)
+        if (nonCodeStartIndex == -1) {
+            regions += CodeOrComment.Code(input.substring(index))
+            break@outerLoop
+        }
+        val codeFragment = input.substring(startIndex = index, endIndex = nonCodeStartIndex)
+        regions += CodeOrComment.Code(codeFragment)
+        when {
+            input.startsWith("//", startIndex = nonCodeStartIndex) -> {
+                val endIndex = input.indexOfAny(lineDelimiters, startIndex = nonCodeStartIndex + 2)
+                val comment = if (endIndex == -1) input.substring(nonCodeStartIndex) else {
+                    val eolLength = if (input.startsWith("\r\n", startIndex = endIndex)) 2 else 1
+                    index = endIndex + eolLength
+                    input.substring(startIndex = nonCodeStartIndex, endIndex = index)
+                }
+                regions += CodeOrComment.Comment(comment)
+            }
+            input.startsWith("/*", startIndex = nonCodeStartIndex) -> {
+                val endIndex = input.indexOf("*/", startIndex = nonCodeStartIndex + 2)
+                val comment = if (endIndex == -1) input.substring(nonCodeStartIndex) else {
+                    index = endIndex + 2
+                    input.substring(startIndex = nonCodeStartIndex, endIndex = index)
+                }
+                regions += CodeOrComment.Comment(comment)
             }
             else -> throw IllegalStateException()
         }
@@ -697,6 +736,14 @@ fun replaceCodeFromString(input: String, oldValue: String, newValue: String): St
     }
 }
 
+gradleBuildFiles.first().let { file ->
+    val editedCode = makeQuotesKotlinCompatible(file.readText())
+    println(splitScriptInRegions(editedCode).joinToString("\n${"#".repeat(60)}\n") { it.value })
+}
+println()
+println()
+TODO()
+
 object GradleGroovyToKotlinMigrator {
     @Suppress("UNREACHABLE_CODE", "UNUSED_PARAMETER")//TODO: Remove when fully implemented
     fun migrateFile(file: File) {
@@ -711,7 +758,7 @@ object GradleGroovyToKotlinMigrator {
         while (true) {
             step++
             code = when (step) {
-                1 -> makeQuotesKotlinCompatible(code)
+                1 -> TODO()//makeQuotesKotlinCompatible(code)
                 2 -> TODO("Replace all def by val or var")
                 3 -> TODO("Find all ext properties defined in root project's gradle file and replace them plus their usages in scopes.")
                 else -> return code
