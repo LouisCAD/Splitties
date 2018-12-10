@@ -30,6 +30,12 @@ apply plugin: "kotlin-android"""" to """plugins {
     id("com.android.library")
     kotlin("android")
 }""",
+    """android {
+""" to """android {
+    val projectSdk_version: Int by extra
+    val projectBuildTools_version: String by extra
+    val library_version: String by extra
+""",
     "minifyEnabled" to "isMinifyEnabled",
     """sourceSets {
         main.java.srcDirs += "src/main/kotlin"
@@ -280,5 +286,5 @@ fun performBasicGroovyToKotlinMigration(input: String): String {
 
 gradleBuildFiles.forEach { file ->
     file.writeText(performBasicGroovyToKotlinMigration(file.readText()))
-    check(file.renameTo(file.resolveSibling("${file.name}.kts")))
+    //check(file.renameTo(file.resolveSibling("${file.name}.kts")))
 }
