@@ -1,3 +1,4 @@
+import com.android.dex.Code
 import java.io.File
 
 println("Let's migrate the gradle files of this project from Groovy to Kotlin.")
@@ -12,7 +13,6 @@ val moduleDirectories: List<File> = dir.listFiles { file: File ->
             file.listFiles { it: File -> it.isDirectory && it.name == "src" }.size == 1
 }!!.sortedBy { it.name }
 
-val gradleExtension = "gradle"
 val nonModuleDirNames = listOf("src", "build", "libs")
 
 fun File.findGradleBuildFiles(): List<File> = listFiles { file: File ->
@@ -24,6 +24,65 @@ fun File.findGradleBuildFiles(): List<File> = listFiles { file: File ->
 val gradleBuildFiles: List<File> = moduleDirectories.flatMap {
     it.findGradleBuildFiles()
 } + (dir.resolve("build.gradle").takeIf { it.exists() }?.let { listOf(it) } ?: emptyList())
+
+val snippetReplacements: List<Pair<String, String>> = listOf(
+    """apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion projectSdk_version
+    buildToolsVersion projectBuildTools_version
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion projectSdk_version
+        versionCode 1
+        versionName library_version
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}""" to """plugins {
+    id("com.android.library")
+    kotlin("android")
+}
+
+android {
+    val projectSdk_version: Int by extra
+    val projectBuildTools_version: String by extra
+    val library_version: String by extra
+    compileSdkVersion(projectSdk_version)
+    buildToolsVersion(projectBuildTools_version)
+    defaultConfig {
+        minSdkVersion(14)
+        targetSdkVersion(projectSdk_version)
+        versionCode = 1
+        versionName = library_version
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+        }
+    }
+    sourceSets {
+        names.forEach { getByName(it).java.srcDir("src/${"$"}it/kotlin") }
+    }
+}""",
+    """dependencies {
+    api """ to """dependencies {
+    api(""",
+    """
+    api """ to """)
+    api(""",
+    "" to "",
+    "" to ""
+)
 
 sealed class DslNode(val content: Content) {
     class Content(
@@ -693,11 +752,12 @@ fun splitCommentsFromCode(input: String): List<CodeOrComment> {
     outerLoop@ while (index < input.length) {
         val nonCodeStartIndex = input.indexOfAny(commentStart, startIndex = index)
         if (nonCodeStartIndex == -1) {
-            regions += CodeOrComment.Code(input.substring(index))
+            val remainingCode = input.substring(index)
+            if (remainingCode.isNotEmpty()) regions += CodeOrComment.Code(remainingCode)
             break@outerLoop
         }
         val codeFragment = input.substring(startIndex = index, endIndex = nonCodeStartIndex)
-        regions += CodeOrComment.Code(codeFragment)
+        if (codeFragment.isNotEmpty()) regions += CodeOrComment.Code(codeFragment)
         when {
             input.startsWith("//", startIndex = nonCodeStartIndex) -> {
                 val endIndex = input.indexOfAny(lineDelimiters, startIndex = nonCodeStartIndex + 2)
@@ -725,9 +785,9 @@ fun splitCommentsFromCode(input: String): List<CodeOrComment> {
 /** Expects output from [makeQuotesKotlinCompatible]. */
 fun replaceCodeFromString(input: String, oldValue: String, newValue: String): String {
     return buildString {
-        splitScriptInRegions(input).forEach { region ->
+        splitCommentsFromCode(input).forEach { region ->
             when (region) {
-                is ScriptRegion.StringLiteralLessCode -> {
+                is CodeOrComment.Code -> {
                     append(region.value.replace(oldValue, newValue))
                 }
                 else -> append(region.value)
@@ -743,6 +803,58 @@ gradleBuildFiles.first().let { file ->
 println()
 println()
 TODO()
+
+/**
+ * A model that keeps the [localValues] defined in the current scope, and the [indent] if new ones
+ * need to be added.
+ */
+class ScopeData(val indent: String, val localValues: List<String>)
+
+fun migrateToKotlinWithNodeData(
+    input: List<CodeOrComment>,
+    scopeData: ScopeData,
+    nodeContent: DslNode.Content
+): String {
+    var inputIndex = 0
+    val output = StringBuilder()
+    while (inputIndex < input.size) {
+        val codeOrComment = input[inputIndex]
+        when (codeOrComment) {
+            is CodeOrComment.Comment -> {
+                output.append(codeOrComment.value)
+                inputIndex++
+            }
+            is CodeOrComment.Code -> {
+                val code = codeOrComment.value
+                val indexOfFirstThing = code.indexOfFirst { it.isWhitespace().not() }
+                output.append(code.substring(startIndex = 0, endIndex = indexOfFirstThing))
+                TODO("What should we do here?")
+                var index = 0
+                while (index < code.length) {
+                    TODO()
+                    index++
+                }
+            }
+        }
+    }
+    return output.toString()
+}
+
+fun migrateToKotlin(
+    input: List<CodeOrComment>,
+    scopeData: ScopeData,
+    node: DslNode.Named
+): String {
+    TODO()
+}
+
+fun migrateToKotlin(
+    input: List<CodeOrComment>,
+    scopeData: ScopeData,
+    node: DslNode.NamedDomainObjectContainer
+): String {
+    TODO()
+}
 
 object GradleGroovyToKotlinMigrator {
     @Suppress("UNREACHABLE_CODE", "UNUSED_PARAMETER")//TODO: Remove when fully implemented
