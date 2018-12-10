@@ -24,97 +24,6 @@ val gradleBuildFiles: List<File> = moduleDirectories.flatMap {
     it.findGradleBuildFiles()
 } + (dir.resolve("build.gradle").takeIf { it.exists() }?.let { listOf(it) } ?: emptyList())
 
-val supposedlyNonAmbiguousReplacements: List<Pair<String, String>> = listOf(
-    """apply plugin: "com.android.library"
-apply plugin: "kotlin-android"""" to """plugins {
-    id("com.android.library")
-    kotlin("android")
-}""",
-    "minifyEnabled" to "isMinifyEnabled",
-    """sourceSets {
-        main.java.srcDirs += "src/main/kotlin"
-    }""" to """sourceSets {
-        names.forEach { getByName(it).java.srcDir("src/${"$"}it/kotlin") }
-    }""",
-    """apply from: "../publish.gradle"""" to """apply {
-    from("../publish.gradle")
-}"""
-)
-
-val supposedlyNonAmbiguousStringLiteralLessReplacements: List<Pair<String, String>> = listOf(
-    "release" to "getByName(\"release\")",
-    "debug" to "getByName(\"debug\")"
-)
-
-val supposedlyNonAmbiguousFunctionCalls: List<String> = listOf(
-    "compileSdkVersion", "buildToolsVersion", "minSdkVersion", "targetSdkVersion",
-    "api", "implementation", "compileOnly", "testImplementation", "androidTestImplementation",
-    "classpath"
-)
-
-val supposedlyNonAmbiguousPropertySettings: List<String> = listOf(
-    "versionCode", "versionName", "testInstrumentationRunner", "isMinifyEnabled"
-)
-
-val snippetReplacements: List<Pair<String, String>> = listOf(
-    """apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-android {
-    compileSdkVersion projectSdk_version
-    buildToolsVersion projectBuildTools_version
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion projectSdk_version
-        versionCode 1
-        versionName library_version
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-        }
-    }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-}""" to """plugins {
-    id("com.android.library")
-    kotlin("android")
-}
-
-android {
-    val projectSdk_version: Int by extra
-    val projectBuildTools_version: String by extra
-    val library_version: String by extra
-    compileSdkVersion(projectSdk_version)
-    buildToolsVersion(projectBuildTools_version)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(projectSdk_version)
-        versionCode = 1
-        versionName = library_version
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    sourceSets {
-        names.forEach { getByName(it).java.srcDir("src/${"$"}it/kotlin") }
-    }
-}""",
-    """dependencies {
-    api """ to """dependencies {
-    api(""",
-    """
-    api """ to """)
-    api(""",
-    "" to "",
-    "" to ""
-)
-
 sealed class DslNode(val content: Content) {
     class Content(
         val symbolsReplaces: List<Pair<String, String>> = emptyList(),
@@ -703,8 +612,6 @@ fun String.isLineOrBlockComment(): Boolean {
 }
 
 sealed class ScriptRegion(val value: String) {
-
-
     class StringLiteralLessCode(value: String) : ScriptRegion(value)
     class StringLiteral(value: String) : ScriptRegion(value) {
         init {
@@ -823,83 +730,6 @@ fun replaceCodeFromString(input: String, oldValue: String, newValue: String): St
                 }
                 else -> append(region.value)
             }
-        }
-    }
-}
-
-gradleBuildFiles.first().let { file ->
-    val editedCode = makeQuotesKotlinCompatible(file.readText())
-    println(performBasicGroovyToKotlinMigration(editedCode))
-}
-
-fun performBasicGroovyToKotlinMigration(input: String): String {
-    val codeOrComments = splitCommentsFromCode(buildString {
-        splitScriptInRegions(input).forEach { region ->
-            when (region) {
-                is ScriptRegion.StringLiteralLessCode -> {
-                    var editedCode = region.value
-                    supposedlyNonAmbiguousStringLiteralLessReplacements.forEach { (old, new) ->
-                        editedCode = editedCode.replace(old, new)
-                    }
-                    append(editedCode)
-                }
-                else -> append(region.value)
-            }
-        }
-    })
-    return buildString {
-        var i = 0
-        while (i < codeOrComments.size) {
-            val codeOrComment = codeOrComments[i]
-            when (codeOrComment) {
-                is CodeOrComment.Code -> {
-                    var code = codeOrComment.value
-                    supposedlyNonAmbiguousReplacements.forEach { (old, new) ->
-                        code = code.replace(old, new)
-                    }
-                    supposedlyNonAmbiguousFunctionCalls.forEach {
-                        var startIndex = 0
-                        val searchedSnippet = "$it "
-                        replaceLoop@ while (startIndex < code.length) {
-                            val indexInCode = code.indexOf(searchedSnippet, startIndex)
-                            if (indexInCode == -1) return@forEach
-                            val endIndex = code.indexOfAny(
-                                strings = lineDelimiters,
-                                startIndex = indexInCode + searchedSnippet.length
-                            ).let { eolIndex ->
-                                if (eolIndex == -1) code.lastIndex else eolIndex
-                            }
-                            val arguments =
-                                code.substring(indexInCode + searchedSnippet.length, endIndex)
-                            code = code.substring(0, indexInCode) + it + "(" + arguments + ")" +
-                                    code.substring(endIndex, code.length)
-                            startIndex = endIndex
-                        }
-                    }
-                    supposedlyNonAmbiguousPropertySettings.forEach {
-                        var startIndex = 0
-                        val searchedSnippet = "$it "
-                        replaceLoop@ while (startIndex < code.length) {
-                            val indexInCode = code.indexOf(searchedSnippet, startIndex)
-                            if (indexInCode == -1) return@forEach
-                            val endIndex = code.indexOfAny(
-                                strings = lineDelimiters,
-                                startIndex = indexInCode + searchedSnippet.length
-                            ).let { eolIndex ->
-                                if (eolIndex == -1) code.lastIndex else eolIndex
-                            }
-                            val arguments =
-                                code.substring(indexInCode + searchedSnippet.length, endIndex)
-                            code = code.substring(0, indexInCode) + it + " = " + arguments +
-                                    code.substring(endIndex, code.length)
-                            startIndex = endIndex
-                        }
-                    }
-                    append(code)
-                }
-                else -> append(codeOrComment.value)
-            }
-            i++
         }
     }
 }
