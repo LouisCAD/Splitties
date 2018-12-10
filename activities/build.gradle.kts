@@ -44,7 +44,6 @@ android {
 
 dependencies {
     api(Libs.kotlin.stdlibJdk7)
-    api(Libs.kotlin.stdlibJdk7)
 }
 
 apply {
