@@ -113,8 +113,8 @@ dependencies {
     }
 }
 
-tasks.withType<KotlinCompile>().forEach {
-    it.kotlinOptions {
+tasks.withType<KotlinCompile>().whenTaskAdded {
+    kotlinOptions {
         freeCompilerArgs += "-Xuse-experimental=splitties.experimental.ExperimentalSplittiesApi"
     }
 }

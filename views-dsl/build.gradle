@@ -14,42 +14,49 @@
  * limitations under the License.
  */
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+plugins {
+    id("com.android.library")
+    kotlin("android")
+}
 
 android {
-    compileSdkVersion projectSdk_version
-    buildToolsVersion projectBuildTools_version
+    val projectSdk_version: Int by extra
+    val projectBuildTools_version: String by extra
+    val library_version: String by extra
+    compileSdkVersion(projectSdk_version)
+    buildToolsVersion(projectBuildTools_version)
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion projectSdk_version
-        versionCode 1
-        versionName library_version
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion(14)
+        targetSdkVersion(projectSdk_version)
+        versionCode = 1
+        versionName = library_version
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        getByName("release") {
+            isMinifyEnabled = false
         }
     }
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        names.forEach { getByName(it).java.srcDir("src/$it/kotlin") }
     }
 }
 
 dependencies {
-    api project(':collections')
-    api project(':views')
+    api(project(":collections"))
+    api(project(":views"))
 
-    api Libs.kotlin.stdlibJdk7
-    api Libs.androidX.annotation
+    api(Libs.kotlin.stdlibJdk7)
+    api(Libs.androidX.annotation)
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
     kotlinOptions {
-        freeCompilerArgs += ["-XXLanguage:+InlineClasses"]
-        freeCompilerArgs += ["-Xuse-experimental=kotlin.contracts.ExperimentalContracts"]
+        freeCompilerArgs += "-XXLanguage:+InlineClasses"
+        freeCompilerArgs += "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
     }
 }
 
-apply from: '../publish.gradle'
+apply {
+    from("../publish.gradle")
+}
