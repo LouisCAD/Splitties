@@ -20,7 +20,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 group = 'com.louiscad.splitties'
 project.archivesBaseName = "splitties-${project.name}"
-version = library_version
+version = ProjectVersions.thisLibrary
 def gitUrl = 'https://github.com/LouisCAD/Splitties.git'
 def siteUrl = 'https://github.com/LouisCAD/Splitties'
 def libraryDesc = 'A collection of light, general purpose Android libraries in Kotlin.'
@@ -107,7 +107,7 @@ if (isSnapshot) {
     apply plugin: 'com.jfrog.bintray'
     bintrayUpload.doFirst {
         def gitTag = 'git describe --dirty'.execute().text.trim()
-        def expectedTag = "v$library_version"
+        def expectedTag = "v${ProjectVersions.thisLibrary}"
         if (gitTag != expectedTag) {
             throw new IllegalStateException("Expected git tag '$expectedTag' but got '$gitTag'")
         }

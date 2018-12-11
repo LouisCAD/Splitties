@@ -20,17 +20,14 @@ plugins {
 }
 
 android {
-    val projectSdk_version: Int by extra
-    val projectBuildTools_version: String by extra
-    val library_version: String by extra
-    compileSdkVersion(projectSdk_version)
-    buildToolsVersion(projectBuildTools_version)
+    compileSdkVersion(ProjectVersions.androidSdk)
+    buildToolsVersion(ProjectVersions.androidBuildTools)
 
     defaultConfig {
         minSdkVersion(14)
-        targetSdkVersion(projectSdk_version)
+        targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
-        versionName = library_version
+        versionName = ProjectVersions.thisLibrary
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

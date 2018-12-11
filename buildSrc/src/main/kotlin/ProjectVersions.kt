@@ -14,30 +14,8 @@
  * limitations under the License.
  */
 
-plugins {
-    id("com.android.library")
-}
-
-android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-}
-
-apply {
-    from("../publish.gradle")
+object ProjectVersions {
+    const val androidBuildTools = "28.0.3"
+    const val androidSdk = 28
+    const val thisLibrary = "3.0.0-SNAPSHOT"
 }

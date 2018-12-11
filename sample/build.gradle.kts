@@ -24,14 +24,12 @@ plugins {
 }
 
 android {
-    val projectSdk_version: Int by extra
-    val projectBuildTools_version: String by extra
-    compileSdkVersion(projectSdk_version)
-    buildToolsVersion(projectBuildTools_version)
+    compileSdkVersion(ProjectVersions.androidSdk)
+    buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
         applicationId = "com.louiscad.splittiessample"
         minSdkVersion(14)
-        targetSdkVersion(projectSdk_version)
+        targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
         versionName = "1.0"
         resConfigs("en", "fr")
