@@ -16,7 +16,7 @@
 
 @Suppress("unused")
 object Versions {
-    const val kotlin = "1.3.10"
+    const val kotlin = "1.3.11"
     const val junit = "4.12"
     const val kotlinxCoroutines = "1.0.1"
     const val okHttp = "3.12.0"
