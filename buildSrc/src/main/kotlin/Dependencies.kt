@@ -44,8 +44,19 @@ object Versions {
         const val collection = "1.0.0"
         const val archCore = "2.0.0"
         const val archWork = "1.0.0-alpha11"
-        const val espresso = "3.1.0"
-        const val test = "1.0.0"
+        val test = Test // To be used with property v declared below.
+
+        object Test {
+            const val espresso = "3.1.1-beta01"
+            const val runner = "1.1.1-beta01"
+            const val rules = runner
+            const val monitor = runner
+            const val orchestrator = runner
+            const val core = "1.1.0-beta01"
+            const val truth = core
+            const val junit = core
+        }
+        const val espresso = Test.espresso // Because no ambiguity, allows more concise usage.
     }
 }
 
@@ -219,17 +230,19 @@ object Libs {
 
         object Test {
             val espresso = Espresso
-            const val core = "androidx.test:core:${v.androidX.test}"
-            const val monitor = "androidx.test:monitor:${v.androidX.test}"
-            const val orchestrator = "androidx.test:orchestrator:${v.androidX.test}"
-            const val rules = "androidx.test:rules:${v.androidX.test}"
-            const val runner = "androidx.test:runner:${v.androidX.test}"
+            const val core = "androidx.test:core:${v.androidX.test.core}"
+            const val coreKtx = "androidx.test:core-ktx:${v.androidX.test.core}"
+            const val monitor = "androidx.test:monitor:${v.androidX.test.monitor}"
+            const val orchestrator = "androidx.test:orchestrator:${v.androidX.test.orchestrator}"
+            const val rules = "androidx.test:rules:${v.androidX.test.rules}"
+            const val runner = "androidx.test:runner:${v.androidX.test.runner}"
 
             val ext = Ext
 
             object Ext {
-                const val junit = "androidx.test.ext:junit:${v.androidX.test}"
-                const val truth = "androidx.test.ext:truth:${v.androidX.test}"
+                const val junit = "androidx.test.ext:junit:${v.androidX.test.junit}"
+                const val junitKtx = "androidx.test.ext:junit-ktx:${v.androidX.test.junit}"
+                const val truth = "androidx.test.ext:truth:${v.androidX.test.junit}"
             }
 
             const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
