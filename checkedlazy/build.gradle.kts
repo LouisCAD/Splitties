@@ -48,8 +48,11 @@ dependencies {
     // Test dependencies
     testImplementation(Libs.junit)
     testImplementation(Libs.kotlin.testJunit)
+    androidTestImplementation(Libs.kotlin.testJunit)
+    androidTestImplementation(Libs.androidX.test.coreKtx)
     androidTestImplementation(Libs.androidX.test.ext.junit)
     androidTestImplementation(Libs.androidX.test.espresso.core)
+    androidTestImplementation(Libs.kotlinX.coroutines.android)
 }
 
 apply {
