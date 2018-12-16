@@ -26,8 +26,6 @@ import kotlin.system.measureNanoTime
 
 class PerformanceTest {
 
-    private fun d(message: String) = Log.d("MainThreadPerformanceTest", message)
-
     private enum class MainThreadCheckTechnique {
         LOOPER,
         THREAD_ID,
@@ -43,9 +41,10 @@ class PerformanceTest {
     fun compareMainThreadChecks(): Unit = runBlocking(Dispatchers.Main) {
         val techniqueList = MainThreadCheckTechnique.values().asList()
         val results = mutableMapOf<MainThreadCheckTechnique, Long>().also { resultsMap ->
-            var runList = techniqueList.shuffled()
-            repeat(100) { _ ->
-                runList = runList.shuffled().onEach { technique ->
+            val reverseList = techniqueList.reversed()
+            repeat(100) { i ->
+                val runList = (if (i % 2 == 0) techniqueList else reverseList)
+                runList.onEach { technique ->
                     val result = runBenchmark(technique)
                     resultsMap[technique] = resultsMap.getOrElse(technique) { 0 } + result
                 }
@@ -54,11 +53,12 @@ class PerformanceTest {
         val techniqueNameLength = MainThreadCheckTechnique.values().maxBy {
             it.name.length
         }!!.name.length
-        Log.i("MainThreadPerformanceTest", "Benchmark results below")
+        val tag = "MainThreadPerformanceTest"
+        Log.i(tag, "Benchmark results below")
         results.forEach { (technique, result) ->
             val techName = technique.name.replace('_', ' ').toLowerCase().capitalize()
                 .padEnd(techniqueNameLength)
-            d("$techName duration (in µs): $result")
+            Log.d(tag, "$techName duration (in µs): $result")
         }
     }.let { Unit }
 
