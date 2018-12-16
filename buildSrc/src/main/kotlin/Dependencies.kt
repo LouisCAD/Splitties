@@ -47,12 +47,12 @@ object Versions {
         val test = Test // To be used with property v declared below.
 
         object Test {
-            const val espresso = "3.1.1-beta01"
-            const val runner = "1.1.1-beta01"
+            const val espresso = "3.1.1"
+            const val runner = "1.1.1"
             const val rules = runner
             const val monitor = runner
             const val orchestrator = runner
-            const val core = "1.1.0-beta01"
+            const val core = "1.1.0"
             const val truth = core
             const val junit = core
         }
