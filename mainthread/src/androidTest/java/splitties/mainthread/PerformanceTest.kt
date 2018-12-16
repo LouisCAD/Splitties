@@ -23,6 +23,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.*
 import kotlin.system.measureNanoTime
+import kotlin.test.assertTrue
 
 class PerformanceTest {
 
@@ -59,6 +60,10 @@ class PerformanceTest {
             val techName = technique.name.replace('_', ' ').toLowerCase().capitalize()
                 .padEnd(techniqueNameLength)
             Log.d(tag, "$techName duration (in µs): $result")
+        }
+        assertTrue("Library implementation should be the fastest technique! Check logs.") {
+            val (technique, _) = results.minBy { (_, result) -> result}!!
+            technique == LIBRARY_IMPL
         }
     }.let { Unit }
 
