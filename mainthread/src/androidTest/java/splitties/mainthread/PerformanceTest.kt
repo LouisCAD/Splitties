@@ -20,10 +20,10 @@ import android.os.Looper
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
 import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.*
 import kotlin.system.measureNanoTime
 import kotlin.test.assertTrue
+import kotlin.test.Test
 
 class PerformanceTest {
 
