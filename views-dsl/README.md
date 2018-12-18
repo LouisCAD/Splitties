@@ -49,9 +49,9 @@ a `ViewGroup`, or as the content of an `Activity` or a `Fragment`, you need to
 do so explicitly.
 
 There are **real examples in the sample**. You can start by taking a look at
-[`MainUi`](../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt).
+[`MainUi`](../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt).
 You can also see a simple example that uses `ConstraintLayout` in [`AboutUi`](
-../sample/src/main/java/com/louiscad/splittiessample/about/AboutUi.kt
+../sample/src/main/kotlin/com/louiscad/splittiessample/about/AboutUi.kt
 ).
 
 _Opening the project in your IDE and navigating the sample UI code while reading
@@ -263,8 +263,8 @@ Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can
 Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
 
-You can see implementations for [Views](src/main/java/splitties/views/dsl/core/Views.kt)
-and [ViewGroups](src/main/java/splitties/views/dsl/core/ViewsGroups.kt).
+You can see implementations for [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
+and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewsGroups.kt).
 
 These methods are a bit more natural to read and to write, but they are really
 just **inline** aliases, purely syntactic sugar.
@@ -410,7 +410,7 @@ at least two places that are tightly coupled.
 ### What it is made of
 
 With Splitties Views DSL, there's an [optional interface named `Ui`](
-src/main/java/splitties/views/dsl/core/Ui.kt), whose implementations are meant
+src/main/kotlin/splitties/views/dsl/core/Ui.kt), whose implementations are meant
 to contain your UI code.
 
 It has a `ctx` property because in Android, a `Context` is needed to create a
@@ -456,13 +456,13 @@ your UI to a `ViewModel` and any other components).
 ### Simple examples
 
 See concrete examples in [`MainUi`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt) and
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt) and
 [`DemoUi`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt) with
+../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) with
 their respective Activities [`MainActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainActivity.kt)
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainActivity.kt)
 and [`DemoActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
+../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoActivity.kt).
 
 ### Possibilities brought by the `Ui` interface
 

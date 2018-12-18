@@ -53,9 +53,9 @@ Note that automatically doesn't mean magically. In fact, no reflection is involv
 to xml inflation).
 
 [You can also see the source of the function that maps to AppCompat widgets versions](
-src/main/java/splitties/views/dsl/appcompat/experimental/AppCompatViewFactory.kt
+src/main/kotlin/splitties/views/dsl/appcompat/experimental/AppCompatViewFactory.kt
 ), and the [InitProvider that makes it zero initialization on your side](
-src/main/java/splitties/views/dsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
+src/main/kotlin/splitties/views/dsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
 ).
 
 There's also support for `Toolbar` with the `toolbar` function, and `SwitchCompat` with
@@ -68,7 +68,7 @@ Note that the returned `Toolbar` handles config changes.
 If your app needs to use AppCompat themed widgets in the non default process, you'll need to
 manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
 [this InitProvider](
-src/main/java/splitties/views/dsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
+src/main/kotlin/splitties/views/dsl/appcompat/experimental/AppCompatViewInstantiatorInjectProvider.kt
 ) into a package of an android library/app module of your project, then declare it in the
 `AndroidManifest.xml` of the module exactly like it is done [here](
 src/main/AndroidManifest.xml
