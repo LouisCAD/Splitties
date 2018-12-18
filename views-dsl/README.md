@@ -567,7 +567,7 @@ what you determined.
 
 **There are additional splits for extended support. Views DSL…**
 * [AppCompat](../views-dsl-appcompat) provides proper styling to `Button`,
-`TextView`, `EdiText` and other widgets.
+`TextView`, `EditText` and other widgets.
 views like `coloredFlatButton`.
 * [ConstraintLayout](../views-dsl-constraintlayout) provides support for
 `ConstraintLayout.LayoutParams`.
