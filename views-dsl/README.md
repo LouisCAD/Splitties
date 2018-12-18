@@ -570,11 +570,11 @@ what you determined.
 `TextView`, `EdiText` and other widgets.
 views like `coloredFlatButton`.
 * [ConstraintLayout](../views-dsl-constraintlayout) provides support for
-`ConstraintLayout.LayoutParameters`.
-* [Design](../views-dsl-design) provides extensions for design support library
+`ConstraintLayout.LayoutParams`.
 `ViewGroup`s and bottom sheets.
 * [IDE preview](../views-dsl-ide-preview) provides the ability to preview your
 user interfaces right from the IDE.
+* [Material](../views-dsl-material) provides extensions for Material Components
 * [RecyclerView](../views-dsl-recyclerview) provides extensions to have
 scrollbars and proper `itemView` layout parameters.
 
