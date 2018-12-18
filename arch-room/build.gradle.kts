@@ -22,20 +22,20 @@ plugins {
 android {
     compileSdkVersion(ProjectVersions.androidSdk)
     buildToolsVersion(ProjectVersions.androidBuildTools)
-
     defaultConfig {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
         versionName = ProjectVersions.thisLibrary
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
+    }
+    sourceSets {
+        names.forEach { getByName(it).java.srcDir("src/$it/kotlin") }
     }
 }
 
