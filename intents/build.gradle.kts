@@ -35,9 +35,7 @@ android {
             consumerProguardFiles("proguard-rules.pro")
         }
     }
-    sourceSets {
-        names.forEach { getByName(it).java.srcDir("src/$it/kotlin") }
-    }
+    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
 dependencies {

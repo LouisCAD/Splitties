@@ -33,9 +33,7 @@ android {
             isMinifyEnabled = false
         }
     }
-    sourceSets {
-        names.forEach { getByName(it).java.srcDir("src/$it/kotlin") }
-    }
+    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
 apply {
