@@ -87,7 +87,7 @@ class LazyMap<K, V>(
     }
 }
 
-val promptingMap = LazyMap<String, String> { key ->
+val promptingMap = LazyMap<String, String>(mutableMapOf("module name" to moduleName)) { key ->
     runOrRetry {
         println("$key required. Please, enter it:")
         (readLine() ?: "").also {
