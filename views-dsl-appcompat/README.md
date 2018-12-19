@@ -17,7 +17,7 @@ Since the `LayoutInflater` only works on xml, if you use `view(::Button)` with V
 you get a `Button` instance, not an `AppCompatButton` instance. This means it
 will not have AppCompat features and styling.
 
-However, if you use `button()`, or `v<Button>()`, it will automatically delegate to
+However, if you use `button()`, or `view<Button>()`, it will automatically delegate to
 this split if in the dependencies, returning an `AppCompatButton` instance.
 
 This works for all AppCompat widgets.
@@ -45,8 +45,8 @@ Here's the full list:
 Just call the related method that is the camelCase version of the PascalCase constructor.
 For example, you can call `seekBar(…) { … }` and you'll receive an `AppCompatSeekBar` instance.
 
-As an alternative, you can also use these types with the reified type parameter version of `v`,
-like `v<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's what
+As an alternative, you can also use these types with the reified type parameter version of `view`,
+like `view<Spinner>()`, and you'll automatically get the AppCompat version! In fact, that's what
 the more specialized inline functions like `button` do under the "hood".
 
 Note that automatically doesn't mean magically. In fact, no reflection is involved (contrary

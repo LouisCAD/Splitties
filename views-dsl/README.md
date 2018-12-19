@@ -145,15 +145,15 @@ val myView: MyCustomView = view(::MyCustomView, R.id.my_view) {
 ```
 
 **The second overload** of `view` takes no required parameter, but relies on explicit
-(reified) type parameter to work properly. Just `v<TextView>()` is enough to
+(reified) type parameter to work properly. Just `view<TextView>()` is enough to
 instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
 you use the Views DSL AppCompat, you'll automatically receive instances of
-`AppCompatButton` with `v<Button>` thanks to the underlying View factory.
+`AppCompatButton` with `view<Button>` thanks to the underlying View factory.
 
 Here's a simple example of this second overload:
 ```kotlin
-val submitBtn = v<Button>(R.id.btn_submit) {
+val submitBtn = view<Button>(R.id.btn_submit) {
     textResource = R.string.submit
 }
 ```
@@ -257,7 +257,7 @@ inference, and a nicer syntax.
 
 #### The most beautiful ways: explicitly named aliases to the generic way
 
-Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can use
+Instead of using `view<Button>(…) { … }` to create a `Button` instance, you can use
 `button(…) { … }`. The parameters are exactly the same as `view`.
 
 Such methods exist for most `View`s and `ViewGroup`s included in Android, and
