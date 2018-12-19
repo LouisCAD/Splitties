@@ -40,6 +40,7 @@ android {
 dependencies {
     api(project(":views-dsl"))
     api(project(":views-dsl-appcompat"))
+    api(project(":views-dsl-coordinatorlayout"))
     api(project(":views-dsl-recyclerview"))
     api(project(":views-material"))
     api(project(":initprovider"))

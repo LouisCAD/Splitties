@@ -22,6 +22,9 @@ import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.txt
 import splitties.views.dsl.appcompat.toolbar
+import splitties.views.dsl.coordinatorlayout.appBarLParams
+import splitties.views.dsl.coordinatorlayout.coordinatorLayout
+import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.margin

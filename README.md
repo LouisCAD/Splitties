@@ -78,6 +78,8 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views DSL AppCompat:](views-dsl-appcompat)** AppCompat extension of [Views DSL](views-dsl).
 - **[Views DSL ConstraintLayout:](views-dsl-constraintlayout)** ConstraintLayout extension of
 [Views DSL](views-dsl).
+- **[Views DSL CoordinatorLayout:](views-dsl-coordinatorlayout)** CoordinatorLayout extension of
+[Views DSL](views-dsl).
 - **[Views DSL IDE preview:](views-dsl-ide-preview)** Preview [Views DSL](views-dsl) UIs in the IDE.
 - **[Views DSL Material:](views-dsl-material)** Material Components extension of [Views DSL](views-dsl).
 - **[Views DSL RecyclerView:](views-dsl-recyclerview)** RecyclerView extension of [Views DSL](views-dsl).
@@ -140,6 +142,7 @@ implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_versi
 implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version"
 debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-material:$splitties_version"
 implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"

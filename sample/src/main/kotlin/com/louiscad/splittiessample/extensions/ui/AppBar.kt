@@ -23,9 +23,9 @@ import splitties.views.appcompat.configActionBar
 import splitties.views.appcompat.showHomeAsUp
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.core.add
-import splitties.views.dsl.material.appBarLParams
+import splitties.views.dsl.coordinatorlayout.appBarLParams
 import splitties.views.dsl.material.appBarLayout
-import splitties.views.dsl.material.defaultLParams
+import splitties.views.dsl.coordinatorlayout.defaultLParams
 
 fun CoordinatorLayout.addDefaultAppBar(ctx: Context) {
     add(appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {

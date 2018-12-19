@@ -27,6 +27,10 @@ import splitties.resources.styledColorSL
 import splitties.views.*
 import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
+import splitties.views.dsl.coordinatorlayout.anchorTo
+import splitties.views.dsl.coordinatorlayout.appBarLParams
+import splitties.views.dsl.coordinatorlayout.coordinatorLayout
+import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.*
 import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView

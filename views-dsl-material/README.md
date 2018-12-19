@@ -15,8 +15,7 @@
     * [`actionBarLParams`](#actionbarlparams)
     * [Values for `collapseMode`](#values-for-collapsemode)
   * [`CoordinatorLayout` extensions](#coordinatorlayout-extensions)
-    * [`defaultLParams`](#defaultlparams-2)
-    * [`appBarLParams`](#appbarlparams)
+    * [More in Views DSL CoordinatorLayout](#more-in-views-dsl-coordinatorlayout)
     * [`contentScrollingWithAppBarLParams()`](#contentscrollingwithappbarlparams)
 * [Bottom sheet behavior extensions](#bottom-sheet-behavior-extensions)
   * [`bottomSheetBehavior`](#bottomsheetbehavior)
@@ -26,7 +25,7 @@
 
 ## Functions to instantiate Views and ViewGroups from Material Components
 
-Instead of using `v<AppBarLayout>(…) { … }` and similar, you can use
+Instead of using `view<AppBarLayout>(…) { … }` and similar, you can use
 `appBarLayout(…) { … }`.
 
 All widgets from Material Components are supported.
@@ -43,7 +42,7 @@ handles config changes.
 
 ### Multi-process apps
 
-If your app needs to use AppCompat themed widgets in the non default process, you'll need to
+If your app needs to use AppCompat themed widgets in a non default process, you'll need to
 manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
 [this InitProvider](
 src/main/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
@@ -107,15 +106,12 @@ provided for your convenience so they appear in autocomplete when relevant.
 
 ### `CoordinatorLayout` extensions
 
-#### `defaultLParams`
+#### More in Views DSL CoordinatorLayout
 
-This extension has default width and height set to `wrapContent` and an
-optional `gravity` parameter.
-
-#### `appBarLParams`
-
-Has a `matchParent` width.
-Use it when adding an `AppBarLayout`.
+This split has a transitive dependency on [Views DSL CoordinatorLayout](
+../views-dsl-coordinatorlayout/README.md
+) which includes `coordinatorLayout` instantiating function, as well as layout params
+functions like `defaultLParams`, `appBarLParams`, and `anchorTo`.
 
 #### `contentScrollingWithAppBarLParams()`
 

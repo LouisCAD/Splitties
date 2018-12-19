@@ -38,11 +38,21 @@ android {
 }
 
 dependencies {
+    api(project(":views-dsl"))
+
     api(Libs.kotlin.stdlibJdk7)
+    api(Libs.androidX.annotation)
     api(Libs.androidX.coordinatorLayout)
+
     androidTestImplementation(Libs.kotlin.testJunit)
     androidTestImplementation(Libs.androidX.test.runner)
     androidTestImplementation(Libs.kotlinX.coroutines.android)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
+    }
 }
 
 apply {

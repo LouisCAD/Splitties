@@ -27,7 +27,7 @@ import splitties.views.dsl.core.add
 import splitties.views.dsl.core.textView
 import splitties.views.dsl.core.wrapContent
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
-import splitties.views.dsl.material.coordinatorLayout
+import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.textAppearance
 import splitties.views.textResource
 

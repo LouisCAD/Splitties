@@ -14,39 +14,17 @@
  * limitations under the License.
  */
 
-@file:Suppress("NOTHING_TO_INLINE")
-
 package splitties.views.dsl.material
 
-import android.view.Gravity
-import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
+import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.matchParent
-import splitties.views.dsl.core.wrapContent
-import splitties.views.existingOrNewId
 import androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams as LP
-
-inline fun CoordinatorLayout.defaultLParams(
-    width: Int = wrapContent,
-    height: Int = wrapContent,
-    gravity: Int = Gravity.NO_GRAVITY,
-    initParams: LP.() -> Unit = {}
-): LP = LP(width, height).also { it.gravity = gravity }.apply(initParams)
-
-inline fun CoordinatorLayout.appBarLParams(
-    height: Int = wrapContent,
-    initParams: LP.() -> Unit = {}
-): LP = defaultLParams(width = matchParent, height = height, initParams = initParams)
 
 inline fun CoordinatorLayout.contentScrollingWithAppBarLParams(
     initParams: LP.() -> Unit = {}
 ): LP = defaultLParams(matchParent, matchParent) {
     behavior = AppBarLayout.ScrollingViewBehavior()
     initParams()
-}
-
-inline fun CoordinatorLayout.LayoutParams.anchorTo(view: View, gravity: Int = Gravity.NO_GRAVITY) {
-    anchorId = view.existingOrNewId
-    anchorGravity = gravity
 }
