@@ -52,6 +52,7 @@ include(
     ":views-dsl",
     ":views-dsl-appcompat",
     ":views-dsl-constraintlayout",
+    ":views-dsl-coordinatorlayout",
     ":views-dsl-ide-preview",
     ":views-dsl-material",
     ":views-dsl-recyclerview",
