@@ -50,6 +50,12 @@ dependencies {
     api(Libs.androidX.lifecycle.liveData)
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    }
+}
+
 apply {
     from("../publish.gradle")
 }

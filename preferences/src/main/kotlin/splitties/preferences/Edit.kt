@@ -16,6 +16,9 @@
 
 package splitties.preferences
 
+import splitties.experimental.ExperimentalSplittiesApi
+
+@ExperimentalSplittiesApi
 inline fun <P : Preferences> P.edit(blocking: Boolean = false, editions: P.() -> Unit) {
     beginEdit(blocking)
     try {

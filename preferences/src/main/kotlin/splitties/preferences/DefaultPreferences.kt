@@ -16,11 +16,13 @@
 
 package splitties.preferences
 
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.init.appCtx
 
 /**
  * This should be overriden by only one object in an app.
  */
+@ExperimentalSplittiesApi
 abstract class DefaultPreferences(
     availableAtDirectBoot: Boolean = false
 ) : Preferences(defaultPrefsName, availableAtDirectBoot) {

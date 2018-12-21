@@ -40,6 +40,7 @@ android {
 
 dependencies {
     api(project(":appctx"))
+    api(project(":experimental"))
     api(project(":mainthread"))
 
     api(Libs.kotlin.stdlibJdk7)
