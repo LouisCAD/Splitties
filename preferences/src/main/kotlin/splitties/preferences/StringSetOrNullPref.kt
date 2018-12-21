@@ -1,7 +1,9 @@
 package splitties.preferences
 
+import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.reflect.KProperty
 
+@ExperimentalSplittiesApi
 class StringSetOrNullPref(
     private val preferences: Preferences,
     val key: String?,
