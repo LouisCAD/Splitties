@@ -170,17 +170,16 @@ in xml.
 
 ##### Using Android styles
 
-Let's say you want to create a horizontal `ProgressBar` instance. First, type the
-following with autocomplete/auto-imports:
+Let's say you want to create a horizontal `ProgressBar` instance. First, cache an instance
+of `AndroidStyles`:
 ```kotlin
-val progressbar = AndroidStyles.progressBar.horizontal.invoke(ctx)
+val androidStyles = AndroidStyles(ctx)
 ```
 
-Then, remove `.invoke` to have function call syntax directly on the `horizontal`
-property. It should look like this:
+Then, use the function defined on the `progressBar` property:
 
 ```kotlin
-val progressbar = AndroidStyles.progressBar.horizontal(ctx)
+val progressbar = androidStyles.progressBar.horizontal()
 ```
 
 Other styles defined in the Android platform are provided in `AndroidStyles`.
@@ -198,13 +197,10 @@ private val appCompatStyles = AppCompatStyles(ctx)
 
 You can then use styles using the `AppCompatStyles` instance. Here's an example:
 ```kotlin
-val bePoliteBtn = appCompatStyles.button.colored(ctx) {
+val bePoliteBtn = appCompatStyles.button.colored {
     textResource = R.string.be_polite
 }
 ```
-
-Don't forget to first write `.invoke` before the parenthesis to have the IDE import
-the function (you can immediately remove it afterwards).
 
 ##### Using any other xml style
 
