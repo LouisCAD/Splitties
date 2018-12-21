@@ -43,7 +43,7 @@ object Versions {
         const val constraintLayout = "1.1.3"
         const val collection = "1.0.0"
         const val archCore = "2.0.0"
-        const val archWork = "1.0.0-alpha11"
+        const val archWork = "1.0.0-alpha13"
         val test = Test // To be used with property v declared below.
 
         object Test {
