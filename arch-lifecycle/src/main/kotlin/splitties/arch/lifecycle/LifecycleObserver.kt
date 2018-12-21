@@ -27,6 +27,7 @@ import splitties.experimental.ExperimentalSplittiesApi
  * A LifecycleObserver interface for Kotlin where you can implement only what you need.
  * Make sure you import the right one when implementing it.
  */
+//TODO: Move the artifact so it depends only on lifecycle-common.
 @ExperimentalSplittiesApi
 interface LifecycleObserver : GenericLifecycleObserver {
 
