@@ -219,6 +219,20 @@ by using Views DSL. However, if you are building a phone, tablet or computer
 Android app, there's a Views DSL AppCompat split with a few extensions for
 you to use.
 
+## Credits
+
+Special thanks to [Jovche Mitrejchevski](https://twitter.com/jovchem) for
+helping in taking decisions for this project.
+
+Thanks to JetBrains and the contributors for [Anko](https://github.com/Kotlin/anko),
+which was a great source of inspiration, especially for Views DSL, and of course
+thanks for the excellent [Kotlin](https://kotl.in) programming language that makes this project possible.
+
+Thanks to [Doug Stevenson](https://twitter.com/CodingDoug) for his articles
+["Kotlin & Android: A Brass Tacks Experiment"](
+https://medium.com/@CodingDoug/kotlin-android-a-brass-tacks-experiment-part-3-84e65d567a37
+). It is fair to say that Views DSL has its root in this experiment.
+
 ## License
 This library is published under Apache License version 2.0 which you can see
 [here](https://github.com/LouisCAD/Splitties/blob/master/LICENSE).
