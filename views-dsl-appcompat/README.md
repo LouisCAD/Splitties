@@ -9,7 +9,7 @@ widgets like `TextView` and `Button` found in your xml layouts by a
 compatibility version (i.e. `AppCompatButton`, `AppCompatTextView`, etc.).
 
 If you're curious to see how it works, look for the method `createView` in the
-`AppCompatViewInflater` class from the `android.support.v7.app` package.
+`AppCompatViewInflater` class from the `androidx.appcompat.app` package.
 
 ## How AppCompat works with Splitties Views DSL
 
@@ -22,10 +22,12 @@ this split if in the dependencies, returning an `AppCompatButton` instance.
 
 This works for all AppCompat widgets.
 
+If you want to use a style defined in appcompat (like `Widget_AppCompat_Button_Colored`),
+just cache locally an `AppCompatStyles` instance and use its properties and functions.
+
 ## Supported widgets
 
-All AppCompat widgets are supported as of version `27.1.1` of the support
-library.
+All AppCompat widgets are supported.
 
 Here's the full list:
 * `TextView`
