@@ -49,9 +49,9 @@ a `ViewGroup`, or as the content of an `Activity` or a `Fragment`, you need to
 do so explicitly.
 
 There are **real examples in the sample**. You can start by taking a look at
-[`MainUi`](../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt).
+[`MainUi`](../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt).
 You can also see a simple example that uses `ConstraintLayout` in [`AboutUi`](
-../sample/src/main/java/com/louiscad/splittiessample/about/AboutUi.kt
+../sample/src/main/kotlin/com/louiscad/splittiessample/about/AboutUi.kt
 ).
 
 _Opening the project in your IDE and navigating the sample UI code while reading
@@ -145,15 +145,15 @@ val myView: MyCustomView = view(::MyCustomView, R.id.my_view) {
 ```
 
 **The second overload** of `view` takes no required parameter, but relies on explicit
-(reified) type parameter to work properly. Just `v<TextView>()` is enough to
+(reified) type parameter to work properly. Just `view<TextView>()` is enough to
 instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
 you use the Views DSL AppCompat, you'll automatically receive instances of
-`AppCompatButton` with `v<Button>` thanks to the underlying View factory.
+`AppCompatButton` with `view<Button>` thanks to the underlying View factory.
 
 Here's a simple example of this second overload:
 ```kotlin
-val submitBtn = v<Button>(R.id.btn_submit) {
+val submitBtn = view<Button>(R.id.btn_submit) {
     textResource = R.string.submit
 }
 ```
@@ -170,17 +170,16 @@ in xml.
 
 ##### Using Android styles
 
-Let's say you want to create a horizontal `ProgressBar` instance. First, type the
-following with autocomplete/auto-imports:
+Let's say you want to create a horizontal `ProgressBar` instance. First, cache an instance
+of `AndroidStyles`:
 ```kotlin
-val progressbar = AndroidStyles.progressBar.horizontal.invoke(ctx)
+val androidStyles = AndroidStyles(ctx)
 ```
 
-Then, remove `.invoke` to have function call syntax directly on the `horizontal`
-property. It should look like this:
+Then, use the function defined on the `progressBar` property:
 
 ```kotlin
-val progressbar = AndroidStyles.progressBar.horizontal(ctx)
+val progressbar = androidStyles.progressBar.horizontal()
 ```
 
 Other styles defined in the Android platform are provided in `AndroidStyles`.
@@ -198,13 +197,10 @@ private val appCompatStyles = AppCompatStyles(ctx)
 
 You can then use styles using the `AppCompatStyles` instance. Here's an example:
 ```kotlin
-val bePoliteBtn = appCompatStyles.button.colored(ctx) {
+val bePoliteBtn = appCompatStyles.button.colored {
     textResource = R.string.be_polite
 }
 ```
-
-Don't forget to first write `.invoke` before the parenthesis to have the IDE import
-the function (you can immediately remove it afterwards).
 
 ##### Using any other xml style
 
@@ -257,14 +253,14 @@ inference, and a nicer syntax.
 
 #### The most beautiful ways: explicitly named aliases to the generic way
 
-Instead of using `v<Button>(…) { … }` to create a `Button` instance, you can use
+Instead of using `view<Button>(…) { … }` to create a `Button` instance, you can use
 `button(…) { … }`. The parameters are exactly the same as `view`.
 
 Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
 
-You can see implementations for [Views](src/main/java/splitties/views/dsl/core/Views.kt)
-and [ViewGroups](src/main/java/splitties/views/dsl/core/ViewsGroups.kt).
+You can see implementations for [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
+and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewsGroups.kt).
 
 These methods are a bit more natural to read and to write, but they are really
 just **inline** aliases, purely syntactic sugar.
@@ -410,7 +406,7 @@ at least two places that are tightly coupled.
 ### What it is made of
 
 With Splitties Views DSL, there's an [optional interface named `Ui`](
-src/main/java/splitties/views/dsl/core/Ui.kt), whose implementations are meant
+src/main/kotlin/splitties/views/dsl/core/Ui.kt), whose implementations are meant
 to contain your UI code.
 
 It has a `ctx` property because in Android, a `Context` is needed to create a
@@ -456,13 +452,13 @@ your UI to a `ViewModel` and any other components).
 ### Simple examples
 
 See concrete examples in [`MainUi`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt) and
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt) and
 [`DemoUi`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt) with
+../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) with
 their respective Activities [`MainActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainActivity.kt)
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainActivity.kt)
 and [`DemoActivity`](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoActivity.kt).
+../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoActivity.kt).
 
 ### Possibilities brought by the `Ui` interface
 
@@ -567,14 +563,14 @@ what you determined.
 
 **There are additional splits for extended support. Views DSL…**
 * [AppCompat](../views-dsl-appcompat) provides proper styling to `Button`,
-`TextView`, `EdiText` and other widgets.
+`TextView`, `EditText` and other widgets.
 views like `coloredFlatButton`.
 * [ConstraintLayout](../views-dsl-constraintlayout) provides support for
-`ConstraintLayout.LayoutParameters`.
-* [Design](../views-dsl-design) provides extensions for design support library
+`ConstraintLayout.LayoutParams`.
 `ViewGroup`s and bottom sheets.
 * [IDE preview](../views-dsl-ide-preview) provides the ability to preview your
 user interfaces right from the IDE.
+* [Material](../views-dsl-material) provides extensions for Material Components
 * [RecyclerView](../views-dsl-recyclerview) provides extensions to have
 scrollbars and proper `itemView` layout parameters.
 
