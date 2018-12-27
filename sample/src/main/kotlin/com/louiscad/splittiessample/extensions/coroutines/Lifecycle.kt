@@ -42,7 +42,7 @@ fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
  * already cancelled job.
  */
 fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
-    kotlin.require(activeWhile != Lifecycle.State.DESTROYED) {
+    require(activeWhile != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for createJob(…), to avoid leaks."
     }
     return SupervisorJob().also { job ->
