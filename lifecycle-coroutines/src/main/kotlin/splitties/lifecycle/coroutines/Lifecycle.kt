@@ -22,7 +22,7 @@ import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
 
 /**
- * Returns a [CoroutineScope] that uses [Dispatchers.Main] by default, and that will be cancelled as
+ * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that will be cancelled as
  * soon as this [Lifecycle] [currentState][Lifecycle.getCurrentState] is no longer
  * [at least][Lifecycle.State.isAtLeast] the passed [activeWhile] state.
  *
@@ -30,7 +30,7 @@ import kotlinx.coroutines.*
  * already cancelled scope.
  */
 fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
-    return CoroutineScope(createJob(activeWhile) + Dispatchers.Main)
+    return CoroutineScope(createJob(activeWhile) + Dispatchers.MainAndroid)
 }
 
 /**
@@ -48,7 +48,7 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.Main) { // Ensures state is in sync.
+            else -> GlobalScope.launch(Dispatchers.MainAndroid) { // Ensures state is in sync.
                 addObserver(object : GenericLifecycleObserver {
                     override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
                         if (!currentState.isAtLeast(activeWhile)) {

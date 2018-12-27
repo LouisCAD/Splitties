@@ -25,7 +25,7 @@ import splitties.mainthread.isMainThread
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * Returns a [CoroutineScope] that uses [Dispatchers.Main] by default, and that is cancelled when
+ * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that is cancelled when
  * the [Lifecycle] reaches [Lifecycle.State.DESTROYED] state.
  *
  * Note that this value is cached until the Lifecycle reaches the destroyed state.
@@ -33,7 +33,7 @@ import java.util.concurrent.ConcurrentHashMap
 val Lifecycle.coroutineScope: CoroutineScope
     get() = cachedLifecycleCoroutineScopes.let { cache ->
         cache[this] ?: job.let { job ->
-            val newScope = CoroutineScope(job + Dispatchers.Main)
+            val newScope = CoroutineScope(job + Dispatchers.MainAndroid)
             if (job.isActive) {
                 cache[this] = newScope
                 job.invokeOnCompletion { _ -> cache -= this }
