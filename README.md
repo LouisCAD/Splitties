@@ -98,7 +98,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = '2.1.1'
+        splitties_version = '3.0.0-alpha01'
     }
 }
 ```
@@ -108,49 +108,49 @@ allProjects {
 <b>Here are all the artifacts of this library. Just use the ones you need. (Click to expand)</b>
 </summary>
 
-```groovy
-implementation "com.louiscad.splitties:splitties-activities:$splitties_version"
-implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
-implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-room:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
-implementation "com.louiscad.splitties:splitties-collections:$splitties_version"
-implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
-implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
-implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
-implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
-implementation "com.louiscad.splitties:splitties-mainthread:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
-implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
-implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
-implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
-implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
-implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-material:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-material:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
+```kts
+implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
+implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
+implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
+implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
+implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
+implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
+implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
+implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
+implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-material:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
 ```
 
 </details>
@@ -171,7 +171,7 @@ allProjects {
         maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
     }
     ext {
-        splitties_version = '2.0.0-SNAPSHOT' // Change this line
+        splitties_version = '3.0.0-SNAPSHOT' // Change this line
     }
 }
 ```
@@ -218,6 +218,20 @@ SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
 by using Views DSL. However, if you are building a phone, tablet or computer
 Android app, there's a Views DSL AppCompat split with a few extensions for
 you to use.
+
+## Credits
+
+Special thanks to [Jovche Mitrejchevski](https://twitter.com/jovchem) for
+helping in taking decisions for this project.
+
+Thanks to JetBrains and the contributors for [Anko](https://github.com/Kotlin/anko),
+which was a great source of inspiration, especially for Views DSL, and of course
+thanks for the excellent [Kotlin](https://kotl.in) programming language that makes this project possible.
+
+Thanks to [Doug Stevenson](https://twitter.com/CodingDoug) for his articles
+["Kotlin & Android: A Brass Tacks Experiment"](
+https://medium.com/@CodingDoug/kotlin-android-a-brass-tacks-experiment-part-3-84e65d567a37
+). It is fair to say that Views DSL has its root in this experiment.
 
 ## License
 This library is published under Apache License version 2.0 which you can see

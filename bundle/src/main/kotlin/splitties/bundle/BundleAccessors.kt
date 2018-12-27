@@ -107,17 +107,3 @@ inline fun <Spec : BundleSpec, R> Bundle.with(
         spec.currentBundle = null
     }
 }
-
-@Suppress("unused")
-@Deprecated("Binary compatibility", level = DeprecationLevel.HIDDEN)
-@PublishedApi
-internal fun Bundle.putIn(spec: BundleSpec) { // TODO: Remove in 3.0.0
-    spec.currentBundle = this
-}
-
-@Suppress("unused")
-@Deprecated("Binary compatibility", level = DeprecationLevel.HIDDEN)
-@PublishedApi
-internal fun removeBundleFrom(spec: BundleSpec) { // TODO: Remove in 3.0.0
-    spec.currentBundle = null
-}

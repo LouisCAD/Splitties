@@ -1,5 +1,91 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha01 (2018-12-21)
+This release is compiled with Kotlin 1.3.11.
+
+It is a breaking release (more details in the changes section), and the API is subject to changes
+as it is back to an alpha stage.
+APIs that are likely to change have an experimental annotation that triggers a warning
+(which can be removed by opt-in), to prevent you from using them unintentionally.
+
+### Migration to AndroidX
+
+All the old support library artifacts have been replaced by AndroidX ones.
+
+If your project has not migrated to AndroidX yet, please follow the quick steps below. 
+
+<details>
+<summary>
+<b>
+Migrating your project to AndroidX in a `fun` way. (Click to expand)
+</b>
+</summary>
+
+Theoretically, migrating a project to AndroidX is easy: you just select "Migrate to AndroidX" from
+the "Refactor" menu. Unfortunately, in addition to being unacceptably slow, it didn't work properly
+for Splitties (except for a past attempt which had to be abandoned for API stability reasons). _Our
+experience was waiting minutes with an unresponsive IDE, then giving up with no other choice than
+force closing Android Studio, and finally getting a broken project, with some dangling fully
+qualified references (instead of proper import replacement). We reverted and looked for
+an alternative that would work properly, and perform faster._
+
+The solution has been a Kotlin script that is a white box, and runs in a matter of seconds. You can
+use it for your project too, so you can migrate to AndroidX quickly, and in a `fun` way.
+
+It is available [here](AndroidX-migrator.gradle.kts), and depends on
+[this csv file](androidx-class-mapping.csv).
+
+_Note that this script doesn't migrate the dependencies, because we changed the way we define
+dependencies (using constants defined in `buildSrc`), and it would have been harder to handle
+all the edge cases, and doing it by hand with Replace in Path from IDE was quick enough for us.
+If you prefer to have it, you are free to contribute and reach out in the issues or elsewhere._
+
+To use it in your project, follow these simple steps:
+1. Replace the support libraries dependencies by AndroidX dependencies (and update Splitties ones if
+you already used it).
+2. Copy paste the two files linked above at the root of the gradle project.
+3. Edit the `expectedNumberOfModules` property defined in the `AndroidX-migrator.gradle.kts` file
+to match the number of modules that your project has.
+4. Make sure you have `kotlinc` 1.3+ available (see [easy installation in official docs here](
+https://kotlinlang.org/docs/tutorials/command-line.html
+)).
+5. Open a terminal at the root of the gradle project.
+6. Run `kotlinc -script AndroidX-migrator.gradle.kts` and wait for completion.
+7. Sync gradle project.
+8. Build the project to ensure everything has migrated properly, or fix and try again.
+
+</details>
+
+### Improved API to use xml styles defined in Android or AppCompat
+Now, you pass the `Context` only once to the `AndroidStyles` or `AppCompatStyles` constructor,
+and you no longer have to pass it to the subsequent functions call. It is advised to obviously
+cache this instance to reduce boilerplate and avoid overhead. This is a breaking change.
+
+### Package name changes and replaced artifacts
+
+The design support library no longer exists in AndroidX. It is replaced by several AndroidX
+artifacts and the Google Material Components library.
+
+Consequently, the package names no longer reference "design" but "coordinatorlayout" and "material"
+instead.
+
+As you can see below, the design support library dependent artifacts have been replaced. Note that
+Views DSL Material has a transitive dependency to Views DSL CoordinatorLayout, so you don't need to
+add an explicit dependency for the latter if you already use the former.
+
+### New artifacts
+This release has the following new artifacts:
+```
+"com.louiscad.splitties:splitties-views-material:3.0.0-alpha01"
+"com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:3.0.0-alpha01"
+"com.louiscad.splitties:splitties-views-dsl-material:3.0.0-alpha01"
+```
+
+### Removed artifacts
+This release removes these two artifacts:
+~`"com.louiscad.splitties:splitties-views-design-styles:2.1.1"`~
+~`"com.louiscad.splitties:splitties-views-dsl-design-styles:2.1.1"`~
+
 ## Version 2.1.1 (2018-11-25)
 This release is compiled with Kotlin 1.3.10.
 
