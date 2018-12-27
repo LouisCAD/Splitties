@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import splitties.mainthread.isMainThread
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -30,13 +31,15 @@ import java.util.concurrent.ConcurrentHashMap
  * Note that this value is cached until the Lifecycle reaches the destroyed state.
  */
 val Lifecycle.coroutineScope: CoroutineScope
-    get() = cachedLifecycleCoroutineScopes[this] ?: job.let { job ->
-        val newScope = CoroutineScope(job + Dispatchers.Main)
-        if (job.isActive) {
-            cachedLifecycleCoroutineScopes[this] = newScope
-            job.invokeOnCompletion { _ -> cachedLifecycleCoroutineScopes -= this }
+    get() = cachedLifecycleCoroutineScopes.let { cache ->
+        cache[this] ?: job.let { job ->
+            val newScope = CoroutineScope(job + Dispatchers.Main)
+            if (job.isActive) {
+                cache[this] = newScope
+                job.invokeOnCompletion { _ -> cache -= this }
+            }
+            newScope
         }
-        newScope
     }
 
 /**
@@ -56,12 +59,22 @@ inline val LifecycleOwner.coroutineScope get() = lifecycle.coroutineScope
  * You can use this job for custom [CoroutineScope]s, or as a parent [Job].
  */
 val Lifecycle.job: Job
-    get() = cachedLifecycleJobs[this] ?: createJob().also {
-        if (it.isActive) {
-            cachedLifecycleJobs[this] = it
-            it.invokeOnCompletion { _ -> cachedLifecycleJobs -= this }
+    get() = cachedLifecycleJobs.let { cache ->
+        cache[this] ?: createJob().also {
+            if (it.isActive) {
+                cache[this] = it
+                it.invokeOnCompletion { _ -> cache -= this }
+            }
         }
     }
 
-private val cachedLifecycleJobs = ConcurrentHashMap<Lifecycle, Job>()
-private val cachedLifecycleCoroutineScopes = ConcurrentHashMap<Lifecycle, CoroutineScope>()
+private inline val cachedLifecycleJobs: MutableMap<Lifecycle, Job>
+    get() = if (isMainThread) mainThreadJobs else anyThreadJobs
+private inline val cachedLifecycleCoroutineScopes: MutableMap<Lifecycle, CoroutineScope>
+    get() = if (isMainThread) mainThreadScopes else anyThreadScopes
+
+private val mainThreadJobs = mutableMapOf<Lifecycle, Job>()
+private val mainThreadScopes = mutableMapOf<Lifecycle, CoroutineScope>()
+
+private val anyThreadJobs = ConcurrentHashMap<Lifecycle, Job>()
+private val anyThreadScopes = ConcurrentHashMap<Lifecycle, CoroutineScope>()
