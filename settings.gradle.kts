@@ -34,6 +34,7 @@ include(
     ":fragments",
     ":initprovider",
     ":intents",
+    ":lifecycle-coroutines",
     ":mainhandler",
     ":mainthread",
     ":material-colors",

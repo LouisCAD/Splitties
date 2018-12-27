@@ -44,6 +44,8 @@ properties.
 initialization purposes.
 - **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs, and
 create `PendingIntent`s the clean and easy way.
+- **[Lifecycle Coroutines:](lifecycle-coroutines)** Coroutines related extensions for [`Lifecycle`](
+https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle)s.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
 - **[Main Thread:](mainthread)** Properties and precondition checkers related to Android main thread.
@@ -125,6 +127,7 @@ implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
 implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
 implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
 implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
+implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
 implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
 implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")

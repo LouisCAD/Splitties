@@ -25,8 +25,8 @@ import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.coroutines.DialogButton
-import com.louiscad.splittiessample.extensions.coroutines.awaitState
-import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
+import splitties.lifecycle.coroutines.awaitState
+import splitties.lifecycle.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine

@@ -75,6 +75,7 @@ dependencies {
         ":fragmentargs",
         ":initprovider",
         ":intents",
+        ":lifecycle-coroutines",
         ":material-colors",
         ":material-lists",
         ":preferences",

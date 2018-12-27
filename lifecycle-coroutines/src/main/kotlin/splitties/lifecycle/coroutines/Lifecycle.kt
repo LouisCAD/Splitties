@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions.coroutines
+package splitties.lifecycle.coroutines
 
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -48,7 +48,7 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.Main) {
+            else -> GlobalScope.launch(Dispatchers.Main) { // Ensures state is in sync.
                 addObserver(object : GenericLifecycleObserver {
                     override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
                         if (!currentState.isAtLeast(activeWhile)) {
