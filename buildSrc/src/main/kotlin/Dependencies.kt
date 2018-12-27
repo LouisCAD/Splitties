@@ -18,7 +18,7 @@
 object Versions {
     const val kotlin = "1.3.11"
     const val junit = "4.12"
-    const val kotlinxCoroutines = "1.0.1"
+    const val kotlinxCoroutines = "1.1.0"
     const val okHttp = "3.12.0"
     const val retrofit = "2.5.0"
     const val wearOs = "2.4.0"
