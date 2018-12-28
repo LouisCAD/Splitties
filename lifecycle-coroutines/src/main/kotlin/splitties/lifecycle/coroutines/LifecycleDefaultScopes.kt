@@ -21,6 +21,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.mainthread.isMainThread
 import java.util.concurrent.ConcurrentHashMap
 
@@ -30,6 +31,9 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * Note that this value is cached until the Lifecycle reaches the destroyed state.
  */
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
+@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
 val Lifecycle.coroutineScope: CoroutineScope
     get() = cachedLifecycleCoroutineScopes.let { cache ->
         cache[this] ?: job.let { job ->
@@ -48,6 +52,8 @@ val Lifecycle.coroutineScope: CoroutineScope
  * This is an inline property, just there for convenient usage from any [LifecycleOwner],
  * like FragmentActivity, AppCompatActivity, Fragment and LifecycleService.
  */
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
 inline val LifecycleOwner.coroutineScope get() = lifecycle.coroutineScope
 
 /**
@@ -58,6 +64,8 @@ inline val LifecycleOwner.coroutineScope get() = lifecycle.coroutineScope
  *
  * You can use this job for custom [CoroutineScope]s, or as a parent [Job].
  */
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
 val Lifecycle.job: Job
     get() = cachedLifecycleJobs.let { cache ->
         cache[this] ?: createJob().also {

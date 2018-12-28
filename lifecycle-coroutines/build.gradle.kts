@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    api(project(":experimental"))
     api(project(":mainhandler"))
     api(project(":mainthread"))
     api(Libs.kotlin.stdlibJdk7)
@@ -46,6 +47,12 @@ dependencies {
     testImplementation(Libs.androidX.lifecycle.runtime)
     androidTestImplementation(Libs.kotlin.testJunit)
     androidTestImplementation(Libs.androidX.test.runner)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+    }
 }
 
 apply {

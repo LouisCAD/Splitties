@@ -21,6 +21,7 @@ import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+@PotentialFutureAndroidXLifecycleKtxApi
 suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
     require(state != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for awaitState(…), to avoid leaks."

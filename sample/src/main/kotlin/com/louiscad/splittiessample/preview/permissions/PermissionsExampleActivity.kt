@@ -25,8 +25,6 @@ import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.coroutines.DialogButton
-import splitties.lifecycle.coroutines.awaitState
-import splitties.lifecycle.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -35,11 +33,16 @@ import splitties.activities.startActivity
 import splitties.alertdialog.appcompat.alert
 import splitties.alertdialog.appcompat.message
 import splitties.dimensions.dip
+import splitties.experimental.ExperimentalSplittiesApi
+import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
+import splitties.lifecycle.coroutines.awaitState
+import splitties.lifecycle.coroutines.coroutineScope
 import splitties.views.centerText
 import splitties.views.dsl.core.*
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 
+@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class, ExperimentalSplittiesApi::class)
 class PermissionsExampleActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n") // This is an example where i18n matters less than readable code.
