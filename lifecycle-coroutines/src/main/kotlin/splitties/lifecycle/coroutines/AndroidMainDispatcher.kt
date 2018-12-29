@@ -1,5 +1,7 @@
 package splitties.lifecycle.coroutines
 
+import androidx.annotation.VisibleForTesting
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.android.asCoroutineDispatcher
 import splitties.mainhandler.mainHandler
@@ -13,6 +15,11 @@ import splitties.mainhandler.mainHandler
  */
 @Suppress("unused")
 @MainDispatcherPerformanceIssueWorkaround
-val Dispatchers.MainAndroid get() = androidMainDispatcher
+val Dispatchers.MainAndroid: CoroutineDispatcher
+    get() = androidMainDispatcher
+        ?: mainHandler.asCoroutineDispatcher("splitties-main-dispatcher").also {
+            androidMainDispatcher = it
+        }
 
-private val androidMainDispatcher = mainHandler.asCoroutineDispatcher("splitties-main-dispatcher")
+@VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+internal var androidMainDispatcher: CoroutineDispatcher? = null

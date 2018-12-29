@@ -85,10 +85,10 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
-            const val core =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinxCoroutines}"
-            const val android =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutines}"
+            private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
+            const val core = "$artifactPrefix-core:${Versions.kotlinxCoroutines}"
+            const val android = "$artifactPrefix-android:${Versions.kotlinxCoroutines}"
+            const val test = "$artifactPrefix-test:${Versions.kotlinxCoroutines}"
         }
     }
 

@@ -54,7 +54,8 @@ val Lifecycle.coroutineScope: CoroutineScope
  */
 @ExperimentalSplittiesApi
 @PotentialFutureAndroidXLifecycleKtxApi
-inline val LifecycleOwner.coroutineScope get() = lifecycle.coroutineScope
+inline val LifecycleOwner.coroutineScope
+    get() = lifecycle.coroutineScope
 
 /**
  * Returns a [SupervisorJob] that will be cancelled as soon as the [Lifecycle] reaches
@@ -77,9 +78,21 @@ val Lifecycle.job: Job
     }
 
 private inline val cachedLifecycleJobs: MutableMap<Lifecycle, Job>
-    get() = if (isMainThread) mainThreadJobs else anyThreadJobs
+    get() = try {
+        if (isMainThread) mainThreadJobs else anyThreadJobs
+    } catch (cantCheckMainThreadInTestsError: ExceptionInInitializerError) {
+        anyThreadJobs
+    } catch (cantCheckMainThreadInTestsError: NoClassDefFoundError) {
+        anyThreadJobs
+    }
 private inline val cachedLifecycleCoroutineScopes: MutableMap<Lifecycle, CoroutineScope>
-    get() = if (isMainThread) mainThreadScopes else anyThreadScopes
+    get() = try {
+        if (isMainThread) mainThreadScopes else anyThreadScopes
+    } catch (cantCheckMainThreadInTestsError: ExceptionInInitializerError) {
+        anyThreadScopes
+    } catch (cantCheckMainThreadInTestsError: NoClassDefFoundError) {
+        anyThreadScopes
+    }
 
 private val mainThreadJobs = mutableMapOf<Lifecycle, Job>()
 private val mainThreadScopes = mutableMapOf<Lifecycle, CoroutineScope>()

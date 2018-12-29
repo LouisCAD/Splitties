@@ -44,8 +44,14 @@ dependencies {
     api(Libs.kotlin.stdlibJdk7)
     api(Libs.kotlinX.coroutines.android)
     api(Libs.androidX.lifecycle.common)
-    testImplementation(Libs.androidX.lifecycle.runtime)
-    androidTestImplementation(Libs.kotlin.testJunit)
+    arrayOf(
+        Libs.kotlinX.coroutines.test,
+        Libs.kotlin.testJunit,
+        Libs.androidX.lifecycle.runtime
+    ).forEach {
+        testImplementation(it)
+        androidTestImplementation(it)
+    }
     androidTestImplementation(Libs.androidX.test.runner)
 }
 
