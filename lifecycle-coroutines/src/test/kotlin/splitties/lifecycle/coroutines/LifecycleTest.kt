@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.setMain
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -14,10 +15,10 @@ import kotlin.test.*
 @PotentialFutureAndroidXLifecycleKtxApi
 class LifecycleTest {
 
+    @UseExperimental(ObsoleteCoroutinesApi::class, ExperimentalCoroutinesApi::class)
     @BeforeTest
-    @UseExperimental(ObsoleteCoroutinesApi::class)
     fun setUp() {
-        androidMainDispatcher = newSingleThreadContext("main thread")
+        Dispatchers.setMain(newSingleThreadContext("main thread surrogate"))
     }
 
     @Test
