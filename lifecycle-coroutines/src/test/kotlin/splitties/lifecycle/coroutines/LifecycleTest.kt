@@ -15,10 +15,13 @@ import kotlin.test.*
 @PotentialFutureAndroidXLifecycleKtxApi
 class LifecycleTest {
 
-    @UseExperimental(ObsoleteCoroutinesApi::class, ExperimentalCoroutinesApi::class)
+    @UseExperimental(ObsoleteCoroutinesApi::class)
+    private val mainDispatcherSurrogate = newSingleThreadContext("main thread surrogate")
+
     @BeforeTest
+    @UseExperimental(ExperimentalCoroutinesApi::class)
     fun setUp() {
-        Dispatchers.setMain(newSingleThreadContext("main thread surrogate"))
+        Dispatchers.setMain(mainDispatcherSurrogate)
     }
 
     @Test
@@ -129,7 +132,7 @@ class LifecycleTest {
 
     @AfterTest
     fun closeTestMainDispatcher() {
-        //TODO: Replace or remove this: //TestMainDispatcher.default.close()
+        mainDispatcherSurrogate.close()
     }
 
     private class TestLifecycleOwner : LifecycleOwner {
