@@ -44,7 +44,7 @@ properties.
 initialization purposes.
 - **[Intents:](intents)** Transform `companion object`s into powerful typesafe intent specs, and
 create `PendingIntent`s the clean and easy way.
-- **[Lifecycle Coroutines:](lifecycle-coroutines)** Coroutines related extensions for [`Lifecycle`](
+- **[Lifecycle Coroutines:](lifecycle-coroutines)** Coroutines integration with [`Lifecycle`](
 https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle)s.
 - **[Main Handler:](mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
