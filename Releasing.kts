@@ -1,6 +1,5 @@
 import java.io.File
 import java.util.concurrent.TimeUnit
-import java.awt.Desktop
 import java.net.URI
 
 val dir = File(".")
