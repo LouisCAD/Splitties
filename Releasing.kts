@@ -83,7 +83,7 @@ fun releasingNonSnapshot() {
             !input.all {
                 it.isLetterOrDigit() || it == '.' || it == '-'
             } -> throw IllegalStateException("Only digits, letters, dots and dashes are allowed.")
-            !input.contains("-SNAPSHOT") -> throw IllegalStateException("Snapshots not allowed")
+            input.contains("-SNAPSHOT") -> throw IllegalStateException("Snapshots not allowed")
         }
         val existingVersions = "git tag".execute().trimEnd().lineSequence().filter {
             it.startsWith("v") && it.getOrElse(1) { ' ' }.isDigit()
