@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
+Note that this split includes a workaround for [this performance issue in kotlinx.coroutines](
+https://github.com/Kotlin/kotlinx.coroutines/issues/878) caused by `ServiceLoader` doing I/O.
+An alternative to `Dispatchers.Main` is used internally so it doesn't cause slow cold starts for
+your app. You can use it directly too as it is defined as `Dispatchers.MainAndroid`, but note that
+it will be removed when a fix in kotlinx.coroutines or in the Android toolchain is released.
+
 ## Download
 
 ```groovy
