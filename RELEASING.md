@@ -4,8 +4,8 @@
 
 ### Option A: Run the interactive script
 
-Run [Releasing.kts](Releasing.kts) with `kotlinc -script Releasing.kts` and follow the steps
-directly from the command line.
+Run [Releasing.kts](Releasing.kts) (preferably in system terminal as IDE could crash)
+with `kotlinc -script Releasing.kts` and follow the steps directly from the command line.
 
 ### Option B: Manual steps
 
