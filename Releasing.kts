@@ -17,6 +17,7 @@
 import java.io.File
 import java.util.concurrent.TimeUnit
 import java.net.URI
+import java.util.concurrent.CancellationException
 
 val dir = File(".")
 
@@ -51,7 +52,7 @@ fun requestUserConfirmation(yesNoQuestion: String) {
     println("$yesNoQuestion Y/n")
     readLine()?.trimEnd().let { input ->
         if (input != "Y" && !"yes".equals(input, ignoreCase = true)) {
-            println("Process aborted."); return
+            println("Process aborted."); throw CancellationException()
         }
     }
 }
