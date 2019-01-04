@@ -83,10 +83,10 @@ fun releasingNonSnapshot() {
 }
 
 fun openUrl(url: String) {
-    val os = System.getProperty("os.name").toLowerCase()
-    val isMacOs: Boolean = "mac" in os
+    val osName = System.getProperty("os.name").toLowerCase()
+    val isMacOs: Boolean = "mac" in osName
     val command = if (isMacOs) "open $url" else {
-        val isWindows: Boolean = "win" in os
+        val isWindows: Boolean = "win" in osName
         if (isWindows) {
             """start "" "$url""""
         } else "xdg-open $url"
