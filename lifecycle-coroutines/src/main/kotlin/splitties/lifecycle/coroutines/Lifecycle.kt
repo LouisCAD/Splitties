@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.louiscad.splittiessample.extensions.coroutines
+package splitties.lifecycle.coroutines
 
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
@@ -22,15 +22,17 @@ import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
 
 /**
- * Returns a [CoroutineScope] that uses [Dispatchers.Main] by default, and that will be cancelled as
+ * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that will be cancelled as
  * soon as this [Lifecycle] [currentState][Lifecycle.getCurrentState] is no longer
  * [at least][Lifecycle.State.isAtLeast] the passed [activeWhile] state.
  *
  * **Beware**: if the current state is lower than the passed [activeWhile] state, you'll get an
  * already cancelled scope.
  */
+@PotentialFutureAndroidXLifecycleKtxApi
+@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
 fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
-    return CoroutineScope(createJob(activeWhile) + Dispatchers.Main)
+    return CoroutineScope(createJob(activeWhile) + Dispatchers.MainAndroid)
 }
 
 /**
@@ -41,14 +43,16 @@ fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
  * **Beware**: if the current state is lower than the passed [activeWhile] state, you'll get an
  * already cancelled job.
  */
+@PotentialFutureAndroidXLifecycleKtxApi
+@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
 fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
-    kotlin.require(activeWhile != Lifecycle.State.DESTROYED) {
+    require(activeWhile != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for createJob(…), to avoid leaks."
     }
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.Main) {
+            else -> GlobalScope.launch(Dispatchers.MainAndroid) { // Ensures state is in sync.
                 addObserver(object : GenericLifecycleObserver {
                     override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
                         if (!currentState.isAtLeast(activeWhile)) {

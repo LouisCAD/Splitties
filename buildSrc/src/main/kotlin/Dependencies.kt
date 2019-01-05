@@ -18,7 +18,7 @@
 object Versions {
     const val kotlin = "1.3.11"
     const val junit = "4.12"
-    const val kotlinxCoroutines = "1.0.1"
+    const val kotlinxCoroutines = "1.1.0"
     const val okHttp = "3.12.0"
     const val retrofit = "2.5.0"
     const val wearOs = "2.4.0"
@@ -85,10 +85,10 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
-            const val core =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinxCoroutines}"
-            const val android =
-                "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinxCoroutines}"
+            private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
+            const val core = "$artifactPrefix-core:${Versions.kotlinxCoroutines}"
+            const val android = "$artifactPrefix-android:${Versions.kotlinxCoroutines}"
+            const val test = "$artifactPrefix-test:${Versions.kotlinxCoroutines}"
         }
     }
 

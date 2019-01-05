@@ -97,7 +97,7 @@ val promptingMap = LazyMap<String, String>(mutableMapOf("module name" to moduleN
 }
 
 destinationDir.doRecursively { file ->
-    val templatePrefix = "|template|"
+    val templatePrefix = "!template!"
     if (file.isDirectory) {
         if (file.name.startsWith(templatePrefix)) {
             val key = file.name.substringAfter(templatePrefix)
@@ -109,7 +109,7 @@ destinationDir.doRecursively { file ->
             return@doRecursively destination
         }
     } else {
-        if (file.name == "|empty_dir_placeholder|") {
+        if (file.name == "!empty_dir_placeholder!") {
             file.delete()
             return@doRecursively null
         }

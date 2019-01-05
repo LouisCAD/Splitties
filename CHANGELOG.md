@@ -1,5 +1,15 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha02 (2019-01-05)
+
+This release introduces a new split: Lifecycle Coroutines.
+
+### New artifact
+This release has the following new artifact:
+```
+"com.louiscad.splitties:splitties-lifecycle-coroutines:3.0.0-alpha01"
+```
+
 ## Version 3.0.0-alpha01 (2018-12-21)
 This release is compiled with Kotlin 1.3.11.
 

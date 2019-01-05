@@ -22,6 +22,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State.RESUMED
 import kotlinx.coroutines.launch
+import splitties.lifecycle.coroutines.awaitState
+import splitties.lifecycle.coroutines.coroutineScope
 
 inline fun <DF : DialogFragment> FragmentManager.showAsync(
     lifecycle: Lifecycle,

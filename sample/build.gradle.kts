@@ -75,6 +75,7 @@ dependencies {
         ":fragmentargs",
         ":initprovider",
         ":intents",
+        ":lifecycle-coroutines",
         ":material-colors",
         ":material-lists",
         ":preferences",
@@ -111,7 +112,7 @@ dependencies {
 
 tasks.withType<KotlinCompile>().whenTaskAdded {
     kotlinOptions {
-        freeCompilerArgs += "-Xuse-experimental=splitties.experimental.ExperimentalSplittiesApi"
+        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
     }
 }
 

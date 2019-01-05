@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
-import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
+import splitties.lifecycle.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
