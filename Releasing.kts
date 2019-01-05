@@ -18,33 +18,54 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import java.net.URI
 import java.util.concurrent.CancellationException
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 val dir = File(".")
 
-fun String.execute(workingDir: File = dir): String {
-    val parts = this.split("\\s".toRegex())
-    val proc = ProcessBuilder(*parts.toTypedArray())
+
+fun processBuilder(rawCommand: String, workingDir: File = dir): ProcessBuilder {
+    val command = Pattern.compile("\"([^\"]*)\"|(\\S+)").matcher(rawCommand).let { m ->
+        generateSequence {
+            when {
+                m.find() -> if (m.group(1) != null) m.group(1) else m.group(2)
+                else -> null
+            }
+        }
+    }.toList()
+    return ProcessBuilder(command)
         .directory(workingDir)
         .redirectOutput(ProcessBuilder.Redirect.PIPE)
         .redirectError(ProcessBuilder.Redirect.PIPE)
-        .start()
+}
 
+fun String.execute(workingDir: File = dir): String {
+    val proc = processBuilder(
+        rawCommand = this,
+        workingDir = workingDir
+    ).start()
     proc.waitFor(60, TimeUnit.MINUTES)
-    return proc.inputStream.bufferedReader().readText()
+    return proc.inputStream.use { it.bufferedReader().readText() }.also {
+        val exitValue = proc.exitValue()
+        if (exitValue != 0) {
+            throw Exception("Non zero exit value: $exitValue")
+        }
+    }
 }
 
 fun String.executeAndPrint(workingDir: File = dir) {
-    val parts = this.split("\\s".toRegex())
-    val proc = ProcessBuilder(*parts.toTypedArray())
-        .directory(workingDir)
-        .redirectOutput(ProcessBuilder.Redirect.PIPE)
-        .redirectError(ProcessBuilder.Redirect.PIPE)
+    val proc = processBuilder(
+        rawCommand = this,
+        workingDir = workingDir
+    )
+        .redirectInput(ProcessBuilder.Redirect.INHERIT)
+        .redirectOutput(ProcessBuilder.Redirect.INHERIT)
+        .redirectError(ProcessBuilder.Redirect.INHERIT)
         .start()
-
     proc.waitFor(60, TimeUnit.MINUTES)
-    val reader = proc.inputStream.bufferedReader()
-    while (true) {
-        reader.readLine()?.also { line -> println(line) } ?: break
+    val exitValue = proc.exitValue()
+    if (exitValue != 0) {
+        throw Exception("Non zero exit value: $exitValue")
     }
 }
 
@@ -95,7 +116,7 @@ fun releasingNonSnapshot() {
     requestUserConfirmation("Confirm?")
     val versionsFileTextBeforeEdits = versionsFile.readText()
     versionsFile.writeText(
-       versionsFileTextBeforeEdits.replace(
+        versionsFileTextBeforeEdits.replace(
             oldValue = libraryVersionLine,
             newValue = "$libVersionLineStart$newVersion\""
         )
@@ -104,16 +125,16 @@ fun releasingNonSnapshot() {
     requestUserConfirmation("Done?")
     println("Update the `CHANGELOG.md` for the impending release.")
     requestUserConfirmation("Done?")
-    println("git commit -am \"Prepare for release $newVersion\"".execute())
-    println("git tag -a v$newVersion -m \"Version $newVersion\"".execute())
+    "git commit -am \"Prepare for release $newVersion\"".executeAndPrint()
+    "git tag -a v$newVersion -m \"Version $newVersion\"".executeAndPrint()
     val cleanAndUploadCommand = "./gradlew clean bintrayUpload"
     println("Running `$cleanAndUploadCommand`")
-    println(cleanAndUploadCommand.execute())
+    cleanAndUploadCommand.executeAndPrint()
     println("Please check upload succeded.")
     val pushToOriginCommand = "git push origin"
     println("Will now run $pushToOriginCommand")
     requestUserConfirmation("Continue?")
-    println(pushToOriginCommand.execute())
+    pushToOriginCommand.executeAndPrint()
     println("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
     requestUserConfirmation("Done?")
     println("Sign in on Bintray and publish the packages.")
@@ -127,12 +148,12 @@ fun releasingNonSnapshot() {
     requestUserConfirmation("Done?")
     println("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
     requestUserConfirmation("Continue?")
-    println("git checkout master".execute())
-    println("git pull origin".execute())
+    "git checkout master".executeAndPrint()
+    "git pull origin".executeAndPrint()
     println("About to checkout the develop branch (and update it from master for merge commits).")
     requestUserConfirmation("Continue?")
-    println("git checkout develop".execute())
-    println("git merge master".execute())
+    "git checkout develop".executeAndPrint()
+    "git merge master".executeAndPrint()
     println("Let's update the library for next development version.")
     println("If you want to keep using $currentSnapshotVersion, enter an empty line.")
     println("Otherwise, enter the name of the next target version (`-SNAPSHOT` will be added automatically)")
@@ -148,10 +169,10 @@ fun releasingNonSnapshot() {
     println("${versionsFile.path} has been edited with next developement version ($nextDevVersion).")
     val nextDevVersionCommitCommand = "git commit -am \"Prepare next development version.\""
     requestUserConfirmation("Will run $nextDevVersionCommitCommand Continue?")
-    println(nextDevVersionCommitCommand.execute())
+    nextDevVersionCommitCommand.executeAndPrint()
 
     requestUserConfirmation("Finally the last step: Running: `$pushToOriginCommand`. Continue?")
-    println(pushToOriginCommand.execute())
+    pushToOriginCommand.executeAndPrint()
     println("All Done! Let's brag about this new release!!")
 }
 
@@ -166,6 +187,5 @@ fun openUrl(url: String) {
     }
     command.execute()
 }
-
 releasingNonSnapshot()
 //openUrl("https://stackoverflow.com/a/48266060/4433326")
