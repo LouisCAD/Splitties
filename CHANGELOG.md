@@ -1,6 +1,6 @@
 # Change log for Splitties
 
-## Version 3.0.0-alpha02 (2019-01-05)
+## Version 3.0.0-alpha02 (2019-01-06)
 
 This release introduces a new split: Lifecycle Coroutines.
 
