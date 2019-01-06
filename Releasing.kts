@@ -141,6 +141,7 @@ fun releasingNonSnapshot() {
     requestUserConfirmation("Done?")
     val pushToOriginWithTagsCommand = "git push origin --tags"
     println("Will now run $pushToOriginWithTagsCommand")
+    pushToOriginWithTagsCommand.executeAndPrint()
     requestUserConfirmation("Continue?")
     println("Merge the pull request for the new version on GitHub.")
     requestUserConfirmation("Done?")
