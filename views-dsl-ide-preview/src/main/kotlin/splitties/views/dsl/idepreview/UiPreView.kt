@@ -29,7 +29,9 @@ import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
 import splitties.views.dsl.core.matchParent
 import java.lang.reflect.Constructor
+import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * This class is dedicated to previewing `Ui` subclasses in the IDE with an xml file referencing it.
@@ -87,7 +89,12 @@ class UiPreView @JvmOverloads constructor(
                     if (index != 0) params += Proxy.newProxyInstance(
                         parameterType.classLoader,
                         arrayOf(parameterType)
-                    ) { proxy, method, args -> unsupported("Edit mode: stub implementation.") }
+                    ) { proxy: Any?, method: Method, args: Array<out Any>? ->
+                        when (method.declaringClass.name) {
+                            "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
+                            else -> unsupported("Edit mode: stub implementation.")
+                        }
+                    }
                 }
             }.toTypedArray()
             uiConstructor.newInstance(*parameters) as Ui
