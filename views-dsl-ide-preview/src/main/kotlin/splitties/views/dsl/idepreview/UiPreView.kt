@@ -31,6 +31,7 @@ import splitties.views.dsl.core.matchParent
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 /**
@@ -86,13 +87,18 @@ class UiPreView @JvmOverloads constructor(
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
             val parameters = mutableListOf<Any>(context).also { params ->
                 uiConstructor.parameterTypes.forEachIndexed { index, parameterType ->
-                    if (index != 0) params += Proxy.newProxyInstance(
-                        parameterType.classLoader,
-                        arrayOf(parameterType)
-                    ) { proxy: Any?, method: Method, args: Array<out Any>? ->
-                        when (method.declaringClass.name) {
-                            "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
-                            else -> unsupported("Edit mode: stub implementation.")
+                    if (index != 0) {
+                        params += when (parameterType) {
+                            CoroutineContext::class.java -> EmptyCoroutineContext
+                            else -> Proxy.newProxyInstance(
+                                parameterType.classLoader,
+                                arrayOf(parameterType)
+                            ) { proxy: Any?, method: Method, args: Array<out Any>? ->
+                                when (method.declaringClass.name) {
+                                    "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
+                                    else -> unsupported("Edit mode: stub implementation.")
+                                }
+                            }
                         }
                     }
                 }
