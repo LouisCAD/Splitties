@@ -189,4 +189,5 @@ fun openUrl(url: String) {
     command.execute()
 }
 releasingNonSnapshot()
-//openUrl("https://stackoverflow.com/a/48266060/4433326")
+val createAndroidStudioCommandLineLauncherUrl = "https://stackoverflow.com/a/48266060/4433326"
+//openUrl(createAndroidStudioCommandLineLauncherUrl)
