@@ -7,7 +7,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-@ExperimentalContracts
+@UseExperimental(ExperimentalContracts::class)
 inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -18,7 +18,7 @@ inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () 
     }
 }
 
-@ExperimentalContracts
+@UseExperimental(ExperimentalContracts::class)
 inline fun <R> View.goneInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -29,7 +29,7 @@ inline fun <R> View.goneInScope(block: () -> R): R {
     }
 }
 
-@ExperimentalContracts
+@UseExperimental(ExperimentalContracts::class)
 inline fun <R> View.invisibleInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
