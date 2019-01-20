@@ -27,8 +27,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import splitties.experimental.InternalSplittiesApi
 import splitties.views.dsl.material.fixedimpls.FixedAppBarLayoutBehavior
 
+@InternalSplittiesApi
 inline fun <reified V : View> instantiateMaterialView(
     clazz: Class<out V>,
     context: Context

@@ -15,9 +15,11 @@
  */
 package splitties.views.dsl.material.experimental
 
+import splitties.experimental.InternalSplittiesApi
 import splitties.initprovider.InitProvider
 import splitties.views.dsl.core.experimental.ViewFactoryImpl
 
+@InternalSplittiesApi
 class MaterialViewInstantiatorInjectProvider : InitProvider() {
     override fun onCreate(): Boolean {
         ViewFactoryImpl.appInstance.apply {

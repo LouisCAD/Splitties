@@ -21,11 +21,13 @@ import android.widget.*
 import androidx.annotation.AttrRes
 import androidx.appcompat.widget.*
 import androidx.appcompat.widget.Toolbar
+import splitties.experimental.InternalSplittiesApi
 
 /**
  * Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content plus other AppCompat
  * only views.
  */
+@InternalSplittiesApi
 inline fun <reified V : View> instantiateAppCompatView(
     clazz: Class<out V>,
     context: Context
@@ -50,6 +52,7 @@ inline fun <reified V : View> instantiateAppCompatView(
 } as V?
 
 /** Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content. */
+@InternalSplittiesApi
 inline fun <reified V : View> instantiateThemeAttrStyledAppCompatView(
     clazz: Class<out V>,
     context: Context,
