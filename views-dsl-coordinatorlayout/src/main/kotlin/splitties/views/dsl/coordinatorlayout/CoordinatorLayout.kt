@@ -18,18 +18,24 @@ inline fun CoordinatorLayout.defaultLParams(
     height: Int = wrapContent,
     gravity: Int = Gravity.NO_GRAVITY,
     initParams: CoordinatorLayout.LayoutParams.() -> Unit = {}
-): CoordinatorLayout.LayoutParams = CoordinatorLayout.LayoutParams(width, height).also {
-    it.gravity = gravity
-}.apply(initParams)
+): CoordinatorLayout.LayoutParams {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return CoordinatorLayout.LayoutParams(width, height).also {
+        it.gravity = gravity
+    }.apply(initParams)
+}
 
 inline fun CoordinatorLayout.appBarLParams(
     height: Int = wrapContent,
     initParams: CoordinatorLayout.LayoutParams.() -> Unit = {}
-): CoordinatorLayout.LayoutParams = defaultLParams(
-    width = matchParent,
-    height = height,
-    initParams = initParams
-)
+): CoordinatorLayout.LayoutParams {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return defaultLParams(
+        width = matchParent,
+        height = height,
+        initParams = initParams
+    )
+}
 
 inline fun CoordinatorLayout.LayoutParams.anchorTo(view: View, gravity: Int = Gravity.NO_GRAVITY) {
     anchorId = view.existingOrNewId

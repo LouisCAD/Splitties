@@ -22,6 +22,8 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import splitties.resources.styledDimenPxSize
 import splitties.views.dsl.core.matchParent
 import splitties.views.dsl.core.wrapContent
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import com.google.android.material.appbar.CollapsingToolbarLayout.LayoutParams as LP
 
 @Suppress("unused")
@@ -43,10 +45,13 @@ inline fun CollapsingToolbarLayout.defaultLParams(
     collapseMode: Int = LP.COLLAPSE_MODE_OFF,
     parallaxMultiplier: Float = 0.5f, // Default value as of 27.1.1
     initParams: LP.() -> Unit = {}
-): LP = LP(width, height).also {
-    it.collapseMode = collapseMode
-    it.parallaxMultiplier = parallaxMultiplier
-}.apply(initParams)
+): LP {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return LP(width, height).also {
+        it.collapseMode = collapseMode
+        it.parallaxMultiplier = parallaxMultiplier
+    }.apply(initParams)
+}
 
 inline fun CollapsingToolbarLayout.actionBarLParams(
     collapseMode: Int = LP.COLLAPSE_MODE_OFF,

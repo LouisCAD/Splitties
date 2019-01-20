@@ -20,6 +20,8 @@ package splitties.views.dsl.constraintlayout
 
 import androidx.constraintlayout.widget.ConstraintLayout
 import splitties.views.dsl.core.matchParent
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * **A LESS CAPITALIZED ALIAS** to [ConstraintLayout.LayoutParams.MATCH_CONSTRAINT] that is only
@@ -33,7 +35,10 @@ inline fun ConstraintLayout.lParams(
     width: Int = matchConstraints,
     height: Int = matchConstraints,
     initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
-): ConstraintLayout.LayoutParams = createConstraintLayoutParams(width, height).apply(initParams)
+): ConstraintLayout.LayoutParams {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return createConstraintLayoutParams(width, height).apply(initParams)
+}
 
 @PublishedApi
 internal fun ConstraintLayout.createConstraintLayoutParams(
