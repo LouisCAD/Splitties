@@ -22,18 +22,18 @@ import android.content.res.Configuration
 import android.util.AttributeSet
 import splitties.resources.styledDimenPxSize
 import kotlin.LazyThreadSafetyMode.NONE
-import androidx.appcompat.widget.Toolbar as SupportToolbar
+import androidx.appcompat.widget.Toolbar as AndroidXToolbar
 
 /**
- * A [SupportToolbar] that handles configuration changes and changes its size accordingly.
+ * An [AndroidXToolbar] that handles configuration changes and changes its size accordingly.
  */
 class Toolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = R.attr.toolbarStyle
-) : SupportToolbar(context, attrs, defStyleAttr) {
+) : AndroidXToolbar(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
 
     private val maxBtHeightField by lazy(NONE) {
-        SupportToolbar::class.java.getDeclaredField("mMaxButtonHeight").apply {
+        AndroidXToolbar::class.java.getDeclaredField("mMaxButtonHeight").apply {
             isAccessible = true
         }
     }
