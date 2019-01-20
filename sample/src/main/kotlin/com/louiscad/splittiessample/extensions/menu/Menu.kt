@@ -19,11 +19,18 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
+@UseExperimental(ExperimentalContracts::class)
 inline fun Menu.addItem(
     @IdRes id: Int,
     @StringRes titleRes: Int,
     groupId: Int = Menu.NONE,
     order: Int = Menu.NONE,
     block: MenuItem.() -> Unit = {}
-) = add(groupId, id, order, titleRes)!!.apply(block)
+): MenuItem {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return add(groupId, id, order, titleRes)!!.apply(block)
+}

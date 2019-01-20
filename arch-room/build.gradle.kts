@@ -45,6 +45,12 @@ dependencies {
     api(Libs.androidX.room.runtime)
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
+    }
+}
+
 apply {
     from("../publish.gradle")
 }

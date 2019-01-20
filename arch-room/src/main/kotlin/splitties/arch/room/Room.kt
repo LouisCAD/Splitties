@@ -21,6 +21,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import splitties.init.appCtx
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 typealias DbConfig<DB> = RoomDatabase.Builder<DB>.() -> Unit
 
@@ -28,13 +30,17 @@ inline fun <reified DB : RoomDatabase> roomDb(
     ctx: Context,
     name: String,
     config: DbConfig<DB> = {}
-): DB = Room.databaseBuilder(ctx, DB::class.java, name).apply(config).build()
+): DB {
+    contract { callsInPlace(config, InvocationKind.EXACTLY_ONCE) }
+    return Room.databaseBuilder(ctx, DB::class.java, name).apply(config).build()
+}
 
 inline fun <reified DB : RoomDatabase> roomDb(name: String, config: DbConfig<DB> = {}): DB {
     return roomDb(appCtx, name, config)
 }
 
 inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
+    contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
     beginTransaction()
     try {
         body(this)
@@ -44,11 +50,14 @@ inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     }
 }
 
-inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R = try {
-    beginTransaction()
-    body(this).also { setTransactionSuccessful() }
-} finally {
-    endTransaction()
+inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R {
+    contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
+    return try {
+        beginTransaction()
+        body(this).also { setTransactionSuccessful() }
+    } finally {
+        endTransaction()
+    }
 }
 
 inline fun RoomDatabase.Builder<*>.onCreate(crossinline block: (db: SupportSQLiteDatabase) -> Unit) {
