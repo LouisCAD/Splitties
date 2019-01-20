@@ -22,12 +22,14 @@ import android.widget.*
 import androidx.annotation.AttrRes
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
+import splitties.experimental.InternalSplittiesApi
 import splitties.views.dsl.core.ViewFactory
 import java.lang.reflect.Constructor
 
 typealias ViewInstantiator = (Class<out View>, Context) -> View?
 typealias ThemeAttrStyledViewInstantiator = (Class<out View>, Context, Int) -> View?
 
+@InternalSplittiesApi
 class ViewFactoryImpl : ViewFactory {
     companion object {
         val appInstance = ViewFactoryImpl()
@@ -140,4 +142,3 @@ private val cachedViewConstructors by lazy(LazyThreadSafetyMode.PUBLICATION) {
 private val cachedThemeAttrStyledViewConstructors by lazy(LazyThreadSafetyMode.PUBLICATION) {
     mutableMapOf<Class<out View>, Constructor<out View>>()
 }
-

@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
+import splitties.experimental.InternalSplittiesApi
 import splitties.views.inflate
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
@@ -73,6 +74,7 @@ inline fun <V : View> Ui.view(
 
 private const val VIEW_FACTORY = "splitties:views.dsl:viewfactory"
 
+@InternalSplittiesApi
 val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
@@ -84,6 +86,16 @@ fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : Contex
     }
 }
 
+/**
+ * Most of the time, you should use a non [InternalSplittiesApi] overload of this function that
+ * takes a function of type `(Context) -> V` where V is a `View` or one of its subtypes, where
+ * using a reference to the constructor (e.g. `v(::MapView)`) is possible.
+ *
+ * This function is meant to be used when the type of View [V] is supported by an installed
+ * [ViewFactory]. This inline function is usually hidden under other inline functions such as
+ * the function [textView], which define the type.
+ */
+@InternalSplittiesApi
 inline fun <reified V : View> Context.view(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,
@@ -95,6 +107,16 @@ inline fun <reified V : View> Context.view(
     }.apply(initView)
 }
 
+/**
+ * Most of the time, you should use a non [InternalSplittiesApi] overload of this function that
+ * takes a function of type `(Context) -> V` where V is a `View` or one of its subtypes, where
+ * using a reference to the constructor (e.g. `v(::MapView)`) is possible.
+ *
+ * This function is meant to be used when the type of View [V] is supported by an installed
+ * [ViewFactory]. This inline function is usually hidden under other inline functions such as
+ * the function [textView], which define the type.
+ */
+@InternalSplittiesApi
 inline fun <reified V : View> View.view(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,
@@ -104,6 +126,16 @@ inline fun <reified V : View> View.view(
     return context.view(id, theme, initView)
 }
 
+/**
+ * Most of the time, you should use a non [InternalSplittiesApi] overload of this function that
+ * takes a function of type `(Context) -> V` where V is a `View` or one of its subtypes, where
+ * using a reference to the constructor (e.g. `v(::MapView)`) is possible.
+ *
+ * This function is meant to be used when the type of View [V] is supported by an installed
+ * [ViewFactory]. This inline function is usually hidden under other inline functions such as
+ * the function [textView], which define the type.
+ */
+@InternalSplittiesApi
 inline fun <reified V : View> Ui.view(
     @IdRes id: Int = View.NO_ID,
     @StyleRes theme: Int = NO_THEME,

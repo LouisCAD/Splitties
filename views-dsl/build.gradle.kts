@@ -39,6 +39,7 @@ android {
 
 dependencies {
     api(project(":collections"))
+    api(project(":experimental"))
     api(project(":views"))
 
     api(Libs.kotlin.stdlibJdk7)
@@ -49,6 +50,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded 
     kotlinOptions {
         freeCompilerArgs += "-XXLanguage:+InlineClasses"
         freeCompilerArgs += "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
+        freeCompilerArgs += "-Xuse-experimental=splitties.experimental.InternalSplittiesApi"
     }
 }
 

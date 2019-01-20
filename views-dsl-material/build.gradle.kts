@@ -53,6 +53,7 @@ dependencies {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
     kotlinOptions {
         freeCompilerArgs += "-Xuse-experimental=kotlin.contracts.ExperimentalContracts"
+        freeCompilerArgs += "-Xuse-experimental=splitties.experimental.InternalSplittiesApi"
     }
 }
 
