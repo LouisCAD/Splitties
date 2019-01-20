@@ -25,6 +25,7 @@ import splitties.views.dsl.core.getThemeAttrStyledView
 import splitties.views.dsl.core.viewFactory
 import splitties.views.dsl.core.wrapCtxIfNeeded
 
+@Deprecated("No longer used. Will be removed before Splitties 3.0.0.")
 typealias NewViewWithStyleAttrRef<V> = (Context, AttributeSet?, Int) -> V
 
 inline operator fun <reified V : View> XmlStyle<V>.invoke(
