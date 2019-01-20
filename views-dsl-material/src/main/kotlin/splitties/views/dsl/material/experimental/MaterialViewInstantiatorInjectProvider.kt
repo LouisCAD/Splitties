@@ -24,6 +24,7 @@ class MaterialViewInstantiatorInjectProvider : InitProvider() {
     override fun onCreate(): Boolean {
         ViewFactoryImpl.appInstance.apply {
             add(::instantiateMaterialView)
+            addForThemeAttrStyled(::instantiateThemeAttrStyledMaterialView)
         }
         return true
     }

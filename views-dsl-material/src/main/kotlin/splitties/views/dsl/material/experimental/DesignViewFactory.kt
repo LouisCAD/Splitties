@@ -17,6 +17,7 @@ package splitties.views.dsl.material.experimental
 
 import android.content.Context
 import android.view.View
+import androidx.annotation.AttrRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -47,5 +48,26 @@ inline fun <reified V : View> instantiateMaterialView(
     TabLayout::class.java -> TabLayout(context)
     TextInputLayout::class.java -> TextInputLayout(context)
     TextInputEditText::class.java -> TextInputEditText(context)
+    else -> null
+} as V?
+
+@InternalSplittiesApi
+inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
+    clazz: Class<out V>,
+    context: Context,
+    @AttrRes styleThemeAttribute: Int
+): V? = when (clazz) {
+    FloatingActionButton::class.java -> FloatingActionButton(context, null, styleThemeAttribute)
+    AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
+        override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
+    }
+    NavigationView::class.java -> NavigationView(context, null, styleThemeAttribute)
+    BottomNavigationView::class.java -> BottomNavigationView(context, null, styleThemeAttribute)
+    CollapsingToolbarLayout::class.java -> ConfigChangesHandlingCollapsingToolbarLayout(
+        context, null, styleThemeAttribute
+    )
+    TabLayout::class.java -> TabLayout(context, null, styleThemeAttribute)
+    TextInputLayout::class.java -> TextInputLayout(context, null, styleThemeAttribute)
+    TextInputEditText::class.java -> TextInputEditText(context, null, styleThemeAttribute)
     else -> null
 } as V?
