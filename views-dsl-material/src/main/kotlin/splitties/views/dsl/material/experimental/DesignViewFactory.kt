@@ -38,7 +38,6 @@ inline fun <reified V : View> instantiateMaterialView(
     clazz: Class<out V>,
     context: Context
 ): V? = when (clazz) {
-    Button::class.java -> MaterialButton(context)
     FloatingActionButton::class.java -> FloatingActionButton(context)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
         override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
@@ -60,7 +59,6 @@ inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
     context: Context,
     @AttrRes styleThemeAttribute: Int
 ): V? = when (clazz) {
-    Button::class.java -> MaterialButton(context, null, styleThemeAttribute)
     FloatingActionButton::class.java -> FloatingActionButton(context, null, styleThemeAttribute)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
         override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
