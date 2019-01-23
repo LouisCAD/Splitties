@@ -1,7 +1,7 @@
 package splitties.lifecycle.coroutines
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.android.asCoroutineDispatcher
 import splitties.mainhandler.mainHandler
 
@@ -14,7 +14,7 @@ import splitties.mainhandler.mainHandler
  */
 @Suppress("unused")
 @MainDispatcherPerformanceIssueWorkaround
-val Dispatchers.MainAndroid: CoroutineDispatcher
+val Dispatchers.MainAndroid: MainCoroutineDispatcher
     get() = androidMainDispatcher ?: try {
         mainHandler.asCoroutineDispatcher("splitties-main-dispatcher")
     } catch (cantCheckMainThreadInTestsError: ExceptionInInitializerError) {
@@ -25,4 +25,4 @@ val Dispatchers.MainAndroid: CoroutineDispatcher
         androidMainDispatcher = it
     }
 
-private var androidMainDispatcher: CoroutineDispatcher? = null
+private var androidMainDispatcher: MainCoroutineDispatcher? = null
