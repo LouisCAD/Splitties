@@ -26,7 +26,7 @@ suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
     require(state != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for awaitState(…), to avoid leaks."
     }
-    if (currentState.isAtLeast(state)) return // Fast path
+    if (currentState >= state) return // Fast path
     suspendCancellableCoroutine<Unit> { c ->
         if (currentState == Lifecycle.State.DESTROYED) { // Fast path to cancellation
             c.cancel()
@@ -34,7 +34,7 @@ suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
         }
         val observer = object : GenericLifecycleObserver {
             override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
-                if (currentState.isAtLeast(state)) {
+                if (currentState >= state) {
                     removeObserver(this)
                     c.resume(Unit)
                 } else if (currentState == Lifecycle.State.DESTROYED) {
