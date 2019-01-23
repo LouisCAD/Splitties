@@ -79,6 +79,7 @@ val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
     get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
 
+@InternalSplittiesApi
 fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : ContextWrapper(this) {
     override fun getSystemService(name: String): Any? = when (name) {
         VIEW_FACTORY -> viewFactory
