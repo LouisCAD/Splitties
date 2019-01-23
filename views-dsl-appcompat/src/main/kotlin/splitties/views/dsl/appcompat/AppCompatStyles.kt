@@ -40,9 +40,8 @@ class AppCompatStyles(@PublishedApi internal val ctx: Context) {
     ) = XmlStyle<ImageButton>(R.attr.Widget_AppCompat_ActionButton)(ctx, id, theme, initView)
 }
 
-//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
-class ButtonAppCompatStyles @PublishedApi internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class ButtonAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(
@@ -84,9 +83,8 @@ class ButtonAppCompatStyles @PublishedApi internal constructor(
     ) = flatColored(id, theme, initView)
 }
 
-//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
-class TextViewAppCompatStyles @PublishedApi internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class TextViewAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun spinnerItem(
@@ -96,9 +94,8 @@ class TextViewAppCompatStyles @PublishedApi internal constructor(
     ) = XmlStyle<TextView>(R.attr.Widget_AppCompat_TextView_SpinnerItem)(ctx, id, theme, initView)
 }
 
-//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
-class SeekBarAppCompatStyles @PublishedApi internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(
@@ -114,9 +111,8 @@ class SeekBarAppCompatStyles @PublishedApi internal constructor(
     ) = XmlStyle<SeekBar>(R.attr.Widget_AppCompat_SeekBar_Discrete)(ctx, id, theme, initView)
 }
 
-//@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-//inline TODO: Make back inline when https://youtrack.jetbrains.com/issue/KT-28542 is fixed.
-class SpinnerAppCompatStyles @PublishedApi internal constructor(
+@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
+inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(
