@@ -39,17 +39,18 @@ import splitties.views.textResource
 class MainUi(override val ctx: Context) : Ui {
 
     private val materialStyles = MaterialComponentsStyles(ctx)
+    private val materialButtons = materialStyles.button
 
-    val launchDemoBtn = materialStyles.button.text {
+    val launchDemoBtn = materialButtons.text {
         textResource = R.string.go_to_the_demo
     }
-    val bePoliteWithPermissionsBtn = materialStyles.button.filled {
+    val bePoliteWithPermissionsBtn = materialButtons.filled {
         textResource = R.string.be_polite_with_permissions
     }
-    val sayHelloBtn = materialStyles.button.text {
+    val sayHelloBtn = materialButtons.text {
         textResource = R.string.say_hello
     }
-    val toggleNightModeBtn = materialStyles.button.filledWithIcon {
+    val toggleNightModeBtn = materialButtons.filledWithIcon {
         setIconResource(R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
     }
