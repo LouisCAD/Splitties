@@ -19,27 +19,32 @@ import android.content.Context
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
+import splitties.dimensions.dip
 import splitties.snackbar.snack
-import splitties.views.dsl.appcompat.AppCompatStyles
-import splitties.views.dsl.core.*
-import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
+import splitties.views.dsl.core.*
+import splitties.views.dsl.material.MaterialComponentsStyles
+import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.gravityEnd
 import splitties.views.onClick
 
 class SayHelloUi(override val ctx: Context) : Ui {
-    private val appCompatStyles = AppCompatStyles(ctx)
+    private val materialStyles = MaterialComponentsStyles(ctx)
     private val nameInput = editText(R.id.input_name) {
         hint = "Your name"
     }
-    private val sayHelloBtn = appCompatStyles.button.colored { text = "Say hello!" }
+    private val sayHelloBtn = materialStyles.button.filled { text = "Say hello!" }
     override val root: CoordinatorLayout = coordinatorLayout {
         fitsSystemWindows = true
         addDefaultAppBar(ctx)
         add(verticalLayout {
             add(nameInput, lParams(width = matchParent))
-            add(sayHelloBtn, lParams(gravity = gravityEnd))
-        }, contentScrollingWithAppBarLParams())
+            add(sayHelloBtn, lParams(gravity = gravityEnd) {
+                topMargin = dip(8)
+            })
+        }, contentScrollingWithAppBarLParams {
+            margin = dip(16)
+        })
     }
 
     init {
