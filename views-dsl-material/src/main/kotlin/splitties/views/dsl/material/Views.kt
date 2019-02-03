@@ -19,6 +19,7 @@ import android.content.Context
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.annotation.StyleRes
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
@@ -53,4 +54,33 @@ inline fun Ui.floatingActionButton(
 ): FloatingActionButton {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.floatingActionButton(id, theme, initView)
+}
+
+// MaterialCardView
+
+inline fun Context.materialCardView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: MaterialCardView.() -> Unit = {}
+): MaterialCardView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
+
+inline fun View.materialCardView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: MaterialCardView.() -> Unit = {}
+): MaterialCardView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.materialCardView(id, theme, initView)
+}
+
+inline fun Ui.materialCardView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: MaterialCardView.() -> Unit = {}
+): MaterialCardView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.materialCardView(id, theme, initView)
 }

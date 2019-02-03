@@ -36,8 +36,6 @@
         <item name="Widget.MaterialComponents.Button.UnelevatedButton">@style/Widget.MaterialComponents.Button.UnelevatedButton</item>
         <item name="Widget.MaterialComponents.Button.UnelevatedButton.Icon">@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon</item>
 
-        <item name="Widget.MaterialComponents.CardView">@style/Widget.MaterialComponents.CardView</item>
-
         <item name="Widget.MaterialComponents.Chip.Action">@style/Widget.MaterialComponents.Chip.Action</item>
         <item name="Widget.MaterialComponents.Chip.Choice">@style/Widget.MaterialComponents.Chip.Choice</item>
         <item name="Widget.MaterialComponents.Chip.Entry">@style/Widget.MaterialComponents.Chip.Entry</item>

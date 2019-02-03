@@ -25,6 +25,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.appbar.ConfigChangesHandlingCollapsingToolbarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
@@ -40,6 +41,7 @@ inline fun <reified V : View> instantiateMaterialView(
 ): V? = when (clazz) {
     Button::class.java -> MaterialButton(context)
     FloatingActionButton::class.java -> FloatingActionButton(context)
+    MaterialCardView::class.java -> MaterialCardView(context)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
         override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
     }
@@ -62,6 +64,7 @@ inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
 ): V? = when (clazz) {
     Button::class.java -> MaterialButton(context, null, styleThemeAttribute)
     FloatingActionButton::class.java -> FloatingActionButton(context, null, styleThemeAttribute)
+    MaterialCardView::class.java -> MaterialCardView(context, null, styleThemeAttribute)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
         override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
     }
