@@ -21,7 +21,6 @@ package splitties.resources
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
@@ -36,7 +35,7 @@ private val tmpValue by lazy { TypedValue() }
  */
 fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
     @Suppress("CascadeIf")
-    return if (SDK_INT >= LOLLIPOP) getDrawable(drawableResId)
+    return if (SDK_INT >= 21) getDrawable(drawableResId)
     else if (SDK_INT >= 16) {
         @Suppress("DEPRECATION")
         resources.getDrawable(drawableResId)

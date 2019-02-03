@@ -17,7 +17,6 @@
 package splitties.views.dsl.core
 
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
 import android.view.ViewGroup
 import androidx.annotation.Px
 import kotlin.DeprecationLevel.HIDDEN
@@ -46,15 +45,15 @@ inline var ViewGroup.MarginLayoutParams.margin: Int
     }
 
 inline var ViewGroup.MarginLayoutParams.startMargin: Int
-    get() = if (SDK_INT >= JELLY_BEAN_MR1) marginStart else leftMargin
+    get() = if (SDK_INT >= 17) marginStart else leftMargin
     set(@Px value) {
-        if (SDK_INT >= JELLY_BEAN_MR1) marginStart = value
+        if (SDK_INT >= 17) marginStart = value
         else leftMargin = value
     }
 
 inline var ViewGroup.MarginLayoutParams.endMargin: Int
-    get() = if (SDK_INT >= JELLY_BEAN_MR1) marginEnd else rightMargin
+    get() = if (SDK_INT >= 17) marginEnd else rightMargin
     set(@Px value) {
-        if (SDK_INT >= JELLY_BEAN_MR1) marginEnd = value
+        if (SDK_INT >= 17) marginEnd = value
         else rightMargin = value
     }

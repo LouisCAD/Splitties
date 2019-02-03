@@ -22,7 +22,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.M
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -34,7 +33,7 @@ import splitties.init.appCtx
  * @see [androidx.core.content.ContextCompat.getColor]
  */
 @ColorInt
-fun Context.color(@ColorRes colorRes: Int): Int = if (SDK_INT >= M) getColor(colorRes) else {
+fun Context.color(@ColorRes colorRes: Int): Int = if (SDK_INT >= 23) getColor(colorRes) else {
     @Suppress("DEPRECATION")
     resources.getColor(colorRes)
 }
@@ -54,7 +53,7 @@ inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
  * @see [androidx.core.content.ContextCompat.getColorStateList]
  */
 fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList? {
-    return (if (SDK_INT >= M) getColorStateList(colorRes) else {
+    return (if (SDK_INT >= 23) getColorStateList(colorRes) else {
         @Suppress("DEPRECATION")
         resources.getColorStateList(colorRes)
     })
