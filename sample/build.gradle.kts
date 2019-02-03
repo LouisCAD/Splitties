@@ -59,6 +59,15 @@ android {
     sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
+val useMavenLocalSnapshot = true
+if (useMavenLocalSnapshot) repositories {
+    mavenLocal()
+}
+
+fun splittiesDependencyNotation(moduleName: String): Any = if (useMavenLocalSnapshot) {
+    "com.louiscad.splitties:splitties-${moduleName.drop(1)}:${ProjectVersions.thisLibrary}"
+} else project(moduleName)
+
 dependencies {
     arrayOf(
         ":activities",
@@ -87,20 +96,20 @@ dependencies {
         ":views-dsl-constraintlayout",
         ":views-dsl-material"
     ).forEach { moduleName ->
-        implementation(project(moduleName))
+        implementation(splittiesDependencyNotation(moduleName))
     }
     arrayOf(
         ":stetho-init",
         ":views-dsl-ide-preview"
     ).forEach { moduleName ->
-        debugImplementation(project(moduleName))
+        debugImplementation(splittiesDependencyNotation(moduleName))
     }
     with(Libs) {
         arrayOf(
             kotlin.stdlibJdk7,
             androidX.appCompat,
             androidX.coreKtx,
-            androidX.constraintLayout,
+            "androidx.constraintlayout:constraintlayout:2.0.0-alpha3",
             google.material,
             timber,
             kotlinX.coroutines.android
@@ -112,7 +121,7 @@ dependencies {
 
 tasks.withType<KotlinCompile>().whenTaskAdded {
     kotlinOptions {
-        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
+        freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
     }
 }
 
