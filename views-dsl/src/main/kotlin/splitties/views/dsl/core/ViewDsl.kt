@@ -77,7 +77,11 @@ private const val VIEW_FACTORY = "splitties:views.dsl:viewfactory"
 @InternalSplittiesApi
 val Context.viewFactory: ViewFactory
     @SuppressLint("WrongConstant")
-    get() = getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
+    get() = try {
+        getSystemService(VIEW_FACTORY) as ViewFactory? ?: ViewFactory.appInstance
+    } catch (t: Throwable) {
+        ViewFactory.appInstance
+    }
 
 @InternalSplittiesApi
 fun Context.withViewFactory(viewFactory: ViewFactory): Context = object : ContextWrapper(this) {
