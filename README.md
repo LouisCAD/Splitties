@@ -26,7 +26,7 @@ as possible.
 - **[Arch Room:](arch-room)** Room helpers to instantiate your DB and perform transactions in
 Kotlin.
 - **[Bit Flags:](bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
-`Short` and `Byte`.
+`Short`, `Byte`, and their unsigned counterparts.
 - **[Bundle:](bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.
 - **[Collections:](collections)** `forEach` for `List`s without `Iterator` allocation.
