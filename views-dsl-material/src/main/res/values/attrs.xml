@@ -41,11 +41,6 @@
     <attr name="Widget.MaterialComponents.TabLayout" format="reference"/>
     <attr name="Widget.MaterialComponents.TabLayout.Colored" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.TextInputEditText.FilledBox" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.FilledBox.Dense" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.OutlinedBox" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense" format="reference"/>
-
     <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox" format="reference"/>
     <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" format="reference"/>
     <attr name="Widget.MaterialComponents.TextInputLayout.OutlinedBox" format="reference"/>
