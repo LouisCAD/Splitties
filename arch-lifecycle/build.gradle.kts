@@ -51,9 +51,7 @@ dependencies {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
-    kotlinOptions {
-        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
-    }
+    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
 }
 
 apply {

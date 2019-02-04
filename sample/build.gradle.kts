@@ -111,9 +111,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions {
-        freeCompilerArgs += "-Xuse-experimental=kotlin.Experimental"
-    }
+    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
 }
 
 val isRelease: Boolean by extra
