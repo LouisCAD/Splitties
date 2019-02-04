@@ -5,10 +5,8 @@ import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
-import splitties.views.dsl.material.styles.BottomAppBarStyles
-import splitties.views.dsl.material.styles.BottomNavigationViewStyles
-import splitties.views.dsl.material.styles.ButtonMaterialComponentsStyles
-import splitties.views.dsl.material.styles.ChipStyles
+import com.google.android.material.tabs.TabLayout
+import splitties.views.dsl.material.styles.*
 
 class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
     init {
@@ -38,4 +36,10 @@ class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
      * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/chip/Chip).
      */
     inline val chip get() = ChipStyles(ctx)
+
+    /**
+     * See [TabLayout] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/TabLayout.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout).
+     */
+    inline val tabLayout get() = TabLayoutStyles(ctx)
 }
