@@ -38,8 +38,6 @@
     <attr name="Widget.MaterialComponents.Chip.Entry" format="reference"/>
     <attr name="Widget.MaterialComponents.Chip.Filter" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.ChipGroup" format="reference"/>
-
     <attr name="Widget.MaterialComponents.TabLayout" format="reference"/>
     <attr name="Widget.MaterialComponents.TabLayout.Colored" format="reference"/>
 

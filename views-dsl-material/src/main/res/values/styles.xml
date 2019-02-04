@@ -39,8 +39,6 @@
         <item name="Widget.MaterialComponents.Chip.Entry">@style/Widget.MaterialComponents.Chip.Entry</item>
         <item name="Widget.MaterialComponents.Chip.Filter">@style/Widget.MaterialComponents.Chip.Filter</item>
 
-        <item name="Widget.MaterialComponents.ChipGroup">@style/Widget.MaterialComponents.ChipGroup</item>
-
         <item name="Widget.MaterialComponents.TabLayout">@style/Widget.MaterialComponents.TabLayout</item>
         <item name="Widget.MaterialComponents.TabLayout.Colored">@style/Widget.MaterialComponents.TabLayout.Colored</item>
 
