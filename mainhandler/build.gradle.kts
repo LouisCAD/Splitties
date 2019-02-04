@@ -39,6 +39,7 @@ android {
 
 dependencies {
     api(project(":mainthread"))
+    api(project(":experimental"))
 
     api(Libs.kotlin.stdlibJdk7)
 }
