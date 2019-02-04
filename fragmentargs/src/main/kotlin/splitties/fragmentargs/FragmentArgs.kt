@@ -20,7 +20,6 @@ package splitties.fragmentargs
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import splitties.bundle.put
-import splitties.exceptions.illegal
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -40,7 +39,7 @@ private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): Any {
         val key = property.name
         val args = thisRef.arguments
-            ?: illegal("Cannot read property $key if no arguments have been set")
+            ?: error("Cannot read property $key if no arguments have been set")
         return checkNotNull(args.get(key)) { "Property $key could not be read" }
     }
 

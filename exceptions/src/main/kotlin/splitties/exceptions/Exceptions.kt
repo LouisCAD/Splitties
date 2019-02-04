@@ -21,8 +21,9 @@ import android.content.Intent
 /** Throws an [IllegalStateException] with a message that includes [value]. */
 fun unexpectedValue(value: Any?): Nothing = throw IllegalStateException("Unexpected value: $value")
 
+@Deprecated("Use error from stdlib instead", ReplaceWith("error(errorMessage)"))
 /** Throws an [IllegalStateException] with the passed message. */
-fun illegal(errorMessage: String? = null): Nothing = throw IllegalStateException(errorMessage)
+fun illegal(errorMessage: String = ""): Nothing = error(errorMessage)
 
 /** Throws an [IllegalArgumentException] with the passed message. */
 fun illegalArg(errorMessage: String? = null): Nothing = throw IllegalArgumentException(errorMessage)

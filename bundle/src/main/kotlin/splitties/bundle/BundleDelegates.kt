@@ -18,7 +18,6 @@
 package splitties.bundle
 
 import android.os.Bundle
-import splitties.exceptions.illegal
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -43,7 +42,7 @@ fun <T> BundleSpec.bundleOrNull(key: String): ReadWriteProperty<BundleSpec, T?> 
 
 private val BundleSpec.bundle: Bundle
     get() = currentBundle
-        ?: illegal("Bundle property accessed outside with() function! Thread: $currentThread")
+        ?: error("Bundle property accessed outside with() function! Thread: $currentThread")
 
 private fun BundleSpec.put(key: String, value: Any?) {
     check(!isReadOnly) {

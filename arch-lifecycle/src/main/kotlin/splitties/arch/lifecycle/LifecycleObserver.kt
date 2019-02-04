@@ -20,7 +20,6 @@ import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.*
 import androidx.lifecycle.LifecycleOwner
-import splitties.exceptions.illegal
 import splitties.experimental.ExperimentalSplittiesApi
 
 /**
@@ -46,7 +45,7 @@ interface LifecycleObserver : GenericLifecycleObserver {
             ON_PAUSE -> onPause(source)
             ON_STOP -> onStop(source)
             ON_DESTROY -> onDestroy(source)
-            ON_ANY -> illegal("ON_ANY must not be sent by anybody")
+            ON_ANY -> error("ON_ANY must not be sent by anybody")
         }
     }
 }
