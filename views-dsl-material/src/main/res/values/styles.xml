@@ -23,8 +23,6 @@
         <item name="Widget.MaterialComponents.BottomNavigationView">@style/Widget.MaterialComponents.BottomNavigationView</item>
         <item name="Widget.MaterialComponents.BottomNavigationView.Colored">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
 
-        <item name="Widget.MaterialComponents.BottomSheet.Modal">@style/Widget.MaterialComponents.BottomSheet.Modal</item>
-
         <item name="Widget.MaterialComponents.Button">@style/Widget.MaterialComponents.Button</item>
         <item name="Widget.MaterialComponents.Button.Icon">@style/Widget.MaterialComponents.Button.Icon</item>
         <item name="Widget.MaterialComponents.Button.OutlinedButton">@style/Widget.MaterialComponents.Button.OutlinedButton</item>

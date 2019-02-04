@@ -22,8 +22,6 @@
     <attr name="Widget.MaterialComponents.BottomNavigationView" format="reference"/>
     <attr name="Widget.MaterialComponents.BottomNavigationView.Colored" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.BottomSheet.Modal" format="reference"/>
-
     <attr name="Widget.MaterialComponents.Button" format="reference"/>
     <attr name="Widget.MaterialComponents.Button.Icon" format="reference"/>
     <attr name="Widget.MaterialComponents.Button.OutlinedButton" format="reference"/>
