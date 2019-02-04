@@ -76,6 +76,7 @@ easy basic usage of `RecyclerView`.
 for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](views-cardview)** CardView extension of [Views](views). Provides a
 `contentPadding` property.
+- **[Views Coroutines:](views-coroutines)** Android Views + Kotlin coroutines.
 - **[Views DSL:](views-dsl)** Create UIs with readable Kotlin code.
 - **[Views DSL AppCompat:](views-dsl-appcompat)** AppCompat extension of [Views DSL](views-dsl).
 - **[Views DSL ConstraintLayout:](views-dsl-constraintlayout)** ConstraintLayout extension of
@@ -142,6 +143,7 @@ implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties
 implementation("com.louiscad.splitties:splitties-views:$splitties_version")
 implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
 implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
 implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
 implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")

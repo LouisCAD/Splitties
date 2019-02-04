@@ -83,6 +83,7 @@ dependencies {
         ":toast",
         ":typesaferecyclerview",
         ":mainthread",
+        ":views-coroutines",
         ":views-dsl-appcompat",
         ":views-dsl-constraintlayout",
         ":views-dsl-material"
