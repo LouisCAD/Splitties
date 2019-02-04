@@ -6,6 +6,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputLayout
 import splitties.views.dsl.material.styles.*
 
 class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
@@ -42,4 +43,10 @@ class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
      * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout).
      */
     inline val tabLayout get() = TabLayoutStyles(ctx)
+
+    /**
+     * See [TextInputLayout] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/TextInputLayout.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout).
+     */
+    inline val textInputLayout get() = TextInputLayoutStyles(ctx)
 }
