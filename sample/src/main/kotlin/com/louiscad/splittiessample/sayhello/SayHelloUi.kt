@@ -16,6 +16,7 @@
 package com.louiscad.splittiessample.sayhello
 
 import android.content.Context
+import android.text.InputType
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
@@ -24,21 +25,33 @@ import splitties.snackbar.snack
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.core.*
 import splitties.views.dsl.material.MaterialComponentsStyles
+import splitties.views.dsl.material.addInput
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.gravityEnd
+import splitties.views.material.text
 import splitties.views.onClick
 
 class SayHelloUi(override val ctx: Context) : Ui {
     private val materialStyles = MaterialComponentsStyles(ctx)
-    private val nameInput = editText(R.id.input_name) {
-        hint = "Your name"
+    private val firstNameInput = materialStyles.textInputLayout.outlinedBox {
+        addInput(R.id.input_name) {
+            hint = "First name"
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+        }
+    }
+    private val lastNameInput = materialStyles.textInputLayout.outlinedBox {
+        addInput(R.id.input_name) {
+            hint = "Last name"
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+        }
     }
     private val sayHelloBtn = materialStyles.button.filled { text = "Say hello!" }
     override val root: CoordinatorLayout = coordinatorLayout {
         fitsSystemWindows = true
         addDefaultAppBar(ctx)
         add(verticalLayout {
-            add(nameInput, lParams(width = matchParent))
+            add(firstNameInput, lParams(width = matchParent))
+            add(lastNameInput, lParams(width = matchParent))
             add(sayHelloBtn, lParams(gravity = gravityEnd) {
                 topMargin = dip(8)
             })
@@ -49,7 +62,8 @@ class SayHelloUi(override val ctx: Context) : Ui {
 
     init {
         sayHelloBtn.onClick {
-            root.snack("Hello ${nameInput.text}!")
+            val fullName = "${firstNameInput.text} ${lastNameInput.text}"
+            root.snack("Hello $fullName!")
         }
     }
 }
