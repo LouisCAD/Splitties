@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.louiscad.splittiessample.extensions.coroutines.show
 import splitties.init.appCtx
+import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 
 fun hasPermission(permission: String): Boolean = SDK_INT < 23 ||
         appCtx.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
@@ -29,6 +30,7 @@ fun hasPermission(permission: String): Boolean = SDK_INT < 23 ||
 suspend fun FragmentActivity.requestPermission(permission: String) {
     if (SDK_INT < 23) return
     if (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) return
+    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     show(::PermissionRequestDialogFragment) {
         permissionName = permission
     }.awaitGrant()
@@ -38,6 +40,7 @@ suspend fun FragmentActivity.requestPermission(permission: String) {
 suspend fun Fragment.requestPermission(permission: String) {
     if (SDK_INT < 23) return
     if (activity!!.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) return
+    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     show(::PermissionRequestDialogFragment) {
         permissionName = permission
     }.awaitGrant()
