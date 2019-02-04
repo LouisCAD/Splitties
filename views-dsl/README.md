@@ -260,7 +260,7 @@ Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
 
 You can see implementations for [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
-and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewsGroups.kt).
+and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewGroups.kt).
 
 These methods are a bit more natural to read and to write, but they are really
 just **inline** aliases, purely syntactic sugar.

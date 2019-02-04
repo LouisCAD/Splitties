@@ -9,7 +9,7 @@ yourself.
 ## Facts
 
 * If we don't count imports and copyright headers, the xml version of [MainUi](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt
 ) (from the sample) was more than 100% lengthier (50 lines with Kotlin,
 102 lines in xml).
 
