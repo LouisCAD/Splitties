@@ -21,6 +21,12 @@ import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
 
+/**
+ * This function returns/resumes as soon as the state of this [Lifecycle] is at least the
+ * passed [state].
+ *
+ * [Lifecycle.State.DESTROYED] is forbidden, to avoid leaks.
+ */
 @PotentialFutureAndroidXLifecycleKtxApi
 @UseExperimental(ExperimentalCoroutinesApi::class)
 suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
