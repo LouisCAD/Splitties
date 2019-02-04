@@ -16,12 +16,13 @@
 package com.louiscad.splittiessample.sayhello
 
 import android.content.Context
-import android.text.InputType
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.extensions.ui.addDefaultAppBar
 import splitties.dimensions.dip
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.snackbar.snack
+import splitties.views.InputType
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.core.*
 import splitties.views.dsl.material.MaterialComponentsStyles
@@ -30,19 +31,21 @@ import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.gravityEnd
 import splitties.views.material.text
 import splitties.views.onClick
+import splitties.views.type
 
+@UseExperimental(ExperimentalSplittiesApi::class)
 class SayHelloUi(override val ctx: Context) : Ui {
     private val materialStyles = MaterialComponentsStyles(ctx)
     private val firstNameInput = materialStyles.textInputLayout.outlinedBox {
         addInput(R.id.input_name) {
             hint = "First name"
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+            type = InputType.personName
         }
     }
     private val lastNameInput = materialStyles.textInputLayout.outlinedBox {
         addInput(R.id.input_name) {
             hint = "Last name"
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+            type = InputType.personName
         }
     }
     private val sayHelloBtn = materialStyles.button.filled { text = "Say hello!" }
