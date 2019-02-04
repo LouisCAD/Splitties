@@ -37,7 +37,7 @@ inline fun ConstraintLayout.lParams(
     initParams: ConstraintLayout.LayoutParams.() -> Unit = {}
 ): ConstraintLayout.LayoutParams {
     contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
-    return createConstraintLayoutParams(width, height).apply(initParams)
+    return createConstraintLayoutParams(width, height).apply(initParams).also { it.validate() }
 }
 
 @PublishedApi
