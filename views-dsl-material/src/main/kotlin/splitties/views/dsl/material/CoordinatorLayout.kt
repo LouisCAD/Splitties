@@ -20,11 +20,16 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.appbar.AppBarLayout
 import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.matchParent
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams as LP
 
 inline fun CoordinatorLayout.contentScrollingWithAppBarLParams(
     initParams: LP.() -> Unit = {}
-): LP = defaultLParams(matchParent, matchParent) {
-    behavior = AppBarLayout.ScrollingViewBehavior()
-    initParams()
+): LP {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return defaultLParams(matchParent, matchParent) {
+        behavior = AppBarLayout.ScrollingViewBehavior()
+        initParams()
+    }
 }

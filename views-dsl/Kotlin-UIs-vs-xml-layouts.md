@@ -9,21 +9,25 @@ yourself.
 ## Facts
 
 * If we don't count imports and copyright headers, the xml version of [MainUi](
-../sample/src/main/java/com/louiscad/splittiessample/main/MainUi.kt
+../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt
 ) (from the sample) was more than 100% lengthier (50 lines with Kotlin,
-102 lines in xml).
+102 lines in xml, across the [activity_main.xml](
+https://github.com/LouisCAD/Splitties/blob/v1.3.0/sample/src/main/res/layout/activity_main.xml
+) and [content_main.xml](
+https://github.com/LouisCAD/Splitties/blob/v1.3.0/sample/src/main/res/layout/content_main.xml
+) files.).
 
 ## Pros and cons
 
 ### Pros of xml layouts
 
-* You can _almost_ instantly preview a layout file (despite the huge RAM and CPU
-usage) from the IDE.
+* You can _almost_ instantly preview a layout file from the IDE (despite the increased RAM and CPU
+usage).
 * You can declare a new compile time constant id resource on the fly with
 `@+id/some_new_id`
 * You **kind of** have a WYSIWYG (what you see is what you get) experience in
 the IDE. Kind of because it includes only xml layouts and compiled custom views.
-Logic in code can't be previewed in the IDE with xml layouts.
+Logic in code can't be previewed in the IDE with xml layouts, unless it is in a custom view.
 
 ### Cons of xml layouts
 
@@ -67,16 +71,15 @@ implementations. This can be handy for A/B testing, allowing more user
 preferences to tweak or completely change the UI, and more.
 * Layout direction defaults to LTR before API 17 and you can keep using
 start/end without added boilerplate.
-* **You can preview layouts in Android Studio** (requires build), with any
-included logic being taken into account.
+* **You can preview layouts in Android Studio**, with any included logic being taken into account.
 * Layout parameters are not mixed with View config.
 * **No reflection** involved.
 * No need for `findViewById(…)` and the implied lookup costs.
 
 ### Cons of Splitties Views DSL
 
-* Preview requires a build (but you're less likely to need preview thanks
-to additional type safety and more expressive UI code).
+* Preview requires a running the `compileDebugKotlin` gradle task (no need to perform a full build,
+also, you're less likely to need preview thanks to additional type safety and more readable UI code).
 * You can't create a compile time constant View id on the fly (but you can
 have ids generated automatically at runtime, declare an id resource
 easily or reuse one declared on-the-fly from an existing xml layout).

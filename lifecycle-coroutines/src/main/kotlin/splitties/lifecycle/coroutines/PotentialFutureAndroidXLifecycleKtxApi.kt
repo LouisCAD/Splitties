@@ -1,10 +1,9 @@
 package splitties.lifecycle.coroutines
 
 /**
- * Symbols having this annotation may get deprecated, then removed **if** an alternative or similar
- * API makes it into AndroidX (likely in AndroidX Lifecycle KTX
- * [as mentioned in this PR comment by Sergey Vasilinets from the AndroidX team](
-https://github.com/Kotlin/kotlinx.coroutines/pull/760#issuecomment-436222483)).
+ * Symbols having this annotation will be deprecated, then removed after AndroidX Lifecycle KTX
+ * gets a similar API, which is under review as of January the 24th of 2019:
+ * https://android-review.googlesource.com/c/platform/frameworks/support/+/869365/14
  */
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)

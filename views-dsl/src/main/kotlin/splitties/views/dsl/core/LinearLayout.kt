@@ -19,12 +19,17 @@
 package splitties.views.dsl.core
 
 import android.widget.LinearLayout
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 inline fun LinearLayout.lParams(
     width: Int = wrapContent,
     height: Int = wrapContent,
     initParams: LinearLayout.LayoutParams.() -> Unit = {}
-): LinearLayout.LayoutParams = LinearLayout.LayoutParams(width, height).apply(initParams)
+): LinearLayout.LayoutParams {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return LinearLayout.LayoutParams(width, height).apply(initParams)
+}
 
 inline fun LinearLayout.lParams(
     width: Int = wrapContent,
@@ -32,7 +37,10 @@ inline fun LinearLayout.lParams(
     gravity: Int = -1,
     weight: Float = 0f,
     initParams: LinearLayout.LayoutParams.() -> Unit = {}
-): LinearLayout.LayoutParams = LinearLayout.LayoutParams(width, height).also {
-    it.gravity = gravity
-    it.weight = weight
-}.apply(initParams)
+): LinearLayout.LayoutParams {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return LinearLayout.LayoutParams(width, height).also {
+        it.gravity = gravity
+        it.weight = weight
+    }.apply(initParams)
+}

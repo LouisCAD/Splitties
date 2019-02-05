@@ -21,6 +21,8 @@ package splitties.views.dsl.material
 import com.google.android.material.appbar.AppBarLayout
 import splitties.views.dsl.core.matchParent
 import splitties.views.dsl.core.wrapContent
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import com.google.android.material.appbar.AppBarLayout.LayoutParams as LP
 
 @Suppress("unused")
@@ -44,4 +46,7 @@ inline fun AppBarLayout.defaultLParams(
     height: Int = wrapContent,
     scrollFlags: Int = ENTER_ALWAYS,
     initParams: LP.() -> Unit = {}
-): LP = LP(width, height).also { it.scrollFlags = scrollFlags }.apply(initParams)
+): LP {
+    contract { callsInPlace(initParams, InvocationKind.EXACTLY_ONCE) }
+    return LP(width, height).also { it.scrollFlags = scrollFlags }.apply(initParams)
+}

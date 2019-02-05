@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@file:JvmName("ViewsGroupsKt")
+
 package splitties.views.dsl.core
 
 import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.RadioGroup
 import androidx.annotation.IdRes
 import androidx.annotation.StyleRes
 import kotlin.contracts.InvocationKind
@@ -112,4 +116,33 @@ inline fun Ui.frameLayout(
 ): FrameLayout {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.frameLayout(id, theme, initView)
+}
+
+// RadioGroup
+
+inline fun Context.radioGroup(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RadioGroup.() -> Unit = {}
+): RadioGroup {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(::RadioGroup, id, theme, initView)
+}
+
+inline fun View.radioGroup(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RadioGroup.() -> Unit = {}
+): RadioGroup {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.radioGroup(id, theme, initView)
+}
+
+inline fun Ui.radioGroup(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: RadioGroup.() -> Unit = {}
+): RadioGroup {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.radioGroup(id, theme, initView)
 }

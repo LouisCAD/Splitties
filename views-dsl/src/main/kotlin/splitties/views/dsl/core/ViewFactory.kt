@@ -19,8 +19,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.AttrRes
+import splitties.experimental.InternalSplittiesApi
 import splitties.views.dsl.core.experimental.ViewFactoryImpl
 
+@InternalSplittiesApi
 interface ViewFactory {
     companion object {
         val appInstance: ViewFactory = ViewFactoryImpl.appInstance

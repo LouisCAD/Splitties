@@ -19,7 +19,6 @@ package splitties.views.selectable
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
-import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import androidx.annotation.CallSuper
@@ -75,7 +74,7 @@ open class SelectableLinearLayout @JvmOverloads constructor(
         return who === foregroundSelector || super.verifyDrawable(who)
     }
 
-    @RequiresApi(LOLLIPOP)
+    @RequiresApi(21)
     @CallSuper
     override fun dispatchDrawableHotspotChanged(x: Float, y: Float) {
         super.dispatchDrawableHotspotChanged(x, y)

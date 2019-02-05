@@ -39,12 +39,20 @@ android {
 
 dependencies {
     api(project(":dimensions"))
+    api(project(":experimental"))
     api(project(":resources"))
     api(project(":systemservices"))
 
     api(Libs.kotlin.stdlibJdk7)
     api(Libs.androidX.annotation)
     api(Libs.androidX.coreKtx)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
+    kotlinOptions.freeCompilerArgs = listOf(
+        "-XXLanguage:+InlineClasses",
+        "-Xuse-experimental=kotlin.Experimental"
+    )
 }
 
 apply {

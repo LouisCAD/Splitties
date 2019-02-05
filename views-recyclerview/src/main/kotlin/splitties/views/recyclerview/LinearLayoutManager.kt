@@ -17,13 +17,14 @@
 package splitties.views.recyclerview
 
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 inline fun verticalLayoutManager(
     reverseLayout: Boolean = false,
     setup: LinearLayoutManager.() -> Unit = {}
-) = LinearLayoutManager(null, LinearLayoutManager.VERTICAL, reverseLayout).apply(setup)
+) = LinearLayoutManager(null, RecyclerView.VERTICAL, reverseLayout).apply(setup)
 
 inline fun horizontalLayoutManager(
     reverseLayout: Boolean = false,
     setup: LinearLayoutManager.() -> Unit = {}
-) = LinearLayoutManager(null, LinearLayoutManager.HORIZONTAL, reverseLayout).apply(setup)
+) = LinearLayoutManager(null, RecyclerView.HORIZONTAL, reverseLayout).apply(setup)

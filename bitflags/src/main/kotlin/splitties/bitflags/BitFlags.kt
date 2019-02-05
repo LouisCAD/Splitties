@@ -58,3 +58,51 @@ inline fun Byte.withFlag(flag: Byte): Byte = this or flag
 
 @CheckResult
 inline fun Byte.minusFlag(flag: Byte): Byte = this and flag.inv()
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun ULong.hasFlag(flag: ULong): Boolean = flag and this == flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun ULong.withFlag(flag: ULong): ULong = this or flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun ULong.minusFlag(flag: ULong): ULong = this and flag.inv()
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UInt.hasFlag(flag: UInt): Boolean = flag and this == flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UInt.withFlag(flag: UInt): UInt = this or flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UInt.minusFlag(flag: UInt): UInt = this and flag.inv()
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UShort.hasFlag(flag: UShort): Boolean = flag and this == flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UShort.withFlag(flag: UShort): UShort = this or flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UShort.minusFlag(flag: UShort): UShort = this and flag.inv()
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UByte.hasFlag(flag: UByte): Boolean = flag and this == flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UByte.withFlag(flag: UByte): UByte = this or flag
+
+@CheckResult
+@ExperimentalUnsignedTypes
+inline fun UByte.minusFlag(flag: UByte): UByte = this and flag.inv()

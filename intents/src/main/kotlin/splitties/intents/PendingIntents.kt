@@ -20,8 +20,6 @@ package splitties.intents
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.JELLY_BEAN
-import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import splitties.init.appCtx
 
@@ -34,7 +32,7 @@ fun Intent.toPendingActivity(
     reqCode: Int = 0,
     flags: Int = 0,
     options: Bundle? = null
-): PendingIntent = if (SDK_INT >= JELLY_BEAN) {
+): PendingIntent = if (SDK_INT >= 16) {
     PendingIntent.getActivity(appCtx, reqCode, this, flags, options)
 } else PendingIntent.getActivity(appCtx, reqCode, this, flags)
 
@@ -47,7 +45,7 @@ fun Array<Intent>.toPendingActivities(
     reqCode: Int = 0,
     flags: Int = 0,
     options: Bundle? = null
-): PendingIntent = if (SDK_INT >= JELLY_BEAN) {
+): PendingIntent = if (SDK_INT >= 16) {
     PendingIntent.getActivities(appCtx, reqCode, this, flags, options)
 } else PendingIntent.getActivities(appCtx, reqCode, this, flags)
 
@@ -58,7 +56,7 @@ fun Array<Intent>.toPendingActivities(
 fun Intent.toPendingForegroundService(
     reqCode: Int = 0,
     flags: Int = 0
-): PendingIntent = if (SDK_INT >= O) {
+): PendingIntent = if (SDK_INT >= 26) {
     PendingIntent.getForegroundService(appCtx, reqCode, this, flags)
 } else toPendingService(reqCode, flags)
 

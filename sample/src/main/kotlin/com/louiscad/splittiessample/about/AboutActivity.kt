@@ -23,6 +23,6 @@ class AboutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(AboutUi(this))
+        setContentView(AboutUiWithLabels(this))
     }
 }

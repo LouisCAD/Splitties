@@ -60,15 +60,21 @@ inline fun Ui.recyclerView(
 @ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.verticalListLayoutParams(
     block: RecyclerView.LayoutParams.() -> Unit = {}
-): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
-    width = MATCH_PARENT
-    height = WRAP_CONTENT
-}.apply(block)
+): RecyclerView.LayoutParams {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return generateDefaultLayoutParams().apply {
+        width = MATCH_PARENT
+        height = WRAP_CONTENT
+    }.apply(block)
+}
 
 @ExperimentalSplittiesApi
 inline fun RecyclerView.LayoutManager.horizontalListLayoutParams(
     block: RecyclerView.LayoutParams.() -> Unit = {}
-): RecyclerView.LayoutParams = generateDefaultLayoutParams().apply {
-    width = WRAP_CONTENT
-    height = MATCH_PARENT
-}.apply(block)
+): RecyclerView.LayoutParams {
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    return generateDefaultLayoutParams().apply {
+        width = WRAP_CONTENT
+        height = MATCH_PARENT
+    }.apply(block)
+}

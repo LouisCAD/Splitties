@@ -16,7 +16,6 @@
 
 package splitties.checkedlazy
 
-import splitties.exceptions.illegal
 import splitties.mainthread.checkMainThread
 
 @JvmField
@@ -29,7 +28,7 @@ internal val mainThreadChecker = { checkMainThread() }
  */
 fun accessOn(thread: Thread) = {
     Thread.currentThread().let {
-        if (thread !== it) illegal("Access expected on thread: $thread. Current: $it")
+        if (thread !== it) error("Access expected on thread: $thread. Current: $it")
     }
 }
 
@@ -40,6 +39,6 @@ fun accessOn(thread: Thread) = {
  */
 fun noAccessOn(thread: Thread) = {
     Thread.currentThread().let {
-        if (thread === it) illegal("No access allowed on thread: $thread!")
+        if (thread === it) error("No access allowed on thread: $thread!")
     }
 }

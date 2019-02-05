@@ -74,6 +74,9 @@ install {
     }
 }
 
+final String bintrayUser = findProperty("bintray_user")
+final String bintrayApiKey = findProperty("bintray_api_key")
+
 if (isSnapshot) {
     apply plugin: 'com.jfrog.artifactory'
     artifactoryPublish.doFirst {
@@ -90,8 +93,8 @@ if (isSnapshot) {
         publish {
             repository {
                 repoKey = 'oss-snapshot-local'
-                username = bintray_user
-                password = bintray_api_key
+                username = bintrayUser
+                password = bintrayApiKey
                 maven = true
             }
             defaults {
@@ -114,8 +117,8 @@ if (isSnapshot) {
     }
     bintrayUpload.dependsOn install
     bintray {
-        user = bintray_user
-        key = bintray_api_key
+        user = bintrayUser
+        key = bintrayApiKey
         configurations = ['archives']
         override = true
         pkg {

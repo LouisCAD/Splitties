@@ -91,20 +91,25 @@ inline val locationManager: LocationManager get() = getSystemService(LOCATION_SE
 inline val searchManager: SearchManager get() = getSystemService(SEARCH_SERVICE)
 inline val sensorManager: SensorManager get() = getSystemService(SENSOR_SERVICE)
 inline val storageManager: StorageManager get() = getSystemService(STORAGE_SERVICE)
-inline val wallpaperManager: WallpaperManager get() = getSystemService(WALLPAPER_SERVICE)
+/** Null if invoked in an instant app. */
+inline val wallpaperManager: WallpaperManager? get() = getSystemService(WALLPAPER_SERVICE)
 inline val vibrator: Vibrator get() = getSystemService(VIBRATOR_SERVICE)
 inline val connectivityManager: ConnectivityManager get() = getSystemService(CONNECTIVITY_SERVICE)
-inline val wifiManager: WifiManager
+/** Null if invoked in an instant app. */
+inline val wifiManager: WifiManager?
     @SuppressLint("WifiManagerLeak") get() = getSystemService(WIFI_SERVICE)
-inline val wifiP2pManager: WifiP2pManager get() = getSystemService(WIFI_P2P_SERVICE)
+/** Null if invoked in an instant app. */
+inline val wifiP2pManager: WifiP2pManager? get() = getSystemService(WIFI_P2P_SERVICE)
 inline val audioManager: AudioManager get() = getSystemService(AUDIO_SERVICE)
 inline val telephonyManager: TelephonyManager get() = getSystemService(TELEPHONY_SERVICE)
 inline val inputMethodManager: InputMethodManager get() = getSystemService(INPUT_METHOD_SERVICE)
 inline val downloadManager: DownloadManager get() = getSystemService(DOWNLOAD_SERVICE)
 inline val uiModeManager: UiModeManager get() = getSystemService(UI_MODE_SERVICE)
-inline val usbManager: UsbManager get() = getSystemService(USB_SERVICE)
+/** Null if invoked in an instant app. */
+inline val usbManager: UsbManager? get() = getSystemService(USB_SERVICE)
 inline val nfcManager: NfcManager get() = getSystemService(NFC_SERVICE)
-inline val devicePolicyManager: DevicePolicyManager get() = getSystemService(DEVICE_POLICY_SERVICE)
+/** Null if invoked in an instant app. */
+inline val devicePolicyManager: DevicePolicyManager? get() = getSystemService(DEVICE_POLICY_SERVICE)
 inline val textServicesManager: TextServicesManager
     get() = getSystemService(TEXT_SERVICES_MANAGER_SERVICE)
 inline val clipboardManager: ClipboardManager get() = getSystemService(CLIPBOARD_SERVICE)
@@ -152,8 +157,9 @@ inline val subscriptionManager: SubscriptionManager
     @RequiresApi(22) get() = getSystemService(TELEPHONY_SUBSCRIPTION_SERVICE)
 
 @Suppress("DeprecatedCallableAddReplaceWith", "DEPRECATION")
+/** Null if invoked in an instant app. */
 @Deprecated("Use android.hardware.biometrics.BiometricPrompt instead (back-ported into JetPack).")
-inline val fingerPrintManager: android.hardware.fingerprint.FingerprintManager
+inline val fingerPrintManager: android.hardware.fingerprint.FingerprintManager?
     @RequiresApi(23) get() = getSystemService(FINGERPRINT_SERVICE)
 inline val networkStatsManager: NetworkStatsManager
     @RequiresApi(23) get() = getSystemService(NETWORK_STATS_SERVICE)
@@ -166,7 +172,8 @@ inline val hardwarePropertiesManager: HardwarePropertiesManager
 inline val systemHealthManager: SystemHealthManager
     @RequiresApi(24) get() = getSystemService(SYSTEM_HEALTH_SERVICE)
 
-inline val shortcutManager: ShortcutManager
+/** Null if invoked in an instant app. */
+inline val shortcutManager: ShortcutManager?
     @RequiresApi(25) get() = getSystemService(SHORTCUT_SERVICE)
 
 inline val companionDeviceManager: CompanionDeviceManager
@@ -175,7 +182,8 @@ inline val storageStatsManager: StorageStatsManager
     @RequiresApi(26) get() = getSystemService(STORAGE_STATS_SERVICE)
 inline val textClassificationManager: TextClassificationManager
     @RequiresApi(26) get() = getSystemService(TEXT_CLASSIFICATION_SERVICE)
-inline val wifiAwareManager: WifiAwareManager
+/** Null if invoked in an instant app. */
+inline val wifiAwareManager: WifiAwareManager?
     @RequiresApi(26) get() = getSystemService(WIFI_AWARE_SERVICE)
 
 inline val crossProfileApps: CrossProfileApps

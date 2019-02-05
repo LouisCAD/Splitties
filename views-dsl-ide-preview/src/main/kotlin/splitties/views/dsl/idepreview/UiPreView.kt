@@ -29,7 +29,10 @@ import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
 import splitties.views.dsl.core.matchParent
 import java.lang.reflect.Constructor
+import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  * This class is dedicated to previewing `Ui` subclasses in the IDE with an xml file referencing it.
@@ -84,10 +87,20 @@ class UiPreView @JvmOverloads constructor(
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
             val parameters = mutableListOf<Any>(context).also { params ->
                 uiConstructor.parameterTypes.forEachIndexed { index, parameterType ->
-                    if (index != 0) params += Proxy.newProxyInstance(
-                        parameterType.classLoader,
-                        arrayOf(parameterType)
-                    ) { proxy, method, args -> unsupported("Edit mode: stub implementation.") }
+                    if (index != 0) {
+                        params += when (parameterType) {
+                            CoroutineContext::class.java -> EmptyCoroutineContext
+                            else -> Proxy.newProxyInstance(
+                                parameterType.classLoader,
+                                arrayOf(parameterType)
+                            ) { proxy: Any?, method: Method, args: Array<out Any>? ->
+                                when (method.declaringClass.name) {
+                                    "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
+                                    else -> unsupported("Edit mode: stub implementation.")
+                                }
+                            }
+                        }
+                    }
                 }
             }.toTypedArray()
             uiConstructor.newInstance(*parameters) as Ui

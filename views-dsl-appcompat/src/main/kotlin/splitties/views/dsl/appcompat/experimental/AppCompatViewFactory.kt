@@ -20,12 +20,15 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.AttrRes
 import androidx.appcompat.widget.*
-import androidx.appcompat.widget.Toolbar
+import splitties.experimental.InternalSplittiesApi
+import splitties.views.appcompat.Toolbar
+import androidx.appcompat.widget.Toolbar as AndroidXToolbar
 
 /**
  * Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content plus other AppCompat
  * only views.
  */
+@InternalSplittiesApi
 inline fun <reified V : View> instantiateAppCompatView(
     clazz: Class<out V>,
     context: Context
@@ -44,12 +47,13 @@ inline fun <reified V : View> instantiateAppCompatView(
     RatingBar::class.java -> AppCompatRatingBar(context)
     SeekBar::class.java -> AppCompatSeekBar(context)
     // AppCompat only views below
-    Toolbar::class.java -> splitties.views.appcompat.Toolbar(context)
-    splitties.views.appcompat.Toolbar::class.java -> splitties.views.appcompat.Toolbar(context)
+    AndroidXToolbar::class.java -> Toolbar(context)
+    Toolbar::class.java -> Toolbar(context)
     else -> null
 } as V?
 
 /** Matches [androidx.appcompat.app.AppCompatViewInflater.createView] content. */
+@InternalSplittiesApi
 inline fun <reified V : View> instantiateThemeAttrStyledAppCompatView(
     clazz: Class<out V>,
     context: Context,
@@ -72,5 +76,8 @@ inline fun <reified V : View> instantiateThemeAttrStyledAppCompatView(
     }
     RatingBar::class.java -> AppCompatRatingBar(context, null, styleThemeAttribute)
     SeekBar::class.java -> AppCompatSeekBar(context, null, styleThemeAttribute)
+    // AppCompat only views below
+    AndroidXToolbar::class.java -> Toolbar(context, null, styleThemeAttribute)
+    Toolbar::class.java -> Toolbar(context, null, styleThemeAttribute)
     else -> null
 } as V?

@@ -18,8 +18,6 @@ package splitties.views
 
 import android.graphics.drawable.Drawable
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
-import android.os.Build.VERSION_CODES.M
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
@@ -41,7 +39,7 @@ inline var TextView.textColorResource: Int
 var TextView.textAppearance: Int
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     @Suppress("DEPRECATION")
-    set(@StyleRes value) = if (SDK_INT < M) setTextAppearance(context, value)
+    set(@StyleRes value) = if (SDK_INT < 23) setTextAppearance(context, value)
     else setTextAppearance(value)
 
 inline var TextView.lines: Int
@@ -49,17 +47,17 @@ inline var TextView.lines: Int
     set(value) = setLines(value)
 
 fun TextView.centerText() {
-    if (SDK_INT >= JELLY_BEAN_MR1) textAlignment = View.TEXT_ALIGNMENT_CENTER
+    if (SDK_INT >= 17) textAlignment = View.TEXT_ALIGNMENT_CENTER
     gravity = Gravity.CENTER
 }
 
 fun TextView.alignTextToStart() {
-    if (SDK_INT >= JELLY_BEAN_MR1) textAlignment = View.TEXT_ALIGNMENT_VIEW_START
+    if (SDK_INT >= 17) textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     gravity = Gravity.START
 }
 
 fun TextView.alignTextToEnd() {
-    if (SDK_INT >= JELLY_BEAN_MR1) textAlignment = View.TEXT_ALIGNMENT_VIEW_END
+    if (SDK_INT >= 17) textAlignment = View.TEXT_ALIGNMENT_VIEW_END
     gravity = Gravity.END
 }
 

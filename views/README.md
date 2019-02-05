@@ -57,6 +57,54 @@ bottomPadding
 You can also use the `setPaddingDp` extension function that offers default
 parameter values.
 
+### EditText extensions
+
+`type` allows to set the input type in a typesafe and more readable way using the `InputType`
+inline class (lots of "type" occurrences in this sentence).
+
+### TextView extensions
+
+`textResource` allows to set the text of a `TextView` from a string resource
+id using property syntax.
+
+`textColorResource` allows to set the color of the text of a `TextView` from
+a color resource id using property syntax.
+
+`textAppearance` allows to set the text appearance of a `TextView` from a
+text appearance style resource id using property syntax, even below API 23.
+
+`lines` allows to set the exact number of lines of a `TextView` using
+property syntax.
+
+`centerText()` sets gravity to center and center aligns the text.
+`alignTextToStart()` sets gravity to start and start aligns the text.
+`alignTextToEnd()` sets gravity to end and end aligns the text.
+
+`setCompoundDrawables(…)` takes `Drawable?` parameters for `start`, `top`,
+`end` and `bottom` which all default to `null`, plus an `intrinsicBounds`
+parameter that defaults to `false`.
+
+`setCompoundDrawables(…)` has an overload which takes drawable resource ids
+that default to 0 (no drawable) but no `intrinsicBounds` parameter (as it is
+implicitly true).
+
+`clearCompoundDrawables()` clears all compound drawables the `TextView` has.
+
+### Click
+
+`onClick { … }` extension method for `View` avoids `it` shadowing if you have
+other lambdas, while also being more expressive than `setOnClickListener { … }`.
+
+`onLongClick { … }` is similar to `onClick { … }`, but also removes the need
+to have an extra line in the lambda to return `true` or `false`.
+
+### LayoutInflater
+
+`LayoutInflater`, `Context` and `ViewGroup` have an `inflate` extension
+function that make inflating xml easy thanks to type parameter.
+
+There's also an `inflateAndAttach` extension function for `ViewGroup`.
+
 ### Gravity flags aliases
 
 Using `Gravity` constants on Android is a bit verbose.
@@ -94,49 +142,6 @@ gravityEndCenter
 gravityTopCenter
 gravityBottomCenter
 ```
-
-### LayoutInflater
-
-`LayoutInflater`, `Context` and `ViewGroup` have an `inflate` extension
-function that make inflating xml easy thanks to type parameter.
-
-There's also an `inflateAndAttach` extension function for `ViewGroup`.
-
-### TextView extensions
-
-`textResource` allows to set the text of a `TextView` from a string resource
-id using property syntax.
-
-`textColorResource` allows to set the color of the text of a `TextView` from
-a color resource id using property syntax.
-
-`textAppearance` allows to set the text appearance of a `TextView` from a
-text appearance style resource id using property syntax, even below API 23.
-
-`lines` allows to set the exact number of lines of a `TextView` using
-property syntax.
-
-`centerText()` sets gravity to center and center aligns the text.
-`alignTextToStart()` sets gravity to start and start aligns the text.
-`alignTextToEnd()` sets gravity to end and end aligns the text.
-
-`setCompoundDrawables(…)` takes `Drawable?` parameters for `start`, `top`,
-`end` and `bottom` which all default to `null`, plus an `intrinsicBounds`
-parameter that defaults to `false`.
-
-`setCompoundDrawables(…)` has an overload which takes drawable resource ids
-that default to 0 (no drawable) but no `intrinsicBounds` parameter (as it is
-implicitly true).
-
-`clearCompoundDrawables()` clears all compound drawables the `TextView` has.
-
-### Click
-
-`onClick { … }` extension method for `View` avoids `it` shadowing if you have
-other lambdas, while also being more expressive than `setOnClickListener { … }`.
-
-`onLongClick { … }` is similar to `onClick { … }`, but also removes the need
-to have an extra line in the lambda to return `true` or `false`.
 
 ### Other
 

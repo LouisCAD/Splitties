@@ -20,6 +20,7 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.louiscad.splittiessample.R
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.material.lists.IconTwoLinesSwitchListItem
 import splitties.typesaferecyclerview.ItemViewHolder
 import splitties.views.dsl.recyclerview.verticalListLayoutParams
@@ -62,6 +63,7 @@ class DemoAdapter(
     ) {
 
         init {
+            @UseExperimental(ExperimentalSplittiesApi::class)
             itemView.layoutParams = layoutManager.verticalListLayoutParams()
             itemView.onClick { host.onDemoItemClicked(data) }
         }

@@ -16,7 +16,6 @@
 package com.louiscad.splittiessample.extensions
 
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.N
 import android.text.Html
 import android.text.Spanned
 
@@ -34,5 +33,5 @@ fun String.fromHtml(
     flags: Int = 0,
     imageGetter: Html.ImageGetter? = null,
     tagHandler: Html.TagHandler? = null
-): Spanned = if (SDK_INT >= N) Html.fromHtml(this, flags, imageGetter, tagHandler)
+): Spanned = if (SDK_INT >= 24) Html.fromHtml(this, flags, imageGetter, tagHandler)
 else @Suppress("DEPRECATION") Html.fromHtml(this, imageGetter, tagHandler)

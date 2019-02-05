@@ -55,7 +55,7 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
             else -> GlobalScope.launch(Dispatchers.MainAndroid) { // Ensures state is in sync.
                 addObserver(object : GenericLifecycleObserver {
                     override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
-                        if (!currentState.isAtLeast(activeWhile)) {
+                        if (currentState < activeWhile) {
                             removeObserver(this)
                             job.cancel()
                         }
