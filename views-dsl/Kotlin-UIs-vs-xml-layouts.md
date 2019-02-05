@@ -21,13 +21,13 @@ https://github.com/LouisCAD/Splitties/blob/v1.3.0/sample/src/main/res/layout/con
 
 ### Pros of xml layouts
 
-* You can _almost_ instantly preview a layout file (despite the huge RAM and CPU
-usage) from the IDE.
+* You can _almost_ instantly preview a layout file from the IDE (despite the increased RAM and CPU
+usage).
 * You can declare a new compile time constant id resource on the fly with
 `@+id/some_new_id`
 * You **kind of** have a WYSIWYG (what you see is what you get) experience in
 the IDE. Kind of because it includes only xml layouts and compiled custom views.
-Logic in code can't be previewed in the IDE with xml layouts.
+Logic in code can't be previewed in the IDE with xml layouts, unless it is in a custom view.
 
 ### Cons of xml layouts
 
