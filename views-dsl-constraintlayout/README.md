@@ -5,7 +5,7 @@
 ## Table of contents
 
 * [`ConstraintLayout` tailored `lParams` extension](#constraintlayout-tailored-lparams-extension)
-* [`ConstraintLayout.LayoutParams` extensions for safe and readable usage](#constraintlayout.layoutparams-extensions-for-safe-and-readable-usage)
+* [`ConstraintLayout.LayoutParams` extensions for safe and readable usage](#constraintlayoutlayoutparams-extensions-for-safe-and-readable-usage)
 * [Download](#download)
 
 ## `ConstraintLayout` tailored `lParams` extension
@@ -64,6 +64,17 @@ View relative constraints:
 Chains:
 * `horizontalChain(…) { … }` and its companion `horizontalMargin` extension for `List<View>`.
 * `verticalChain(…) { … }` and its companion `verticalMargin` extension for `List<View>`.
+
+Barriers:
+* `barrier(…)` which takes a `BarrierType` (inline class) and a list or vararg of `View`s.
+* `startBarrier(…)`, `leftBarrier(…)`, `topBarrier(…)`, `endBarrier(…)`, `rightBarrier(…)` and `bottomBarrier(…)`
+
+Guidelines:
+* `verticalGuideline(…)` and `horizontalGuideline(…)` which take a begin offset (pixels),
+an end offset, or a ratio (between 0 and 1).
+
+Groups:
+* `group(…)` which takes the views to group.
 
 These methods come with a great bonus feature:
 
