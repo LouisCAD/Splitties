@@ -68,7 +68,7 @@ probably already familiar to you._
       * [Using Android styles](#using-android-styles)
       * [Using AppCompat styles](#using-appcompat-styles)
       * [Using any other xml style](#using-any-other-xml-style)
-    * [The most beautiful ways: explicitly named aliases to the generic way](#the-most-beautiful-ways-explicitly-named-aliases-to-the-generic-way)
+    * [The most simple and readable way: plain functions](#the-most-simple-and-readable-way-plain-functions)
     * [View extensions](#view-extensions)
     * [Inflating existing xml layouts](#inflating-existing-xml-layouts)
   * [Laying out the views](#laying-out-the-views)
@@ -112,7 +112,8 @@ The `view` extension functions are a primitive of Splitties Views DSL.
 They are generic, so they allow you to instantiate a `View` of any type.
 
 There are 6 functions named `view`, because there's **2 overload types**, and they
-are made available for 3 receiver types: `Ui`, `View` and `Context`.
+are made available for 3 receiver types: `Ui`, `View` and `Context`. One of this overload type is
+an internal API (more info below).
 
 With respect to efficiency, they are all **inline**. That means no unnecessary
 allocation that would slightly decrease performance otherwise.
@@ -137,33 +138,52 @@ You can of course use any custom method reference that is not a reference to
 a constructor as long as that method takes a `Context` parameter and returns a
 `View` or any subclass of it.
 
-Here's a simple but typical example of this first overload:
+Here's a simple but typical example:
 ```kotlin
 val myView: MyCustomView = view(::MyCustomView, R.id.my_view) {
     backgroundColor = Color.BLACK
 }
 ```
 
-**The second overload** of `view` takes no required parameter, but relies on explicit
-(reified) type parameter to work properly. Just `view<TextView>()` is enough to
-instantiate a `TextView`. However, this version relies on a "view factory" that
+**The second overload** of `view`, which **is an internal API** takes no required parameter,
+but relies on explicit (reified) type parameter to work properly. Just `view<TextView>()` is
+enough to instantiate a `TextView`. However, this version relies on a "view factory" that
 can automatically provide subclasses of the requested type as necessary. If
 you use the Views DSL AppCompat, you'll automatically receive instances of
 `AppCompatButton` with `view<Button>` thanks to the underlying View factory.
 
 Here's a simple example of this second overload:
 ```kotlin
-val submitBtn = view<Button>(R.id.btn_submit) {
+val submitBtn = view<Button>(R.id.btn_submit) { // You should use `button { … }` instead though.
     textResource = R.string.submit
 }
 ```
+
+#### The most simple and readable way: plain functions
+
+Instead of using `view<Button> { … }` or `view(::Button) { … }` to create a `Button` instance
+(which uses an internal API), you can use `button(…) { … }`. The parameters are exactly the same as
+the `view` function.
+
+Such methods exist for most `View`s and `ViewGroup`s included in Android, and
+there's more in the [additional modules](#additional-modules).
+
+You can see implementations for Android's [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
+and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewGroups.kt).
+
+These methods are a bit more natural to read and to write, but they are really
+just **inline** aliases, purely syntactic sugar.
+
+You can define your own if you want. Just make sure to write it first for
+`Context` and add two overloads for `View` and `Ui` that delegate to the
+one for `Context`. Also, remember to make them inline to avoid lambda allocation.
 
 #### Using styles defined in xml
 
 There are some times where you need to use an xml defined style,
 such as when using a style defined in AppCompat like `Widget_AppCompat_Button_Colored`.
 
-Splitties makes it really easy to use xml styles defined in Android and AppCompat.
+Splitties makes it really easy to use xml styles defined in Android, AppCompat and Material Components.
 
 It also gives you the ability to do the same for custom or third-party styles defined
 in xml.
@@ -173,7 +193,7 @@ in xml.
 Let's say you want to create a horizontal `ProgressBar` instance. First, cache an instance
 of `AndroidStyles`:
 ```kotlin
-val androidStyles = AndroidStyles(ctx)
+private val androidStyles = AndroidStyles(ctx)
 ```
 
 Then, use the function defined on the `progressBar` property:
@@ -187,6 +207,21 @@ Just let auto-completion guide you.
 
 Note that you have **exactly the same optional parameters as `view`**, including the optional lambda.
 
+##### Using Material Components styles
+
+Since Material Components styles are not included by default inside the theme, you need to
+load them first. This is simply done with the following code:
+```kotlin
+private val materialStyles = MaterialComponentsStyles(ctx)
+```
+
+You can then use styles using the `MaterialComponentsStyles` instance. Here's an example:
+```kotlin
+val bePoliteBtn = materialStyles.button.outlined {
+    textResource = R.string.be_polite
+}
+```
+
 ##### Using AppCompat styles
 
 Since AppCompat styles are not included by default inside the theme, you need to
@@ -198,7 +233,7 @@ private val appCompatStyles = AppCompatStyles(ctx)
 You can then use styles using the `AppCompatStyles` instance. Here's an example:
 ```kotlin
 val bePoliteBtn = appCompatStyles.button.colored {
-    textResource = R.string.be_polite
+    textResource = R.string.be_rude
 }
 ```
 
@@ -250,24 +285,6 @@ style and the attribute is a recommendation (for clarity), but not a requirement
 After this is done, you can make a class to group related styles, as done in the
 [Views DSL AppCompat split](../views-dsl-appcompat), so you get type
 inference, and a nicer syntax.
-
-#### The most beautiful ways: explicitly named aliases to the generic way
-
-Instead of using `view<Button>(…) { … }` to create a `Button` instance, you can use
-`button(…) { … }`. The parameters are exactly the same as `view`.
-
-Such methods exist for most `View`s and `ViewGroup`s included in Android, and
-there's more in the [additional modules](#additional-modules).
-
-You can see implementations for [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
-and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewGroups.kt).
-
-These methods are a bit more natural to read and to write, but they are really
-just **inline** aliases, purely syntactic sugar.
-
-You can define your own if you want. Just make sure to write it first for
-`Context` and add two overloads for `View` and `Ui` that delegate to the
-one for `Context`. Also, remember to make them inline to avoid lambda allocation.
 
 #### View extensions
 
