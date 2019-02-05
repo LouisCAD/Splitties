@@ -67,16 +67,15 @@ implementations. This can be handy for A/B testing, allowing more user
 preferences to tweak or completely change the UI, and more.
 * Layout direction defaults to LTR before API 17 and you can keep using
 start/end without added boilerplate.
-* **You can preview layouts in Android Studio** (requires build), with any
-included logic being taken into account.
+* **You can preview layouts in Android Studio**, with any included logic being taken into account.
 * Layout parameters are not mixed with View config.
 * **No reflection** involved.
 * No need for `findViewById(…)` and the implied lookup costs.
 
 ### Cons of Splitties Views DSL
 
-* Preview requires a build (but you're less likely to need preview thanks
-to additional type safety and more expressive UI code).
+* Preview requires a running the `compileDebugKotlin` gradle task (no need to perform a full build,
+also, you're less likely to need preview thanks to additional type safety and more readable UI code).
 * You can't create a compile time constant View id on the fly (but you can
 have ids generated automatically at runtime, declare an id resource
 easily or reuse one declared on-the-fly from an existing xml layout).
