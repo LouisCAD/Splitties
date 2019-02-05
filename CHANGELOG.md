@@ -29,10 +29,10 @@ Compiled with Kotlin 1.3.20.
 - Mark some SystemServices as nullable to be instant app tolerant. That includes `WallpaperManager`,`WifiManager`, `WifiP2pManager`, `UsbManager`, `DevicePolicyManager`, `FingerprintManager`,`ShortcutManager` and `WifiAwareManager`.
 - The Views DSL IDE Preview documentation now states that running the `compileDebugKotlin` gradle task is enough to update the preview. This is faster than a full build.
 
-## Fixes
+### Fixes
 - Make `viewFactory` from Views DSL internal API compatible with IDE Preview.
 
-## Deprecation
+### Deprecation
 - The `illegal` top level function from Exceptions has been deprecated in favor of `error` from Kotlin stdlib.
 
 ### New artifact
