@@ -34,6 +34,15 @@ Here's a screenshot of how it looks like with [DemoUi from the sample](
 
 ## Important info
 
+### Interfaces parameters
+
+In order for preview to work, your `Ui` subclass need to have its first parameter of type `Context`.
+For the subsequent parameters (if applicable), any `interface` is supported, but its methods need to
+not be called when this view is created and drawn, or an exception will be thrown.
+
+A special support has been added for `CoroutineContext` and `CoroutineScope`, so there's no
+exception thrown if you use an `actor` or other code relying on coroutines at init or drawing time.
+
 ### Known issues and their workaround
 
 * If preview doesn't work or doesn't reflect latest changes, it's likely
