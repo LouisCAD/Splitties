@@ -13,8 +13,7 @@
 
 ### Functions to instantiate a CoordinatorLayout
 
-Instead of using `view(::CoordinatorLayout, …) { … }` or `view<CoordinatorLayout>(…) { … }`,
-you can use `coordinatorLayout(…) { … }`.
+Instead of using `view(::CoordinatorLayout, …) { … }`, you can use `coordinatorLayout(…) { … }`.
 
 ### `CoordinatorLayout` extensions
 
