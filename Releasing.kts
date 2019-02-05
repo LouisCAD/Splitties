@@ -151,9 +151,9 @@ fun checkOnDevelopBranch() {
     check(currentBranch == "develop") { "Please, checkout the `develop` branch first." }
 }
 
-val currentSnapshotVersion: String
-val newVersion: String
-val startAtStep: BintrayReleaseStep
+var currentSnapshotVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 
 val ongoingReleaseFile = dir.resolve("ongoing_release.splitties")
 val versionsFile = dir.resolve("buildSrc/src/main/kotlin/ProjectVersions.kt")
