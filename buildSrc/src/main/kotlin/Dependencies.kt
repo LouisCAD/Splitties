@@ -17,46 +17,23 @@
 @Suppress("unused")
 object Versions {
     const val kotlin = "1.3.20"
-    const val junit = "4.12"
-    const val kotlinxCoroutines = "1.1.0"
     const val okHttp = "3.12.0"
     const val retrofit = "2.5.0"
-    const val wearOs = "2.4.0"
 
     val androidX = AndroidX // To be used with property v declared below.
 
     object AndroidX {
         const val core = "1.0.1"
-        const val lifecycle = "2.0.0"
-        const val room = "2.0.0"
-        const val paging = "2.0.0"
-        const val slice = "1.0.0"
         const val multidex = "2.0.0"
         const val palette = "1.0.0"
         const val preference = "1.0.0"
         const val recyclerView = "1.0.0"
         const val sqlite = "2.0.0"
         const val vectorDrawable = "1.0.0"
-        const val legacy = "1.0.0"
         const val leanback = "1.0.0"
         const val emoji = "1.0.0"
         const val constraintLayout = "1.1.3"
         const val collection = "1.0.0"
-        const val archCore = "2.0.0"
-        const val archWork = "1.0.0-alpha13"
-        val test = Test // To be used with property v declared below.
-
-        object Test {
-            const val espresso = "3.1.1"
-            const val runner = "1.1.1"
-            const val rules = runner
-            const val monitor = runner
-            const val orchestrator = runner
-            const val core = "1.1.0"
-            const val truth = core
-            const val junit = core
-        }
-        const val espresso = Test.espresso // Because no ambiguity, allows more concise usage.
     }
 }
 
@@ -67,7 +44,7 @@ private val v = Versions // Enables more concise usage.
  */
 @Suppress("unused")
 object Libs {
-    const val junit = "junit:junit:${Versions.junit}"
+    const val junit = "junit:junit:4.12"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val stetho = "com.facebook.stetho:stetho:1.5.0"
 
@@ -85,10 +62,11 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
+            private const val version = "1.1.1"
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
-            const val core = "$artifactPrefix-core:${Versions.kotlinxCoroutines}"
-            const val android = "$artifactPrefix-android:${Versions.kotlinxCoroutines}"
-            const val test = "$artifactPrefix-test:${Versions.kotlinxCoroutines}"
+            const val core = "$artifactPrefix-core:$version"
+            const val android = "$artifactPrefix-android:$version"
+            const val test = "$artifactPrefix-test:$version"
         }
     }
 
@@ -172,77 +150,84 @@ object Libs {
         val legacy = Legacy
 
         object Lifecycle {
-            const val common = "androidx.lifecycle:lifecycle-common:${v.androidX.lifecycle}"
-            const val commonJava8 =
-                "androidx.lifecycle:lifecycle-common-java8:${v.androidX.lifecycle}"
-            const val compiler = "androidx.lifecycle:lifecycle-compiler:${v.androidX.lifecycle}"
-            const val extensions = "androidx.lifecycle:lifecycle-extensions:${v.androidX.lifecycle}"
-            const val liveData = "androidx.lifecycle:lifecycle-livedata:${v.androidX.lifecycle}"
-            const val liveDataCore =
-                "androidx.lifecycle:lifecycle-livedata-core:${v.androidX.lifecycle}"
-            const val process = "androidx.lifecycle:lifecycle-process:${v.androidX.lifecycle}"
-            const val reactiveStreams =
-                "androidx.lifecycle:lifecycle-reactivestreams:${v.androidX.lifecycle}"
+            private const val version = "2.0.0"
+            const val common = "androidx.lifecycle:lifecycle-common:$version"
+            const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:$version"
+            const val compiler = "androidx.lifecycle:lifecycle-compiler:$version"
+            const val extensions = "androidx.lifecycle:lifecycle-extensions:$version"
+            const val liveData = "androidx.lifecycle:lifecycle-livedata:$version"
+            const val liveDataCore = "androidx.lifecycle:lifecycle-livedata-core:$version"
+            const val process = "androidx.lifecycle:lifecycle-process:$version"
+            const val reactiveStreams = "androidx.lifecycle:lifecycle-reactivestreams:$version"
             const val reactiveStreamsKtx =
-                "androidx.lifecycle:lifecycle-reactivestreams-ktx:${v.androidX.lifecycle}"
-            const val runtime = "androidx.lifecycle:lifecycle-runtime:${v.androidX.lifecycle}"
-            const val service = "androidx.lifecycle:lifecycle-service:${v.androidX.lifecycle}"
-            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:${v.androidX.lifecycle}"
-            const val viewModelKtx =
-                "androidx.lifecycle:lifecycle-viewmodel-ktx:${v.androidX.lifecycle}"
+                "androidx.lifecycle:lifecycle-reactivestreams-ktx:$version"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime:$version"
+            const val service = "androidx.lifecycle:lifecycle-service:$version"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:$version"
+            const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
 
         object Room {
-            const val common = "androidx.room:room-common:${v.androidX.room}"
-            const val compiler = "androidx.room:room-compiler:${v.androidX.room}"
-            const val guava = "androidx.room:room-guava:${v.androidX.room}"
-            const val migration = "androidx.room:room-migration:${v.androidX.room}"
-            const val runtime = "androidx.room:room-runtime:${v.androidX.room}"
-            const val rxJava2 = "androidx.room:room-rxjava2:${v.androidX.room}"
-            const val testing = "androidx.room:room-testing:${v.androidX.room}"
+            private const val version = "2.0.0"
+            const val common = "androidx.room:room-common:$version"
+            const val compiler = "androidx.room:room-compiler:$version"
+            const val guava = "androidx.room:room-guava:$version"
+            const val migration = "androidx.room:room-migration:$version"
+            const val runtime = "androidx.room:room-runtime:$version"
+            const val rxJava2 = "androidx.room:room-rxjava2:$version"
+            const val testing = "androidx.room:room-testing:$version"
         }
 
         object Paging {
-            const val common = "androidx.paging:paging-common:${v.androidX.paging}"
-            const val runtime = "androidx.paging:paging-runtime:${v.androidX.paging}"
-            const val rxJava2 = "androidx.paging:paging-rxjava2:${v.androidX.paging}"
+            private const val version = "2.0.0"
+            const val common = "androidx.paging:paging-common:$version"
+            const val runtime = "androidx.paging:paging-runtime:$version"
+            const val rxJava2 = "androidx.paging:paging-rxjava2:$version"
         }
 
         object Work {
-            const val firebase = "android.arch.work:work-firebase:${v.androidX.archWork}"
-            const val runtime = "android.arch.work:work-runtime:${v.androidX.archWork}"
-            const val runtimeKtx = "android.arch.work:work-runtime-ktx:${v.androidX.archWork}"
-            const val testing = "android.arch.work:work-testing:${v.androidX.archWork}"
+            private const val version = "1.0.0-beta04"
+            const val runtime = "android.arch.work:work-runtime:$version"
+            const val runtimeKtx = "android.arch.work:work-runtime-ktx:$version"
+            const val testing = "android.arch.work:work-testing:$version"
         }
 
         object Slice {
-            const val builders = "androidx.slice:slice-builders:${v.androidX.slice}"
+            private const val version = "1.0.0"
+            const val builders = "androidx.slice:slice-builders:$version"
             const val buildersKtx = "androidx.slice:slice-builders-ktx:1.0.0-alpha6"
-            const val core = "androidx.slice:slice-core:${v.androidX.slice}"
-            const val view = "androidx.slice:slice-view:${v.androidX.slice}"
+            const val core = "androidx.slice:slice-core:$version"
+            const val view = "androidx.slice:slice-view:$version"
         }
 
         object ArchCore {
-            const val common = "androidx.arch.core:core-common:${v.androidX.archCore}"
-            const val runtime = "androidx.arch.core:core-runtime:${v.androidX.archCore}"
-            const val testing = "androidx.arch.core:core-testing:${v.androidX.archCore}"
+            private const val version = "2.0.0"
+            const val common = "androidx.arch.core:core-common:$version"
+            const val runtime = "androidx.arch.core:core-runtime:$version"
+            const val testing = "androidx.arch.core:core-testing:$version"
         }
 
         object Test {
             val espresso = Espresso
-            const val core = "androidx.test:core:${v.androidX.test.core}"
-            const val coreKtx = "androidx.test:core-ktx:${v.androidX.test.core}"
-            const val monitor = "androidx.test:monitor:${v.androidX.test.monitor}"
-            const val orchestrator = "androidx.test:orchestrator:${v.androidX.test.orchestrator}"
-            const val rules = "androidx.test:rules:${v.androidX.test.rules}"
-            const val runner = "androidx.test:runner:${v.androidX.test.runner}"
+            private const val runnerVersion = "1.1.1"
+            private const val rulesVersion = runnerVersion
+            private const val monitorVersion = runnerVersion
+            private const val orchestratorVersion = runnerVersion
+            private const val coreVersion = "1.1.0"
+            const val core = "androidx.test:core:$coreVersion"
+            const val coreKtx = "androidx.test:core-ktx:$coreVersion"
+            const val monitor = "androidx.test:monitor:$monitorVersion"
+            const val orchestrator = "androidx.test:orchestrator:$orchestratorVersion"
+            const val rules = "androidx.test:rules:$rulesVersion"
+            const val runner = "androidx.test:runner:$runnerVersion"
 
             val ext = Ext
 
             object Ext {
-                const val junit = "androidx.test.ext:junit:${v.androidX.test.junit}"
-                const val junitKtx = "androidx.test.ext:junit-ktx:${v.androidX.test.junit}"
-                const val truth = "androidx.test.ext:truth:${v.androidX.test.junit}"
+                private const val version = coreVersion
+                const val junit = "androidx.test.ext:junit:$version"
+                const val junitKtx = "androidx.test.ext:junit-ktx:$version"
+                const val truth = "androidx.test.ext:truth:$version"
             }
 
             const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
@@ -255,39 +240,41 @@ object Libs {
 
             object Espresso {
                 val idling = Idling
-                const val core = "androidx.test.espresso:espresso-core:${v.androidX.espresso}"
-                const val contrib = "androidx.test.espresso:espresso-contrib:${v.androidX.espresso}"
+                private const val version = "3.1.1"
+                const val core = "androidx.test.espresso:espresso-core:$version"
+                const val contrib = "androidx.test.espresso:espresso-contrib:$version"
                 const val idlingResource =
-                    "androidx.test.espresso:espresso-idling-resource:${v.androidX.espresso}"
-                const val intents = "androidx.test.espresso:espresso-intents:${v.androidX.espresso}"
+                    "androidx.test.espresso:espresso-idling-resource:$version"
+                const val intents = "androidx.test.espresso:espresso-intents:$version"
                 const val accessibility =
-                    "androidx.test.espresso:espresso-accessibility:${v.androidX.espresso}"
-                const val remote = "androidx.test.espresso:espresso-remote:${v.androidX.espresso}"
-                const val web = "androidx.test.espresso:espresso-web:${v.androidX.espresso}"
+                    "androidx.test.espresso:espresso-accessibility:$version"
+                const val remote = "androidx.test.espresso:espresso-remote:$version"
+                const val web = "androidx.test.espresso:espresso-web:$version"
 
                 object Idling {
                     const val concurrent =
-                        "androidx.test.espresso.idling:idling-concurrent:${v.androidX.espresso}"
-                    const val net =
-                        "androidx.test.espresso.idling:idling-net:${v.androidX.espresso}"
+                        "androidx.test.espresso.idling:idling-concurrent:$version"
+                    const val net = "androidx.test.espresso.idling:idling-net:$version"
                 }
             }
         }
 
         object Legacy {
-            const val preferenceV14 = "androidx.legacy:legacy-preference-v14:${v.androidX.legacy}"
-            const val supportCoreUi = "androidx.legacy:legacy-support-core-ui:${v.androidX.legacy}"
+            private const val version = "1.0.0"
+            const val preferenceV14 = "androidx.legacy:legacy-preference-v14:$version"
+            const val supportCoreUi = "androidx.legacy:legacy-support-core-ui:$version"
             const val supportCoreUtils =
-                "androidx.legacy:legacy-support-core-utils:${v.androidX.legacy}"
-            const val supportV13 = "androidx.legacy:legacy-support-v13:${v.androidX.legacy}"
-            const val supportV4 = "androidx.legacy:legacy-support-v4:${v.androidX.legacy}"
+                "androidx.legacy:legacy-support-core-utils:$version"
+            const val supportV13 = "androidx.legacy:legacy-support-v13:$version"
+            const val supportV4 = "androidx.legacy:legacy-support-v4:$version"
         }
     }
 
     object Google {
         const val material = "com.google.android.material:material:1.0.0"
-        const val wearable = "com.google.android.wearable:wearable:${Versions.wearOs}"
-        const val supportWearable = "com.google.android.support:wearable:${Versions.wearOs}"
+        private const val wearOsVersion = "2.4.0"
+        const val wearable = "com.google.android.wearable:wearable:$wearOsVersion"
+        const val supportWearable = "com.google.android.support:wearable:$wearOsVersion"
 
         val playServices = PlayServices
 
