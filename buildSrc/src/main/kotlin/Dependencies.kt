@@ -180,7 +180,7 @@ object Libs {
         }
 
         object Work {
-            private const val version = "1.0.0-beta04"
+            private const val version = "1.0.0-beta05"
             const val runtime = "android.arch.work:work-runtime:$version"
             const val runtimeKtx = "android.arch.work:work-runtime-ktx:$version"
             const val testing = "android.arch.work:work-testing:$version"
