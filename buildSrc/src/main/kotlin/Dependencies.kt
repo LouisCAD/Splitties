@@ -17,27 +17,7 @@
 @Suppress("unused")
 object Versions {
     const val kotlin = "1.3.20"
-    const val okHttp = "3.12.0"
-    const val retrofit = "2.5.0"
-
-    val androidX = AndroidX // To be used with property v declared below.
-
-    object AndroidX {
-        const val core = "1.0.1"
-        const val multidex = "2.0.0"
-        const val palette = "1.0.0"
-        const val preference = "1.0.0"
-        const val recyclerView = "1.0.0"
-        const val sqlite = "2.0.0"
-        const val vectorDrawable = "1.0.0"
-        const val leanback = "1.0.0"
-        const val emoji = "1.0.0"
-        const val constraintLayout = "1.1.3"
-        const val collection = "1.0.0"
-    }
 }
-
-private val v = Versions // Enables more concise usage.
 
 /**
  * Nested objects have a corresponding property to allow usage from groovy based gradle scripts.
@@ -71,39 +51,53 @@ object Libs {
     }
 
     object AndroidX {
+        private object Versions {
+            const val core = "1.0.1"
+            const val multidex = "2.0.0"
+            const val palette = "1.0.0"
+            const val preference = "1.0.0"
+            const val recyclerView = "1.0.0"
+            const val sqlite = "2.0.0"
+            const val vectorDrawable = "1.0.0"
+            const val leanback = "1.0.0"
+            const val emoji = "1.0.0"
+            const val constraintLayout = "1.1.3"
+            const val collection = "1.0.0"
+        }
+        private val versions = Versions
         const val annotation = "androidx.annotation:annotation:1.0.0"
         const val appCompat = "androidx.appcompat:appcompat:1.0.2"
         const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
         const val browser = "androidx.browser:browser:1.0.0"
         const val car = "androidx.car:car:1.0.0-alpha5"
         const val cardView = "androidx.cardview:cardview:1.0.0"
-        const val collection = "androidx.collection:collection:${v.androidX.collection}"
-        const val collectionKtx = "androidx.collection:collection-ktx:${v.androidX.collection}"
+        const val collection = "androidx.collection:collection:${versions.collection}"
+        const val collectionKtx = "androidx.collection:collection-ktx:${versions.collection}"
         const val constraintLayout =
-            "androidx.constraintlayout:constraintlayout:${v.androidX.constraintLayout}"
+            "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
         const val constraintLayoutSolver =
-            "androidx.constraintlayout:constraintlayout-solver:${v.androidX.constraintLayout}"
+            "androidx.constraintlayout:constraintlayout-solver:${versions.constraintLayout}"
         const val contentPager = "androidx.contentpager:contentpager:1.0.0"
         const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:1.0.0"
-        const val core = "androidx.core:core:${v.androidX.core}"
-        const val coreKtx = "androidx.core:core-ktx:${v.androidX.core}"
+        const val core = "androidx.core:core:${versions.core}"
+        const val coreKtx = "androidx.core:core-ktx:${versions.core}"
         const val cursorAdapter = "androidx.cursoradapter:cursoradapter:1.0.0"
         const val customView = "androidx.customview:customview:1.0.0"
         const val documentFile = "androidx.documentfile:documentfile:1.0.0"
         const val drawerLayout = "androidx.drawerlayout:drawerlayout:1.0.0"
         const val dynamicAnimation = "androidx.dynamicanimation:dynamicanimation:1.0.0"
-        const val emoji = "androidx.emoji:emoji:${v.androidX.emoji}"
-        const val emojiAppCompat = "androidx.emoji:emoji-appcompat:${v.androidX.emoji}"
-        const val emojiBundler = "androidx.emoji:emoji-bundled:${v.androidX.emoji}"
+        const val emoji = "androidx.emoji:emoji:${versions.emoji}"
+        const val emojiAppCompat = "androidx.emoji:emoji-appcompat:${versions.emoji}"
+        const val emojiBundler = "androidx.emoji:emoji-bundled:${versions.emoji}"
         const val exifInterface = "androidx.exifinterface:exifinterface:1.0.0"
         const val fragment = "androidx.fragment:fragment:1.0.0"
         const val fragmentKtx = "androidx.fragment:fragment-ktx:1.0.0"
         const val gridLayout = "androidx.gridlayout:gridlayout:1.0.0"
         const val heifWriter = "androidx.heifwriter:heifwriter:1.0.0"
         const val interpolator = "androidx.interpolator:interpolator:1.0.0"
-        const val leanback = "androidx.leanback:leanback:${v.androidX.leanback}"
+        const val leanback = "androidx.leanback:leanback:${versions.leanback}"
         const val leanbackPreference =
-            "androidx.leanback:leanback-preference:${v.androidX.leanback}"
+            "androidx.leanback:leanback-preference:${versions.leanback}"
         const val loader = "androidx.loader:loader:1.0.0"
         const val localBroadcastManager =
             "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
@@ -111,30 +105,30 @@ object Libs {
         const val mediaWidget = "androidx.media-widget:media-widget:1.0.0-alpha5"
         const val media2 = "androidx.media2:media2:1.0.0-alpha02"
         const val mediaRouter = "androidx.mediarouter:mediarouter:1.0.0"
-        const val multidex = "androidx.multidex:multidex:${v.androidX.multidex}"
+        const val multidex = "androidx.multidex:multidex:${versions.multidex}"
         const val multidexInstrumentation =
-            "androidx.multidex:multidex-instrumentation:${v.androidX.multidex}"
-        const val palette = "androidx.palette:palette:${v.androidX.palette}"
-        const val paletteKtx = "androidx.palette:palette-ktx:${v.androidX.palette}"
+            "androidx.multidex:multidex-instrumentation:${versions.multidex}"
+        const val palette = "androidx.palette:palette:${versions.palette}"
+        const val paletteKtx = "androidx.palette:palette-ktx:${versions.palette}"
         const val percentLayout = "androidx.percentlayout:percentlayout:1.0.0"
-        const val preference = "androidx.preference:preference:${v.androidX.preference}"
-        const val preferenceKtx = "androidx.preference:preference-ktx:${v.androidX.preference}"
+        const val preference = "androidx.preference:preference:${versions.preference}"
+        const val preferenceKtx = "androidx.preference:preference-ktx:${versions.preference}"
         const val print = "androidx.print:print:1.0.0"
         const val recommendation = "androidx.recommendation:recommendation:1.0.0"
-        const val recyclerView = "androidx.recyclerview:recyclerview:${v.androidX.recyclerView}"
+        const val recyclerView = "androidx.recyclerview:recyclerview:${versions.recyclerView}"
         const val recyclerViewSelection =
-            "androidx.recyclerview:recyclerview-selection:${v.androidX.recyclerView}"
+            "androidx.recyclerview:recyclerview-selection:${versions.recyclerView}"
         const val slidingPaneLayout = "androidx.slidingpanelayout:slidingpanelayout:1.0.0"
-        const val sqlite = "androidx.sqlite:sqlite:${v.androidX.sqlite}"
-        const val sqliteFramework = "androidx.sqlite:sqlite-framework:${v.androidX.sqlite}"
-        const val sqliteKtx = "androidx.sqlite:sqlite-ktx:${v.androidX.sqlite}"
+        const val sqlite = "androidx.sqlite:sqlite:${versions.sqlite}"
+        const val sqliteFramework = "androidx.sqlite:sqlite-framework:${versions.sqlite}"
+        const val sqliteKtx = "androidx.sqlite:sqlite-ktx:${versions.sqlite}"
         const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
         const val transition = "androidx.transition:transition:1.0.0"
         const val tvProvider = "androidx.tvprovider:tvprovider:1.0.0"
         const val vectorDrawable =
-            "androidx.vectordrawable:vectordrawable:${v.androidX.vectorDrawable}"
+            "androidx.vectordrawable:vectordrawable:${versions.vectorDrawable}"
         const val vectorDrawableAnimated =
-            "androidx.vectordrawable:vectordrawable-animated:${v.androidX.vectorDrawable}"
+            "androidx.vectordrawable:vectordrawable-animated:${versions.vectorDrawable}"
         const val versionedParcelable = "androidx.versionedparcelable:versionedparcelable:1.0.0"
         const val viewPager = "androidx.viewpager:viewpager:1.0.0"
         const val wear = "androidx.wear:wear:1.0.0"
@@ -263,8 +257,7 @@ object Libs {
             private const val version = "1.0.0"
             const val preferenceV14 = "androidx.legacy:legacy-preference-v14:$version"
             const val supportCoreUi = "androidx.legacy:legacy-support-core-ui:$version"
-            const val supportCoreUtils =
-                "androidx.legacy:legacy-support-core-utils:$version"
+            const val supportCoreUtils = "androidx.legacy:legacy-support-core-utils:$version"
             const val supportV13 = "androidx.legacy:legacy-support-v13:$version"
             const val supportV4 = "androidx.legacy:legacy-support-v4:$version"
         }
@@ -284,5 +277,13 @@ object Libs {
     }
 
     object Square {
+        private const val okHttpVersion = "3.12.0"
+        const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
+        const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+        private const val retrofitversion = "2.5.0"
+        const val retrofit2 = "com.squareup.retrofit2:retrofit:$retrofitversion"
+        const val retrofit2ConverterMoshi = "com.squareup.retrofit2:converter-moshi:$retrofitversion"
+        private const val moshiVersion = "1.5.0"
+        const val moshi = "com.squareup.moshi:moshi:$moshiVersion"
     }
 }
