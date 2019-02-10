@@ -38,15 +38,15 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
 
     @SuppressLint("SetTextI18n")
     private val mainContent = constraintLayout {
-        val libNameLabel = label(com.louiscad.splittiessample.R.string.library_name)
+        val libNameLabel = label(R.string.library_name)
         val libNameTv = tv {
-            textResource = com.louiscad.splittiessample.R.string.lib_name
+            textResource = R.string.lib_name
         }
-        val authorLabel = label(com.louiscad.splittiessample.R.string.author)
+        val authorLabel = label(R.string.author)
         val authorTv = tv {
             text = "Louis CAD"
         }
-        val licenseLabel = label(com.louiscad.splittiessample.R.string.license)
+        val licenseLabel = label(R.string.license)
         val licenseTv = tv {
             text = "Apache v2.0"
         }
