@@ -48,6 +48,7 @@ include(
     ":toast",
     ":typesaferecyclerview",
     ":views",
+    ":views-coroutines",
     ":views-appcompat",
     ":views-cardview",
     ":views-dsl",

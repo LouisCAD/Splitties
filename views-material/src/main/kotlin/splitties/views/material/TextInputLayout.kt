@@ -17,7 +17,6 @@ package splitties.views.material
 
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
-import splitties.exceptions.illegal
 
 var TextInputLayout.text: CharSequence?
     get() = editTextNow.text
@@ -27,4 +26,4 @@ val TextInputLayout.string: String
     get() = editTextNow.text.toString()
 
 private inline val TextInputLayout.editTextNow: EditText
-    get() = editText ?: illegal("No EditText found! Make sure it has been added first.")
+    get() = editText ?: error("No EditText found! Make sure it has been added first.")

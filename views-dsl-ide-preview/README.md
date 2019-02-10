@@ -27,20 +27,29 @@ subpackage (relative to the app/library package name).
 ```
 
 Here's a screenshot of how it looks like with [DemoUi from the sample](
-../sample/src/main/java/com/louiscad/splittiessample/demo/DemoUi.kt):
+../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) after the
+`compileDebugKotlin` gradle task has been run:
 
 ![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20example.png)
+
 ## Important info
+
+### Interfaces parameters
+
+In order for preview to work, your `Ui` subclass need to have its first parameter of type `Context`.
+For the subsequent parameters (if applicable), any `interface` is supported, but its methods need to
+not be called when this view is created and drawn, or an exception will be thrown.
+
+A special support has been added for `CoroutineContext` and `CoroutineScope`, so there's no
+exception thrown if you use an `actor` or other code relying on coroutines at init or drawing time.
 
 ### Known issues and their workaround
 
 * If preview doesn't work or doesn't reflect latest changes, it's likely
-because you didn't build your project. IDE preview currently only works with
-compiled classes and xml layouts, so make sure your project is built before
-attempting to preview your `Ui`.
-* IDE preview is unstable from my experience on Android Studio 3.1 rc01, so
-if you encounter a weird problem with preview, just restarting the IDE may
-fix your issue, as it did for me.
+because you didn't execute the `compileDebugKotlin` gradle task on your project (module actually).
+IDE preview currently only works with compiled classes and xml layouts. Running the
+`compileDebugKotlin` gradle task will save you time as it doesn't involve all the subsequent tasks
+that package a full apk.
 
 ### Finding a suitable constructor to instantiate your UI
 

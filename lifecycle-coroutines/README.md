@@ -16,6 +16,7 @@ Extension functions:
 | -------- | ---------------
 | `Lifecycle.createJob` | A job that is active while the state is at least the passed one.
 | `Lifecycle.createScope` | A scope that dispatches on Android Main thread and is active while the state is at least the passed one.
+| `Lifecycle.awaitState` | A suspending function that returns/resumes as soon as the state of the Lifecycle is at least the passed state.
 
 ## Example
 

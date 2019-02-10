@@ -6,6 +6,7 @@
 
 * [Functions to instantiate Views and ViewGroups from Material Components](#functions-to-instantiate-views-and-viewgroups-from-material-components)
   * [Multi-process apps](#multi-process-apps)
+* [Use Material Components xml styles in a typesafe way](#use-material-components-xml-styles-in-a-typesafe-way)
 * [Extensions on ViewGroups from Material Components](#extensions-on-viewgroups-from-material-components)
   * [`AppBarLayout` extensions](#appbarlayout-extensions)
     * [`defaultLParams`](#defaultlparams)
@@ -25,8 +26,7 @@
 
 ## Functions to instantiate Views and ViewGroups from Material Components
 
-Instead of using `view<AppBarLayout>(…) { … }` and similar, you can use
-`appBarLayout(…) { … }`.
+Instead of using `view(::AppBarLayout) { … }` and similar, you can use `appBarLayout(…) { … }`.
 
 All widgets from Material Components are supported.
 
@@ -54,6 +54,23 @@ of the `provider` tag, then specify the `android:process` value to the one of yo
 process.
 
 Be sure to test it to make sure you have set it up properly.
+
+## Use Material Components xml styles in a typesafe way
+
+Since Material Components styles are not included by default inside the theme, you need to
+load them first. This is simply done with the following code:
+```kotlin
+private val materialStyles = MaterialComponentsStyles(ctx)
+```
+
+You can then use styles using the `MaterialComponentsStyles` instance. Here's an example:
+```kotlin
+val bePoliteBtn = materialStyles.button.outlined {
+    textResource = R.string.be_polite
+}
+```
+
+Styles are supported for `BottomAppBar`, `BottomNavigationView`, `MaterialButton`, `Chip`, `TabLayout` and `TextInputLayout`.
 
 ## Extensions on ViewGroups from Material Components
 

@@ -24,7 +24,6 @@ import java.util.regex.Pattern
 
 val dir = File(".")
 
-
 fun processBuilder(rawCommand: String, workingDir: File = dir): ProcessBuilder {
     val command = Pattern.compile("\"([^\"]*)\"|(\\S+)").matcher(rawCommand).let { m ->
         generateSequence {
@@ -55,10 +54,7 @@ fun String.execute(workingDir: File = dir): String {
 }
 
 fun String.executeAndPrint(workingDir: File = dir) {
-    val proc = processBuilder(
-        rawCommand = this,
-        workingDir = workingDir
-    )
+    val proc = processBuilder(rawCommand = this, workingDir = workingDir)
         .redirectInput(ProcessBuilder.Redirect.INHERIT)
         .redirectOutput(ProcessBuilder.Redirect.INHERIT)
         .redirectError(ProcessBuilder.Redirect.INHERIT)
@@ -68,6 +64,15 @@ fun String.executeAndPrint(workingDir: File = dir) {
     if (exitValue != 0) {
         throw Exception("Non zero exit value: $exitValue")
     }
+}
+
+fun File.checkChanged() {
+    try {
+        "git diff HEAD --exit-code $this".execute()
+    } catch (ignored: Exception) {
+        return // Exit code is 1 (translated to an exception) when file changed
+    }
+    error("Expected changes in the following file: $this") // Exit code is 0 if not changed.
 }
 
 enum class AnsiColor(private val colorNumber: Byte) {
@@ -146,9 +151,9 @@ fun checkOnDevelopBranch() {
     check(currentBranch == "develop") { "Please, checkout the `develop` branch first." }
 }
 
-val currentSnapshotVersion: String
-val newVersion: String
-val startAtStep: BintrayReleaseStep
+var currentSnapshotVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 
 val ongoingReleaseFile = dir.resolve("ongoing_release.splitties")
 val versionsFile = dir.resolve("buildSrc/src/main/kotlin/ProjectVersions.kt")
@@ -215,9 +220,11 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
     }
     REQUEST_README_UPDATE_CONFIRMATION -> {
         requestManualAction("Update the `README.md` with the new version and any other changes.")
+        dir.resolve("README.md").checkChanged()
     }
     REQUEST_CHANGELOG_UPDATE_CONFIRMATION -> {
         requestManualAction("Update the `CHANGELOG.md` for the impending release.")
+        dir.resolve("CHANGELOG.md").checkChanged()
     }
     COMMIT_PREPARE_FOR_RELEASE_AND_TAG -> {
         "git commit -am \"Prepare for release $newVersion\"".executeAndPrint()

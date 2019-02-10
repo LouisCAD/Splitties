@@ -22,8 +22,6 @@
     <attr name="Widget.MaterialComponents.BottomNavigationView" format="reference"/>
     <attr name="Widget.MaterialComponents.BottomNavigationView.Colored" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.BottomSheet.Modal" format="reference"/>
-
     <attr name="Widget.MaterialComponents.Button" format="reference"/>
     <attr name="Widget.MaterialComponents.Button.Icon" format="reference"/>
     <attr name="Widget.MaterialComponents.Button.OutlinedButton" format="reference"/>
@@ -35,22 +33,13 @@
     <attr name="Widget.MaterialComponents.Button.UnelevatedButton" format="reference"/>
     <attr name="Widget.MaterialComponents.Button.UnelevatedButton.Icon" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.CardView" format="reference"/>
-
     <attr name="Widget.MaterialComponents.Chip.Action" format="reference"/>
     <attr name="Widget.MaterialComponents.Chip.Choice" format="reference"/>
     <attr name="Widget.MaterialComponents.Chip.Entry" format="reference"/>
     <attr name="Widget.MaterialComponents.Chip.Filter" format="reference"/>
 
-    <attr name="Widget.MaterialComponents.ChipGroup" format="reference"/>
-
     <attr name="Widget.MaterialComponents.TabLayout" format="reference"/>
     <attr name="Widget.MaterialComponents.TabLayout.Colored" format="reference"/>
-
-    <attr name="Widget.MaterialComponents.TextInputEditText.FilledBox" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.FilledBox.Dense" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.OutlinedBox" format="reference"/>
-    <attr name="Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense" format="reference"/>
 
     <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox" format="reference"/>
     <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" format="reference"/>

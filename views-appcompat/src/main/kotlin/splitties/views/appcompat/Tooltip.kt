@@ -19,7 +19,6 @@
 package splitties.views.appcompat
 
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.O
 import android.view.View
 import androidx.appcompat.widget.TooltipCompat
 import kotlin.DeprecationLevel.HIDDEN
@@ -30,6 +29,6 @@ inline fun View.contentDescAsTooltip() {
 
 var View.tooltipTxt: CharSequence?
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = if (SDK_INT >= O) tooltipText = value else {
+    set(value) = if (SDK_INT >= 26) tooltipText = value else {
         TooltipCompat.setTooltipText(this, value)
     }

@@ -1,12 +1,13 @@
 package splitties.views.dsl.material
 
 import android.content.Context
-import android.view.View
-import androidx.annotation.IdRes
-import androidx.annotation.StyleRes
+import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.button.MaterialButton
-import splitties.views.dsl.core.NO_THEME
-import splitties.views.dsl.core.styles.styledView
+import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.textfield.TextInputLayout
+import splitties.views.dsl.material.styles.*
 
 class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
     init {
@@ -14,133 +15,38 @@ class MaterialComponentsStyles(@PublishedApi internal val ctx: Context) {
     }
 
     /**
+     * See [BottomAppBar] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/BottomAppBar.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/bottomappbar/BottomAppBar).
+     */
+    inline val bottomAppBar get() = BottomAppBarStyles(ctx)
+
+    /**
+     * See [BottomNavigationView] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/BottomNavigationView.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/bottomnavigation/BottomNavigationView).
+     */
+    inline val bottomNavigationView get() = BottomNavigationViewStyles(ctx)
+
+    /**
      * See [MaterialButton] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/MaterialButton.md)
      * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/button/MaterialButton).
      */
     inline val button get() = ButtonMaterialComponentsStyles(ctx)
-}
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ButtonMaterialComponentsStyles @PublishedApi internal constructor(
-    @PublishedApi internal val ctx: Context
-) {
-    inline fun filled(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    /**
+     * See [Chip] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/Chip.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/chip/Chip).
+     */
+    inline val chip get() = ChipStyles(ctx)
 
-    inline fun filledWithIcon(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_Icon,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    /**
+     * See [TabLayout] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/TabLayout.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/tabs/TabLayout).
+     */
+    inline val tabLayout get() = TabLayoutStyles(ctx)
 
-    inline fun filledUnelevated(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_UnelevatedButton,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun filledUnelevatedWithIcon(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_UnelevatedButton_Icon,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun outlined(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_OutlinedButton,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun outlinedWithIcon(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_OutlinedButton_Icon,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun text(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_TextButton,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun textWithIcon(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_TextButton_Icon,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun textDialog(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_TextButton_Dialog,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
-
-    inline fun textDialogWithIcon(
-        @IdRes id: Int = View.NO_ID,
-        @StyleRes theme: Int = NO_THEME,
-        initView: MaterialButton.() -> Unit = {}
-    ): MaterialButton = ctx.styledView(
-        newViewRef = ::MaterialButton,
-        styleAttr = R.attr.Widget_MaterialComponents_Button_TextButton_Dialog_Icon,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    /**
+     * See [TextInputLayout] documentation on [GitHub](https://github.com/material-components/material-components-android/blob/master/docs/components/TextInputLayout.md)
+     * and on [d.android.com website](https://developer.android.com/reference/com/google/android/material/textfield/TextInputLayout).
+     */
+    inline val textInputLayout get() = TextInputLayoutStyles(ctx)
 }

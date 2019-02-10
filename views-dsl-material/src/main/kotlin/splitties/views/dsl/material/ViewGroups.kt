@@ -21,6 +21,7 @@ import androidx.annotation.IdRes
 import androidx.annotation.StyleRes
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.navigation.NavigationView
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.view
@@ -83,4 +84,33 @@ inline fun Ui.collapsingToolbarLayout(
 ): CollapsingToolbarLayout {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.collapsingToolbarLayout(id, theme, initView)
+}
+
+// NavigationView
+
+inline fun Context.navigationView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: NavigationView.() -> Unit = {}
+): NavigationView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
+
+inline fun View.navigationView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: NavigationView.() -> Unit = {}
+): NavigationView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.navigationView(id, theme, initView)
+}
+
+inline fun Ui.navigationView(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: NavigationView.() -> Unit = {}
+): NavigationView {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.navigationView(id, theme, initView)
 }

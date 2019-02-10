@@ -19,8 +19,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.media.AudioAttributes
 import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES.LOLLIPOP
-import android.os.Build.VERSION_CODES.O
 import android.os.Vibrator
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -82,11 +80,11 @@ sealed class VibrationEffect {
     }
 }
 
-@RequiresApi(LOLLIPOP)
+@RequiresApi(21)
 @RequiresPermission(Manifest.permission.VIBRATE)
 fun Vibrator.vibrate(vibe: VibrationEffect, audioAttributes: AudioAttributes) {
     @Suppress("DEPRECATION")
-    if (SDK_INT >= O) vibrate(vibe.toPlatformVibe(), audioAttributes)
+    if (SDK_INT >= 26) vibrate(vibe.toPlatformVibe(), audioAttributes)
     else when (vibe) {
         is WaveForm -> vibrate(vibe.timings, vibe.repeat, audioAttributes)
         is OneShot -> vibrate(vibe.milliseconds, audioAttributes)
@@ -96,7 +94,7 @@ fun Vibrator.vibrate(vibe: VibrationEffect, audioAttributes: AudioAttributes) {
 @RequiresPermission(Manifest.permission.VIBRATE)
 fun Vibrator.vibrate(vibe: VibrationEffect) {
     @Suppress("DEPRECATION")
-    if (SDK_INT >= O) vibrate(vibe.toPlatformVibe())
+    if (SDK_INT >= 26) vibrate(vibe.toPlatformVibe())
     else when (vibe) {
         is WaveForm -> vibrate(vibe.timings, vibe.repeat)
         is OneShot -> vibrate(vibe.milliseconds)
@@ -111,7 +109,7 @@ private class WaveForm(
 
 private class OneShot(val milliseconds: Long, val amplitude: Int) : VibrationEffect()
 
-@RequiresApi(O)
+@RequiresApi(26)
 private fun VibrationEffect.toPlatformVibe(): VibrationEffectApi26 = when (this) {
     is WaveForm -> when (amplitudes) {
         null -> VibrationEffectApi26.createWaveform(timings, repeat)

@@ -22,9 +22,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State.RESUMED
 import kotlinx.coroutines.launch
+import splitties.experimental.ExperimentalSplittiesApi
+import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.awaitState
 import splitties.lifecycle.coroutines.coroutineScope
 
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> FragmentManager.showAsync(
     lifecycle: Lifecycle,
     newDialogRef: () -> DF,
@@ -37,18 +41,23 @@ inline fun <DF : DialogFragment> FragmentManager.showAsync(
     } else it.show(this, tag)
 }
 
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> Fragment.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ) = fragmentManager!!.showAsync(lifecycle, newDialogRef, tag, setup)
 
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> FragmentActivity.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ) = supportFragmentManager.showAsync(lifecycle, newDialogRef, tag, setup)
 
+@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> FragmentManager.show(
     lifecycle: Lifecycle,
     newDialogRef: () -> DF,
@@ -61,12 +70,14 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
     } else it.show(this, tag)
 }
 
+@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> Fragment.show(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ) = fragmentManager!!.show(lifecycle, newDialogRef, tag, setup)
 
+@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> FragmentActivity.show(
     newDialogRef: () -> DF,
     tag: String? = null,

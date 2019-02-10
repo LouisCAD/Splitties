@@ -1,7 +1,7 @@
 # Bit Flags
 
-*`hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`
-and `Byte`*
+*`hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`, `Byte`,
+and their unsigned counterparts.*
 
 These extensions make dealing with bit flags easier.
  

@@ -92,6 +92,7 @@ dependencies {
         ":toast",
         ":typesaferecyclerview",
         ":mainthread",
+        ":views-coroutines",
         ":views-dsl-appcompat",
         ":views-dsl-constraintlayout",
         ":views-dsl-material"
@@ -120,9 +121,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
-    }
+    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
 }
 
 val isRelease: Boolean by extra
