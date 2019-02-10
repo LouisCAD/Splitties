@@ -16,6 +16,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.collections.forEachByIndex
+import splitties.collections.forEachWithIndex
 import splitties.dimensions.dip
 import splitties.dimensions.dp
 import splitties.resources.txt
@@ -26,6 +27,9 @@ import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.onClick
 import splitties.views.textAppearance
 import splitties.views.textResource
+import java.text.BreakIterator
+
+
 
 class AboutUiWithLabels(override val ctx: Context) : Ui {
     companion object {
@@ -35,15 +39,15 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
 
     @SuppressLint("SetTextI18n")
     private val mainContent = constraintLayout {
-        val libNameLabel = label(R.string.library_name)
+        val libNameLabel = label(com.louiscad.splittiessample.R.string.library_name)
         val libNameTv = tv {
-            textResource = R.string.lib_name
+            textResource = com.louiscad.splittiessample.R.string.lib_name
         }
-        val authorLabel = label(R.string.author)
+        val authorLabel = label(com.louiscad.splittiessample.R.string.author)
         val authorTv = tv {
             text = "Louis CAD"
         }
-        val licenseLabel = label(R.string.license)
+        val licenseLabel = label(com.louiscad.splittiessample.R.string.license)
         val licenseTv = tv {
             text = "Apache v2.0"
         }
@@ -55,7 +59,7 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         val helloTv = add(textView {
             text = hello
         }, lParams(wrapContent, wrapContent) { topToBottomOf(licenseTv) })
-        val helloTvList = hello.unicodeCharacters().map { textView { text = it } }
+        val helloTvList = hello.splitCharacters().map { textView { text = it } }
         horizontalChain(
             views = helloTvList,
             defaultHeight = wrapContent,
@@ -132,41 +136,15 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         })
     }
 
-    /**
-     * Returns a list of the characters in this string, without splitting emojis or other
-     * unicode characters.
-     */
-    private fun String.unicodeCharacters(): List<String> = mutableListOf<String>().also { list ->
-        var index = 0
-        val emojiColorSuffixHighSurrogate = '\uD83C'
-        while (index < length) {
-            val c1 = this[index]
-            val chars = if (c1.isHighSurrogate().not() || index == lastIndex) {
-                list.add(substring(index, index + 1))
-                1
-            } else {
-                val c2 = this[index + 1]
-                when {
-                    c2.isLowSurrogate() -> {
-                        val c3 = this[index + 2]
-                        when (c3) {
-                            emojiColorSuffixHighSurrogate -> {
-                                list.add(substring(index, index + 4))
-                                4
-                            }
-                            else -> {
-                                list.add(substring(index, index + 2))
-                                2
-                            }
-                        }
-                    }
-                    else -> {
-                        list.add(substring(index, index + 1))
-                        1
-                    }
-                }
-            }
-            index += chars
+    private fun String.splitCharacters(): List<String> = mutableListOf<String>().also { list ->
+        val breakIterator = BreakIterator.getCharacterInstance()
+        breakIterator.setText(this)
+        var start = breakIterator.first()
+        var end = breakIterator.next()
+        while (end != BreakIterator.DONE) {
+            list.add(this@splitCharacters.substring(start, end))
+            start = end
+            end = breakIterator.next()
         }
     }
 }
