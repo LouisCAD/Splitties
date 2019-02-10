@@ -7,7 +7,7 @@ Extension properties:
 | **Name** | **Description**
 | -------- | ---------------
 | `Lifecycle.coroutineScope` | A scope that dispatches on Android Main thread and is active until the Lifecycle is destroyed.
-| `LifecycleOwner.coroutineScope` | A scope that dispatches on Android Main thread and is active until the LifecycleOwner is destroyed.
+| `LifecycleOwner.lifecycleScope` | A scope that dispatches on Android Main thread and is active until the LifecycleOwner is destroyed.
 | `Lifecycle.job` | A job that is cancelled when the Lifecycle is destroyed.
 
 Extension functions:
@@ -24,7 +24,7 @@ Extension functions:
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.coroutineScope.launch {
+        lifecycleScope.launch {
             someSuspendFunction()
             someOtherSuspendFunction()
             someCancellableSuspendFunction()

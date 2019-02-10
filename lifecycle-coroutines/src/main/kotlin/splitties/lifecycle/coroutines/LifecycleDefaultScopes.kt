@@ -54,8 +54,20 @@ val Lifecycle.coroutineScope: CoroutineScope
  */
 @ExperimentalSplittiesApi
 @PotentialFutureAndroidXLifecycleKtxApi
-inline val LifecycleOwner.coroutineScope
+inline val LifecycleOwner.lifecycleScope
     get() = lifecycle.coroutineScope
+
+/**
+ * Calls [Lifecycle.coroutineScope] for the [Lifecycle] of this [LifecycleOwner].
+ *
+ * This is an inline property, just there for convenient usage from any [LifecycleOwner],
+ * like FragmentActivity, AppCompatActivity, Fragment and LifecycleService.
+ */
+@Deprecated("Naming changed", ReplaceWith("lifecycleScope", "splitties.lifecycle.coroutines.lifecycleScope"))
+@ExperimentalSplittiesApi
+@PotentialFutureAndroidXLifecycleKtxApi
+inline val LifecycleOwner.coroutineScope
+    get() = lifecycleScope
 
 /**
  * Returns a [SupervisorJob] that will be cancelled as soon as the [Lifecycle] reaches
