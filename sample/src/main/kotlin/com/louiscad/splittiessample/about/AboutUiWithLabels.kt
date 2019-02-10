@@ -3,6 +3,8 @@ package com.louiscad.splittiessample.about
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
+import android.text.Layout
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -16,7 +18,6 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import splitties.collections.forEachByIndex
-import splitties.collections.forEachWithIndex
 import splitties.dimensions.dip
 import splitties.dimensions.dp
 import splitties.resources.txt
@@ -28,8 +29,6 @@ import splitties.views.onClick
 import splitties.views.textAppearance
 import splitties.views.textResource
 import java.text.BreakIterator
-
-
 
 class AboutUiWithLabels(override val ctx: Context) : Ui {
     companion object {
@@ -55,11 +54,17 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         addLabelAndTv(labelsBarrier, libNameLabel, libNameTv) { topOfParent() }
         addLabelAndTv(labelsBarrier, authorLabel, authorTv) { topToBottomOf(libNameTv) }
         addLabelAndTv(labelsBarrier, licenseLabel, licenseTv) { topToBottomOf(authorTv) }
-        val hello = "Hello folks! 👋🏽"
+        val hello = "Hello folks! 👋🏽👋🏽"
         val helloTv = add(textView {
+            if (SDK_INT >= 23) hyphenationFrequency = Layout.HYPHENATION_FREQUENCY_NONE
             text = hello
         }, lParams(wrapContent, wrapContent) { topToBottomOf(licenseTv) })
-        val helloTvList = hello.splitCharacters().map { textView { text = it } }
+        val helloTvList: List<TextView> = hello.splitCharacters().map {
+            textView {
+                if (SDK_INT >= 23) hyphenationFrequency = Layout.HYPHENATION_FREQUENCY_NONE
+                text = it
+            }
+        }
         horizontalChain(
             views = helloTvList,
             defaultHeight = wrapContent,
