@@ -88,13 +88,13 @@ dependencies {
         ":views-dsl-constraintlayout",
         ":views-dsl-material"
     ).forEach { moduleName ->
-        implementation(project(moduleName))
+        implementation(project(":modules$moduleName"))
     }
     arrayOf(
         ":stetho-init",
         ":views-dsl-ide-preview"
     ).forEach { moduleName ->
-        debugImplementation(project(moduleName))
+        debugImplementation(project(":modules$moduleName"))
     }
     with(Libs) {
         arrayOf(

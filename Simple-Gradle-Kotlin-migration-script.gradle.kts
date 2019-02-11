@@ -43,7 +43,7 @@ apply plugin: "kotlin-android"""" to """plugins {
         names.forEach { getByName(it).java.srcDir("src/${"$"}it/kotlin") }
     }""",
     """apply from: "../publish.gradle"""" to """apply {
-    from("../publish.gradle")
+    from("../../publish.gradle")
 }""",
     "tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {" to
             "tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {"
