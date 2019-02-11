@@ -14,8 +14,6 @@
 * limitations under the License.
 */
 
-import java.io.File
-
 //This is NOT a gradle script. It includes .gradle so the IDE recognizes it, but it should only use Kotlin stdlib.
 println("Welcome in Create new module by Louis CAD")
 
@@ -28,7 +26,8 @@ inline fun <R> runOrRetry(block: () -> R): R {
 }
 
 val currentDir = File(".")
-val settingsFile = currentDir.resolve("settings.gradle.kts")
+val projectDir = currentDir.parentFile!!
+val settingsFile = projectDir.resolve("settings.gradle.kts")
 check(settingsFile.exists()) { "No ${settingsFile.name} found!" }
 val templatesDirectory = currentDir.resolve("gradle_templates")
 check(templatesDirectory.exists()) { "Template directory (${templatesDirectory.name}) not found!" }
@@ -57,13 +56,13 @@ val moduleName = runOrRetry {
     (readLine() ?: "").also {
         require(it.isNotBlank()) { "Name entered is blank" }
         //TODO: Check name is valid
-        val file = currentDir.resolve(it)
+        val file = projectDir.resolve(it)
         check(file.exists().not()) {
             "A ${if (file.isDirectory) "directory" else "file"} already has this name!"
         }
     }
 }
-val destinationDir = currentDir.resolve(moduleName)
+val destinationDir = projectDir.resolve(moduleName)
 check(selectedTemplateDir.copyRecursively(destinationDir)) { "Copy operation didn't succeed" }
 
 /**

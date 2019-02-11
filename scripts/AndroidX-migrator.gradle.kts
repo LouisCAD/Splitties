@@ -1,7 +1,5 @@
-import java.io.File
-
 println("Let's migrate this Android project from support libraries to AndroidX.")
-val dir = File(".")
+val dir = File(".").parentFile!!
 val androidXClassMappingCsvFile = File(dir, "androidx-class-mapping.csv")
 val expectedNumberOfModules = 43
 val ignoredRootDirNames =

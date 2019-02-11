@@ -1,7 +1,5 @@
-import java.io.File
-
 println("Let's migrate the gradle files of this project from Groovy to Kotlin.")
-val dir = File(".")
+val dir = File(".").parentFile!!
 val ignoredRootDirNames =
     listOf("build", "buildSrc", "gradle", "old-dot-gradle", "projectFilesBackup")
 
