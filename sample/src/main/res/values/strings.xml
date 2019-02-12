@@ -125,4 +125,7 @@
     <string name="title_activity_about">@string/about</string>
     <string name="say_hello">Say Hello</string>
     <string name="be_polite_with_permissions">Be polite with permissions</string>
+    <string name="library_name">Library name</string>
+    <string name="author">Author</string>
+    <string name="license">License</string>
 </resources>

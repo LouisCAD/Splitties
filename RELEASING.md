@@ -2,6 +2,13 @@
 
 ## Releasing a stable, beta or alpha version
 
+### Option A: Run the interactive script
+
+Run [Releasing.kts](Releasing.kts) (preferably in system terminal as IDE could crash)
+with `kotlinc -script Releasing.kts` and follow the steps directly from the command line.
+
+### Option B: Manual steps
+
 1. Checkout the `develop` branch, if not already done.
 2. Change the `thisLibrary` constant in the
 [ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file to a non-SNAPSHOT version.

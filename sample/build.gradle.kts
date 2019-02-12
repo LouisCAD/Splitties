@@ -75,6 +75,7 @@ dependencies {
         ":fragmentargs",
         ":initprovider",
         ":intents",
+        ":lifecycle-coroutines",
         ":material-colors",
         ":material-lists",
         ":preferences",
@@ -82,17 +83,18 @@ dependencies {
         ":toast",
         ":typesaferecyclerview",
         ":mainthread",
+        ":views-coroutines",
         ":views-dsl-appcompat",
         ":views-dsl-constraintlayout",
         ":views-dsl-material"
     ).forEach { moduleName ->
-        implementation(project(moduleName))
+        implementation(project(":modules$moduleName"))
     }
     arrayOf(
         ":stetho-init",
         ":views-dsl-ide-preview"
     ).forEach { moduleName ->
-        debugImplementation(project(moduleName))
+        debugImplementation(project(":modules$moduleName"))
     }
     with(Libs) {
         arrayOf(
@@ -110,9 +112,7 @@ dependencies {
 }
 
 tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions {
-        freeCompilerArgs += "-Xuse-experimental=splitties.experimental.ExperimentalSplittiesApi"
-    }
+    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
 }
 
 val isRelease: Boolean by extra

@@ -1,5 +1,56 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha03 (2019-02-05)
+Compiled with Kotlin 1.3.20.
+
+**This release introduces a new split: [Views Coroutines](modules/views-coroutines/README.md).**
+
+### New features
+- Added `radioGroup { ... }` functions in Views DSL.
+- Added first class support for `ConstraintLayout` barriers, guidelines and groups.
+- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/main/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
+- The [MaterialComponentsStyles](modules/views-dsl-material/src/main/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
+- Add `materialCardView { ... }` functions in Views DSL Material.
+- Add `navigationView { ... }` functions in Views DSL Material.
+- Make `EditText` inputType typesafe with the set only `type` extension property and the `InputType` inline class.
+- Views DSL IDE Preview now supports `CoroutineContext` and `CoroutineScope` as constructor parameters for `Ui` subclasses.
+- Added [contracts](https://kotlinlang.org/docs/reference/whatsnew13.html#contracts) for all the `lParams` functions from Views DSL and variants. Also added to the `roomDb` function from Arch Room as well as the `verticalListLayoutParams` and `horizontalListLayoutParams` functions from Views DSL RecyclerView.
+- Add support for unsigned numbers in Bit Flags (i.e. `UByte`, `UShort`, `UInt` and `ULong`).
+
+### Changes
+- When using the `button` function from Views DSL, `MaterialButton` is now automatically used in place of `AppCompatButton` if you also use Views DSL Material.
+- Make `mainHandler` async by default to avoid vSync delays. It is used for `Dispatchers.MainAndroid`, so it will result in speed improvements when using Lifecycle Coroutines. If you really need sync behavior, you can use the new `mainHandlerSync` top level property instead.
+- Make `Dispatchers.MainAndroid` of type `MainCoroutineDispatcher` so the `immediate` property is available.
+- Make the `awaitState` function from Lifecycle Coroutines safe to use off the main thread, and document it.
+- Call `validate()` from the `lParams { ... }` function for `ConstraintLayout`.
+- Make xml styles related classes inline again (thanks to compiler bug fixed in Kotlin 1.3.20).
+- The reified generic variant of `view` from Views DSL is now an internal API.
+- `ViewFactory` and related symbols are now an internal API.
+- Mark some SystemServices as nullable to be instant app tolerant. That includes `WallpaperManager`,`WifiManager`, `WifiP2pManager`, `UsbManager`, `DevicePolicyManager`, `FingerprintManager`,`ShortcutManager` and `WifiAwareManager`.
+- The Views DSL IDE Preview documentation now states that running the `compileDebugKotlin` gradle task is enough to update the preview. This is faster than a full build.
+
+### Fixes
+- Make `viewFactory` from Views DSL internal API compatible with IDE Preview.
+
+### Deprecation
+- The `illegal` top level function from Exceptions has been deprecated in favor of `error` from Kotlin stdlib.
+
+### New artifact
+This release has the following new artifact:
+```
+"com.louiscad.splitties:splitties-views-coroutines:3.0.0-alpha03"
+```
+
+## Version 3.0.0-alpha02 (2019-01-06)
+
+**This release introduces a new split: [Lifecycle Coroutines](modules/lifecycle-coroutines/README.md).**
+
+### New artifact
+This release has the following new artifact:
+```
+"com.louiscad.splitties:splitties-lifecycle-coroutines:3.0.0-alpha02"
+```
+
 ## Version 3.0.0-alpha01 (2018-12-21)
 This release is compiled with Kotlin 1.3.11.
 
@@ -32,8 +83,8 @@ an alternative that would work properly, and perform faster._
 The solution has been a Kotlin script that is a white box, and runs in a matter of seconds. You can
 use it for your project too, so you can migrate to AndroidX quickly, and in a `fun` way.
 
-It is available [here](AndroidX-migrator.gradle.kts), and depends on
-[this csv file](androidx-class-mapping.csv).
+It is available [here](scripts/AndroidX-migrator.gradle.kts), and depends on
+[this csv file](scripts/androidx-class-mapping.csv).
 
 _Note that this script doesn't migrate the dependencies, because we changed the way we define
 dependencies (using constants defined in `buildSrc`), and it would have been harder to handle

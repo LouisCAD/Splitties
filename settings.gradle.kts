@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-include(
+listOf(
     ":activities",
     ":alertdialog",
     ":alertdialog-appcompat",
@@ -34,19 +34,20 @@ include(
     ":fragments",
     ":initprovider",
     ":intents",
+    ":lifecycle-coroutines",
     ":mainhandler",
     ":mainthread",
     ":material-colors",
     ":material-lists",
     ":preferences",
     ":resources",
-    ":sample",
     ":snackbar",
     ":stetho-init",
     ":systemservices",
     ":toast",
     ":typesaferecyclerview",
     ":views",
+    ":views-coroutines",
     ":views-appcompat",
     ":views-cardview",
     ":views-dsl",
@@ -61,4 +62,6 @@ include(
     ":views-selectable",
     ":views-selectable-appcompat",
     ":views-selectable-constraintlayout"
-)
+).forEach { include(":modules$it") }
+include(":sample")
+

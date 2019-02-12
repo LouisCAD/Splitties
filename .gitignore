@@ -6,3 +6,6 @@
 /captures
 .externalNativeBuild
 /.idea/**
+ongoing_release.splitties
+/buildSrc/build/
+/buildSrc/.gradle/

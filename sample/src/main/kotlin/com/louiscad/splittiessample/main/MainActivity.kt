@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import com.louiscad.splittiessample.about.AboutActivity
 import com.louiscad.splittiessample.demo.DemoActivity
-import com.louiscad.splittiessample.extensions.coroutines.coroutineScope
 import com.louiscad.splittiessample.extensions.menu.addItem
 import com.louiscad.splittiessample.extensions.menu.neverShowAsAction
 import com.louiscad.splittiessample.extensions.toggleNightMode
@@ -35,6 +34,7 @@ import com.louiscad.splittiessample.preview.vibrator.vibrate
 import com.louiscad.splittiessample.sayhello.SayHelloActivity
 import kotlinx.coroutines.launch
 import splitties.activities.start
+import splitties.lifecycle.coroutines.lifecycleScope
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.uiModeManager
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         ui.bePoliteWithPermissionsBtn.onClick { start<PermissionsExampleActivity>() }
         ui.sayHelloBtn.onClick { start<SayHelloActivity>() }
         ui.fab.onClick {
-            coroutineScope.launch {
+            lifecycleScope.launch {
                 GamePreferences().edit {
                     currentLevel++
                     bossesFought++

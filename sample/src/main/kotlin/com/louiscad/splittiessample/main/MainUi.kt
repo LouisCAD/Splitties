@@ -17,15 +17,11 @@
 package com.louiscad.splittiessample.main
 
 import android.content.Context
-import android.os.Build.VERSION.SDK_INT
 import androidx.appcompat.app.AppCompatActivity
 import com.louiscad.splittiessample.R
 import splitties.dimensions.dip
 import splitties.resources.dimenPxSize
 import splitties.resources.styledColor
-import splitties.resources.styledColorSL
-import splitties.views.*
-import splitties.views.dsl.appcompat.AppCompatStyles
 import splitties.views.dsl.appcompat.toolbar
 import splitties.views.dsl.coordinatorlayout.anchorTo
 import splitties.views.dsl.coordinatorlayout.appBarLParams
@@ -34,27 +30,28 @@ import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.*
 import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.wrapInRecyclerView
+import splitties.views.gravityCenterHorizontal
+import splitties.views.gravityEndBottom
+import splitties.views.imageResource
 import splitties.views.material.contentScrimColor
+import splitties.views.textResource
 
 class MainUi(override val ctx: Context) : Ui {
 
-    private val appCompatStyles = AppCompatStyles(ctx)
+    private val materialStyles = MaterialComponentsStyles(ctx)
+    private val materialButtons = materialStyles.button
 
-    val launchDemoBtn = appCompatStyles.button.flatColored {
+    val launchDemoBtn = materialButtons.text {
         textResource = R.string.go_to_the_demo
     }
-    val bePoliteWithPermissionsBtn = appCompatStyles.button.colored {
+    val bePoliteWithPermissionsBtn = materialButtons.filled {
         textResource = R.string.be_polite_with_permissions
     }
-    val sayHelloBtn = appCompatStyles.button.flat {
+    val sayHelloBtn = materialButtons.text {
         textResource = R.string.say_hello
     }
-    val toggleNightModeBtn = button {
-        compoundDrawablePadding = dip(4)
-        if (SDK_INT >= 23) {
-            compoundDrawableTintList = styledColorSL(android.R.attr.textColorSecondary)
-        }
-        setCompoundDrawables(start = R.drawable.ic_invert_colors_white_24dp)
+    val toggleNightModeBtn = materialButtons.filledWithIcon {
+        setIconResource(R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
     }
     val fab = floatingActionButton {
