@@ -21,15 +21,20 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-fun View.wrapInRecyclerView(
+inline fun View.wrapInRecyclerView(
     horizontal: Boolean = false,
     @IdRes id: Int = View.NO_ID,
     initView: RecyclerView.() -> Unit = {}
 ): RecyclerView {
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
-    return recyclerView(id) {
-        val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
-        layoutManager = contentAdapter.layoutManager
-        adapter = contentAdapter
-    }.apply(initView)
+    return wrapInRecyclerView(horizontal, id).apply(initView)
+}
+
+fun View.wrapInRecyclerView(
+    horizontal: Boolean = false,
+    @IdRes id: Int = View.NO_ID
+): RecyclerView = recyclerView(id) {
+    val contentAdapter = SingleViewAdapter(this@wrapInRecyclerView, vertical = !horizontal)
+    layoutManager = contentAdapter.layoutManager
+    adapter = contentAdapter
 }
