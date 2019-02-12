@@ -16,6 +16,7 @@
 
 package splitties.views.dsl.core
 
+import android.view.View
 import android.view.ViewGroup
 
 /**
@@ -23,7 +24,7 @@ import android.view.ViewGroup
  * visible inside [ViewGroup]s.
  */
 @Suppress("unused")
-inline val ViewGroup.matchParent
+inline val View.matchParent
     get() = ViewGroup.LayoutParams.MATCH_PARENT
 
 /**
@@ -31,5 +32,5 @@ inline val ViewGroup.matchParent
  * visible inside [ViewGroup]s.
  */
 @Suppress("unused")
-inline val ViewGroup.wrapContent
+inline val View.wrapContent
     get() = ViewGroup.LayoutParams.WRAP_CONTENT
