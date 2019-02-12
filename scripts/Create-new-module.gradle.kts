@@ -27,6 +27,7 @@ inline fun <R> runOrRetry(block: () -> R): R {
 
 val currentDir = File(".")
 val projectDir = currentDir.parentFile!!
+val modulesDir = projectDir.resolve("modules")
 val settingsFile = projectDir.resolve("settings.gradle.kts")
 check(settingsFile.exists()) { "No ${settingsFile.name} found!" }
 val templatesDirectory = currentDir.resolve("gradle_templates")
@@ -56,13 +57,13 @@ val moduleName = runOrRetry {
     (readLine() ?: "").also {
         require(it.isNotBlank()) { "Name entered is blank" }
         //TODO: Check name is valid
-        val file = projectDir.resolve(it)
+        val file = modulesDir.resolve(it)
         check(file.exists().not()) {
             "A ${if (file.isDirectory) "directory" else "file"} already has this name!"
         }
     }
 }
-val destinationDir = projectDir.resolve(moduleName)
+val destinationDir = modulesDir.resolve(moduleName)
 check(selectedTemplateDir.copyRecursively(destinationDir)) { "Copy operation didn't succeed" }
 
 /**
