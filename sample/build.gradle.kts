@@ -66,7 +66,7 @@ if (useMavenLocalSnapshot) repositories {
 
 fun splittiesDependencyNotation(moduleName: String): Any = if (useMavenLocalSnapshot) {
     "com.louiscad.splitties:splitties-${moduleName.drop(1)}:${ProjectVersions.thisLibrary}"
-} else project(moduleName)
+} else project(":modules$moduleName")
 
 dependencies {
     arrayOf(

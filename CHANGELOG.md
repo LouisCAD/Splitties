@@ -3,13 +3,13 @@
 ## Version 3.0.0-alpha03 (2019-02-05)
 Compiled with Kotlin 1.3.20.
 
-**This release introduces a new split: [Views Coroutines](views-coroutines/README.md).**
+**This release introduces a new split: [Views Coroutines](modules/views-coroutines/README.md).**
 
 ### New features
 - Added `radioGroup { ... }` functions in Views DSL.
 - Added first class support for `ConstraintLayout` barriers, guidelines and groups.
-- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](views-dsl-appcompat/src/main/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
-- The [MaterialComponentsStyles](views-dsl-material/src/main/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
+- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/main/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
+- The [MaterialComponentsStyles](modules/views-dsl-material/src/main/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
 - Add `materialCardView { ... }` functions in Views DSL Material.
 - Add `navigationView { ... }` functions in Views DSL Material.
 - Make `EditText` inputType typesafe with the set only `type` extension property and the `InputType` inline class.
@@ -43,7 +43,7 @@ This release has the following new artifact:
 
 ## Version 3.0.0-alpha02 (2019-01-06)
 
-**This release introduces a new split: [Lifecycle Coroutines](lifecycle-coroutines/README.md).**
+**This release introduces a new split: [Lifecycle Coroutines](modules/lifecycle-coroutines/README.md).**
 
 ### New artifact
 This release has the following new artifact:
@@ -83,8 +83,8 @@ an alternative that would work properly, and perform faster._
 The solution has been a Kotlin script that is a white box, and runs in a matter of seconds. You can
 use it for your project too, so you can migrate to AndroidX quickly, and in a `fun` way.
 
-It is available [here](AndroidX-migrator.gradle.kts), and depends on
-[this csv file](androidx-class-mapping.csv).
+It is available [here](scripts/AndroidX-migrator.gradle.kts), and depends on
+[this csv file](scripts/androidx-class-mapping.csv).
 
 _Note that this script doesn't migrate the dependencies, because we changed the way we define
 dependencies (using constants defined in `buildSrc`), and it would have been harder to handle
