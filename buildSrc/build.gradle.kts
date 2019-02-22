@@ -28,3 +28,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21")
     implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
 }
+
+configurations.all {
+    val isKotlinCompiler = name == "embeddedKotlin" || name.startsWith("kotlin") || name.startsWith("kapt")
+    if (!isKotlinCompiler) {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "org.jetbrains.kotlin" && requested.module.name == "kotlin-compiler-embeddable") {
+                useVersion("1.3.21")
+            }
+        }
+    }
+}
