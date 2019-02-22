@@ -1,7 +1,5 @@
 @file:Suppress("SpellCheckingInspection")
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 /*
  * Copyright (c) 2016. Louis Cognault Ayeva Derman
  *
@@ -111,8 +109,14 @@ dependencies {
     }
 }
 
-tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
+kotlin {
+    sourceSets.all {
+        languageSettings.apply {
+            useExperimentalAnnotation("kotlin.Experimental")
+            useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
+            useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
+        }
+    }
 }
 
 val isRelease: Boolean by extra
