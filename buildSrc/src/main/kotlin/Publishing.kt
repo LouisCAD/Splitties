@@ -1,3 +1,4 @@
+
 import com.jfrog.bintray.gradle.BintrayExtension
 import org.gradle.api.Action
 import org.gradle.api.Project
@@ -101,5 +102,10 @@ fun BintrayExtension.setupPublicationsUpload(project: Project, publishing: Publi
         name = "splitties"
         desc = Publishing.libraryDesc
         websiteUrl = Publishing.siteUrl
+        issueTrackerUrl = "https://github.com/LouisCAD/Splitties/issues"
+        vcsUrl = Publishing.gitUrl
+        setLicenses("Apache-2.0")
+        publicDownloadNumbers = true
+        githubRepo = "LouisCAD/Splitties"
     })
 }
