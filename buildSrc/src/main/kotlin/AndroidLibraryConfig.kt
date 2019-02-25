@@ -1,4 +1,6 @@
-import com.android.build.gradle.LibraryExtension
+
+import org.gradle.api.Action
+import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
 /*
  * Copyright (c) 2019. Louis Cognault Ayeva Derman
@@ -16,7 +18,7 @@ import com.android.build.gradle.LibraryExtension
  * limitations under the License.
  */
 
-fun LibraryExtension.setDefaults() {
+fun AndroidLibraryExtension.setDefaults() {
     compileSdkVersion(ProjectVersions.androidSdk)
     buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
@@ -31,4 +33,10 @@ fun LibraryExtension.setDefaults() {
             isMinifyEnabled = false
         }
     }
+    // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+    libraryVariants.all(Action {
+        generateBuildConfigProvider.configure {
+            enabled = false
+        }
+    })
 }

@@ -1,4 +1,6 @@
+
 import com.jfrog.bintray.gradle.BintrayExtension
+import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.kotlin.dsl.closureOf
@@ -24,6 +26,17 @@ fun BintrayExtension.setupPublicationsUpload(
     publishing: PublishingExtension,
     skipMultiplatformPublication: Boolean = false
 ) {
+    val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
+    if (!isDevVersion) {
+        project.checkNoVersionRanges()
+        project.tasks.getByName("bintrayUpload").doFirst {
+            val gitTag = ProcessGroovyMethods.getText(
+                ProcessGroovyMethods.execute("git describe --dirty")
+            ).trim()
+            val expectedTag = "v${ProjectVersions.thisLibrary}"
+            if (gitTag != expectedTag) error("Expected git tag '$expectedTag' but got '$gitTag'")
+        }
+    }
     user = project.findProperty("bintray_user") as String?
     key = project.findProperty("bintray_api_key") as String?
     val publicationNames: Array<String> = publishing.publications.filterNot {
@@ -31,7 +44,6 @@ fun BintrayExtension.setupPublicationsUpload(
     }.map { it.name }.toTypedArray()
     setPublications(*publicationNames)
     pkg(closureOf<BintrayExtension.PackageConfig> {
-        val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
         repo = if (isDevVersion) "splitties-dev" else "maven"
         name = "splitties"
         desc = Publishing.libraryDesc
