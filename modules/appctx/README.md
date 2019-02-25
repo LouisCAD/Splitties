@@ -105,7 +105,7 @@ The result should look like this:
 ```
 
 ```kotlin
-import splitties.init.AppCtxInitProvider
+import AppCtxInitProvider
 
 class SecondProcessInitProvider : AppCtxInitProvider()
 ```

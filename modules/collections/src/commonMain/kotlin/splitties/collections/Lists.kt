@@ -15,8 +15,6 @@
  */
 package splitties.collections
 
-import java.util.*
-
 /**
  * Iterates the receiver [List] using an index instead of an [Iterator] like [forEach] would do.
  * Using this function saves an [Iterator] allocation, which is good for immutable lists or usages

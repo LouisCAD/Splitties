@@ -40,7 +40,7 @@ fun Context.drawable(@DrawableRes drawableResId: Int): Drawable? {
         @Suppress("DEPRECATION")
         resources.getDrawable(drawableResId)
     } else {
-        // Prior to JELLY_BEAN, Resources.getDrawable() would not correctly
+        // Prior to API 16, Resources.getDrawable() would not correctly
         // retrieve the final configuration density when the resource ID
         // is a reference another Drawable resource. As a workaround, try
         // to resolve the drawable reference manually.

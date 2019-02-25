@@ -1,7 +1,5 @@
 @file:Suppress("SpellCheckingInspection")
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 /*
  * Copyright (c) 2016. Louis Cognault Ayeva Derman
  *
@@ -61,40 +59,40 @@ android {
 
 dependencies {
     arrayOf(
-        ":activities",
-        ":alertdialog-appcompat",
-        ":appctx",
-        ":arch-lifecycle",
-        ":arch-room",
-        ":bitflags",
-        ":bundle",
-        ":checkedlazy",
-        ":collections",
-        ":exceptions",
-        ":fragments",
-        ":fragmentargs",
-        ":initprovider",
-        ":intents",
-        ":lifecycle-coroutines",
-        ":material-colors",
-        ":material-lists",
-        ":preferences",
-        ":systemservices",
-        ":toast",
-        ":typesaferecyclerview",
-        ":mainthread",
-        ":views-coroutines",
-        ":views-dsl-appcompat",
-        ":views-dsl-constraintlayout",
-        ":views-dsl-material"
+        "activities",
+        "alertdialog-appcompat",
+        "appctx",
+        "arch-lifecycle",
+        "arch-room",
+        "bitflags",
+        "bundle",
+        "checkedlazy",
+        "collections",
+        "exceptions",
+        "fragments",
+        "fragmentargs",
+        "initprovider",
+        "intents",
+        "lifecycle-coroutines",
+        "material-colors",
+        "material-lists",
+        "preferences",
+        "systemservices",
+        "toast",
+        "typesaferecyclerview",
+        "mainthread",
+        "views-coroutines",
+        "views-dsl-appcompat",
+        "views-dsl-constraintlayout",
+        "views-dsl-material"
     ).forEach { moduleName ->
-        implementation(project(":modules$moduleName"))
+        implementation(splitties(moduleName))
     }
     arrayOf(
-        ":stetho-init",
-        ":views-dsl-ide-preview"
+        "stetho-init",
+        "views-dsl-ide-preview"
     ).forEach { moduleName ->
-        debugImplementation(project(":modules$moduleName"))
+        debugImplementation(splitties(moduleName))
     }
     with(Libs) {
         arrayOf(
@@ -111,8 +109,14 @@ dependencies {
     }
 }
 
-tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
+kotlin {
+    sourceSets.all {
+        languageSettings.apply {
+            useExperimentalAnnotation("kotlin.Experimental")
+            useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
+            useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
+        }
+    }
 }
 
 val isRelease: Boolean by extra

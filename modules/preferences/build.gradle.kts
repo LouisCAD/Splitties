@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,43 +16,43 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            consumerProguardFiles("proguard-rules.pro")
+    setDefaults()
+    buildTypes.getByName("release").consumerProguardFiles("proguard-rules.pro")
+}
+
+kotlin {
+    androidWithPublication(project)
+    sourceSets {
+        getByName("androidMain").dependencies {
+            api(splitties("appctx"))
+            api(splitties("experimental"))
+            api(splitties("mainthread"))
+
+            api(Libs.kotlin.stdlibJdk7)
+            compileOnly(Libs.kotlinX.coroutines.android)
+        }
+        getByName("androidTest").dependencies {
+            implementation(Libs.kotlin.testJunit)
+            implementation(Libs.androidX.test.coreKtx)
+            implementation(Libs.androidX.test.ext.junit)
+            implementation(Libs.androidX.test.espresso.core)
+            implementation(Libs.kotlinX.coroutines.android)
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
-dependencies {
-    api(splitties("appctx"))
-    api(splitties("experimental"))
-    api(splitties("mainthread"))
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
 
-    api(Libs.kotlin.stdlibJdk7)
-    compileOnly(Libs.kotlinX.coroutines.android)
-
-    // Test dependencies
-    testImplementation(Libs.junit)
-    testImplementation(Libs.kotlin.testJunit)
-    androidTestImplementation(Libs.androidX.test.ext.junit)
-    androidTestImplementation(Libs.androidX.test.espresso.core)
-}
-
-apply {
-    from("../../publish.gradle")
+    bintray {
+        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+    }
 }

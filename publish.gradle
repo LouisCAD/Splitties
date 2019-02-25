@@ -105,8 +105,7 @@ if (isSnapshot) {
             }
         }
     }
-} else {
-    assert isRelease
+} else if (isRelease) {
     apply plugin: 'com.jfrog.bintray'
     bintrayUpload.doFirst {
         def gitTag = 'git describe --dirty'.execute().text.trim()

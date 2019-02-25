@@ -16,26 +16,25 @@
 
 plugins {
     id("com.android.library")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
+    setDefaults()
 }
 
-apply {
-    from("../../publish.gradle")
+kotlin {
+    androidWithPublication(project)
+}
+
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
+
+    bintray {
+        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+    }
 }

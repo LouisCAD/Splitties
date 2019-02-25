@@ -64,4 +64,4 @@ listOf(
     ":views-selectable-constraintlayout"
 ).forEach { include(":modules$it") }
 include(":sample")
-
+enableFeaturePreview("GRADLE_METADATA")

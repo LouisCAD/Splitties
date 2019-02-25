@@ -16,44 +16,42 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+    setDefaults()
+}
+
+kotlin {
+    androidWithPublication(project)
+    sourceSets {
+        getByName("androidMain").dependencies {
+            api(splitties("views"))
+            api(splitties("experimental"))
+            api(Libs.kotlin.stdlibJdk7)
+            api(Libs.androidX.annotation)
+            implementation(splitties("collections"))
+            implementation(splitties("exceptions"))
+        }
+        matching { it.name.startsWith("android") }.all {
+            languageSettings.apply {
+                enableLanguageFeature("InlineClasses")
+                useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
+                useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
+            }
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
-dependencies {
-    api(splitties("collections"))
-    api(splitties("experimental"))
-    api(splitties("views"))
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
 
-    api(Libs.kotlin.stdlibJdk7)
-    api(Libs.androidX.annotation)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf(
-        "-XXLanguage:+InlineClasses",
-        "-Xuse-experimental=kotlin.contracts.ExperimentalContracts",
-        "-Xuse-experimental=splitties.experimental.InternalSplittiesApi"
-    )
-}
-
-apply {
-    from("../../publish.gradle")
+    bintray {
+        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+    }
 }
