@@ -26,6 +26,7 @@ android {
 }
 
 kotlin {
+    metadataPublication(project)
     androidWithPublication(project)
     sourceSets {
         getByName("androidMain").dependencies {
@@ -50,6 +51,6 @@ afterEvaluate {
     }
 
     bintray {
-        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

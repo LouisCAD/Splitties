@@ -26,6 +26,7 @@ android {
 }
 
 kotlin {
+    metadataPublication(project)
     androidWithPublication(project)
 }
 
@@ -35,6 +36,6 @@ afterEvaluate {
     }
 
     bintray {
-        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }
