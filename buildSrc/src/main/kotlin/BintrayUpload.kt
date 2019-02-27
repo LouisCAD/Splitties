@@ -26,7 +26,6 @@ fun BintrayExtension.setupPublicationsUpload(
     publishing: PublishingExtension,
     skipMultiplatformPublication: Boolean = false
 ) {
-    val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
     if (!isDevVersion) {
         project.checkNoVersionRanges()
         project.tasks.getByName("bintrayUpload").doFirst {

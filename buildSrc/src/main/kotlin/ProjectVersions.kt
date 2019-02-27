@@ -19,3 +19,5 @@ object ProjectVersions {
     const val androidSdk = 28
     const val thisLibrary = "3.0.0-dev-001"
 }
+
+val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
