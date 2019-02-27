@@ -1,4 +1,3 @@
-
 import com.jfrog.bintray.gradle.BintrayExtension
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.Project
@@ -24,13 +23,14 @@ import org.gradle.kotlin.dsl.closureOf
 fun BintrayExtension.setupPublicationsUpload(
     project: Project,
     publishing: PublishingExtension,
-    skipMultiplatformPublication: Boolean = false
+    skipMetadataPublication: Boolean = false,
+    skipMultiplatformPublication: Boolean = skipMetadataPublication
 ) {
     if (!isDevVersion) {
         project.checkNoVersionRanges()
         project.tasks.getByName("bintrayUpload").doFirst {
             val gitTag = ProcessGroovyMethods.getText(
-                ProcessGroovyMethods.execute("git describe --dirty")
+                Runtime.getRuntime().exec("git describe --dirty")
             ).trim()
             val expectedTag = "v${ProjectVersions.thisLibrary}"
             if (gitTag != expectedTag) error("Expected git tag '$expectedTag' but got '$gitTag'")
@@ -39,7 +39,8 @@ fun BintrayExtension.setupPublicationsUpload(
     user = project.findProperty("bintray_user") as String?
     key = project.findProperty("bintray_api_key") as String?
     val publicationNames: Array<String> = publishing.publications.filterNot {
-        skipMultiplatformPublication && it.name == "kotlinMultiplatform" || it.name == "metadata"
+        skipMetadataPublication && it.name == "metadata" ||
+                skipMultiplatformPublication && it.name == "kotlinMultiplatform"
     }.map { it.name }.toTypedArray()
     setPublications(*publicationNames)
     pkg(closureOf<BintrayExtension.PackageConfig> {
