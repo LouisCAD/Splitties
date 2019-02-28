@@ -18,8 +18,6 @@ package splitties.bundle
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 /**
  * This function allows to read extras of an [Activity] in the passed [block] using a [BundleSpec].
@@ -36,7 +34,8 @@ inline fun <Spec : BundleSpec, R> Activity.withExtras(
     spec: Spec,
     crossinline block: Spec.() -> R
 ): R {
-    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
+    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return intent.withExtras(spec, block)
 }
 
@@ -55,7 +54,8 @@ inline fun <Spec : BundleSpec, R> Intent.withExtras(
     spec: Spec,
     crossinline block: Spec.() -> R
 ): R {
-    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
+    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
         spec.isReadOnly = true
         spec.currentBundle = extras ?: Bundle()
@@ -74,7 +74,8 @@ inline fun <Spec : BundleSpec> Activity.putExtras(
     spec: Spec,
     crossinline block: Spec.() -> Unit
 ) {
-    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
+    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     intent.putExtras(spec, block)
 }
 
@@ -86,7 +87,8 @@ inline fun <Spec : BundleSpec> Intent.putExtras(
     spec: Spec,
     crossinline block: Spec.() -> Unit
 ) {
-    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
+    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     replaceExtras((extras ?: Bundle()).apply { with(spec, block) })
 }
 
@@ -99,7 +101,8 @@ inline fun <Spec : BundleSpec, R> Bundle.with(
     spec: Spec,
     crossinline block: Spec.() -> R
 ): R {
-    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
+    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
         spec.currentBundle = this
         spec.block()
