@@ -8,12 +8,12 @@ You may be looking for [the AppCompat version](
 ## Example
 
 ```kotlin
-import splitties.alertdialog.alert
-import splitties.alertdialog.cancelButton
-import splitties.alertdialog.messageResource
-import splitties.alertdialog.okButton
-import splitties.alertdialog.onShow
-import splitties.alertdialog.positiveButton
+import alert
+import cancelButton
+import setMessageResource
+import okButton
+import onShow
+import getPositiveButton
 
 class YourActivity : AppCompatActivity {
 

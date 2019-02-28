@@ -16,42 +16,40 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+    setDefaults()
+}
+
+kotlin {
+    androidWithPublication(project)
+    sourceSets {
+        getByName("androidMain").dependencies {
+            api(splitties("views-dsl"))
+            api(Libs.kotlin.stdlibJdk7)
+            api(Libs.androidX.annotation)
+            api(Libs.androidX.constraintLayout)
+            implementation(splitties("collections"))
+        }
+        matching { it.name.startsWith("android") }.all {
+            languageSettings.apply {
+                enableLanguageFeature("InlineClasses")
+                useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
+            }
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
-dependencies {
-    api(splitties("views-dsl"))
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
 
-    api(Libs.kotlin.stdlibJdk7)
-    api(Libs.androidX.annotation)
-    api(Libs.androidX.constraintLayout)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf(
-        "-Xuse-experimental=kotlin.contracts.ExperimentalContracts",
-        "-XXLanguage:+InlineClasses"
-    )
-}
-
-apply {
-    from("../../publish.gradle")
+    bintray {
+        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+    }
 }

@@ -24,11 +24,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.3.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
         classpath("com.github.dcendents:android-maven-gradle-plugin:2.0")
-        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:4.8.1")
+        classpath("org.jfrog.buildinfo:build-info-extractor-gradle:4.9.1")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -41,7 +38,8 @@ allprojects {
         jcenter()
     }
     val isSnapshot by extra { ProjectVersions.thisLibrary.endsWith("-SNAPSHOT") }
-    ext.set("isRelease", !isSnapshot)
+    val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
+    ext.set("isRelease", !isSnapshot && !isDevVersion)
 }
 
 task<Delete>("clean") {

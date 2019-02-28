@@ -16,20 +16,31 @@
 
 plugins {
     kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 kotlin {
-    jvm()
+    metadataPublication(project)
+    jvmWithPublication(project)
+    jsWithPublication(project)
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(kotlin("stdlib-common"))
-            }
+        getByName("commonMain").dependencies {
+            api(kotlin("stdlib-common"))
         }
-        val jvmMain by getting {
-            dependencies {
-                api(kotlin("stdlib-jdk7"))
-            }
+        getByName("jvmMain").dependencies {
+            api(kotlin("stdlib-jdk7"))
+        }
+        getByName("jsMain").dependencies {
+            api(kotlin("stdlib-js"))
         }
     }
+}
+
+publishing {
+    setupAllPublications(project)
+}
+
+bintray {
+    setupPublicationsUpload(project, publishing)
 }

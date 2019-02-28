@@ -16,40 +16,36 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+    setDefaults()
+}
+
+kotlin {
+    androidWithPublication(project)
+    sourceSets {
+        getByName("androidMain").dependencies {
+            api(Libs.kotlin.stdlibJdk7)
+            api(splitties("views-selectable"))
+            api(splitties("views-selectable-constraintlayout"))
+            api(Libs.androidX.constraintLayout)
+            implementation(Libs.androidX.appCompat)
+            implementation(splitties("views-dsl-appcompat"))
+            implementation(splitties("views-dsl-constraintlayout"))
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
-dependencies {
-    api(splitties("views-selectable"))
-    api(splitties("views-selectable-constraintlayout"))
-    api(splitties("views-dsl-appcompat"))
-    api(splitties("views-dsl-constraintlayout"))
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
 
-    api(Libs.kotlin.stdlibJdk7)
-    api(Libs.androidX.annotation)
-    api(Libs.androidX.appCompat)
-    api(Libs.androidX.recyclerView)
-    api(Libs.androidX.constraintLayout)
-}
-
-apply {
-    from("../../publish.gradle")
+    bintray {
+        setupPublicationsUpload(project, publishing, skipMultiplatformPublication = true)
+    }
 }
