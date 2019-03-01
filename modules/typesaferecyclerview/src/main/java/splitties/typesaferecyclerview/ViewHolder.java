@@ -16,11 +16,12 @@
 
 package splitties.typesaferecyclerview;
 
+import android.view.View;
+import android.view.ViewGroup;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import android.view.View;
-import android.view.ViewGroup;
 
 import splitties.views.LayoutInflaterKt;
 
@@ -49,7 +50,6 @@ public class ViewHolder<V extends View> extends RecyclerView.ViewHolder {
      * @param parent      pass the first argument received in
      *                    {@link RecyclerView.Adapter#onCreateViewHolder(ViewGroup, int)}
      */
-    @SuppressWarnings("unchecked")
     public ViewHolder(@LayoutRes int layoutResId, @NonNull ViewGroup parent) {
         this(LayoutInflaterKt.<V>inflate(parent, layoutResId, false));
     }

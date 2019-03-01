@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017. Louis Cognault Ayeva Derman
+ * Copyright (c) 2018. Louis Cognault Ayeva Derman
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,36 +15,37 @@
  */
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    kotlin("multiplatform")
+    `maven-publish`
+    id("com.jfrog.bintray")
 }
 
-android {
-    compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
-    defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
-        versionCode = 1
-        versionName = ProjectVersions.thisLibrary
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
+kotlin {
+    metadataPublication(project)
+    jvmWithPublication(project)
+    jsWithPublication(project)
+    sourceSets {
+        getByName("commonMain").dependencies {
+            api(kotlin("stdlib-common"))
+        }
+        getByName("jvmMain").dependencies {
+            api(kotlin("stdlib-jdk7"))
+        }
+        getByName("jsMain").dependencies {
+            api(kotlin("stdlib-js"))
+        }
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.Experimental")
+            }
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
 }
 
-dependencies {
-    api(Libs.kotlin.stdlibJdk7)
+publishing {
+    setupAllPublications(project)
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
-}
-
-apply {
-    from("../../publish.gradle")
+bintray {
+    setupPublicationsUpload(project, publishing)
 }

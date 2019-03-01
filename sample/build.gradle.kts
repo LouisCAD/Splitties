@@ -1,7 +1,5 @@
 @file:Suppress("SpellCheckingInspection")
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 /*
  * Copyright (c) 2016. Louis Cognault Ayeva Derman
  *
@@ -20,7 +18,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.android.application")
-    kotlin("android")
+    kotlin("multiplatform")
 }
 
 android {
@@ -31,7 +29,7 @@ android {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
-        versionName = "1.0"
+        versionName = ProjectVersions.thisLibrary
         resConfigs("en", "fr")
         proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
         proguardFile("proguard-rules.pro")
@@ -56,64 +54,71 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
-    sourceSets.forEach { it.java.srcDir("src/${it.name}/kotlin") }
+}
+
+kotlin {
+    android()
+    sourceSets {
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
+                useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
+            }
+        }
+        getByName("androidMain").dependencies {
+            arrayOf(
+                "activities",
+                "alertdialog-appcompat",
+                "appctx",
+                "arch-lifecycle",
+                "arch-room",
+                "bitflags",
+                "bundle",
+                "checkedlazy",
+                "collections",
+                "exceptions",
+                "fragments",
+                "fragmentargs",
+                "initprovider",
+                "intents",
+                "lifecycle-coroutines",
+                "material-colors",
+                "material-lists",
+                "preferences",
+                "systemservices",
+                "toast",
+                "typesaferecyclerview",
+                "mainthread",
+                "views-coroutines",
+                "views-dsl-appcompat",
+                "views-dsl-constraintlayout",
+                "views-dsl-material"
+            ).forEach { moduleName ->
+                implementation(splitties(moduleName))
+            }
+            with(Libs) {
+                arrayOf(
+                    kotlin.stdlibJdk7,
+                    androidX.appCompat,
+                    androidX.coreKtx,
+                    androidX.constraintLayout,
+                    google.material,
+                    timber,
+                    kotlinX.coroutines.android
+                )
+            }.forEach {
+                implementation(it)
+            }
+        }
+    }
 }
 
 dependencies {
     arrayOf(
-        ":activities",
-        ":alertdialog-appcompat",
-        ":appctx",
-        ":arch-lifecycle",
-        ":arch-room",
-        ":bitflags",
-        ":bundle",
-        ":checkedlazy",
-        ":collections",
-        ":exceptions",
-        ":fragments",
-        ":fragmentargs",
-        ":initprovider",
-        ":intents",
-        ":lifecycle-coroutines",
-        ":material-colors",
-        ":material-lists",
-        ":preferences",
-        ":systemservices",
-        ":toast",
-        ":typesaferecyclerview",
-        ":mainthread",
-        ":views-coroutines",
-        ":views-dsl-appcompat",
-        ":views-dsl-constraintlayout",
-        ":views-dsl-material"
+        "stetho-init",
+        "views-dsl-ide-preview"
     ).forEach { moduleName ->
-        implementation(project(":modules$moduleName"))
-    }
-    arrayOf(
-        ":stetho-init",
-        ":views-dsl-ide-preview"
-    ).forEach { moduleName ->
-        debugImplementation(project(":modules$moduleName"))
-    }
-    with(Libs) {
-        arrayOf(
-            kotlin.stdlibJdk7,
-            androidX.appCompat,
-            androidX.coreKtx,
-            androidX.constraintLayout,
-            google.material,
-            timber,
-            kotlinX.coroutines.android
-        )
-    }.forEach {
-        implementation(it)
+        debugImplementation(splitties(moduleName))
     }
 }
-
-tasks.withType<KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
-}
-
-val isRelease: Boolean by extra
-if (isRelease) apply { from("../no-version-ranges.gradle.kts") }
