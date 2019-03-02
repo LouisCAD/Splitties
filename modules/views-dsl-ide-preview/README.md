@@ -27,7 +27,7 @@ subpackage (relative to the app/library package name).
 ```
 
 Here's a screenshot of how it looks like with [DemoUi from the sample](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) after the
+../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) after the
 `compileDebugKotlin` gradle task has been run:
 
 ![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20example.png)

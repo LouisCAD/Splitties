@@ -8,8 +8,8 @@ Compiled with Kotlin 1.3.20.
 ### New features
 - Added `radioGroup { ... }` functions in Views DSL.
 - Added first class support for `ConstraintLayout` barriers, guidelines and groups.
-- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/main/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
-- The [MaterialComponentsStyles](modules/views-dsl-material/src/main/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
+- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/androidMain/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
+- The [MaterialComponentsStyles](modules/views-dsl-material/src/androidMain/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
 - Add `materialCardView { ... }` functions in Views DSL Material.
 - Add `navigationView { ... }` functions in Views DSL Material.
 - Make `EditText` inputType typesafe with the set only `type` extension property and the `InputType` inline class.

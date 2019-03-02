@@ -7,7 +7,7 @@ SharedPreferences as easy as accessing a property on an object. It
 relies on the `appCtx` module of this library to allow usage in `object`,
 and can support storage on device encrypted storage for devices
 supporting Direct Boot. See [the source code](
-/src/main/kotlin/splitties/preferences) for more information.
+/src/androidMain/kotlin/splitties/preferences) for more information.
 
 ## Table of contents
 

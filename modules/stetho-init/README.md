@@ -4,9 +4,9 @@
 without writing any code!*
 
 This library uses an [InitProvider](
-../initprovider/src/main/kotlin/splitties/initprovider/InitProvider.kt
+../initprovider/src/androidMain/kotlin/splitties/initprovider/InitProvider.kt
 ) (like [appCtx](
-../appctx/src/main/kotlin/splitties/init/AppCtxInitProvider.kt
+../appctx/src/androidMain/kotlin/splitties/init/AppCtxInitProvider.kt
 ), and similarly to Firebase) to initialize Stetho
 automatically. You just have to include the dependency on your debug build
 and voilà!
