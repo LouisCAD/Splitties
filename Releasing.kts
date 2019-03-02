@@ -151,7 +151,7 @@ fun checkOnDevelopBranch() {
     check(currentBranch == "develop") { "Please, checkout the `develop` branch first." }
 }
 
-var currentSnapshotVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+var currentDevVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 
@@ -161,13 +161,13 @@ val libVersionLineStart = "    const val thisLibrary = \""
 
 if (ongoingReleaseFile.exists()) {
     ongoingReleaseFile.readLines().let {
-        currentSnapshotVersion = it[0]
+        currentDevVersion = it[0]
         newVersion = it[1]
         startAtStep = BintrayReleaseStep.valueOf(it[2])
     }
 } else {
     checkOnDevelopBranch()
-    currentSnapshotVersion = let { _ ->
+    currentDevVersion = let { _ ->
         val libraryVersionLine = versionsFile.readLines().singleOrNull { line ->
             line.startsWith(libVersionLineStart)
         } ?: throw IllegalStateException("Library version line not found.")
@@ -175,12 +175,12 @@ if (ongoingReleaseFile.exists()) {
             startIndex = libVersionLineStart.length,
             endIndex = libraryVersionLine.lastIndex
         ).also { versionName ->
-            check(versionName.endsWith("-SNAPSHOT")) {
-                "Version in ${versionsFile.path} should be a `-SNAPSHOT` version."
+            check("-dev-" in versionName) {
+                "Version in ${versionsFile.path} should be a `-dev-` version."
             }
         }
     }
-    printInfo("Current version: $currentSnapshotVersion")
+    printInfo("Current version: $currentDevVersion")
     printQuestion("Please enter the name of the new version you want to release:")
     newVersion = readLine()?.trimEnd().also { input ->
         when {
@@ -191,7 +191,8 @@ if (ongoingReleaseFile.exists()) {
             !input.all {
                 it.isLetterOrDigit() || it == '.' || it == '-'
             } -> throw IllegalStateException("Only digits, letters, dots and dashes are allowed.")
-            input.contains("-SNAPSHOT") -> throw IllegalStateException("Snapshots not allowed")
+            "-dev-" in input -> throw IllegalStateException("Dev versions not allowed")
+            "-SNAPSHOT" in input -> throw IllegalStateException("Snapshots not allowed")
         }
         val existingVersions = "git tag".execute().trimEnd().lineSequence().filter {
             it.startsWith("v") && it.getOrElse(1) { ' ' }.isDigit()
@@ -274,10 +275,10 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
     }
     CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_SNAPSHOT -> {
         printInfo("Let's update the library for next development version.")
-        printInfo("If you want to keep using $currentSnapshotVersion, enter an empty line.")
-        printInfo("Otherwise, enter the name of the next target version (`-SNAPSHOT` will be added automatically)")
+        printInfo("If you want to keep using $currentDevVersion, enter an empty line.")
+        printInfo("Otherwise, enter the name of the next target version (`-dev-001` will be added automatically)")
         val nextDevVersion: String = readLine().let { input ->
-            if (input.isNullOrBlank()) currentSnapshotVersion else "$input-SNAPSHOT"
+            if (input.isNullOrBlank()) currentDevVersion else "$input-dev-001"
         }
         versionsFile.writeText(
             versionsFile.readText().replace(
@@ -305,7 +306,7 @@ fun releaseOnBintray() {
     while (stepIndex < enumValues.size) {
         val step = enumValues[stepIndex]
         ongoingReleaseFile.writeText(buildString {
-            appendln(currentSnapshotVersion)
+            appendln(currentDevVersion)
             appendln(newVersion)
             appendln(step.name)
         })

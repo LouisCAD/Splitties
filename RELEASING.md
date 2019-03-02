@@ -11,7 +11,7 @@ with `kotlinc -script Releasing.kts` and follow the steps directly from the comm
 
 1. Checkout the `develop` branch, if not already done.
 2. Change the `thisLibrary` constant in the
-[ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file to a non-SNAPSHOT version.
+[ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file to a non-dev version.
 3. Update the `README.md` with the new version.
 4. Update the `CHANGELOG.md` for the impending release.
 5. Run `git commit -am "Prepare for release X.Y.Z"` (where X.Y.Z is the new version).
@@ -27,15 +27,12 @@ with `kotlinc -script Releasing.kts` and follow the steps directly from the comm
 15. Pull from GitHub repository to update the local `master` branch.
 16. Checkout the `develop` branch.
 17. Change the `thisLibrary` constant in the
-    [ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file back to a SNAPSHOT version.
+    [ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file back to a `-dev-` version.
 18. Run `git commit -am "Prepare next development version."`.
 19. Run `git push origin`.
 
-## Publishing a SNAPSHOT
+## Publishing a dev version
 
 1. Make sure the `thisLibrary` constant in the
-[ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file is set to a SNAPSHOT version.
-2. Run `./gradlew artifactoryPublish`. **Do it from command line,
-not from Android Studio**, as the artifacts are not uploaded when the
-gradle task is run from the IDE (as of Android Studio `3.1.0-rc01`) because
-of a yet to be reported bug.
+[ProjectVersions](buildSrc/src/main/kotlin/ProjectVersions.kt) file is set to a `-dev-` version.
+2. Run `./gradlew clean bintrayUpload`.
