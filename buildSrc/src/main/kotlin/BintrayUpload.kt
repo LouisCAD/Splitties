@@ -1,8 +1,16 @@
+@file:Suppress("UnusedImport") // Needed for delegates imports to not be removed by the IDE.
+
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.jfrog.bintray.gradle.BintrayExtension
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.tasks.TaskProvider
 import org.gradle.kotlin.dsl.closureOf
+import org.gradle.kotlin.dsl.existing
+import org.gradle.kotlin.dsl.getValue
+import org.gradle.kotlin.dsl.provideDelegate
 
 /*
  * Copyright (c) 2019. Louis Cognault Ayeva Derman
@@ -26,14 +34,19 @@ fun BintrayExtension.setupPublicationsUpload(
     skipMetadataPublication: Boolean = false,
     skipMultiplatformPublication: Boolean = skipMetadataPublication
 ) {
+    val bintrayUpload: TaskProvider<Task> by project.tasks.existing
+    val publishToMavenLocal: TaskProvider<Task> by project.tasks.existing
+    bintrayUpload.dependsOn(publishToMavenLocal)
     if (!isDevVersion) {
         project.checkNoVersionRanges()
-        project.tasks.getByName("bintrayUpload").doFirst {
-            val gitTag = ProcessGroovyMethods.getText(
-                Runtime.getRuntime().exec("git describe --dirty")
-            ).trim()
-            val expectedTag = "v${ProjectVersions.thisLibrary}"
-            if (gitTag != expectedTag) error("Expected git tag '$expectedTag' but got '$gitTag'")
+        bintrayUpload.configure {
+            doFirst {
+                val gitTag = ProcessGroovyMethods.getText(
+                    Runtime.getRuntime().exec("git describe --dirty")
+                ).trim()
+                val expectedTag = "v${ProjectVersions.thisLibrary}"
+                if (gitTag != expectedTag) error("Expected git tag '$expectedTag' but got '$gitTag'")
+            }
         }
     }
     user = project.findProperty("bintray_user") as String?
