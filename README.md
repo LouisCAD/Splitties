@@ -4,8 +4,7 @@ Splitties is a collection of small independent Android libraries that aims
 to make developing apps and libraries for Android (including Wear, TV,
 Things, Auto and ChromeOS targeted) easier and more `fun`.
 
-Some modules are similar to what [Anko](https://github.com/Kotlin/anko)
-provides.
+Some modules are similar to what [Anko](https://github.com/Kotlin/anko) provides. See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
 
 This project is named "Splitties" because it is split in small modules,
 distributed as independent Android libraries, so you can add only the ones
