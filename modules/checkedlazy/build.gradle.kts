@@ -40,6 +40,7 @@ kotlin {
             implementation(Libs.androidX.test.ext.junit)
             implementation(Libs.androidX.test.espresso.core)
             implementation(Libs.kotlinX.coroutines.android)
+            implementation(Libs.roboElectric)
         }
     }
 }

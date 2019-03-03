@@ -8,11 +8,21 @@ import android.os.Looper
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.*
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LIBRARY_IMPL
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOCAL_CACHED_THREAD_BY_ID
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOCAL_CACHED_THREAD_ID
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOCAL_CACHED_THREAD_REF
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOOPER
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOOPER_THREAD_REF
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.THREAD_EQUALS
+import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.THREAD_ID
 import kotlin.system.measureNanoTime
-import kotlin.test.assertTrue
 import kotlin.test.Test
+import kotlin.test.assertTrue
 
+@RunWith(RobolectricTestRunner::class)
 class PerformanceTest {
 
     private enum class MainThreadCheckTechnique {

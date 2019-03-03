@@ -13,6 +13,7 @@ object Versions {
 @Suppress("unused")
 object Libs {
     const val junit = "junit:junit:4.12"
+    const val roboElectric = "org.robolectric:robolectric:4.2"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val stetho = "com.facebook.stetho:stetho:1.5.0"
 

@@ -7,8 +7,12 @@ package splitties.checkedlazy
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
-import kotlin.test.*
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 
+@RunWith(RobolectricTestRunner::class)
 class CheckedLazyFunctionalTest {
 
     @Test
@@ -16,8 +20,10 @@ class CheckedLazyFunctionalTest {
         var refVariable = 0
         val localUnderTest by mainThreadLazy { ++refVariable }
         assertEquals(0, refVariable)
-        assertFailsWith<IllegalStateException> {
-            localUnderTest + 0
+        runBlocking(Dispatchers.Default) {
+            assertFailsWith<IllegalStateException> {
+                localUnderTest + 0
+            }
         }
         assertEquals(0, refVariable)
         runBlocking(Dispatchers.Main) {
@@ -26,8 +32,10 @@ class CheckedLazyFunctionalTest {
             assertEquals(1, localUnderTest)
         }
         assertEquals(1, refVariable)
-        assertFailsWith<IllegalStateException> {
-            localUnderTest + 0
+        runBlocking(Dispatchers.Default) {
+            assertFailsWith<IllegalStateException> {
+                localUnderTest + 0
+            }
         }
         assertEquals(1, refVariable)
     }
