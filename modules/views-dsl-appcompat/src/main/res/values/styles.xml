@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<resources>
+    <style name="AppCompatStyles">
+        <item name="Widget.AppCompat.TextView.SpinnerItem">@style/Widget.AppCompat.TextView.SpinnerItem</item>
+
+        <item name="Widget.AppCompat.ActionButton">@style/Widget.AppCompat.ActionButton</item>
+
+        <item name="Widget.AppCompat.Button">@style/Widget.AppCompat.Button</item>
+        <item name="Widget.AppCompat.Button.Borderless">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="Widget.AppCompat.Button.Borderless.Colored">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="Widget.AppCompat.Button.Colored">@style/Widget.AppCompat.Button.Colored</item>
+        <item name="Widget.AppCompat.Button.Small">@style/Widget.AppCompat.Button.Small</item>
+
+        <item name="Widget.AppCompat.SeekBar">@style/Widget.AppCompat.SeekBar</item>
+        <item name="Widget.AppCompat.SeekBar.Discrete">@style/Widget.AppCompat.SeekBar.Discrete</item>
+
+        <item name="Widget.AppCompat.Spinner">@style/Widget.AppCompat.Spinner</item>
+        <item name="Widget.AppCompat.Spinner.Underlined">@style/Widget.AppCompat.Spinner.Underlined</item>
+    </style>
+</resources>

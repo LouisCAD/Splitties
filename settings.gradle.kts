@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-include(
+listOf(
     ":activities",
     ":alertdialog",
     ":alertdialog-appcompat",
@@ -41,7 +41,6 @@ include(
     ":material-lists",
     ":preferences",
     ":resources",
-    ":sample",
     ":snackbar",
     ":stetho-init",
     ":systemservices",
@@ -63,4 +62,6 @@ include(
     ":views-selectable",
     ":views-selectable-appcompat",
     ":views-selectable-constraintlayout"
-)
+).forEach { include(":modules$it") }
+include(":sample")
+enableFeaturePreview("GRADLE_METADATA")

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<resources>
+    <style name="MaterialComponentsStyles">
+
+        <item name="Widget.MaterialComponents.BottomAppBar">@style/Widget.MaterialComponents.BottomAppBar</item>
+        <item name="Widget.MaterialComponents.BottomAppBar.Colored">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+
+        <item name="Widget.MaterialComponents.BottomNavigationView">@style/Widget.MaterialComponents.BottomNavigationView</item>
+        <item name="Widget.MaterialComponents.BottomNavigationView.Colored">@style/Widget.MaterialComponents.BottomNavigationView.Colored</item>
+
+        <item name="Widget.MaterialComponents.Button">@style/Widget.MaterialComponents.Button</item>
+        <item name="Widget.MaterialComponents.Button.Icon">@style/Widget.MaterialComponents.Button.Icon</item>
+        <item name="Widget.MaterialComponents.Button.OutlinedButton">@style/Widget.MaterialComponents.Button.OutlinedButton</item>
+        <item name="Widget.MaterialComponents.Button.OutlinedButton.Icon">@style/Widget.MaterialComponents.Button.OutlinedButton.Icon</item>
+        <item name="Widget.MaterialComponents.Button.TextButton">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="Widget.MaterialComponents.Button.TextButton.Icon">@style/Widget.MaterialComponents.Button.TextButton.Icon</item>
+        <item name="Widget.MaterialComponents.Button.TextButton.Dialog">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="Widget.MaterialComponents.Button.TextButton.Dialog.Icon">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Icon</item>
+        <item name="Widget.MaterialComponents.Button.UnelevatedButton">@style/Widget.MaterialComponents.Button.UnelevatedButton</item>
+        <item name="Widget.MaterialComponents.Button.UnelevatedButton.Icon">@style/Widget.MaterialComponents.Button.UnelevatedButton.Icon</item>
+
+        <item name="Widget.MaterialComponents.Chip.Action">@style/Widget.MaterialComponents.Chip.Action</item>
+        <item name="Widget.MaterialComponents.Chip.Choice">@style/Widget.MaterialComponents.Chip.Choice</item>
+        <item name="Widget.MaterialComponents.Chip.Entry">@style/Widget.MaterialComponents.Chip.Entry</item>
+        <item name="Widget.MaterialComponents.Chip.Filter">@style/Widget.MaterialComponents.Chip.Filter</item>
+
+        <item name="Widget.MaterialComponents.TabLayout">@style/Widget.MaterialComponents.TabLayout</item>
+        <item name="Widget.MaterialComponents.TabLayout.Colored">@style/Widget.MaterialComponents.TabLayout.Colored</item>
+
+        <item name="Widget.MaterialComponents.TextInputLayout.FilledBox">@style/Widget.MaterialComponents.TextInputLayout.FilledBox</item>
+        <item name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense</item>
+        <item name="Widget.MaterialComponents.TextInputLayout.OutlinedBox">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense</item>
+
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<resources>
+    <declare-styleable name="UiPreView">
+        <attr name="splitties_class_fully_qualified_name" format="string"/>
+        <attr name="splitties_class_package_name_relative" format="string"/>
+    </declare-styleable>
+</resources>

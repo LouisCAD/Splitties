@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+
+    <attr name="Widget.AppCompat.TextView.SpinnerItem" format="reference"/>
+
+    <attr name="Widget.AppCompat.ActionButton" format="reference"/>
+
+    <attr name="Widget.AppCompat.Button" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Borderless" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Borderless.Colored" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Colored" format="reference"/>
+    <attr name="Widget.AppCompat.Button.Small" format="reference"/>
+
+    <attr name="Widget.AppCompat.SeekBar" format="reference"/>
+    <attr name="Widget.AppCompat.SeekBar.Discrete" format="reference"/>
+
+    <attr name="Widget.AppCompat.Spinner" format="reference"/>
+    <attr name="Widget.AppCompat.Spinner.Underlined" format="reference"/>
+
+</resources>
