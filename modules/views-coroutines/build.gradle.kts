@@ -29,8 +29,10 @@ kotlin {
     metadataPublication(project)
     androidWithPublication(project)
     sourceSets {
-        getByName("androidMain").dependencies {
+        getByName("commonMain").dependencies {
             api(splitties("experimental"))
+        }
+        getByName("androidMain").dependencies {
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.androidX.coreKtx)
             api(Libs.kotlinX.coroutines.android)

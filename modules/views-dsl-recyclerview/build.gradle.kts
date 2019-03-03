@@ -29,8 +29,10 @@ kotlin {
     metadataPublication(project)
     androidWithPublication(project)
     sourceSets {
-        getByName("androidMain").dependencies {
+        getByName("commonMain").dependencies {
             api(splitties("experimental"))
+        }
+        getByName("androidMain").dependencies {
             api(splitties("views-dsl"))
             api(splitties("views-recyclerview"))
             api(Libs.kotlin.stdlibJdk7)

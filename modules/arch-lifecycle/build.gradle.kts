@@ -29,10 +29,12 @@ kotlin {
     metadataPublication(project)
     androidWithPublication(project)
     sourceSets {
+        getByName("commonMain").dependencies {
+            api(splitties("experimental"))
+        }
         getByName("androidMain").dependencies {
             api(splitties("checkedlazy"))
             api(splitties("exceptions"))
-            api(splitties("experimental"))
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.androidX.annotation)
             api(Libs.androidX.fragment)
