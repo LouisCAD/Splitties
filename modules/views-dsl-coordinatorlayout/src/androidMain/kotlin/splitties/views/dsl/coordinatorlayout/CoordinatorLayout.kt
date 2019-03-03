@@ -1,3 +1,7 @@
+/*
+ * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ */
+
 @file:Suppress("NOTHING_TO_INLINE")
 
 package splitties.views.dsl.coordinatorlayout
