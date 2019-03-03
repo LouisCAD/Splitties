@@ -83,7 +83,7 @@ an alternative that would work properly, and perform faster._
 The solution has been a Kotlin script that is a white box, and runs in a matter of seconds. You can
 use it for your project too, so you can migrate to AndroidX quickly, and in a `fun` way.
 
-It is available [here](scripts/AndroidX-migrator.gradle.kts), and depends on
+It is available [here](scripts/AndroidX-migrator.kts), and depends on
 [this csv file](scripts/androidx-class-mapping.csv).
 
 _Note that this script doesn't migrate the dependencies, because we changed the way we define
