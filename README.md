@@ -101,7 +101,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha03"
+        splitties_version = "3.0.0-alpha04"
     }
 }
 ```

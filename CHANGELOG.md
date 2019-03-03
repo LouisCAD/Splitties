@@ -1,5 +1,22 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha04 (2019-03-03)
+Compiled with Kotlin 1.3.21.
+
+### New features
+- The `wrapContent` and `matchParent` extensions for `ViewGroup` now apply for `View` too.
+- Add `wrapInScrollView` and `wrapInHorizontalScrollView` extension functions for `View`.
+- Add experimental multiplatform support with initial Kotlin/JS support for the `Bit Flags` and `Collections` splits.
+
+### Changes
+
+- Rename `LifecycleOwner.coroutineScope` to `lifecycleScope`. This change is binary compatible.
+- Make `wrapInRecyclerView` lambda inline. This change is not binary compatible.
+
+### Fixes
+
+- Remove contract in the `Intents` split that would cause compilation to fail when used.
+
 ## Version 3.0.0-alpha03 (2019-02-05)
 Compiled with Kotlin 1.3.20.
 
