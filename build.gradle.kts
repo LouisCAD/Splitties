@@ -1,5 +1,7 @@
 @file:Suppress("SpellCheckingInspection")
 
+import org.gradle.kotlin.dsl.maven
+
 /*
 * Copyright (c) 2016. Louis Cognault Ayeva Derman
 *
@@ -22,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
     }
 }
 

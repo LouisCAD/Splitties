@@ -20,12 +20,15 @@ plugins {
 repositories {
     google()
     jcenter()
+    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
+
+val kotlinVersion = "1.3.30-eap-11"
 
 dependencies {
     compileOnly(gradleApi())
     implementation("com.android.tools.build:gradle:3.3.1")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
 }
 
@@ -34,7 +37,7 @@ configurations.all {
     if (!isKotlinCompiler) {
         resolutionStrategy.eachDependency {
             if (requested.group == "org.jetbrains.kotlin" && requested.module.name == "kotlin-compiler-embeddable") {
-                useVersion("1.3.21")
+                useVersion(kotlinVersion)
             }
         }
     }
