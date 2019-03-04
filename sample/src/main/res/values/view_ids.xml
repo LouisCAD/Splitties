@@ -6,4 +6,5 @@
 <resources>
     <item name="input_name" type="id"/>
     <item name="recycler_view" type="id"/>
+    <item name="main_scrolling_content" type="id" />
 </resources>
