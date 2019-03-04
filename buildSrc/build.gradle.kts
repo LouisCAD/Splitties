@@ -27,7 +27,7 @@ val kotlinVersion = "1.3.30-eap-11"
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("com.android.tools.build:gradle:3.3.1")
+    implementation("com.android.tools.build:gradle:3.3.2")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
 }
