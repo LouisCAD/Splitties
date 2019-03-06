@@ -39,6 +39,12 @@ kotlin {
             api(Libs.kotlinX.coroutines.android)
             api(Libs.androidX.lifecycle.common)
         }
+        getByName("androidTest").dependencies {
+            implementation(splitties("experimental"))
+            implementation(Libs.kotlinX.coroutines.test)
+            implementation(Libs.kotlin.testJunit)
+            implementation(Libs.androidX.lifecycle.runtime)
+        }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.Experimental")
@@ -55,20 +61,4 @@ afterEvaluate {
     bintray {
         setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
-}
-
-dependencies {
-    arrayOf(
-        Libs.kotlinX.coroutines.test,
-        Libs.kotlin.testJunit,
-        Libs.androidX.lifecycle.runtime
-    ).forEach {
-        testImplementation(it)
-        androidTestImplementation(it)
-    }
-    androidTestImplementation(Libs.androidX.test.runner)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().whenTaskAdded {
-    kotlinOptions.freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
 }

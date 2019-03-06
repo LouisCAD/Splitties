@@ -7,15 +7,12 @@ package splitties.mainthread
 import android.os.Looper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
-@RunWith(RobolectricTestRunner::class)
 class MainThreadCheckFunctionalTest {
 
     @Test
@@ -25,11 +22,9 @@ class MainThreadCheckFunctionalTest {
             checkMainThread()
             assertFailsWith<IllegalStateException> { checkNotMainThread() }
         }
-        runBlocking(Dispatchers.Default) {
-            assertFailsWith<IllegalStateException> { checkMainThread() }
-            checkNotMainThread()
-            assertFalse(isMainThread)
-        }
+        assertFailsWith<IllegalStateException> { checkMainThread() }
+        checkNotMainThread()
+        assertFalse(isMainThread)
     }
 
     @Test

@@ -26,4 +26,5 @@ fun AndroidLibraryExtension.setDefaults() {
             enabled = false
         }
     })
+    sourceSets.getByName("androidTest").java.srcDir("src/androidInstrumentedTest/kotlin")
 }

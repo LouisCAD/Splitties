@@ -8,8 +8,6 @@ import android.os.Looper
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LIBRARY_IMPL
 import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOCAL_CACHED_THREAD_BY_ID
 import splitties.mainthread.PerformanceTest.MainThreadCheckTechnique.LOCAL_CACHED_THREAD_ID
@@ -22,7 +20,6 @@ import kotlin.system.measureNanoTime
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-@RunWith(RobolectricTestRunner::class)
 class PerformanceTest {
 
     private enum class MainThreadCheckTechnique {
@@ -60,7 +57,7 @@ class PerformanceTest {
             Log.d(tag, "$techName duration (in µs): $result")
         }
         assertTrue("Library implementation should be the fastest technique! Check logs.") {
-            val (technique, _) = results.minBy { (_, result) -> result}!!
+            val (technique, _) = results.minBy { (_, result) -> result }!!
             technique == LIBRARY_IMPL
         }
     }.let { Unit }
