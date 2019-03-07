@@ -34,7 +34,9 @@ object Libs {
             private const val version = "1.1.1"
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
             const val core = "$artifactPrefix-core:$version"
+            const val coreCommon = "$artifactPrefix-core-common:$version"
             const val android = "$artifactPrefix-android:$version"
+            const val playServices = "$artifactPrefix-play-services:$version"
             const val test = "$artifactPrefix-test:$version"
         }
     }
@@ -261,7 +263,15 @@ object Libs {
         val playServices = PlayServices
 
         object PlayServices {
-            const val wearable = "com.google.android.gms:play-services-wearable:15.0.1"
+            private const val artifactPrefix = "com.google.android.gms:play-services"
+            const val base = "$artifactPrefix-base:16.0.1"
+            const val auth = "$artifactPrefix-auth:16.0.1"
+            const val location = "$artifactPrefix-location:16.0.0"
+            const val tasks = "$artifactPrefix-tasks:16.0.1"
+            private const val visionVersion = "17.0.2"
+            const val vision = "$artifactPrefix-vision:$visionVersion"
+            const val visionCommon = "$artifactPrefix-vision-common:$visionVersion"
+            const val wearable = "$artifactPrefix-wearable:16.0.1"
         }
     }
 
