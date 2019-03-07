@@ -33,21 +33,30 @@ class PerformanceTests {
     fun testCachedPrefFieldBenefit() {
         appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val testCount = 1000000
-        val prefs = appContext.getSharedPreferences(prefsFileName, Context.MODE_PRIVATE)
-        assert(prefs.edit().putString(testKey, testString).commit())
+        val prefs = appContext.getSharedPreferences(
+            prefsFileName, Context.MODE_PRIVATE)
+        assert(prefs.edit().putString(
+            testKey,
+            testString
+        ).commit())
         val cacheT = measureTimeMillis {
             repeat(testCount) {
-                val discardMe = CacheTestPrefs.testStringField
+                val discardMe =
+                    CacheTestPrefs.testStringField
             }
         }
         val noCacheT = measureTimeMillis {
             repeat(testCount) {
-                val discardMe = NoCacheTestPrefs.testStringField
+                val discardMe =
+                    NoCacheTestPrefs.testStringField
             }
         }
         val vanilla = measureTimeMillis {
             repeat(testCount) {
-                val discardMe = prefs.getString(testKey, testDefaultValue)
+                val discardMe = prefs.getString(
+                    testKey,
+                    testDefaultValue
+                )
             }
         }
         Log.d(TAG, "with cache   : $cacheT")
@@ -56,10 +65,19 @@ class PerformanceTests {
     }
 
     object CacheTestPrefs : Preferences(prefsFileName) {
-        var testStringField by StringPref(testKey, testDefaultValue)
+        var testStringField by StringPref(
+            testKey,
+            testDefaultValue
+        )
     }
 
-    object NoCacheTestPrefs : NoCachePreferences(appContext, prefsFileName) {
-        var testStringField by PStringPref(testKey, testDefaultValue)
+    object NoCacheTestPrefs : NoCachePreferences(
+        appContext,
+        prefsFileName
+    ) {
+        var testStringField by PStringPref(
+            testKey,
+            testDefaultValue
+        )
     }
 }

@@ -32,14 +32,6 @@ kotlin {
         getByName("androidMain").dependencies {
             api(Libs.kotlin.stdlibJdk7)
         }
-        getByName("androidTest").dependencies {
-            implementation(Libs.kotlin.testJunit)
-            implementation(Libs.androidX.test.coreKtx)
-            implementation(Libs.androidX.test.ext.junit)
-            implementation(Libs.androidX.test.espresso.core)
-            implementation(Libs.kotlinX.coroutines.android)
-            implementation(Libs.roboElectric)
-        }
     }
 }
 
