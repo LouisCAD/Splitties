@@ -6,7 +6,6 @@ package com.louiscad.splittiessample.extensions.coroutines
 
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.resources.appTxt
 import kotlin.coroutines.resume
@@ -14,22 +13,53 @@ import kotlin.coroutines.resume
 class DialogButton<T>(val text: CharSequence, val value: T) {
     @Suppress("NOTHING_TO_INLINE")
     companion object {
-        inline fun ok(): DialogButton<Unit> = ok(Unit)
         fun <T> ok(value: T) = DialogButton(appTxt(android.R.string.ok), value)
-        fun <T> cancel(value: T = throwDialogCancellationException()): DialogButton<T> {
+        fun <T> cancel(value: T): DialogButton<T> {
             return DialogButton(appTxt(android.R.string.cancel), value)
         }
     }
 }
 
-class DialogCancellationException(val sourceButton: Int?) : CancellationException()
+suspend inline fun AlertDialog.showAndAwaitOkOrDismiss() {
+    return showAndAwait(positiveButton = DialogButton.ok(Unit), dismissValue = Unit)
+}
 
-@Throws(DialogCancellationException::class)
+suspend inline fun <R> AlertDialog.showAndAwait(
+    okValue: R,
+    cancelValue: R,
+    dismissValue: R
+): R = showAndAwait(
+    positiveButton = DialogButton.ok(okValue),
+    negativeButton = DialogButton.cancel(cancelValue),
+    dismissValue = dismissValue
+)
+
+@JvmName("showAndAwaitWithOptionalCancel")
+suspend inline fun <R : Any> AlertDialog.showAndAwait(
+    okValue: R,
+    cancelValue: R? = null,
+    dismissValue: R
+): R = showAndAwait(
+    positiveButton = DialogButton.ok(okValue),
+    negativeButton = cancelValue?.let { DialogButton.cancel(it) },
+    dismissValue = dismissValue
+)
+
+suspend inline fun <R> AlertDialog.showAndAwait(
+    okValue: R,
+    negativeButton: DialogButton<R>,
+    dismissValue: R
+): R = showAndAwait(
+    positiveButton = DialogButton.ok(okValue),
+    negativeButton = negativeButton,
+    dismissValue = dismissValue
+)
+
 suspend fun <R> AlertDialog.showAndAwait(
     positiveButton: DialogButton<R>? = null,
     negativeButton: DialogButton<R>? = null,
     neutralButton: DialogButton<R>? = null,
-    dismissValue: R = throwDialogCancellationException()
+    dismissValue: R
 ): R = suspendCancellableCoroutine { c ->
     val clickListener = DialogInterface.OnClickListener { _, which ->
         when (which) {
@@ -37,22 +67,14 @@ suspend fun <R> AlertDialog.showAndAwait(
             DialogInterface.BUTTON_NEUTRAL -> neutralButton
             DialogInterface.BUTTON_NEGATIVE -> negativeButton
             else -> null
-        }?.apply {
-            if (value === cancelToken) c.cancel(DialogCancellationException(which))
-            else c.resume(value)
-        }
+        }?.apply { c.resume(value) }
     }
     positiveButton?.let { setButton(DialogInterface.BUTTON_POSITIVE, it.text, clickListener) }
     neutralButton?.let { setButton(DialogInterface.BUTTON_NEUTRAL, it.text, clickListener) }
     negativeButton?.let { setButton(DialogInterface.BUTTON_NEGATIVE, it.text, clickListener) }
     setOnDismissListener {
-        if (dismissValue === cancelToken) c.cancel(DialogCancellationException(null))
-        else runCatching { c.resume(dismissValue) } // Resuming twice throws, but we can ignore it.
+        runCatching { c.resume(dismissValue) } // Resuming twice throws, but we can ignore it.
     }
     show()
     c.invokeOnCancellation { dismiss() }
 }
-
-private val cancelToken = Any()
-@Suppress("UNCHECKED_CAST", "NOTHING_TO_INLINE")
-private inline fun <T> throwDialogCancellationException() = cancelToken as T

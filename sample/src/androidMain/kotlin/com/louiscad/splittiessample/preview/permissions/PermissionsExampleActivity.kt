@@ -88,9 +88,11 @@ class PermissionsExampleActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun AlertDialog.quitOrOk(): Boolean = showAndAwait(
-        positiveButton = DialogButton.ok(false),
-        negativeButton = DialogButton("Quit", true),
-        dismissValue = false
-    )
+    private suspend fun AlertDialog.quitOrOk(): Boolean {
+        return showAndAwait(
+            okValue = false,
+            negativeButton = DialogButton("Quit", true),
+            dismissValue = false
+        )
+    }
 }
