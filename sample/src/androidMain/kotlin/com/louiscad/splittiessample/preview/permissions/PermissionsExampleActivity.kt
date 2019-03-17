@@ -26,7 +26,12 @@ import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.awaitState
 import splitties.lifecycle.coroutines.coroutineScope
 import splitties.views.centerText
-import splitties.views.dsl.core.*
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.contentView
+import splitties.views.dsl.core.frameLayout
+import splitties.views.dsl.core.lParams
+import splitties.views.dsl.core.margin
+import splitties.views.dsl.core.textView
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 
