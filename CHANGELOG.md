@@ -238,15 +238,15 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-design:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your
@@ -264,15 +264,15 @@ allProjects {
 ### Removed artifacts
 This release removes all these artifacts:
 
-~`implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"`~
-~`debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-design:$splitties_version")`~
+~`debugImplementation("com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version")`~
 
 ## Version 2.0.0-alpha8 (2018-11-12)
 This release **breaks binary compatibility**.
@@ -488,14 +488,14 @@ to handle user deny.
 ### New artifact
 This release has a new artifact:
 ```groovy
-implementation "com.louiscad.splitties:splitties-mainthread:$splitties_version"
+implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
 ```
 
 ### Removed artifacts
 This release removes these two artifacts:
 
-~`implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"`~
+~`implementation("com.louiscad.splitties:splitties-uithread:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version")`~
 
 ## Version 2.0.0-alpha4 (2018-07-09)
 * Provide `ReplaceWith` migrations for `add` methods deprecated in version 2.0.0-alpha2.
@@ -590,15 +590,15 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-activities:$splitties_version"
-implementation "com.louiscad.splitties:splitties-collections:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
-implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
+implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
+implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-design:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your
@@ -685,39 +685,39 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
-implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-room:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
-implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
-implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
-implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
-implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
-implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
-implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
-implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
-implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
+implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
+implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
+implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
+implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
+implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-uithread:$splitties_version")
+implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-design:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your

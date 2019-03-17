@@ -71,5 +71,5 @@ result in lags or ANRs).
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
+implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
 ```

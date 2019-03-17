@@ -78,5 +78,5 @@ to make it easy: `verticalListLayoutParams` and `horizontalListLayoutParams`.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
 ```

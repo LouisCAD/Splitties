@@ -13,5 +13,5 @@ Here's the list of these functions:
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
+implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
 ```

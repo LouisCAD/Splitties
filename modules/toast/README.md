@@ -11,5 +11,5 @@ either a string resource id or a `CharSequence`.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
+implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
 ```

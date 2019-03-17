@@ -52,7 +52,7 @@ it will be removed when a fix in kotlinx.coroutines or in the Android toolchain 
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version"
+implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
 ```
 
 [lifecycle]: https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle

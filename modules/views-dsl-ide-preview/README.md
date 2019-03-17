@@ -104,5 +104,5 @@ attribute instead and specify the full class name with its package.
 ## Download
 
 ```groovy
-debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
 ```

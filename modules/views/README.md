@@ -159,5 +159,5 @@ and returns the `id` of the View, existing or just generated.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views:$splitties_version")
 ```

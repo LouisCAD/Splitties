@@ -594,5 +594,5 @@ scrollbars and proper `itemView` layout parameters.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
 ```

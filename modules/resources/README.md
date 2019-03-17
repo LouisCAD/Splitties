@@ -73,5 +73,5 @@ There's also optional format arguments.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
+implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
 ```
