@@ -1,7 +1,10 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
-package com.louiscad.splittiessample.extensions.coroutines
+
+@file:UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+
+package splitties.fragments
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -16,7 +19,6 @@ import splitties.lifecycle.coroutines.awaitState
 import splitties.lifecycle.coroutines.coroutineScope
 
 @ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> FragmentManager.showAsync(
     lifecycle: Lifecycle,
     newDialogRef: () -> DF,
@@ -30,7 +32,6 @@ inline fun <DF : DialogFragment> FragmentManager.showAsync(
 }
 
 @ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> Fragment.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
@@ -38,14 +39,12 @@ inline fun <DF : DialogFragment> Fragment.showAsync(
 ) = fragmentManager!!.showAsync(lifecycle, newDialogRef, tag, setup)
 
 @ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
 inline fun <DF : DialogFragment> FragmentActivity.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ) = supportFragmentManager.showAsync(lifecycle, newDialogRef, tag, setup)
 
-@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> FragmentManager.show(
     lifecycle: Lifecycle,
     newDialogRef: () -> DF,
@@ -58,14 +57,12 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
     } else it.show(this, tag)
 }
 
-@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> Fragment.show(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ) = fragmentManager!!.show(lifecycle, newDialogRef, tag, setup)
 
-@PotentialFutureAndroidXLifecycleKtxApi
 suspend inline fun <DF : DialogFragment> FragmentActivity.show(
     newDialogRef: () -> DF,
     tag: String? = null,

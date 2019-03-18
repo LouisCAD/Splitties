@@ -17,9 +17,18 @@ kotlin {
     metadataPublication(project)
     androidWithPublication(project)
     sourceSets {
+        getByName("commonMain").dependencies {
+            api(splitties("experimental"))
+        }
         getByName("androidMain").dependencies {
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.androidX.fragment)
+            api(splitties("lifecycle-coroutines"))
+        }
+        matching { it.name.startsWith("android") }.all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.Experimental")
+            }
         }
     }
 }

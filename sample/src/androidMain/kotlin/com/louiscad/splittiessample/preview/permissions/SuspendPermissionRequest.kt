@@ -7,7 +7,7 @@ import android.content.pm.PackageManager
 import android.os.Build.VERSION.SDK_INT
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.louiscad.splittiessample.extensions.coroutines.show
+import splitties.fragments.show
 import splitties.init.appCtx
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 
