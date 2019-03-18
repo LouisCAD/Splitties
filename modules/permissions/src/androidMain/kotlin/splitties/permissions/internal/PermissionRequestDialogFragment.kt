@@ -1,32 +1,29 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
-package com.louiscad.splittiessample.preview.permissions
+package com.beepiz.platform.permissions.internal
 
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import kotlinx.coroutines.CompletableDeferred
+import splitties.lifecycle.coroutines.createJob
+import splitties.permissions.PermissionRequestResult
 
 @RequiresApi(23)
-class PermissionRequestDialogFragment : DialogFragment() {
+internal class PermissionRequestDialogFragment : DialogFragment() {
 
     var permissionName: String? = null
-    suspend fun awaitGrant() = asyncGrant.await()
+    suspend fun awaitResult(): PermissionRequestResult = asyncGrant.await()
 
-    private val asyncGrant = CompletableDeferred<Unit>()
+    private val asyncGrant = CompletableDeferred<PermissionRequestResult>(lifecycle.createJob())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         permissionName?.also {
             requestPermissions(arrayOf(it), 0)
         } ?: dismissAllowingStateLoss()
-    }
-
-    override fun onDestroy() {
-        asyncGrant.cancel()
-        super.onDestroy()
     }
 
     override fun onRequestPermissionsResult(
@@ -36,12 +33,14 @@ class PermissionRequestDialogFragment : DialogFragment() {
     ) {
         val permission = permissionName ?: return
         val grantResult = grantResults[0]
-        if (grantResult == PackageManager.PERMISSION_GRANTED) asyncGrant.complete(Unit)
-        else asyncGrant.completeExceptionally(
-            PermissionDeniedException(
-                permissionName = permission,
-                doNotAskAgain = !shouldShowRequestPermissionRationale(permission)
-            )
+        if (grantResult == PackageManager.PERMISSION_GRANTED) {
+            asyncGrant.complete(PermissionRequestResult.Granted)
+        } else asyncGrant.complete(
+            if (shouldShowRequestPermissionRationale(permission)) {
+                PermissionRequestResult.Denied.MayAskAgain(permission)
+            } else {
+                PermissionRequestResult.Denied.DoNotAskAgain(permission)
+            }
         )
         dismissAllowingStateLoss()
     }

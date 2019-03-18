@@ -77,6 +77,7 @@ kotlin {
                 "lifecycle-coroutines",
                 "material-colors",
                 "material-lists",
+                "permissions",
                 "preferences",
                 "systemservices",
                 "toast",

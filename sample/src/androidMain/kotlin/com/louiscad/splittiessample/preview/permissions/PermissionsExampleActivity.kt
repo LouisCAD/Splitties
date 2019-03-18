@@ -6,24 +6,13 @@ package com.louiscad.splittiessample.preview.permissions
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.provider.Settings
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
-import androidx.lifecycle.Lifecycle
 import com.louiscad.splittiessample.R
-import com.louiscad.splittiessample.extensions.coroutines.DialogButton
-import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.coroutines.yield
-import splitties.activities.startActivity
-import splitties.alertdialog.appcompat.alert
-import splitties.alertdialog.appcompat.message
 import splitties.dimensions.dip
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
-import splitties.lifecycle.coroutines.awaitState
 import splitties.lifecycle.coroutines.coroutineScope
 import splitties.views.centerText
 import splitties.views.dsl.core.add
@@ -54,50 +43,10 @@ class PermissionsExampleActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun ensureCalendarPermissionOrFinishActivity() {
-        val calendarPermission = Manifest.permission.WRITE_CALENDAR
-        if (!hasPermission(calendarPermission)) {
-            val quit = alert {
-                message = "We will ask for calendar permission.\n" +
-                        "Don't grant it too soon if you want to test all cases from this sample!"
-            }.quitOrOk()
-            if (quit) {
-                finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
-            }
-        }
-        while (!hasPermission(calendarPermission)) {
-            try {
-                requestPermission(calendarPermission)
-                break
-            } catch (e: PermissionDeniedException) {
-                e.recoverOrFinishActivity()
-            }
-        }
-    }
-
-    private suspend fun PermissionDeniedException.recoverOrFinishActivity() {
-        val quit: Boolean = if (doNotAskAgain) {
-            alert {
-                message = "You denied the permission permanently.\n" +
-                        "You can grant it in the settings."
-            }.quitOrOk()
-        } else alert { message = "Please accept…" }.quitOrOk()
-        if (quit) {
-            finish(); suspendCancellableCoroutine<Unit> { it.cancel() }
-        } else if (doNotAskAgain) {
-            startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
-                data = "package:$packageName".toUri()
-            }
-            yield() // Allow the activity start to take effect and pause this activity
-            lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
-        }
-    }
-
-    private suspend fun AlertDialog.quitOrOk(): Boolean {
-        return showAndAwait(
-            okValue = false,
-            negativeButton = DialogButton("Quit", true),
-            dismissValue = false
-        )
-    }
+    private suspend fun ensureCalendarPermissionOrFinishActivity() = ensurePermission(
+        permission = Manifest.permission.WRITE_CALENDAR,
+        askDialogTitle = "Calendar permission required",
+        askDialogMessage = "We will ask for calendar permission.\n" +
+                "Don't grant it too soon if you want to test all cases from this sample!"
+    ) { finish(); throw CancellationException() }
 }

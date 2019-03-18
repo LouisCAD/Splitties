@@ -27,6 +27,7 @@ listOf(
     ":mainthread",
     ":material-colors",
     ":material-lists",
+    ":permissions",
     ":preferences",
     ":resources",
     ":snackbar",
