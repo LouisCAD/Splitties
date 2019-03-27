@@ -19,6 +19,8 @@ as possible.
 - **[Alert Dialog:](modules/alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](modules/alertdialog-appcompat)** AppCompat version of
 [Alert Dialog](modules/alertdialog).
+- **[Alert Dialog AppCompat Coroutines:](modules/alertdialog-appcompat-coroutines)**
+`showAndAwait` extension functions for AppCompat AlertDialog.
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe
 `Lifecycle`s.
@@ -114,6 +116,7 @@ allProjects {
 implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
 implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
 implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
 implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
 implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")

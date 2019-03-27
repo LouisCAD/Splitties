@@ -2,28 +2,33 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package com.louiscad.splittiessample.extensions.coroutines
+package splitties.alertdialog.appcompat.coroutines
 
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 import kotlinx.coroutines.suspendCancellableCoroutine
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.resources.appTxt
 import kotlin.coroutines.resume
 
+@ExperimentalSplittiesApi
 class DialogButton<T>(val text: CharSequence, val value: T) {
     @Suppress("NOTHING_TO_INLINE")
     companion object {
         fun <T> ok(value: T) = DialogButton(appTxt(android.R.string.ok), value)
-        fun <T> cancel(value: T): DialogButton<T> {
-            return DialogButton(appTxt(android.R.string.cancel), value)
-        }
+        fun <T> cancel(value: T) = DialogButton(appTxt(android.R.string.cancel), value)
     }
 }
 
+@ExperimentalSplittiesApi
 suspend inline fun AlertDialog.showAndAwaitOkOrDismiss() {
-    return showAndAwait(positiveButton = DialogButton.ok(Unit), dismissValue = Unit)
+    showAndAwait(
+        positiveButton = DialogButton.ok(Unit),
+        dismissValue = Unit
+    )
 }
 
+@ExperimentalSplittiesApi
 suspend inline fun <R> AlertDialog.showAndAwait(
     okValue: R,
     cancelValue: R,
@@ -34,6 +39,7 @@ suspend inline fun <R> AlertDialog.showAndAwait(
     dismissValue = dismissValue
 )
 
+@ExperimentalSplittiesApi
 @JvmName("showAndAwaitWithOptionalCancel")
 suspend inline fun <R : Any> AlertDialog.showAndAwait(
     okValue: R,
@@ -45,6 +51,7 @@ suspend inline fun <R : Any> AlertDialog.showAndAwait(
     dismissValue = dismissValue
 )
 
+@ExperimentalSplittiesApi
 suspend inline fun <R> AlertDialog.showAndAwait(
     okValue: R,
     negativeButton: DialogButton<R>,
@@ -55,26 +62,30 @@ suspend inline fun <R> AlertDialog.showAndAwait(
     dismissValue = dismissValue
 )
 
+@ExperimentalSplittiesApi
 suspend fun <R> AlertDialog.showAndAwait(
     positiveButton: DialogButton<R>? = null,
     negativeButton: DialogButton<R>? = null,
     neutralButton: DialogButton<R>? = null,
     dismissValue: R
-): R = suspendCancellableCoroutine { c ->
-    val clickListener = DialogInterface.OnClickListener { _, which ->
-        when (which) {
-            DialogInterface.BUTTON_POSITIVE -> positiveButton
-            DialogInterface.BUTTON_NEUTRAL -> neutralButton
-            DialogInterface.BUTTON_NEGATIVE -> negativeButton
-            else -> null
-        }?.apply { c.resume(value) }
+): R = try {
+    suspendCancellableCoroutine { c ->
+        val clickListener = DialogInterface.OnClickListener { _, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> positiveButton
+                DialogInterface.BUTTON_NEUTRAL -> neutralButton
+                DialogInterface.BUTTON_NEGATIVE -> negativeButton
+                else -> null
+            }?.apply { c.resume(value) }
+        }
+        positiveButton?.let { setButton(DialogInterface.BUTTON_POSITIVE, it.text, clickListener) }
+        neutralButton?.let { setButton(DialogInterface.BUTTON_NEUTRAL, it.text, clickListener) }
+        negativeButton?.let { setButton(DialogInterface.BUTTON_NEGATIVE, it.text, clickListener) }
+        setOnDismissListener {
+            runCatching { c.resume(dismissValue) } // Resuming twice throws, but we can ignore it.
+        }
+        show()
     }
-    positiveButton?.let { setButton(DialogInterface.BUTTON_POSITIVE, it.text, clickListener) }
-    neutralButton?.let { setButton(DialogInterface.BUTTON_NEUTRAL, it.text, clickListener) }
-    negativeButton?.let { setButton(DialogInterface.BUTTON_NEGATIVE, it.text, clickListener) }
-    setOnDismissListener {
-        runCatching { c.resume(dismissValue) } // Resuming twice throws, but we can ignore it.
-    }
-    show()
-    c.invokeOnCancellation { dismiss() }
+} finally {
+    dismiss() // Dismiss call is ignored if already dismissed (including by button press).
 }

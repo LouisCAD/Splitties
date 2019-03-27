@@ -62,6 +62,7 @@ kotlin {
             arrayOf(
                 "activities",
                 "alertdialog-appcompat",
+                "alertdialog-appcompat-coroutines",
                 "appctx",
                 "arch-lifecycle",
                 "arch-room",

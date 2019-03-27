@@ -7,8 +7,8 @@ package com.louiscad.splittiessample.preview.permissions
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.louiscad.splittiessample.R
-import com.louiscad.splittiessample.extensions.coroutines.DialogButton
-import com.louiscad.splittiessample.extensions.coroutines.showAndAwait
+import splitties.alertdialog.appcompat.coroutines.DialogButton
+import splitties.alertdialog.appcompat.coroutines.showAndAwait
 import kotlinx.coroutines.CancellationException
 import splitties.alertdialog.appcompat.alert
 import splitties.alertdialog.appcompat.message

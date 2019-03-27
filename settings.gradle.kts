@@ -8,6 +8,7 @@ listOf(
     ":activities",
     ":alertdialog",
     ":alertdialog-appcompat",
+    ":alertdialog-appcompat-coroutines",
     ":appctx",
     ":arch-lifecycle",
     ":arch-room",
