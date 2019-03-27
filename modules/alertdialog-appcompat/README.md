@@ -5,12 +5,12 @@
 ## Example
 
 ```kotlin
-import alert
-import cancelButton
-import setMessageResource
-import okButton
-import onShow
-import getPositiveButton
+import splitties.alertdialog.appcompat.alert
+import splitties.alertdialog.appcompat.cancelButton
+import splitties.alertdialog.appcompat.messageResource
+import splitties.alertdialog.appcompat.okButton
+import splitties.alertdialog.appcompat.onShow
+import splitties.alertdialog.appcompat.positiveButton
 
 class YourActivity : AppCompatActivity {
 
