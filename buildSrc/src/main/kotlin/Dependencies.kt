@@ -129,6 +129,7 @@ object Libs {
         val room = Room
         val paging = Paging
         val work = Work
+        val navigation = Navigation
         val slice = Slice
         val archCore = ArchCore
         val test = Test
@@ -175,6 +176,21 @@ object Libs {
             const val runtime = "androidx.work:work-runtime:$version"
             const val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
             const val testing = "androidx.work:work-testing:$version"
+        }
+
+        object Navigation {
+            private const val version = "2.0.0"
+            private const val artifactPrefix = "androidx.navigation:navigation"
+            const val common = "$artifactPrefix-common:$version"
+            const val commonKtx = "$artifactPrefix-common-ktx:$version"
+            const val fragment = "$artifactPrefix-fragment:$version"
+            const val fragmentKtx = "$artifactPrefix-fragment-ktx:$version"
+            const val runtime = "$artifactPrefix-runtime:$version"
+            const val runtimeKtx = "$artifactPrefix-runtime-ktx:$version"
+            const val ui = "$artifactPrefix-ui:$version"
+            const val uiKtx = "$artifactPrefix-ui-ktx:$version"
+            const val safeArgsGenerator = "$artifactPrefix-safe-args-generator:$version"
+            const val safeArgsGradlePlugin = "$artifactPrefix-safe-args-gradle-plugin:$version"
         }
 
         object Slice {
