@@ -171,10 +171,10 @@ object Libs {
         }
 
         object Work {
-            private const val version = "1.0.0-beta05"
-            const val runtime = "android.arch.work:work-runtime:$version"
-            const val runtimeKtx = "android.arch.work:work-runtime-ktx:$version"
-            const val testing = "android.arch.work:work-testing:$version"
+            private const val version = "2.0.0"
+            const val runtime = "androidx.work:work-runtime:$version"
+            const val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
+            const val testing = "androidx.work:work-testing:$version"
         }
 
         object Slice {
