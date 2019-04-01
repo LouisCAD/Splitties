@@ -19,5 +19,10 @@ suspend inline fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T 
 
 @PublishedApi
 internal suspend fun <T> List<Deferred<T>>.race(): T = select {
-    forEach { it.onAwait { result -> forEach(Deferred<T>::cancel); result } }
+    this@race.forEach {
+        it.onAwait { result ->
+            this@race.forEach { deferred -> deferred.cancel() }
+            return@onAwait result
+        }
+    }
 }
