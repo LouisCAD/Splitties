@@ -36,7 +36,7 @@ class IconOneLineListItem(
         disableDefaultTint: Boolean
     ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
-    val icon = imageView(R.id.icon) {
+    val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
@@ -44,7 +44,7 @@ class IconOneLineListItem(
      * The one-line list item keeps the [firstLine] name for its only [TextView] to make
      * switching to and from [IconTwoLinesListItem] easier.
      */
-    val firstLine = textView(R.id.firstLine) {
+    val firstLine = textView {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead
