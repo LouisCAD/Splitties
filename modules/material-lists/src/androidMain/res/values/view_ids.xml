@@ -5,4 +5,5 @@
 
 <resources>
     <item name="toggle" type="id"/>
+    <item name="checkbox" type="id"/>
 </resources>
