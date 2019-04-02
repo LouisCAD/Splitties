@@ -1,7 +1,7 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
-package com.beepiz.platform.permissions.internal
+package splitties.permissions.internal
 
 import android.content.pm.PackageManager
 import android.os.Bundle
