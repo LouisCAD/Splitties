@@ -27,24 +27,21 @@ class AboutUi(override val ctx: Context) : Ui {
             textResource = R.string.lib_name
             centerText()
         }, lParams(height = wrapContent) {
-            centerHorizontally(); topOfParent()
-            topMargin = dip(16)
+            centerHorizontally(); topOfParent(margin = dip(16))
         })
         val authorTv = add(textView {
             textAppearance = R.style.TextAppearance_AppCompat_Small
             textResource = R.string.a_lib_by_louiscad
             centerText()
         }, lParams(height = wrapContent) {
-            centerHorizontally(); topToBottomOf(headlineTv)
-            topMargin = dip(8)
+            centerHorizontally(); topToBottomOf(headlineTv, margin = dip(8))
         })
         add(textView {
             textAppearance = R.style.TextAppearance_AppCompat_Caption
             textResource = R.string.licensed_under_apache_2
             centerText()
         }, lParams(height = wrapContent) {
-            centerHorizontally(); topToBottomOf(authorTv)
-            topMargin = dip(8)
+            centerHorizontally(); topToBottomOf(authorTv, margin = dip(8))
         })
     }
 

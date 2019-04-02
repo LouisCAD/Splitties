@@ -74,8 +74,7 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
             startOfParent(); addLabelConstraints()
         })
         add(tv, lParams(wrapContent, wrapContent) {
-            startToEndOf(labelBarrier); alignVerticallyOn(label)
-            startMargin = dip(8)
+            startToEndOf(labelBarrier, margin = dip(8)); alignVerticallyOn(label)
         })
     }
 }
