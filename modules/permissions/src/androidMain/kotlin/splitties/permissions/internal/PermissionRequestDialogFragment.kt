@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import kotlinx.coroutines.CompletableDeferred
+import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.createJob
 import splitties.permissions.PermissionRequestResult
 
@@ -17,6 +18,7 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
     var permissionName: String? = null
     suspend fun awaitResult(): PermissionRequestResult = asyncGrant.await()
 
+    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     private val asyncGrant = CompletableDeferred<PermissionRequestResult>(lifecycle.createJob())
 
     override fun onCreate(savedInstanceState: Bundle?) {
