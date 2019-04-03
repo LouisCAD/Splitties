@@ -54,5 +54,6 @@ fun BintrayExtension.setupPublicationsUpload(
         setLicenses("Apache-2.0")
         publicDownloadNumbers = true
         githubRepo = "LouisCAD/Splitties"
+        publish = isDevVersion
     })
 }
