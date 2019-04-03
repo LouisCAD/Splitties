@@ -13,13 +13,11 @@ import splitties.exceptions.unsupported
  * Usage example:
  * ```kotlin
  * val drawable = drawableStateList {
- *     addForState(::GradientDrawable, android.R.attr.state_pressed) {
- *         shape = RECTANGLE
+ *     addForState(rectangleDrawable(), android.R.attr.state_pressed) {
  *         cornerRadius = dp(4)
  *         solidColor = Color.LTGRAY
  *     }
- *     addForRemainingStates(::GradientDrawable) {
- *         shape = RECTANGLE
+ *     addForRemainingStates(rectangleDrawable()) {
  *         cornerRadius = dp(4)
  *         solidColor = Color.WHITE
  *     }
@@ -42,7 +40,7 @@ import splitties.exceptions.unsupported
  *     </item>
  * </selector>
  * ```
- * You can see the Kotlin snippet is 2 lines shorter, but the real question is:
+ * You can see the Kotlin snippet is 4 lines shorter (out of 14), but the real question is:
  * ## Which one is more readable?
  */
 inline fun drawableStateList(
