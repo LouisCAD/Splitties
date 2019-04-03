@@ -7,6 +7,20 @@ import android.graphics.drawable.GradientDrawable
 import com.louiscad.splittiessample.extensions.NO_GETTER
 import com.louiscad.splittiessample.extensions.noGetter
 
+inline fun gradientDrawable(
+    shape: Int = GradientDrawable.RECTANGLE,
+    block: GradientDrawable.() -> Unit = {}
+) = GradientDrawable().apply {
+    this.shape = shape
+    block()
+}
+
+inline fun rectangleDrawable(block: GradientDrawable.() -> Unit = {}) = GradientDrawable().apply(block)
+inline fun ovalDrawable(block: GradientDrawable.() -> Unit = {}) = gradientDrawable(GradientDrawable.OVAL, block)
+inline fun lineDrawable(block: GradientDrawable.() -> Unit = {}) = gradientDrawable(GradientDrawable.LINE, block)
+inline fun ringDrawable(block: GradientDrawable.() -> Unit = {}) = gradientDrawable(GradientDrawable.RING, block)
+
+
 inline var GradientDrawable.solidColor: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
     set(value) = setColor(value)
