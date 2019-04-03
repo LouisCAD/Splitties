@@ -51,14 +51,51 @@ inline fun drawableStateList(
 
 /**
  * For [state] parameter: see the attr resources starting with **`android.R.attr.state_`**.
- *
  * Use minus (`-`) for [state] = false.
  */
 inline fun <D : Drawable> StateListDrawable.addForState(
-    newDrawableRef: () -> D,
+    drawable: D,
+    @AttrRes state: Int,
+    drawableConfig: D.() -> Unit = {}
+) = addState(intArrayOf(state), drawable.apply(drawableConfig))
+
+/**
+ * For [stateSet] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ * Use minus (`-`) for [state] = false.
+ */
+inline fun <D : Drawable> StateListDrawable.addForStates(
+    drawable: D,
+    @AttrRes vararg stateSet: Int,
+    drawableConfig: D.() -> Unit = {}
+) = addState(stateSet, drawable.apply(drawableConfig))
+
+inline fun <D : Drawable> StateListDrawable.addForRemainingStates(
+    drawable: D,
+    drawableConfig: D.() -> Unit = {}
+) = addState(StateSet.WILD_CARD, drawable.apply(drawableConfig))
+
+@Suppress("unused")
+@Deprecated(
+    message = "Using addForStates with empty state set is misleading",
+    replaceWith = ReplaceWith("addForRemainingStates(drawable, drawableConfig)"),
+    level = DeprecationLevel.ERROR
+)
+inline fun <D : Drawable> StateListDrawable.addForStates(
+    drawable: D,
+    drawableConfig: D.() -> Unit = {}
+): Nothing = unsupported()
+
+typealias NewDrawableRef<D> = () -> D
+
+/**
+ * For [state] parameter: see the attr resources starting with **`android.R.attr.state_`**.
+ * Use minus (`-`) for [state] = false.
+ */
+inline fun <D : Drawable> StateListDrawable.addForState(
+    createDrawable: NewDrawableRef<D>,
     @AttrRes state: Int,
     drawableConfig: D.() -> Unit
-) = addState(intArrayOf(state), newDrawableRef().apply(drawableConfig))
+) = addState(intArrayOf(state), createDrawable().apply(drawableConfig))
 
 /**
  * For [stateSet] parameter: see the attr resources starting with **`android.R.attr.state_`**.
@@ -66,23 +103,23 @@ inline fun <D : Drawable> StateListDrawable.addForState(
  * Use minus (`-`) for state = false in [stateSet] values.
  */
 inline fun <D : Drawable> StateListDrawable.addForStates(
-    newDrawableRef: () -> D,
+    createDrawable: NewDrawableRef<D>,
     @AttrRes vararg stateSet: Int,
     drawableConfig: D.() -> Unit
-) = addState(stateSet, newDrawableRef().apply(drawableConfig))
+) = addState(stateSet, createDrawable().apply(drawableConfig))
 
 inline fun <D : Drawable> StateListDrawable.addForRemainingStates(
-    newDrawableRef: () -> D,
+    createDrawable: NewDrawableRef<D>,
     drawableConfig: D.() -> Unit
-) = addState(StateSet.WILD_CARD, newDrawableRef().apply(drawableConfig))
+) = addState(StateSet.WILD_CARD, createDrawable().apply(drawableConfig))
 
-@Deprecated(
-    "Using addForStates with empty state set is misleading",
-    ReplaceWith("addForRemainingStates(newDrawableRef, drawableConfig)"),
-    level = DeprecationLevel.ERROR
-) // FOOL GUARD, DO NOT REMOVE
 @Suppress("unused")
+@Deprecated(
+    message = "Using addForStates with empty state set is misleading",
+    replaceWith = ReplaceWith("addForRemainingStates(createDrawable, drawableConfig)"),
+    level = DeprecationLevel.ERROR
+)
 inline fun <D : Drawable> StateListDrawable.addForStates(
-    newDrawableRef: () -> D,
+    createDrawable: NewDrawableRef<D>,
     drawableConfig: D.() -> Unit
 ): Nothing = unsupported()
