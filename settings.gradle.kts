@@ -38,6 +38,7 @@ listOf(
     ":typesaferecyclerview",
     ":views",
     ":views-coroutines",
+    ":views-coroutines-material",
     ":views-appcompat",
     ":views-cardview",
     ":views-dsl",

@@ -88,6 +88,7 @@ kotlin {
                 "typesaferecyclerview",
                 "mainthread",
                 "views-coroutines",
+                "views-coroutines-material",
                 "views-dsl-appcompat",
                 "views-dsl-constraintlayout",
                 "views-dsl-material"
