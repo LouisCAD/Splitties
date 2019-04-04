@@ -5,6 +5,7 @@
 package splitties.alertdialog.appcompat
 
 import android.app.Activity
+import android.content.Context
 import android.content.DialogInterface
 import android.widget.Button
 import androidx.annotation.StringRes
@@ -12,10 +13,29 @@ import androidx.appcompat.app.AlertDialog
 import kotlin.DeprecationLevel.HIDDEN
 
 /**
+ * Instantiates an [AlertDialog.Builder] for the [Context], applies the [dialogConfig] lambda to
+ * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
+ * [AlertDialog.show] on the created dialog.
+ */
+inline fun Context.alertDialog(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
+    return AlertDialog.Builder(this)
+        .apply(dialogConfig)
+        .create()
+}
+
+/**
  * Instantiates an [AlertDialog.Builder] for the [Activity], applies the [dialogConfig] lambda to
  * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
  * [AlertDialog.show] on the created dialog.
  */
+@Deprecated(
+    message = "This function is limited to Activity only and its name is not explicit enough. " +
+            "Use the alertDialog function instead.",
+    replaceWith = ReplaceWith(
+        expression = "this.alertDialog(dialogConfig)",
+        imports = ["splitties.alertdialog.appcompat.alertDialog"]
+    )
+)
 inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
     return AlertDialog.Builder(this)
         .apply(dialogConfig)
