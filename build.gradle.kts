@@ -4,15 +4,11 @@
 
 @file:Suppress("SpellCheckingInspection")
 
-import org.gradle.kotlin.dsl.maven
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 allprojects {
     repositories {
-        google()
-        jcenter()
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        setupForProject()
     }
 }
 
