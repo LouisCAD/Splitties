@@ -16,7 +16,6 @@ import kotlin.coroutines.resume
  * [Lifecycle.State.DESTROYED] is forbidden, to avoid leaks.
  */
 @PotentialFutureAndroidXLifecycleKtxApi
-@UseExperimental(ExperimentalCoroutinesApi::class)
 suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
     require(state != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for awaitState(…), to avoid leaks."
