@@ -5,7 +5,7 @@
 ## Example
 
 ```kotlin
-import splitties.alertdialog.appcompat.alert
+import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.cancelButton
 import splitties.alertdialog.appcompat.messageResource
 import splitties.alertdialog.appcompat.okButton
