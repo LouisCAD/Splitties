@@ -10,10 +10,7 @@ import com.louiscad.splittiessample.R
 import splitties.alertdialog.appcompat.coroutines.DialogButton
 import splitties.alertdialog.appcompat.coroutines.showAndAwait
 import kotlinx.coroutines.CancellationException
-import splitties.alertdialog.appcompat.alert
-import splitties.alertdialog.appcompat.message
-import splitties.alertdialog.appcompat.messageResource
-import splitties.alertdialog.appcompat.title
+import splitties.alertdialog.appcompat.alertDialog
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.resources.txt
@@ -29,10 +26,10 @@ suspend inline fun FragmentActivity.ensurePermission(
 ): Unit = ensurePermission(
     permission = permission,
     showRationaleAndContinueOrReturn = {
-        alert {
-            this.title = askDialogTitle
-            this.message = askDialogMessage
-        }.showAndAwait(
+        alertDialog(
+            title = askDialogTitle,
+            message = askDialogMessage
+        ).showAndAwait(
             okValue = true,
             negativeButton = DialogButton(returnButtonText, false),
             dismissValue = true
@@ -40,9 +37,9 @@ suspend inline fun FragmentActivity.ensurePermission(
     },
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     askOpenSettingsOrReturn = {
-        alert {
-            messageResource = R.string.permission_denied_permanently_go_to_settings
-        }.showAndAwait(
+        alertDialog(
+            message = txt(R.string.permission_denied_permanently_go_to_settings)
+        ).showAndAwait(
             okValue = true,
             negativeButton = DialogButton(returnButtonText, false),
             dismissValue = true
@@ -62,10 +59,10 @@ suspend inline fun Fragment.ensurePermission(
 ): Unit = ensurePermission(
     permission = permission,
     showRationaleAndContinueOrReturn = {
-        activity?.alert {
-            this.title = askDialogTitle
-            this.message = askDialogMessage
-        }?.showAndAwait(
+        activity?.alertDialog(
+            title = askDialogTitle,
+            message = askDialogMessage
+        )?.showAndAwait(
             okValue = true,
             negativeButton = DialogButton(returnButtonText, false),
             dismissValue = true
@@ -73,9 +70,9 @@ suspend inline fun Fragment.ensurePermission(
     },
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     askOpenSettingsOrReturn = {
-        activity?.alert {
-            messageResource = R.string.permission_denied_permanently_go_to_settings
-        }?.showAndAwait(
+        activity?.alertDialog(
+            message = txt(R.string.permission_denied_permanently_go_to_settings)
+        )?.showAndAwait(
             okValue = true,
             negativeButton = DialogButton(returnButtonText, false),
             dismissValue = true
