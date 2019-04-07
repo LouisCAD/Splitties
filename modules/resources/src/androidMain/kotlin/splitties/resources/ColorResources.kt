@@ -40,7 +40,7 @@ inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
 /**
  * @see [androidx.core.content.ContextCompat.getColorStateList]
  */
-fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList? {
+fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList {
     return (if (SDK_INT >= 23) getColorStateList(colorRes) else {
         @Suppress("DEPRECATION")
         resources.getColorStateList(colorRes)
