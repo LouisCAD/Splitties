@@ -20,7 +20,7 @@ class YourActivity : AppCompatActivity {
     //...
 
     private fun doIrreversibleStuffOrCancel() {
-        alert {
+        alertDialog {
             messageResource = R.string.dialog_msg_confirm_irreversible_stuff
             okButton { irreversibleStuff() }
             cancelButton()
