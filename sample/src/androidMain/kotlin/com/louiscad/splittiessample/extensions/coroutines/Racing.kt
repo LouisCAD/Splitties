@@ -12,17 +12,15 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.selects.select
 
-suspend inline fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T = coroutineScope {
-    @UseExperimental(ExperimentalCoroutinesApi::class)
-    racers.map { async(start = CoroutineStart.UNDISPATCHED, block = it) }.race()
-}
-
-@PublishedApi
-internal suspend fun <T> List<Deferred<T>>.race(): T = select {
-    this@race.forEach {
-        it.onAwait { result ->
-            this@race.forEach { deferred -> deferred.cancel() }
-            return@onAwait result
+suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T = coroutineScope {
+    select<T> {
+        @UseExperimental(ExperimentalCoroutinesApi::class)
+        val racersAsyncList = racers.map { async(start = CoroutineStart.UNDISPATCHED, block = it) }
+        racersAsyncList.forEach { racer ->
+            racer.onAwait { resultOfWinner ->
+                racersAsyncList.forEach { deferred -> deferred.cancel() }
+                return@onAwait resultOfWinner
+            }
         }
     }
 }
