@@ -11,15 +11,25 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.selects.select
+import splitties.exceptions.unsupported
 
-suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T = coroutineScope {
-    select<T> {
-        @UseExperimental(ExperimentalCoroutinesApi::class)
-        val racersAsyncList = racers.map { async(start = CoroutineStart.UNDISPATCHED, block = it) }
-        racersAsyncList.forEach { racer ->
-            racer.onAwait { resultOfWinner ->
-                racersAsyncList.forEach { deferred -> deferred.cancel() }
-                return@onAwait resultOfWinner
+@Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
+@Deprecated("A race need racers.", level = DeprecationLevel.ERROR)
+suspend fun <T> raceOf(): T = unsupported()
+
+suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
+    require(racers.isNotEmpty()) { "A race need racers." }
+    return coroutineScope {
+        select<T> {
+            @UseExperimental(ExperimentalCoroutinesApi::class)
+            val racersAsyncList = racers.map {
+                async(start = CoroutineStart.UNDISPATCHED, block = it)
+            }
+            racersAsyncList.forEach { racer: Deferred<T> ->
+                racer.onAwait { resultOfWinner: T ->
+                    racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
+                    return@onAwait resultOfWinner
+                }
             }
         }
     }
