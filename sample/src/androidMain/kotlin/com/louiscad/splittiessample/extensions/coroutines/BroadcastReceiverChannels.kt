@@ -8,55 +8,46 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.channels.produce
 import splitties.init.appCtx
 
 @Suppress("NOTHING_TO_INLINE")
-@ObsoleteCoroutinesApi
-@ExperimentalCoroutinesApi
-inline fun CoroutineScope.conflatedBroadcastReceiverChannel(
+inline fun conflatedBroadcastReceiverChannel(
     action: String,
     priority: Int = 0
-): ReceiveChannel<Intent> = broadcastReceiverChannel(action, priority, capacity = Channel.CONFLATED)
+): ReceiveChannel<Intent> = broadcastReceiverChannel(
+    action = action,
+    priority = priority,
+    capacity = Channel.CONFLATED
+)
 
 @Suppress("NOTHING_TO_INLINE")
-@ObsoleteCoroutinesApi
-@ExperimentalCoroutinesApi
-inline fun CoroutineScope.broadcastReceiverChannel(
+inline fun broadcastReceiverChannel(
     action: String,
     priority: Int = 0,
     capacity: Int = Channel.UNLIMITED
 ): ReceiveChannel<Intent> = broadcastReceiverChannel(
-    IntentFilter(action).also { it.priority = priority },
-    capacity
+    filter = IntentFilter(action).also { it.priority = priority },
+    capacity = capacity
 )
 
-@ObsoleteCoroutinesApi
-@ExperimentalCoroutinesApi
-fun CoroutineScope.broadcastReceiverChannel(
+fun broadcastReceiverChannel(
     filter: IntentFilter,
     capacity: Int = Channel.UNLIMITED
-): ReceiveChannel<Intent> = produce {
-    val receiveChannel = Channel<Intent>(capacity = capacity)
+): ReceiveChannel<Intent> {
+    val channel = Channel<Intent>(capacity = capacity)
     val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            receiveChannel.offer(intent)
+            channel.offerCatching(intent)
         }
     }
     val ctx = appCtx
-    ctx.registerReceiver(receiver, filter)
-    try {
-        receiveChannel.consumeEach {
-            send(it)
-        }
-    } finally {
+    @UseExperimental(ExperimentalCoroutinesApi::class)
+    channel.invokeOnClose {
         ctx.unregisterReceiver(receiver)
-        receiveChannel.close()
     }
+    ctx.registerReceiver(receiver, filter)
+    return channel
 }
