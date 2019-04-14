@@ -1,19 +1,30 @@
 # Splitties
 
-Splitties is a collection of small independent Android libraries that aims
-to make developing apps and libraries for Android (including Wear, TV,
-Things, Auto and ChromeOS targeted) easier and more `fun`.
+Splitties is a collection of small Kotlin multiplatform libraries (with Android as first target).
 
-Some modules are similar to what [Anko](https://github.com/Kotlin/anko) provides. See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
+These libraries are intended to reduce the amount of code you have to write, freeing code reading and writing
+time, so you can focus more on what you want to build for your users (even if you're the only one), or
+have more time to have `fun`.
 
 This project is named "Splitties" because it is split in small modules,
-distributed as independent Android libraries, so you can add only the ones
-you need to your project/module, helping reduce the size of the final apk.
+distributed as independent libraries, so you can add only the ones
+you need to your project/module, helping reduce the size of the final binary that users devices
+will need to download and keep in the limited storage (BTW, everything is limited).
 
-Each module has been designed to have a small footprint and be as efficient
-as possible.
+Some Android targeting modules have a content similar to what [Anko](https://github.com/Kotlin/anko) offers.
+See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
 
-## All the [splits](#what-is-a-split "What is a split in Splitties?")
+Each module has been designed to have a **small footprint** and be as **efficient** as possible.
+
+## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?")
+
+Currently, only JVM (including Android) and JS are supported, but future Kotlin/Native support is considered (you can subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/189) to get updated on that).
+
+- **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
+`Short`, `Byte`, and their unsigned counterparts.
+- **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
+
+## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
 - **[Activities:](modules/activities)** Start activities with minimal boilerplate.
 - **[Alert Dialog:](modules/alertdialog)** Create simple alert dialogs with simple code.
@@ -22,31 +33,28 @@ as possible.
 - **[Alert Dialog AppCompat Coroutines:](modules/alertdialog-appcompat-coroutines)**
 `showAndAwait` extension functions for AppCompat AlertDialog.
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
-- **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and observe
-`Lifecycle`s.
-- **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform transactions in
-Kotlin.
-- **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
-`Short`, `Byte`, and their unsigned counterparts.
-- **[Bundle:](modules/bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent` extras
-and more.
-- **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
-- **[Checked Lazy:](modules/checkedlazy)** `mainThreadLazy` that checks property access on main thread, and
-`checkedLazy` to make your own variant.
-- **[Dimensions:](modules/dimensions)** Android `dp` extensions for `View` and `Context`. Particularly
-handy when using [Views DSL](modules/views-dsl).
-- **[Exceptions:](modules/exceptions)** `illegal(…)` and similar functions that return `Nothing`, handy for
-impossible or illegal `when` branches.
-- **[Fragments:](modules/fragments)** Start activities from fragments and do transactions with minimal
-boilerplate.
-- **[Fragment Args:](modules/fragmentargs)** Fragment arguments without ceremony thanks to delegated
-properties.
+- **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
+observe `Lifecycle`s.
+- **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform
+transactions in Kotlin.
+- **[Bundle:](modules/bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent`
+extras and more.
+- **[Checked Lazy:](modules/checkedlazy)** `mainThreadLazy` that checks property access on
+main thread, and `checkedLazy` to make your own variant.
+- **[Dimensions:](modules/dimensions)** Android `dp` extensions for `View` and `Context`.
+Particularly handy when using [Views DSL](modules/views-dsl).
+- **[Exceptions:](modules/exceptions)** `unexpectedValue(…)`, `unsupportedAction(…)` and similar
+functions that return `Nothing`.
+- **[Fragments:](modules/fragments)** Start activities from fragments and do transactions with
+minimal boilerplate.
+- **[Fragment Args:](modules/fragmentargs)** Fragment arguments without ceremony thanks to
+delegated properties.
 - **[Init Provider:](modules/initprovider)** Base class for `ContentProvider`s used for automatic
 initialization purposes.
-- **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs, and
-create `PendingIntent`s the clean and easy way.
-- **[Lifecycle Coroutines:](modules/lifecycle-coroutines)** Coroutines integration with [`Lifecycle`](
-https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle)s.
+- **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
+and create `PendingIntent`s the clean and easy way.
+- **[Lifecycle Coroutines:](modules/lifecycle-coroutines)** Coroutines integration with AndroidX
+[`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
 - **[Main Handler:](modules/mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
 - **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to Android main thread.
@@ -164,39 +172,33 @@ implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayo
 
 </details>
 
-#### Snapshots
-Let's say you need a new feature or a fix that did
-not make it to a release yet:
+#### Dev versions
+Let's say you need a new feature or a fix that did not make it to a release yet:
 
-You can grab it in the latest snapshot by adding the
-snapshots repository and changing the library version to the `-SNAPSHOT`
-version in your root project `build.gradle` file:
+You can grab it in the latest dev version by adding the corresponding repository and
+changing the library version to the dev version you need in your root project `build.gradle` file:
 
 ```groovy
 allProjects {
     repositories {
         google()
-        jcenter() // Add snapshots repo below
-        maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+        jcenter() // Add dev versions repo below
+        maven { url 'https://dl.bintray.com/louiscad/splitties-dev' }
     }
     ext {
-        splitties_version = '3.0.0-SNAPSHOT' // Change this line
+        splitties_version = '3.0.0-dev-007'
     }
 }
 ```
-
-If you need to, you can browse the deployed snapshots on artifactory with [the native browser](
-https://oss.jfrog.org/list/oss-snapshot-local/com/louiscad/splitties/) or [the web app](
-https://oss.jfrog.org/webapp/#/artifacts/browse/tree/General/oss-snapshot-local/com/louiscad/splitties
-) so you can pick a specific snapshot.
 
 ### Other build systems
 For maven and alternative build-systems, check the [Bintray page](
 https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
-To get notified for new versions, be sure to click on "Watch" on the
-[splitties Bintray page](https://bintray.com/louiscad/maven/splitties).
+Releases are announced on GitHub, you can subscribe by[clicking on "Watch", then "Releases only"](
+https://help.github.com/en/articles/watching-and-unwatching-releases-for-a-repository
+).
 
 ## Improve this library
 If you want this library to have **a new feature or an improvement** in a
@@ -224,8 +226,8 @@ This allows you to only add what you need in your app or library module,
 so the final apk is as small as possible and doesn't include stuff not used
 by your app.
 
-Let's say you're build an Android Wear app using the Views DSL.
-Android Wear apps don't need AppCompat. Including it would be a waste of
+Let's say you're build a Wear OS app using the Views DSL.
+Wear OS apps don't need AppCompat. Including it would be a waste of
 bandwidth and storage. The Views DSL core module relies on the Android
 SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
 by using Views DSL. However, if you are building a phone, tablet or computer

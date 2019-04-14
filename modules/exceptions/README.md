@@ -1,11 +1,9 @@
 # Exceptions
 
-*`illegal(…)` and similar functions that return `Nothing`, handy for
-impossible or illegal `when` branches.*
+*`unexpectedValue(…)`, `unsupportedAction(…)` and similar functions that return `Nothing`.*
 
 Here's the list of these functions:
-* `unexpectedValue(…)` (puts the value in the Exception message)
-* `illegal(…)` (shortcut to `throw IllegalStateException(…)`)
+* `unexpectedValue(…)` (puts the value in the `IllegalStateException` message)
 * `illegalArg(…)` (shortcut to `throw IllegalArgumentException(…)`)
 * `unsupported(…)` (shortcut to `throw UnsupportedOperationException(…)`)
 * `unsupportedAction(…)` (designed for unsupported `Intent` actions)
