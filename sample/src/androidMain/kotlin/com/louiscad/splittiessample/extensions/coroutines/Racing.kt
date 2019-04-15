@@ -12,6 +12,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.selects.select
 import splitties.exceptions.unsupported
+import kotlin.experimental.ExperimentalTypeInference
 
 @Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
 @Deprecated("A race need racers.", level = DeprecationLevel.ERROR)
@@ -32,5 +33,30 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
                 }
             }
         }
+    }
+}
+
+interface RacingScope<T> {
+    fun racer(block: suspend CoroutineScope.() -> T)
+}
+
+@UseExperimental(ExperimentalTypeInference::class)
+suspend fun <T> race(@BuilderInference builder: RacingScope<T>.() -> Unit): T {
+    val racersAsyncList = mutableListOf<Deferred<T>>()
+    return try {
+        coroutineScope {
+            select<T> {
+                val racingScope = object : RacingScope<T> {
+                    override fun racer(block: suspend CoroutineScope.() -> T) {
+                        async(block = block).also { racerAsync ->
+                            racersAsyncList += racerAsync
+                        }.onAwait { resultOfWinner: T -> return@onAwait resultOfWinner }
+                    }
+                }
+                racingScope.builder()
+            }
+        }
+    } finally {
+        racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
     }
 }
