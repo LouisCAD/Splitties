@@ -4,14 +4,15 @@
 
 package splitties.permissions
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.yield
 import splitties.activities.startActivity
 import splitties.experimental.ExperimentalSplittiesApi
@@ -25,33 +26,40 @@ suspend inline fun FragmentActivity.ensurePermission(
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
     returnOrThrowBlock: () -> Nothing
-) {
-    var askCount = 0
-    if (Build.VERSION.SDK_INT < 23) return
-    askLoop@ while (!hasPermission(permission)) {
-        if (askCount > 0 ||
-            showRationaleBeforeFirstAsk ||
-            shouldShowRequestPermissionRationale(permission)
-        ) {
-            val quit = !showRationaleAndContinueOrReturn()
-            if (quit) returnOrThrowBlock()
-        }
-        val result = requestPermission(permission); askCount++
-        when (result) {
-            PermissionRequestResult.Granted -> break@askLoop
-            is PermissionRequestResult.Denied.MayAskAgain -> continue@askLoop
-            is PermissionRequestResult.Denied.DoNotAskAgain -> {
-                val goToSettings = askOpenSettingsOrReturn()
-                if (goToSettings) {
-                    openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
-                } else returnOrThrowBlock()
-            }
-        }
-    }
-}
+) = ensurePermission(
+    activity = this,
+    fragmentManager = supportFragmentManager,
+    lifecycle = lifecycle,
+    permission = permission,
+    showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    askOpenSettingsOrReturn = askOpenSettingsOrReturn,
+    returnOrThrowBlock = returnOrThrowBlock
+)
 
 @ExperimentalSplittiesApi
 suspend inline fun Fragment.ensurePermission(
+    permission: String,
+    showRationaleAndContinueOrReturn: () -> Boolean,
+    showRationaleBeforeFirstAsk: Boolean = true,
+    askOpenSettingsOrReturn: () -> Boolean,
+    returnOrThrowBlock: () -> Nothing
+) = ensurePermission(
+    activity = requireActivity(),
+    fragmentManager = requireFragmentManager(),
+    lifecycle = lifecycle,
+    permission = permission,
+    showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    askOpenSettingsOrReturn = askOpenSettingsOrReturn,
+    returnOrThrowBlock = returnOrThrowBlock
+)
+
+@ExperimentalSplittiesApi
+suspend inline fun ensurePermission(
+    activity: Activity,
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
     permission: String,
     showRationaleAndContinueOrReturn: () -> Boolean,
     showRationaleBeforeFirstAsk: Boolean = true,
@@ -63,21 +71,19 @@ suspend inline fun Fragment.ensurePermission(
     askLoop@ while (!hasPermission(permission)) {
         if (askCount > 0 ||
             showRationaleBeforeFirstAsk ||
-            shouldShowRequestPermissionRationale(permission)
+            activity.shouldShowRequestPermissionRationale(permission)
         ) {
             val quit = !showRationaleAndContinueOrReturn()
             if (quit) returnOrThrowBlock()
         }
-        val result = requestPermission(permission); askCount++
+        val result = requestPermission(fragmentManager, lifecycle, permission); askCount++
         when (result) {
             PermissionRequestResult.Granted -> break@askLoop
             is PermissionRequestResult.Denied.MayAskAgain -> continue@askLoop
             is PermissionRequestResult.Denied.DoNotAskAgain -> {
                 val goToSettings = askOpenSettingsOrReturn()
                 if (goToSettings) {
-                    val context = context
-                        ?: throw CancellationException() //Not fatal in coroutines, no catch needed.
-                    context.openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
+                    activity.openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
                 } else returnOrThrowBlock()
             }
         }
