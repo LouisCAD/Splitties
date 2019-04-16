@@ -41,22 +41,19 @@ interface RacingScope<T> {
 }
 
 @UseExperimental(ExperimentalTypeInference::class)
-suspend fun <T> race(@BuilderInference builder: RacingScope<T>.() -> Unit): T {
+suspend fun <T> race(@BuilderInference builder: RacingScope<T>.() -> Unit): T = coroutineScope {
     val racersAsyncList = mutableListOf<Deferred<T>>()
-    return try {
-        coroutineScope {
-            select<T> {
-                val racingScope = object : RacingScope<T> {
-                    override fun racer(block: suspend CoroutineScope.() -> T) {
-                        async(block = block).also { racerAsync ->
-                            racersAsyncList += racerAsync
-                        }.onAwait { resultOfWinner: T -> return@onAwait resultOfWinner }
-                    }
+    select<T> {
+        val racingScope = object : RacingScope<T> {
+            override fun racer(block: suspend CoroutineScope.() -> T) {
+                async(block = block).also { racerAsync ->
+                    racersAsyncList += racerAsync
+                }.onAwait { resultOfWinner: T ->
+                    racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
+                    return@onAwait resultOfWinner
                 }
-                racingScope.builder()
             }
         }
-    } finally {
-        racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
+        racingScope.builder()
     }
 }
