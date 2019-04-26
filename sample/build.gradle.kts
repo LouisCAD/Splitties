@@ -87,6 +87,7 @@ kotlin {
                 "toast",
                 "typesaferecyclerview",
                 "mainthread",
+                "mainhandler",
                 "views-coroutines",
                 "views-coroutines-material",
                 "views-dsl-appcompat",
