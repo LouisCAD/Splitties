@@ -21,12 +21,15 @@ dependencies {
 }
 
 configurations.all {
-    val isKotlinCompiler = name == "embeddedKotlin" || name.startsWith("kotlin") || name.startsWith("kapt")
+    val isKotlinCompiler = name == "embeddedKotlin" ||
+            name.startsWith("kotlin") ||
+            name.startsWith("kapt")
     if (!isKotlinCompiler) {
         resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin" && requested.module.name == "kotlin-compiler-embeddable") {
-                useVersion(kotlinVersion)
-            }
+            @Suppress("UnstableApiUsage")
+            if (requested.group == "org.jetbrains.kotlin" &&
+                requested.module.name == "kotlin-compiler-embeddable"
+            ) useVersion(kotlinVersion)
         }
     }
 }
