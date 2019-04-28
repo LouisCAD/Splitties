@@ -4,6 +4,11 @@
 
 package splitties.permissions
 
+/**
+ * Represents the result of an Android runtime permission request.
+ *
+ * Returned by [requestPermission].
+ */
 sealed class PermissionRequestResult {
     object Granted : PermissionRequestResult()
     sealed class Denied(val deniedPermission: String) : PermissionRequestResult() {

@@ -18,8 +18,8 @@ import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 
 /**
  * Returns true if the passed [permission] is granted, or if the device API level is lower than 23
- * (runtime permissions were introduced in API level 23, and are granted at app install on older
- * Android API levels).
+ * (runtime permissions were introduced in API level 23, and are granted at app installation time on
+ * older Android API levels).
  */
 @ExperimentalSplittiesApi
 fun hasPermission(permission: String): Boolean = SDK_INT < 23 ||

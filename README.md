@@ -62,6 +62,7 @@ and create `PendingIntent`s the clean and easy way.
 https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
+- **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
 - **[Preferences:](modules/preferences)** Property syntax for Android's SharedPreferences.
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
@@ -144,6 +145,7 @@ implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version"
 implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
 implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
 implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
+implementation("com.louiscad.splitties:splitties-permissions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
 implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
 implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
