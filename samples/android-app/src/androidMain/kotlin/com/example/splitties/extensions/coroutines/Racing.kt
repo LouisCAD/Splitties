@@ -37,7 +37,7 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
 }
 
 interface RacingScope<T> {
-    fun racer(block: suspend CoroutineScope.() -> T)
+    fun launchRacer(block: suspend CoroutineScope.() -> T)
 }
 
 @UseExperimental(ExperimentalTypeInference::class)
@@ -45,7 +45,7 @@ suspend fun <T> race(@BuilderInference builder: RacingScope<T>.() -> Unit): T = 
     val racersAsyncList = mutableListOf<Deferred<T>>()
     select<T> {
         val racingScope = object : RacingScope<T> {
-            override fun racer(block: suspend CoroutineScope.() -> T) {
+            override fun launchRacer(block: suspend CoroutineScope.() -> T) {
                 async(block = block).also { racerAsync ->
                     racersAsyncList += racerAsync
                 }.onAwait { resultOfWinner: T ->
