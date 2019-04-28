@@ -16,7 +16,7 @@ import com.example.splitties.extensions.menu.addItem
 import com.example.splitties.extensions.menu.neverShowAsAction
 import com.example.splitties.extensions.toggleNightMode
 import com.example.splitties.prefs.GamePreferences
-import com.example.splitties.preview.permissions.PermissionsExampleActivity
+import com.example.splitties.permissions.PermissionsExampleActivity
 import com.example.splitties.preview.vibrator.VibrationEffect
 import com.example.splitties.preview.vibrator.vibrate
 import com.example.splitties.sayhello.SayHelloActivity

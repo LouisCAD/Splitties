@@ -59,7 +59,7 @@
                 android:value="com.example.splitties.main.MainActivity"/>
         </activity>
         <activity
-            android:name="com.example.splitties.preview.permissions.PermissionsExampleActivity"
+            android:name="com.example.splitties.permissions.PermissionsExampleActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
             android:label="Permissions request example"
             android:launchMode="singleTop"

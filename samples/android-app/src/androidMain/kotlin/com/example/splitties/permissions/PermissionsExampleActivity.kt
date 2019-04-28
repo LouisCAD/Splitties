@@ -1,13 +1,14 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
-package com.example.splitties.preview.permissions
+package com.example.splitties.permissions
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.splitties.R
+import com.example.splitties.extensions.permissions.ensurePermission
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import splitties.dimensions.dip
