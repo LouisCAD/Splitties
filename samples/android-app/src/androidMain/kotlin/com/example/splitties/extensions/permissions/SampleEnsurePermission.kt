@@ -2,6 +2,8 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:UseExperimental(ExperimentalSplittiesApi::class)
+
 package com.example.splitties.extensions.permissions
 
 import android.app.Activity
@@ -10,9 +12,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.example.splitties.R
+import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.DialogButton
 import splitties.alertdialog.appcompat.coroutines.showAndAwait
-import splitties.alertdialog.appcompat.alertDialog
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.resources.txt
 
