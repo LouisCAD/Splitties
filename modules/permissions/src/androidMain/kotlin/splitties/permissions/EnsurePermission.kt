@@ -26,7 +26,7 @@ suspend inline fun FragmentActivity.ensurePermission(
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
     returnOrThrowBlock: () -> Nothing
-) = ensurePermission(
+): Unit = ensurePermission(
     activity = this,
     fragmentManager = supportFragmentManager,
     lifecycle = lifecycle,
@@ -44,7 +44,7 @@ suspend inline fun Fragment.ensurePermission(
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
     returnOrThrowBlock: () -> Nothing
-) = ensurePermission(
+): Unit = ensurePermission(
     activity = requireActivity(),
     fragmentManager = requireFragmentManager(),
     lifecycle = lifecycle,
