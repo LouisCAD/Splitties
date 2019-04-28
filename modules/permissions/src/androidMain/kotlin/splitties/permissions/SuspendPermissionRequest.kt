@@ -25,14 +25,23 @@ import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 fun hasPermission(permission: String): Boolean = SDK_INT < 23 ||
         appCtx.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 
+/**
+ * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].
+ */
 suspend inline fun FragmentActivity.requestPermission(
     permission: String
 ): PermissionRequestResult = requestPermission(supportFragmentManager, lifecycle, permission)
 
+/**
+ * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].
+ */
 suspend inline fun Fragment.requestPermission(
     permission: String
 ): PermissionRequestResult = requestPermission(requireFragmentManager(), lifecycle, permission)
 
+/**
+ * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].
+ */
 suspend fun requestPermission(
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
