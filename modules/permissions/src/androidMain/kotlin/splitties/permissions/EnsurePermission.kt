@@ -17,7 +17,7 @@ import kotlinx.coroutines.yield
 import splitties.activities.startActivity
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
-import splitties.lifecycle.coroutines.awaitState
+import splitties.lifecycle.coroutines.awaitResumed
 
 @ExperimentalSplittiesApi
 suspend inline fun FragmentActivity.ensurePermission(
@@ -97,5 +97,5 @@ internal suspend fun Context.openApplicationDetailsSettingsAndAwaitResumed(lifec
         data = "package:$packageName".toUri()
     }
     yield() // Allow the activity start to take effect and pause this activity
-    lifecycle.awaitState(Lifecycle.State.RESUMED) // Await user coming back
+    lifecycle.awaitResumed() // Await user coming back
 }

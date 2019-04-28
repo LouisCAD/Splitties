@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Lifecycle.State.RESUMED
 import kotlinx.coroutines.launch
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
-import splitties.lifecycle.coroutines.awaitState
+import splitties.lifecycle.coroutines.awaitResumed
 import splitties.lifecycle.coroutines.coroutineScope
 
 /**
@@ -34,7 +33,7 @@ inline fun <DF : DialogFragment> FragmentManager.showAsync(
 ): DF = newDialogRef().apply(setup).also {
     @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     if (isStateSaved) lifecycle.coroutineScope.launch {
-        lifecycle.awaitState(RESUMED)
+        lifecycle.awaitResumed()
         it.show(this@showAsync, tag)
     } else it.show(this, tag)
 }
@@ -93,7 +92,7 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
 ): DF = newDialogRef().apply(setup).also {
     if (isStateSaved) {
         @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
-        lifecycle.awaitState(RESUMED)
+        lifecycle.awaitResumed()
         if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)
     } else if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)
 }
