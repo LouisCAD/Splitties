@@ -61,38 +61,20 @@ kotlin {
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
             }
         }
+        getByName("commonMain").dependencies {
+            api(kotlin("stdlib-common"))
+            implementation(project(":samples:base-app"))
+        }
         getByName("androidMain").dependencies {
+            implementation(project(":fun-packs:android-material-components-with-views-dsl"))
             arrayOf(
-                "activities",
-                "alertdialog-appcompat",
-                "alertdialog-appcompat-coroutines",
-                "appctx",
                 "arch-lifecycle",
                 "arch-room",
-                "bitflags",
-                "bundle",
                 "checkedlazy",
-                "collections",
                 "exceptions",
-                "fragments",
-                "fragmentargs",
                 "initprovider",
-                "intents",
                 "lifecycle-coroutines",
-                "material-colors",
-                "material-lists",
-                "permissions",
-                "preferences",
-                "systemservices",
-                "toast",
-                "typesaferecyclerview",
-                "mainthread",
-                "mainhandler",
-                "views-coroutines",
-                "views-coroutines-material",
-                "views-dsl-appcompat",
-                "views-dsl-constraintlayout",
-                "views-dsl-material"
+                "typesaferecyclerview"
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
             }

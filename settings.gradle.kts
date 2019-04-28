@@ -54,6 +54,17 @@ listOf(
     ":views-selectable-appcompat",
     ":views-selectable-constraintlayout"
 ).forEach { include(":modules$it") }
+
+listOf(
+    "android-base",
+    "android-base-with-views-dsl",
+    "android-appcompat",
+    "android-appcompat-with-views-dsl",
+    "android-material-components",
+    "android-material-components-with-views-dsl"
+).forEach { include(":fun-packs:$it") }
+
 include(":sample")
 include(":tests")
+
 enableFeaturePreview("GRADLE_METADATA")

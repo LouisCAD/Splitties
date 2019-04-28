@@ -49,6 +49,7 @@ object Publishing {
     const val libraryDesc = "A collection of light, general purpose Android libraries in Kotlin."
 }
 
+@Suppress("UnstableApiUsage")
 fun MavenPublication.setupPom() = pom {
     name.set("Splitties")
     description.set(Publishing.libraryDesc)
