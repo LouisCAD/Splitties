@@ -2,7 +2,7 @@
 <!--
   ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
   -->
-<manifest package="com.louiscad.splittiessample"
+<manifest package="com.example.splitties.tests"
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 

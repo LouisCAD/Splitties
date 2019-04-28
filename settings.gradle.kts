@@ -4,7 +4,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-listOf(
+arrayOf(
     ":activities",
     ":alertdialog",
     ":alertdialog-appcompat",
@@ -55,7 +55,7 @@ listOf(
     ":views-selectable-constraintlayout"
 ).forEach { include(":modules$it") }
 
-listOf(
+arrayOf(
     "android-base",
     "android-base-with-views-dsl",
     "android-appcompat",
@@ -64,7 +64,10 @@ listOf(
     "android-material-components-with-views-dsl"
 ).forEach { include(":fun-packs:$it") }
 
-include(":sample")
+arrayOf(
+    "android-app"
+).forEach { include(":samples:$it") }
+
 include(":tests")
 
 enableFeaturePreview("GRADLE_METADATA")
