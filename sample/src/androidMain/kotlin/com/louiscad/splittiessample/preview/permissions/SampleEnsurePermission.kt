@@ -11,11 +11,9 @@ import splitties.alertdialog.appcompat.coroutines.DialogButton
 import splitties.alertdialog.appcompat.coroutines.showAndAwait
 import kotlinx.coroutines.CancellationException
 import splitties.alertdialog.appcompat.alertDialog
-import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.resources.txt
 
-@UseExperimental(ExperimentalSplittiesApi::class)
 suspend inline fun FragmentActivity.ensurePermission(
     permission: String,
     askDialogTitle: CharSequence,
@@ -48,7 +46,6 @@ suspend inline fun FragmentActivity.ensurePermission(
     returnOrThrowBlock = returnOrThrowBlock
 )
 
-@UseExperimental(ExperimentalSplittiesApi::class)
 suspend inline fun Fragment.ensurePermission(
     permission: String,
     askDialogTitle: CharSequence,

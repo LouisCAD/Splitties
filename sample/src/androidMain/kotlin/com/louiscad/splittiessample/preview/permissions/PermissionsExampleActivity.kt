@@ -11,7 +11,6 @@ import com.louiscad.splittiessample.R
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import splitties.dimensions.dip
-import splitties.experimental.ExperimentalSplittiesApi
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.coroutineScope
 import splitties.views.centerText
@@ -24,7 +23,7 @@ import splitties.views.dsl.core.textView
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 
-@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class, ExperimentalSplittiesApi::class)
+@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
 class PermissionsExampleActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n") // This is an example where i18n matters less than readable code.
