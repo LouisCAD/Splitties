@@ -106,6 +106,109 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 Make sure you have `jcenter()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
+#### Grouping artifacts for Android
+
+To make is easier to take advantage of the contents of Splitties for your Android projects, there
+are grouping artifacts that include _most_ splits.
+
+##### Android base
+
+These 2 packs don't include AppCompat and are suitable for WearOS apps.
+
+Includes the following modules:
+- [activities](modules/activities)
+- [appctx](modules/appctx)
+- [bitflags](modules/bitflags)
+- [bundle](modules/bundle)
+- [collections](modules/collections)
+- [dimensions](modules/dimensions)
+- [fragments](modules/fragments)
+- [fragmentargs](modules/fragmentargs)
+- [intents](modules/intents)
+- [mainhandler](modules/mainhandler)
+- [mainthread](modules/mainthread)
+- [material-colors](modules/material-colors)
+- [permissions](modules/permissions)
+- [preferences](modules/preferences)
+- [resources](modules/resources)
+- [systemservices](modules/systemservices)
+- [toast](modules/toast)
+- [views](modules/views)
+- [views-coroutines](modules/views-coroutines)
+- [views-recyclerview](modules/views-recyclerview)
+- [views-selectable](modules/views-selectable)
+- [views-selectable-constraintlayout](modules/views-selectable-constraintlayout)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha05")
+```
+
+There's also a version with Views DSL. It additionally includes the following modules:
+
+- [views-dsl](modules/views-dsl)
+- [views-dsl-constraintlayout](modules/views-dsl-constraintlayout)
+- [views-dsl-recyclerview](modules/views-dsl-recyclerview)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha05")
+```
+
+##### Android AppCompat
+
+These 2 packs include the [Android base](#android-base) pack, and the following modules:
+- [alertdialog-appcompat](modules/alertdialog-appcompat)
+- [alertdialog-appcompat-coroutines](modules/alertdialog-appcompat-coroutines)
+- [views-appcompat](modules/views-appcompat)
+- [views-selectable-appcompat](modules/views-selectable-appcompat)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha05")
+```
+
+There's also a version with Views DSL. It additionally includes the Views DSL version of the
+[Android base pack](#android-base) and the following module:
+- [views-dsl-appcompat](modules/views-dsl-appcompat)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha05")
+```
+
+##### Android Material Components
+
+These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
+- [material-lists](modules/material-lists)
+- [snackbar](modules/snackbar)
+- [views-cardview](modules/views-cardview)
+- [views-coroutines-material](modules/views-coroutines-material)
+- [views-material](modules/views-material)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha05")
+```
+
+There's also a version with Views DSL. It additionally includes the Views DSL version of the
+[Android AppCompat pack](#android-appcompat) and the following modules:
+- [views-dsl-coordinatorlayout](modules/views-dsl-coordinatorlayout)
+- [views-dsl-material](modules/views-dsl-material)
+
+**Gradle dependency**:
+
+```kotlin
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha05")
+```
+
+#### All the artifacts (47)
+
 Add the version of the library to not repeat yourself if you use multiple
 artifacts, and make sure their versions are in sync by adding an ext property
 into your root project `build.gradle` file:
