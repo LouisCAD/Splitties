@@ -139,7 +139,7 @@ Includes the following modules:
 - [views-selectable](modules/views-selectable)
 - [views-selectable-constraintlayout](modules/views-selectable-constraintlayout)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha05")
@@ -151,7 +151,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 - [views-dsl-constraintlayout](modules/views-dsl-constraintlayout)
 - [views-dsl-recyclerview](modules/views-dsl-recyclerview)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha05")
@@ -165,7 +165,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 - [views-appcompat](modules/views-appcompat)
 - [views-selectable-appcompat](modules/views-selectable-appcompat)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha05")
@@ -175,7 +175,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 [Android base pack](#android-base) and the following module:
 - [views-dsl-appcompat](modules/views-dsl-appcompat)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha05")
@@ -190,7 +190,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 - [views-coroutines-material](modules/views-coroutines-material)
 - [views-material](modules/views-material)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha05")
@@ -201,7 +201,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 - [views-dsl-coordinatorlayout](modules/views-dsl-coordinatorlayout)
 - [views-dsl-material](modules/views-dsl-material)
 
-**Gradle dependency**:
+Gradle dependency:
 
 ```kotlin
 implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha05")
