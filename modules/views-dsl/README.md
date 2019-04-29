@@ -49,9 +49,9 @@ a `ViewGroup`, or as the content of an `Activity` or a `Fragment`, you need to
 do so explicitly.
 
 There are **real examples in the sample**. You can start by taking a look at
-[`MainUi`](../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/main/MainUi.kt).
+[`MainUi`](../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainUi.kt).
 You can also see a simple example that uses `ConstraintLayout` in [`AboutUi`](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/about/AboutUi.kt
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/about/AboutUi.kt
 ).
 
 _Opening the project in your IDE and navigating the sample UI code while reading
@@ -120,7 +120,7 @@ allocation that would slightly decrease performance otherwise.
 
 Both overloads allow the following 3 **optional** parameters:
 * `@IdRes id: Int`, the id of the View. Example argument: `R.id.input_name`, given
-you declared it in xml, [as done in the sample](../../sample/src/main/res/values/view_ids.xml)
+you declared it in xml, [as done in the sample](../../samples/android-app/src/androidMain/res/values/view_ids.xml)
 * `@StyleRes theme: Int`, resource of a theme overlay that will be applied to
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
 * `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
@@ -469,13 +469,13 @@ your UI to a `ViewModel` and any other components).
 ### Simple examples
 
 See concrete examples in [`MainUi`](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/main/MainUi.kt) and
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainUi.kt) and
 [`DemoUi`](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) with
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoUi.kt) with
 their respective Activities [`MainActivity`](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/main/MainActivity.kt)
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainActivity.kt)
 and [`DemoActivity`](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/demo/DemoActivity.kt).
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoActivity.kt).
 
 ### Possibilities brought by the `Ui` interface
 

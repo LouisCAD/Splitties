@@ -30,6 +30,7 @@ kotlin {
                 "fragments",
                 "fragmentargs",
                 "intents",
+                "lifecycle-coroutines",
                 "mainhandler",
                 "mainthread",
                 "material-colors",

@@ -13,7 +13,7 @@ See the sample to understand how it works.
 When using `ViewHolder`, use the one from Splitties to get the typesafe one.
 
 See it in action in the sample: [DemoAdapter](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/demo/DemoAdapter.kt
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoAdapter.kt
 ).
 
 ## Download

@@ -1,5 +1,66 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha05 (2019-04-29)
+Compiled with Kotlin 1.3.31.
+
+**This release introduces 3 new splits:**
+
+- [Alert Dialog AppCompat Coroutines](modules/alertdialog-appcompat-coroutines)
+- [Permissions](modules/permissions)
+- [Views Coroutines Material](modules/views-coroutines-material)
+
+**The most important change** though, is how **simpler** integrating Splitties in your Android projects has become starting from this release, thanks to the new grouping artifacts.
+
+See their content and their maven coordinates [in the dedicated part of the README](README.md#gradle-instructions).
+
+There is also new features and changes in existing splits, as detailed below.
+
+#### Alert Dialog & Alert Dialog AppCompat
+The `alert` functions have been deprecated in favor of a more accurate naming: `alertDialog`.
+These `alertDialog` functions are now usable on `Context` (vs previously only on `Activity`), and they have optional parameters to specify the title, the message and even an icon (using a resource id or a `Drawable`.
+
+Also, the `title` and the `message` properties are now nullable, in respect to their accepted value.
+
+#### Fragments
+The `show` and `showAsync` extension functions allow you to show a `DialogFragment` without fearing the infamous `IllegalStateException` if the state has already been saved, because it will wait for the lifecycle to be in the RESUMED state before showing the `DialogFragment`.
+These 2 extension functions are defined for `FragmentManager`, `FragmentActivity` and `Fragment`.
+
+`show` is a suspending function that resumes after the lifecycle was resumed and the `DialogFragment` was shown.
+`showAsync` is when you are outside of a coroutine but it is marked as experimental because it has "async" in its name while not returning a `Deferred`. Feel free to suggest a better name in the issues or in the `#splitties` channel of Kotlin's Slack.
+
+#### Lifecycle Coroutines
+New suspending inline extensions functions for `Lifecycle` have been added for convenience:
+`awaitResumed`, `awaitStarted` & `awaitCreated`.
+
+They can replace code like `awaitState(Lifecycle.State.RESUMED)` for improved readability.
+
+#### Material Lists
+A new `IconTwoLinesCheckBoxListItem` class has been added. What it does is self-explanatory.
+
+Also, all the list items are now fully xml friendly.
+
+#### Resources
+The `colorSL` and `appColorSL` extension functions no longer return the nullable version of `ColorStateList`.
+
+#### Views DSL ConstraintLayout
+
+All the `ConstraintLayout.LayoutParams` extension functions now have overloads that allow specifying the margin.
+
+For example, the following code:
+```kotlin
+centerHorizontally()
+horizontalMargin = dip(16)
+```
+can now be written on one line: `centerHorizontally(margin = dip(16))`.
+
+That improves readability as the word "horizontal" is no longer repeated, and it is still explicit.
+
+#### Views Material
+
+Two set-only extensions properties have been added for `MaterialButton`:
+`iconResource` and `iconTintAndTextColor`.
+
+
 ## Version 3.0.0-alpha04 (2019-03-03)
 Compiled with Kotlin 1.3.21.
 
@@ -16,6 +77,7 @@ Compiled with Kotlin 1.3.21.
 ### Fixes
 
 - Remove contract in the `Intents` split that would cause compilation to fail when used.
+
 
 ## Version 3.0.0-alpha03 (2019-02-05)
 Compiled with Kotlin 1.3.20.
@@ -58,6 +120,7 @@ This release has the following new artifact:
 "com.louiscad.splitties:splitties-views-coroutines:3.0.0-alpha03"
 ```
 
+
 ## Version 3.0.0-alpha02 (2019-01-06)
 
 **This release introduces a new split: [Lifecycle Coroutines](modules/lifecycle-coroutines/README.md).**
@@ -67,6 +130,7 @@ This release has the following new artifact:
 ```
 "com.louiscad.splitties:splitties-lifecycle-coroutines:3.0.0-alpha02"
 ```
+
 
 ## Version 3.0.0-alpha01 (2018-12-21)
 This release is compiled with Kotlin 1.3.11.
@@ -154,6 +218,7 @@ This release removes these two artifacts:
 ~`"com.louiscad.splitties:splitties-views-design-styles:2.1.1"`~
 ~`"com.louiscad.splitties:splitties-views-dsl-design-styles:2.1.1"`~
 
+
 ## Version 2.1.1 (2018-11-25)
 This release is compiled with Kotlin 1.3.10.
 
@@ -168,6 +233,7 @@ done in `putExtras` instead. You can see more info in the updated KDoc of these 
 - Add KDoc to all public symbols from the AlertDialog split.
 - Add KDoc to all public symbols from the AlertDialog AppCompat split.
 
+
 ## Version 2.1.0 (2018-11-13)
 This release targets Android SDK 28, and splits depending on support libraries use version 28.0.0.
 
@@ -177,6 +243,7 @@ This release targets Android SDK 28, and splits depending on support libraries u
 design support library version 28.0.0.
 - Update for nullability warnings brought by SDK 28.
 
+
 ## Version 2.0.0 (2018-11-13)
 This release targets Android SDK 27, and splits depending on support libraries use version 27.1.1.
 
@@ -184,6 +251,7 @@ This release targets Android SDK 27, and splits depending on support libraries u
 - Room updated to version 1.1.1 in Arch Room.
 - Lambdas of `onCreate` and `onOpen` functions in Arch Room are now `crossinline`.
 - The `LifecycleObserver` class is now marked as experimental.
+
 
 ## Version 2.0.0-beta1 (2018-11-13)
 This release **breaks binary and source compatibility**.
@@ -204,6 +272,7 @@ are replaced, renamed or removed (still with a deprecation cycle whenever possib
 `verticalListLayoutParams` and `horizontalListLayoutParams` extension functions for
 `RecyclerView.LayoutManager` are experimental for now, but this could change, especially in alpha,
 or beta stage.
+
 
 ## Version 2.0.0-alpha9 (2018-11-13)
 This release **breaks binary and source compatibility**.
@@ -274,6 +343,7 @@ This release removes all these artifacts:
 ~`debugImplementation("com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version")`~
 ~`implementation("com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version")`~
 
+
 ## Version 2.0.0-alpha8 (2018-11-12)
 This release **breaks binary compatibility**.
 
@@ -283,10 +353,12 @@ Make sure you don't rely on any library that uses an old version of a Splitties 
 on these previously deprecated and now removed symbols, or your app is likely not build, or to
 crash at runtime because of not found classes.
 
+
 ## Version 2.0.0-alpha7 (2018-11-12)
 Raise all deprecated symbols deprecation level to error.
 
 Use this version to make sure you don't use them in your projects, next version will remove them!
+
 
 ## Version 2.0.0-alpha6 (2018-11-11)
 Version 2.0.0-alpha5 broke the API, this version fixes this.
@@ -371,6 +443,7 @@ encounter gradle sync issues, or runtime issues, and the real cause may not appe
 #### View DSL RecyclerView
 The `wrapInRecyclerView` extension function now accepts an optional lambda to configure the wrapping
 `RecyclerView` easily.
+
 
 ## Version 2.0.0-alpha5 (2018-11-02)
 _This release is **breaking** if you come from version 2.0.0-alpha4, especially if you were using
@@ -497,10 +570,12 @@ This release removes these two artifacts:
 ~`implementation("com.louiscad.splitties:splitties-uithread:$splitties_version")`~
 ~`implementation("com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version")`~
 
+
 ## Version 2.0.0-alpha4 (2018-07-09)
 * Provide `ReplaceWith` migrations for `add` methods deprecated in version 2.0.0-alpha2.
 * Add default empty lambda for `startActivity(action: String…)` methods.
 * Compiled with Kotlin 1.2.51
+
 
 ## Version 2.0.0-alpha3 (2018-06-09)
 ### New features
@@ -523,6 +598,7 @@ longer any ambiguity since platform Fragments are deprecated and going away. Aut
 import the versions from the new package for you.
 - The delegates previously returned by `arg()` and `argOrNull()` are no longer part of the public
 API and have been replaced by the `ReadWriteProperty` interface.
+
 
 ## Version 2.0.0-alpha2 (2018-05-21)
 ### 9 new library modules (amounting to a total of 42 splits):
@@ -612,6 +688,7 @@ allProjects {
 ```
 
 </details>
+
 
 ## Version 2.0.0-alpha1 (2018-03-11)
 ### 26 new library modules (amounting to a total of 33 splits):
@@ -732,6 +809,7 @@ allProjects {
 
 </details>
 
+
 ## Version 1.3.0 (2017-04-17)
 ### 5 new library modules:
 - **App Context**: Have a `Context` everywhere
@@ -750,16 +828,19 @@ https://material.io/guidelines/)
 - Typesafe RecyclerView now depends on Kotlin
 - Typesafe RecyclerView has a new `ItemViewHolder` helper class for simple but common use cases.
 
+
 ## Version 1.2 (2016-09-19)
 This version adds the `setHost(Host host)` method in `ViewWrapper.Binder` interface where `Host` can
 be any type you want you can use from the implementing item View to communicate with your Activity,
 Fragment, Presenter, or whatever. Note this adds a third type parameter to the `ViewWrapper` class,
 and a second one for the `ViewWrapper.Binder` class.
 
+
 ## Version 1.1 (2016-09-11)
 This version adds the `setViewHolder(ViewWrapper holder)` method in `ViewWrapper.Binder` interface
 so list item `View`s can now get a reference to their `ViewHolder`, and call `getAdapterPosition()`
 on it for example.
+
 
 ## Version 1.0 (2016-08-24)
 This is the first release of Splitties. It includes two independent modules:

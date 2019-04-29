@@ -123,6 +123,7 @@ Includes the following modules:
 - [fragments](modules/fragments)
 - [fragmentargs](modules/fragmentargs)
 - [intents](modules/intents)
+- [lifecycle-coroutines](modules/lifecycle-coroutines)
 - [mainhandler](modules/mainhandler)
 - [mainthread](modules/mainthread)
 - [material-colors](modules/material-colors)
