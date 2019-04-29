@@ -52,7 +52,7 @@ inline fun <DF : DialogFragment> Fragment.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
-): DF = fragmentManager!!.showAsync(lifecycle, newDialogRef, tag, setup)
+): DF = requireFragmentManager().showAsync(lifecycle, newDialogRef, tag, setup)
 
 /**
  * Shows the [DialogFragment] created in [newDialogRef] as soon as this Activity's lifecycle is in
@@ -115,7 +115,7 @@ suspend inline fun <DF : DialogFragment> Fragment.show(
     tag: String? = null,
     commitNowWhenResumed: Boolean = true,
     setup: DF.() -> Unit = {}
-): DF = fragmentManager!!.show(lifecycle, newDialogRef, tag, commitNowWhenResumed, setup)
+): DF = requireFragmentManager().show(lifecycle, newDialogRef, tag, commitNowWhenResumed, setup)
 
 /**
  * Shows the [DialogFragment] created in [newDialogRef] as soon as this Activity's lifecycle is in
