@@ -3,6 +3,7 @@
  */
 package splitties.lifecycle.coroutines
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State.INITIALIZED
@@ -40,9 +41,13 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.MainAndroid) { // Ensures state is in sync.
-                addObserver(object : GenericLifecycleObserver {
-                    override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
+            else -> GlobalScope.launch(Dispatchers.MainAndroid) {
+                // Ensures state is in sync.
+                addObserver(@SuppressLint("RestrictedApi") object : GenericLifecycleObserver {
+                    override fun onStateChanged(
+                        source: LifecycleOwner?,
+                        event: Lifecycle.Event
+                    ) {
                         if (currentState < activeWhile) {
                             removeObserver(this)
                             job.cancel()

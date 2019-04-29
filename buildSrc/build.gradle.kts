@@ -1,17 +1,5 @@
 /*
- * Copyright (c) 2018. Louis Cognault Ayeva Derman
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 plugins {
     `kotlin-dsl`
@@ -20,22 +8,28 @@ plugins {
 repositories {
     google()
     jcenter()
+    maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
+
+val kotlinVersion = "1.3.31" // Don't forget to update in Dependencies.kt too!
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("com.android.tools.build:gradle:3.3.1")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.21")
+    implementation("com.android.tools.build:gradle:3.5.0-alpha13")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4")
 }
 
 configurations.all {
-    val isKotlinCompiler = name == "embeddedKotlin" || name.startsWith("kotlin") || name.startsWith("kapt")
+    val isKotlinCompiler = name == "embeddedKotlin" ||
+            name.startsWith("kotlin") ||
+            name.startsWith("kapt")
     if (!isKotlinCompiler) {
         resolutionStrategy.eachDependency {
-            if (requested.group == "org.jetbrains.kotlin" && requested.module.name == "kotlin-compiler-embeddable") {
-                useVersion("1.3.21")
-            }
+            @Suppress("UnstableApiUsage")
+            if (requested.group == "org.jetbrains.kotlin" &&
+                requested.module.name == "kotlin-compiler-embeddable"
+            ) useVersion(kotlinVersion)
         }
     }
 }

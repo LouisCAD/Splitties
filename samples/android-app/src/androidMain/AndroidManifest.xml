@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<manifest package="com.example.splitties"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+
+    <application
+        android:name="com.example.splitties.DemoApp"
+        android:allowBackup="true"
+        android:directBootAware="true"
+        android:fullBackupContent="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+        <activity
+            android:name="com.example.splitties.main.MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.splitties.demo.DemoActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="@string/title_activity_demo"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.splitties.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitties.main.MainActivity"/>
+        </activity>
+        <activity
+            android:name="com.example.splitties.about.AboutActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="@string/title_activity_about"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.splitties.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitties.main.MainActivity"/>
+        </activity>
+        <activity
+            android:name="com.example.splitties.sayhello.SayHelloActivity"
+            android:label="@string/say_hello"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.splitties.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitties.main.MainActivity"/>
+        </activity>
+        <activity
+            android:name="com.example.splitties.permissions.PermissionsExampleActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
+            android:label="Permissions request example"
+            android:launchMode="singleTop"
+            android:parentActivityName="com.example.splitties.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitties.main.MainActivity"/>
+        </activity>
+
+        <provider
+            android:name="com.example.splitties.AppInitProvider"
+            android:authorities="${applicationId}.init"
+            android:exported="false"
+            android:initOrder="899"/>
+
+        <provider
+            android:name="com.example.splitties.SecondProcessInitProvider"
+            android:authorities="${applicationId}.appctxinitprovider.second_process"
+            android:exported="false"
+            android:initOrder="900"
+            android:process=":second_process"/>
+    </application>
+
+</manifest>

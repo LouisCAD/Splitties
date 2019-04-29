@@ -6,17 +6,77 @@ package splitties.alertdialog
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.graphics.drawable.Drawable
 import android.widget.Button
+import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import kotlin.DeprecationLevel.HIDDEN
+
+/**
+ * Instantiates an [AlertDialog.Builder] for the [Context], applies the [dialogConfig] lambda to
+ * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
+ * [AlertDialog.show] on the created dialog.
+ */
+inline fun Context.alertDialog(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
+    return AlertDialog.Builder(this)
+        .apply(dialogConfig)
+        .create()
+}
+
+/**
+ * Instantiates an [AlertDialog.Builder] for the [Context], sets the passed [title], [message] and
+ * [iconResource], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
+ * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
+ */
+inline fun Context.alertDialog(
+    title: CharSequence? = null,
+    message: CharSequence? = null,
+    @DrawableRes iconResource: Int = 0,
+    dialogConfig: AlertDialog.Builder.() -> Unit = {}
+): AlertDialog {
+    return AlertDialog.Builder(this).apply {
+        this.title = title
+        this.message = message
+        setIcon(iconResource)
+        dialogConfig()
+    }.create()
+}
+
+/**
+ * Instantiates an [AlertDialog.Builder] for the [Context], sets the passed [title], [message] and
+ * [icon], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
+ * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
+ */
+inline fun Context.alertDialog(
+    title: CharSequence? = null,
+    message: CharSequence? = null,
+    icon: Drawable?,
+    dialogConfig: AlertDialog.Builder.() -> Unit = {}
+): AlertDialog {
+    return AlertDialog.Builder(this).apply {
+        this.title = title
+        this.message = message
+        setIcon(icon)
+        dialogConfig()
+    }.create()
+}
 
 /**
  * Instantiates an [AlertDialog.Builder] for the [Activity], applies the [dialogConfig] lambda to
  * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
  * [AlertDialog.show] on the created dialog.
  */
+@Deprecated(
+    message = "This function is limited to Activity only and its name is not explicit enough. " +
+            "Use the alertDialog function instead.",
+    replaceWith = ReplaceWith(
+        expression = "this.alertDialog(dialogConfig)",
+        imports = ["splitties.alertdialog.alertDialog"]
+    )
+)
 inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
     return AlertDialog.Builder(this)
         .apply(dialogConfig)
@@ -85,7 +145,7 @@ var AlertDialog.Builder.titleResource: Int
     }
 
 /** Write only property that sets the dialog title. */
-var AlertDialog.Builder.title: CharSequence
+var AlertDialog.Builder.title: CharSequence?
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) {
         setTitle(value)
@@ -99,7 +159,7 @@ var AlertDialog.Builder.messageResource: Int
     }
 
 /** Write only property that sets the dialog message. */
-var AlertDialog.Builder.message: CharSequence
+var AlertDialog.Builder.message: CharSequence?
     @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
     set(value) {
         setMessage(value)

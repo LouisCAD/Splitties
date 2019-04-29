@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<manifest package="com.example.splitties.tests"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:allowBackup="false"
+        android:directBootAware="true"
+        android:fullBackupContent="false"
+        android:icon="@android:mipmap/sym_def_app_icon"
+        android:label="Splitties Tests"
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+    </application>
+
+</manifest>

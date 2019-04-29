@@ -11,5 +11,5 @@ Just use `SelectableTextView` with the proper import instead of
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
 ```

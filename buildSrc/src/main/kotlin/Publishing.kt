@@ -8,7 +8,11 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.*
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinCommonCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinJsCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinJvmCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
 
 inline fun KotlinMultiplatformExtension.jvmWithPublication(
     project: Project,
@@ -45,6 +49,7 @@ object Publishing {
     const val libraryDesc = "A collection of light, general purpose Android libraries in Kotlin."
 }
 
+@Suppress("UnstableApiUsage")
 fun MavenPublication.setupPom() = pom {
     name.set("Splitties")
     description.set(Publishing.libraryDesc)
@@ -70,6 +75,8 @@ fun MavenPublication.setupPom() = pom {
 }
 
 fun PublishingExtension.setupAllPublications(project: Project) {
+    project.configurations.create("compileClasspath")
+    //TODO: Remove line above when https://youtrack.jetbrains.com/issue/KT-27170 is fixed
     project.group = "com.louiscad.splitties"
     project.version = ProjectVersions.thisLibrary
     val publications = publications.withType<MavenPublication>()

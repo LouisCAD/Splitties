@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+
+<resources>
+    <item name="input_name" type="id"/>
+    <item name="recycler_view" type="id"/>
+    <item name="main_scrolling_content" type="id" />
+</resources>

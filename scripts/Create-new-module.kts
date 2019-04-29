@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import java.io.File
+
 //This is NOT a gradle script. It includes .gradle so the IDE recognizes it, but it should only use Kotlin stdlib.
 println("Welcome in Create new module by Louis CAD")
 
@@ -26,11 +28,9 @@ inline fun <R> runOrRetry(block: () -> R): R {
 }
 
 val currentDir = File(".")
-val projectDir = currentDir.parentFile!!
-val modulesDir = projectDir.resolve("modules")
-val settingsFile = projectDir.resolve("settings.gradle.kts")
+val settingsFile = currentDir.resolve("settings.gradle.kts")
 check(settingsFile.exists()) { "No ${settingsFile.name} found!" }
-val templatesDirectory = currentDir.resolve("gradle_templates")
+val templatesDirectory = currentDir.resolve("scripts").resolve("gradle_templates")
 check(templatesDirectory.exists()) { "Template directory (${templatesDirectory.name}) not found!" }
 val templateDirNames = templatesDirectory.list { file, name ->
     file.isDirectory && name.startsWith('.').not()
@@ -57,13 +57,18 @@ val moduleName = runOrRetry {
     (readLine() ?: "").also {
         require(it.isNotBlank()) { "Name entered is blank" }
         //TODO: Check name is valid
-        val file = modulesDir.resolve(it)
+        val file = currentDir.resolve(it)
         check(file.exists().not()) {
             "A ${if (file.isDirectory) "directory" else "file"} already has this name!"
         }
     }
 }
-val destinationDir = modulesDir.resolve(moduleName)
+val destinationDir = currentDir.let {
+    print("Please type the relative path of the new module (target directory, ")
+    println("name of module excluded), or leave empty to use this directory as root.")
+    val relativePathName = (readLine() ?: "").let { if (it.endsWith('/')) it else "$it/" }
+    it.resolve("$relativePathName$moduleName")
+}
 check(selectedTemplateDir.copyRecursively(destinationDir)) { "Copy operation didn't succeed" }
 
 /**

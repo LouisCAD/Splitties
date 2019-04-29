@@ -16,6 +16,7 @@ in this module:
 * `IconOneLineListItem`
 * `IconTwoLinesListItem`
 * `IconTwoLinesSwitchListItem`
+* `IconTwoLinesCheckBoxListItem`
 * `SwitchTwoLinesIconListItem`
 
 Feel free to open an issue if you need the implementation of a list item that
@@ -23,10 +24,10 @@ is not in this library yet, or feel one can be improved. If so, pull
 requests are welcome as long as the code style is kept intact (you can
 debate about it in an issue if you feel there's room for improvement).
 
-See an example in the [sample module](../../sample).
+See an example in the [sample module](../../samples/android-app).
 
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
+implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
 ```

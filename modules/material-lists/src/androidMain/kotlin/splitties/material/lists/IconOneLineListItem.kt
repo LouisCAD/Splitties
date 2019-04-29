@@ -6,6 +6,7 @@ package splitties.material.lists
 
 import android.content.Context
 import android.text.TextUtils.TruncateAt.END
+import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
 import splitties.dimensions.dip
@@ -16,12 +17,26 @@ import splitties.views.selectable.SelectableLinearLayout
 import splitties.views.textAppearance
 
 class IconOneLineListItem(
-    context: Context,
-    disableDefaultTint: Boolean
-) : SelectableLinearLayout(context) {
-    constructor(context: Context) : this(context, disableDefaultTint = false)
+    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0, disableDefaultTint: Boolean
+) : SelectableLinearLayout(context, attrs, defStyleAttr) {
+    constructor(
+        context: Context
+    ) : this(context, null, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        attrs: AttributeSet?
+    ) : this(context, attrs, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int
+    ) : this(context, attrs, defStyleAttr, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        disableDefaultTint: Boolean
+    ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
-    val icon = imageView(R.id.icon) {
+    val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
@@ -29,7 +44,7 @@ class IconOneLineListItem(
      * The one-line list item keeps the [firstLine] name for its only [TextView] to make
      * switching to and from [IconTwoLinesListItem] easier.
      */
-    val firstLine = textView(R.id.firstLine) {
+    val firstLine = textView {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead

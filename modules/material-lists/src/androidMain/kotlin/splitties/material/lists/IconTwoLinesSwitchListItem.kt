@@ -6,6 +6,7 @@ package splitties.material.lists
 
 import android.content.Context
 import android.text.TextUtils.TruncateAt.END
+import android.util.AttributeSet
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.views.appcompat.imgTintList
@@ -16,22 +17,36 @@ import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.views.textAppearance
 
 class IconTwoLinesSwitchListItem(
-    context: Context,
-    disableDefaultTint: Boolean
-) : SelectableConstraintLayout(context) {
-    constructor(context: Context) : this(context, disableDefaultTint = false)
+    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0, disableDefaultTint: Boolean
+) : SelectableConstraintLayout(context, attrs, defStyleAttr) {
+    constructor(
+        context: Context
+    ) : this(context, null, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        attrs: AttributeSet?
+    ) : this(context, attrs, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int
+    ) : this(context, attrs, defStyleAttr, disableDefaultTint = false)
+    constructor(
+        context: Context,
+        disableDefaultTint: Boolean
+    ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
-    val icon = imageView(R.id.icon) {
+    val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
     }
 
-    val firstLine = textView(R.id.firstLine) {
+    val firstLine = textView {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead
     }
 
-    val secondLine = textView(R.id.secondLine) {
+    val secondLine = textView {
         ellipsize = END
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Small

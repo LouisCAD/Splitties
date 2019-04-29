@@ -9,14 +9,31 @@ import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
 import kotlin.coroutines.resume
 
+/** Returns as soon as this [Lifecycle] is in the resumed state. */
+@PotentialFutureAndroidXLifecycleKtxApi
+suspend inline fun Lifecycle.awaitResumed() = awaitState(Lifecycle.State.RESUMED)
+
+/** Returns as soon as this [Lifecycle] is at least in the started state. */
+@PotentialFutureAndroidXLifecycleKtxApi
+suspend inline fun Lifecycle.awaitStarted() = awaitState(Lifecycle.State.STARTED)
+
+/**
+ * Returns as soon as this [Lifecycle] is at least in the created state.
+ *
+ * Can be useful for use in the init blocks or constructors of a [LifecycleOwner].
+ */
+@PotentialFutureAndroidXLifecycleKtxApi
+suspend inline fun Lifecycle.awaitCreated() = awaitState(Lifecycle.State.CREATED)
+
 /**
  * This function returns/resumes as soon as the state of this [Lifecycle] is at least the
  * passed [state].
  *
  * [Lifecycle.State.DESTROYED] is forbidden, to avoid leaks.
+ *
+ * See also [awaitResumed], [awaitStarted] and [awaitCreated].
  */
 @PotentialFutureAndroidXLifecycleKtxApi
-@UseExperimental(ExperimentalCoroutinesApi::class)
 suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
     require(state != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for awaitState(…), to avoid leaks."

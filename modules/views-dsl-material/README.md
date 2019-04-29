@@ -48,7 +48,7 @@ manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy
 src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
 ) into a package of an android library/app module of your project, then declare it in the
 `AndroidManifest.xml` of the module exactly like it is done [here](
-src/main/AndroidManifest.xml
+src/androidMain/AndroidManifest.xml
 ). To do so, copy paste it, then fix the package of the class under the `android:name` xml attribute
 of the `provider` tag, then specify the `android:process` value to the one of your non default
 process.
@@ -166,5 +166,5 @@ state even if the host Activity is killed by the system.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-material:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
 ```

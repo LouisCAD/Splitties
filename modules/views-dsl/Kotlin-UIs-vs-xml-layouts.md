@@ -9,7 +9,7 @@ yourself.
 ## Facts
 
 * If we don't count imports and copyright headers, the xml version of [MainUi](
-../../sample/src/androidMain/kotlin/com/louiscad/splittiessample/main/MainUi.kt
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainUi.kt
 ) (from the sample) was more than 100% lengthier (50 lines with Kotlin,
 102 lines in xml, across the [activity_main.xml](
 https://github.com/LouisCAD/Splitties/blob/v1.3.0/sample/src/main/res/layout/activity_main.xml

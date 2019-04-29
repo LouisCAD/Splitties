@@ -14,7 +14,7 @@ internal val mainThreadChecker = { checkMainThread() }
  *
  * Helper for [checkedLazy]'s readChecker.
  */
-fun accessOn(thread: Thread) = {
+fun accessOn(thread: Thread): () -> Unit = {
     Thread.currentThread().let {
         if (thread !== it) error("Access expected on thread: $thread. Current: $it")
     }
@@ -25,7 +25,7 @@ fun accessOn(thread: Thread) = {
  *
  * Helper for [checkedLazy]'s readChecker.
  */
-fun noAccessOn(thread: Thread) = {
+fun noAccessOn(thread: Thread): () -> Unit = {
     Thread.currentThread().let {
         if (thread === it) error("No access allowed on thread: $thread!")
     }

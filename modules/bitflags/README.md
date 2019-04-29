@@ -12,5 +12,5 @@ have to deal with raw bytes, and maybe in your own codebase too.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
+implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
 ```

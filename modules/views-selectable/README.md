@@ -22,5 +22,5 @@ Just use `SelectableLinearLayout` and `SelectableTextView` instead of
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
 ```
