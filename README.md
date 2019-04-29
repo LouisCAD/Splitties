@@ -106,12 +106,10 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 Make sure you have `jcenter()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
-#### Grouping artifacts for Android
-
 To make is easier to take advantage of the contents of Splitties for your Android projects, there
 are grouping artifacts that include _most_ splits.
 
-##### Android base
+#### Android base
 
 These 2 packs don't include AppCompat and are suitable for WearOS apps.
 
@@ -157,7 +155,7 @@ Gradle dependency:
 implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha05")
 ```
 
-##### Android AppCompat
+#### Android AppCompat
 
 These 2 packs include the [Android base](#android-base) pack, and the following modules:
 - [alertdialog-appcompat](modules/alertdialog-appcompat)
@@ -181,7 +179,7 @@ Gradle dependency:
 implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha05")
 ```
 
-##### Android Material Components
+#### Android Material Components
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
 - [material-lists](modules/material-lists)
@@ -215,7 +213,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha04"
+        splitties_version = "3.0.0-alpha05"
     }
 }
 ```
