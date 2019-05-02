@@ -141,7 +141,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha06")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -153,7 +153,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha06")
 ```
 
 #### Android AppCompat
@@ -167,7 +167,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha06")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -177,7 +177,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha06")
 ```
 
 #### Android Material Components
@@ -192,7 +192,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha06")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -203,7 +203,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha05")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha06")
 ```
 
 #### All the artifacts (47)
@@ -214,7 +214,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha05"
+        splitties_version = "3.0.0-alpha06"
     }
 }
 ```

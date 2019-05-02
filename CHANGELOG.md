@@ -1,5 +1,11 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha06 (2019-05-03)
+Compiled with Kotlin 1.3.31.
+
+### Permissions
+Handle empty `grantResults` for permission request ([#191](https://github.com/LouisCAD/Splitties/issues/191)).
+
 ## Version 3.0.0-alpha05 (2019-04-29)
 Compiled with Kotlin 1.3.31.
 
