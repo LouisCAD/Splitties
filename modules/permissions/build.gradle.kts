@@ -23,6 +23,7 @@ kotlin {
             implementation(splitties("mainthread"))
             implementation(splitties("appctx"))
             implementation(splitties("activities"))
+            implementation(splitties("intents"))
             implementation(Libs.androidX.coreKtx)
         }
         matching { it.name.startsWith("android") }.all {
