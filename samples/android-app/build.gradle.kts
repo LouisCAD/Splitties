@@ -23,9 +23,6 @@ android {
         proguardFile("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    packagingOptions {
-        pickFirst("META-INF/atomicfu.kotlin_module")
-    }
     signingConfigs {
         getByName("debug") {
             storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
