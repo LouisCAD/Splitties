@@ -141,7 +141,7 @@ enum class BintrayReleaseStep { // Order of the steps, must be kept right.
     REQUEST_GITHUB_RELEASE_PUBLICATION,
     UPDATE_MASTER_BRANCH,
     UPDATE_DEVELOP_BRANCH_FROM_MASTER,
-    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_SNAPSHOT,
+    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_DEV_VERSION,
     COMMIT_PREPARE_NEXT_DEV_VERSION,
     PUSH_AT_LAST;
 }
@@ -273,7 +273,7 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         "git checkout develop".executeAndPrint()
         "git merge master".executeAndPrint()
     }
-    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_SNAPSHOT -> {
+    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_DEV_VERSION -> {
         printInfo("Let's update the library for next development version.")
         printInfo("If you want to keep using $currentDevVersion, enter an empty line.")
         printInfo("Otherwise, enter the name of the next target version (`-dev-001` will be added automatically)")
