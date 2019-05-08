@@ -31,8 +31,8 @@ Instead of using `view(::AppBarLayout) { … }` and similar, you can use `appBar
 All widgets from Material Components are supported.
 
 To see the list, check the implementations for
-[Views](src/main/kotlin/splitties/views/dsl/material/Views.kt) and
-[ViewGroups](src/main/kotlin/splitties/views/dsl/material/ViewGroups.kt).
+[Views](src/androidMain/kotlin/splitties/views/dsl/material/Views.kt) and
+[ViewGroups](src/androidMain/kotlin/splitties/views/dsl/material/ViewGroups.kt).
 
 Note that there two bonuses in this split:
 * When calling `appBarLayout(…) { … }`, you get an implementation that fixes a
@@ -45,10 +45,10 @@ handles config changes.
 If your app needs to use AppCompat themed widgets in a non default process, you'll need to
 manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
 [this InitProvider](
-src/main/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
+src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
 ) into a package of an android library/app module of your project, then declare it in the
 `AndroidManifest.xml` of the module exactly like it is done [here](
-src/main/AndroidManifest.xml
+src/androidMain/AndroidManifest.xml
 ). To do so, copy paste it, then fix the package of the class under the `android:name` xml attribute
 of the `provider` tag, then specify the `android:process` value to the one of your non default
 process.
@@ -166,5 +166,5 @@ state even if the host Activity is killed by the system.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-material:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
 ```

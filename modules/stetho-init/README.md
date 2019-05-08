@@ -4,9 +4,9 @@
 without writing any code!*
 
 This library uses an [InitProvider](
-../initprovider/src/main/kotlin/splitties/initprovider/InitProvider.kt
+../initprovider/src/androidMain/kotlin/splitties/initprovider/InitProvider.kt
 ) (like [appCtx](
-../appctx/src/main/kotlin/splitties/init/AppCtxInitProvider.kt
+../appctx/src/androidMain/kotlin/splitties/init/AppCtxInitProvider.kt
 ), and similarly to Firebase) to initialize Stetho
 automatically. You just have to include the dependency on your debug build
 and voilà!
@@ -14,7 +14,7 @@ and voilà!
 ### Usage
 Add the dependency to your debug build like in the example below:
 ```groovy
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
 ```
 
 Assuming your Android device is visible from adb on your computer, you can
@@ -24,5 +24,5 @@ debug app in Chrome Dev Tools, no further configuration required.
 ## Download
 
 ```groovy
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
 ```

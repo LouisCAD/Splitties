@@ -49,9 +49,9 @@ a `ViewGroup`, or as the content of an `Activity` or a `Fragment`, you need to
 do so explicitly.
 
 There are **real examples in the sample**. You can start by taking a look at
-[`MainUi`](../../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt).
+[`MainUi`](../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainUi.kt).
 You can also see a simple example that uses `ConstraintLayout` in [`AboutUi`](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/about/AboutUi.kt
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/about/AboutUi.kt
 ).
 
 _Opening the project in your IDE and navigating the sample UI code while reading
@@ -120,7 +120,7 @@ allocation that would slightly decrease performance otherwise.
 
 Both overloads allow the following 3 **optional** parameters:
 * `@IdRes id: Int`, the id of the View. Example argument: `R.id.input_name`, given
-you declared it in xml, [as done in the sample](../../sample/src/main/res/values/view_ids.xml)
+you declared it in xml, [as done in the sample](../../samples/android-app/src/androidMain/res/values/view_ids.xml)
 * `@StyleRes theme: Int`, resource of a theme overlay that will be applied to
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
 * `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
@@ -168,8 +168,8 @@ the `view` function.
 Such methods exist for most `View`s and `ViewGroup`s included in Android, and
 there's more in the [additional modules](#additional-modules).
 
-You can see implementations for Android's [Views](src/main/kotlin/splitties/views/dsl/core/Views.kt)
-and [ViewGroups](src/main/kotlin/splitties/views/dsl/core/ViewGroups.kt).
+You can see implementations for Android's [Views](src/androidMain/kotlin/splitties/views/dsl/core/Views.kt)
+and [ViewGroups](src/androidMain/kotlin/splitties/views/dsl/core/ViewGroups.kt).
 
 These methods are a bit more natural to read and to write, but they are really
 just **inline** aliases, purely syntactic sugar.
@@ -423,7 +423,7 @@ at least two places that are tightly coupled.
 ### What it is made of
 
 With Splitties Views DSL, there's an [optional interface named `Ui`](
-src/main/kotlin/splitties/views/dsl/core/Ui.kt), whose implementations are meant
+src/androidMain/kotlin/splitties/views/dsl/core/Ui.kt), whose implementations are meant
 to contain your UI code.
 
 It has a `ctx` property because in Android, a `Context` is needed to create a
@@ -469,13 +469,13 @@ your UI to a `ViewModel` and any other components).
 ### Simple examples
 
 See concrete examples in [`MainUi`](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainUi.kt) and
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainUi.kt) and
 [`DemoUi`](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoUi.kt) with
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoUi.kt) with
 their respective Activities [`MainActivity`](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/main/MainActivity.kt)
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/main/MainActivity.kt)
 and [`DemoActivity`](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoActivity.kt).
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoActivity.kt).
 
 ### Possibilities brought by the `Ui` interface
 
@@ -594,5 +594,5 @@ scrollbars and proper `itemView` layout parameters.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
 ```

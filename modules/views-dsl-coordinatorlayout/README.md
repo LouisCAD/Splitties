@@ -36,5 +36,5 @@ Anchors the passed View with the specified gravity, setting a generated id if it
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version")
 ```

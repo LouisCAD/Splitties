@@ -1,0 +1,9 @@
+# €{module name}
+
+*A brand new split.*
+
+## Download
+
+```groovy
+implementation("com.louiscad.splitties:splitties-€{module name}:$splitties_version")
+```

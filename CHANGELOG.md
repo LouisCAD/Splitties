@@ -1,5 +1,90 @@
 # Change log for Splitties
 
+## Version 3.0.0-alpha06 (2019-05-03)
+Compiled with Kotlin 1.3.31.
+
+### Permissions
+Handle empty `grantResults` for permission request ([#191](https://github.com/LouisCAD/Splitties/issues/191)).
+
+## Version 3.0.0-alpha05 (2019-04-29)
+Compiled with Kotlin 1.3.31.
+
+**This release introduces 3 new splits:**
+
+- [Alert Dialog AppCompat Coroutines](modules/alertdialog-appcompat-coroutines)
+- [Permissions](modules/permissions)
+- [Views Coroutines Material](modules/views-coroutines-material)
+
+**The most important change** though, is how **simpler** integrating Splitties in your Android projects has become starting from this release, thanks to the new grouping artifacts.
+
+See their content and their maven coordinates [in the dedicated part of the README](README.md#gradle-instructions).
+
+There is also new features and changes in existing splits, as detailed below.
+
+#### Alert Dialog & Alert Dialog AppCompat
+The `alert` functions have been deprecated in favor of a more accurate naming: `alertDialog`.
+These `alertDialog` functions are now usable on `Context` (vs previously only on `Activity`), and they have optional parameters to specify the title, the message and even an icon (using a resource id or a `Drawable`.
+
+Also, the `title` and the `message` properties are now nullable, in respect to their accepted value.
+
+#### Fragments
+The `show` and `showAsync` extension functions allow you to show a `DialogFragment` without fearing the infamous `IllegalStateException` if the state has already been saved, because it will wait for the lifecycle to be in the RESUMED state before showing the `DialogFragment`.
+These 2 extension functions are defined for `FragmentManager`, `FragmentActivity` and `Fragment`.
+
+`show` is a suspending function that resumes after the lifecycle was resumed and the `DialogFragment` was shown.
+`showAsync` is when you are outside of a coroutine but it is marked as experimental because it has "async" in its name while not returning a `Deferred`. Feel free to suggest a better name in the issues or in the `#splitties` channel of Kotlin's Slack.
+
+#### Lifecycle Coroutines
+New suspending inline extensions functions for `Lifecycle` have been added for convenience:
+`awaitResumed`, `awaitStarted` & `awaitCreated`.
+
+They can replace code like `awaitState(Lifecycle.State.RESUMED)` for improved readability.
+
+#### Material Lists
+A new `IconTwoLinesCheckBoxListItem` class has been added. What it does is self-explanatory.
+
+Also, all the list items are now fully xml friendly.
+
+#### Resources
+The `colorSL` and `appColorSL` extension functions no longer return the nullable version of `ColorStateList`.
+
+#### Views DSL ConstraintLayout
+
+All the `ConstraintLayout.LayoutParams` extension functions now have overloads that allow specifying the margin.
+
+For example, the following code:
+```kotlin
+centerHorizontally()
+horizontalMargin = dip(16)
+```
+can now be written on one line: `centerHorizontally(margin = dip(16))`.
+
+That improves readability as the word "horizontal" is no longer repeated, and it is still explicit.
+
+#### Views Material
+
+Two set-only extensions properties have been added for `MaterialButton`:
+`iconResource` and `iconTintAndTextColor`.
+
+
+## Version 3.0.0-alpha04 (2019-03-03)
+Compiled with Kotlin 1.3.21.
+
+### New features
+- The `wrapContent` and `matchParent` extensions for `ViewGroup` now apply for `View` too.
+- Add `wrapInScrollView` and `wrapInHorizontalScrollView` extension functions for `View`.
+- Add experimental multiplatform support with initial Kotlin/JS support for the `Bit Flags` and `Collections` splits.
+
+### Changes
+
+- Rename `LifecycleOwner.coroutineScope` to `lifecycleScope`. This change is binary compatible.
+- Make `wrapInRecyclerView` lambda inline. This change is not binary compatible.
+
+### Fixes
+
+- Remove contract in the `Intents` split that would cause compilation to fail when used.
+
+
 ## Version 3.0.0-alpha03 (2019-02-05)
 Compiled with Kotlin 1.3.20.
 
@@ -8,8 +93,8 @@ Compiled with Kotlin 1.3.20.
 ### New features
 - Added `radioGroup { ... }` functions in Views DSL.
 - Added first class support for `ConstraintLayout` barriers, guidelines and groups.
-- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/main/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
-- The [MaterialComponentsStyles](modules/views-dsl-material/src/main/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
+- New `styledView` function for use when making an API for xml styles usage in Kotlin. See an example in [AppCompatStyles](modules/views-dsl-appcompat/src/androidMain/kotlin/splitties/views/dsl/appcompat/AppCompatStyles.kt).
+- The [MaterialComponentsStyles](modules/views-dsl-material/src/androidMain/kotlin/splitties/views/dsl/material/MaterialComponentsStyles.kt) class brings access to all the xml styles defined in Google's Material Components library for Android in a typesafe way.
 - Add `materialCardView { ... }` functions in Views DSL Material.
 - Add `navigationView { ... }` functions in Views DSL Material.
 - Make `EditText` inputType typesafe with the set only `type` extension property and the `InputType` inline class.
@@ -41,6 +126,7 @@ This release has the following new artifact:
 "com.louiscad.splitties:splitties-views-coroutines:3.0.0-alpha03"
 ```
 
+
 ## Version 3.0.0-alpha02 (2019-01-06)
 
 **This release introduces a new split: [Lifecycle Coroutines](modules/lifecycle-coroutines/README.md).**
@@ -50,6 +136,7 @@ This release has the following new artifact:
 ```
 "com.louiscad.splitties:splitties-lifecycle-coroutines:3.0.0-alpha02"
 ```
+
 
 ## Version 3.0.0-alpha01 (2018-12-21)
 This release is compiled with Kotlin 1.3.11.
@@ -83,7 +170,7 @@ an alternative that would work properly, and perform faster._
 The solution has been a Kotlin script that is a white box, and runs in a matter of seconds. You can
 use it for your project too, so you can migrate to AndroidX quickly, and in a `fun` way.
 
-It is available [here](scripts/AndroidX-migrator.gradle.kts), and depends on
+It is available [here](scripts/AndroidX-migrator.kts), and depends on
 [this csv file](scripts/androidx-class-mapping.csv).
 
 _Note that this script doesn't migrate the dependencies, because we changed the way we define
@@ -137,6 +224,7 @@ This release removes these two artifacts:
 ~`"com.louiscad.splitties:splitties-views-design-styles:2.1.1"`~
 ~`"com.louiscad.splitties:splitties-views-dsl-design-styles:2.1.1"`~
 
+
 ## Version 2.1.1 (2018-11-25)
 This release is compiled with Kotlin 1.3.10.
 
@@ -151,6 +239,7 @@ done in `putExtras` instead. You can see more info in the updated KDoc of these 
 - Add KDoc to all public symbols from the AlertDialog split.
 - Add KDoc to all public symbols from the AlertDialog AppCompat split.
 
+
 ## Version 2.1.0 (2018-11-13)
 This release targets Android SDK 28, and splits depending on support libraries use version 28.0.0.
 
@@ -160,6 +249,7 @@ This release targets Android SDK 28, and splits depending on support libraries u
 design support library version 28.0.0.
 - Update for nullability warnings brought by SDK 28.
 
+
 ## Version 2.0.0 (2018-11-13)
 This release targets Android SDK 27, and splits depending on support libraries use version 27.1.1.
 
@@ -167,6 +257,7 @@ This release targets Android SDK 27, and splits depending on support libraries u
 - Room updated to version 1.1.1 in Arch Room.
 - Lambdas of `onCreate` and `onOpen` functions in Arch Room are now `crossinline`.
 - The `LifecycleObserver` class is now marked as experimental.
+
 
 ## Version 2.0.0-beta1 (2018-11-13)
 This release **breaks binary and source compatibility**.
@@ -187,6 +278,7 @@ are replaced, renamed or removed (still with a deprecation cycle whenever possib
 `verticalListLayoutParams` and `horizontalListLayoutParams` extension functions for
 `RecyclerView.LayoutManager` are experimental for now, but this could change, especially in alpha,
 or beta stage.
+
 
 ## Version 2.0.0-alpha9 (2018-11-13)
 This release **breaks binary and source compatibility**.
@@ -221,15 +313,15 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
+implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-design:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your
@@ -247,15 +339,16 @@ allProjects {
 ### Removed artifacts
 This release removes all these artifacts:
 
-~`implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"`~
-~`debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-design:$splitties_version")`~
+~`debugImplementation("com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version")`~
+
 
 ## Version 2.0.0-alpha8 (2018-11-12)
 This release **breaks binary compatibility**.
@@ -266,10 +359,12 @@ Make sure you don't rely on any library that uses an old version of a Splitties 
 on these previously deprecated and now removed symbols, or your app is likely not build, or to
 crash at runtime because of not found classes.
 
+
 ## Version 2.0.0-alpha7 (2018-11-12)
 Raise all deprecated symbols deprecation level to error.
 
 Use this version to make sure you don't use them in your projects, next version will remove them!
+
 
 ## Version 2.0.0-alpha6 (2018-11-11)
 Version 2.0.0-alpha5 broke the API, this version fixes this.
@@ -354,6 +449,7 @@ encounter gradle sync issues, or runtime issues, and the real cause may not appe
 #### View DSL RecyclerView
 The `wrapInRecyclerView` extension function now accepts an optional lambda to configure the wrapping
 `RecyclerView` easily.
+
 
 ## Version 2.0.0-alpha5 (2018-11-02)
 _This release is **breaking** if you come from version 2.0.0-alpha4, especially if you were using
@@ -471,19 +567,21 @@ to handle user deny.
 ### New artifact
 This release has a new artifact:
 ```groovy
-implementation "com.louiscad.splitties:splitties-mainthread:$splitties_version"
+implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
 ```
 
 ### Removed artifacts
 This release removes these two artifacts:
 
-~`implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"`~
-~`implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"`~
+~`implementation("com.louiscad.splitties:splitties-uithread:$splitties_version")`~
+~`implementation("com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version")`~
+
 
 ## Version 2.0.0-alpha4 (2018-07-09)
 * Provide `ReplaceWith` migrations for `add` methods deprecated in version 2.0.0-alpha2.
 * Add default empty lambda for `startActivity(action: String…)` methods.
 * Compiled with Kotlin 1.2.51
+
 
 ## Version 2.0.0-alpha3 (2018-06-09)
 ### New features
@@ -506,6 +604,7 @@ longer any ambiguity since platform Fragments are deprecated and going away. Aut
 import the versions from the new package for you.
 - The delegates previously returned by `arg()` and `argOrNull()` are no longer part of the public
 API and have been replaced by the `ReadWriteProperty` interface.
+
 
 ## Version 2.0.0-alpha2 (2018-05-21)
 ### 9 new library modules (amounting to a total of 42 splits):
@@ -573,15 +672,15 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-activities:$splitties_version"
-implementation "com.louiscad.splitties:splitties-collections:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragments:$splitties_version"
-implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-colors:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-cardview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
+implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
+implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-recyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-design:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your
@@ -595,6 +694,7 @@ allProjects {
 ```
 
 </details>
+
 
 ## Version 2.0.0-alpha1 (2018-03-11)
 ### 26 new library modules (amounting to a total of 33 splits):
@@ -668,39 +768,39 @@ Here are all the artifacts added in this version. Just use the ones you need. (C
 </summary>
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-alertdialog:$splitties_version"
-implementation "com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-arch-room:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bitflags:$splitties_version"
-implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
-implementation "com.louiscad.splitties:splitties-checkedlazy:$splitties_version"
-implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-exceptions:$splitties_version"
-implementation "com.louiscad.splitties:splitties-initprovider:$splitties_version"
-implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
-implementation "com.louiscad.splitties:splitties-material-lists:$splitties_version"
-implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
-implementation "com.louiscad.splitties:splitties-resources:$splitties_version"
-implementation "com.louiscad.splitties:splitties-fragmentargs:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
-implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
-implementation "com.louiscad.splitties:splitties-toast:$splitties_version"
-implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-uithread:$splitties_version"
-implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version"
-implementation "com.louiscad.splitties:splitties-viewdsl-design:$splitties_version"
-debugImplementation "com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views:$splitties_version"
-implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
+implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
+implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
+implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
+implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
+implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
+implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-selectableviews-constraintlayout:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
+implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
+implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-uithread:$splitties_version")
+implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-appcompat-styles:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-viewdsl-design:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-viewdsl-ide-preview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
 ```
 
 All the lines above assume you defined the `splitties_version` ext property in your
@@ -714,6 +814,7 @@ allProjects {
 ```
 
 </details>
+
 
 ## Version 1.3.0 (2017-04-17)
 ### 5 new library modules:
@@ -733,16 +834,19 @@ https://material.io/guidelines/)
 - Typesafe RecyclerView now depends on Kotlin
 - Typesafe RecyclerView has a new `ItemViewHolder` helper class for simple but common use cases.
 
+
 ## Version 1.2 (2016-09-19)
 This version adds the `setHost(Host host)` method in `ViewWrapper.Binder` interface where `Host` can
 be any type you want you can use from the implementing item View to communicate with your Activity,
 Fragment, Presenter, or whatever. Note this adds a third type parameter to the `ViewWrapper` class,
 and a second one for the `ViewWrapper.Binder` class.
 
+
 ## Version 1.1 (2016-09-11)
 This version adds the `setViewHolder(ViewWrapper holder)` method in `ViewWrapper.Binder` interface
 so list item `View`s can now get a reference to their `ViewHolder`, and call `getAdapterPosition()`
 on it for example.
+
 
 ## Version 1.0 (2016-08-24)
 This is the first release of Splitties. It includes two independent modules:

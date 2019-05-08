@@ -1,22 +1,10 @@
 /*
- * Copyright (c) 2018. Louis Cognault Ayeva Derman
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @Suppress("unused")
 object Versions {
-    const val kotlin = "1.3.21"
+    const val kotlin = "1.3.31" // Don't forget to update in buildSrc/build.gradle.kts too!
 }
 
 /**
@@ -25,6 +13,7 @@ object Versions {
 @Suppress("unused")
 object Libs {
     const val junit = "junit:junit:4.12"
+    const val roboElectric = "org.robolectric:robolectric:4.2"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val stetho = "com.facebook.stetho:stetho:1.5.0"
 
@@ -42,10 +31,12 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
-            private const val version = "1.1.1"
+            private const val version = "1.2.1"
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
             const val core = "$artifactPrefix-core:$version"
+            const val coreCommon = "$artifactPrefix-core-common:$version"
             const val android = "$artifactPrefix-android:$version"
+            const val playServices = "$artifactPrefix-play-services:$version"
             const val test = "$artifactPrefix-test:$version"
         }
     }
@@ -138,6 +129,7 @@ object Libs {
         val room = Room
         val paging = Paging
         val work = Work
+        val navigation = Navigation
         val slice = Slice
         val archCore = ArchCore
         val test = Test
@@ -180,10 +172,25 @@ object Libs {
         }
 
         object Work {
-            private const val version = "1.0.0-beta05"
-            const val runtime = "android.arch.work:work-runtime:$version"
-            const val runtimeKtx = "android.arch.work:work-runtime-ktx:$version"
-            const val testing = "android.arch.work:work-testing:$version"
+            private const val version = "2.0.0"
+            const val runtime = "androidx.work:work-runtime:$version"
+            const val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
+            const val testing = "androidx.work:work-testing:$version"
+        }
+
+        object Navigation {
+            private const val version = "2.0.0"
+            private const val artifactPrefix = "androidx.navigation:navigation"
+            const val common = "$artifactPrefix-common:$version"
+            const val commonKtx = "$artifactPrefix-common-ktx:$version"
+            const val fragment = "$artifactPrefix-fragment:$version"
+            const val fragmentKtx = "$artifactPrefix-fragment-ktx:$version"
+            const val runtime = "$artifactPrefix-runtime:$version"
+            const val runtimeKtx = "$artifactPrefix-runtime-ktx:$version"
+            const val ui = "$artifactPrefix-ui:$version"
+            const val uiKtx = "$artifactPrefix-ui-ktx:$version"
+            const val safeArgsGenerator = "$artifactPrefix-safe-args-generator:$version"
+            const val safeArgsGradlePlugin = "$artifactPrefix-safe-args-gradle-plugin:$version"
         }
 
         object Slice {
@@ -272,7 +279,15 @@ object Libs {
         val playServices = PlayServices
 
         object PlayServices {
-            const val wearable = "com.google.android.gms:play-services-wearable:15.0.1"
+            private const val artifactPrefix = "com.google.android.gms:play-services"
+            const val base = "$artifactPrefix-base:16.0.1"
+            const val auth = "$artifactPrefix-auth:16.0.1"
+            const val location = "$artifactPrefix-location:16.0.0"
+            const val tasks = "$artifactPrefix-tasks:16.0.1"
+            private const val visionVersion = "17.0.2"
+            const val vision = "$artifactPrefix-vision:$visionVersion"
+            const val visionCommon = "$artifactPrefix-vision-common:$visionVersion"
+            const val wearable = "$artifactPrefix-wearable:16.0.1"
         }
     }
 

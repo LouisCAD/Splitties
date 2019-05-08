@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+
+<resources>
+    <string name="permission_denied_permanently_go_to_settings">You denied the permission permanently.\nYou can grant it in the settings.</string>
+    <string name="quit">Quit</string>
+</resources>

@@ -105,7 +105,7 @@ The result should look like this:
 ```
 
 ```kotlin
-import splitties.init.AppCtxInitProvider
+import AppCtxInitProvider
 
 class SecondProcessInitProvider : AppCtxInitProvider()
 ```
@@ -113,5 +113,5 @@ class SecondProcessInitProvider : AppCtxInitProvider()
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-appctx:$splitties_version"
+implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
 ```

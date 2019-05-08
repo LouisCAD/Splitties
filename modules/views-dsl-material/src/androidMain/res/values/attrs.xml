@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingDefaultResource">
+
+    <attr name="Widget.MaterialComponents.BottomAppBar" format="reference"/>
+    <attr name="Widget.MaterialComponents.BottomAppBar.Colored" format="reference"/>
+
+    <attr name="Widget.MaterialComponents.BottomNavigationView" format="reference"/>
+    <attr name="Widget.MaterialComponents.BottomNavigationView.Colored" format="reference"/>
+
+    <attr name="Widget.MaterialComponents.Button" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.Icon" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.OutlinedButton" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.OutlinedButton.Icon" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.TextButton" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.TextButton.Icon" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.TextButton.Dialog" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.TextButton.Dialog.Icon" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.UnelevatedButton" format="reference"/>
+    <attr name="Widget.MaterialComponents.Button.UnelevatedButton.Icon" format="reference"/>
+
+    <attr name="Widget.MaterialComponents.Chip.Action" format="reference"/>
+    <attr name="Widget.MaterialComponents.Chip.Choice" format="reference"/>
+    <attr name="Widget.MaterialComponents.Chip.Entry" format="reference"/>
+    <attr name="Widget.MaterialComponents.Chip.Filter" format="reference"/>
+
+    <attr name="Widget.MaterialComponents.TabLayout" format="reference"/>
+    <attr name="Widget.MaterialComponents.TabLayout.Colored" format="reference"/>
+
+    <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox" format="reference"/>
+    <attr name="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" format="reference"/>
+    <attr name="Widget.MaterialComponents.TextInputLayout.OutlinedBox" format="reference"/>
+    <attr name="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense" format="reference"/>
+
+</resources>

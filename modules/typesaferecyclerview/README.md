@@ -13,11 +13,11 @@ See the sample to understand how it works.
 When using `ViewHolder`, use the one from Splitties to get the typesafe one.
 
 See it in action in the sample: [DemoAdapter](
-../../sample/src/main/kotlin/com/louiscad/splittiessample/demo/DemoAdapter.kt
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoAdapter.kt
 ).
 
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version"
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
 ```
