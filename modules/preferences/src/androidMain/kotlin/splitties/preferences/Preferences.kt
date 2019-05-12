@@ -11,6 +11,7 @@ import android.os.Build.VERSION.SDK_INT
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.init.appCtx
 import splitties.init.directBootCtx
+import splitties.preferences.delegates.StringSetOrNullPref
 import kotlin.reflect.KProperty
 
 @ExperimentalSplittiesApi
@@ -67,7 +68,11 @@ abstract class Preferences(
 
     protected fun stringSetOrNullPref(
         defaultValue: Set<String>? = null
-    ) = StringSetOrNullPref(this, key = null, defaultValue = defaultValue)
+    ) = StringSetOrNullPref(
+        this,
+        key = null,
+        defaultValue = defaultValue
+    )
 
     private var isEditing = false
     private var useCommit = false
