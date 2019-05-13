@@ -28,6 +28,11 @@ kotlin {
             api(Libs.kotlin.stdlibJdk7)
             compileOnly(Libs.kotlinX.coroutines.android)
         }
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.Experimental")
+            }
+        }
     }
 }
 

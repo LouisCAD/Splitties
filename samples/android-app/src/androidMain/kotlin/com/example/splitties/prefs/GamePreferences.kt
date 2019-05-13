@@ -6,11 +6,13 @@ package com.example.splitties.prefs
 
 import com.example.splitties.extensions.coroutines.SuspendLazy
 import kotlinx.coroutines.Dispatchers
+import splitties.preferences.DangerousRenaming
 import splitties.preferences.Preferences
 
 class GamePreferences private constructor() : Preferences("gameState") {
     companion object : SuspendLazy<GamePreferences>(Dispatchers.IO, ::GamePreferences)
 
+    @DangerousRenaming
     var magicNumber by intPref(0)
     var currentLevel by IntPref("currentLevel", 1)
     var bossesFought by IntPref("bossBattleVictories", 0)
