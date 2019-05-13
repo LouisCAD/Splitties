@@ -8,6 +8,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.util.AttributeSet
+import androidx.appcompat.R
 import splitties.resources.styledDimenPxSize
 import kotlin.LazyThreadSafetyMode.NONE
 import androidx.appcompat.widget.Toolbar as AndroidXToolbar
