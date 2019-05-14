@@ -105,3 +105,13 @@ private fun VibrationEffect.toPlatformVibe(): VibrationEffectApi26 = when (this)
     }
     is OneShot -> VibrationEffectApi26.createOneShot(milliseconds, amplitude)
 }
+
+/**
+ * Returns the duration of the vibration effect.
+ * The repeat property of wave form patterns is ignored because those effects
+ * are repeated until cancelled, with iterations count consequently unknown.
+ */
+fun VibrationEffect.durationMillis(): Long = when (this) {
+    is WaveForm -> timings.sum()
+    is OneShot -> milliseconds
+}
