@@ -183,7 +183,7 @@ class StringSetPref @PublishedApi internal constructor(
     key: String?,
     val defaultValue: Set<String> = emptySet()
 ) : PrefDelegate<Set<String>>(preferences, key) {
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>): Set<String>? {
+    operator fun getValue(thisRef: Any?, prop: KProperty<*>): Set<String> {
         return preferences.prefs.getStringSet(key ?: prop.name, defaultValue)!!
     }
 
