@@ -21,6 +21,12 @@ sealed class PrefDelegate<T>(
     private val preferences: Preferences,
     val key: String?
 ) {
+    @ExperimentalSplittiesApi
+    fun doesBelongTo(sharedPreferences: SharedPreferences): Boolean {
+        val delegateBackingPreferences: SharedPreferences = preferences.prefs
+        return delegateBackingPreferences === sharedPreferences
+    }
+
     @FlowPreview
     @ExperimentalSplittiesApi
     fun changesFlow(): Flow<Unit> {
