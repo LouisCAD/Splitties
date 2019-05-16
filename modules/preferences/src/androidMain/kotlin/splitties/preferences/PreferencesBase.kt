@@ -56,11 +56,10 @@ abstract class PreferencesBase internal constructor(
     operator fun contains(o: Any) = prefs === o
 
     private var isEditing = false
-    private var useCommit = false
     private var useCommitForEdit = false
 
     internal fun SharedPreferences.Editor.attemptApply() {
         if (isEditing) return
-        if (useCommit) commit() else apply()
+        apply()
     }
 }
