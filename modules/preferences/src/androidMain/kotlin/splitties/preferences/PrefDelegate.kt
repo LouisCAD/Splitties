@@ -165,7 +165,7 @@ class StringPref @PublishedApi internal constructor(
 class StringOrNullPref @PublishedApi internal constructor(
     private val preferences: Preferences,
     key: String?,
-    val defaultValue: String? = null
+    val defaultValue: String?
 ) : PrefDelegate<String?>(preferences, key) {
     operator fun getValue(thisRef: Any?, prop: KProperty<*>): String? {
         return preferences.prefs.getString(key ?: prop.name, defaultValue)
@@ -181,7 +181,7 @@ class StringOrNullPref @PublishedApi internal constructor(
 class StringSetPref @PublishedApi internal constructor(
     private val preferences: Preferences,
     key: String?,
-    val defaultValue: Set<String> = emptySet()
+    val defaultValue: Set<String>
 ) : PrefDelegate<Set<String>>(preferences, key) {
     operator fun getValue(thisRef: Any?, prop: KProperty<*>): Set<String> {
         return preferences.prefs.getStringSet(key ?: prop.name, defaultValue)!!
@@ -197,7 +197,7 @@ class StringSetPref @PublishedApi internal constructor(
 class StringSetOrNullPref @PublishedApi internal constructor(
     private val preferences: Preferences,
     key: String?,
-    val defaultValue: Set<String>? = null
+    val defaultValue: Set<String>?
 ) : PrefDelegate<Set<String>?>(preferences, key) {
     operator fun getValue(thisRef: Any?, prop: KProperty<*>): Set<String>? {
         return preferences.prefs.getStringSet(key ?: prop.name, defaultValue)

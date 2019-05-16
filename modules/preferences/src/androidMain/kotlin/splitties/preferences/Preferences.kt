@@ -93,7 +93,7 @@ abstract class Preferences(
     @Suppress("FunctionName")
     protected inline fun StringOrNullPref(
         key: String,
-        defaultValue: String?
+        defaultValue: String? = null
     ) = StringOrNullPref(this, key = key, defaultValue = defaultValue)
 
     @Suppress("FunctionName")
