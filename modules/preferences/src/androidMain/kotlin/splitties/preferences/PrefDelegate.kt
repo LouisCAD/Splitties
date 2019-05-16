@@ -165,7 +165,7 @@ class StringPref @PublishedApi internal constructor(
 class StringOrNullPref @PublishedApi internal constructor(
     private val preferences: Preferences,
     key: String?,
-    val defaultValue: String?
+    val defaultValue: String? = null
 ) : PrefDelegate<String?>(preferences, key) {
     operator fun getValue(thisRef: Any?, prop: KProperty<*>): String? {
         return preferences.prefs.getString(key ?: prop.name, defaultValue)
