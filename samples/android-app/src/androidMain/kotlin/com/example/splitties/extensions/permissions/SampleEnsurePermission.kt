@@ -12,12 +12,31 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.example.splitties.R
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.DialogButton
 import splitties.alertdialog.appcompat.coroutines.showAndAwait
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.resources.txt
+
+suspend fun FragmentActivity.ensurePermissionOrFinishAndCancel(
+    permission: String,
+    askDialogTitle: CharSequence,
+    askDialogMessage: CharSequence,
+    showRationaleBeforeFirstAsk: Boolean = true,
+    returnButtonText: CharSequence = txt(R.string.quit)
+): Unit = ensurePermission(
+    activity = this,
+    fragmentManager = supportFragmentManager,
+    lifecycle = lifecycle,
+    permission = permission,
+    askDialogTitle = askDialogTitle,
+    askDialogMessage = askDialogMessage,
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    returnButtonText = returnButtonText
+) { finish(); suspendCancellableCoroutine<Nothing> { c -> c.cancel() } }
 
 suspend inline fun FragmentActivity.ensurePermission(
     permission: String,

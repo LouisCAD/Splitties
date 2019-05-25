@@ -8,8 +8,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.splitties.R
-import com.example.splitties.extensions.permissions.ensurePermission
-import kotlinx.coroutines.CancellationException
+import com.example.splitties.extensions.permissions.ensurePermissionOrFinishAndCancel
 import kotlinx.coroutines.launch
 import splitties.dimensions.dip
 import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
@@ -31,7 +30,12 @@ class PermissionsExampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
-            ensureCalendarPermissionOrFinishActivity()
+            ensurePermissionOrFinishAndCancel(
+                permission = Manifest.permission.WRITE_CALENDAR,
+                askDialogTitle = "Calendar permission required",
+                askDialogMessage = "We will ask for calendar permission.\n" +
+                        "Don't grant it too soon if you want to test all cases from this sample!"
+            )
             contentView = frameLayout {
                 add(textView {
                     textAppearance = R.style.TextAppearance_AppCompat_Headline
@@ -42,11 +46,4 @@ class PermissionsExampleActivity : AppCompatActivity() {
             }
         }
     }
-
-    private suspend fun ensureCalendarPermissionOrFinishActivity() = ensurePermission(
-        permission = Manifest.permission.WRITE_CALENDAR,
-        askDialogTitle = "Calendar permission required",
-        askDialogMessage = "We will ask for calendar permission.\n" +
-                "Don't grant it too soon if you want to test all cases from this sample!"
-    ) { finish(); throw CancellationException() }
 }
