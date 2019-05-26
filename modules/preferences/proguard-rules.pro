@@ -9,4 +9,5 @@
 
 # Add any project specific keep options here:
 
--dontwarn splitties.preferences.experimental.**
+# Coroutines are optional and would generate warnings if target project doesn't have the dependency.
+-dontwarn splitties.preferences.**
