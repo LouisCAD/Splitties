@@ -20,7 +20,7 @@ import kotlin.reflect.KProperty
  * This class doesn't extend [ReadWriteProperty] to avoid double autoboxing on primitive values.
  */
 sealed class PrefDelegate<T>(
-    @JvmField protected val preferences: Preferences,
+    @JvmField val preferences: Preferences,
     @JvmField val key: String
 ) {
     @ExperimentalSplittiesApi
