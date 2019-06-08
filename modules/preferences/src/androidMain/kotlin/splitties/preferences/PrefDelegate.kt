@@ -61,14 +61,14 @@ sealed class PrefDelegate<T>(
 
     @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
     private fun getValue(): T = when (this) {
-        is BoolPref -> preferences.prefs.getBoolean(key, defaultValue)
-        is IntPref -> preferences.prefs.getInt(key, defaultValue)
-        is FloatPref -> preferences.prefs.getFloat(key, defaultValue)
-        is LongPref -> preferences.prefs.getLong(key, defaultValue)
-        is StringPref -> preferences.prefs.getString(key, defaultValue)!!
-        is StringOrNullPref -> preferences.prefs.getString(key, defaultValue)
-        is StringSetPref -> preferences.prefs.getStringSet(key, defaultValue)
-        is StringSetOrNullPref -> preferences.prefs.getStringSet(key, defaultValue)!!
+        is BoolPref -> value
+        is IntPref -> value
+        is FloatPref -> value
+        is LongPref -> value
+        is StringPref -> value
+        is StringOrNullPref -> value
+        is StringSetPref -> value
+        is StringSetOrNullPref -> value
     } as T
 }
 
