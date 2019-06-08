@@ -7,11 +7,13 @@
 package splitties.preferences
 
 import android.content.SharedPreferences
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flowViaChannel
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
@@ -29,35 +31,33 @@ sealed class PrefDelegate<T>(
         return delegateBackingPreferences === sharedPreferences
     }
 
-    @FlowPreview
+    @ExperimentalCoroutinesApi
     @ExperimentalSplittiesApi
-    fun changesFlow(): Flow<Unit> = flowViaChannel(Channel.CONFLATED) { sendChannel ->
+    fun changesFlow(): Flow<Unit> = channelFlow<Unit> {
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changedKey ->
-            if (key == changedKey) runCatching { sendChannel.offer(Unit) }
+            if (key == changedKey) runCatching { offer(Unit) }
         }
         preferences.prefs.registerOnSharedPreferenceChangeListener(listener)
-        @Suppress("EXPERIMENTAL_API_USAGE")
-        sendChannel.invokeOnClose {
+        awaitClose {
             preferences.prefs.unregisterOnSharedPreferenceChangeListener(listener)
         }
-    }
+    }.conflate()
 
-    @FlowPreview
-    fun valueFlow(): Flow<T> = flowViaChannel<T>(Channel.CONFLATED) { sendChannel ->
+    @ExperimentalCoroutinesApi
+    fun valueFlow(): Flow<T> = callbackFlow<T> {
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching {
-                sendChannel.offer(getValue())
+                offer(getValue())
             }
         }
         preferences.prefs.registerOnSharedPreferenceChangeListener(listener)
         runCatching {
-            sendChannel.offer(getValue())
+            offer(getValue())
         }
-        @Suppress("EXPERIMENTAL_API_USAGE")
-        sendChannel.invokeOnClose {
+        awaitClose {
             preferences.prefs.unregisterOnSharedPreferenceChangeListener(listener)
         }
-    }.distinctUntilChanged()
+    }.conflate().distinctUntilChanged()
 
     @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
     private fun getValue(): T = when (this) {
