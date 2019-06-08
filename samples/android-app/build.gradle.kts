@@ -56,6 +56,7 @@ kotlin {
                 useExperimentalAnnotation("kotlin.Experimental")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
+                useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")
             }
         }
         getByName("commonMain").dependencies {
