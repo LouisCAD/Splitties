@@ -2,8 +2,6 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:UseExperimental(InternalSplittiesApi::class)
-
 package splitties.preferences
 
 import splitties.experimental.ExperimentalSplittiesApi
@@ -18,11 +16,14 @@ inline fun <P : Preferences> P.edit(
     blocking: Boolean = false,
     crossinline editions: P.() -> Unit
 ) {
+    @UseExperimental(InternalSplittiesApi::class)
     beginEdit(blocking)
     try {
         editions()
+        @UseExperimental(InternalSplittiesApi::class)
         endEdit()
     } catch (t: Throwable) {
+        @UseExperimental(InternalSplittiesApi::class)
         abortEdit()
         throw t
     }

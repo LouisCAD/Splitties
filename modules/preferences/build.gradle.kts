@@ -20,6 +20,7 @@ kotlin {
     sourceSets {
         getByName("commonMain").dependencies {
             api(splitties("experimental"))
+            compileOnly(Libs.kotlinX.coroutines.coreCommon)
         }
         getByName("androidMain").dependencies {
             api(splitties("appctx"))

@@ -6,27 +6,18 @@
     "NOTHING_TO_INLINE", "SameParameterValue", "unused",
     "DeprecatedCallableAddReplaceWith"
 )
-@file:UseExperimental(InternalSplittiesApi::class)
 
 package splitties.preferences
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
-import android.os.Build.VERSION.SDK_INT
 import splitties.experimental.InternalSplittiesApi
-import splitties.init.appCtx
-import splitties.init.directBootCtx
 import kotlin.reflect.KProperty
 
 abstract class Preferences(
     name: String,
-    availableAtDirectBoot: Boolean = false,
-    mode: Int = Context.MODE_PRIVATE
+    availableAtDirectBoot: Boolean = false
 ) : PreferencesBase(
     name = name,
-    availableAtDirectBoot = availableAtDirectBoot,
-    mode = mode
+    availableAtDirectBoot = availableAtDirectBoot
 ) {
 
     protected inline fun boolPref(
@@ -226,14 +217,12 @@ abstract class Preferences(
     }
 }
 
-@SuppressLint("CommitPrefEdits")
 sealed class PreferencesBase(
     name: String,
-    availableAtDirectBoot: Boolean = false,
-    mode: Int = Context.MODE_PRIVATE
+    availableAtDirectBoot: Boolean = false
 ) {
 
-    val prefs: SharedPreferences
+    val prefs: SharedPreferences = getSharedPreferences(name, availableAtDirectBoot)
 
     @InternalSplittiesApi
     fun beginEdit(blocking: Boolean = false) {
@@ -253,18 +242,7 @@ sealed class PreferencesBase(
         isEditing = false
     }
 
-    init {
-        val storageCtx: Context = if (availableAtDirectBoot && SDK_INT > 24) {
-            // Moving the sharedPreferences from is done by the system only if you had it outside
-            // the direct boot available storage or if the device was running Android M or older,
-            // and just got updated.
-            directBootCtx.moveSharedPreferencesFrom(appCtx, name)
-            directBootCtx
-        } else appCtx
-        prefs = storageCtx.getSharedPreferences(name, mode)
-    }
-
-    internal var editor: SharedPreferences.Editor by ResettableLazy { prefs.edit() }
+    internal var editor: SharedPreferencesEditor by ResettableLazy { prefs.edit() }
         private set
 
     operator fun contains(o: Any) = prefs === o
@@ -272,7 +250,7 @@ sealed class PreferencesBase(
     private var isEditing = false
     private var useCommitForEdit = false
 
-    internal fun SharedPreferences.Editor.attemptApply() {
+    internal fun SharedPreferencesEditor.attemptApply() {
         if (isEditing) return
         apply()
     }

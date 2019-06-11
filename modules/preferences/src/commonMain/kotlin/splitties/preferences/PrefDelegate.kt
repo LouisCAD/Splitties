@@ -6,7 +6,6 @@
 
 package splitties.preferences
 
-import android.content.SharedPreferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +33,7 @@ sealed class PrefDelegate<T>(
     @ExperimentalCoroutinesApi
     @ExperimentalSplittiesApi
     fun changesFlow(): Flow<Unit> = channelFlow<Unit> {
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changedKey ->
+        val listener = OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching { offer(Unit) }
         }
         preferences.prefs.registerOnSharedPreferenceChangeListener(listener)
@@ -45,7 +44,7 @@ sealed class PrefDelegate<T>(
 
     @ExperimentalCoroutinesApi
     fun valueFlow(): Flow<T> = callbackFlow<T> {
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, changedKey ->
+        val listener = OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching {
                 offer(getValue())
             }
@@ -204,14 +203,14 @@ class StringSetOrNullPref @PublishedApi internal constructor(
     val defaultValue: Set<String>?
 ) : PrefDelegate<Set<String>?>(preferences, key) {
 
-    var value: Set<String?>
+    var value: Set<String>?
         get() = preferences.prefs.getStringSet(key, defaultValue)!!
         set(value) = with(preferences) {
             editor.putStringSet(key, value).attemptApply()
         }
 
-    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String?> = value
-    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String?>) {
+    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String>? = value
+    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String>?) {
         this.value = value
     }
 }
