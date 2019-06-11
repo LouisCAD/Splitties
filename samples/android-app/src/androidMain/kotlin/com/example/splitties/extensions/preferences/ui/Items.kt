@@ -11,7 +11,10 @@ import splitties.preferences.PrefDelegate
 sealed class Item(val dependentPrefs: List<PrefDelegate<*>>)
 
 sealed class BuiltInItem(dependentPrefs: List<PrefDelegate<*>> = emptyList()) : Item(dependentPrefs)
-class OtherItem<T>(val content: T, dependentPrefs: List<PrefDelegate<*>>) : Item(dependentPrefs)
+class OtherItem<T>(
+    val content: T,
+    dependentPrefs: List<PrefDelegate<*>> = emptyList()
+) : Item(dependentPrefs)
 
 class StaticHeader(val headerText: CharSequence) : BuiltInItem()
 
