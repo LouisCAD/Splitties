@@ -51,22 +51,29 @@ class SwitchTwoLinesIconListItem(
         disableDefaultTint: Boolean
     ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
-    val switch = switch(R.id.toggle)
+    val switch = switch(R.id.toggle) {
+        isDuplicateParentStateEnabled = true
+    }
 
     val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        isDuplicateParentStateEnabled = true
     }
 
     val firstLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
         textAppearance = AppCompatR.style.TextAppearance_AppCompat_Subhead
+        isDuplicateParentStateEnabled = true
     }
 
     val secondLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
         textAppearance = AppCompatR.style.TextAppearance_AppCompat_Small
+        isDuplicateParentStateEnabled = true
     }
 
     init {

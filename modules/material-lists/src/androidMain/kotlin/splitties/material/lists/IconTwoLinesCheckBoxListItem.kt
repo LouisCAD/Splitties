@@ -53,21 +53,28 @@ class IconTwoLinesCheckBoxListItem(
 
     val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        isDuplicateParentStateEnabled = true
     }
 
     val firstLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead
+        isDuplicateParentStateEnabled = true
     }
 
     val secondLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Small
+        isDuplicateParentStateEnabled = true
     }
 
-    val checkBox = checkBox(R.id.checkbox)
+    val checkBox = checkBox(R.id.checkbox) {
+        isDuplicateParentStateEnabled = true
+    }
 
     init {
         val iconSize = dip(24)
