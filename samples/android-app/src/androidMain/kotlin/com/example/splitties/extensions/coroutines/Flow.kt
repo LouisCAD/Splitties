@@ -5,7 +5,7 @@
 package com.example.splitties.extensions.coroutines
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-@FlowPreview
+@ExperimentalCoroutinesApi
 suspend fun <E> Flow<E>.collectEachAndCancelPrevious(
     context: CoroutineContext = EmptyCoroutineContext,
     skipEquals: Boolean = false,
