@@ -25,20 +25,33 @@ class IconTwoLinesItem(
 ) : BuiltInItem(dependentPrefs.asList())
 
 sealed class PrefItem<D : PrefDelegate<*>>(
-    open val delegate: PrefDelegate<D>,
-    dependentPrefs: Array<out PrefDelegate<*>>
-) : BuiltInItem(List(dependentPrefs.size + 1) { i ->
-    if (i == dependentPrefs.size) delegate else dependentPrefs[i]
-})
+    @Suppress("CanBeParameter") // Enforce PrefItem to have a delegate.
+    open val delegate: D,
+    dependentPrefs: List<PrefDelegate<*>>
+) : BuiltInItem(dependentPrefs + delegate)
 
-class BoolPrefItem(
-    override val delegate: PrefDelegate<BoolPref>,
-    val controlType: ControlType,
+class BoolPrefItem<P : BoolPrefItem.Presentation>(
+    override val delegate: BoolPref,
+    val presentation: P,
     val firstLineText: (value: Boolean) -> CharSequence,
     val secondLineText: (value: Boolean) -> CharSequence,
     val getIconDrawable: (value: Boolean) -> Drawable,
     val isEnabled: (value: Boolean) -> Boolean = { true },
-    vararg dependentPrefs: PrefDelegate<*>
+    dependentPrefs: List<PrefDelegate<*>> = emptyList()
 ) : PrefItem<BoolPref>(delegate, dependentPrefs) {
-    enum class ControlType { CheckBox, Switch }
+
+    sealed class Presentation {
+        sealed class CheckBox : Presentation() {
+            object TwoLines : CheckBox()
+            object TwoText : CheckBox()
+        }
+
+        sealed class Switch : Presentation() {
+            object TwoLines : Switch()
+            object TwoText : Switch()
+        }
+    }
 }
+
+typealias BoolPrefCheckBoxItem = BoolPrefItem<BoolPrefItem.Presentation.CheckBox>
+typealias BoolPrefSwitchItem = BoolPrefItem<BoolPrefItem.Presentation.Switch>

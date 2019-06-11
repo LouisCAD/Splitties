@@ -24,12 +24,22 @@ abstract class AbstractPrefsRecyclerViewAdapter : ListAdapter<Item, RecyclerView
         super.submitList(list)
     }
 
+    private fun ensurePrefsChangesRegisteredForList(items: List<Item>) {
+        checkMainThread() // Ensure no race condition.
+        // No need to unregister the listener as no strong reference to it is kept by Android.
+        // The listener should be garbage collected with this adapter.
+        val itemsAdded = items.sumBy { item ->
+            item.dependentPrefs.count { prefDelegate -> prefs.add(prefDelegate.preferences.prefs) }
+        }
+        if (itemsAdded > 0) prefs.forEach { prefs ->
+            prefs.registerOnSharedPreferenceChangeListener(prefsListener)
+        }
+    }
+
     // Strong reference needed to keep the listener registered (Android keeps only a WeakReference).
     private val prefsListener = SharedPreferences.OnSharedPreferenceChangeListener { prefs, key ->
-        //TODO: Replace with forEachWithIndex
-        currentList.forEachIndexed { i, item ->
-            //TODO: Replace with forEachByIndex
-            item.dependentPrefs.forEach { prefDelegate ->
+        currentList.forEachWithIndex { i, item ->
+            item.dependentPrefs.forEachByIndex { prefDelegate ->
                 if (prefDelegate.doesBelongTo(prefs) && prefDelegate.key == key) {
                     notifyItemChanged(i)
                 }
@@ -39,18 +49,25 @@ abstract class AbstractPrefsRecyclerViewAdapter : ListAdapter<Item, RecyclerView
 
     private val prefs = mutableSetOf<SharedPreferences>()
 
-    private fun ensurePrefsChangesRegisteredForList(items: List<Item>) {
-        checkMainThread() // Ensure no race condition.
-        // No need to unregister the listener as no strong reference to it is kept by Android.
-        // The listener should be garbage collected with this adapter.
-        val itemsAdded = items.sumBy { item ->
-            item.dependentPrefs.count { prefDelegate -> prefs.add(prefDelegate.preferences.prefs) }
-        }
-        //TODO: Replace with forEachByIndex
-        if (itemsAdded > 0) prefs.forEach { prefs ->
-            prefs.registerOnSharedPreferenceChangeListener(prefsListener)
-        }
-    }
-
     abstract override fun getItemViewType(position: Int): Int
+}
+
+// TODO: Replace with splitties.collections.forEachByIndex import when
+//  https://youtrack.jetbrains.com/issue/KT-30116 is fixed.
+private inline fun <T> List<T>.forEachByIndex(action: (T) -> Unit) {
+    val initialSize = size
+    for (i in 0..lastIndex) {
+        if (size != initialSize) throw ConcurrentModificationException()
+        action(get(i))
+    }
+}
+
+// TODO: Replace with splitties.collections.forEachWithIndex import when
+//  https://youtrack.jetbrains.com/issue/KT-30116 is fixed.
+private inline fun <T> List<T>.forEachWithIndex(action: (Int, T) -> Unit) {
+    val initialSize = size
+    for (i in 0..lastIndex) {
+        if (size != initialSize) throw ConcurrentModificationException()
+        action(i, get(i))
+    }
 }
