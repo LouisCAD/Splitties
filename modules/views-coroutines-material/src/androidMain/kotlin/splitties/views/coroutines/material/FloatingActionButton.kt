@@ -24,7 +24,10 @@ suspend fun FloatingActionButton.showAndAwaitOneClickThenHide(
     if (disableAfterClick) isEnabled = true
     show()
     suspendCancellableCoroutine<Unit> { continuation ->
-        setOnClickListener { continuation.resume(Unit) }
+        setOnClickListener {
+            setOnClickListener(null)
+            continuation.resume(Unit)
+        }
     }
 } finally {
     setOnClickListener(null)

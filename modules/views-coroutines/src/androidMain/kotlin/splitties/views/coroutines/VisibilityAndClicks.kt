@@ -39,7 +39,10 @@ suspend fun View.awaitOneClick(
     if (disableAfterClick) isEnabled = true
     if (hideAfterClick) isVisible = true
     suspendCancellableCoroutine<Unit> { continuation ->
-        setOnClickListener { continuation.resume(Unit) }
+        setOnClickListener {
+            setOnClickListener(null)
+            continuation.resume(Unit)
+        }
     }
 } finally {
     setOnClickListener(null)
@@ -58,7 +61,10 @@ suspend fun View.awaitOneLongClick(
     if (disableAfterClick) isEnabled = true
     if (hideAfterClick) isVisible = true
     suspendCancellableCoroutine<Unit> { continuation ->
-        setOnLongClickListener { continuation.resume(Unit); true }
+        setOnLongClickListener {
+            setOnLongClickListener(null)
+            continuation.resume(Unit); true
+        }
     }
 } finally {
     setOnLongClickListener(null)
