@@ -4,4 +4,6 @@
 
 package splitties.preferences
 
+@UseExperimental(ExperimentalMultiplatform::class)
+@OptionalExpectation
 expect annotation class JvmField()

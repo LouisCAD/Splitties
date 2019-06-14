@@ -17,6 +17,7 @@ android {
 kotlin {
     metadataPublication(project)
     androidWithPublication(project)
+    iosWithPublication(project)
     sourceSets {
         getByName("commonMain").dependencies {
             api(splitties("experimental"))

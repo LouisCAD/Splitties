@@ -12,6 +12,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinCommonCompilation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinJsCompilation
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinJvmCompilation
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinOnlyTarget
 
 inline fun KotlinMultiplatformExtension.jvmWithPublication(
@@ -27,6 +28,20 @@ inline fun KotlinMultiplatformExtension.androidWithPublication(
 ) = android {
     publishLibraryVariants("release")
     mavenPublication { artifactId = "splitties-${project.name}" }; configure()
+}
+
+inline fun KotlinMultiplatformExtension.iosWithPublication(
+    project: Project,
+    crossinline configure: KotlinNativeTarget.() -> Unit = { }
+): List<KotlinNativeTarget> {
+    val config: KotlinNativeTarget.() -> Unit = {
+        mavenPublication { artifactId = "splitties-${project.name}-$name" }; configure()
+    }
+    return listOf(
+        iosArm64(configure = config),
+        iosArm32(configure = config),
+        iosX64(configure = config)
+    )
 }
 
 inline fun KotlinMultiplatformExtension.jsWithPublication(
