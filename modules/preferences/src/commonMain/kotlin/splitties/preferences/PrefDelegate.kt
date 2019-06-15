@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import splitties.experimental.ExperimentalSplittiesApi
+import kotlin.jvm.JvmField
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
