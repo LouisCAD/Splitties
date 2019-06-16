@@ -56,5 +56,6 @@ fun BintrayExtension.setupPublicationsUpload(
         publicDownloadNumbers = true
         githubRepo = "LouisCAD/Splitties"
         publish = isDevVersion
+        override = true //Needed to publish non cross-compilable targets.
     })
 }
