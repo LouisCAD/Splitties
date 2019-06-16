@@ -15,20 +15,27 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
-    iosWithPublication(project)
+    android()
+    macos()
+    ios()
+    configure(targets) { configureMavenPublication() }
+    setupNativeSourceSets()
     sourceSets {
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(splitties("experimental"))
             compileOnly(Libs.kotlinX.coroutines.coreCommon)
         }
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("appctx"))
             api(splitties("mainthread"))
 
             api(Libs.kotlin.stdlibJdk7)
             compileOnly(Libs.kotlinX.coroutines.android)
+        }
+        nativeMain {
+            dependencies {
+                api(Libs.kotlinX.coroutines.native)
+            }
         }
         all {
             languageSettings.apply {

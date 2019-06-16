@@ -46,7 +46,7 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     project.group = "com.louiscad.splitties"
     project.version = ProjectVersions.thisLibrary
     val publications = publications.withType<MavenPublication>()
-    publications.all(Action { setupPom() })
+    publications.all { setupPom() }
     publications.findByName("kotlinMultiplatform")?.apply {
         artifactId = "splitties-${project.name}-mpp"
     }

@@ -22,6 +22,7 @@ fun BintrayExtension.setupPublicationsUpload(
     skipMetadataPublication: Boolean = false,
     skipMultiplatformPublication: Boolean = skipMetadataPublication
 ) {
+    if (isRunningInIde) return // No publishing from IDE. Use Releasing.kts or command line instead.
     val bintrayUpload: TaskProvider<Task> by project.tasks.existing
     val publishToMavenLocal: TaskProvider<Task> by project.tasks.existing
     bintrayUpload.dependsOn(publishToMavenLocal)

@@ -7,7 +7,7 @@
 import org.gradle.api.Project
 
 fun Project.checkNoVersionRanges() {
-    configurations.forEach { it ->
+    configurations.forEach {
         it.resolutionStrategy {
             eachDependency {
                 val version = requested.version ?: return@eachDependency
@@ -20,5 +20,4 @@ fun Project.checkNoVersionRanges() {
             }
         }
     }
-
 }
