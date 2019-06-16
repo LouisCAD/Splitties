@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.js
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.jvm
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.native
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import java.util.Locale
 
 fun KotlinTarget.configureMavenPublication() {
     val suffix = when (platformType) {
@@ -17,7 +18,7 @@ fun KotlinTarget.configureMavenPublication() {
         jvm -> ""
         js -> "-js"
         androidJvm -> ""
-        native -> "-$name"
+        native -> "-${name.toLowerCase(Locale.ROOT)}"
     }
     mavenPublication { artifactId = "splitties-${project.name}$suffix" }
 }
