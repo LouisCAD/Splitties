@@ -14,7 +14,7 @@ import kotlin.native.ref.WeakReference
 internal actual fun getSharedPreferences(
     name: String,
     availableAtDirectBoot: Boolean
-): SharedPreferences = SharedPreferencesImpl(NSUserDefaults(user = name))
+): SharedPreferences = SharedPreferencesImpl(NSUserDefaults(suiteName = name))
 
 /**
  * This implementation doesn't have locks like the Android implementation has because thanks to
