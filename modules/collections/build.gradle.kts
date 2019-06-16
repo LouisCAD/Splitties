@@ -11,7 +11,10 @@ plugins {
 kotlin {
     jvm()
     js()
+    macos()
+    ios()
     configure(targets) { configureMavenPublication() }
+    setupNativeSourceSets()
     sourceSets {
         getByName("commonMain").dependencies {
             api(kotlin("stdlib-common"))
