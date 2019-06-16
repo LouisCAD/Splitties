@@ -2,7 +2,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:Suppress("UnusedImport") // Needed for delegates imports to not be removed by the IDE.
+@file:Suppress("PackageDirectoryMismatch")
 
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.jfrog.bintray.gradle.BintrayExtension

@@ -9,9 +9,9 @@ plugins {
 }
 
 kotlin {
-    metadataPublication(project)
-    jvmWithPublication(project)
-    jsWithPublication(project)
+    jvm()
+    js()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
         getByName("commonMain").dependencies {
             api(kotlin("stdlib-common"))

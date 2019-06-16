@@ -14,8 +14,8 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
 }
 
 afterEvaluate {

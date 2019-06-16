@@ -2,6 +2,8 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
+
 @Suppress("unused")
 object Versions {
     const val kotlin = "1.3.31" // Don't forget to update in buildSrc/build.gradle.kts too!

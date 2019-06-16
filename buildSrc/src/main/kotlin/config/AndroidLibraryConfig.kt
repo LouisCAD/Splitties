@@ -2,6 +2,8 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("PackageDirectoryMismatch")
+
 import org.gradle.api.Action
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 

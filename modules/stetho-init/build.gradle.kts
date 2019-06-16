@@ -14,8 +14,8 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
         getByName("androidMain").dependencies {
             api(splitties("initprovider"))

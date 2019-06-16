@@ -16,8 +16,8 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithFunPackPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
         getByName("androidMain").dependencies {
             api(project(":fun-packs:android-appcompat"))
