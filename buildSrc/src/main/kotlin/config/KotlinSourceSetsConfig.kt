@@ -5,7 +5,6 @@
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
 import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
@@ -35,13 +34,6 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 
 fun KotlinMultiplatformExtension.setupNativeSourceSets() {
     val nativeTargets = targets.filter { it.platformType == KotlinPlatformType.native }
-    if (isRunningInIde.not()) {
-        val project = targets.first().project
-        if (project.skipNativeTargets) {
-            targets.removeAll(nativeTargets)
-            return
-        }
-    }
     val nativeTargetsFamilies: Set<Family> = nativeTargets.map {
         (it.preset as KotlinNativeTargetPreset).konanTarget.family
     }.toSet()
@@ -225,6 +217,3 @@ private val iosMainSourceSetNameForIde = "ios${if (use32bitsInIde) "Arm32" else 
 private val androidNativeMainSourceSetNameForIde = use32bitsInIde.let { is32bits ->
     "androidNativeArm${if (is32bits) "32" else "64"}"
 }
-
-// When enabled, this allows to skip the quite slow compilation. Useful to debug locally.
-val Project.skipNativeTargets: Boolean get() = findProperty("skip_native") == "true"

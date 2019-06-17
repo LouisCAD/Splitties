@@ -14,7 +14,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import java.util.Locale
 
 fun KotlinTarget.configureMavenPublication() {
-    if (platformType == native && isRunningInIde.not() && project.skipNativeTargets) return
     val suffix = when (platformType) {
         common -> "-metadata"
         jvm -> ""

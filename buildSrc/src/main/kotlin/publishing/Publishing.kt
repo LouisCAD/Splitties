@@ -8,8 +8,6 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
-import java.net.URI
 
 object Publishing {
     const val gitUrl = "https://github.com/LouisCAD/Splitties.git"
@@ -50,13 +48,9 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     val mavenPublications = publications.withType<MavenPublication>()
     mavenPublications.all { setupPom() }
     mavenPublications.findByName("kotlinMultiplatform")?.let {
-        if (isRunningInIde.not() && project.skipNativeTargets) {
-            publications.remove(it)
-        } else {
-            val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
-            val suffix = "-mpp"
-            it.artifactId = "$prefix-${project.name}$suffix"
-        }
+        val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
+        val suffix = "-mpp"
+        it.artifactId = "$prefix-${project.name}$suffix"
     }
     setupPublishRepo(project)
 }
