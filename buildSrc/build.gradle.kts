@@ -27,19 +27,10 @@ repositories {
 
 val kotlinVersion = "1.3.31" // Don't forget to update in Dependencies.kt too!
 
-// We use a special gradle bintray plugin that supports proper publication for multiplatform.
-// Source: https://github.com/vvlevchenko/gradle-bintray-plugin/tree/publications-fix
-//TODO: Replace when https://github.com/JetBrains/kotlin-native/issues/2372 is fixed.
-val bintrayPluginVersion = "1.8.4-jetbrains-5"
-repositories.maven(
-    url = "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
-).ensureModulesStartingWith("com.jfrog.bintray.gradle:gradle-bintray-plugin")
-
 dependencies {
     compileOnly(gradleApi())
     implementation("com.android.tools.build:gradle:3.5.0-beta04")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-    implementation("com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion")
 }
 
 configurations.all {

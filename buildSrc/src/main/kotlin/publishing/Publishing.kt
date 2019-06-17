@@ -8,6 +8,8 @@ import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import java.net.URI
 
 object Publishing {
     const val gitUrl = "https://github.com/LouisCAD/Splitties.git"
@@ -45,9 +47,39 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     //TODO: Remove line above when https://youtrack.jetbrains.com/issue/KT-27170 is fixed
     project.group = "com.louiscad.splitties"
     project.version = ProjectVersions.thisLibrary
-    val publications = publications.withType<MavenPublication>()
-    publications.all { setupPom() }
-    publications.findByName("kotlinMultiplatform")?.apply {
-        artifactId = "splitties-${project.name}-mpp"
+    val mavenPublications = publications.withType<MavenPublication>()
+    mavenPublications.all { setupPom() }
+    mavenPublications.findByName("kotlinMultiplatform")?.let {
+        if (isRunningInIde.not() && project.skipNativeTargets) {
+            publications.remove(it)
+        } else {
+            val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
+            val suffix = "-mpp"
+            it.artifactId = "$prefix-${project.name}$suffix"
+        }
+    }
+    setupPublishRepo(project)
+}
+
+private fun PublishingExtension.setupPublishRepo(project: Project) {
+    repositories {
+        maven {
+            name = "bintray"
+            val bintrayUsername = "louiscad"
+            val bintrayRepoName = if (isDevVersion) "splitties-dev" else "maven"
+            val bintrayPackageName = "splitties"
+            setUrl(
+                "https://api.bintray.com/maven/" +
+                        "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
+                        "publish=0;" +
+                        "override=1"
+            )
+            credentials {
+                username = project.findProperty("bintray_user") as String?
+                password = project.findProperty("bintray_api_key") as String?
+            }
+        }
     }
 }
+
+internal val Project.isFunPack: Boolean get() = parent?.name == "fun-packs"

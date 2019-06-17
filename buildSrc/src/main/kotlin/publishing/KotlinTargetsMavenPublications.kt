@@ -10,9 +10,11 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.js
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.jvm
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.native
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import java.util.Locale
 
 fun KotlinTarget.configureMavenPublication() {
+    if (platformType == native && isRunningInIde.not() && project.skipNativeTargets) return
     val suffix = when (platformType) {
         common -> "-metadata"
         jvm -> ""
@@ -20,5 +22,12 @@ fun KotlinTarget.configureMavenPublication() {
         androidJvm -> ""
         native -> "-${name.toLowerCase(Locale.ROOT)}"
     }
-    mavenPublication { artifactId = "splitties-${project.name}$suffix" }
+    mavenPublication {
+        val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
+        artifactId = "$prefix-${project.name}$suffix"
+    }
+    if (platformType == androidJvm) {
+        (this as KotlinAndroidTarget).publishLibraryVariants("debug", "release")
+        this.publishLibraryVariantsGroupedByFlavor = true
+    }
 }

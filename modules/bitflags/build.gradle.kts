@@ -5,7 +5,6 @@
 plugins {
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 kotlin {
@@ -30,8 +29,4 @@ kotlin {
 
 publishing {
     setupAllPublications(project)
-}
-
-bintray {
-    setupPublicationsUpload(project, publishing)
 }

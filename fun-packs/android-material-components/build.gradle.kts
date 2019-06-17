@@ -8,7 +8,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -35,9 +34,5 @@ kotlin {
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing)
     }
 }

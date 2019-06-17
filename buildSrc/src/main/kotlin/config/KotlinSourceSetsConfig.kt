@@ -5,6 +5,7 @@
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
@@ -34,6 +35,13 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 
 fun KotlinMultiplatformExtension.setupNativeSourceSets() {
     val nativeTargets = targets.filter { it.platformType == KotlinPlatformType.native }
+    if (isRunningInIde.not()) {
+        val project = targets.first().project
+        if (project.skipNativeTargets) {
+            targets.removeAll(nativeTargets)
+            return
+        }
+    }
     val nativeTargetsFamilies: Set<Family> = nativeTargets.map {
         (it.preset as KotlinNativeTargetPreset).konanTarget.family
     }.toSet()
@@ -132,10 +140,10 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
 }
 
 
-val NamedDomainObjectContainer<out KotlinCompilation<KotlinCommonOptions>>.main: KotlinCompilation<KotlinCommonOptions>
+private val NamedDomainObjectContainer<out KotlinCompilation<KotlinCommonOptions>>.main: KotlinCompilation<KotlinCommonOptions>
     get() = getByName("main")
 
-val NamedDomainObjectContainer<out KotlinCompilation<KotlinCommonOptions>>.test: KotlinCompilation<KotlinCommonOptions>
+private val NamedDomainObjectContainer<out KotlinCompilation<KotlinCommonOptions>>.test: KotlinCompilation<KotlinCommonOptions>
     get() = getByName("test")
 
 
@@ -160,7 +168,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.iosMain(
 ): KotlinSourceSet? = when {
     os.isMacOS.not() -> null
     isRunningInIde -> getByName(iosMainSourceSetNameForIde)
-    else -> getByName("iosMain")
+    else -> findByName("iosMain")
 }?.apply(configureAction)
 
 
@@ -169,7 +177,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.macosMain(
 ): KotlinSourceSet? = when {
     os.isMacOS.not() -> null
     isRunningInIde -> getByName(macosMainSourceSetNameForIde)
-    else -> getByName("macosMain")
+    else -> findByName("macosMain")
 }?.apply(configureAction)
 
 
@@ -182,7 +190,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.appleMain(
             findByName(iosMainSourceSetNameForIde)?.apply(configureAction)
             findByName(macosMainSourceSetNameForIde)?.apply(configureAction)
         }
-        else -> getByName("appleMain").apply(configureAction)
+        else -> findByName("appleMain")?.apply(configureAction)
     }
 }
 
@@ -195,19 +203,17 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.nativeMain(
             findByName(macosMainSourceSetNameForIde)?.apply(configureAction)
             findByName(androidNativeMainSourceSetNameForIde)?.apply(configureAction)
         }
-        else -> getByName("nativeMain").apply(configureAction)
+        else -> findByName("nativeMain")?.apply(configureAction)
     }
 }
 
 
 fun NamedDomainObjectContainer<KotlinSourceSet>.androidNativeMain(
     configureAction: KotlinSourceSet.() -> Unit
-): KotlinSourceSet = getByName(
-    when {
-        isRunningInIde -> androidNativeMainSourceSetNameForIde
-        else -> "androidNativeMain"
-    }
-).apply(configureAction)
+): KotlinSourceSet? = when {
+    isRunningInIde -> getByName(androidNativeMainSourceSetNameForIde)
+    else -> findByName("androidNativeMain")
+}?.apply(configureAction)
 
 
 private const val macosMainSourceSetNameForIde = "macosX64Main"
@@ -219,3 +225,6 @@ private val iosMainSourceSetNameForIde = "ios${if (use32bitsInIde) "Arm32" else 
 private val androidNativeMainSourceSetNameForIde = use32bitsInIde.let { is32bits ->
     "androidNativeArm${if (is32bits) "32" else "64"}"
 }
+
+// When enabled, this allows to skip the quite slow compilation. Useful to debug locally.
+val Project.skipNativeTargets: Boolean get() = findProperty("skip_native") == "true"

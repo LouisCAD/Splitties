@@ -3,7 +3,7 @@
  */
 
 @file:Suppress("PackageDirectoryMismatch")
-
+/*
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import com.jfrog.bintray.gradle.BintrayExtension
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
@@ -55,7 +55,8 @@ fun BintrayExtension.setupPublicationsUpload(
         setLicenses("Apache-2.0")
         publicDownloadNumbers = true
         githubRepo = "LouisCAD/Splitties"
-        publish = isDevVersion
-        override = true //Needed to publish non cross-compilable targets.
+        publish = false // We need to publish manually once all artifacts have been uploaded.
+        override = true // Needed to publish non cross-compilable targets.
     })
 }
+*/
