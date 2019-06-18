@@ -18,7 +18,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             listOf(
                 "activities",
                 "appctx",

@@ -147,6 +147,22 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.commonMain(
 ): KotlinSourceSet = getByName(KotlinSourceSet.COMMON_MAIN_SOURCE_SET_NAME, configureAction)
 
 
+val NamedDomainObjectContainer<KotlinSourceSet>.jvmMain: KotlinSourceSet
+    inline get() = getByName("jvmMain")
+
+fun NamedDomainObjectContainer<KotlinSourceSet>.jvmMain(
+    configureAction: KotlinSourceSet.() -> Unit
+): KotlinSourceSet = getByName("jvmMain").apply(configureAction)
+
+
+val NamedDomainObjectContainer<KotlinSourceSet>.jsMain: KotlinSourceSet
+    inline get() = getByName("jsMain")
+
+fun NamedDomainObjectContainer<KotlinSourceSet>.jsMain(
+    configureAction: KotlinSourceSet.() -> Unit
+): KotlinSourceSet = getByName("jsMain").apply(configureAction)
+
+
 val NamedDomainObjectContainer<KotlinSourceSet>.androidMain: KotlinSourceSet
     inline get() = getByName("androidMain")
 

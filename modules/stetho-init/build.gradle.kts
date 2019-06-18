@@ -16,7 +16,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("initprovider"))
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.stetho)

@@ -15,13 +15,13 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     setupNativeSourceSets()
     sourceSets {
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(kotlin("stdlib-common"))
         }
-        getByName("jvmMain").dependencies {
+        jvmMain.dependencies {
             api(kotlin("stdlib-jdk7"))
         }
-        getByName("jsMain").dependencies {
+        jsMain.dependencies {
             api(kotlin("stdlib-js"))
         }
         all {

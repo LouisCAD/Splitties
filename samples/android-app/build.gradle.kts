@@ -59,10 +59,10 @@ kotlin {
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")
             }
         }
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(kotlin("stdlib-common"))
         }
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             implementation(project(":fun-packs:android-material-components-with-views-dsl"))
             arrayOf(
                 "arch-lifecycle",

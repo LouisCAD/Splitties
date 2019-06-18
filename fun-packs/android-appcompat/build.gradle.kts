@@ -18,7 +18,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(project(":fun-packs:android-base"))
             listOf(
                 "alertdialog-appcompat",

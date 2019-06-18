@@ -16,7 +16,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("views-dsl"))
             api(splitties("views-appcompat"))
             api(splitties("initprovider"))

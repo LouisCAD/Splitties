@@ -18,7 +18,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(project(":fun-packs:android-material-components"))
             api(project(":fun-packs:android-appcompat-with-views-dsl"))
             listOf(

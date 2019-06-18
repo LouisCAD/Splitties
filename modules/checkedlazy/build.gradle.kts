@@ -16,7 +16,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("mainthread"))
             api(splitties("exceptions"))
             api(Libs.kotlin.stdlibJdk7)

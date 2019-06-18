@@ -16,10 +16,10 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(splitties("experimental"))
         }
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("views-dsl"))
             api(splitties("views-recyclerview"))
             api(Libs.kotlin.stdlibJdk7)

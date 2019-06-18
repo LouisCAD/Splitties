@@ -17,7 +17,7 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("bundle"))
             implementation(splitties("appctx"))
             implementation(splitties("exceptions"))
