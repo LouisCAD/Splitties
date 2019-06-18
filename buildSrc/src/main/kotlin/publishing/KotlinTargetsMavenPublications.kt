@@ -24,6 +24,11 @@ fun KotlinTarget.configureMavenPublication() {
     mavenPublication {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
         artifactId = "$prefix-${project.name}$suffix"
+        if (platformType == androidJvm) {
+            val capitalizedPublicationName = "${name.first().toTitleCase()}${name.substring(1)}"
+            project.tasks.getByName("generateMetadataFileFor${capitalizedPublicationName}Publication")
+                .apply { enabled = false }
+        }
     }
     if (platformType == androidJvm) {
         (this as KotlinAndroidTarget).publishLibraryVariants("debug", "release")
