@@ -4,11 +4,7 @@
 
 package splitties.preferences
 
-import platform.Foundation.NSUserDefaults
-
 actual interface SharedPreferences {
-
-    val userDefaults: NSUserDefaults
 
     /**
      * Retrieve all values from the preferences.

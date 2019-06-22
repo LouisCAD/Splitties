@@ -21,7 +21,7 @@ internal actual fun getSharedPreferences(
  * Kotlin/Native shared XOR mutable policy, only one thread (the owner) can mutate this, making them
  * unnecessary.
  */
-private class SharedPreferencesImpl(override val userDefaults: NSUserDefaults) : SharedPreferences {
+private class SharedPreferencesImpl(private val userDefaults: NSUserDefaults) : SharedPreferences {
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>

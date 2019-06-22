@@ -43,6 +43,7 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
     sourceSets.apply {
         if (isRunningInIde) {
             if (supportIos) sourceSets.getByName(iosMainSourceSetNameForIde) {
+                kotlin.srcDir("src/iosMain/allButAndroidMain/kotlin")
                 kotlin.srcDir("src/iosMain/nativeMain/kotlin")
                 kotlin.srcDir("src/iosMain/appleMain/kotlin")
                 if (use32bitsInIde.not()) {
@@ -51,17 +52,20 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                 kotlin.srcDir("src/iosMain/kotlin")
             }
             if (supportMacOS) sourceSets.getByName(macosMainSourceSetNameForIde) {
+                kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin")
                 kotlin.srcDir("src/macosMain/nativeMain/kotlin")
                 kotlin.srcDir("src/macosMain/appleMain/kotlin")
                 kotlin.srcDir("src/macosMain/apple64Main/kotlin")
                 kotlin.srcDir("src/macosMain/kotlin")
             }
             if (supportAndroidNative) sourceSets.getByName(androidNativeMainSourceSetNameForIde) {
+                kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin") // Android != AndroidNative.
                 kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
                 kotlin.srcDir("src/androidNativeMain/kotlin")
             }
         } else {
-            createMainAndTest("native")
+            createMainAndTest("allButAndroid")
+            createMainAndTest("native", dependsOn = "allButAndroid")
             if (supportMacOS || supportIos) {
                 createMainAndTest("apple", dependsOn = "native")
                 val (apple64Main, apple64Test) = createMainAndTest("apple64", dependsOn = "apple")
