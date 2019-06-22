@@ -12,13 +12,12 @@ package splitties.preferences
 import splitties.experimental.InternalSplittiesApi
 import kotlin.reflect.KProperty
 
-abstract class Preferences(
-    name: String,
-    availableAtDirectBoot: Boolean = false
-) : PreferencesBase(
-    name = name,
-    availableAtDirectBoot = availableAtDirectBoot
-) {
+abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
+
+    constructor(
+        name: String,
+        availableAtDirectBoot: Boolean = false
+    ) : this(prefs = getSharedPreferences(name, availableAtDirectBoot))
 
     protected inline fun boolPref(
         key: String,
@@ -217,12 +216,7 @@ abstract class Preferences(
     }
 }
 
-sealed class PreferencesBase(
-    name: String,
-    availableAtDirectBoot: Boolean = false
-) {
-
-    val prefs: SharedPreferences = getSharedPreferences(name, availableAtDirectBoot)
+sealed class PreferencesBase(val prefs: SharedPreferences) {
 
     @InternalSplittiesApi
     fun beginEdit(blocking: Boolean = false) {
