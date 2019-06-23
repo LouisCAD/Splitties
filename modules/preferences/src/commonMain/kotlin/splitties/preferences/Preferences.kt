@@ -19,6 +19,10 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
         availableAtDirectBoot: Boolean = false
     ) : this(prefs = getSharedPreferences(name, availableAtDirectBoot))
 
+    internal constructor(
+        availableAtDirectBoot: Boolean
+    ) : this(getSharedPreferences(null, availableAtDirectBoot))
+
     protected inline fun boolPref(
         key: String,
         defaultValue: Boolean

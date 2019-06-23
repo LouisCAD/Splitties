@@ -12,9 +12,13 @@ import platform.Foundation.NSUserDefaultsDidChangeNotification
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
-    name: String,
+    name: String?,
     availableAtDirectBoot: Boolean
-): SharedPreferences = NSUserDefaultsBackedSharedPreferences(NSUserDefaults(suiteName = name))
+): SharedPreferences {
+    val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
+        ?: NSUserDefaults.standardUserDefaults
+    return NSUserDefaultsBackedSharedPreferences(userDefaults)
+}
 
 /**
  * This implementation doesn't have locks like the Android implementation has because thanks to

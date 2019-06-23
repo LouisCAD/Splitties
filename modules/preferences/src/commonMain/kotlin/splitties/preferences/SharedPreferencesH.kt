@@ -5,7 +5,7 @@
 package splitties.preferences
 
 internal expect fun getSharedPreferences(
-    name: String,
+    name: String?,
     availableAtDirectBoot: Boolean = false
 ): SharedPreferences
 

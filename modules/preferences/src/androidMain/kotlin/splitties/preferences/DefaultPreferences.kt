@@ -13,9 +13,4 @@ import splitties.init.appCtx
 @ExperimentalSplittiesApi
 abstract class DefaultPreferences(
     availableAtDirectBoot: Boolean = false
-) : Preferences(defaultPrefsName, availableAtDirectBoot) {
-
-    private companion object {
-        private val defaultPrefsName get() = "${appCtx.packageName}_preferences"
-    }
-}
+) : Preferences(availableAtDirectBoot)

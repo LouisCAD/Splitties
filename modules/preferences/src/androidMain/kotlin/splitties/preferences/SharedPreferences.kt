@@ -10,17 +10,18 @@ import splitties.init.appCtx
 import splitties.init.directBootCtx
 
 internal actual fun getSharedPreferences(
-    name: String,
+    name: String?,
     availableAtDirectBoot: Boolean
 ): SharedPreferences {
+    val actualName = name ?: "${appCtx.packageName}_preferences"
     val storageCtx: Context = if (availableAtDirectBoot && SDK_INT > 24) {
         // Moving the sharedPreferences from is done by the system only if you had it outside
         // the direct boot available storage or if the device was running Android M or older,
         // and just got updated.
-        directBootCtx.moveSharedPreferencesFrom(appCtx, name)
+        directBootCtx.moveSharedPreferencesFrom(appCtx, actualName)
         directBootCtx
     } else appCtx
-    return storageCtx.getSharedPreferences(name, Context.MODE_PRIVATE)
+    return storageCtx.getSharedPreferences(actualName, Context.MODE_PRIVATE)
 }
 
 actual typealias SharedPreferences = android.content.SharedPreferences
