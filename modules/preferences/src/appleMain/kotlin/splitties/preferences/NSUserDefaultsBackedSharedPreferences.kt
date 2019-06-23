@@ -14,14 +14,16 @@ import kotlin.native.ref.WeakReference
 internal actual fun getSharedPreferences(
     name: String,
     availableAtDirectBoot: Boolean
-): SharedPreferences = SharedPreferencesImpl(NSUserDefaults(suiteName = name))
+): SharedPreferences = NSUserDefaultsBackedSharedPreferences(NSUserDefaults(suiteName = name))
 
 /**
  * This implementation doesn't have locks like the Android implementation has because thanks to
  * Kotlin/Native shared XOR mutable policy, only one thread (the owner) can mutate this, making them
  * unnecessary.
  */
-private class SharedPreferencesImpl(private val userDefaults: NSUserDefaults) : SharedPreferences {
+private class NSUserDefaultsBackedSharedPreferences(
+    private val userDefaults: NSUserDefaults
+) : SharedPreferences {
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>
@@ -129,7 +131,10 @@ private class SharedPreferencesImpl(private val userDefaults: NSUserDefaults) : 
                 removedAndNotReplacedKeys.forEach { key ->
                     val iterator = changeListeners.iterator()
                     iterator.forEach {
-                        it.get()?.onSharedPreferenceChanged(this@SharedPreferencesImpl, key)
+                        it.get()?.onSharedPreferenceChanged(
+                            this@NSUserDefaultsBackedSharedPreferences,
+                            key
+                        )
                             ?: iterator.remove()
                     }
                 }
@@ -156,7 +161,7 @@ private class SharedPreferencesImpl(private val userDefaults: NSUserDefaults) : 
                 }
                 val iterator = changeListeners.iterator()
                 iterator.forEach {
-                    it.get()?.onSharedPreferenceChanged(this@SharedPreferencesImpl, key)
+                    it.get()?.onSharedPreferenceChanged(this@NSUserDefaultsBackedSharedPreferences, key)
                         ?: iterator.remove()
                 }
             }
