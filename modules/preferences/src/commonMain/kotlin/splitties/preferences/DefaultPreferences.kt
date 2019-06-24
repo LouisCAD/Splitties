@@ -5,7 +5,6 @@
 package splitties.preferences
 
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.init.appCtx
 
 /**
  * This should be overridden by only one object in an app.
