@@ -4,11 +4,22 @@
 
 package splitties.preferences
 
+import kotlinx.cinterop.CPointerVar
+import kotlinx.cinterop.ObjCMethod
+import kotlinx.cinterop.ObjCOutlet
+import kotlinx.cinterop.objcPtr
+import kotlinx.cinterop.value
 import platform.Foundation.NSArray
+import platform.Foundation.NSDictionary
+import platform.Foundation.NSKeyValueObservingOptionNew
 import platform.Foundation.NSNotificationCenter
+import platform.Foundation.NSNotificationName
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
 import platform.Foundation.NSUserDefaultsDidChangeNotification
+import platform.Foundation.addObserver
+import platform.darwin.NSObject
+import platform.objc.sel_registerName
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
@@ -69,6 +80,27 @@ private class NSUserDefaultsBackedSharedPreferences(
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         @Suppress("ConstantConditionIf")//TODO: Link with NotificationCenter
         if (false) {
+            userDefaults.addObserver(
+                observer = object : NSObject() {
+                    fun observeValueForKeyPath(
+                        keyPath: String,
+                        ofObject: Any?,
+                        change: NSDictionary?,
+                        context: CPointerVar<*>?
+                    ) {
+                        TODO()
+                    }
+                },
+                forKeyPath = "TK",
+                options = NSKeyValueObservingOptionNew,
+                context = null
+            )
+            NSNotificationCenter.defaultCenter.addObserver(
+                `object` = userDefaults,
+                observer = TODO(),
+                selector = sel_registerName(""),
+                name = NSUserDefaultsDidChangeNotification
+            )
             NSNotificationCenter.defaultCenter.addObserverForName(
                 name = NSUserDefaultsDidChangeNotification,
                 `object` = null,
