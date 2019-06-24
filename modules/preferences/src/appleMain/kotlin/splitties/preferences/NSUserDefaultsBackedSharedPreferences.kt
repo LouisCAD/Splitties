@@ -48,9 +48,9 @@ private class NSUserDefaultsBackedSharedPreferences(
     }
 
     @Suppress("UNCHECKED_CAST")
-    override fun getStringSet(key: String, defValues: Set<String>?): Set<String>? {
+    override fun getStringSet(key: String, defValues: Set<String?>?): Set<String?>? {
         return if (key in this) {
-            val stringArray = userDefaults.stringArrayForKey(key) as List<String>?
+            val stringArray = userDefaults.stringArrayForKey(key) as List<String?>?
             stringArray?.toSet()
         } else defValues
     }
@@ -128,7 +128,7 @@ private class NSUserDefaultsBackedSharedPreferences(
             unCommittedEdits[key] = value
         }
 
-        override fun putStringSet(key: String, values: Set<String>?): SharedPreferencesEditor {
+        override fun putStringSet(key: String, values: Set<String?>?): SharedPreferencesEditor {
             return apply { unCommittedEdits[key] = values }
         }
 
