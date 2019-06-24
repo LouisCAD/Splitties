@@ -183,17 +183,17 @@ class StringOrNullPref @PublishedApi internal constructor(
 class StringSetPref @PublishedApi internal constructor(
     preferences: Preferences,
     key: String,
-    val defaultValue: Set<String>
-) : PrefDelegate<Set<String>>(preferences, key) {
+    val defaultValue: Set<String?>
+) : PrefDelegate<Set<String?>>(preferences, key) {
 
-    var value: Set<String>
+    var value: Set<String?>
         get() = preferences.prefs.getStringSet(key, defaultValue)!!
         set(value) = with(preferences) {
             editor.putStringSet(key, value).attemptApply()
         }
 
-    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String> = value
-    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String>) {
+    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String?> = value
+    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String?>) {
         this.value = value
     }
 }
@@ -201,17 +201,17 @@ class StringSetPref @PublishedApi internal constructor(
 class StringSetOrNullPref @PublishedApi internal constructor(
     preferences: Preferences,
     key: String,
-    val defaultValue: Set<String>?
-) : PrefDelegate<Set<String>?>(preferences, key) {
+    val defaultValue: Set<String?>?
+) : PrefDelegate<Set<String?>?>(preferences, key) {
 
-    var value: Set<String>?
+    var value: Set<String?>?
         get() = preferences.prefs.getStringSet(key, defaultValue)!!
         set(value) = with(preferences) {
             editor.putStringSet(key, value).attemptApply()
         }
 
-    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String>? = value
-    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String>?) {
+    inline operator fun getValue(thisRef: Any?, prop: KProperty<*>?): Set<String?>? = value
+    inline operator fun setValue(thisRef: Any?, prop: KProperty<*>?, value: Set<String?>?) {
         this.value = value
     }
 }

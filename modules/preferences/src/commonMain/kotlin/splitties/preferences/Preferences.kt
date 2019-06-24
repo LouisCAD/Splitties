@@ -55,12 +55,12 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
 
     protected inline fun stringSetPref(
         key: String,
-        defaultValue: Set<String> = emptySet()
+        defaultValue: Set<String?> = emptySet()
     ) = StringSetPref(this, key = key, defaultValue = defaultValue)
 
     protected inline fun stringSetOrNullPref(
         key: String,
-        defaultValue: Set<String>? = null
+        defaultValue: Set<String?>? = null
     ) = StringSetOrNullPref(this, key = key, defaultValue = defaultValue)
 
     @Suppress("FunctionName")

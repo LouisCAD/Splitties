@@ -80,7 +80,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getStringSet(key: String, defValues: Set<String>?): Set<String>?
+    fun getStringSet(key: String, defValues: Set<String?>?): Set<String?>?
 
     /**
      * Retrieve an int value from the preferences.
@@ -248,7 +248,7 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putStringSet(key: String, values: Set<String>?): SharedPreferencesEditor
+    fun putStringSet(key: String, values: Set<String?>?): SharedPreferencesEditor
 
     /**
      * Set an int value in the preferences editor, to be written back once

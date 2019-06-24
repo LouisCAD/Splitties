@@ -54,8 +54,8 @@ actual interface SharedPreferences {
      */
     actual fun getStringSet(
         key: String,
-        defValues: Set<String>?
-    ): Set<String>?
+        defValues: Set<String?>?
+    ): Set<String?>?
 
     /**
      * Retrieve an int value from the preferences.
@@ -223,7 +223,7 @@ actual interface SharedPreferencesEditor {
      */
     actual fun putStringSet(
         key: String,
-        values: Set<String>?
+        values: Set<String?>?
     ): SharedPreferencesEditor
 
     /**
