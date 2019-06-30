@@ -25,13 +25,16 @@ fun KotlinTarget.configureMavenPublication() {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
         artifactId = "$prefix-${project.name}$suffix"
         if (platformType == androidJvm) {
+            // We disable metadata generation for Android publications, so the release variants can
+            // be used for any buildType of the consumer projects without having to specify
+            // matchingFallbacks unless the multiplatform artifact is used.
             val capitalizedPublicationName = "${name.first().toTitleCase()}${name.substring(1)}"
-            project.tasks.getByName("generateMetadataFileFor${capitalizedPublicationName}Publication")
-                .apply { enabled = false }
+            val metadataTaskName = "generateMetadataFileFor${capitalizedPublicationName}Publication"
+            project.tasks.getByName(metadataTaskName).enabled = false
         }
     }
     if (platformType == androidJvm) {
-        (this as KotlinAndroidTarget).publishLibraryVariants("debug", "release")
-        this.publishLibraryVariantsGroupedByFlavor = true
+        (this as KotlinAndroidTarget).publishLibraryVariants("release")
+        // Relies on metadata to be disabled (done above) to avoid buildType mismatch on consumers.
     }
 }
