@@ -11,14 +11,6 @@ import splitties.bitflags.hasFlag
 import splitties.bitflags.minusFlag
 import splitties.bitflags.withFlag
 
-inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
-    supportActionBar?.config() ?: Log.wtf(
-        "ActionBar",
-        "No ActionBar in this Activity! Config skipped.",
-        AssertionError()
-    )
-}
-
 @Suppress("NOTHING_TO_INLINE") // This overload is optimized for the most common use case.
 inline fun AppCompatActivity.configActionBar(
     homeAsUp: Boolean = supportActionBar?.homeAsUp ?: false
@@ -46,6 +38,14 @@ fun AppCompatActivity.configActionBar(
         it.useLogo = useLogo
         it.showCustomView = showCustomView
     } ?: Log.wtf(
+        "ActionBar",
+        "No ActionBar in this Activity! Config skipped.",
+        AssertionError()
+    )
+}
+
+inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
+    supportActionBar?.config() ?: Log.wtf(
         "ActionBar",
         "No ActionBar in this Activity! Config skipped.",
         AssertionError()
