@@ -6,8 +6,8 @@
 
 package splitties.snackbar
 
+import android.view.View
 import androidx.annotation.StringRes
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.snackbar.Snackbar
 import splitties.resources.txt
 
@@ -18,7 +18,7 @@ import splitties.resources.txt
  * @param msg     The text to show. Can be formatted text.
  * @param duration Either [Snackbar.LENGTH_SHORT] (default), [Snackbar.LENGTH_LONG] or [Snackbar.LENGTH_INDEFINITE]
  */
-inline fun CoordinatorLayout.snack(
+inline fun View.snack(
     msg: CharSequence,
     duration: Int = Snackbar.LENGTH_SHORT,
     actionSetup: Snackbar.() -> Unit = {}
@@ -31,7 +31,7 @@ inline fun CoordinatorLayout.snack(
  * @param msgResId The resource id of the text to show. Can be formatted text.
  * @param duration Either [Snackbar.LENGTH_SHORT] (default), [Snackbar.LENGTH_LONG] or [Snackbar.LENGTH_INDEFINITE]
  */
-inline fun CoordinatorLayout.snack(
+inline fun View.snack(
     @StringRes msgResId: Int,
     duration: Int = Snackbar.LENGTH_SHORT,
     actionSetup: Snackbar.() -> Unit = {}
@@ -40,7 +40,7 @@ inline fun CoordinatorLayout.snack(
 /**
  * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
  */
-inline fun CoordinatorLayout.longSnack(
+inline fun View.longSnack(
     msg: CharSequence,
     actionSetup: Snackbar.() -> Unit = {}
 ) = snack(msg, Snackbar.LENGTH_LONG, actionSetup)
@@ -48,7 +48,7 @@ inline fun CoordinatorLayout.longSnack(
 /**
  * Alias for calling [snack] with [Snackbar.LENGTH_LONG] as a duration parameter.
  */
-inline fun CoordinatorLayout.longSnack(
+inline fun View.longSnack(
     @StringRes msgResId: Int,
     actionSetup: Snackbar.() -> Unit = {}
 ) = longSnack(txt(msgResId), actionSetup)
@@ -68,7 +68,7 @@ inline fun CoordinatorLayout.longSnack(
  * - `allYouCanEatBuffet(…)`
  * - `buffet(…)`
  */
-inline fun CoordinatorLayout.snackForever(
+inline fun View.snackForever(
     msg: CharSequence,
     actionSetup: Snackbar.() -> Unit = {}
 ) = snack(msg, Snackbar.LENGTH_INDEFINITE, actionSetup)
@@ -88,7 +88,7 @@ inline fun CoordinatorLayout.snackForever(
  * - `allYouCanEatBuffet(…)`
  * - `buffet(…)`
  */
-inline fun CoordinatorLayout.snackForever(
+inline fun View.snackForever(
     @StringRes msgResId: Int,
     actionSetup: Snackbar.() -> Unit = {}
 ) = snackForever(txt(msgResId), actionSetup)
