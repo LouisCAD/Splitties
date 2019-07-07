@@ -4,13 +4,11 @@
 
 package splitties.views.appcompat
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.DeprecationLevel.HIDDEN
 
-@SuppressLint("LogNotTimber") // Timber is not a dependency here, but lint passes through.
 inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
     supportActionBar?.config() ?: Log.wtf(
         "ActionBar",
