@@ -17,6 +17,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
+            api(splitties("bitflags"))
             api(splitties("views"))
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.androidX.appCompat)
