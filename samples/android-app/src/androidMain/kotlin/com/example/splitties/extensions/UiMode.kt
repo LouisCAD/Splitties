@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import splitties.exceptions.illegalArg
 
 fun AppCompatActivity.toggleNightMode() {
+    @Suppress("MoveVariableDeclarationIntoWhen")
     val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
     val newNightMode = when (currentNightMode) {
         Configuration.UI_MODE_NIGHT_YES -> UiModeManager.MODE_NIGHT_NO

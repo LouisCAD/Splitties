@@ -11,12 +11,13 @@ import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @ExperimentalCoroutinesApi
-suspend fun <E> Flow<E>.collectEachAndCancelPrevious(
+suspend fun <E> Flow<E>.collectLatest(
     context: CoroutineContext = EmptyCoroutineContext,
     skipEquals: Boolean = false,
     action: suspend CoroutineScope.(E) -> Unit
@@ -31,5 +32,12 @@ suspend fun <E> Flow<E>.collectEachAndCancelPrevious(
         job = launch(context) {
             action(newValue)
         }
+    }
+}
+
+@ExperimentalCoroutinesApi
+fun <E> infiniteFlow(generateValue: suspend () -> E): Flow<E> = flow {
+    repeatWhileActive {
+        emit(generateValue())
     }
 }

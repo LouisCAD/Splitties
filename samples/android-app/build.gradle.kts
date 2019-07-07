@@ -53,6 +53,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
+                enableLanguageFeature("NewInference")
                 useExperimentalAnnotation("kotlin.Experimental")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")

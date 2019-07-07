@@ -5,10 +5,16 @@
 package com.example.splitties.extensions.coroutines
 
 import kotlinx.coroutines.CancellationException
-import kotlin.coroutines.coroutineContext
 import kotlinx.coroutines.ensureActive
 import splitties.experimental.ExperimentalSplittiesApi
+import kotlin.coroutines.coroutineContext
 
+/**
+ * As of Kotlin 1.3, `while (true)` evaluates to [Unit] instead of [Nothing] in lambdas, and using
+ * `coroutineContext.ensureActive()` would add another line of boilerplate, so this inline extension
+ * function can be handy. The fact that is is inline allows you to do a non local return just like
+ * you would from a while loop.
+ */
 suspend inline fun repeatWhileActive(block: () -> Unit): Nothing {
     while (true) {
         coroutineContext.ensureActive()
