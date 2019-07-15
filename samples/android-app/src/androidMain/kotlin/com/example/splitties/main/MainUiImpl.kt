@@ -56,6 +56,10 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
         toggleNightModeBtn.awaitOneClick()
     }
 
+    override suspend fun awaitTrySoundRequest() {
+        trySoundBtn.awaitOneClick()
+    }
+
     private val materialStyles = MaterialComponentsStyles(ctx)
     private val materialButtons = materialStyles.button
 
@@ -71,6 +75,9 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
     private val toggleNightModeBtn = materialButtons.filledWithIcon {
         setIconResource(R.drawable.ic_invert_colors_white_24dp)
         textResource = R.string.toggle_night_mode
+    }
+    private val trySoundBtn = materialButtons.filled {
+        text = "Play a sound"
     }
     private val fab = floatingActionButton {
         imageResource = R.drawable.ic_favorite_white_24dp
@@ -89,6 +96,10 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
             topMargin = dip(8)
         })
         add(toggleNightModeBtn, lParams {
+            gravity = gravityCenterHorizontal
+            bottomMargin = dip(8)
+        })
+        add(trySoundBtn, lParams {
             gravity = gravityCenterHorizontal
             bottomMargin = dip(8)
         })

@@ -21,10 +21,12 @@ import com.example.splitties.permissions.PermissionsExampleActivity
 import com.example.splitties.preferences.SamplePreferences
 import com.example.splitties.preferences.ui.PreferencesBottomSheetDialogFragment
 import com.example.splitties.prefs.GamePreferences
+import com.example.splitties.preview.sound.playDiapason
 import com.example.splitties.preview.vibrator.VibrationEffect
 import com.example.splitties.preview.vibrator.vibrate
 import com.example.splitties.sayhello.SayHelloActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
@@ -64,6 +66,14 @@ class MainActivity : AppCompatActivity() {
                     lastTimePlayed = System.currentTimeMillis()
                 }
             }
+        }
+        launchLoop(start = Undispatched) {
+            ui.awaitTrySoundRequest()
+            val job = launch {
+                playDiapason(durationInMillis = 10_000)
+            }
+            ui.awaitTrySoundRequest()
+            job.cancelAndJoin()
         }
         launchLoop(start = Undispatched) {
             ui.awaitLaunchMaterialListDemoRequest()

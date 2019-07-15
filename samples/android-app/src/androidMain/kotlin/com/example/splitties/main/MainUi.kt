@@ -10,4 +10,5 @@ interface MainUi {
     suspend fun awaitLaunchPermissionDemoRequest()
     suspend fun awaitLaunchSayHelloDemoRequest()
     suspend fun awaitToggleNightModeRequest()
+    suspend fun awaitTrySoundRequest()
 }
