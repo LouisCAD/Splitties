@@ -16,6 +16,10 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
+        commonMain.dependencies {
+            api(splitties("experimental"))
+            compileOnly(Libs.kotlinX.coroutines.coreCommon)
+        }
         androidMain.dependencies {
             api(Libs.kotlin.stdlibJdk7)
         }
