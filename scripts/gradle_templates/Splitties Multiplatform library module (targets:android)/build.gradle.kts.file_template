@@ -19,7 +19,7 @@ kotlin {
         androidMain.dependencies {
             api(Libs.kotlin.stdlibJdk7)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.Experimental")
             }
