@@ -257,10 +257,12 @@ settingsFile.writeText(newGradleSettingsFileContent)
 
 fun putInClipboard(text: String) {
     Toolkit.getDefaultToolkit().systemClipboard.setContents(StringSelection(text), null)
+    TODO("Code above throws in command line, complaining it is headless. Find an alternative.")
 }
 
 
 runOrRetry {
+    return //TODO: Remove when putInClipboard is fixed.
     println("Do you want to put the module name in clipboard?")
     println("(Press enter without entering anything to skip.)")
     println()
