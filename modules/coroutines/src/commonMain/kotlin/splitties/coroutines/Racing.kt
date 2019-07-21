@@ -2,7 +2,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package com.example.splitties.extensions.coroutines
+package splitties.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -11,12 +11,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.selects.select
-import splitties.exceptions.unsupported
 import kotlin.experimental.ExperimentalTypeInference
 
 @Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
 @Deprecated("A race need racers.", level = DeprecationLevel.ERROR)
-suspend fun <T> raceOf(): T = unsupported()
+suspend fun <T> raceOf(): T = throw UnsupportedOperationException()
 
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     require(racers.isNotEmpty()) { "A race need racers." }
