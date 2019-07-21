@@ -87,31 +87,27 @@ val destinationDir: File = currentDir.resolve("$relativePathName$moduleName")
 // string template (e.g. €{some key}). /////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-fun copyFolder(src: Path, dest: Path) {
+fun Path.copyTo(dest: Path) {
+    val src = this
     Files.walk(src).forEach { s ->
-        try {
-            val d = dest.resolve(src.relativize(s))
-            when {
-                Files.isSymbolicLink(s) -> {
-                    Files.createSymbolicLink(
-                        d,
-                        Files.readSymbolicLink(s).also {
-                            check(it.isAbsolute.not()) {
-                                "Only relative symbolic links are supported"
-                            }
+        val d = dest.resolve(src.relativize(s))
+        when {
+            Files.isSymbolicLink(s) -> {
+                Files.createSymbolicLink(
+                    d,
+                    Files.readSymbolicLink(s).also {
+                        check(it.isAbsolute.not()) {
+                            "Only relative symbolic links are supported"
                         }
-                    )
-                    return@forEach
-                }
-                Files.isDirectory(s) -> {
-                    if (!Files.exists(d)) Files.createDirectory(d)
-                    return@forEach
-                }
-                // use flag to override existing
-                else -> Files.copy(s, d)
+                    }
+                )
+                return@forEach
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
+            Files.isDirectory(s) -> {
+                if (!Files.exists(d)) Files.createDirectory(d)
+                return@forEach
+            }
+            else -> Files.copy(s, d)
         }
     }
 }
@@ -119,15 +115,7 @@ fun copyFolder(src: Path, dest: Path) {
 val destinationPath: Path = destinationDir.toPath()
 val selectedTemplatePath: Path = selectedTemplateDir.toPath()
 
-copyFolder(selectedTemplatePath, destinationPath)
-
-/*Files.walk(selectedTemplatePath).forEachOrdered { sourcePath ->
-    Files.copy(
-        sourcePath,
-        selectedTemplatePath.resolve(destinationPath.relativize(sourcePath)),
-        LinkOption.NOFOLLOW_LINKS
-    )
-}*/
+selectedTemplatePath.copyTo(destinationPath)
 
 /**
  * Runs the [action] on this file, then, if the result of the lambda (if not null) or this file,
