@@ -198,7 +198,7 @@ destinationDir.doRecursively { file ->
             if (code != initialCode) newFile.writeText(code)
         }
     }
-    null
+    return@doRecursively null
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
