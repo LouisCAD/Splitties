@@ -16,6 +16,7 @@ arrayOf(
     "bundle",
     "checkedlazy",
     "collections",
+    "coroutines",
     "dimensions",
     "exceptions",
     "experimental",
