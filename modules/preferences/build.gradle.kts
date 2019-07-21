@@ -33,7 +33,7 @@ kotlin {
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.native)
+                api(Libs.kotlinX.coroutines.coreNative)
             }
         }
         all {
