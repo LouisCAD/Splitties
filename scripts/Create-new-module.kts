@@ -5,6 +5,8 @@
 import java.awt.Toolkit
 import java.awt.datatransfer.StringSelection
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 
 // To make the IDE recognize this file, copy-paste it in a Scratch File (cmd/ctrl + shift + N).
 
@@ -85,7 +87,47 @@ val destinationDir: File = currentDir.resolve("$relativePathName$moduleName")
 // string template (e.g. €{some key}). /////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-check(selectedTemplateDir.copyRecursively(destinationDir)) { "Copy operation didn't succeed" }
+fun copyFolder(src: Path, dest: Path) {
+    Files.walk(src).forEach { s ->
+        try {
+            val d = dest.resolve(src.relativize(s))
+            when {
+                Files.isSymbolicLink(s) -> {
+                    Files.createSymbolicLink(
+                        d,
+                        Files.readSymbolicLink(s).also {
+                            check(it.isAbsolute.not()) {
+                                "Only relative symbolic links are supported"
+                            }
+                        }
+                    )
+                    return@forEach
+                }
+                Files.isDirectory(s) -> {
+                    if (!Files.exists(d)) Files.createDirectory(d)
+                    return@forEach
+                }
+                // use flag to override existing
+                else -> Files.copy(s, d)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+}
+
+val destinationPath: Path = destinationDir.toPath()
+val selectedTemplatePath: Path = selectedTemplateDir.toPath()
+
+copyFolder(selectedTemplatePath, destinationPath)
+
+/*Files.walk(selectedTemplatePath).forEachOrdered { sourcePath ->
+    Files.copy(
+        sourcePath,
+        selectedTemplatePath.resolve(destinationPath.relativize(sourcePath)),
+        LinkOption.NOFOLLOW_LINKS
+    )
+}*/
 
 /**
  * Runs the [action] on this file, then, if the result of the lambda (if not null) or this file,
