@@ -16,7 +16,7 @@ inline fun <R> runOrRetry(block: () -> R): R {
     while (true) try {
         return block()
     } catch (t: Exception) {
-        println(t.message)
+        println(t.message ?: t)
     }
 }
 
