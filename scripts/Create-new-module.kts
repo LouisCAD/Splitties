@@ -173,17 +173,22 @@ val indexOfTargetLoop = settingsFileText.indexOf(includeForLoopLineOfCode)
 
 val newGradleSettingsFileContent: String = if (indexOfTargetLoop >= 0) {
     val indexOfTargetArray = settingsFileText.lastIndexOf("arrayOf", startIndex = indexOfTargetLoop)
-    val indexOfFirstArrayElement = settingsFileText.indexOf('\n', startIndex = indexOfTargetArray)
+    val indexOfFirstArrayElement = settingsFileText.indexOf(
+        char = '\n',
+        startIndex = indexOfTargetArray
+    ) + 1
 
     settingsFileText.replaceRange(
         startIndex = indexOfFirstArrayElement,
-        endIndex = indexOfTargetLoop,
+        endIndex = indexOfTargetLoop - 1,
         replacement = settingsFileText.substring(
             startIndex = indexOfFirstArrayElement,
-            endIndex = indexOfTargetLoop
+            endIndex = indexOfTargetLoop - 1
         ).let { arrayLines ->
-            val newArrayLines = arrayLines.lines() + "    \"$moduleName\","
-            newArrayLines.sorted().joinToString(separator = "\n")
+            val newArrayLines = arrayLines.lines().map {
+                if (it.endsWith(',')) it else "$it,"
+            } + "    \"$moduleName\","
+            newArrayLines.sorted().joinToString(separator = "\n").removeSuffix(",")
         }
     )
 } else {
