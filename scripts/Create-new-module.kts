@@ -260,7 +260,7 @@ fun putInClipboard(text: String) {
     TODO("Code above throws in command line, complaining it is headless. Find an alternative.")
 }
 
-
+@Suppress("UNREACHABLE_CODE")
 runOrRetry {
     return@runOrRetry //TODO: Remove when putInClipboard is fixed.
     println("Do you want to put the module name in clipboard?")
