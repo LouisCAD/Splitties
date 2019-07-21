@@ -262,7 +262,7 @@ fun putInClipboard(text: String) {
 
 
 runOrRetry {
-    return //TODO: Remove when putInClipboard is fixed.
+    return@runOrRetry //TODO: Remove when putInClipboard is fixed.
     println("Do you want to put the module name in clipboard?")
     println("(Press enter without entering anything to skip.)")
     println()
