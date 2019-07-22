@@ -19,7 +19,7 @@ android {
         versionCode = 1
         versionName = ProjectVersions.thisLibrary
         resConfigs("en", "fr")
-        proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
+        proguardFile("../proguard-android-really-optimize.txt")
         proguardFile("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -45,6 +45,12 @@ android {
     sourceSets.getByName("main") {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
+    }
+    packagingOptions {
+        exclude("**/*.kotlin_module")
+        exclude("**/*.kotlin_builtins")
+        exclude("**/*.kotlin_metadata")
+        exclude("META-INF/kotlinx-coroutines-core.kotlin_module")
     }
 }
 
