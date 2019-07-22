@@ -5,7 +5,6 @@
 package com.example.splitties.extensions.dialog
 
 import android.app.Dialog
-import splitties.coroutines.raceOf
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -13,6 +12,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import kotlinx.coroutines.suspendCancellableCoroutine
+import splitties.coroutines.raceOf
 import kotlin.coroutines.resume
 
 suspend fun <R> Dialog.showInScope(
