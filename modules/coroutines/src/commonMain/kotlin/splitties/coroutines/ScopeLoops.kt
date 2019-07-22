@@ -22,6 +22,17 @@ suspend inline fun repeatWhileActive(block: () -> Unit): Nothing {
     }
 }
 
+/**
+ * As of Kotlin 1.3, `while (true)` evaluates to [Unit] instead of [Nothing] in lambdas, and using
+ * `coroutineContext.ensureActive()` would add another line of boilerplate, so this inline extension
+ * function can be handy. The fact that is is inline allows you to do a non local return just like
+ * you would from a while loop.
+ *
+ * If [ignoreInnerCancellations] is `true`, [CancellationException]s thrown from the [block] will be
+ * caught and ignored. Next iteration will still check for cancellation, so it will exit safely by
+ * throwing it if the entire scope is cancelled. This gives a chance to recover from local
+ * cancellations in an iteration.
+ */
 @ExperimentalSplittiesApi
 suspend inline fun repeatWhileActive(
     ignoreInnerCancellations: Boolean,
