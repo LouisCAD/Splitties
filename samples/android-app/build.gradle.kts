@@ -47,10 +47,9 @@ android {
         res.srcDir("src/androidMain/res")
     }
     packagingOptions {
-        exclude("**/*.kotlin_module")
-        exclude("**/*.kotlin_builtins")
-        exclude("**/*.kotlin_metadata")
-        exclude("META-INF/kotlinx-coroutines-core.kotlin_module")
+        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
+        exclude("**/*.kotlin_builtins") // Reduce apk size
+        exclude("**/*.kotlin_metadata")  // Reduce apk size
     }
 }
 
