@@ -72,8 +72,7 @@ kotlin {
                 "exceptions",
                 "initprovider",
                 "lifecycle-coroutines",
-                "typesaferecyclerview",
-                "coroutines"
+                "typesaferecyclerview"
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
             }

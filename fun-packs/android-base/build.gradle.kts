@@ -25,6 +25,7 @@ kotlin {
                 "bitflags",
                 "bundle",
                 "collections",
+                "coroutines",
                 "dimensions",
                 "fragments",
                 "fragmentargs",
