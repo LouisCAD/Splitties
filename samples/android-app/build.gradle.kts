@@ -71,7 +71,6 @@ kotlin {
                 "checkedlazy",
                 "exceptions",
                 "initprovider",
-                "lifecycle-coroutines",
                 "typesaferecyclerview"
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
