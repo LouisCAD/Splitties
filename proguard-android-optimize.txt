@@ -1,3 +1,5 @@
+# This file has been modified by Louis CAD to strip unused R classes and support AndroidX.
+
 # This is a configuration file for ProGuard.
 # http://proguard.sourceforge.net/index.html#manual/usage.html
 #
@@ -58,9 +60,10 @@
   public static final android.os.Parcelable$Creator CREATOR;
 }
 
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
+#### Comment rule below is "dumb", so we are ditching it.
+#-keepclassmembers class **.R$* {
+#    public static <fields>;
+#}
 
 # AndroidX, (and the legacy support libraries) contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
