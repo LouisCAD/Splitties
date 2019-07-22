@@ -4,37 +4,10 @@
 
 package com.example.splitties.extensions.coroutines
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import splitties.coroutines.repeatWhileActive
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
-
-@ExperimentalCoroutinesApi
-suspend fun <E> Flow<E>.collectLatest(
-    context: CoroutineContext = EmptyCoroutineContext,
-    skipEquals: Boolean = false,
-    action: suspend CoroutineScope.(E) -> Unit
-): Unit = coroutineScope {
-    var job: Job? = null
-    var previousValue: E? = null // Null is safe as first value because at first, job is null.
-    collect { newValue ->
-        job?.let { // No skipEquals on first value since there's no job yet.
-            if (skipEquals && previousValue == newValue) return@collect else it.cancelAndJoin()
-        }
-        previousValue = newValue
-        job = launch(context) {
-            action(newValue)
-        }
-    }
-}
 
 @ExperimentalCoroutinesApi
 fun <E> infiniteFlow(generateValue: suspend () -> E): Flow<E> = flow {

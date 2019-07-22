@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.splitties.R
 import com.example.splitties.about.AboutActivity
 import com.example.splitties.demo.DemoActivity
-import com.example.splitties.extensions.coroutines.collectLatest
 import com.example.splitties.extensions.coroutines.launchLoop
 import com.example.splitties.extensions.menu.addItem
 import com.example.splitties.extensions.menu.neverShowAsAction
@@ -25,6 +24,7 @@ import com.example.splitties.preview.vibrator.VibrationEffect
 import com.example.splitties.preview.vibrator.vibrate
 import com.example.splitties.sayhello.SayHelloActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -33,6 +33,8 @@ import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.showAndAwaitOkOrDismiss
+import splitties.coroutines.collectLatest
+import splitties.coroutines.repeatWhileActive
 import splitties.fragments.showAsync
 import splitties.lifecycle.coroutines.lifecycleScope
 import splitties.preferences.edit
@@ -42,7 +44,7 @@ import splitties.toast.toast
 import splitties.views.dsl.core.setContentView
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@UseExperimental(ExperimentalCoroutinesApi::class, ObsoleteCoroutinesApi::class)
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
