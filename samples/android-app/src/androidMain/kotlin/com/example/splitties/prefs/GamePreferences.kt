@@ -4,12 +4,12 @@
 
 package com.example.splitties.prefs
 
-import com.example.splitties.extensions.coroutines.SuspendLazy
-import kotlinx.coroutines.Dispatchers
+import splitties.coroutines.SuspendLazy
+import splitties.coroutines.suspendBlockingLazyIO
 import splitties.preferences.Preferences
 
 class GamePreferences private constructor() : Preferences("gameState") {
-    companion object : SuspendLazy<GamePreferences>(Dispatchers.IO, ::GamePreferences)
+    companion object : SuspendLazy<GamePreferences> by suspendBlockingLazyIO(::GamePreferences)
 
     var magicNumber by intPref("magicNumber", 0)
     var currentLevel by IntPref("currentLevel", 1)

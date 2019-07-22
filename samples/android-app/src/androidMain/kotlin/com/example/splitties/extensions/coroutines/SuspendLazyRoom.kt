@@ -5,11 +5,12 @@
 package com.example.splitties.extensions.coroutines
 
 import androidx.room.RoomDatabase
-import kotlinx.coroutines.Dispatchers
 import splitties.arch.room.DbConfig
 import splitties.arch.room.roomDb
+import splitties.coroutines.SuspendLazy
+import splitties.coroutines.suspendBlockingLazyIO
 
 inline fun <reified DB : RoomDatabase> roomDataBase(
     name: String,
     crossinline config: DbConfig<DB> = {}
-): SuspendLazy<DB> = SuspendLazy(Dispatchers.IO) { roomDb(name, config) }
+): SuspendLazy<DB> = suspendBlockingLazyIO { roomDb(name, config) }
