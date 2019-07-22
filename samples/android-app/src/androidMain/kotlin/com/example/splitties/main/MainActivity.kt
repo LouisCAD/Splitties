@@ -13,7 +13,6 @@ import com.example.splitties.about.AboutActivity
 import com.example.splitties.demo.DemoActivity
 import com.example.splitties.extensions.coroutines.collectLatest
 import com.example.splitties.extensions.coroutines.launchLoop
-import com.example.splitties.extensions.coroutines.repeatWhileActive
 import com.example.splitties.extensions.menu.addItem
 import com.example.splitties.extensions.menu.neverShowAsAction
 import com.example.splitties.extensions.toggleNightMode

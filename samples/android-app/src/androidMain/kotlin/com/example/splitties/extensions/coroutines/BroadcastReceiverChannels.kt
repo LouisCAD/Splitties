@@ -11,6 +11,7 @@ import android.content.IntentFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
+import splitties.coroutines.offerCatching
 import splitties.init.appCtx
 
 @Suppress("NOTHING_TO_INLINE")

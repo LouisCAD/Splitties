@@ -5,7 +5,7 @@
 package com.example.splitties.extensions.dialog
 
 import android.app.Dialog
-import com.example.splitties.extensions.coroutines.raceOf
+import splitties.coroutines.raceOf
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async

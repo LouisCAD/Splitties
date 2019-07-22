@@ -7,6 +7,7 @@ package com.example.splitties.extensions.coroutines
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.launch
+import splitties.coroutines.repeatWhileActive
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
