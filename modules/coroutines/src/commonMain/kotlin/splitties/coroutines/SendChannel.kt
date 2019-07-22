@@ -4,8 +4,18 @@
 
 package splitties.coroutines
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.SendChannel
 
+/**
+ * [SendChannel.offer] that returns `false` when this [SendChannel.isClosedForSend], instead of
+ * throwing.
+ *
+ * [SendChannel.offer] throws when the channel is closed. In race conditions, especially when using
+ * multithreaded dispatchers, that can lead to uncaught exceptions as offer is often called from
+ * non suspending functions that don't catch the default [CancellationException] or any other
+ * exception that might be the cause of the closing of the channel.
+ */
 fun <E> SendChannel<E>.offerCatching(element: E): Boolean {
     return runCatching { offer(element) }.getOrDefault(false)
 }
