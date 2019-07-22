@@ -18,7 +18,7 @@ class PreferencesBottomSheetDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = SamplePreferencesUi(requireContext()).apply {
+    ): View? = SamplePreferencesUi(inflater.context).apply {
         viewLifecycleOwner.lifecycleScope.launch { run() }
     }.root
 }
