@@ -62,24 +62,25 @@
     public static <fields>;
 }
 
-# The support library contains references to newer platform versions.
+# AndroidX, (and the legacy support libraries) contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
 # platform version.  We know about them, and they are safe.
+-dontwarn androidx.**
 -dontwarn android.support.**
 
-# Understand the @Keep support annotation.
--keep class android.support.annotation.Keep
+# Understand the @Keep AndroidX annotation.
+-keep class androidx.annotation.Keep
 
--keep @android.support.annotation.Keep class * {*;}
+-keep @androidx.annotation.Keep class * {*;}
 
 -keepclasseswithmembers class * {
-    @android.support.annotation.Keep <methods>;
+    @androidx.annotation.Keep <methods>;
 }
 
 -keepclasseswithmembers class * {
-    @android.support.annotation.Keep <fields>;
+    @androidx.annotation.Keep <fields>;
 }
 
 -keepclasseswithmembers class * {
-    @android.support.annotation.Keep <init>(...);
+    @androidx.annotation.Keep <init>(...);
 }
