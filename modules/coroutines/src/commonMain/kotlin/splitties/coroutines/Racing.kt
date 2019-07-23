@@ -14,11 +14,11 @@ import kotlinx.coroutines.selects.select
 import kotlin.experimental.ExperimentalTypeInference
 
 @Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
-@Deprecated("A race need racers.", level = DeprecationLevel.ERROR)
-suspend fun <T> raceOf(): T = throw UnsupportedOperationException()
+@Deprecated("A race needs racers.", level = DeprecationLevel.ERROR)
+suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs racers.")
 
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
-    require(racers.isNotEmpty()) { "A race need racers." }
+    require(racers.isNotEmpty()) { "A race needs racers." }
     return coroutineScope {
         select<T> {
             @UseExperimental(ExperimentalCoroutinesApi::class)
