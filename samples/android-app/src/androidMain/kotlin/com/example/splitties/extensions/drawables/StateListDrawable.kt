@@ -74,7 +74,7 @@ inline fun <D : Drawable> StateListDrawable.addForRemainingStates(
     drawableConfig: D.() -> Unit = {}
 ) = addState(StateSet.WILD_CARD, drawable.apply(drawableConfig))
 
-@Suppress("unused")
+@Suppress("unused", "UNUSED_PARAMETER")
 @Deprecated(
     message = "Using addForStates with empty state set is misleading",
     replaceWith = ReplaceWith("addForRemainingStates(drawable, drawableConfig)"),
@@ -114,7 +114,7 @@ inline fun <D : Drawable> StateListDrawable.addForRemainingStates(
     drawableConfig: D.() -> Unit
 ) = addState(StateSet.WILD_CARD, createDrawable().apply(drawableConfig))
 
-@Suppress("unused")
+@Suppress("unused", "UNUSED_PARAMETER")
 @Deprecated(
     message = "Using addForStates with empty state set is misleading",
     replaceWith = ReplaceWith("addForRemainingStates(createDrawable, drawableConfig)"),
