@@ -18,10 +18,20 @@ import splitties.collections.forEachByIndex
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
+/**
+ * Pass at least one racer to use [raceOf], or use [race] if the racers need to be launched
+ * dynamically.
+ */
 @Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
 @Deprecated("A race needs racers.", level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs racers.")
 
+/**
+ * Races all the [racers] concurrently. Once the winner completes, all other racers are cancelled,
+ * then the value of the winner is returned.
+ *
+ * Use [race] if the racers need to be launched dynamically.
+ */
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     require(racers.isNotEmpty()) { "A race needs racers." }
     return coroutineScope {
