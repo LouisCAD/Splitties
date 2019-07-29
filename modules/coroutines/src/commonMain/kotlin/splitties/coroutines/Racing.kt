@@ -24,6 +24,7 @@ suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs 
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     require(racers.isNotEmpty()) { "A race needs racers." }
     return coroutineScope {
+        @Suppress("RemoveExplicitTypeArguments")
         select<T> {
             @UseExperimental(ExperimentalCoroutinesApi::class)
             val racersAsyncList = racers.map {
