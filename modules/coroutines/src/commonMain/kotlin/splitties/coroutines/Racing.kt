@@ -43,7 +43,10 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
  * You should not implement this interface yourself.
  */
 interface RacingScope<T> {
-    @Deprecated("Internal API", ReplaceWith("launchRacer(block)", "splitties.coroutines.launchRacer"))
+    @Deprecated(
+        message = "Internal API",
+        replaceWith = ReplaceWith("launchRacer(block)", "splitties.coroutines.launchRacer")
+    )
     fun launchRacerInternal(block: suspend CoroutineScope.() -> T)
 }
 
