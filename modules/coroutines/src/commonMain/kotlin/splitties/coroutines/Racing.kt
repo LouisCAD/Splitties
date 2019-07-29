@@ -52,11 +52,22 @@ interface RacingScope<in T> {
     fun launchRacerInternal(block: suspend CoroutineScope.() -> T)
 }
 
+/**
+ * Launches a racer in this scope.
+ * **Must be cancellable**, it will suspend [race] completion otherwise.
+ *
+ * Use it inside the lambda passed to the [race] function.
+ */
 inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope.() -> T) {
     @Suppress("DEPRECATION")
     launchRacerInternal(block)
 }
 
+/**
+ * Starts a [RacingScope] with the suspending [builder] lambda in which you can call [launchRacer]
+ * each time you want to launch a racer coroutine. Once a racer completes, the [builder] and all
+ * racers are cancelled, then the value of the winning racer is returned.
+ */
 @UseExperimental(ExperimentalTypeInference::class)
 suspend fun <T> race(
     @BuilderInference
