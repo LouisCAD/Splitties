@@ -18,6 +18,7 @@ kotlin {
         commonMain.dependencies {
             api(kotlin("stdlib-common"))
             api(splitties("experimental"))
+            implementation(splitties("collections"))
             api(Libs.kotlinX.coroutines.coreCommon)
         }
         jvmMain.dependencies {

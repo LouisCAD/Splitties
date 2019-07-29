@@ -14,6 +14,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
+import splitties.collections.forEachByIndex
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
@@ -30,9 +31,9 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
             val racersAsyncList = racers.map {
                 async(start = Undispatched, block = it)
             }
-            racersAsyncList.forEach { racer: Deferred<T> ->
+            racersAsyncList.forEachByIndex { racer: Deferred<T> ->
                 racer.onAwait { resultOfWinner: T ->
-                    racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
+                    racersAsyncList.forEachByIndex { deferred: Deferred<T> -> deferred.cancel() }
                     return@onAwait resultOfWinner
                 }
             }
