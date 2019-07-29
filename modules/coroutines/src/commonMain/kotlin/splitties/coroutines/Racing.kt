@@ -19,7 +19,7 @@ import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
 @Suppress("DeprecatedCallableAddReplaceWith", "RedundantSuspendModifier")
-@Deprecated("A race needs racers.", level = DeprecationLevel.ERROR)
+@Deprecated("A race needs racers.", level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs racers.")
 
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
