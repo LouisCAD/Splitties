@@ -69,6 +69,9 @@ inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope
  * Starts a [RacingScope] with the suspending [builder] lambda in which you can call [launchRacer]
  * each time you want to launch a racer coroutine. Once a racer completes, the [builder] and all
  * racers are cancelled, then the value of the winning racer is returned.
+ *
+ * For races where the number of racers is static, you can use the slightly more efficient [raceOf]
+ * function and directly pass the cancellable lambdas you want to race concurrently.
  */
 @UseExperimental(ExperimentalTypeInference::class)
 suspend fun <T> race(
