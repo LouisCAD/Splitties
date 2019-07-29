@@ -9,8 +9,10 @@ package splitties.coroutines
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
@@ -42,7 +44,7 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
  *
  * You should not implement this interface yourself.
  */
-interface RacingScope<T> {
+interface RacingScope<in T> {
     @Deprecated(
         message = "Internal API",
         replaceWith = ReplaceWith("launchRacer(block)", "splitties.coroutines.launchRacer")
@@ -56,20 +58,31 @@ inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope
 }
 
 @UseExperimental(ExperimentalTypeInference::class)
-suspend fun <T> race(@BuilderInference builder: RacingScope<T>.() -> Unit): T = coroutineScope {
+suspend fun <T> race(
+    @BuilderInference
+    builder: suspend RacingScope<T>.() -> Unit
+): T = coroutineScope {
     val racersAsyncList = mutableListOf<Deferred<T>>()
+    @Suppress("RemoveExplicitTypeArguments")
     select<T> {
+        val builderJob = Job(parent = coroutineContext[Job])
         val racingScope = object : RacingScope<T> {
             @Suppress("OverridingDeprecatedMember")
             override fun launchRacerInternal(block: suspend CoroutineScope.() -> T) {
                 async(block = block).also { racerAsync ->
                     racersAsyncList += racerAsync
                 }.onAwait { resultOfWinner: T ->
-                    racersAsyncList.forEach { deferred: Deferred<T> -> deferred.cancel() }
+                    builderJob.cancel()
+                    racersAsyncList.forEach { deferred: Deferred<T> ->
+                        deferred.cancel()
+                    }
                     return@onAwait resultOfWinner
                 }
             }
         }
-        racingScope.builder()
+        @UseExperimental(ExperimentalCoroutinesApi::class)
+        launch(builderJob, start = Undispatched) {
+            racingScope.builder()
+        }
     }
 }
