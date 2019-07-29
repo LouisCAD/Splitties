@@ -46,7 +46,7 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
  *
  * You should not implement this interface yourself.
  */
-interface RacingScope<in T> {
+interface RacingScope<in T> : CoroutineScope {
     @Deprecated(
         message = "Internal API",
         replaceWith = ReplaceWith("launchRacer(block)", "splitties.coroutines.launchRacer")
@@ -79,15 +79,29 @@ suspend fun <T> race(
     @Suppress("RemoveExplicitTypeArguments")
     select<T> {
         val builderJob = Job(parent = coroutineContext[Job])
-        val racingScope = object : RacingScope<T> {
+
+        val racingScope = object : RacingScope<T>, CoroutineScope by this@coroutineScope {
+
+            var raceWon = false
+
             @Suppress("OverridingDeprecatedMember")
             override fun launchRacerInternal(block: suspend CoroutineScope.() -> T) {
+                if (raceWon) return // A racer already completed.
                 async(block = block).also { racerAsync ->
                     racersAsyncList += racerAsync
+                    if (raceWon) { // A racer just completed on another thread, cancel.
+                        racerAsync.cancel()
+                    }
                 }.onAwait { resultOfWinner: T ->
+                    raceWon = true
                     builderJob.cancel()
-                    racersAsyncList.forEach { deferred: Deferred<T> ->
+                    var i = 0
+                    // Since launchRacerInternal might be called on multiple threads concurrently,
+                    //  we don't use a forEach loop, but a while loop that is additions tolerant.
+                    while (i <= racersAsyncList.lastIndex) {
+                        val deferred: Deferred<T> = racersAsyncList[i]
                         deferred.cancel()
+                        i++
                     }
                     return@onAwait resultOfWinner
                 }
