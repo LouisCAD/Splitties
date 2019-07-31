@@ -98,6 +98,11 @@ to the suffix you use:
 
 This will override the default value from the library.
 
+You can also override the `splitties_ui_preview_base_package_names` string array resource and add
+all the base package names where you have implementations of the `Ui` interface you want to preview.
+You can see such [an example in the sample here](../../samples/android-app/src/debug/res/values/splitties_ui_preview_config.xml).
+This can be handy if you change the `applicationId`, or if you have a modularized codebase.
+
 Alternatively, you can use the `splitties_class_fully_qualified_name`
 attribute instead and specify the full class name with its package.
 
