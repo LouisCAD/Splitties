@@ -22,6 +22,11 @@ kotlin {
             implementation(splitties("exceptions"))
             implementation(splitties("views-dsl"))
         }
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.Experimental")
+            }
+        }
     }
 }
 

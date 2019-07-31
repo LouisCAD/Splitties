@@ -6,19 +6,28 @@ package splitties.views.dsl.idepreview
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import splitties.dimensions.dip
 import splitties.exceptions.illegalArg
 import splitties.exceptions.unsupported
 import splitties.init.injectAsAppCtx
 import splitties.resources.str
+import splitties.resources.strArray
+import splitties.views.centerText
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
 import splitties.views.dsl.core.matchParent
+import splitties.views.dsl.core.textView
+import splitties.views.padding
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -44,20 +53,51 @@ class UiPreView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
+        try {
+            init(context, attrs, defStyleAttr)
+        } catch (t: Throwable) {
+            addView(textView {
+                text = t.message ?: t.toString()
+                setTextColor(Color.BLUE)
+                centerText()
+                padding = dip(16)
+                textSize = 24f
+            }, lParams(matchParent, matchParent))
+        }
+    }
+
+    private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         require(isInEditMode) { "Only intended for use in IDE!" }
         context.injectAsAppCtx()
-        val className = withStyledAttributes(attrs, R.styleable.UiPreView, defStyleAttr, 0) { ta ->
-            val packageNameSuffix =
-                str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
-            ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)
-                ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
-                    val packageName = context.packageName.removeSuffix(packageNameSuffix)
-                    "$packageName.$it"
+        val uiClass: Class<out Ui> = withStyledAttributes(
+            attrs = attrs,
+            attrsRes = R.styleable.UiPreView,
+            defStyleAttr = defStyleAttr,
+            defStyleRes = 0
+        ) { ta ->
+            ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)?.let {
+                @Suppress("UNCHECKED_CAST")
+                Class.forName(it) as Class<out Ui>
+            } ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
+                try {
+                    val packageName = context.packageName.removeSuffix(
+                        suffix = str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
+                    )
+                    @Suppress("UNCHECKED_CAST")
+                    Class.forName("$packageName.$it") as Class<out Ui>
+                } catch (e: ClassNotFoundException) {
+                    context.strArray(R.array.splitties_ui_preview_base_package_names)
+                        .fold<String, Class<out Ui>?>(null) { foundOrNull, packageName ->
+                            foundOrNull ?: try {
+                                @Suppress("UNCHECKED_CAST")
+                                Class.forName("$packageName.$it") as Class<out Ui>
+                            } catch (e: ClassNotFoundException) {
+                                null
+                            }
+                        }
                 }
-                ?: illegalArg("No class name attribute provided")
+            } ?: illegalArg("No class name attribute provided")
         }
-        @Suppress("UNCHECKED_CAST")
-        val uiClass = Class.forName(className) as Class<out Ui>
         require(Ui::class.java.isAssignableFrom(uiClass)) { "$uiClass is not a subclass of Ui!" }
         require(!uiClass.isInterface) { "$uiClass is not instantiable because it's an interface!" }
         val ui = try {
@@ -95,13 +135,17 @@ class UiPreView @JvmOverloads constructor(
         }
         addView(ui.root, lParams(matchParent, matchParent))
     }
+}
 
-    private inline fun <R> View.withStyledAttributes(
-        attrs: AttributeSet?, attrsRes: IntArray,
-        defStyleAttr: Int, defStyleRes: Int = 0,
-        func: (styledAttrs: TypedArray) -> R
-    ): R {
-        val styledAttrs = context.obtainStyledAttributes(attrs, attrsRes, defStyleAttr, defStyleRes)
-        return func(styledAttrs).also { styledAttrs.recycle() }
-    }
+@UseExperimental(ExperimentalContracts::class)
+private inline fun <R> View.withStyledAttributes(
+    attrs: AttributeSet?,
+    attrsRes: IntArray,
+    defStyleAttr: Int,
+    defStyleRes: Int = 0,
+    func: (styledAttrs: TypedArray) -> R
+): R {
+    contract { callsInPlace(func, InvocationKind.EXACTLY_ONCE) }
+    val styledAttrs = context.obtainStyledAttributes(attrs, attrsRes, defStyleAttr, defStyleRes)
+    return func(styledAttrs).also { styledAttrs.recycle() }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="splitties_ui_preview_base_package_names">
+        <item>com.example.splitties</item>
+    </string-array>
+</resources>
