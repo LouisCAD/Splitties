@@ -16,12 +16,14 @@ import splitties.exceptions.unsupported
 import splitties.init.injectAsAppCtx
 import splitties.resources.str
 import splitties.resources.strArray
-import splitties.views.centerText
+import splitties.views.backgroundColor
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
 import splitties.views.dsl.core.matchParent
 import splitties.views.dsl.core.textView
+import splitties.views.gravityCenterVertical
 import splitties.views.padding
+import splitties.views.setCompoundDrawables
 import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
@@ -55,11 +57,13 @@ class UiPreView @JvmOverloads constructor(
     init {
         try {
             init(context, attrs, defStyleAttr)
-        } catch (t: Throwable) {
+        } catch (t: IllegalArgumentException) {
+            backgroundColor = Color.WHITE
             addView(textView {
                 text = t.message ?: t.toString()
+                setCompoundDrawables(top = R.drawable.ic_warning_red_96dp)
+                gravity = gravityCenterVertical
                 setTextColor(Color.BLUE)
-                centerText()
                 padding = dip(16)
                 textSize = 24f
             }, lParams(matchParent, matchParent))
@@ -79,27 +83,32 @@ class UiPreView @JvmOverloads constructor(
                 @Suppress("UNCHECKED_CAST")
                 Class.forName(it) as Class<out Ui>
             } ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
+                val packageName = context.packageName.removeSuffix(
+                    suffix = str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
+                )
                 try {
-                    val packageName = context.packageName.removeSuffix(
-                        suffix = str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
-                    )
                     @Suppress("UNCHECKED_CAST")
                     Class.forName("$packageName.$it") as Class<out Ui>
                 } catch (e: ClassNotFoundException) {
-                    context.strArray(R.array.splitties_ui_preview_base_package_names)
-                        .fold<String, Class<out Ui>?>(null) { foundOrNull, packageName ->
-                            foundOrNull ?: try {
-                                @Suppress("UNCHECKED_CAST")
-                                Class.forName("$packageName.$it") as Class<out Ui>
-                            } catch (e: ClassNotFoundException) {
-                                null
-                            }
+                    val otherPackages = context.strArray(R.array.splitties_ui_preview_base_package_names)
+                    otherPackages.fold<String, Class<out Ui>?>(null) { foundOrNull, packageNameHierarchy ->
+                        foundOrNull ?: try {
+                            @Suppress("UNCHECKED_CAST")
+                            Class.forName("$packageNameHierarchy.$it") as Class<out Ui>
+                        } catch (e: ClassNotFoundException) {
+                            null
                         }
+                    } ?: illegalArg(
+                        "Package-name relative class \"$it\" not found!\nDid you make a typo?\n\n" +
+                                "Searched in the following root packages:\n" +
+                                "- $packageName\n" +
+                                otherPackages.joinToString(separator = "\n", prefix = "- ")
+                    )
                 }
             } ?: illegalArg("No class name attribute provided")
         }
-        require(Ui::class.java.isAssignableFrom(uiClass)) { "$uiClass is not a subclass of Ui!" }
         require(!uiClass.isInterface) { "$uiClass is not instantiable because it's an interface!" }
+        require(Ui::class.java.isAssignableFrom(uiClass)) { "$uiClass is not a subclass of Ui!" }
         val ui = try {
             val uiConstructor: Constructor<out Ui> = uiClass.getConstructor(Context::class.java)
             uiConstructor.newInstance(context)
@@ -115,17 +124,15 @@ class UiPreView @JvmOverloads constructor(
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
             val parameters = mutableListOf<Any>(context).also { params ->
                 uiConstructor.parameterTypes.forEachIndexed { index, parameterType ->
-                    if (index != 0) {
-                        params += when (parameterType) {
-                            CoroutineContext::class.java -> EmptyCoroutineContext
-                            else -> Proxy.newProxyInstance(
-                                parameterType.classLoader,
-                                arrayOf(parameterType)
-                            ) { proxy: Any?, method: Method, args: Array<out Any>? ->
-                                when (method.declaringClass.name) {
-                                    "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
-                                    else -> unsupported("Edit mode: stub implementation.")
-                                }
+                    if (index != 0) params += when (parameterType) {
+                        CoroutineContext::class.java -> EmptyCoroutineContext
+                        else -> Proxy.newProxyInstance(
+                            parameterType.classLoader,
+                            arrayOf(parameterType)
+                        ) { proxy: Any?, method: Method, args: Array<out Any>? ->
+                            when (method.declaringClass.name) {
+                                "kotlinx.coroutines.CoroutineScope" -> EmptyCoroutineContext
+                                else -> unsupported("Edit mode: stub implementation.")
                             }
                         }
                     }
