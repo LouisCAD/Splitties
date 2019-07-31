@@ -49,7 +49,7 @@ android {
     packagingOptions {
         exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
         exclude("**/*.kotlin_builtins") // Reduce apk size
-        exclude("**/*.kotlin_metadata")  // Reduce apk size
+        exclude("**/*.kotlin_metadata") // Reduce apk size
     }
 }
 
