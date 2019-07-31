@@ -59,7 +59,7 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                 kotlin.srcDir("src/macosMain/kotlin")
             }
             if (supportAndroidNative) sourceSets.getByName(androidNativeMainSourceSetNameForIde) {
-                kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin") // Android != AndroidNative.
+                kotlin.srcDir("src/androidNativeMain/allButAndroidMain/kotlin") // Android != AndroidNative.
                 kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
                 kotlin.srcDir("src/androidNativeMain/kotlin")
             }
