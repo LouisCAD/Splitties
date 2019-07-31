@@ -80,8 +80,12 @@ class UiPreView @JvmOverloads constructor(
             defStyleRes = 0
         ) { ta ->
             ta.getString(R.styleable.UiPreView_splitties_class_fully_qualified_name)?.let {
-                @Suppress("UNCHECKED_CAST")
-                Class.forName(it) as Class<out Ui>
+                try {
+                    @Suppress("UNCHECKED_CAST")
+                    Class.forName(it) as Class<out Ui>
+                } catch (e: ClassNotFoundException) {
+                    illegalArg("Did not find the specified class: $it")
+                }
             } ?: ta.getString(R.styleable.UiPreView_splitties_class_package_name_relative)?.let {
                 val packageName = context.packageName.removeSuffix(
                     suffix = str(R.string.splitties_views_dsl_ide_preview_package_name_suffix)
@@ -90,7 +94,8 @@ class UiPreView @JvmOverloads constructor(
                     @Suppress("UNCHECKED_CAST")
                     Class.forName("$packageName.$it") as Class<out Ui>
                 } catch (e: ClassNotFoundException) {
-                    val otherPackages = context.strArray(R.array.splitties_ui_preview_base_package_names)
+                    val otherPackages =
+                        context.strArray(R.array.splitties_ui_preview_base_package_names)
                     otherPackages.fold<String, Class<out Ui>?>(null) { foundOrNull, packageNameHierarchy ->
                         foundOrNull ?: try {
                             @Suppress("UNCHECKED_CAST")
