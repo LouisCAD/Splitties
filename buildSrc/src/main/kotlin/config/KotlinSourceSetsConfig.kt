@@ -34,6 +34,7 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 
 fun KotlinMultiplatformExtension.setupNativeSourceSets() {
     val nativeTargets = targets.filter { it.platformType == KotlinPlatformType.native }
+    if (nativeTargets.isEmpty()) return
     val nativeTargetsFamilies: Set<Family> = nativeTargets.map {
         (it.preset as KotlinNativeTargetPreset).konanTarget.family
     }.toSet()
