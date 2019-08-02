@@ -29,7 +29,7 @@ val kotlinVersion = "1.3.41" // Don't forget to update in Dependencies.kt too!
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("com.android.tools.build:gradle:3.5.0-rc01")
+    implementation("com.android.tools.build:gradle:3.5.0-rc02")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 }
 
