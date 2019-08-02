@@ -14,10 +14,20 @@ android {
 
 kotlin {
     android()
+    ios()
+    macos()
+    js()
     configure(targets) { configureMavenPublication() }
+    setupNativeSourceSets()
     sourceSets {
+        commonMain.dependencies {
+            api(kotlin("stdlib-common"))
+        }
         androidMain.dependencies {
             api(Libs.kotlin.stdlibJdk7)
+        }
+        jsMain.dependencies {
+            api(kotlin("stdlib-js"))
         }
     }
 }
