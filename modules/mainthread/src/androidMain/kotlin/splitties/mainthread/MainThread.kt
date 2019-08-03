@@ -14,4 +14,5 @@ val mainThread: Thread = mainLooper.thread
 
 actual val isMainThread: Boolean inline get() = mainThread === Thread.currentThread()
 
-actual val currentThread: Any? inline get() = Thread.currentThread()
+@PublishedApi
+internal actual val currentThread: Any? inline get() = Thread.currentThread()

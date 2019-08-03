@@ -6,4 +6,5 @@ package splitties.mainthread
 
 actual val isMainThread: Boolean inline get() = true // Only one thread in JS.
 
+@PublishedApi
 internal actual val currentThread: Any? get() = null // No Thread object in JS.

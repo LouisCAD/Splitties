@@ -8,4 +8,5 @@ import platform.Foundation.NSThread
 
 actual val isMainThread: Boolean inline get() = NSThread.isMainThread
 
+@PublishedApi
 internal actual val currentThread: Any? get() = NSThread.currentThread
