@@ -14,7 +14,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
-import org.jetbrains.kotlin.konan.target.KonanTarget
 
 fun KotlinTargetContainerWithPresetFunctions.macos() {
     if (HostManager.hostIsMac) macosX64()
@@ -36,53 +35,69 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 fun KotlinMultiplatformExtension.setupNativeSourceSets() {
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
-    val nativeTargetsFamilies: Set<Family> = nativeTargets.map { it.konanTarget.family }.toSet()
-    val supportMacOS = Family.OSX in nativeTargetsFamilies
-    val supportIos = Family.IOS in nativeTargetsFamilies
-    val supportAndroidNative = Family.ANDROID in nativeTargetsFamilies
-    val supportLinux = Family.LINUX in nativeTargetsFamilies
-    val supportMingw = Family.MINGW in nativeTargetsFamilies
+
+    val minGWTargets = nativeTargets.filterFamily(Family.MINGW)
+    val macOSTargets = nativeTargets.filterFamily(Family.OSX)
+    val iosTargets = nativeTargets.filterFamily(Family.IOS)
+    val linuxTargets = nativeTargets.filterFamily(Family.LINUX)
+    val androidNativeTargets = nativeTargets.filterFamily(Family.ANDROID)
+
     sourceSets.apply {
         if (isRunningInIde) {
-            if (supportIos) sourceSets.getByName(iosMainSourceSetNameForIde) {
-                kotlin.srcDir("src/iosMain/allButAndroidMain/kotlin")
-                kotlin.srcDir("src/iosMain/nativeMain/kotlin")
-                kotlin.srcDir("src/iosMain/appleMain/kotlin")
-                if (use32bitsInIde.not()) {
-                    kotlin.srcDir("src/iosMain/apple64Main/kotlin")
+            iosTargets.forEach { target ->
+                target.mainSourceSet {
+                    kotlin.srcDir("src/iosMain/allButAndroidMain/kotlin")
+                    kotlin.srcDir("src/iosMain/nativeMain/kotlin")
+                    kotlin.srcDir("src/iosMain/appleMain/kotlin")
+                    if (target.konanTarget.architecture.bitness == 64) {
+                        kotlin.srcDir("src/iosMain/apple64Main/kotlin")
+                    }
+                    kotlin.srcDir("src/iosMain/kotlin")
                 }
-                kotlin.srcDir("src/iosMain/kotlin")
             }
-            if (supportMacOS) sourceSets.getByName(macosMainSourceSetNameForIde) {
-                kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin")
-                kotlin.srcDir("src/macosMain/nativeMain/kotlin")
-                kotlin.srcDir("src/macosMain/appleMain/kotlin")
-                kotlin.srcDir("src/macosMain/apple64Main/kotlin")
-                kotlin.srcDir("src/macosMain/kotlin")
+            macOSTargets.forEach { target ->
+                target.mainSourceSet {
+                    kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin")
+                    kotlin.srcDir("src/macosMain/nativeMain/kotlin")
+                    kotlin.srcDir("src/macosMain/appleMain/kotlin")
+                    kotlin.srcDir("src/macosMain/apple64Main/kotlin")
+                    kotlin.srcDir("src/macosMain/kotlin")
+                }
             }
-            if (supportAndroidNative) sourceSets.getByName(androidNativeMainSourceSetNameForIde) {
-                kotlin.srcDir("src/androidNativeMain/allButAndroidMain/kotlin") // Android != AndroidNative.
-                kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
-                kotlin.srcDir("src/androidNativeMain/kotlin")
+            androidNativeTargets.forEach { target ->
+                target.mainSourceSet {
+                    kotlin.srcDir("src/androidNativeMain/allButAndroidMain/kotlin") // Android != AndroidNative.
+                    kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
+                    kotlin.srcDir("src/androidNativeMain/kotlin")
+                }
             }
-            if (supportLinux) nativeTargets.first {
-                it.konanTarget.family == Family.LINUX
-            }.compilations.main.defaultSourceSet {
-                kotlin.srcDir("src/linuxMain/allButAndroidMain/kotlin")
-                kotlin.srcDir("src/linuxMain/nativeMain/kotlin")
-                kotlin.srcDir("src/linuxMain/kotlin")
+            linuxTargets.forEach { target ->
+                target.mainSourceSet {
+                    kotlin.srcDir("src/linuxMain/allButAndroidMain/kotlin")
+                    kotlin.srcDir("src/linuxMain/nativeMain/kotlin")
+                    kotlin.srcDir("src/linuxMain/kotlin")
+                }
             }
         } else {
             createMainAndTest("allButAndroid")
             createMainAndTest("native", dependsOn = "allButAndroid")
-            if (supportMacOS || supportIos) {
+
+            val supportIos = iosTargets.isNotEmpty()
+            val supportMacos = macOSTargets.isNotEmpty()
+            if (supportMacos || supportIos) {
                 createMainAndTest("apple", dependsOn = "native")
                 val (apple64Main, apple64Test) = createMainAndTest("apple64", dependsOn = "apple")
+                if (supportMacos) {
+                    val (main, test) = createMainAndTest("macos", dependsOn = "apple")
+                    macOSTargets.forEach { target ->
+                        target.mainSourceSet.dependsOn(main, apple64Main)
+                        target.testSourceSet.dependsOn(test, apple64Test)
+                    }
+                }
                 if (supportIos) {
-                    val iosTargets = nativeTargets.filterFamily(Family.IOS)
                     val (main, test) = createMainAndTest("ios", dependsOn = "apple")
                     iosTargets.forEach { target ->
-                        if (target.konanTarget != KonanTarget.IOS_ARM32) {
+                        if (target.konanTarget.architecture.bitness == 64) {
                             target.mainSourceSet.dependsOn(apple64Main)
                             target.testSourceSet.dependsOn(apple64Test)
                         }
@@ -90,17 +105,8 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                         target.testSourceSet.dependsOn(test)
                     }
                 }
-                if (supportMacOS) {
-                    val macosTargets = nativeTargets.filterFamily(Family.OSX)
-                    val (main, test) = createMainAndTest("macos", dependsOn = "apple")
-                    macosTargets.forEach { target ->
-                        target.mainSourceSet.dependsOn(main, apple64Main)
-                        target.testSourceSet.dependsOn(test, apple64Test)
-                    }
-                }
             }
-            if (supportLinux) {
-                val linuxTargets = nativeTargets.filterFamily(Family.LINUX)
+            if (linuxTargets.isNotEmpty()) {
                 val (main, test) = createMainAndTest("linux", dependsOn = "native")
                 createAndLinkBitnessSpecificSourceSet("linux", bitness = 64, targets = linuxTargets)
                 createAndLinkBitnessSpecificSourceSet("linux", bitness = 32, targets = linuxTargets)
@@ -109,16 +115,14 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                     target.testSourceSet.dependsOn(test)
                 }
             }
-            if (supportMingw) {
-                val mingwTargets = nativeTargets.filterFamily(Family.MINGW)
+            if (minGWTargets.isNotEmpty()) {
                 val (main, test) = createMainAndTest("mingw", dependsOn = "native")
-                mingwTargets.forEach { target ->
+                minGWTargets.forEach { target ->
                     target.mainSourceSet.dependsOn(main)
                     target.testSourceSet.dependsOn(test)
                 }
             }
-            if (supportAndroidNative) {
-                val androidNativeTargets = nativeTargets.filterFamily(Family.ANDROID)
+            if (androidNativeTargets.isNotEmpty()) {
                 val (main, test) = createMainAndTest("androidNative", dependsOn = "native")
                 androidNativeTargets.forEach { target ->
                     target.mainSourceSet.dependsOn(main)
@@ -169,13 +173,13 @@ private fun List<KotlinNativeTarget>.filterFamily(family: Family) = filter {
 }
 
 private val KotlinTarget.mainSourceSet get() = compilations.main.defaultSourceSet
-private fun KotlinTarget.mainSourceSet(configure: KotlinSourceSet.() -> Unit) {
-    compilations.main.defaultSourceSet(configure)
+private inline fun KotlinTarget.mainSourceSet(configure: KotlinSourceSet.() -> Unit) {
+    compilations.main.defaultSourceSet.configure()
 }
 
 private val KotlinTarget.testSourceSet get() = compilations.test.defaultSourceSet
-private fun KotlinTarget.testSourceSet(configure: KotlinSourceSet.() -> Unit) {
-    compilations.test.defaultSourceSet(configure)
+private inline fun KotlinTarget.testSourceSet(configure: KotlinSourceSet.() -> Unit) {
+    compilations.test.defaultSourceSet.configure()
 }
 
 private fun KotlinSourceSet.dependsOn(vararg others: KotlinSourceSet) {
