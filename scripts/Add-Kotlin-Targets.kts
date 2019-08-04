@@ -30,15 +30,16 @@ val targets = listOf(
     KotlinTarget("androidNative", listOf("allButAndroid", "native")),
     KotlinTarget("ios", listOf("allButAndroid", "native", "apple", "apple64")),
     KotlinTarget("macos", listOf("allButAndroid", "native", "apple", "apple64"))
-    KotlinTarget("androidNative", listOf("allButAndroid", "native"))
-    KotlinTarget("linuxX64", listOf("allButAndroid", "native", "linux", "linux64"))
-    KotlinTarget("linuxArm64", listOf("allButAndroid", "native", "linux", "linux64"))
-    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "native", "linux", "linux32"))
-    KotlinTarget("linuxMips32", listOf("allButAndroid", "native", "linux", "linux32"))
-    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "native", "linux", "linux32"))
-    KotlinTarget("mingwX64", listOf("allButAndroid", "native", "mingw"))
-    KotlinTarget("mingwX86", listOf("allButAndroid", "native", "mingw"))
-    KotlinTarget("wasm32", listOf("allButAndroid", "native"))
+            KotlinTarget ("androidNative", listOf("allButAndroid", "native")
+)
+KotlinTarget("linuxX64", listOf("allButAndroid", "native", "linux", "linux64"))
+KotlinTarget("linuxArm64", listOf("allButAndroid", "native", "linux", "linux64"))
+KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "native", "linux", "linux32"))
+KotlinTarget("linuxMips32", listOf("allButAndroid", "native", "linux", "linux32"))
+KotlinTarget("linuxMipsel32", listOf("allButAndroid", "native", "linux", "linux32"))
+KotlinTarget("mingwX64", listOf("allButAndroid", "native", "mingw"))
+KotlinTarget("mingwX86", listOf("allButAndroid", "native", "mingw"))
+KotlinTarget("wasm32", listOf("allButAndroid", "native"))
 )
 
 fun addTarget(modulePath: Path, packageName: String) {
@@ -63,17 +64,21 @@ fun addTarget(modulePath: Path, packageName: String) {
         val indexOfLineAfter = text.indexOf('\n', startIndex = kotlinLambdaIndex + 1).also { i ->
             check(i >= 0) { "Didn't find a new line after the start of the kotlin lambda" }
         }
-        val newText = text.replaceRange(
-            startIndex = indexOfLineAfter,
-            endIndex = indexOfLineAfter,
-            replacement = "\n    ${selectedTarget.name}()"
-        )
-        println("Writing updated build.gradle.kts")
-        Files.newBufferedWriter(gradleKtsBuildFile).use {
-            it.write(newText)
-            it.flush()
+        if (text.indexOf("\n    ${selectedTarget.name}", startIndex = indexOfLineAfter) >= 0) {
+            println("Already includes target, continuins.")
+        } else {
+            val newText = text.replaceRange(
+                startIndex = indexOfLineAfter,
+                endIndex = indexOfLineAfter,
+                replacement = "\n    ${selectedTarget.name}()"
+            )
+            println("Writing updated build.gradle.kts with new target")
+            Files.newBufferedWriter(gradleKtsBuildFile).use {
+                it.write(newText)
+                it.flush()
+            }
+            println("Write complete")
         }
-        println("Write complete")
     }
 
     val targetMainSourceSetPath: Path = srcPath.resolve("${selectedTarget.name}Main")
