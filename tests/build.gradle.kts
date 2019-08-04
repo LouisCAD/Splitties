@@ -14,7 +14,7 @@ android {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
-        versionName = ProjectVersions.thisLibrary
+        versionName = thisLibraryVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     sourceSets.all { java.srcDir("src/$name/kotlin") }

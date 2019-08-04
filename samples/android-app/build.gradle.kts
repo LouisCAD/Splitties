@@ -17,7 +17,7 @@ android {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
-        versionName = ProjectVersions.thisLibrary
+        versionName = thisLibraryVersion
         resConfigs("en", "fr")
         proguardFile("../proguard-android-really-optimize.txt")
         proguardFile("proguard-rules.pro")

@@ -4,10 +4,12 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
+import org.gradle.api.Project
+
 object ProjectVersions {
     const val androidBuildTools = "28.0.3"
     const val androidSdk = 28
-    const val thisLibrary = "3.0.0-dev-024"
 }
 
-val isDevVersion = ProjectVersions.thisLibrary.contains("-dev-")
+val Project.thisLibraryVersion: String get() = property("splitties.version") as String
+val Project.isDevVersion get() = thisLibraryVersion.contains("-dev-")

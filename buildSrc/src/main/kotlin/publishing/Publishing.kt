@@ -46,7 +46,7 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     project.configurations.create("compileClasspath")
     //TODO: Remove line above when https://youtrack.jetbrains.com/issue/KT-27170 is fixed
     project.group = "com.louiscad.splitties"
-    project.version = ProjectVersions.thisLibrary
+    project.version = project.thisLibraryVersion
     val mavenPublications = publications.withType<MavenPublication>()
     mavenPublications.all { setupPom() }
     mavenPublications.findByName("kotlinMultiplatform")?.let {
@@ -76,7 +76,7 @@ private fun PublishingExtension.setupPublishRepo(project: Project) {
         maven {
             name = "bintray"
             val bintrayUsername = "louiscad"
-            val bintrayRepoName = if (isDevVersion) "splitties-dev" else "maven"
+            val bintrayRepoName = if (project.isDevVersion) "splitties-dev" else "maven"
             val bintrayPackageName = "splitties"
             setUrl(
                 "https://api.bintray.com/maven/" +

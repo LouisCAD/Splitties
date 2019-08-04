@@ -144,8 +144,8 @@ var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.
 var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 
 val ongoingReleaseFile = dir.resolve("ongoing_release.splitties")
-val versionsFile = dir.resolve("buildSrc/src/main/kotlin/ProjectVersions.kt")
-val libVersionLineStart = "    const val thisLibrary = \""
+val versionsFile = dir.resolve("gradle.properties")
+val libVersionLineStart = "splitties.version="
 
 if (ongoingReleaseFile.exists()) {
     ongoingReleaseFile.readLines().let {
@@ -159,10 +159,7 @@ if (ongoingReleaseFile.exists()) {
         val libraryVersionLine = versionsFile.readLines().singleOrNull { line ->
             line.startsWith(libVersionLineStart)
         } ?: throw IllegalStateException("Library version line not found.")
-        libraryVersionLine.substring(
-            startIndex = libVersionLineStart.length,
-            endIndex = libraryVersionLine.lastIndex
-        ).also { versionName ->
+        libraryVersionLine.substring(startIndex = libVersionLineStart.length).also { versionName ->
             check("-dev-" in versionName) {
                 "Version in ${versionsFile.path} should be a `-dev-` version."
             }
@@ -203,7 +200,7 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         versionsFile.writeText(
             versionsFileTextBeforeEdits.replace(
                 oldValue = libraryVersionLine,
-                newValue = "$libVersionLineStart$newVersion\""
+                newValue = "$libVersionLineStart$newVersion"
             )
         )
     }
@@ -270,8 +267,8 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         }
         versionsFile.writeText(
             versionsFile.readText().replace(
-                oldValue = "$libVersionLineStart$newVersion\"",
-                newValue = "$libVersionLineStart$nextDevVersion\""
+                oldValue = "$libVersionLineStart$newVersion",
+                newValue = "$libVersionLineStart$nextDevVersion"
             )
         )
         printInfo("${versionsFile.path} has been edited with next developement version ($nextDevVersion).")
