@@ -8,10 +8,12 @@
 package splitties.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
@@ -20,10 +22,10 @@ fun <T> suspendBlockingLazy(
     initializer: () -> T
 ): SuspendLazy<T> = SuspendLazyBlockingImpl(dispatcher, initializer)
 
-fun <T> suspendLazy(
-    dispatcher: CoroutineDispatcher = Dispatchers.Default,
+fun <T> CoroutineScope.suspendLazy(
+    context: CoroutineContext = EmptyCoroutineContext,
     initializer: suspend () -> T
-): SuspendLazy<T> = SuspendLazySuspendingImpl(dispatcher, initializer)
+): SuspendLazy<T> = SuspendLazySuspendingImpl(this, context, initializer)
 
 interface SuspendLazy<out T> {
     suspend operator fun invoke(): T
@@ -40,11 +42,10 @@ private class SuspendLazyBlockingImpl<out T>(
 }
 
 private class SuspendLazySuspendingImpl<out T>(
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
+    coroutineScope: CoroutineScope,
+    private val context: CoroutineContext,
     initializer: suspend () -> T
 ) : SuspendLazy<T> {
-    private val lazyValue = lazy { GlobalScope.async(dispatcher) { initializer() } }
-    override suspend operator fun invoke(): T = with(lazyValue) {
-        if (isInitialized()) value else withContext(dispatcher) { value }
-    }.await()
+    private val value by lazy { coroutineScope.async(context) { initializer() } }
+    override suspend operator fun invoke(): T = value.await()
 }
