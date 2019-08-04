@@ -71,27 +71,48 @@ fun addTarget(modulePath: Path, packageName: String) {
     logSingleFileCreation(what = "Directory for ${selectedTarget.name} target") {
         Files.createDirectory(targetMainSourceSetPath)
     }
-    logSingleFileCreation(what = "Package name directories") {
+
+    val createdIntermediateSourceSetsCount = promptIntermediateSourceSetsCreation(
+        selectedTarget = selectedTarget,
+        targetMainSourceSetPath = targetMainSourceSetPath,
+        srcPath = srcPath,
+        packageName = packageName
+    )
+
+    if (createdIntermediateSourceSetsCount == 0 || promptResponseIsYes(
+            question = "Will you also add Kotlin source files directly into ${selectedTarget.name}"
+        )
+    ) logSingleFileCreation(what = "Package name directories") {
         Files.createDirectories(
             targetMainSourceSetPath.resolve("kotlin/${packageName.replace('.', '/')}")
         )
     }
 
-    if (selectedTarget.optionalIntermediateSourceSets.isEmpty()) {
-        println()
-        println("Done")
-        return
-    }
+    println()
+    println("Done")
+}
 
+/**
+ * Prompts the user which intermediate source sets (if any) he wants, creates the directories along
+ * with their symlinks, and returns how many were created.
+ */
+fun promptIntermediateSourceSetsCreation(
+    selectedTarget: KotlinTarget,
+    targetMainSourceSetPath: Path,
+    srcPath: Path,
+    packageName: String
+): Int {
+    val optionalIntermediateSourceSets = selectedTarget.optionalIntermediateSourceSets
+    if (optionalIntermediateSourceSets.isEmpty()) return 0
     println()
     println("Please, type all the digits of the source sets you want to symlink")
     println("For example, type \"123\" for choices 1, 2 and 3, or \"23\" for 2 and 3.")
     println("Digits of your choices:")
-    selectedTarget.optionalIntermediateSourceSets.forEachIndexed { i, it ->
+    optionalIntermediateSourceSets.forEachIndexed { i, it ->
         println("${i + 1}. $it")
     }
     val choices = readLine()!!
-    selectedTarget.optionalIntermediateSourceSets.forEachIndexed { i, intermediateSourceSet ->
+    return optionalIntermediateSourceSets.withIndex().count { (i, intermediateSourceSet) ->
         val digit = (i + 1).toString().single()
         if (digit in choices) {
             val intermediateSourceSetMain = "${intermediateSourceSet}Main"
@@ -110,10 +131,9 @@ fun addTarget(modulePath: Path, packageName: String) {
                     )
                 )
             }
-        }
+            true
+        } else false
     }
-    println()
-    println("Done")
 }
 
 fun selectModuleAndAddTargets() {
