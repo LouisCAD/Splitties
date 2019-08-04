@@ -30,7 +30,7 @@ fun KotlinTarget.configureMavenPublication() {
             // matchingFallbacks unless the multiplatform artifact is used.
             val capitalizedPublicationName = "${name.first().toTitleCase()}${name.substring(1)}"
             val metadataTaskName = "generateMetadataFileFor${capitalizedPublicationName}Publication"
-            project.tasks.getByName(metadataTaskName).enabled = false
+            project.tasks.named(metadataTaskName) { onlyIf { false } }
         }
     }
     if (platformType == androidJvm) {
