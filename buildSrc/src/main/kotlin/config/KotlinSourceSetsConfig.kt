@@ -9,9 +9,9 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetPreset
+import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
@@ -34,14 +34,14 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 }
 
 fun KotlinMultiplatformExtension.setupNativeSourceSets() {
-    val nativeTargets = targets.filter { it.platformType == KotlinPlatformType.native }
+    val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
-    val nativeTargetsFamilies: Set<Family> = nativeTargets.map {
-        (it.preset as KotlinNativeTargetPreset).konanTarget.family
-    }.toSet()
+    val nativeTargetsFamilies: Set<Family> = nativeTargets.map { it.konanTarget.family }.toSet()
     val supportMacOS = Family.OSX in nativeTargetsFamilies
     val supportIos = Family.IOS in nativeTargetsFamilies
     val supportAndroidNative = Family.ANDROID in nativeTargetsFamilies
+    val supportLinux = Family.LINUX in nativeTargetsFamilies
+    val supportMingw = Family.MINGW in nativeTargetsFamilies
     sourceSets.apply {
         if (isRunningInIde) {
             if (supportIos) sourceSets.getByName(iosMainSourceSetNameForIde) {
@@ -65,6 +65,13 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                 kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
                 kotlin.srcDir("src/androidNativeMain/kotlin")
             }
+            if (supportLinux) nativeTargets.first {
+                it.konanTarget.family == Family.LINUX
+            }.compilations.main.defaultSourceSet {
+                kotlin.srcDir("src/linuxMain/allButAndroidMain/kotlin")
+                kotlin.srcDir("src/linuxMain/nativeMain/kotlin")
+                kotlin.srcDir("src/linuxMain/kotlin")
+            }
         } else {
             createMainAndTest("allButAndroid")
             createMainAndTest("native", dependsOn = "allButAndroid")
@@ -72,48 +79,53 @@ fun KotlinMultiplatformExtension.setupNativeSourceSets() {
                 createMainAndTest("apple", dependsOn = "native")
                 val (apple64Main, apple64Test) = createMainAndTest("apple64", dependsOn = "apple")
                 if (supportIos) {
-                    val iosTargets = nativeTargets.filter {
-                        (it.preset as KotlinNativeTargetPreset).konanTarget.family == Family.IOS
-                    }
+                    val iosTargets = nativeTargets.filterFamily(Family.IOS)
                     val (main, test) = createMainAndTest("ios", dependsOn = "apple")
                     iosTargets.forEach { target ->
-                        val konanTarget = (target.preset as KotlinNativeTargetPreset).konanTarget
-                        if (konanTarget != KonanTarget.IOS_ARM32) {
-                            target.compilations.main.defaultSourceSet.dependsOn(apple64Main)
-                            target.compilations.test.defaultSourceSet.dependsOn(apple64Test)
+                        if (target.konanTarget != KonanTarget.IOS_ARM32) {
+                            target.mainSourceSet.dependsOn(apple64Main)
+                            target.testSourceSet.dependsOn(apple64Test)
                         }
-                        target.compilations.main.defaultSourceSet.dependsOn(main)
-                        target.compilations.test.defaultSourceSet.dependsOn(test)
+                        target.mainSourceSet.dependsOn(main)
+                        target.testSourceSet.dependsOn(test)
                     }
                 }
                 if (supportMacOS) {
-                    val macosTargets = nativeTargets.filter {
-                        (it.preset as KotlinNativeTargetPreset).konanTarget.family == Family.OSX
-                    }
+                    val macosTargets = nativeTargets.filterFamily(Family.OSX)
                     val (main, test) = createMainAndTest("macos", dependsOn = "apple")
                     macosTargets.forEach { target ->
-                        target.compilations.main.defaultSourceSet {
-                            dependsOn(main)
-                            dependsOn(apple64Main)
-                        }
-                        target.compilations.test.defaultSourceSet {
-                            dependsOn(test)
-                            dependsOn(apple64Test)
-                        }
+                        target.mainSourceSet.dependsOn(main, apple64Main)
+                        target.testSourceSet.dependsOn(test, apple64Test)
                     }
+                }
+            }
+            if (supportLinux) {
+                val linuxTargets = nativeTargets.filterFamily(Family.LINUX)
+                val (main, test) = createMainAndTest("linux", dependsOn = "native")
+                createAndLinkBitnessSpecificSourceSet("linux", bitness = 64, targets = linuxTargets)
+                createAndLinkBitnessSpecificSourceSet("linux", bitness = 32, targets = linuxTargets)
+                linuxTargets.forEach { target ->
+                    target.mainSourceSet.dependsOn(main)
+                    target.testSourceSet.dependsOn(test)
+                }
+            }
+            if (supportMingw) {
+                val mingwTargets = nativeTargets.filterFamily(Family.MINGW)
+                val (main, test) = createMainAndTest("mingw", dependsOn = "native")
+                mingwTargets.forEach { target ->
+                    target.mainSourceSet.dependsOn(main)
+                    target.testSourceSet.dependsOn(test)
                 }
             }
             if (supportAndroidNative) {
-                val androidNativeTargets = nativeTargets.filter {
-                    (it.preset as KotlinNativeTargetPreset).konanTarget.family == Family.ANDROID
-                }
+                val androidNativeTargets = nativeTargets.filterFamily(Family.ANDROID)
                 val (main, test) = createMainAndTest("androidNative", dependsOn = "native")
                 androidNativeTargets.forEach { target ->
-                    target.compilations.main.defaultSourceSet.dependsOn(main)
-                    target.compilations.test.defaultSourceSet.dependsOn(test)
+                    target.mainSourceSet.dependsOn(main)
+                    target.testSourceSet.dependsOn(test)
                 }
             }
-            //TODO: Add support for Linux, Mingw, WASM and Zephyr.
+            //TODO: Add support for WASM and Zephyr.
         }
     }
 }
@@ -137,6 +149,38 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
     return mainSourceSet to testSourceSet
 }
 
+private fun NamedDomainObjectContainer<KotlinSourceSet>.createAndLinkBitnessSpecificSourceSet(
+    dependsOn: String,
+    bitness: Int,
+    targets: List<KotlinNativeTarget>
+) {
+    if (targets.any { it.konanTarget.architecture.bitness == bitness }) {
+        val (main, test) = createMainAndTest("$dependsOn$bitness", dependsOn = dependsOn)
+        targets.forEach { target ->
+            if (target.konanTarget.architecture.bitness != bitness) return@forEach
+            target.mainSourceSet.dependsOn(main)
+            target.testSourceSet.dependsOn(test)
+        }
+    }
+}
+
+private fun List<KotlinNativeTarget>.filterFamily(family: Family) = filter {
+    it.konanTarget.family == family
+}
+
+private val KotlinTarget.mainSourceSet get() = compilations.main.defaultSourceSet
+private fun KotlinTarget.mainSourceSet(configure: KotlinSourceSet.() -> Unit) {
+    compilations.main.defaultSourceSet(configure)
+}
+
+private val KotlinTarget.testSourceSet get() = compilations.test.defaultSourceSet
+private fun KotlinTarget.testSourceSet(configure: KotlinSourceSet.() -> Unit) {
+    compilations.test.defaultSourceSet(configure)
+}
+
+private fun KotlinSourceSet.dependsOn(vararg others: KotlinSourceSet) {
+    others.forEach { dependsOn(it) }
+}
 
 private val NamedDomainObjectContainer<out KotlinCompilation<KotlinCommonOptions>>.main: KotlinCompilation<KotlinCommonOptions>
     get() = getByName("main")

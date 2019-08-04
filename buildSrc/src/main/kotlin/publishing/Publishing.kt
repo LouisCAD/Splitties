@@ -7,7 +7,9 @@
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.konan.target.HostManager
 
 object Publishing {
     const val gitUrl = "https://github.com/LouisCAD/Splitties.git"
@@ -53,6 +55,20 @@ fun PublishingExtension.setupAllPublications(project: Project) {
         it.artifactId = "$prefix-${project.name}$suffix"
     }
     setupPublishRepo(project)
+    // Mac is the main publishing platform, so we make it publish everything possible
+    val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
+    publishTasks.matching {
+        it.name.startsWith("publishKotlinMultiplatform") ||
+        it.name.startsWith("publishMetadata") ||
+        it.name.startsWith("publishAndroid") ||
+        it.name.startsWith("publishJvm") ||
+        it.name.startsWith("publishJs") ||
+        it.name.startsWith("publishLinuxX64") ||
+        it.name.startsWith("publishMacos") ||
+        it.name.startsWith("publishIos")
+    }.all {
+        onlyIf { HostManager.hostIsMac }
+    }
 }
 
 private fun PublishingExtension.setupPublishRepo(project: Project) {

@@ -12,6 +12,8 @@ kotlin {
     js()
     macos()
     ios()
+    linuxX64()
+    mingwX64()
     configure(targets) { configureMavenPublication() }
     setupNativeSourceSets()
     sourceSets {
