@@ -13,14 +13,15 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetPreset
 import org.jetbrains.kotlin.konan.target.Family
+import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
 fun KotlinTargetContainerWithPresetFunctions.macos() {
-    if (os.isMacOS) macosX64()
+    if (HostManager.hostIsMac) macosX64()
 }
 
 fun KotlinTargetContainerWithPresetFunctions.ios() {
-    if (os.isMacOS.not()) return
+    if (HostManager.hostIsMac.not()) return
     if (isRunningInIde) {
         if (use32bitsInIde) iosArm32() else iosX64()
     } else iosAll()
@@ -179,7 +180,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.androidMain(
 fun NamedDomainObjectContainer<KotlinSourceSet>.iosMain(
     configureAction: KotlinSourceSet.() -> Unit
 ): KotlinSourceSet? = when {
-    os.isMacOS.not() -> null
+    HostManager.hostIsMac.not() -> null
     isRunningInIde -> getByName(iosMainSourceSetNameForIde)
     else -> findByName("iosMain")
 }?.apply(configureAction)
@@ -188,7 +189,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.iosMain(
 fun NamedDomainObjectContainer<KotlinSourceSet>.macosMain(
     configureAction: KotlinSourceSet.() -> Unit
 ): KotlinSourceSet? = when {
-    os.isMacOS.not() -> null
+    HostManager.hostIsMac.not() -> null
     isRunningInIde -> getByName(macosMainSourceSetNameForIde)
     else -> findByName("macosMain")
 }?.apply(configureAction)
@@ -198,7 +199,7 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.appleMain(
     configureAction: KotlinSourceSet.() -> Unit
 ) {
     when {
-        os.isMacOS.not() -> return
+        HostManager.hostIsMac.not() -> return
         isRunningInIde -> {
             findByName(iosMainSourceSetNameForIde)?.apply(configureAction)
             findByName(macosMainSourceSetNameForIde)?.apply(configureAction)
