@@ -9,6 +9,7 @@ package splitties.coroutines
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart.LAZY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -24,7 +25,7 @@ fun <T> suspendBlockingLazy(
 
 fun <T> CoroutineScope.suspendLazy(
     context: CoroutineContext = EmptyCoroutineContext,
-    initializer: suspend () -> T
+    initializer: suspend CoroutineScope.() -> T
 ): SuspendLazy<T> = SuspendLazySuspendingImpl(this, context, initializer)
 
 interface SuspendLazy<out T> {
@@ -44,8 +45,8 @@ private class SuspendLazyBlockingImpl<out T>(
 private class SuspendLazySuspendingImpl<out T>(
     coroutineScope: CoroutineScope,
     context: CoroutineContext,
-    initializer: suspend () -> T
+    initializer: suspend CoroutineScope.() -> T
 ) : SuspendLazy<T> {
-    private val value by lazy { coroutineScope.async(context) { initializer() } }
-    override suspend operator fun invoke(): T = value.await()
+    private val deferred = coroutineScope.async(context, start = LAZY, block = initializer)
+    override suspend operator fun invoke(): T = deferred.await()
 }
