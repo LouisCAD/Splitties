@@ -43,7 +43,7 @@ private class SuspendLazyBlockingImpl<out T>(
 
 private class SuspendLazySuspendingImpl<out T>(
     coroutineScope: CoroutineScope,
-    private val context: CoroutineContext,
+    context: CoroutineContext,
     initializer: suspend () -> T
 ) : SuspendLazy<T> {
     private val value by lazy { coroutineScope.async(context) { initializer() } }
