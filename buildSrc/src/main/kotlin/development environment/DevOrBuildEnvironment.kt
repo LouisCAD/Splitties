@@ -7,6 +7,7 @@
 import java.util.Locale
 
 val isRunningInIde: Boolean = System.getProperty("idea.active") == "true"
+
 val os: OperatingSystem = when {
     "mac os x" in osName || "darwin" in osName || "osx" in osName -> OperatingSystem.Unix.MacOS
     "sunos" in osName || "solaris" in osName -> OperatingSystem.Unix.Solaris
