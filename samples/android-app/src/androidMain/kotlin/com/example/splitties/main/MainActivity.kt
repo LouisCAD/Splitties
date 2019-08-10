@@ -28,12 +28,12 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.showAndAwaitOkOrDismiss
-import splitties.coroutines.collectLatest
 import splitties.coroutines.repeatWhileActive
 import splitties.fragments.showAsync
 import splitties.lifecycle.coroutines.lifecycleScope
