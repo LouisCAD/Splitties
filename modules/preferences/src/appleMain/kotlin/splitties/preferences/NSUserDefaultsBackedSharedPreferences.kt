@@ -4,22 +4,12 @@
 
 package splitties.preferences
 
-import kotlinx.cinterop.CPointerVar
-import kotlinx.cinterop.ObjCMethod
-import kotlinx.cinterop.ObjCOutlet
-import kotlinx.cinterop.objcPtr
-import kotlinx.cinterop.value
 import platform.Foundation.NSArray
-import platform.Foundation.NSDictionary
-import platform.Foundation.NSKeyValueObservingOptionNew
 import platform.Foundation.NSNotificationCenter
-import platform.Foundation.NSNotificationName
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
 import platform.Foundation.NSUserDefaultsDidChangeNotification
-import platform.Foundation.addObserver
-import platform.darwin.NSObject
-import platform.objc.sel_registerName
+import kotlin.native.concurrent.AtomicReference
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
@@ -75,46 +65,37 @@ private class NSUserDefaultsBackedSharedPreferences(
 
     override fun edit(): SharedPreferencesEditor = EditorImpl()
 
-    private val changeListeners = mutableSetOf<WeakReference<OnSharedPreferenceChangeListener>>()
+    private val changeListenersRef =
+        AtomicReference<Set<WeakReference<OnSharedPreferenceChangeListener>>>(emptySet())
+    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>>
+        get() = changeListenersRef.value
+        set(value) {
+            changeListenersRef.value = value
+        }
+
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         @Suppress("ConstantConditionIf")//TODO: Link with NotificationCenter
         if (false) {
-            userDefaults.addObserver(
-                observer = object : NSObject() {
-                    fun observeValueForKeyPath(
-                        keyPath: String,
-                        ofObject: Any?,
-                        change: NSDictionary?,
-                        context: CPointerVar<*>?
-                    ) {
-                        TODO()
-                    }
-                },
-                forKeyPath = "TK",
-                options = NSKeyValueObservingOptionNew,
-                context = null
-            )
-            NSNotificationCenter.defaultCenter.addObserver(
-                `object` = userDefaults,
-                observer = TODO(),
-                selector = sel_registerName(""),
-                name = NSUserDefaultsDidChangeNotification
-            )
             NSNotificationCenter.defaultCenter.addObserverForName(
                 name = NSUserDefaultsDidChangeNotification,
-                `object` = null,
+                `object` = userDefaults,
                 queue = null,
-                usingBlock = { TODO() })
+                usingBlock = {
+                    listener.onSharedPreferenceChanged(
+                        sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                        key = ""
+                    )
+                })
         }
-        changeListeners.add(WeakReference(listener))
+        changeListeners += WeakReference(listener)
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         val iterator = changeListeners.iterator()
         iterator.forEach {
-            if (it.get() == listener) {
-                iterator.remove()
+            if (it.get() === listener) {
+                changeListeners -= it
                 return
             }
         }
@@ -167,11 +148,13 @@ private class NSUserDefaultsBackedSharedPreferences(
                 removedAndNotReplacedKeys.forEach { key ->
                     val iterator = changeListeners.iterator()
                     iterator.forEach {
-                        it.get()?.onSharedPreferenceChanged(
-                            this@NSUserDefaultsBackedSharedPreferences,
-                            key
-                        )
-                            ?: iterator.remove()
+                        when (val listener = it.get()) {
+                            null -> changeListeners -= it
+                            else -> listener.onSharedPreferenceChanged(
+                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                key = key
+                            )
+                        }
                     }
                 }
                 clear = false
@@ -197,8 +180,13 @@ private class NSUserDefaultsBackedSharedPreferences(
                 }
                 val iterator = changeListeners.iterator()
                 iterator.forEach {
-                    it.get()?.onSharedPreferenceChanged(this@NSUserDefaultsBackedSharedPreferences, key)
-                        ?: iterator.remove()
+                    when (val listener = it.get()) {
+                        null -> changeListeners -= it
+                        else -> listener.onSharedPreferenceChanged(
+                            sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                            key = key
+                        )
+                    }
                 }
             }
             unCommittedEdits.clear()
