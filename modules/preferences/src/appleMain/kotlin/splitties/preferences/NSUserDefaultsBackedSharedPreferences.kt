@@ -4,22 +4,13 @@
 
 package splitties.preferences
 
-import kotlinx.cinterop.CPointerVar
-import kotlinx.cinterop.ObjCMethod
-import kotlinx.cinterop.ObjCOutlet
-import kotlinx.cinterop.objcPtr
-import kotlinx.cinterop.value
+import kotlinx.cinterop.COpaquePointer
 import platform.Foundation.NSArray
-import platform.Foundation.NSDictionary
 import platform.Foundation.NSKeyValueObservingOptionNew
-import platform.Foundation.NSNotificationCenter
-import platform.Foundation.NSNotificationName
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
-import platform.Foundation.NSUserDefaultsDidChangeNotification
-import platform.Foundation.addObserver
-import platform.darwin.NSObject
-import platform.objc.sel_registerName
+import splitties.preferences.internal.kvo.KeyValueObserverProtocol
+import splitties.preferences.internal.kvo.KeyValueObserverWrapper
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
@@ -78,36 +69,33 @@ private class NSUserDefaultsBackedSharedPreferences(
     private val changeListeners = mutableSetOf<WeakReference<OnSharedPreferenceChangeListener>>()
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        @Suppress("ConstantConditionIf")//TODO: Link with NotificationCenter
-        if (false) {
-            userDefaults.addObserver(
-                observer = object : NSObject() {
-                    fun observeValueForKeyPath(
-                        keyPath: String,
-                        ofObject: Any?,
-                        change: NSDictionary?,
-                        context: CPointerVar<*>?
-                    ) {
-                        TODO()
-                    }
-                },
-                forKeyPath = "TK",
-                options = NSKeyValueObservingOptionNew,
-                context = null
-            )
-            NSNotificationCenter.defaultCenter.addObserver(
-                `object` = userDefaults,
-                observer = TODO(),
-                selector = sel_registerName(""),
-                name = NSUserDefaultsDidChangeNotification
-            )
-            NSNotificationCenter.defaultCenter.addObserverForName(
-                name = NSUserDefaultsDidChangeNotification,
-                `object` = null,
-                queue = null,
-                usingBlock = { TODO() })
+        val observer = object : KeyValueObserverProtocol {
+            override fun observeValueForKeyPath(
+                keyPath: String?,
+                ofObject: Any?,
+                change: Map<Any?, *>?,
+                context: COpaquePointer?
+            ) {
+                println("observeValueForKeyPath")
+                change?.forEach { (k, v) ->
+                    println("$k -> $v")
+                }
+                listener.onSharedPreferenceChanged(
+                    sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                    key = ""
+                )
+            }
         }
-        changeListeners.add(WeakReference(listener))
+        KeyValueObserverWrapper(
+            targetKeyPath = null, //TODO("Would need to collect all the keys…"),
+            `object` = userDefaults,
+            observer = observer,
+            options = NSKeyValueObservingOptionNew
+        )
+        @Suppress("ConstantConditionIf")//TODO: Move for other platforms
+        if (false) {
+            changeListeners.add(WeakReference(listener))
+        }
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
@@ -197,7 +185,10 @@ private class NSUserDefaultsBackedSharedPreferences(
                 }
                 val iterator = changeListeners.iterator()
                 iterator.forEach {
-                    it.get()?.onSharedPreferenceChanged(this@NSUserDefaultsBackedSharedPreferences, key)
+                    it.get()?.onSharedPreferenceChanged(
+                        this@NSUserDefaultsBackedSharedPreferences,
+                        key
+                    )
                         ?: iterator.remove()
                 }
             }
