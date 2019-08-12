@@ -9,7 +9,6 @@ import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
 import platform.Foundation.NSUserDefaultsDidChangeNotification
-import kotlin.native.concurrent.AtomicReference
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
@@ -65,14 +64,7 @@ private class NSUserDefaultsBackedSharedPreferences(
 
     override fun edit(): SharedPreferencesEditor = EditorImpl()
 
-    private val changeListenersRef =
-        AtomicReference<Set<WeakReference<OnSharedPreferenceChangeListener>>>(emptySet())
-    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>>
-        get() = changeListenersRef.value
-        set(value) {
-            changeListenersRef.value = value
-        }
-
+    private val changeListeners = mutableSetOf<WeakReference<OnSharedPreferenceChangeListener>>()
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         @Suppress("ConstantConditionIf")//TODO: Link with NotificationCenter
@@ -88,14 +80,14 @@ private class NSUserDefaultsBackedSharedPreferences(
                     )
                 })
         }
-        changeListeners += WeakReference(listener)
+        changeListeners.add(WeakReference(listener))
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         val iterator = changeListeners.iterator()
         iterator.forEach {
-            if (it.get() === listener) {
-                changeListeners -= it
+            if (it.get() == listener) {
+                iterator.remove()
                 return
             }
         }
@@ -148,13 +140,11 @@ private class NSUserDefaultsBackedSharedPreferences(
                 removedAndNotReplacedKeys.forEach { key ->
                     val iterator = changeListeners.iterator()
                     iterator.forEach {
-                        when (val listener = it.get()) {
-                            null -> changeListeners -= it
-                            else -> listener.onSharedPreferenceChanged(
-                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
-                                key = key
-                            )
-                        }
+                        it.get()?.onSharedPreferenceChanged(
+                            this@NSUserDefaultsBackedSharedPreferences,
+                            key
+                        )
+                            ?: iterator.remove()
                     }
                 }
                 clear = false
@@ -180,13 +170,8 @@ private class NSUserDefaultsBackedSharedPreferences(
                 }
                 val iterator = changeListeners.iterator()
                 iterator.forEach {
-                    when (val listener = it.get()) {
-                        null -> changeListeners -= it
-                        else -> listener.onSharedPreferenceChanged(
-                            sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
-                            key = key
-                        )
-                    }
+                    it.get()?.onSharedPreferenceChanged(this@NSUserDefaultsBackedSharedPreferences, key)
+                        ?: iterator.remove()
                 }
             }
             unCommittedEdits.clear()
