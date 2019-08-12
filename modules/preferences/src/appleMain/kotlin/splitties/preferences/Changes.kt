@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
 import platform.Foundation.NSNotificationCenter
+import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSUserDefaultsDidChangeNotification
+import splitties.mainthread.isMainThread
 
 @UseExperimental(ExperimentalCoroutinesApi::class)
 internal actual fun SharedPreferences.changesFlow(
@@ -24,7 +26,7 @@ internal actual fun SharedPreferences.changesFlow(
         val observer = defaultNotificationCenter.addObserverForName(
             name = NSUserDefaultsDidChangeNotification,
             `object` = userDefaults,
-            queue = null
+            queue = if (isMainThread) NSOperationQueue.mainQueue else null
         ) {
             runCatching { offer(Unit) }
         }
