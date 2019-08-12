@@ -9,10 +9,11 @@ package splitties.preferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.jvm.JvmField
 import kotlin.properties.ReadWriteProperty
@@ -31,8 +32,8 @@ sealed class PrefDelegate<T>(
         return delegateBackingPreferences === sharedPreferences
     }
 
-    @ExperimentalCoroutinesApi
     @ExperimentalSplittiesApi
+    @UseExperimental(ExperimentalCoroutinesApi::class)
     fun changesFlow(): Flow<Unit> = channelFlow<Unit> {
         val listener = OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching { offer(Unit) }
@@ -43,21 +44,11 @@ sealed class PrefDelegate<T>(
         }
     }.conflate()
 
-    @ExperimentalCoroutinesApi
-    fun valueFlow(): Flow<T> = callbackFlow<T> {
-        val listener = OnSharedPreferenceChangeListener { _, changedKey ->
-            if (key == changedKey) runCatching {
-                offer(getValue())
-            }
-        }
-        preferences.prefs.registerOnSharedPreferenceChangeListener(listener)
-        runCatching {
-            offer(getValue())
-        }
-        awaitClose {
-            preferences.prefs.unregisterOnSharedPreferenceChangeListener(listener)
-        }
-    }.conflate().distinctUntilChanged()
+    fun valueFlow(): Flow<T> {
+        @UseExperimental(ExperimentalSplittiesApi::class, ExperimentalCoroutinesApi::class)
+        return changesFlow().map { getValue() }.onStart { emit(getValue()) }
+            .conflate().distinctUntilChanged()
+    }
 
     @Suppress("IMPLICIT_CAST_TO_ANY", "UNCHECKED_CAST")
     private fun getValue(): T = when (this) {
