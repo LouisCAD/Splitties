@@ -7,13 +7,10 @@
 package splitties.preferences
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.jvm.JvmField
 import kotlin.properties.ReadWriteProperty
@@ -33,20 +30,11 @@ sealed class PrefDelegate<T>(
     }
 
     @ExperimentalSplittiesApi
-    @UseExperimental(ExperimentalCoroutinesApi::class)
-    fun changesFlow(): Flow<Unit> = channelFlow<Unit> {
-        val listener = OnSharedPreferenceChangeListener { _, changedKey ->
-            if (key == changedKey) runCatching { offer(Unit) }
-        }
-        preferences.prefs.registerOnSharedPreferenceChangeListener(listener)
-        awaitClose {
-            preferences.prefs.unregisterOnSharedPreferenceChangeListener(listener)
-        }
-    }.conflate()
+    fun changesFlow(): Flow<Unit> = preferences.prefs.changesFlow(key)
 
     fun valueFlow(): Flow<T> {
         @UseExperimental(ExperimentalSplittiesApi::class, ExperimentalCoroutinesApi::class)
-        return changesFlow().map { getValue() }.onStart { emit(getValue()) }
+        return preferences.prefs.changesFlow(key, emitAfterRegister = true).map { getValue() }
             .conflate().distinctUntilChanged()
     }
 

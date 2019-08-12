@@ -26,7 +26,6 @@ kotlin {
         }
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(splitties("mainthread"))
 
             api(Libs.kotlin.stdlibJdk7)
             compileOnly(Libs.kotlinX.coroutines.android)
@@ -34,6 +33,11 @@ kotlin {
         nativeMain {
             dependencies {
                 api(Libs.kotlinX.coroutines.coreNative)
+            }
+        }
+        appleMain {
+            dependencies {
+                implementation(splitties("mainthread"))
             }
         }
         all {

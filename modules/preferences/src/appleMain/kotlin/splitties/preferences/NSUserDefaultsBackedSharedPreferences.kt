@@ -5,19 +5,24 @@
 package splitties.preferences
 
 import platform.Foundation.NSArray
-import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
-import platform.Foundation.NSUserDefaultsDidChangeNotification
+import splitties.mainthread.checkMainThread
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
     name: String?,
-    availableAtDirectBoot: Boolean
+    androidAvailableAtDirectBoot: Boolean,
+    userDefaultsUseNotificationCenterForChanges: Boolean,
+    userDefaultsAllowOffMainThreadUsage: Boolean
 ): SharedPreferences {
     val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
         ?: NSUserDefaults.standardUserDefaults
-    return NSUserDefaultsBackedSharedPreferences(userDefaults)
+    return NSUserDefaultsBackedSharedPreferences(
+        userDefaults = userDefaults,
+        useNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
+        allowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
+    )
 }
 
 /**
@@ -25,9 +30,15 @@ internal actual fun getSharedPreferences(
  * Kotlin/Native shared XOR mutable policy, only one thread (the owner) can mutate this, making them
  * unnecessary.
  */
-private class NSUserDefaultsBackedSharedPreferences(
-    private val userDefaults: NSUserDefaults
+internal class NSUserDefaultsBackedSharedPreferences(
+    internal val userDefaults: NSUserDefaults,
+    internal val useNotificationCenterForChanges: Boolean,
+    allowOffMainThreadUsage: Boolean
 ) : SharedPreferences {
+
+    init {
+        if (allowOffMainThreadUsage.not()) checkMainThread()
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>
@@ -67,19 +78,6 @@ private class NSUserDefaultsBackedSharedPreferences(
     private val changeListeners = mutableSetOf<WeakReference<OnSharedPreferenceChangeListener>>()
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        @Suppress("ConstantConditionIf")//TODO: Link with NotificationCenter
-        if (false) {
-            NSNotificationCenter.defaultCenter.addObserverForName(
-                name = NSUserDefaultsDidChangeNotification,
-                `object` = userDefaults,
-                queue = null,
-                usingBlock = {
-                    listener.onSharedPreferenceChanged(
-                        sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
-                        key = ""
-                    )
-                })
-        }
         changeListeners.add(WeakReference(listener))
     }
 
