@@ -16,6 +16,7 @@ import splitties.exceptions.unsupported
 import splitties.init.injectAsAppCtx
 import splitties.resources.str
 import splitties.resources.strArray
+import splitties.resources.styledColor
 import splitties.views.backgroundColor
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
@@ -55,6 +56,7 @@ class UiPreView @JvmOverloads constructor(
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
+        backgroundColor = styledColor(android.R.attr.colorBackground)
         try {
             init(context, attrs, defStyleAttr)
         } catch (t: IllegalArgumentException) {
