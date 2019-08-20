@@ -32,7 +32,7 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
     iosArm32()
 }
 
-fun KotlinMultiplatformExtension.setupNativeSourceSets() {
+fun KotlinMultiplatformExtension.setupSourceSets() {
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
 

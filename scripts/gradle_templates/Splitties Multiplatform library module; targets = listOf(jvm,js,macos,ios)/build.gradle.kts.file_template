@@ -13,7 +13,7 @@ kotlin {
     macos()
     ios()
     configure(targets) { configureMavenPublication() }
-    setupNativeSourceSets()
+    setupSourceSets()
     sourceSets {
         commonMain.dependencies {
             api(kotlin("stdlib-common"))

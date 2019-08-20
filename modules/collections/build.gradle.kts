@@ -15,7 +15,7 @@ kotlin {
     linuxX64()
     mingwX64()
     configure(targets) { configureMavenPublication() }
-    setupNativeSourceSets()
+    setupSourceSets()
     sourceSets {
         commonMain.dependencies {
             api(kotlin("stdlib-common"))
