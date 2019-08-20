@@ -56,9 +56,7 @@ inline fun appIntArray(@ArrayRes intArrayResId: Int) = appCtx.intArray(intArrayR
 
 // Styled resources below
 
-fun Context.styledBool(
-    @AttrRes attr: Int
-): Boolean = withStyledAttributes(attr) { getBoolean(it, false) }
+fun Context.styledBool(@AttrRes attr: Int): Boolean = bool(resolveThemeAttribute(attr))
 
 inline fun Fragment.styledBool(@AttrRes attr: Int) = context!!.styledBool(attr)
 inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
@@ -71,7 +69,7 @@ inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
  */
 inline fun appStyledBool(@AttrRes attr: Int) = appCtx.styledBool(attr)
 
-fun Context.styledInt(@AttrRes attr: Int): Int = withStyledAttributes(attr) { getInteger(it, -1) }
+fun Context.styledInt(@AttrRes attr: Int): Int = int(resolveThemeAttribute(attr))
 inline fun Fragment.styledInt(@AttrRes attr: Int) = context!!.styledInt(attr)
 inline fun View.styledInt(@AttrRes attr: Int) = context.styledInt(attr)
 /**
