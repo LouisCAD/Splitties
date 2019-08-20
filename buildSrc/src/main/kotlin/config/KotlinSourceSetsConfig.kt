@@ -5,6 +5,7 @@
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
@@ -12,6 +13,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinTest
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 
@@ -35,6 +37,11 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 fun KotlinMultiplatformExtension.setupSourceSets() {
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
+
+    //TODO: Remove after Kotlin 1.3.50 fixes https://youtrack.jetbrains.net/issue/KT-33246
+    nativeTargets.first().project.tasks.withType<KotlinTest>().configureEach {
+        binaryResultsDirectory.set(binResultsDir)
+    }
 
     val minGWTargets = nativeTargets.filterFamily(Family.MINGW)
     val macOSTargets = nativeTargets.filterFamily(Family.OSX)
