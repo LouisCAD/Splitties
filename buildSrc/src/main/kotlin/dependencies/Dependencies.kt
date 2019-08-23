@@ -6,7 +6,7 @@
 
 @Suppress("unused")
 object Versions {
-    const val kotlin = "1.3.41" // Don't forget to update in buildSrc/build.gradle.kts too!
+    const val kotlin = "1.3.50" // Don't forget to update in buildSrc/build.gradle.kts too!
 }
 
 /**
@@ -33,7 +33,7 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
-            private const val version = "1.3.0-RC2"
+            private const val version = "1.3.0"
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
             const val core = "$artifactPrefix-core:$version"
             const val coreCommon = "$artifactPrefix-core-common:$version"
