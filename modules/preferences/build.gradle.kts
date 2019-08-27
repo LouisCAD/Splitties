@@ -51,6 +51,12 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
+        androidTest {
+            dependsOn(androidMain)
+            dependencies {
+                implementation(Libs.kotlin.testJunit)
+            }
+        }
     }
 }
 
