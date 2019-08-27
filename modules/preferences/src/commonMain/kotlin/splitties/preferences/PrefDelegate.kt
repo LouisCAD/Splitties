@@ -184,7 +184,7 @@ class StringSetOrNullPref @PublishedApi internal constructor(
 ) : PrefDelegate<Set<String?>?>(preferences, key) {
 
     var value: Set<String?>?
-        get() = preferences.prefs.getStringSet(key, defaultValue)!!
+        get() = preferences.prefs.getStringSet(key, defaultValue)
         set(value) = with(preferences) {
             editor.putStringSet(key, value).attemptApply()
         }
