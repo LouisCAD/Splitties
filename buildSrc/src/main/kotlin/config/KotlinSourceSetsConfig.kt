@@ -40,6 +40,7 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
 
     //TODO: Remove after Kotlin 1.3.50 fixes https://youtrack.jetbrains.net/issue/KT-33246
     nativeTargets.first().project.tasks.withType<KotlinTest>().configureEach {
+        @Suppress("UnstableApiUsage")
         binaryResultsDirectory.set(binResultsDir)
     }
 
