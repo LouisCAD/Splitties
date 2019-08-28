@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StyleRes
+import androidx.core.view.get
 import splitties.experimental.InternalSplittiesApi
 import splitties.views.inflate
 import kotlin.contracts.InvocationKind
@@ -178,3 +179,5 @@ inline fun <V : View> ViewGroup.add(
     view: V,
     lp: ViewGroup.LayoutParams
 ): V = view.also { addView(it, lp) }
+
+inline val ViewGroup.lastChild: View get() = this[childCount - 1]
