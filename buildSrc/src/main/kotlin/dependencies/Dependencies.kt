@@ -4,20 +4,17 @@
 
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
-@Suppress("unused")
-object Versions {
-    const val kotlin = "1.3.50" // Don't forget to update in buildSrc/build.gradle.kts too!
-}
-
 /**
  * Nested objects have a corresponding property to allow usage from groovy based gradle scripts.
  */
 @Suppress("unused")
 object Libs {
-    const val junit = "junit:junit:4.12"
+    const val kotlinVersion = Versions.org_jetbrains_kotlin
+    
+    const val junit = "junit:junit:" + Versions.junit
     const val roboElectric = "org.robolectric:robolectric:4.2"
-    const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val stetho = "com.facebook.stetho:stetho:1.5.0"
+    const val timber = "com.jakewharton.timber:timber:" + Versions.timber
+    const val stetho = "com.facebook.stetho:stetho:" + Versions.stetho
 
     val kotlin = Kotlin
     val kotlinX = KotlinX
@@ -25,15 +22,15 @@ object Libs {
     val google = Google
 
     object Kotlin {
-        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
+        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
     }
 
     object KotlinX {
         val coroutines = Coroutines
 
         object Coroutines {
-            private const val version = "1.3.0"
+            private const val version = Versions.org_jetbrains_kotlinx
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
             const val core = "$artifactPrefix-core:$version"
             const val coreCommon = "$artifactPrefix-core-common:$version"
@@ -46,7 +43,7 @@ object Libs {
     }
 
     object AndroidX {
-        private object Versions {
+        private object VersionX {
             const val core = "1.0.1"
             const val multidex = "2.0.0"
             const val palette = "1.0.0"
@@ -56,16 +53,16 @@ object Libs {
             const val vectorDrawable = "1.0.0"
             const val leanback = "1.0.0"
             const val emoji = "1.0.0"
-            const val constraintLayout = "1.1.3"
+            const val constraintLayout = Versions.constraintlayout
             const val collection = "1.0.0"
         }
-        private val versions = Versions
+        private val versions = VersionX
         const val annotation = "androidx.annotation:annotation:1.0.0"
         const val appCompat = "androidx.appcompat:appcompat:1.0.2"
         const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
         const val browser = "androidx.browser:browser:1.0.0"
         const val car = "androidx.car:car:1.0.0-alpha5"
-        const val cardView = "androidx.cardview:cardview:1.0.0"
+        const val cardView = "androidx.cardview:cardview:${Versions.cardview}"
         const val collection = "androidx.collection:collection:${versions.collection}"
         const val collectionKtx = "androidx.collection:collection-ktx:${versions.collection}"
         const val constraintLayout =
@@ -73,7 +70,7 @@ object Libs {
         const val constraintLayoutSolver =
             "androidx.constraintlayout:constraintlayout-solver:${versions.constraintLayout}"
         const val contentPager = "androidx.contentpager:contentpager:1.0.0"
-        const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:1.0.0"
+        const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:${Versions.coordinatorlayout}"
         const val core = "androidx.core:core:${versions.core}"
         const val coreKtx = "androidx.core:core-ktx:${versions.core}"
         const val cursorAdapter = "androidx.cursoradapter:cursoradapter:1.0.0"
@@ -85,8 +82,8 @@ object Libs {
         const val emojiAppCompat = "androidx.emoji:emoji-appcompat:${versions.emoji}"
         const val emojiBundler = "androidx.emoji:emoji-bundled:${versions.emoji}"
         const val exifInterface = "androidx.exifinterface:exifinterface:1.0.0"
-        const val fragment = "androidx.fragment:fragment:1.0.0"
-        const val fragmentKtx = "androidx.fragment:fragment-ktx:1.0.0"
+        const val fragment = "androidx.fragment:fragment:${Versions.fragment}"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragment}"
         const val gridLayout = "androidx.gridlayout:gridlayout:1.0.0"
         const val heifWriter = "androidx.heifwriter:heifwriter:1.0.0"
         const val interpolator = "androidx.interpolator:interpolator:1.0.0"
@@ -140,7 +137,7 @@ object Libs {
         val legacy = Legacy
 
         object Lifecycle {
-            private const val version = "2.0.0"
+            private const val version = Versions.androidx_lifecycle
             const val common = "androidx.lifecycle:lifecycle-common:$version"
             const val commonJava8 = "androidx.lifecycle:lifecycle-common-java8:$version"
             const val compiler = "androidx.lifecycle:lifecycle-compiler:$version"
@@ -158,7 +155,7 @@ object Libs {
         }
 
         object Room {
-            private const val version = "2.0.0"
+            private const val version = Versions.room_runtime
             const val common = "androidx.room:room-common:$version"
             const val compiler = "androidx.room:room-compiler:$version"
             const val guava = "androidx.room:room-guava:$version"
@@ -214,11 +211,11 @@ object Libs {
 
         object Test {
             val espresso = Espresso
-            private const val runnerVersion = "1.1.1"
+            private const val runnerVersion = Versions.androidx_test_runner
             private const val rulesVersion = runnerVersion
             private const val monitorVersion = runnerVersion
             private const val orchestratorVersion = runnerVersion
-            private const val coreVersion = "1.1.0"
+            private const val coreVersion = Versions.androidx_test_core_ktx
             const val core = "androidx.test:core:$coreVersion"
             const val coreKtx = "androidx.test:core-ktx:$coreVersion"
             const val monitor = "androidx.test:monitor:$monitorVersion"
@@ -275,7 +272,7 @@ object Libs {
     }
 
     object Google {
-        const val material = "com.google.android.material:material:1.0.0"
+        const val material = "com.google.android.material:material:" + Versions.material
         private const val wearOsVersion = "2.4.0"
         const val wearable = "com.google.android.wearable:wearable:$wearOsVersion"
         const val supportWearable = "com.google.android.support:wearable:$wearOsVersion"
