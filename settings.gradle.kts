@@ -70,5 +70,5 @@ arrayOf(
 ).forEach { include(":samples:$it") }
 
 include(":tests")
-
+include(":plugin")
 enableFeaturePreview("GRADLE_METADATA")

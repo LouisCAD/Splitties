@@ -1,0 +1,76 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    `java-gradle-plugin`
+    `kotlin-dsl`
+    `maven-publish`
+    id("com.gradle.plugin-publish") version "0.10.0"
+}
+
+group = "com.louiscad.splitties"
+version = "0.0.1"
+
+gradlePlugin {
+    plugins {
+        create("com.louiscad.splitties") {
+            id = "com.louiscad.splitties"
+            displayName = "Splitties"
+            description = "A family of small Kotlin libraries for delightful Android development\n"
+            implementationClass = "com.louiscad.splitties.SplittiesPlugin"
+        }
+    }
+}
+
+/**
+// To test the plugin locally, add this to settings.gradle.kts
+
+```kotlin
+pluginManagement {
+  repositories {
+    val localGradleRepo = "FULL_PATH_TO/buildSrcVersions/plugin/build/repository"
+    if (File(localGradleRepo).exists()) maven { setUrl(localGradleRepo) }
+    gradlePluginPortal()
+  }
+}
+
+```
+
+ Then run $ ./gradlew :plugin:publish
+ */
+publishing {
+    repositories {
+        maven(url = "build/repository")
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+pluginBundle {
+    website = "https://github.com/LouisCAD/Splitties"
+    vcsUrl = "https://github.com/LouisCAD/Splitties"
+    tags = listOf("android", "kotlin")
+}
+dependencies {
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+}
+
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
+}
