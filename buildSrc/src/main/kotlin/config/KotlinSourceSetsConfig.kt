@@ -52,38 +52,51 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
 
     sourceSets.apply {
         if (isRunningInIde) {
+            val native = listOf("allButAndroid", "native")
+            val apple = native + "apple"
+            val apple64 = apple + "apple64"
             iosTargets.forEach { target ->
+                val is64bits = target.konanTarget.architecture.bitness == 64
                 target.mainSourceSet {
-                    kotlin.srcDir("src/iosMain/allButAndroidMain/kotlin")
-                    kotlin.srcDir("src/iosMain/nativeMain/kotlin")
-                    kotlin.srcDir("src/iosMain/appleMain/kotlin")
-                    if (target.konanTarget.architecture.bitness == 64) {
-                        kotlin.srcDir("src/iosMain/apple64Main/kotlin")
-                    }
+                    val ios = if (is64bits) apple64 else apple
+                    ios.forEach { kotlin.srcDir("src/iosMain/${it}Main/kotlin") }
                     kotlin.srcDir("src/iosMain/kotlin")
+                }
+                target.testSourceSet {
+                    val ios = if (is64bits) apple64 else apple
+                    ios.forEach { kotlin.srcDir("src/iosTest/${it}Test/kotlin") }
+                    kotlin.srcDir("src/iosTest/kotlin")
                 }
             }
             macOSTargets.forEach { target ->
                 target.mainSourceSet {
-                    kotlin.srcDir("src/macosMain/allButAndroidMain/kotlin")
-                    kotlin.srcDir("src/macosMain/nativeMain/kotlin")
-                    kotlin.srcDir("src/macosMain/appleMain/kotlin")
-                    kotlin.srcDir("src/macosMain/apple64Main/kotlin")
+                    apple64.forEach { kotlin.srcDir("src/macosMain/${it}Main/kotlin") }
                     kotlin.srcDir("src/macosMain/kotlin")
+                }
+                target.testSourceSet {
+                    apple64.forEach { kotlin.srcDir("src/macosTest/${it}Test/kotlin") }
+                    kotlin.srcDir("src/macosTest/kotlin")
                 }
             }
             androidNativeTargets.forEach { target ->
+                // Android != AndroidNative.
                 target.mainSourceSet {
-                    kotlin.srcDir("src/androidNativeMain/allButAndroidMain/kotlin") // Android != AndroidNative.
-                    kotlin.srcDir("src/androidNativeMain/nativeMain/kotlin")
+                    native.forEach { kotlin.srcDir("src/androidNativeMain/${it}Main/kotlin") }
                     kotlin.srcDir("src/androidNativeMain/kotlin")
+                }
+                target.testSourceSet {
+                    native.forEach { kotlin.srcDir("src/androidNativeTest/${it}Test/kotlin") }
+                    kotlin.srcDir("src/androidNativeTest/kotlin")
                 }
             }
             linuxTargets.forEach { target ->
                 target.mainSourceSet {
-                    kotlin.srcDir("src/linuxMain/allButAndroidMain/kotlin")
-                    kotlin.srcDir("src/linuxMain/nativeMain/kotlin")
+                    native.forEach { kotlin.srcDir("src/linuxMain/${it}Main/kotlin") }
                     kotlin.srcDir("src/linuxMain/kotlin")
+                }
+                target.testSourceSet {
+                    native.forEach { kotlin.srcDir("src/linuxTest/${it}Test/kotlin") }
+                    kotlin.srcDir("src/linuxTest/kotlin")
                 }
             }
         } else {
