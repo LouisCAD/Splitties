@@ -251,7 +251,7 @@ inline fun <R> runOrRetry(block: () -> R): R {
     while (true) try {
         return block()
     } catch (t: Exception) {
-        if (t is KotlinNullPointerException) throw t // Avoid infinite loop if readLine returns null
+        if (t is NullPointerException) throw t // Avoid infinite loop if readLine returns null
         println(t.message ?: t)
     }
 }
