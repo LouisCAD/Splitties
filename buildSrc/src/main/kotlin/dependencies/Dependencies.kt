@@ -4,16 +4,13 @@
 
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
-@Suppress("unused")
-object Versions {
-    const val kotlin = "1.3.50" // Don't forget to update in buildSrc/build.gradle.kts too!
-}
 
 /**
  * Nested objects have a corresponding property to allow usage from groovy based gradle scripts.
  */
 @Suppress("unused")
 object Libs {
+    const val kotlinVersion = "1.3.50" // Don't forget to update in buildSrc/build.gradle.kts too!
     const val junit = "junit:junit:4.12"
     const val roboElectric = "org.robolectric:robolectric:4.2"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
@@ -25,8 +22,8 @@ object Libs {
     val google = Google
 
     object Kotlin {
-        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
+        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
     }
 
     object KotlinX {

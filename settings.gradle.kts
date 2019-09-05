@@ -1,5 +1,12 @@
 @file:Suppress("SpellCheckingInspection")
-
+// This sould be deleted once buildSrcVersions 0.5.0 is published
+pluginManagement {
+    repositories {
+        val localGradleRepo = "/Users/jmfayard/akelius/buildSrcVersions/plugin/build/repository"
+        if (File(localGradleRepo).exists()) maven { setUrl(localGradleRepo) }
+        gradlePluginPortal()
+    }
+}
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */

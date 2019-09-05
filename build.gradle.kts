@@ -4,6 +4,18 @@
 
 @file:Suppress("SpellCheckingInspection")
 
+import de.fayard.VersionsOnlyMode
+
+plugins {
+    id("de.fayard.buildSrcVersions").version("0.5.0")
+}
+
+buildSrcVersions {
+    versionsOnlyMode = VersionsOnlyMode.KOTLIN_OBJECT
+    versionsOnlyFile = "buildSrc/src/main/kotlin/dependencies/Versions.kt"
+    indent = "    "
+}
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 allprojects {
