@@ -69,6 +69,6 @@ arrayOf(
     "android-app"
 ).forEach { include(":samples:$it") }
 
-include(":tests")
+include(":instrumented-tests")
 
 enableFeaturePreview("GRADLE_METADATA")
