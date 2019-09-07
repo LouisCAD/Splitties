@@ -88,7 +88,8 @@ class PreferencesTests {
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someLong)
             assertEquals(expected = testedValue, actual = defaultPrefs.someLong)
         }
-        arrayOf("Hello World!", "<".repeat(1_000_000), "", " ", "\\").forEach { testedValue ->
+        val stringTestValues = setOf("Hello World!", "<".repeat(1_000_000), "", " ", "\\")
+        stringTestValues.forEach { testedValue ->
             defaultPrefs.someString = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someString)
             assertEquals(expected = testedValue, actual = defaultPrefs.someString)
@@ -99,7 +100,7 @@ class PreferencesTests {
         defaultPrefs.someStringOrNull = null
         assertEquals(expected = null, actual = secondPrefsInstance.someStringOrNull)
         assertEquals(expected = null, actual = defaultPrefs.someStringOrNull)
-        setOf("Hello World!", "<".repeat(1_000_000), "", " ", "\\").let { testedValue ->
+        stringTestValues.let { testedValue ->
             defaultPrefs.someStringSet = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringSet)
             assertEquals(expected = testedValue, actual = defaultPrefs.someStringSet)
