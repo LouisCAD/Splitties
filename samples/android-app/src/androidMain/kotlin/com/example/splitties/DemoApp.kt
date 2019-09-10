@@ -8,6 +8,7 @@ import android.app.Application
 import android.os.Build.VERSION.SDK_INT
 import androidx.appcompat.app.AppCompatDelegate
 
+@Suppress("unused") // Used in AndroidManifest.xml, bug in Android Studio.
 class DemoApp : Application() {
     companion object {
         init {
