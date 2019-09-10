@@ -57,7 +57,6 @@ kotlin {
             }
         }
         androidTest {
-            dependsOn(androidMain)
             dependencies {
                 implementation(Libs.kotlin.testJunit)
             }
