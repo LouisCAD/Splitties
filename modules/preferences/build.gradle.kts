@@ -64,6 +64,10 @@ kotlin {
     }
 }
 
+dependencies {
+    androidTestImplementation(Libs.androidX.test.runner)
+}
+
 afterEvaluate {
     publishing {
         setupAllPublications(project)
