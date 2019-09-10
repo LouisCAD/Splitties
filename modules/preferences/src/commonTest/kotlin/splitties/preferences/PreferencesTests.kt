@@ -10,7 +10,6 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.produceIn
-import kotlinx.coroutines.withTimeout
 import kotlinx.coroutines.yield
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.internal.test.runTest
@@ -18,8 +17,10 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.ExperimentalTime
+import kotlin.time.seconds
 
-@UseExperimental(ExperimentalSplittiesApi::class)
+@UseExperimental(ExperimentalSplittiesApi::class, ExperimentalTime::class)
 class PreferencesTests {
 
     private class DefaultPrefs : DefaultPreferences() {
@@ -123,22 +124,20 @@ class PreferencesTests {
     }
 
     @Test
-    fun test_changesFlow() = runTest {
-        withTimeout(5_000) {
-            @UseExperimental(ExperimentalCoroutinesApi::class)
-            val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
-            repeat(4) {
-                var count = 0
-                @UseExperimental(FlowPreview::class)
-                val changedJob = flow.onEach { count++ }.produceIn(this)
-                repeat(2) { yield() }
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                changedJob.receive()
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                changedJob.receive()
-                assertEquals(2, count, message = "Iteration: $it")
-                changedJob.cancel()
-            }
+    fun test_changesFlow() = runTest(timeout = 5.seconds) {
+        @UseExperimental(ExperimentalCoroutinesApi::class)
+        val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
+        repeat(4) {
+            var count = 0
+            @UseExperimental(FlowPreview::class)
+            val changedJob = flow.onEach { count++ }.produceIn(this)
+            repeat(2) { yield() }
+            defaultPrefs.someBool = defaultPrefs.someBool.not()
+            changedJob.receive()
+            defaultPrefs.someBool = defaultPrefs.someBool.not()
+            changedJob.receive()
+            assertEquals(2, count, message = "Iteration: $it")
+            changedJob.cancel()
         }
     }
 
