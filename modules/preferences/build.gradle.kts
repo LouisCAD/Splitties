@@ -24,6 +24,11 @@ kotlin {
             api(splitties("experimental"))
             compileOnly(Libs.kotlinX.coroutines.coreCommon)
         }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
+            }
+        }
         androidMain.dependencies {
             api(splitties("appctx"))
 
