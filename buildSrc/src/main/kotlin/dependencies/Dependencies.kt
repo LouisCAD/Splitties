@@ -33,7 +33,7 @@ object Libs {
         val coroutines = Coroutines
 
         object Coroutines {
-            private const val version = "1.3.0"
+            private const val version = "1.3.1"
             private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
             const val core = "$artifactPrefix-core:$version"
             const val coreCommon = "$artifactPrefix-core-common:$version"
