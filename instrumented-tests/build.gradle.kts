@@ -19,6 +19,11 @@ android {
     }
     sourceSets.all { java.srcDir("src/$name/kotlin") }
     sourceSets.getByName("androidTest") { java.srcDir("src/androidInstrumentedTest/kotlin") }
+    packagingOptions {
+        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
+        exclude("**/*.kotlin_builtins") // Reduce apk size
+        exclude("**/*.kotlin_metadata") // Reduce apk size
+    }
 }
 
 dependencies {

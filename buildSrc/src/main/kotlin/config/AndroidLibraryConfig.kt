@@ -13,6 +13,7 @@ fun AndroidLibraryExtension.setDefaults() {
     defaultConfig {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         getByName("release") {
@@ -23,10 +24,19 @@ fun AndroidLibraryExtension.setDefaults() {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
     }
+    sourceSets.getByName("androidTest") {
+        java.srcDir("src/commonTest/kotlin")
+        java.srcDir("src/androidTest/kotlin")
+    }
     // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
     libraryVariants.all(Action {
         generateBuildConfigProvider.configure {
             enabled = false
         }
     })
+    packagingOptions {
+        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
+        exclude("**/*.kotlin_builtins") // Reduce test apk size (faster deployment)
+        exclude("**/*.kotlin_metadata") // Reduce test apk size (faster deployment)
+    }
 }

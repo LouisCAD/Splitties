@@ -5,15 +5,15 @@
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
 import org.gradle.api.NamedDomainObjectContainer
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinTargetContainerWithPresetFunctions
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinTest
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 
@@ -35,6 +35,7 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 }
 
 fun KotlinMultiplatformExtension.setupSourceSets() {
+    setupAndroidTestSourceSetsAndDependencies()
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
 
@@ -185,6 +186,21 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createAndLinkBitnessSpec
 
 private fun List<KotlinNativeTarget>.filterFamily(family: Family) = filter {
     it.konanTarget.family == family
+}
+
+private fun KotlinMultiplatformExtension.setupAndroidTestSourceSetsAndDependencies() {
+    val androidTargets = targets.filterIsInstance<KotlinAndroidTarget>()
+    if (androidTargets.isEmpty()) return
+    val project = androidTargets.first().project
+    project.configurations.matching { it.name.startsWith("androidTest") }.all {
+        val configurationName = name
+        dependencies.all {
+            val dependency = this
+            project.dependencies {
+                configurationName.replaceFirst("androidTest", "test")(dependency)
+            }
+        }
+    }
 }
 
 private val KotlinTarget.mainSourceSet get() = compilations.main.defaultSourceSet
