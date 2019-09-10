@@ -4,7 +4,16 @@
 
 package splitties.preferences
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.produceIn
+import kotlinx.coroutines.withTimeout
+import kotlinx.coroutines.yield
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.internal.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -43,7 +52,7 @@ class PreferencesTests {
     private val defaultPrefs = DefaultPrefs()
 
     @Test
-    fun `Default values are correct`() {
+    fun default_values_are_correct() {
         with(defaultPrefs) {
             assertEquals(someBoolField.defaultValue, someBool)
             assertEquals(someIntField.defaultValue, someInt)
@@ -57,7 +66,7 @@ class PreferencesTests {
     }
 
     @Test
-    fun `Set value and get it back`() {
+    fun set_value_and_get_it_back() {
         val secondPrefsInstance = DefaultPrefs()
         booleanArrayOf(true, false).forEach { testedValue ->
             defaultPrefs.someBool = testedValue
@@ -114,17 +123,32 @@ class PreferencesTests {
     }
 
     @Test
-    fun `test changesFlow`() {
+    fun test_changesFlow() = runTest {
+        withTimeout(5_000) {
+            @UseExperimental(ExperimentalCoroutinesApi::class)
+            val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
+            repeat(4) {
+                var count = 0
+                @UseExperimental(FlowPreview::class)
+                val changedJob = flow.onEach { count++ }.produceIn(this)
+                repeat(2) { yield() }
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                changedJob.receive()
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                changedJob.receive()
+                assertEquals(2, count, message = "Iteration: $it")
+                changedJob.cancel()
+            }
+        }
+    }
+
+    @Test
+    fun test_valuesFlow() {
         TODO()
     }
 
     @Test
-    fun `test valuesFlow`() {
-        TODO()
-    }
-
-    @Test
-    fun `test object`() {
+    fun test_object() {
         TODO()
     }
 
