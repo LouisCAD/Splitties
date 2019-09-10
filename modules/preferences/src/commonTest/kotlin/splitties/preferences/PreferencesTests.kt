@@ -130,14 +130,14 @@ class PreferencesTests {
         repeat(4) {
             var count = 0
             @UseExperimental(FlowPreview::class)
-            val changedJob = flow.onEach { count++ }.produceIn(this)
-            repeat(2) { yield() }
+            val changedChannel = flow.onEach { count++ }.produceIn(this)
+            awaitCallbackFlowActivation()
             defaultPrefs.someBool = defaultPrefs.someBool.not()
-            changedJob.receive()
+            changedChannel.receive()
             defaultPrefs.someBool = defaultPrefs.someBool.not()
-            changedJob.receive()
+            changedChannel.receive()
             assertEquals(2, count, message = "Iteration: $it")
-            changedJob.cancel()
+            changedChannel.cancel()
         }
     }
 
@@ -149,6 +149,10 @@ class PreferencesTests {
     @Test
     fun test_object() {
         TODO()
+    }
+
+    private suspend fun awaitCallbackFlowActivation() {
+        repeat(2) { yield() } // It takes two dispatch for the listener registration to be executed.
     }
 
     @BeforeTest
