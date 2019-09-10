@@ -11,6 +11,21 @@ import java.nio.file.Paths
 
 println("Welcome in Create new module by Louis CAD")
 
+val targets = listOf(
+    KotlinTarget("android"),
+    KotlinTarget("js", listOf("allButAndroid")),
+    KotlinTarget("ios", listOf("allButAndroid", "native", "apple", "apple64")),
+    KotlinTarget("macos", listOf("allButAndroid", "native", "apple", "apple64")),
+    KotlinTarget("androidNative", listOf("allButAndroid", "native")),
+    KotlinTarget("linuxX64", listOf("allButAndroid", "native", "linux", "linux64")),
+    KotlinTarget("linuxArm64", listOf("allButAndroid", "native", "linux", "linux64")),
+    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "native", "linux", "linux32")),
+    KotlinTarget("linuxMips32", listOf("allButAndroid", "native", "linux", "linux32")),
+    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "native", "linux", "linux32")),
+    KotlinTarget("mingwX64", listOf("allButAndroid", "native", "mingw")),
+    KotlinTarget("mingwX86", listOf("allButAndroid", "native", "mingw"))
+)
+
 val currentPath: Path = Paths.get("")
 
 do {
@@ -33,21 +48,6 @@ data class KotlinTarget(
         }
     }
 }
-
-val targets = listOf(
-    KotlinTarget("android"),
-    KotlinTarget("js", listOf("allButAndroid")),
-    KotlinTarget("ios", listOf("allButAndroid", "native", "apple", "apple64")),
-    KotlinTarget("macos", listOf("allButAndroid", "native", "apple", "apple64")),
-    KotlinTarget("androidNative", listOf("allButAndroid", "native")),
-    KotlinTarget("linuxX64", listOf("allButAndroid", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm64", listOf("allButAndroid", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("linuxMips32", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("mingwX64", listOf("allButAndroid", "native", "mingw")),
-    KotlinTarget("mingwX86", listOf("allButAndroid", "native", "mingw"))
-)
 
 fun selectModuleAndAddTargets() {
     val modulePath: Path = runOrRetry {
@@ -102,7 +102,6 @@ fun addTarget(modulePath: Path, packageName: String) {
     }
 
     println("Please, select the target you want to add:\n")
-
     targets.forEachIndexed { i, (name, _) ->
         println("${i + 1}. $name")
     }
