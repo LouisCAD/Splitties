@@ -94,7 +94,7 @@ suspend inline fun FragmentActivity.ensureAllPermissions(
  */
 @ExperimentalSplittiesApi
 suspend inline fun FragmentActivity.ensureAllPermissions(
-    permissions: List<String>,
+    permissionNames: List<String>,
     showRationaleAndContinueOrReturn: () -> Boolean,
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
@@ -103,7 +103,7 @@ suspend inline fun FragmentActivity.ensureAllPermissions(
     activity = this,
     fragmentManager = supportFragmentManager,
     lifecycle = lifecycle,
-    permissions = permissions,
+    permissionNames = permissionNames,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     askOpenSettingsOrReturn = askOpenSettingsOrReturn,
@@ -192,7 +192,7 @@ suspend inline fun Fragment.ensureAllPermissions(
  */
 @ExperimentalSplittiesApi
 suspend inline fun Fragment.ensureAllPermissions(
-    permissions: List<String>,
+    permissionNames: List<String>,
     showRationaleAndContinueOrReturn: () -> Boolean,
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
@@ -201,7 +201,7 @@ suspend inline fun Fragment.ensureAllPermissions(
     activity = requireActivity(),
     fragmentManager = requireFragmentManager(),
     lifecycle = lifecycle,
-    permissions = permissions,
+    permissionNames = permissionNames,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     askOpenSettingsOrReturn = askOpenSettingsOrReturn,
@@ -315,7 +315,7 @@ suspend inline fun ensureAllPermissions(
  */
 @ExperimentalSplittiesApi
 suspend inline fun ensureAllPermissions(
-    permissions: List<String>,
+    permissionNames: List<String>,
     activity: Activity,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
@@ -327,7 +327,7 @@ suspend inline fun ensureAllPermissions(
     activity = activity,
     fragmentManager = fragmentManager,
     lifecycle = lifecycle,
-    permissions = permissions.toTypedArray(),
+    permissions = permissionNames.toTypedArray(),
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     askOpenSettingsOrReturn = askOpenSettingsOrReturn,
