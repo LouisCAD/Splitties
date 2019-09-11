@@ -7,8 +7,8 @@ package splitties.preferences
 import kotlin.reflect.KProperty
 
 /**
- * A Lazy delegate that keeps a reference to it's initializer and resets it's value if you set it's
- * value with it's current value.
+ * A Lazy delegate that keeps a reference to its initializer and resets its value if you set its
+ * value with its current value.
  *
  * Note that this doesn't support nullable values.
  *
