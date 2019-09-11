@@ -7,6 +7,7 @@ package splitties.preferences
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.consume
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.produceIn
@@ -20,10 +21,14 @@ import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
 import kotlin.time.seconds
 
-@UseExperimental(ExperimentalSplittiesApi::class, ExperimentalTime::class)
+@UseExperimental(
+    ExperimentalSplittiesApi::class,
+    ExperimentalTime::class,
+    ExperimentalCoroutinesApi::class
+)
 class PreferencesTests {
 
-    private class DefaultPrefs : DefaultPreferences() {
+    private open class DefaultPrefs : DefaultPreferences() {
 
         val someBoolField = boolPref(key = "someBool", defaultValue = true)
         var someBool by someBoolField
@@ -68,16 +73,26 @@ class PreferencesTests {
 
     @Test
     fun set_value_and_get_it_back() {
-        val secondPrefsInstance = DefaultPrefs()
+        testSetAndGetValue(defaultPrefs, DefaultPrefs())
+    }
+
+    private object TopLevelObjectDefaultPrefs : DefaultPrefs()
+
+    @Test
+    fun test_object() {
+        testSetAndGetValue(TopLevelObjectDefaultPrefs, DefaultPrefs())
+    }
+
+    private fun testSetAndGetValue(prefs: DefaultPrefs, secondPrefsInstance: DefaultPrefs) {
         booleanArrayOf(true, false).forEach { testedValue ->
-            defaultPrefs.someBool = testedValue
+            prefs.someBool = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someBool)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someBool)
+            assertEquals(expected = testedValue, actual = prefs.someBool)
         }
         intArrayOf(2, 1, 0, -1, Int.MAX_VALUE, Int.MIN_VALUE).forEach { testedValue ->
-            defaultPrefs.someInt = testedValue
+            prefs.someInt = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someInt)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someInt)
+            assertEquals(expected = testedValue, actual = prefs.someInt)
         }
         floatArrayOf(
             0f,
@@ -89,55 +104,54 @@ class PreferencesTests {
             Float.MIN_VALUE,
             Float.MAX_VALUE
         ).forEach { testedValue ->
-            defaultPrefs.someFloat = testedValue
+            prefs.someFloat = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someFloat)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someFloat)
+            assertEquals(expected = testedValue, actual = prefs.someFloat)
         }
         longArrayOf(2, 1, 0, -1, Long.MAX_VALUE, Long.MIN_VALUE).forEach { testedValue ->
-            defaultPrefs.someLong = testedValue
+            prefs.someLong = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someLong)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someLong)
+            assertEquals(expected = testedValue, actual = prefs.someLong)
         }
         val stringTestValues = setOf("Hello World!", "<".repeat(1_000_000), "", " ", "\\")
         stringTestValues.forEach { testedValue ->
-            defaultPrefs.someString = testedValue
+            prefs.someString = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someString)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someString)
-            defaultPrefs.someStringOrNull = testedValue
+            assertEquals(expected = testedValue, actual = prefs.someString)
+            prefs.someStringOrNull = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringOrNull)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someStringOrNull)
+            assertEquals(expected = testedValue, actual = prefs.someStringOrNull)
         }
-        defaultPrefs.someStringOrNull = null
+        prefs.someStringOrNull = null
         assertEquals(expected = null, actual = secondPrefsInstance.someStringOrNull)
-        assertEquals(expected = null, actual = defaultPrefs.someStringOrNull)
+        assertEquals(expected = null, actual = prefs.someStringOrNull)
         stringTestValues.let { testedValue ->
-            defaultPrefs.someStringSet = testedValue
+            prefs.someStringSet = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringSet)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someStringSet)
-            defaultPrefs.someStringSetOrNull = testedValue
+            assertEquals(expected = testedValue, actual = prefs.someStringSet)
+            prefs.someStringSetOrNull = testedValue
             assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringSetOrNull)
-            assertEquals(expected = testedValue, actual = defaultPrefs.someStringSetOrNull)
+            assertEquals(expected = testedValue, actual = prefs.someStringSetOrNull)
         }
-        defaultPrefs.someStringSetOrNull = null
+        prefs.someStringSetOrNull = null
         assertEquals(expected = null, actual = secondPrefsInstance.someStringSetOrNull)
-        assertEquals(expected = null, actual = defaultPrefs.someStringSetOrNull)
+        assertEquals(expected = null, actual = prefs.someStringSetOrNull)
     }
 
     @Test
     fun test_changesFlow() = runTest(timeout = 5.seconds) {
-        @UseExperimental(ExperimentalCoroutinesApi::class)
         val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
         repeat(4) {
             var count = 0
             @UseExperimental(FlowPreview::class)
-            val changedChannel = flow.onEach { count++ }.produceIn(this)
-            awaitCallbackFlowActivation()
-            defaultPrefs.someBool = defaultPrefs.someBool.not()
-            changedChannel.receive()
-            defaultPrefs.someBool = defaultPrefs.someBool.not()
-            changedChannel.receive()
-            assertEquals(2, count, message = "Iteration: $it")
-            changedChannel.cancel()
+            flow.onEach { count++ }.produceIn(this).consume {
+                awaitCallbackFlowActivation()
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                receive()
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                receive()
+                assertEquals(2, count, message = "Iteration: $it")
+            }
         }
     }
 
@@ -145,22 +159,16 @@ class PreferencesTests {
     fun test_valuesFlow() = runTest(timeout = 5.seconds) {
         val startValue = 7
         defaultPrefs.someInt = startValue
-        @UseExperimental(ExperimentalCoroutinesApi::class)
         val flow = defaultPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
         @UseExperimental(FlowPreview::class)
-        val valueChannel = flow.produceIn(this)
-        awaitCallbackFlowActivation()
-        assertEquals(startValue, valueChannel.receive())
-        arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
-            defaultPrefs.someInt = testValue
-            assertEquals(testValue, valueChannel.receive())
+        flow.produceIn(this).consume {
+            awaitCallbackFlowActivation()
+            assertEquals(startValue, receive())
+            arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
+                defaultPrefs.someInt = testValue
+                assertEquals(testValue, receive())
+            }
         }
-        valueChannel.cancel()
-    }
-
-    @Test
-    fun test_object() {
-        TODO()
     }
 
     private suspend fun awaitCallbackFlowActivation() {
