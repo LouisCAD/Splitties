@@ -4,7 +4,6 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
-import org.gradle.api.Action
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
 fun AndroidLibraryExtension.setDefaults() {
@@ -29,11 +28,11 @@ fun AndroidLibraryExtension.setDefaults() {
         java.srcDir("src/androidTest/kotlin")
     }
     // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
-    libraryVariants.all(Action {
+    libraryVariants.all {
         generateBuildConfigProvider.configure {
             enabled = false
         }
-    })
+    }
     packagingOptions {
         // Remove line below when the following issue is ACTUALLY fixed (not just closed)
         // https://github.com/Kotlin/kotlinx.coroutines/issues/1064
