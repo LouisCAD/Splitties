@@ -35,8 +35,8 @@ fun AndroidLibraryExtension.setDefaults() {
         }
     })
     packagingOptions {
-        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
-        exclude("**/*.kotlin_builtins") // Reduce test apk size (faster deployment)
-        exclude("**/*.kotlin_metadata") // Reduce test apk size (faster deployment)
+        // Remove line below when the following issue is ACTUALLY fixed (not just closed)
+        // https://github.com/Kotlin/kotlinx.coroutines/issues/1064
+        pickFirst("META-INF/kotlinx-coroutines-core.kotlin_module")
     }
 }
