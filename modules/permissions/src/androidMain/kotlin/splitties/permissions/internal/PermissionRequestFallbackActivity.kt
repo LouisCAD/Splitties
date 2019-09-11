@@ -51,15 +51,15 @@ internal class PermissionRequestFallbackActivity : Activity() {
     }
 
     internal object ExtrasSpec : BundleSpec() {
-        var permissionName: String? by bundleOrNull()
+        var permissionNames: Array<out String>? by bundleOrNull()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val permission: String = withExtras(ExtrasSpec) {
-            permissionName
+        val permissions: Array<out String> = withExtras(ExtrasSpec) {
+            permissionNames
         } ?: return finish() // Finish early if started without a permission to request.
-        requestPermissions(arrayOf(permission), 1)
+        requestPermissions(permissions, 1)
     }
 
     override fun onRequestPermissionsResult(
@@ -68,7 +68,7 @@ internal class PermissionRequestFallbackActivity : Activity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        setResult(RESULT_OK, Intent().putExtra(GRANT_RESULT, grantResults.getOrNull(0)))
+        setResult(RESULT_OK, Intent().putExtra(GRANT_RESULT, grantResults))
         finish()
     }
 }
