@@ -6,7 +6,7 @@ package splitties.permissions
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -171,7 +171,7 @@ suspend inline fun ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ) {
     var askCount = 0
-    if (Build.VERSION.SDK_INT < 23) return
+    if (SDK_INT < 23) return
     askLoop@ while (!hasPermission(permission)) {
         if (askCount > 0 ||
             showRationaleBeforeFirstAsk ||
