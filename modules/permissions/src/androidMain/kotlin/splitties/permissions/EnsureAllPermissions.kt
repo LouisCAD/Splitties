@@ -62,7 +62,7 @@ suspend inline fun FragmentActivity.ensureAllPermissions(
 )
 
 /**
- * Returns immediately if the [permissions] are all already granted or if the device API level is
+ * Returns immediately if the [permissionNames] are all already granted or if the device API level is
  * lower than 23 (runtime permissions were introduced in API level 23, and are granted at
  * app installation time on older Android API levels).
  *
@@ -160,7 +160,7 @@ suspend inline fun Fragment.ensureAllPermissions(
 )
 
 /**
- * Returns immediately if the [permissions] are all already granted or if the device API level is
+ * Returns immediately if the [permissionNames] are all already granted or if the device API level is
  * lower than 23 (runtime permissions were introduced in API level 23, and are granted at
  * app installation time on older Android API levels).
  *
@@ -272,7 +272,7 @@ suspend inline fun ensureAllPermissions(
 )
 
 /**
- * Returns immediately if the [permissions] are all already granted or if the device API level is
+ * Returns immediately if the [permissionNames] are all already granted or if the device API level is
  * lower than 23 (runtime permissions were introduced in API level 23, and are granted at
  * app installation time on older Android API levels).
  *
