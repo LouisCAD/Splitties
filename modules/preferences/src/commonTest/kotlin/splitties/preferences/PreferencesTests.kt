@@ -142,8 +142,20 @@ class PreferencesTests {
     }
 
     @Test
-    fun test_valuesFlow() {
-        TODO()
+    fun test_valuesFlow() = runTest(timeout = 5.seconds) {
+        val startValue = 7
+        defaultPrefs.someInt = startValue
+        @UseExperimental(ExperimentalCoroutinesApi::class)
+        val flow = defaultPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
+        @UseExperimental(FlowPreview::class)
+        val valueChannel = flow.produceIn(this)
+        awaitCallbackFlowActivation()
+        assertEquals(startValue, valueChannel.receive())
+        arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
+            defaultPrefs.someInt = testValue
+            assertEquals(testValue, valueChannel.receive())
+        }
+        valueChannel.cancel()
     }
 
     @Test
