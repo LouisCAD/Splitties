@@ -154,10 +154,10 @@ suspend inline fun Fragment.ensureAllPermissions(
  */
 @ExperimentalSplittiesApi
 suspend inline fun ensureAllPermissions(
+    vararg permissions: String,
     activity: Activity,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle,
-    vararg permissions: String,
     showRationaleAndContinueOrReturn: () -> Boolean,
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
