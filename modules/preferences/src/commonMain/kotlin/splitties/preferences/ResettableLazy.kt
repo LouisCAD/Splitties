@@ -19,20 +19,11 @@ import kotlin.reflect.KProperty
  * myMember = myMember // This line resets myMember. Next access will call the initializer again.
  * ```
  */
-internal class ResettableLazy<T : Any>(private val initializer: () -> T) {
+internal expect class ResettableLazy<T : Any>constructor(initializer: () -> T) {
 
-    private var value: T? = null
+    operator fun getValue(thisRef: Any?, prop: KProperty<*>): T
 
-    operator fun getValue(thisRef: Any?, prop: KProperty<*>): T {
-        return value ?: initializer().apply { value = this }
-    }
+    operator fun setValue(thisRef: Any?, prop: KProperty<*>, value: T)
 
-    operator fun setValue(thisRef: Any?, prop: KProperty<*>, value: T) {
-        check(this.value == value) { "New values aren't accepted to reset this delegated property" }
-        invalidate()
-    }
-
-    fun invalidate() {
-        value = null
-    }
+    fun invalidate()
 }
