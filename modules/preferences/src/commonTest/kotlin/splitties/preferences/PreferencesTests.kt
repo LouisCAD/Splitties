@@ -8,6 +8,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.consume
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.produceIn
@@ -50,45 +51,30 @@ class PreferencesTests {
 
     @Test
     fun set_value_and_get_it_back() {
-        testSetAndGetValue(defaultPrefs, DefaultPrefs())
-    }
-
-    @Test
-    fun test_object() {
-        testSetAndGetValue(TopLevelObjectDefaultPrefs, DefaultPrefs())
+        testSetAndGetValue(defaultPrefs)
+        testSetAndGetValue(writePrefs = defaultPrefs, readPrefs = DefaultPrefs())
+        testSetAndGetValue(writePrefs = DefaultPrefs(), readPrefs = defaultPrefs)
+        testSetAndGetValue(TopLevelObjectDefaultPrefs)
+        testSetAndGetValue(writePrefs = TopLevelObjectDefaultPrefs, readPrefs = DefaultPrefs())
     }
 
     @Test
     fun test_changesFlow() = runTest(timeout = 5.seconds) {
-        val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
-        repeat(4) {
-            var count = 0
-            @UseExperimental(FlowPreview::class)
-            flow.onEach { count++ }.produceIn(this).consume {
-                awaitCallbackFlowActivation(extraDispatches = 1 /* For onEach operator */)
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                receive()
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                receive()
-                assertEquals(2, count, message = "Iteration: $it")
-            }
-        }
+        testChangesFlow(defaultPrefs)
+        testChangesFlow(TopLevelObjectDefaultPrefs)
+        testChangesFlow(writePrefs = TopLevelObjectDefaultPrefs, readPrefs = defaultPrefs)
+        testChangesFlow(
+            writePrefs = TopLevelObjectDefaultPrefs,
+            readPrefs = defaultPrefs,
+            changesPrefs = DefaultPrefs()
+        )
     }
 
     @Test
-    fun test_valuesFlow() = runTest(timeout = 5.seconds) {
-        val startValue = 7
-        defaultPrefs.someInt = startValue
-        val flow = defaultPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
-        @UseExperimental(FlowPreview::class)
-        flow.produceIn(this).consume {
-            awaitCallbackFlowActivation()
-            assertEquals(startValue, receive())
-            arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
-                defaultPrefs.someInt = testValue
-                assertEquals(testValue, receive())
-            }
-        }
+    fun test_valueFlow() = runTest(timeout = 5.seconds) {
+        testValueFlow(defaultPrefs)
+        testValueFlow(TopLevelObjectDefaultPrefs)
+        testValueFlow(writePrefs = TopLevelObjectDefaultPrefs, readPrefs = defaultPrefs)
     }
 
     private open class DefaultPrefs : DefaultPreferences() {
@@ -130,16 +116,14 @@ class PreferencesTests {
         // It takes one dispatch for the listener registration to be executed.
     }
 
-    private fun testSetAndGetValue(prefs: DefaultPrefs, secondPrefsInstance: DefaultPrefs) {
+    private fun testSetAndGetValue(writePrefs: DefaultPrefs, readPrefs: DefaultPrefs = writePrefs) {
         booleanArrayOf(true, false).forEach { testedValue ->
-            prefs.someBool = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someBool)
-            assertEquals(expected = testedValue, actual = prefs.someBool)
+            writePrefs.someBool = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someBool)
         }
         intArrayOf(2, 1, 0, -1, Int.MAX_VALUE, Int.MIN_VALUE).forEach { testedValue ->
-            prefs.someInt = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someInt)
-            assertEquals(expected = testedValue, actual = prefs.someInt)
+            writePrefs.someInt = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someInt)
         }
         floatArrayOf(
             0f,
@@ -151,37 +135,67 @@ class PreferencesTests {
             Float.MIN_VALUE,
             Float.MAX_VALUE
         ).forEach { testedValue ->
-            prefs.someFloat = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someFloat)
-            assertEquals(expected = testedValue, actual = prefs.someFloat)
+            writePrefs.someFloat = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someFloat)
         }
         longArrayOf(2, 1, 0, -1, Long.MAX_VALUE, Long.MIN_VALUE).forEach { testedValue ->
-            prefs.someLong = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someLong)
-            assertEquals(expected = testedValue, actual = prefs.someLong)
+            writePrefs.someLong = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someLong)
         }
         val stringTestValues = setOf("Hello World!", "<".repeat(1_000_000), "", " ", "\\")
         stringTestValues.forEach { testedValue ->
-            prefs.someString = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someString)
-            assertEquals(expected = testedValue, actual = prefs.someString)
-            prefs.someStringOrNull = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringOrNull)
-            assertEquals(expected = testedValue, actual = prefs.someStringOrNull)
+            writePrefs.someString = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someString)
+            writePrefs.someStringOrNull = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someStringOrNull)
         }
-        prefs.someStringOrNull = null
-        assertEquals(expected = null, actual = secondPrefsInstance.someStringOrNull)
-        assertEquals(expected = null, actual = prefs.someStringOrNull)
+        writePrefs.someStringOrNull = null
+        assertEquals(expected = null, actual = readPrefs.someStringOrNull)
         stringTestValues.let { testedValue ->
-            prefs.someStringSet = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringSet)
-            assertEquals(expected = testedValue, actual = prefs.someStringSet)
-            prefs.someStringSetOrNull = testedValue
-            assertEquals(expected = testedValue, actual = secondPrefsInstance.someStringSetOrNull)
-            assertEquals(expected = testedValue, actual = prefs.someStringSetOrNull)
+            writePrefs.someStringSet = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someStringSet)
+            writePrefs.someStringSetOrNull = testedValue
+            assertEquals(expected = testedValue, actual = readPrefs.someStringSetOrNull)
         }
-        prefs.someStringSetOrNull = null
-        assertEquals(expected = null, actual = secondPrefsInstance.someStringSetOrNull)
-        assertEquals(expected = null, actual = prefs.someStringSetOrNull)
+        writePrefs.someStringSetOrNull = null
+        assertEquals(expected = null, actual = readPrefs.someStringSetOrNull)
+    }
+
+    private suspend fun testChangesFlow(
+        writePrefs: DefaultPrefs,
+        readPrefs: DefaultPrefs = writePrefs,
+        changesPrefs: DefaultPrefs = readPrefs
+    ): Unit = coroutineScope {
+        val flow = changesPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
+        repeat(4) {
+            var count = 0
+            @UseExperimental(FlowPreview::class)
+            flow.onEach { count++ }.produceIn(this).consume {
+                awaitCallbackFlowActivation(extraDispatches = 1 /* For onEach operator */)
+                writePrefs.someBool = readPrefs.someBool.not()
+                receive()
+                writePrefs.someBool = readPrefs.someBool.not()
+                receive()
+                assertEquals(2, count, message = "Iteration: $it")
+            }
+        }
+    }
+
+    private suspend fun testValueFlow(
+        writePrefs: DefaultPrefs,
+        readPrefs: DefaultPrefs = writePrefs
+    ): Unit = coroutineScope {
+        val startValue = 7
+        writePrefs.someInt = startValue
+        val flow = readPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
+        @UseExperimental(FlowPreview::class)
+        flow.produceIn(this).consume {
+            awaitCallbackFlowActivation()
+            assertEquals(startValue, receive())
+            arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
+                writePrefs.someInt = testValue
+                assertEquals(testValue, receive())
+            }
+        }
     }
 }
