@@ -28,6 +28,69 @@ import kotlin.time.seconds
 )
 class PreferencesTests {
 
+    @BeforeTest
+    @AfterTest
+    fun clearDefaultPrefs() {
+        defaultPrefs.prefs.edit().clear().commit()
+    }
+
+    @Test
+    fun default_values_are_correct() {
+        with(defaultPrefs) {
+            assertEquals(someBoolField.defaultValue, someBool)
+            assertEquals(someIntField.defaultValue, someInt)
+            assertEquals(someFloatField.defaultValue, someFloat)
+            assertEquals(someLongField.defaultValue, someLong)
+            assertEquals(someStringField.defaultValue, someString)
+            assertEquals(someStringOrNullField.defaultValue, someStringOrNull)
+            assertEquals(someStringSetField.defaultValue, someStringSet)
+            assertEquals(someStringSetOrNullField.defaultValue, someStringSetOrNull)
+        }
+    }
+
+    @Test
+    fun set_value_and_get_it_back() {
+        testSetAndGetValue(defaultPrefs, DefaultPrefs())
+    }
+
+    @Test
+    fun test_object() {
+        testSetAndGetValue(TopLevelObjectDefaultPrefs, DefaultPrefs())
+    }
+
+    @Test
+    fun test_changesFlow() = runTest(timeout = 5.seconds) {
+        val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
+        repeat(4) {
+            var count = 0
+            @UseExperimental(FlowPreview::class)
+            flow.onEach { count++ }.produceIn(this).consume {
+                awaitCallbackFlowActivation(extraDispatches = 1 /* For onEach operator */)
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                receive()
+                defaultPrefs.someBool = defaultPrefs.someBool.not()
+                receive()
+                assertEquals(2, count, message = "Iteration: $it")
+            }
+        }
+    }
+
+    @Test
+    fun test_valuesFlow() = runTest(timeout = 5.seconds) {
+        val startValue = 7
+        defaultPrefs.someInt = startValue
+        val flow = defaultPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
+        @UseExperimental(FlowPreview::class)
+        flow.produceIn(this).consume {
+            awaitCallbackFlowActivation()
+            assertEquals(startValue, receive())
+            arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
+                defaultPrefs.someInt = testValue
+                assertEquals(testValue, receive())
+            }
+        }
+    }
+
     private open class DefaultPrefs : DefaultPreferences() {
 
         val someBoolField = boolPref(key = "someBool", defaultValue = true)
@@ -57,30 +120,14 @@ class PreferencesTests {
 
     private val defaultPrefs = DefaultPrefs()
 
-    @Test
-    fun default_values_are_correct() {
-        with(defaultPrefs) {
-            assertEquals(someBoolField.defaultValue, someBool)
-            assertEquals(someIntField.defaultValue, someInt)
-            assertEquals(someFloatField.defaultValue, someFloat)
-            assertEquals(someLongField.defaultValue, someLong)
-            assertEquals(someStringField.defaultValue, someString)
-            assertEquals(someStringOrNullField.defaultValue, someStringOrNull)
-            assertEquals(someStringSetField.defaultValue, someStringSet)
-            assertEquals(someStringSetOrNullField.defaultValue, someStringSetOrNull)
-        }
-    }
-
-    @Test
-    fun set_value_and_get_it_back() {
-        testSetAndGetValue(defaultPrefs, DefaultPrefs())
-    }
-
     private object TopLevelObjectDefaultPrefs : DefaultPrefs()
 
-    @Test
-    fun test_object() {
-        testSetAndGetValue(TopLevelObjectDefaultPrefs, DefaultPrefs())
+    private suspend fun awaitCallbackFlowActivation(extraDispatches: Int = 0) {
+        require(extraDispatches >= 0)
+        repeat(1 + extraDispatches) {
+            yield()
+        }
+        // It takes one dispatch for the listener registration to be executed.
     }
 
     private fun testSetAndGetValue(prefs: DefaultPrefs, secondPrefsInstance: DefaultPrefs) {
@@ -136,48 +183,5 @@ class PreferencesTests {
         prefs.someStringSetOrNull = null
         assertEquals(expected = null, actual = secondPrefsInstance.someStringSetOrNull)
         assertEquals(expected = null, actual = prefs.someStringSetOrNull)
-    }
-
-    @Test
-    fun test_changesFlow() = runTest(timeout = 5.seconds) {
-        val flow = defaultPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
-        repeat(4) {
-            var count = 0
-            @UseExperimental(FlowPreview::class)
-            flow.onEach { count++ }.produceIn(this).consume {
-                awaitCallbackFlowActivation()
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                receive()
-                defaultPrefs.someBool = defaultPrefs.someBool.not()
-                receive()
-                assertEquals(2, count, message = "Iteration: $it")
-            }
-        }
-    }
-
-    @Test
-    fun test_valuesFlow() = runTest(timeout = 5.seconds) {
-        val startValue = 7
-        defaultPrefs.someInt = startValue
-        val flow = defaultPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
-        @UseExperimental(FlowPreview::class)
-        flow.produceIn(this).consume {
-            awaitCallbackFlowActivation()
-            assertEquals(startValue, receive())
-            arrayOf(0, 6, 7, 1, 3).forEach { testValue ->
-                defaultPrefs.someInt = testValue
-                assertEquals(testValue, receive())
-            }
-        }
-    }
-
-    private suspend fun awaitCallbackFlowActivation() {
-        repeat(2) { yield() } // It takes two dispatch for the listener registration to be executed.
-    }
-
-    @BeforeTest
-    @AfterTest
-    fun clearDefaultPrefs() {
-        defaultPrefs.prefs.edit().clear().commit()
     }
 }
