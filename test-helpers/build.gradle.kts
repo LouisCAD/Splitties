@@ -25,6 +25,7 @@ kotlin {
         jvmMain.dependencies {
             api(Libs.kotlin.stdlibJdk7)
             api(Libs.kotlinX.coroutines.core)
+            api(Libs.junit)
         }
         jsMain.dependencies {
             api(kotlin("stdlib-js"))

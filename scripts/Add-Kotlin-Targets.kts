@@ -13,17 +13,17 @@ println("Welcome in Create new module by Louis CAD")
 
 val targets = listOf(
     KotlinTarget("android"),
-    KotlinTarget("js", listOf("allButAndroid")),
-    KotlinTarget("ios", listOf("allButAndroid", "native", "apple", "apple64")),
-    KotlinTarget("macos", listOf("allButAndroid", "native", "apple", "apple64")),
-    KotlinTarget("androidNative", listOf("allButAndroid", "native")),
-    KotlinTarget("linuxX64", listOf("allButAndroid", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm64", listOf("allButAndroid", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("linuxMips32", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "native", "linux", "linux32")),
-    KotlinTarget("mingwX64", listOf("allButAndroid", "native", "mingw")),
-    KotlinTarget("mingwX86", listOf("allButAndroid", "native", "mingw"))
+    KotlinTarget("js", listOf("allButAndroid", "allButJvm")),
+    KotlinTarget("ios", listOf("allButAndroid", "allButJvm", "native", "apple", "apple64")),
+    KotlinTarget("macos", listOf("allButAndroid", "allButJvm", "native", "apple", "apple64")),
+    KotlinTarget("androidNative", listOf("allButAndroid", "allButJvm", "native")),
+    KotlinTarget("linuxX64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
+    KotlinTarget("linuxArm64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
+    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
+    KotlinTarget("linuxMips32", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
+    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
+    KotlinTarget("mingwX64", listOf("allButAndroid", "allButJvm", "native", "mingw")),
+    KotlinTarget("mingwX86", listOf("allButAndroid", "allButJvm", "native", "mingw"))
 )
 
 val currentPath: Path = Paths.get("")

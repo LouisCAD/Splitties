@@ -4,7 +4,9 @@
 
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
+import com.android.build.gradle.BaseExtension
 import org.gradle.api.NamedDomainObjectContainer
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.KotlinCommonOptions
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -14,6 +16,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.targets.js.KotlinJsTarget
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 
@@ -38,6 +41,8 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
     setupAndroidTestSourceSetsAndDependencies()
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
     if (nativeTargets.isEmpty()) return
+    val jsTargets = targets.filterIsInstance<KotlinJsTarget>()
+    if (jsTargets.isEmpty()) return
 
     val minGWTargets = nativeTargets.filterFamily(Family.MINGW)
     val macOSTargets = nativeTargets.filterFamily(Family.OSX)
@@ -47,7 +52,20 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
 
     sourceSets.apply {
         if (isRunningInIde) {
-            val native = listOf("allButAndroid", "native")
+
+            val js = listOf("allButAndroid", "allButJvm")
+            jsTargets.forEach { target ->
+                target.mainSourceSet {
+                    js.forEach { kotlin.srcDir("src/jsMain/${it}Main/kotlin") }
+                    kotlin.srcDir("src/jsMain/kotlin")
+                }
+                target.testSourceSet {
+                    js.forEach { kotlin.srcDir("src/jsTest/${it}Test/kotlin") }
+                    kotlin.srcDir("src/jsTest/kotlin")
+                }
+            }
+
+            val native = listOf("allButAndroid", "allButJvm", "native")
             val apple = native + "apple"
             val apple64 = apple + "apple64"
             iosTargets.forEach { target ->
@@ -95,8 +113,19 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
                 }
             }
         } else {
-            createMainAndTest("allButAndroid")
-            createMainAndTest("native", dependsOn = "allButAndroid")
+            val (allButAndroidMain, allButAndroidTest) = createMainAndTest("allButAndroid")
+            val (allButJvmMain, allButJvmTest) = createMainAndTest("allButJvm")
+
+            if (jsTargets.isNotEmpty()) {
+                jsTargets.forEach { target ->
+                    target.mainSourceSet.dependsOn(allButAndroidMain)
+                    target.mainSourceSet.dependsOn(allButJvmMain)
+                    target.testSourceSet.dependsOn(allButAndroidTest)
+                    target.testSourceSet.dependsOn(allButJvmTest)
+                }
+            }
+
+            createMainAndTest("native", dependsOn = listOf("allButAndroid", "allButJvm"))
 
             val supportIos = iosTargets.isNotEmpty()
             val supportMacos = macOSTargets.isNotEmpty()
@@ -154,16 +183,22 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
     name: String,
     dependsOn: String = "common",
     configureAction: KotlinSourceSet.(isTestSourceSet: Boolean) -> Unit = {}
+) = createMainAndTest(name, listOf(dependsOn), configureAction)
+
+private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
+    name: String,
+    dependsOn: List<String>,
+    configureAction: KotlinSourceSet.(isTestSourceSet: Boolean) -> Unit = {}
 ): Pair<KotlinSourceSet, KotlinSourceSet> {
-    require(dependsOn.endsWith("Main").not())
-    require(dependsOn.endsWith("Test").not())
+    require(dependsOn.all { it.endsWith("Main").not() })
+    require(dependsOn.all { it.endsWith("Test").not() })
     val mainSourceSet = create("${name}Main").apply {
-        dependsOn(getByName("${dependsOn}Main"))
+        dependsOn.forEach { dependsOn(getByName("${it}Main")) }
         configureAction(false)
     }
     val testSourceSet = create("${name}Test").apply {
         dependsOn(mainSourceSet)
-        getByName("${dependsOn}Test")
+        dependsOn.forEach { getByName("${it}Test") }
         configureAction(true)
     }
     return mainSourceSet to testSourceSet
@@ -192,11 +227,15 @@ private fun KotlinMultiplatformExtension.setupAndroidTestSourceSetsAndDependenci
     val androidTargets = targets.filterIsInstance<KotlinAndroidTarget>()
     if (androidTargets.isEmpty()) return
     val project = androidTargets.first().project
+    project.configure<BaseExtension> {
+        sourceSets.getByName("androidTest") { java.srcDir("src/androidInstrumentedTest/kotlin") }
+    }
     project.configurations.matching { it.name.startsWith("androidTest") }.all {
         val configurationName = name
         dependencies.all {
             val dependency = this
-            project.dependencies {
+            val isRoboElectric = dependency.group == "org.robolectric"
+            if (isRoboElectric.not()) project.dependencies {
                 configurationName.replaceFirst("androidTest", "test")(dependency)
             }
         }
