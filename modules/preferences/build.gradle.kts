@@ -59,6 +59,7 @@ kotlin {
         androidTest {
             dependencies {
                 implementation(Libs.kotlin.testJunit)
+                implementation(Libs.androidX.test.ext.junit)
             }
         }
     }
@@ -66,6 +67,7 @@ kotlin {
 
 dependencies {
     androidTestImplementation(Libs.androidX.test.runner)
+    testImplementation(Libs.roboElectric)
 }
 
 afterEvaluate {
