@@ -16,28 +16,20 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
 
     constructor(
         name: String,
-        androidAvailableAtDirectBoot: Boolean = false,
-        userDefaultsUseNotificationCenterForChanges: Boolean = false,
-        userDefaultsAllowOffMainThreadUsage: Boolean = false
+        androidAvailableAtDirectBoot: Boolean = false
     ) : this(
         getSharedPreferences(
             name = name,
-            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
-            userDefaultsUseNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
-            userDefaultsAllowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
         )
     )
 
-    internal constructor(
-        androidAvailableAtDirectBoot: Boolean,
-        userDefaultsUseNotificationCenterForChanges: Boolean,
-        userDefaultsAllowOffMainThreadUsage: Boolean
-    ) : this(getSharedPreferences(
-        name = null,
-        androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
-        userDefaultsUseNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
-        userDefaultsAllowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
-    ))
+    internal constructor(androidAvailableAtDirectBoot: Boolean) : this(
+        getSharedPreferences(
+            name = null,
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
+        )
+    )
 
     protected inline fun boolPref(
         key: String,

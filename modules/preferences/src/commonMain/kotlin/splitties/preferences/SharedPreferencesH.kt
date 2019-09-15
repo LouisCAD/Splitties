@@ -6,9 +6,7 @@ package splitties.preferences
 
 internal expect fun getSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean = false,
-    userDefaultsUseNotificationCenterForChanges: Boolean = false,
-    userDefaultsAllowOffMainThreadUsage: Boolean = false
+    androidAvailableAtDirectBoot: Boolean = false
 ): SharedPreferences
 
 /**

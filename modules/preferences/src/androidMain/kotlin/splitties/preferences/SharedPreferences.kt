@@ -11,9 +11,7 @@ import splitties.init.directBootCtx
 
 internal actual fun getSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean,
-    userDefaultsUseNotificationCenterForChanges: Boolean,
-    userDefaultsAllowOffMainThreadUsage: Boolean
+    androidAvailableAtDirectBoot: Boolean
 ): SharedPreferences {
     val actualName = name ?: "${appCtx.packageName}_preferences"
     val storageCtx: Context = if (androidAvailableAtDirectBoot && SDK_INT > 24) {
