@@ -69,10 +69,12 @@ internal class NSUserDefaultsBackedSharedPreferences(
         freeze()
     }
 
+    @NonSymmetricalApi
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         changeListeners += WeakReference(listener)
     }
 
+    @NonSymmetricalApi
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         val iterator = changeListeners.iterator()
         iterator.forEach {
