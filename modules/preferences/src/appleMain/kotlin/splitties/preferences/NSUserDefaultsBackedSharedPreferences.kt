@@ -7,37 +7,25 @@ package splitties.preferences
 import platform.Foundation.NSArray
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
-import splitties.mainthread.checkMainThread
+import splitties.experimental.NonSymmetricalApi
 import kotlin.native.concurrent.freeze
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean,
-    userDefaultsUseNotificationCenterForChanges: Boolean,
-    userDefaultsAllowOffMainThreadUsage: Boolean
+    androidAvailableAtDirectBoot: Boolean
 ): SharedPreferences {
     val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
         ?: NSUserDefaults.standardUserDefaults
-    return NSUserDefaultsBackedSharedPreferences(
-        userDefaults = userDefaults,
-        useNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
-        allowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
-    )
+    return NSUserDefaultsBackedSharedPreferences(userDefaults = userDefaults)
 }
 
 /**
  * This implementation can be frozen.
  */
 internal class NSUserDefaultsBackedSharedPreferences(
-    internal val userDefaults: NSUserDefaults,
-    internal val useNotificationCenterForChanges: Boolean,
-    allowOffMainThreadUsage: Boolean
+    internal val userDefaults: NSUserDefaults
 ) : SharedPreferences {
-
-    init {
-        if (allowOffMainThreadUsage.not()) checkMainThread()
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>
@@ -144,10 +132,13 @@ internal class NSUserDefaultsBackedSharedPreferences(
                     iterator.forEach {
                         when (val listener = it.get()) {
                             null -> changeListeners -= it
-                            else -> listener.onSharedPreferenceChanged(
-                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
-                                key = key
-                            )
+                            else -> {
+                                @UseExperimental(NonSymmetricalApi::class)
+                                listener.onSharedPreferenceChanged(
+                                    sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                    key = key
+                                )
+                            }
                         }
                     }
                 }
@@ -176,10 +167,13 @@ internal class NSUserDefaultsBackedSharedPreferences(
                 iterator.forEach {
                     when (val listener = it.get()) {
                         null -> changeListeners -= it
-                        else -> listener.onSharedPreferenceChanged(
-                            sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
-                            key = key
-                        )
+                        else -> {
+                            @UseExperimental(NonSymmetricalApi::class)
+                            listener.onSharedPreferenceChanged(
+                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                key = key
+                            )
+                        }
                     }
                 }
             }

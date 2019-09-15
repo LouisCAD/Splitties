@@ -12,4 +12,9 @@ annotation class ExperimentalSplittiesApi
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
 @Experimental(level = Experimental.Level.ERROR)
+annotation class NonSymmetricalApi
+
+@MustBeDocumented
+@Retention(value = AnnotationRetention.BINARY)
+@Experimental(level = Experimental.Level.ERROR)
 annotation class InternalSplittiesApi

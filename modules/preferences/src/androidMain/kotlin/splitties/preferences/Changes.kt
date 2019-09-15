@@ -9,12 +9,14 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.conflate
+import splitties.experimental.NonSymmetricalApi
 
 @UseExperimental(ExperimentalCoroutinesApi::class)
 internal actual fun SharedPreferences.changesFlow(
     key: String,
     emitAfterRegister: Boolean
 ): Flow<Unit> = channelFlow<Unit> {
+    @UseExperimental(NonSymmetricalApi::class)
     val listener = OnSharedPreferenceChangeListener { _, changedKey ->
         if (key == changedKey) runCatching { offer(Unit) }
     }

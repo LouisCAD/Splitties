@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.conflate
 import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSOperationQueue
 import platform.Foundation.NSUserDefaultsDidChangeNotification
+import splitties.experimental.NonSymmetricalApi
 import splitties.mainthread.isMainThread
 
 @UseExperimental(ExperimentalCoroutinesApi::class)
@@ -19,9 +20,7 @@ internal actual fun SharedPreferences.changesFlow(
     key: String,
     emitAfterRegister: Boolean
 ): Flow<Unit> = channelFlow<Unit> {
-    if (this@changesFlow is NSUserDefaultsBackedSharedPreferences &&
-        useNotificationCenterForChanges
-    ) {
+    if (this@changesFlow is NSUserDefaultsBackedSharedPreferences) {
         val defaultNotificationCenter = NSNotificationCenter.defaultCenter
         val observer = defaultNotificationCenter.addObserverForName(
             name = NSUserDefaultsDidChangeNotification,
@@ -35,12 +34,15 @@ internal actual fun SharedPreferences.changesFlow(
             defaultNotificationCenter.removeObserver(observer)
         }
     } else {
+        @UseExperimental(NonSymmetricalApi::class)
         val listener = OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching { offer(Unit) }
         }
+        @UseExperimental(NonSymmetricalApi::class)
         registerOnSharedPreferenceChangeListener(listener)
         if (emitAfterRegister) runCatching { offer(Unit) }
         awaitClose {
+            @UseExperimental(NonSymmetricalApi::class)
             unregisterOnSharedPreferenceChangeListener(listener)
         }
 

@@ -4,6 +4,8 @@
 
 package splitties.preferences
 
+import splitties.experimental.NonSymmetricalApi
+
 actual interface SharedPreferences {
 
     /**
@@ -151,6 +153,7 @@ actual interface SharedPreferences {
      * @param listener The callback that will run.
      * @see .unregisterOnSharedPreferenceChangeListener
      */
+    @NonSymmetricalApi
     actual fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
 
     /**
@@ -159,6 +162,7 @@ actual interface SharedPreferences {
      * @param listener The callback that should be unregistered.
      * @see .registerOnSharedPreferenceChangeListener
      */
+    @NonSymmetricalApi
     actual fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
 
 }
@@ -180,6 +184,7 @@ actual interface OnSharedPreferenceChangeListener {
      * @param key The key of the preference that was changed, added, or
      * removed.
      */
+    @NonSymmetricalApi
     actual fun onSharedPreferenceChanged(
         sharedPreferences: SharedPreferences,
         key: String
