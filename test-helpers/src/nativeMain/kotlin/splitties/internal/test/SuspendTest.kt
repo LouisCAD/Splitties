@@ -6,5 +6,15 @@ package splitties.internal.test
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
+import kotlin.native.concurrent.TransferMode
+import kotlin.native.concurrent.Worker
+import kotlin.native.concurrent.freeze
 
-actual fun runTest(block: suspend CoroutineScope.() -> Unit) = runBlocking { block() }
+actual fun runTest(alsoRunInNativeWorker: Boolean, block: suspend CoroutineScope.() -> Unit) {
+    runBlocking {
+        block()
+        if (alsoRunInNativeWorker) Worker.start().execute(TransferMode.SAFE, { block.freeze() }) {
+            runBlocking { it() }
+        }.result
+    }
+}

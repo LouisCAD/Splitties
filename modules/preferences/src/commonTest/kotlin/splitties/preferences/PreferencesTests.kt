@@ -59,7 +59,7 @@ class PreferencesTests {
     }
 
     @Test
-    fun test_changesFlow() = runTest(timeout = 5.seconds) {
+    fun test_changesFlow() = runTest(timeout = 5.seconds, alsoRunInNativeWorker = true) {
         testChangesFlow(defaultPrefs)
         testChangesFlow(TopLevelObjectDefaultPrefs)
         testChangesFlow(writePrefs = TopLevelObjectDefaultPrefs, readPrefs = defaultPrefs)
@@ -71,7 +71,7 @@ class PreferencesTests {
     }
 
     @Test
-    fun test_valueFlow() = runTest(timeout = 5.seconds) {
+    fun test_valueFlow() = runTest(timeout = 5.seconds, alsoRunInNativeWorker = true) {
         testValueFlow(defaultPrefs)
         testValueFlow(TopLevelObjectDefaultPrefs)
         testValueFlow(writePrefs = TopLevelObjectDefaultPrefs, readPrefs = defaultPrefs)

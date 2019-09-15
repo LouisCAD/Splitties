@@ -7,4 +7,7 @@ package splitties.internal.test
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 
-actual fun runTest(block: suspend CoroutineScope.() -> Unit) = runBlocking { block() }
+actual fun runTest(
+    alsoRunInNativeWorker: Boolean,
+    block: suspend CoroutineScope.() -> Unit
+) = runBlocking { block() }
