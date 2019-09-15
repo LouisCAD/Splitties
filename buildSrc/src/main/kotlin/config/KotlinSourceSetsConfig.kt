@@ -40,9 +40,8 @@ private fun KotlinTargetContainerWithPresetFunctions.iosAll() {
 fun KotlinMultiplatformExtension.setupSourceSets() {
     setupAndroidTestSourceSetsAndDependencies()
     val nativeTargets = targets.filterIsInstance<KotlinNativeTarget>()
-    if (nativeTargets.isEmpty()) return
     val jsTargets = targets.filterIsInstance<KotlinJsTarget>()
-    if (jsTargets.isEmpty()) return
+    if (nativeTargets.isEmpty() && jsTargets.isEmpty()) return
 
     val minGWTargets = nativeTargets.filterFamily(Family.MINGW)
     val macOSTargets = nativeTargets.filterFamily(Family.OSX)
