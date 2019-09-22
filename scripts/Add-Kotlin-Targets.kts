@@ -19,9 +19,15 @@ val targets = listOf(
     KotlinTarget("androidNative", listOf("allButAndroid", "allButJvm", "native")),
     KotlinTarget("linuxX64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
     KotlinTarget("linuxArm64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm32Hfp", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
+    KotlinTarget(
+        "linuxArm32Hfp",
+        listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")
+    ),
     KotlinTarget("linuxMips32", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
-    KotlinTarget("linuxMipsel32", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
+    KotlinTarget(
+        "linuxMipsel32",
+        listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")
+    ),
     KotlinTarget("mingwX64", listOf("allButAndroid", "allButJvm", "native", "mingw")),
     KotlinTarget("mingwX86", listOf("allButAndroid", "allButJvm", "native", "mingw"))
 )
@@ -137,9 +143,6 @@ fun addTarget(modulePath: Path, packageName: String) {
     logSingleFileCreation(what = "Directory for ${selectedTarget.name} target") {
         Files.createDirectory(targetMainSourceSetPath)
     }
-    logSingleFileCreation(what = "Test directory for ${selectedTarget.name} target") {
-        Files.createDirectory(targetTestSourceSetPath)
-    }
 
     val createdIntermediateSourceSetsCount = promptIntermediateSourceSetsCreation(
         selectedTarget = selectedTarget,
@@ -219,6 +222,12 @@ fun promptIntermediateSourceSetsCreation(
         if (skipTestsDir) return@count true
         val intermediateSourceSetTest = "${intermediateSourceSet}Test"
         logSingleFileCreation(
+            what = "Test directory for ${selectedTarget.name} target",
+            printAlreadyExists = false
+        ) {
+            Files.createDirectory(targetTestSourceSetPath)
+        }
+        logSingleFileCreation(
             what = "Symbolic link for $intermediateSourceSetTest in ${selectedTarget.name}"
         ) {
             Files.createSymbolicLink(
@@ -237,12 +246,16 @@ fun promptIntermediateSourceSetsCreation(
     }
 }
 
-inline fun logSingleFileCreation(what: String, block: () -> Unit) {
+inline fun logSingleFileCreation(
+    what: String,
+    printAlreadyExists: Boolean = true,
+    block: () -> Unit
+) {
     try {
         block()
         println("$what created successfully")
     } catch (ignored: FileAlreadyExistsException) {
-        println("$what already exists, continuing…")
+        if (printAlreadyExists) println("$what already exists, continuing…")
     }
 }
 
