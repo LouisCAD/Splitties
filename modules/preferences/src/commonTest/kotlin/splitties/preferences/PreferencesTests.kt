@@ -19,6 +19,7 @@ import splitties.internal.test.Runner
 import splitties.internal.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
@@ -64,6 +65,7 @@ class PreferencesTests {
     }
 
     @Test
+    @Ignore
     fun test_changesFlow() = runTest(timeout = 5.seconds, alsoRunInNativeWorker = true) {
         testChangesFlow(defaultPrefs)
         testChangesFlow(TopLevelObjectDefaultPrefs)
@@ -76,6 +78,7 @@ class PreferencesTests {
     }
 
     @Test
+    @Ignore
     fun test_valueFlow() = runTest(timeout = 5.seconds, alsoRunInNativeWorker = true) {
         testValueFlow(defaultPrefs)
         testValueFlow(TopLevelObjectDefaultPrefs)

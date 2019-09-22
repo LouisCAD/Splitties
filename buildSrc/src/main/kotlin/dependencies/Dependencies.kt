@@ -214,11 +214,11 @@ object Libs {
 
         object Test {
             val espresso = Espresso
-            private const val runnerVersion = "1.1.1"
+            private const val runnerVersion = "1.2.0"
             private const val rulesVersion = runnerVersion
             private const val monitorVersion = runnerVersion
             private const val orchestratorVersion = runnerVersion
-            private const val coreVersion = "1.1.0"
+            private const val coreVersion = "1.2.0"
             const val core = "androidx.test:core:$coreVersion"
             const val coreKtx = "androidx.test:core-ktx:$coreVersion"
             const val monitor = "androidx.test:monitor:$monitorVersion"
@@ -229,16 +229,16 @@ object Libs {
             val ext = Ext
 
             object Ext {
-                private const val version = coreVersion
-                const val junit = "androidx.test.ext:junit:$version"
-                const val junitKtx = "androidx.test.ext:junit-ktx:$version"
-                const val truth = "androidx.test.ext:truth:$version"
+                private const val extJunitVersion = "1.1.1"
+                const val junit = "androidx.test.ext:junit:$extJunitVersion"
+                const val junitKtx = "androidx.test.ext:junit-ktx:$extJunitVersion"
+                const val truth = "androidx.test.ext:truth:$coreVersion"
             }
 
             const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
             const val jankTestHelperV23 = "androidx.test.jank:janktesthelper-v23:1.0.1-alpha1"
 
-            const val services = "androidx.test.services:test-services:1.1.0"
+            const val services = "androidx.test.services:test-services:$runnerVersion"
 
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
             const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:2.2.0-alpha1"

@@ -10,6 +10,9 @@ plugins {
 
 android {
     setDefaults()
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
     buildTypes.getByName("release").consumerProguardFiles("proguard-rules.pro")
 }
 
