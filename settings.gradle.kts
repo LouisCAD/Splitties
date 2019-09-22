@@ -69,8 +69,6 @@ arrayOf(
     "android-app"
 ).forEach { include(":samples:$it") }
 
-include(":instrumented-tests")
-
 arrayOf(
     "test-helpers"
 ).forEach { include("::$it") }
