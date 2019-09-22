@@ -71,6 +71,6 @@ arrayOf(
 
 arrayOf(
     "test-helpers"
-).forEach { include("::$it") }
+).forEach { include(":$it") }
 
 enableFeaturePreview("GRADLE_METADATA")
