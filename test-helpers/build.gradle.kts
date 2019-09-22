@@ -38,6 +38,7 @@ kotlin {
             }
         }
         androidMain.dependencies {
+            api(Libs.kotlinX.coroutines.android)
             api(Libs.androidX.test.ext.junit)
         }
         jsMain.dependencies {
