@@ -359,6 +359,13 @@ fun NamedDomainObjectContainer<KotlinSourceSet>.androidMain(
     configureAction: KotlinSourceSet.() -> Unit
 ): KotlinSourceSet = getByName("androidMain").apply(configureAction)
 
+val NamedDomainObjectContainer<KotlinSourceSet>.androidDebug: KotlinSourceSet
+    inline get() = getByName("androidDebug")
+
+fun NamedDomainObjectContainer<KotlinSourceSet>.androidDebug(
+    configureAction: KotlinSourceSet.() -> Unit
+): KotlinSourceSet = getByName("androidDebug").apply(configureAction)
+
 val NamedDomainObjectContainer<KotlinSourceSet>.androidTest: KotlinSourceSet
     inline get() = getByName("androidTest")
 

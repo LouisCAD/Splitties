@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import java.util.Locale
 
-fun KotlinTarget.configureMavenPublication() {
+fun KotlinTarget.configureMavenPublication(publishReleaseVariantOnly: Boolean = true) {
     val suffix = when (platformType) {
         common -> "-metadata"
         jvm -> ""
@@ -34,7 +34,12 @@ fun KotlinTarget.configureMavenPublication() {
         }
     }
     if (platformType == androidJvm) {
-        (this as KotlinAndroidTarget).publishLibraryVariants("release")
-        // Relies on metadata to be disabled (done above) to avoid buildType mismatch on consumers.
+        this as KotlinAndroidTarget
+        if (publishReleaseVariantOnly) {
+            publishLibraryVariants("release")
+            // Relies on metadata to be disabled (done above) to avoid buildType mismatch on consumers.
+        } else {
+            publishAllLibraryVariants()
+        }
     }
 }
