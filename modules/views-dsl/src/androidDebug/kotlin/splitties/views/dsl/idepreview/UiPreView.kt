@@ -18,6 +18,7 @@ import splitties.resources.str
 import splitties.resources.strArray
 import splitties.resources.styledColor
 import splitties.views.backgroundColor
+import splitties.views.dsl.core.R
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.lParams
 import splitties.views.dsl.core.matchParent
