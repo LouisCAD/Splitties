@@ -9,5 +9,6 @@ import kotlinx.coroutines.runBlocking
 
 actual fun runTest(
     alsoRunInNativeWorker: Boolean,
+    skipIfRoboelectric: Boolean,
     block: suspend CoroutineScope.() -> Unit
 ) = runBlocking { block() }

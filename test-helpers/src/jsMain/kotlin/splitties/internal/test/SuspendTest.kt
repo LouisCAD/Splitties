@@ -10,6 +10,7 @@ import kotlinx.coroutines.promise
 
 actual fun runTest(
     alsoRunInNativeWorker: Boolean,
+    skipIfRoboelectric: Boolean,
     block: suspend CoroutineScope.() -> Unit
 ): dynamic = GlobalScope.promise {
     block()

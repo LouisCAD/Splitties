@@ -4,21 +4,22 @@
 
 package splitties.internal.test
 
+import android.os.Build
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
-import kotlin.native.concurrent.TransferMode
-import kotlin.native.concurrent.Worker
-import kotlin.native.concurrent.freeze
+import org.junit.Assume.assumeTrue
 
 actual fun runTest(
     alsoRunInNativeWorker: Boolean,
     skipIfRoboelectric: Boolean,
     block: suspend CoroutineScope.() -> Unit
 ) {
-    runBlocking {
-        block()
-        if (alsoRunInNativeWorker) Worker.start().execute(TransferMode.SAFE, { block.freeze() }) {
-            runBlocking { it() }
-        }.result
+    if (skipIfRoboelectric) {
+        val roboelectric = "robolectric"
+        assumeTrue(
+            "Running with Roboelectric, test skipped",
+            Build.DEVICE != roboelectric && Build.PRODUCT != roboelectric
+        )
     }
+    runBlocking { block() }
 }

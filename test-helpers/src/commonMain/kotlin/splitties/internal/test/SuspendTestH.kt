@@ -9,13 +9,21 @@ import kotlinx.coroutines.withTimeout
 import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
-expect fun runTest(alsoRunInNativeWorker: Boolean = false, block: suspend CoroutineScope.() -> Unit)
+expect fun runTest(
+    alsoRunInNativeWorker: Boolean = false,
+    skipIfRoboelectric: Boolean = false,
+    block: suspend CoroutineScope.() -> Unit
+)
 
 @ExperimentalTime
 fun runTest(
     timeout: Duration,
     alsoRunInNativeWorker: Boolean = false,
+    skipIfRoboelectric: Boolean = false,
     block: suspend CoroutineScope.() -> Unit
-) = runTest(alsoRunInNativeWorker = alsoRunInNativeWorker) {
+) = runTest(
+    alsoRunInNativeWorker = alsoRunInNativeWorker,
+    skipIfRoboelectric = skipIfRoboelectric
+) {
     withTimeout(timeout.toLongMilliseconds(), block)
 }
