@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.produceIn
 import kotlinx.coroutines.yield
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.internal.test.AndroidJUnit4
 import splitties.internal.test.RunWith
-import splitties.internal.test.Runner
 import splitties.internal.test.runTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -23,8 +23,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
 import kotlin.time.seconds
-
-expect class AndroidJUnit4 : Runner
 
 @UseExperimental(
     ExperimentalSplittiesApi::class,
