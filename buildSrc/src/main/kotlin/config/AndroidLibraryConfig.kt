@@ -38,4 +38,7 @@ fun AndroidLibraryExtension.setDefaults() {
         // https://github.com/Kotlin/kotlinx.coroutines/issues/1064
         pickFirst("META-INF/kotlinx-coroutines-core.kotlin_module")
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true // Required for Roboelectric
+    }
 }
