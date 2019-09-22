@@ -24,11 +24,6 @@ kotlin {
             api(splitties("experimental"))
             compileOnly(Libs.kotlinX.coroutines.coreCommon)
         }
-        commonTest {
-            dependencies {
-                implementation(project(":test-helpers"))
-            }
-        }
         androidMain.dependencies {
             api(splitties("appctx"))
             api(Libs.kotlin.stdlibJdk7)
@@ -47,6 +42,11 @@ kotlin {
         all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.Experimental")
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
             }
         }
         androidTest {
