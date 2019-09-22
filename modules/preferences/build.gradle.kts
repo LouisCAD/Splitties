@@ -50,12 +50,6 @@ kotlin {
                 useExperimentalAnnotation("kotlin.Experimental")
             }
         }
-        commonTest {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
         androidTest {
             dependencies {
                 implementation(Libs.kotlin.testJunit)

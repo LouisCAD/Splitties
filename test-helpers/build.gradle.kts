@@ -5,11 +5,17 @@
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
+    id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
 }
 
+android {
+    setDefaults()
+}
+
 kotlin {
+    android()
     jvm()
     js()
     macos()
@@ -20,12 +26,19 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(kotlin("stdlib-common"))
+            api(kotlin("test-common"))
+            api(kotlin("test-annotations-common"))
             api(Libs.kotlinX.coroutines.coreCommon)
         }
-        jvmMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.kotlinX.coroutines.core)
-            api(Libs.junit)
+        allJvmMain {
+            dependencies {
+                api(Libs.kotlin.stdlibJdk7)
+                api(Libs.kotlinX.coroutines.core)
+                api(Libs.kotlin.testJunit)
+            }
+        }
+        androidMain.dependencies {
+            api(Libs.androidX.test.ext.junit)
         }
         jsMain.dependencies {
             api(kotlin("stdlib-js"))

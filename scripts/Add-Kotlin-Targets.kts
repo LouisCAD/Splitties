@@ -11,26 +11,30 @@ import java.nio.file.Paths
 
 println("Welcome in Create new module by Louis CAD")
 
-val targets = listOf(
-    KotlinTarget("android"),
-    KotlinTarget("js", listOf("allButAndroid", "allButJvm")),
-    KotlinTarget("ios", listOf("allButAndroid", "allButJvm", "native", "apple", "apple64")),
-    KotlinTarget("macos", listOf("allButAndroid", "allButJvm", "native", "apple", "apple64")),
-    KotlinTarget("androidNative", listOf("allButAndroid", "allButJvm", "native")),
-    KotlinTarget("linuxX64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
-    KotlinTarget("linuxArm64", listOf("allButAndroid", "allButJvm", "native", "linux", "linux64")),
-    KotlinTarget(
-        "linuxArm32Hfp",
-        listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")
-    ),
-    KotlinTarget("linuxMips32", listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")),
-    KotlinTarget(
-        "linuxMipsel32",
-        listOf("allButAndroid", "allButJvm", "native", "linux", "linux32")
-    ),
-    KotlinTarget("mingwX64", listOf("allButAndroid", "allButJvm", "native", "mingw")),
-    KotlinTarget("mingwX86", listOf("allButAndroid", "allButJvm", "native", "mingw"))
-)
+val targets: List<KotlinTarget> = run {
+    val noJvm = listOf("allButJvm", "allButAndroid", "allButNonAndroidJvm")
+    val native = noJvm + "native"
+    val apple = noJvm + listOf("native", "apple", "apple64")
+    val linux = native + "linux"
+    val linux64 = linux + "linux64"
+    val linux32 = linux + "linux32"
+    val mingw = native + "mingw"
+    listOf(
+        KotlinTarget("android", listOf("allJvm", "allButNonAndroidJvm")),
+        KotlinTarget("jvm", listOf("allJvm", "allButAndroid")),
+        KotlinTarget("js", noJvm),
+        KotlinTarget("ios", apple),
+        KotlinTarget("macos", apple),
+        KotlinTarget("androidNative", native),
+        KotlinTarget("linuxX64", linux64),
+        KotlinTarget("linuxArm64", linux64),
+        KotlinTarget("linuxArm32Hfp", linux32),
+        KotlinTarget("linuxMips32", linux32),
+        KotlinTarget("linuxMipsel32", linux32),
+        KotlinTarget("mingwX64", mingw),
+        KotlinTarget("mingwX86", mingw)
+    )
+}
 
 val currentPath: Path = Paths.get("")
 

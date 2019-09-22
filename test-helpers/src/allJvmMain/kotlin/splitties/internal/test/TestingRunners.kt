@@ -4,6 +4,5 @@
 
 package splitties.internal.test
 
-
 actual typealias RunWith = org.junit.runner.RunWith
 actual typealias Runner = org.junit.runner.Runner

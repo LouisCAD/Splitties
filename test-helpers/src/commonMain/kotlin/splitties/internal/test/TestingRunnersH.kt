@@ -10,6 +10,4 @@ import kotlin.reflect.KClass
 @OptionalExpectation
 expect annotation class RunWith(val value: KClass<out Runner>)
 
-
 expect abstract class Runner
-
