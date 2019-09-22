@@ -77,7 +77,7 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
         textResource = R.string.toggle_night_mode
     }
     private val trySoundBtn = materialButtons.filled {
-        text = "Play a sound"
+        textResource = R.string.play_a_sound
     }
     private val fab = floatingActionButton {
         imageResource = R.drawable.ic_favorite_white_24dp

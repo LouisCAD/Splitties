@@ -70,6 +70,11 @@ inline fun LP.centerOn(view: View) {
     rightToRight = id
 }
 
+inline fun LP.before(view: View) = endToStartOf(view)
+inline fun LP.above(view: View) = bottomToTopOf(view)
+inline fun LP.after(view: View) = startToEndOf(view)
+inline fun LP.below(view: View) = topToBottomOf(view)
+
 inline fun LP.topToTopOf(view: View) {
     topToTop = view.existingOrNewId
 }

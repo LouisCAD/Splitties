@@ -11,14 +11,16 @@
     <string name="cant_dislike_md">Not sure you can dislike Material Design…</string>
     <string name="title_activity_demo">DemoActivity</string>
     <string name="cd_bug_icon">Bug icon</string>
-    <string name="title_feature_not_bug">It\'s not a bug, it\'s a feature!</string>
+    <string name="title_feature_not_bug">"It's not a bug, it's a feature!"</string>
     <string name="bug_marketing_definition">Feature: A bug as described by the marketing department</string>
     <string name="msg_marketing_guy_invents_new_feature">BREAKING: A carrier salesman invents a new feature in front of a customer!</string>
     <string name="title_feature_not_available">Feature not available yet</string>
-    <string name="msg_go_to_pc_manually">We are afraid you\'ll need to get back to your computer manually to use this library and get your project done</string>
-    <string name="subtitle_items_count_hint">There\'s only 2,147,483,647 items.</string>
+    <string name="msg_go_to_pc_manually">"We are afraid you'll need to get back to your computer manually to use this library and get your project done"</string>
+    <string name="subtitle_items_count_hint">"There's only 2,147,483,647 items."</string>
     <string name="scroll_to_the_end">Scroll to the end</string>
     <string name="toggle_night_mode">Toggle night mode</string>
+    <string name="play_a_sound">"Play a sound"</string>
+
     <string name="licensed_under_apache_2">Licensed under Apache v2.0</string>
     <string name="about">About</string>
     <string name="title_activity_about">@string/about</string>

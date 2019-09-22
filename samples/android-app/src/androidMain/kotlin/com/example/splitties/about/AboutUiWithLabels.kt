@@ -17,9 +17,21 @@ import com.example.splitties.R
 import com.example.splitties.extensions.ui.addDefaultAppBar
 import splitties.dimensions.dip
 import splitties.resources.txt
-import splitties.views.dsl.constraintlayout.*
+import splitties.views.dsl.constraintlayout.after
+import splitties.views.dsl.constraintlayout.alignVerticallyOn
+import splitties.views.dsl.constraintlayout.below
+import splitties.views.dsl.constraintlayout.constraintLayout
+import splitties.views.dsl.constraintlayout.endBarrier
+import splitties.views.dsl.constraintlayout.lParams
+import splitties.views.dsl.constraintlayout.startOfParent
+import splitties.views.dsl.constraintlayout.topOfParent
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
-import splitties.views.dsl.core.*
+import splitties.views.dsl.core.Ui
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.lastChild
+import splitties.views.dsl.core.margin
+import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.wrapContent
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.textAppearance
 import splitties.views.textResource
@@ -42,8 +54,8 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         }
         val labelsBarrier = endBarrier(libNameLabel, authorLabel, licenseLabel)
         addLabelAndTv(labelsBarrier, libNameLabel, libNameTv) { topOfParent() }
-        addLabelAndTv(labelsBarrier, authorLabel, authorTv) { topToBottomOf(libNameTv) }
-        addLabelAndTv(labelsBarrier, licenseLabel, licenseTv) { topToBottomOf(authorTv) }
+        addLabelAndTv(labelsBarrier, authorLabel, authorTv) { below(lastChild) }
+        addLabelAndTv(labelsBarrier, licenseLabel, licenseTv) { below(lastChild) }
     }
 
     override val root = coordinatorLayout {
@@ -74,7 +86,7 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
             startOfParent(); addLabelConstraints()
         })
         add(tv, lParams(wrapContent, wrapContent) {
-            startToEndOf(labelBarrier, margin = dip(8)); alignVerticallyOn(label)
+            after(labelBarrier, margin = dip(8)); alignVerticallyOn(label)
         })
     }
 }

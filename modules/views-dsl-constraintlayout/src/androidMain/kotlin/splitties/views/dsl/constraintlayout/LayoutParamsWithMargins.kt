@@ -90,6 +90,11 @@ inline fun LP.centerOn(view: View, @Px horizontalMargin: Int, @Px verticalMargin
     this.verticalMargin = verticalMargin
 }
 
+inline fun LP.before(view: View, @Px margin: Int) = endToStartOf(view, margin)
+inline fun LP.above(view: View, @Px margin: Int) = bottomToTopOf(view, margin)
+inline fun LP.after(view: View, @Px margin: Int) = startToEndOf(view, margin)
+inline fun LP.below(view: View, @Px margin: Int) = topToBottomOf(view, margin)
+
 inline fun LP.topToTopOf(view: View, @Px margin: Int) {
     topToTop = view.existingOrNewId
     topMargin = margin

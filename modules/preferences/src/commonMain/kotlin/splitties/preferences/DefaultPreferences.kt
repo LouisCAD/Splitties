@@ -11,11 +11,7 @@ import splitties.experimental.ExperimentalSplittiesApi
  */
 @ExperimentalSplittiesApi
 abstract class DefaultPreferences(
-    androidAvailableAtDirectBoot: Boolean = false,
-    userDefaultsUseNotificationCenterForChanges: Boolean = false,
-    userDefaultsAllowOffMainThreadUsage: Boolean = false
+    androidAvailableAtDirectBoot: Boolean = false
 ) : Preferences(
-    androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
-    userDefaultsUseNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
-    userDefaultsAllowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
+    androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
 )

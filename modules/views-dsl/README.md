@@ -84,6 +84,12 @@ probably already familiar to you._
   * [Simple examples](#simple-examples)
   * [Possibilities brought by the `Ui` interface](#possibilities-brought-by-the-ui-interface)
     * [IDE Preview](#ide-preview)
+      * [IDE Preview Example](#ide-preview-example)
+      * [Important info regarding IDE Preview](#important-info-regarding-ide-preview)
+        * [Interfaces parameters](#interfaces-parameters)
+        * [Known issues and their workaround](#known-issues-and-their-workaround)
+        * [Finding a suitable constructor to instantiate your UI](#finding-a-suitable-constructor-to-instantiate-your-ui)
+        * [Finding the class](#finding-the-class)
     * [Modular user interface contracts](#modular-user-interface-contracts)
     * [Easier multi form factors support](#easier-multi-form-factors-support)
     * [Multiplatform user interface contracts](#multiplatform-user-interface-contracts)
@@ -481,8 +487,103 @@ and [`DemoActivity`](
 
 #### IDE Preview
 
-You can preview `Ui` implementations in the IDE. [See the
-Views DSL IDE preview split](../views-dsl-ide-preview/README.md).
+The debug variant of this module provides a class named `UiPreView` that you can
+use in xml layout files to preview your `Ui` subclasses right from the IDE.
+
+##### IDE Preview Example
+
+Below is a preview xml layout example that the IDE can display.
+It assumes there's a class implementing `Ui` named `MainUi` in the `main`
+subpackage (relative to the app/library package name).
+
+```xml
+<splitties.views.dsl.idepreview.UiPreView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:splitties_class_package_name_relative="main.MainUi"/>
+```
+
+Here's a screenshot of how it looks like with [DemoUi from the sample](
+../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoUi.kt) after the
+`mergeDebugJavaResource` gradle task has been run:
+
+![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20example.png)
+
+##### Important info regarding IDE Preview
+
+###### Interfaces parameters
+
+In order for preview to work, your `Ui` subclass need to have its first parameter of type `Context`.
+For the subsequent parameters (if applicable), any `interface` is supported, but its methods need to
+not be called when this view is created and drawn, or an exception will be thrown.
+
+A special support has been added for `CoroutineContext` and `CoroutineScope`, so there's no
+exception thrown if you use an `actor` or other code relying on coroutines at init or drawing time.
+
+###### Known issues and their workaround
+
+* If preview doesn't work or doesn't reflect latest changes, it's likely
+because you didn't execute the `mergeDebugJavaResource` gradle task on your project (module actually).
+IDE preview currently only works with compiled classes and xml layouts. Running the
+`mergeDebugJavaResource` gradle task will save you time as it doesn't involve all the subsequent tasks
+that package a full apk.
+
+###### Finding a suitable constructor to instantiate your UI
+
+`UiPreView` is compatible with `Ui` implementations with two kind of
+constructors:
+* Constructors with a single `Context` parameter.
+* Constructors whose first parameter is a `Context` and other parameters are
+interfaces. Note that the interface methods need to not be called during
+preview, or an `UnsupportedOperationException` will be raised because
+`UiPreView` can only create stub implementations. You can use
+`View.isInEditMode` to skip code for preview if really needed.
+
+###### Finding the class
+
+When using the `splitties_class_package_name_relative` attribute, the
+`UiPreView` class will take the `packageName` returned from the `Context`
+and append a dot plus the value of the attribute to get the class name of
+your `Ui` implementation.
+
+However, you may have configured your build so your debug buildType has an
+applicationId suffix that is usually `.debug` like show in the example below:
+```groovy
+buildTypes {
+    debug {
+        applicationIdSuffix ".debug" // This changes the packageName returned from a Context
+        versionNameSuffix "-DEBUG"
+    }
+    release {
+        // Config of your release build
+    }
+}
+```
+That's why by default, the
+`UiPreView` class will drop any `.debug` suffix found in the package name
+before trying to instantiate the class. If you use another suffix, or have
+other suffixes for other debuggable buildTypes, or use productFlavors, you're
+in luck! The package name suffix to drop is configurable from your resources.
+
+Just copy paste the string resource below in your project in a value resource
+file named something like `config.xml` or `do_not_translate.xml`, and edit it
+to the suffix you use:
+
+```xml
+<string name="splitties_views_dsl_ide_preview_package_name_suffix" translatable="false">.debug</string>
+```
+
+This will override the default value from the library.
+
+You can also override the `splitties_ui_preview_base_package_names` string array resource and add
+all the base package names where you have implementations of the `Ui` interface you want to preview.
+You can see such [an example in the sample here](../../samples/android-app/src/debug/res/values/splitties_ui_preview_config.xml).
+This can be handy if you change the `applicationId`, or if you have a modularized codebase.
+
+Alternatively, you can use the `splitties_class_fully_qualified_name`
+attribute instead and specify the full class name with its package.
 
 #### Modular user interface contracts
 

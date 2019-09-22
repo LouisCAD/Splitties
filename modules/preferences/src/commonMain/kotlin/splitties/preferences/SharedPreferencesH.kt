@@ -4,11 +4,11 @@
 
 package splitties.preferences
 
+import splitties.experimental.NonSymmetricalApi
+
 internal expect fun getSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean = false,
-    userDefaultsUseNotificationCenterForChanges: Boolean = false,
-    userDefaultsAllowOffMainThreadUsage: Boolean = false
+    androidAvailableAtDirectBoot: Boolean = false
 ): SharedPreferences
 
 /**
@@ -178,6 +178,7 @@ expect interface SharedPreferences {
      * @param listener The callback that will run.
      * @see .unregisterOnSharedPreferenceChangeListener
      */
+    @NonSymmetricalApi
     fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
 
     /**
@@ -186,9 +187,11 @@ expect interface SharedPreferences {
      * @param listener The callback that should be unregistered.
      * @see .registerOnSharedPreferenceChangeListener
      */
+    @NonSymmetricalApi
     fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
 }
 
+@NonSymmetricalApi
 @Suppress("FunctionName") // Mimics SAM usage of Java interface.
 inline fun OnSharedPreferenceChangeListener(
     crossinline function: (sharedPreferences: SharedPreferences, key: String) -> Unit
@@ -215,6 +218,7 @@ expect interface OnSharedPreferenceChangeListener {
      * @param key The key of the preference that was changed, added, or
      * removed.
      */
+    @NonSymmetricalApi
     fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String)
 }
 

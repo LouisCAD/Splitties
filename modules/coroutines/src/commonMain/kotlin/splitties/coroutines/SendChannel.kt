@@ -15,6 +15,8 @@ import kotlinx.coroutines.channels.SendChannel
  * multithreaded dispatchers, that can lead to uncaught exceptions as offer is often called from
  * non suspending functions that don't catch the default [CancellationException] or any other
  * exception that might be the cause of the closing of the channel.
+ *
+ * See this issue: [https://github.com/Kotlin/kotlinx.coroutines/issues/974](https://github.com/Kotlin/kotlinx.coroutines/issues/974)
  */
 fun <E> SendChannel<E>.offerCatching(element: E): Boolean {
     return runCatching { offer(element) }.getOrDefault(false)

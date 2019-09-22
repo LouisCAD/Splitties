@@ -29,7 +29,17 @@ kotlin {
         jsMain.dependencies {
             api(kotlin("stdlib-js"))
         }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
+            }
+        }
     }
+}
+
+dependencies {
+    androidTestImplementation(Libs.androidX.test.runner)
+    testImplementation(Libs.roboElectric)
 }
 
 afterEvaluate {

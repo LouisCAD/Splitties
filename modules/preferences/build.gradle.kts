@@ -26,7 +26,6 @@ kotlin {
         }
         androidMain.dependencies {
             api(splitties("appctx"))
-
             api(Libs.kotlin.stdlibJdk7)
             compileOnly(Libs.kotlinX.coroutines.android)
         }
@@ -47,17 +46,15 @@ kotlin {
         }
         commonTest {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-        androidTest {
-            dependsOn(androidMain)
-            dependencies {
-                implementation(Libs.kotlin.testJunit)
+                implementation(project(":test-helpers"))
             }
         }
     }
+}
+
+dependencies {
+    androidTestImplementation(Libs.androidX.test.runner)
+    testImplementation(Libs.roboElectric)
 }
 
 afterEvaluate {

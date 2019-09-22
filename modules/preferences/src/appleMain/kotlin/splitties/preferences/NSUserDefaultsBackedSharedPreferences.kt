@@ -7,38 +7,25 @@ package splitties.preferences
 import platform.Foundation.NSArray
 import platform.Foundation.NSString
 import platform.Foundation.NSUserDefaults
-import splitties.mainthread.checkMainThread
+import splitties.experimental.NonSymmetricalApi
+import kotlin.native.concurrent.freeze
 import kotlin.native.ref.WeakReference
 
 internal actual fun getSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean,
-    userDefaultsUseNotificationCenterForChanges: Boolean,
-    userDefaultsAllowOffMainThreadUsage: Boolean
+    androidAvailableAtDirectBoot: Boolean
 ): SharedPreferences {
     val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
         ?: NSUserDefaults.standardUserDefaults
-    return NSUserDefaultsBackedSharedPreferences(
-        userDefaults = userDefaults,
-        useNotificationCenterForChanges = userDefaultsUseNotificationCenterForChanges,
-        allowOffMainThreadUsage = userDefaultsAllowOffMainThreadUsage
-    )
+    return NSUserDefaultsBackedSharedPreferences(userDefaults = userDefaults)
 }
 
 /**
- * This implementation doesn't have locks like the Android implementation has because thanks to
- * Kotlin/Native shared XOR mutable policy, only one thread (the owner) can mutate this, making them
- * unnecessary.
+ * This implementation can be frozen.
  */
 internal class NSUserDefaultsBackedSharedPreferences(
-    internal val userDefaults: NSUserDefaults,
-    internal val useNotificationCenterForChanges: Boolean,
-    allowOffMainThreadUsage: Boolean
+    internal val userDefaults: NSUserDefaults
 ) : SharedPreferences {
-
-    init {
-        if (allowOffMainThreadUsage.not()) checkMainThread()
-    }
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>
@@ -75,52 +62,59 @@ internal class NSUserDefaultsBackedSharedPreferences(
 
     override fun edit(): SharedPreferencesEditor = EditorImpl()
 
-    private val changeListeners = mutableSetOf<WeakReference<OnSharedPreferenceChangeListener>>()
+    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>>
+            by FrozenDelegate(emptySet())
 
-    override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        changeListeners.add(WeakReference(listener))
+    init {
+        freeze()
     }
 
+    @NonSymmetricalApi
+    override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
+        changeListeners += WeakReference(listener)
+    }
+
+    @NonSymmetricalApi
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         val iterator = changeListeners.iterator()
         iterator.forEach {
-            if (it.get() == listener) {
-                iterator.remove()
+            if (it.get() === listener) {
+                changeListeners -= it
                 return
             }
         }
     }
 
     private inner class EditorImpl : SharedPreferencesEditor {
-        private val unCommittedEdits = mutableMapOf<String, Any?>()
-        private var clear = false
+        private var unCommittedEdits: Map<String, Any?> by FrozenDelegate(emptyMap())
+        private var clear by FrozenDelegate(false)
 
         override fun putString(key: String, value: String?): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = value
+            unCommittedEdits += (key to value)
         }
 
         override fun putStringSet(key: String, values: Set<String?>?): SharedPreferencesEditor {
-            return apply { unCommittedEdits[key] = values }
+            return apply { unCommittedEdits += (key to values) }
         }
 
         override fun putInt(key: String, value: Int): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = value
+            unCommittedEdits += (key to value)
         }
 
         override fun putLong(key: String, value: Long): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = value
+            unCommittedEdits += (key to value)
         }
 
         override fun putFloat(key: String, value: Float): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = value
+            unCommittedEdits += (key to value)
         }
 
         override fun putBoolean(key: String, value: Boolean): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = value
+            unCommittedEdits += (key to value)
         }
 
         override fun remove(key: String): SharedPreferencesEditor = apply {
-            unCommittedEdits[key] = this@EditorImpl
+            unCommittedEdits += (key to this@EditorImpl)
         }
 
         override fun clear(): SharedPreferencesEditor = apply {
@@ -138,11 +132,16 @@ internal class NSUserDefaultsBackedSharedPreferences(
                 removedAndNotReplacedKeys.forEach { key ->
                     val iterator = changeListeners.iterator()
                     iterator.forEach {
-                        it.get()?.onSharedPreferenceChanged(
-                            this@NSUserDefaultsBackedSharedPreferences,
-                            key
-                        )
-                            ?: iterator.remove()
+                        when (val listener = it.get()) {
+                            null -> changeListeners -= it
+                            else -> {
+                                @UseExperimental(NonSymmetricalApi::class)
+                                listener.onSharedPreferenceChanged(
+                                    sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                    key = key
+                                )
+                            }
+                        }
                     }
                 }
                 clear = false
@@ -168,11 +167,19 @@ internal class NSUserDefaultsBackedSharedPreferences(
                 }
                 val iterator = changeListeners.iterator()
                 iterator.forEach {
-                    it.get()?.onSharedPreferenceChanged(this@NSUserDefaultsBackedSharedPreferences, key)
-                        ?: iterator.remove()
+                    when (val listener = it.get()) {
+                        null -> changeListeners -= it
+                        else -> {
+                            @UseExperimental(NonSymmetricalApi::class)
+                            listener.onSharedPreferenceChanged(
+                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                key = key
+                            )
+                        }
+                    }
                 }
             }
-            unCommittedEdits.clear()
+            unCommittedEdits = emptyMap()
             return true
         }
 

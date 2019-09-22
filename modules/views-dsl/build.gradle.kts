@@ -9,12 +9,12 @@ plugins {
 }
 
 android {
-    setDefaults()
+    setDefaults(generateBuildConfig = true)
 }
 
 kotlin {
     android()
-    configure(targets) { configureMavenPublication() }
+    configure(targets) { configureMavenPublication(publishReleaseVariantOnly = false) }
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
@@ -26,9 +26,13 @@ kotlin {
             implementation(splitties("collections"))
             implementation(splitties("exceptions"))
         }
-        matching { it.name.startsWith("android") }.all {
+        androidDebug.dependencies {
+            implementation(splitties("appctx"))
+        }
+        all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
+                useExperimentalAnnotation("kotlin.Experimental")
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
                 useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
             }

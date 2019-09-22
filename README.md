@@ -88,13 +88,12 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 `contentPadding` property.
 - **[Views Coroutines:](modules/views-coroutines)** Android Views + Kotlin coroutines.
 - **[Views Coroutines Material:](modules/views-coroutines-material)** Material Components + Kotlin coroutines.
-- **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code.
+- **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
 - **[Views DSL AppCompat:](modules/views-dsl-appcompat)** AppCompat extension of [Views DSL](modules/views-dsl).
 - **[Views DSL ConstraintLayout:](modules/views-dsl-constraintlayout)** ConstraintLayout extension of
 [Views DSL](modules/views-dsl).
 - **[Views DSL CoordinatorLayout:](modules/views-dsl-coordinatorlayout)** CoordinatorLayout extension of
 [Views DSL](modules/views-dsl).
-- **[Views DSL IDE preview:](modules/views-dsl-ide-preview)** Preview [Views DSL](modules/views-dsl) UIs in the IDE.
 - **[Views DSL Material:](modules/views-dsl-material)** Material Components extension of [Views DSL](modules/views-dsl).
 - **[Views DSL RecyclerView:](modules/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](modules/views-dsl).
 - **[Views Material:](modules/views-material)** Material Components extension of [Views](modules/views).
