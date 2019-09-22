@@ -303,18 +303,22 @@ private fun KotlinMultiplatformExtension.setupAndroidTestSourceSetsAndDependenci
     }
 }
 
-private val KotlinTarget.mainSourceSet get() = compilations.main.defaultSourceSet
+private val KotlinTarget.mainSourceSet
+    get() = if (this is KotlinAndroidTarget) {
+        project.the<KotlinMultiplatformExtension>().sourceSets.androidMain
+    } else compilations.main.defaultSourceSet
+
 private inline fun KotlinTarget.mainSourceSet(configure: KotlinSourceSet.() -> Unit) {
-    if (this is KotlinAndroidTarget) {
-        project.the<KotlinMultiplatformExtension>().sourceSets.androidMain.configure()
-    } else compilations.main.defaultSourceSet.configure()
+    mainSourceSet.configure()
 }
 
-private val KotlinTarget.testSourceSet get() = compilations.test.defaultSourceSet
+private val KotlinTarget.testSourceSet
+    get() = if (this is KotlinAndroidTarget) {
+        project.the<KotlinMultiplatformExtension>().sourceSets.androidTest
+    } else compilations.test.defaultSourceSet
+
 private inline fun KotlinTarget.testSourceSet(configure: KotlinSourceSet.() -> Unit) {
-    if (this is KotlinAndroidTarget) {
-        project.the<KotlinMultiplatformExtension>().sourceSets.androidTest.configure()
-    } else compilations.test.defaultSourceSet.configure()
+    testSourceSet.configure()
 }
 
 private fun KotlinSourceSet.dependsOn(vararg others: KotlinSourceSet) {
