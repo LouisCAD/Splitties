@@ -6,7 +6,7 @@
 
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
-fun AndroidLibraryExtension.setDefaults() {
+fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     compileSdkVersion(ProjectVersions.androidSdk)
     buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
@@ -35,10 +35,12 @@ fun AndroidLibraryExtension.setDefaults() {
         java.srcDir("src/commonTest/kotlin")
         java.srcDir("src/androidTest/kotlin")
     }
-    // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
-    libraryVariants.all {
-        generateBuildConfigProvider.configure {
-            enabled = false
+    if (generateBuildConfig.not()) {
+        // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+        libraryVariants.all {
+            generateBuildConfigProvider.configure {
+                enabled = false
+            }
         }
     }
     packagingOptions {

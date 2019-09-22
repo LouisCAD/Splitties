@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    setDefaults()
+    setDefaults(generateBuildConfig = true)
 }
 
 kotlin {
