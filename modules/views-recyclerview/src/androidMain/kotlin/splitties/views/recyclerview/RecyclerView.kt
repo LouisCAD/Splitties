@@ -3,15 +3,13 @@
  */
 package splitties.views.recyclerview
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
  * `false` by default.
- * If you can guarantee that all the items that this [RecyclerView] will display
- * (as defined from its adapter), have all the same size (e.g. homogeneous height for a list
- * displayed with a vertical [LinearLayoutManager]), set this property to `true` so the
- * [RecyclerView] can enable some optimizations that will improve efficiency.
+ * If you can know in advance that this [RecyclerView] size will not be affected
+ * by the adapter contents, set this property to `true` so the [RecyclerView]
+ * can enable some optimizations that will improve efficiency.
  *
  * @see RecyclerView.setHasFixedSize
  */
