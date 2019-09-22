@@ -49,12 +49,6 @@ kotlin {
                 implementation(project(":test-helpers"))
             }
         }
-        androidTest {
-            dependencies {
-                implementation(Libs.kotlin.testJunit)
-                implementation(Libs.androidX.test.ext.junit)
-            }
-        }
     }
 }
 
