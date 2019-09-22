@@ -31,7 +31,6 @@ kotlin {
         }
         androidMain.dependencies {
             api(splitties("appctx"))
-
             api(Libs.kotlin.stdlibJdk7)
             compileOnly(Libs.kotlinX.coroutines.android)
         }
