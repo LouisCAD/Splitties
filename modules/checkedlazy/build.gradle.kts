@@ -21,7 +21,17 @@ kotlin {
             api(splitties("exceptions"))
             api(Libs.kotlin.stdlibJdk7)
         }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
+            }
+        }
     }
+}
+
+dependencies {
+    androidTestImplementation(Libs.androidX.test.runner)
+    testImplementation(Libs.roboElectric)
 }
 
 afterEvaluate {
