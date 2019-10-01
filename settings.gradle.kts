@@ -1,5 +1,15 @@
 @file:Suppress("SpellCheckingInspection")
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
 
+    /** TODO: Update to Gradle 5.6.2 then use the boilerplate from here
+     * so that the plugin versions comes from gradle.properties
+     * https://github.com/jmfayard/buildSrcVersions/issues/77
+     */
+}
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
