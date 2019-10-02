@@ -7,7 +7,7 @@
 import de.fayard.VersionsOnlyMode
 
 plugins {
-    id("de.fayard.buildSrcVersions").version("0.6.2")
+    id("de.fayard.buildSrcVersions").version("0.6.3")
 }
 
 /**
