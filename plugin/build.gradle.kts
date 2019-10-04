@@ -75,5 +75,5 @@ kotlinDslPluginOptions {
     experimentalWarning.set(false)
 }
 
-// TODO: delete me when the gradle-versions-plugin bug is fixed
+// TODO: delete this and the referenced dummy file when https://github.com/ben-manes/gradle-versions-plugin/issues/334 is fixed
 apply(from = "dummy-dependencies.gradle.kts")

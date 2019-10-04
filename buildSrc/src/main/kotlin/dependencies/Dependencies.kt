@@ -4,16 +4,14 @@
 
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
-@Suppress("unused")
-object Versions {
-    const val kotlin = "1.3.50" // Don't forget to update in buildSrc/build.gradle.kts too!
-}
-
 /**
  * Nested objects have a corresponding property to allow usage from groovy based gradle scripts.
  */
 @Suppress("unused")
 object Libs {
+    // Actual version comes from "gradle.properties". Keep in sync with buildSrc/build.gradle.kts
+    var kotlinVersion = "1.3.50"
+
     const val junit = "junit:junit:4.12"
     const val roboElectric = "org.robolectric:robolectric:4.3"
     const val timber = "com.jakewharton.timber:timber:4.7.1"
@@ -25,8 +23,8 @@ object Libs {
     val google = Google
 
     object Kotlin {
-        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
+        const val stdlibJdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
+        const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:1.3.50"
     }
 
     object KotlinX {
@@ -46,6 +44,14 @@ object Libs {
     }
 
     object AndroidX {
+        val useFdqnFor : Array<String> = arrayOf(
+                "annotation", "appcompat", "asyncLayoutInflater", "browser", "car", "cardView",
+                "collection", "collectionKtx", "constraintLayout"
+                // TODO: add the others if the solution is ok
+        )
+
+        // TODO: all versions can now be inlined/removed since the actual version will come from gradle.properties
+        // See: https://github.com/jmfayard/buildSrcVersions/blob/472e3d0bc09a729c37a6722dcff8d87a3924aefe/plugin/src/main/kotlin/de/fayard/BuildSrcVersionsPlugin.kt#L51-L75
         private object Versions {
             const val core = "1.0.1"
             const val multidex = "2.0.0"

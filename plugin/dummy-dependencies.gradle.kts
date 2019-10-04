@@ -1,6 +1,6 @@
 /***
- * This file is only there to make sure that the gradle-versions-plug
- * find all dependencies used in this project.
+ * This file is only there to make sure that the gradle-versions-plugin
+ * finds all dependencies used in this project.
  * It does not contribute in any matter to the output of the plugin.
  * It can be deleted as soon as this bug is resolved
  *
