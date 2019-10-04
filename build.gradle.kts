@@ -7,7 +7,7 @@
 import de.fayard.BuildSrcVersionsExtension
 
 plugins {
-    id("de.fayard.buildSrcVersions").version("0.6.3")
+    id("de.fayard.buildSrcVersions").version("0.6.4")
     id ("com.gradle.build-scan").version("2.4.2") 
 }
 
@@ -27,9 +27,6 @@ task<Delete>("clean") {
     delete(rootProject.buildDir)
 }
 
-// TODO v0.6.4: https://github.com/jmfayard/buildSrcVersions/issues/96
-fun BuildSrcVersionsExtension.isStable(version: String) = !isNonStable(version)
-
 /**
  * Use ./gradlew refreshVersions to find available updates
  * See https://github.com/jmfayard/buildSrcVersions/issues/77
@@ -40,7 +37,15 @@ buildSrcVersions {
     rejectVersionIf {
         isStable(currentVersion) && isNonStable(candidate.version)
     }
-    useFqdnFor(*Libs.AndroidX.useFdqnFor)
+
+    val dependenciesWithFullname = Libs.AndroidX.ALL + Libs.AndroidX.Room.ALL +
+            Libs.AndroidX.Work.ALL + Libs.AndroidX.Paging.ALL + Libs.AndroidX.Navigation.ALL +
+            Libs.AndroidX.Slice.ALL + Libs.AndroidX.ArchCore.ALL + Libs.AndroidX.Test.ALL + Libs.AndroidX.Legacy.ALL
+
+    useFqdnFor(*dependenciesWithFullname
+            .map { it.split(":").get(1) }
+            .toTypedArray()
+    )
 }
 
 
@@ -58,4 +63,7 @@ buildScan {
 tasks.create<DefaultTask>("hello") {
     group = "custom"
     description = "Hello World! Minimal task useful to debug build problems."
+    doLast {
+        println("Hello Gradle!")
+    }
 }
