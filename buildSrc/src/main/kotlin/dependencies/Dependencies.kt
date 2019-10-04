@@ -33,7 +33,7 @@ object Libs {
 
     const val junit = "junit:junit:$versionPlaceHolder"
     const val roboElectric = "org.robolectric:robolectric:$versionPlaceHolder"
-    const val timber = "com.jakewharton.timber:4.7.1"
+    const val timber = "com.jakewharton.timber:timber:$versionPlaceHolder"
     const val stetho = "com.facebook.stetho:stetho:$versionPlaceHolder"
 
     val ALL: List<String> = listOf(junit, roboElectric, timber, stetho)
