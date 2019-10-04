@@ -7,8 +7,12 @@
 import de.fayard.BuildSrcVersionsExtension
 
 plugins {
-    id("de.fayard.buildSrcVersions").version("0.6.4")
-    id ("com.gradle.build-scan").version("2.4.2") 
+    /**
+     * Plugin versions are set in `gradle.properties` by the property `plugin.$PLUGIN_ID=$PLUGIN_VERSION`.
+     * See "settings.gradle.kts"
+     */
+    id("de.fayard.buildSrcVersions")
+    id ("com.gradle.build-scan")
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -50,7 +54,7 @@ buildSrcVersions {
 
 
 /** 
-For investing build issue and bug reports, run 
+For investigating build issue and bug reports, run
   ./gradlew --scan $TASKNAME 
 see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
  **/
