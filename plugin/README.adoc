@@ -1,0 +1,42 @@
+:plugin_version: 0.0.1
+:version: 3.0.0-dev-034
+:plugin_id: com.louiscad.splitties
+:gradle_portal: https://plugins.gradle.org/plugin/{plugin_id}
+:plugin_badge: https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/{plugin_id}/{plugin_id}.gradle.plugin/maven-metadata.xml.svg?label=gradlePluginPortal&style=for-the-badge
+:splitties_badge: https://img.shields.io/github/v/release/LouisCAD/Splitties?label=Splitties%20Release&style=for-the-badge
+
+
+= Plugin {plugin_id}
+
+== Install the plugin
+
+image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
+
+Add in the top-level `build.gradle(.kts)`
+
+[source,kotlin,subs=attributes]
+----
+plugins {
+  id("{plugin_id}") version "{plugin_version}"
+}
+----
+
+You can find the latest version at {gradle_portal}
+
+== Configure Splitties version
+
+image:{splitties_badge}[Splitties]
+
+Add in `gradle.properties`:
+
+[source,properties,subs=attributes]
+----
+version.{plugin_id}={version}
+----
+
+You can find the latest release at https://github.com/LouisCAD/Splitties/releases
+
+
+== Add depdencies
+
+TODO
