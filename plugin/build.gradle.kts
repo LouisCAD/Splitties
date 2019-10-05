@@ -14,7 +14,9 @@ gradlePlugin {
     plugins {
         create("com.louiscad.splitties") {
             id = "com.louiscad.splitties"
+            @Suppress("UnstableApiUsage")
             displayName = "Splitties"
+            @Suppress("UnstableApiUsage")
             description = "A family of small Kotlin libraries for delightful Android development\n"
             implementationClass = "com.louiscad.splitties.SplittiesPlugin"
         }
@@ -63,6 +65,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.withType<Test>().configureEach {
+    @Suppress("UnstableApiUsage")
     useJUnitPlatform()
 }
 
