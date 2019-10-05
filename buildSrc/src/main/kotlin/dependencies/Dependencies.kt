@@ -143,19 +143,19 @@ object Libs {
         const val webkit = "androidx.webkit:webkit:$versionPlaceHolder"
 
         val ALL: List<String> = listOf(
-                annotation, appCompat, asyncLayoutInflater, browser,
-                car, cardView, collection, collectionKtx, constraintLayout,
-                constraintLayoutSolver, contentPager, coordinatorLayout, core, coreKtx,
-                cursorAdapter, customView, documentFile, drawerLayout, dynamicAnimation,
-                emoji, emojiAppCompat, emojiBundler, exifInterface, fragment,
-                fragmentKtx, gridLayout, heifWriter, interpolator, leanback,
-                leanbackPreference, loader, localBroadcastManager, media,
-                mediaWidget, media2, mediaRouter, multidex, multidexInstrumentation,
-                palette, percentLayout, paletteKtx, preference, preferenceKtx, print,
-                recommendation, recyclerView, recyclerViewSelection, slidingPaneLayout,
-                sqlite, sqliteFramework, sqliteKtx, swipeRefreshLayout, transition,
-                tvProvider, vectorDrawable, vectorDrawableAnimated, versionedParcelable,
-                wear, webkit, viewPager
+            annotation, appCompat, asyncLayoutInflater, browser,
+            car, cardView, collection, collectionKtx, constraintLayout,
+            constraintLayoutSolver, contentPager, coordinatorLayout, core, coreKtx,
+            cursorAdapter, customView, documentFile, drawerLayout, dynamicAnimation,
+            emoji, emojiAppCompat, emojiBundler, exifInterface, fragment,
+            fragmentKtx, gridLayout, heifWriter, interpolator, leanback,
+            leanbackPreference, loader, localBroadcastManager, media,
+            mediaWidget, media2, mediaRouter, multidex, multidexInstrumentation,
+            palette, percentLayout, paletteKtx, preference, preferenceKtx, print,
+            recommendation, recyclerView, recyclerViewSelection, slidingPaneLayout,
+            sqlite, sqliteFramework, sqliteKtx, swipeRefreshLayout, transition,
+            tvProvider, vectorDrawable, vectorDrawableAnimated, versionedParcelable,
+            wear, webkit, viewPager
         )
 
         val lifecycle = Lifecycle
@@ -189,9 +189,9 @@ object Libs {
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versionPlaceHolder"
 
             val ALL: List<String> = listOf(
-                    common, commonJava8, compiler, extensions, liveDataCore, liveData,
-                    process, reactiveStreams, reactiveStreamsKtx, runtime,
-                    service, viewModel, viewModelKtx
+                common, commonJava8, compiler, extensions, liveDataCore, liveData,
+                process, reactiveStreams, reactiveStreamsKtx, runtime,
+                service, viewModel, viewModelKtx
             )
         }
 
@@ -253,8 +253,8 @@ object Libs {
             const val safeArgsGradlePlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:$versionPlaceHolder"
 
             val ALL: List<String> = listOf(
-                    common, commonKtx, fragmentKtx, fragment, runtime, runtimeKtx,
-                    ui, uiKtx, safeArgsGenerator, safeArgsGradlePlugin
+                common, commonKtx, fragmentKtx, fragment, runtime, runtimeKtx,
+                ui, uiKtx, safeArgsGenerator, safeArgsGradlePlugin
             )
         }
 
@@ -318,7 +318,19 @@ object Libs {
             const val uiAutomator = "androidx.test.uiautomator:uiautomator:$versionPlaceHolder"
             const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:$versionPlaceHolder"
 
-            val ALL: List<String> = listOf(core, coreKtx, monitor, orchestrator, runner, rules, jankTestHelperV23, jankTestHelper, services, uiAutomator, uiAutomatorV18)
+            val ALL: List<String> = listOf(
+                core,
+                coreKtx,
+                monitor,
+                orchestrator,
+                runner,
+                rules,
+                jankTestHelperV23,
+                jankTestHelper,
+                services,
+                uiAutomator,
+                uiAutomatorV18
+            )
 
             /**
              * The actual dependency version comes from `gradle.properties`
@@ -413,22 +425,22 @@ object Libs {
 
     @Suppress("unused")
     val ALL_RECURSIVE: List<String> = listOf(
-            ALL, Kotlin.ALL, AndroidX.ALL,
-            Kotlin.ALL, KotlinX.Coroutines.ALL,
-            Square.ALL, Google.PlayServices.ALL, Google.ALL,
-            AndroidX.Lifecycle.ALL, AndroidX.Room.ALL,
-            AndroidX.Paging.ALL, AndroidX.Work.ALL,
-            AndroidX.Navigation.ALL, AndroidX.Slice.ALL,
-            AndroidX.ArchCore.ALL, AndroidX.Test.ALL, AndroidX.Legacy.ALL,
-            AndroidX.Test.ALL, AndroidX.Test.Espresso.ALL,
-            AndroidX.Test.Espresso.Idling.ALL, AndroidX.Test.Ext.ALL
+        ALL, Kotlin.ALL, AndroidX.ALL,
+        Kotlin.ALL, KotlinX.Coroutines.ALL,
+        Square.ALL, Google.PlayServices.ALL, Google.ALL,
+        AndroidX.Lifecycle.ALL, AndroidX.Room.ALL,
+        AndroidX.Paging.ALL, AndroidX.Work.ALL,
+        AndroidX.Navigation.ALL, AndroidX.Slice.ALL,
+        AndroidX.ArchCore.ALL, AndroidX.Test.ALL, AndroidX.Legacy.ALL,
+        AndroidX.Test.ALL, AndroidX.Test.Espresso.ALL,
+        AndroidX.Test.Espresso.Idling.ALL, AndroidX.Test.Ext.ALL
     ).flatten()
 
     @Suppress("unused")
     private val ALL_ACCESSORS = listOf(
-            Google.playServices, androidX, google, AndroidX.room, AndroidX.lifecycle,
-            AndroidX.paging, AndroidX.work, AndroidX.navigation, AndroidX.slice, AndroidX.archCore,
-            AndroidX.test, AndroidX.legacy,
-            AndroidX.Test.espresso, AndroidX.Test.Espresso.idling
+        Google.playServices, androidX, google, AndroidX.room, AndroidX.lifecycle,
+        AndroidX.paging, AndroidX.work, AndroidX.navigation, AndroidX.slice, AndroidX.archCore,
+        AndroidX.test, AndroidX.legacy,
+        AndroidX.Test.espresso, AndroidX.Test.Espresso.idling
     )
 }
