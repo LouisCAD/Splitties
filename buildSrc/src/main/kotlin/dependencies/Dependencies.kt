@@ -59,6 +59,7 @@ object Libs {
             const val constraintLayout = "1.1.3"
             const val collection = "1.0.0"
         }
+
         private val versions = Versions
         const val annotation = "androidx.annotation:annotation:1.0.0"
         const val appCompat = "androidx.appcompat:appcompat:1.0.2"
@@ -275,7 +276,7 @@ object Libs {
     }
 
     object Google {
-        const val material = "com.google.android.material:material:1.0.0"
+        const val material = "com.google.android.material:material:1.1.0-beta01"
         private const val wearOsVersion = "2.4.0"
         const val wearable = "com.google.android.wearable:wearable:$wearOsVersion"
         const val supportWearable = "com.google.android.support:wearable:$wearOsVersion"

@@ -1,5 +1,3 @@
-@file:Suppress("SpellCheckingInspection")
-
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
@@ -18,16 +16,9 @@ kotlin {
     android()
     configure(targets) { configureMavenPublication() }
     sourceSets {
-        androidMain.dependencies {
-            api(project(":fun-packs:android-appcompat"))
-            listOf(
-                "material-lists",
-                "materialdialog",
-                "snackbar",
-                "views-cardview",
-                "views-coroutines-material",
-                "views-material"
-            ).forEach { api(splitties(it)) }
+        getByName("androidMain").dependencies {
+            api(splitties("alertdialog-appcompat"))
+            api(Libs.Google.material)
         }
     }
 }

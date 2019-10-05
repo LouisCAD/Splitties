@@ -29,6 +29,7 @@ arrayOf(
     "mainthread",
     "material-colors",
     "material-lists",
+    "materialdialog",
     "permissions",
     "preferences",
     "resources",
