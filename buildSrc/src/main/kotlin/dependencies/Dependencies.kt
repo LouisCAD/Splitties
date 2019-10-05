@@ -21,6 +21,7 @@
  *
  * Read the friendly documentation at https://github.com/jmfayard/buildSrcVersions/issues/77
  */
+@Suppress("MemberVisibilityCanBePrivate")
 object Libs {
     /**
      * The actual dependencies versions come from "gradle.properties
