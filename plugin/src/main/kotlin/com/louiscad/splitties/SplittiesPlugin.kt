@@ -15,7 +15,7 @@ open class SplittiesPlugin : Plugin<Project> {
 }
 
 fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
-    val splittiesVersion = findProperty("version.") as? String ?: errorMissingProperty()
+    val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: errorMissingProperty()
     allprojects {
         configurations.all {
             if (name.contains("copy")) return@all
