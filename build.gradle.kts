@@ -39,13 +39,10 @@ buildSrcVersions {
 
     // Configuration: https://github.com/jmfayard/buildSrcVersions/issues/53
     rejectVersionIf {
-        (candidate.group == "org.jetbrains.kotlinx" &&
-                candidate.module.startsWith("kotlinx-coroutines-") &&
-                candidate.version == "1.3.2") || // Reject kotlinx.coroutines 1.3.2 to test we get 1.3.1.
         isStable(currentVersion) && isNonStable(candidate.version)
     }
 
-    useFqdnFor("android.arch.core.executor", "")
+    useFqdnFor(*Libs.AndroidX.GROUPS)
 }
 
 
