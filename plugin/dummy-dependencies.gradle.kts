@@ -8,7 +8,7 @@
  * https://github.com/ben-manes/gradle-versions-plugin/issues/334
  */
 
-configurations.create("dummy")
+configurations.create("dummy")//.isCanBeResolved = true // doesn't seem to be needed, maybe it's true by default?
 
 fun DependencyHandler.`dummy`(vararg deps: String) =
         deps.forEach { dependencyNotation -> add("dummy", dependencyNotation) }
