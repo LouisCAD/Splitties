@@ -45,14 +45,7 @@ buildSrcVersions {
         isStable(currentVersion) && isNonStable(candidate.version)
     }
 
-    val dependenciesWithFullname = Libs.AndroidX.ALL + Libs.AndroidX.Room.ALL +
-            Libs.AndroidX.Work.ALL + Libs.AndroidX.Paging.ALL + Libs.AndroidX.Navigation.ALL +
-            Libs.AndroidX.Slice.ALL + Libs.AndroidX.ArchCore.ALL + Libs.AndroidX.Test.ALL + Libs.AndroidX.Legacy.ALL
-
-    useFqdnFor(*dependenciesWithFullname
-            .map { it.split(":").get(1) }
-            .toTypedArray()
-    )
+    useFqdnFor("android.arch.core.executor", "")
 }
 
 
