@@ -18,7 +18,7 @@ plugins {
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // Libs.kotlinVersion comes from gradle.properties. Keep in sync with buildSrc/build.gradle.kts
-Libs.kotlinVersion = findProperty("version.kotlin-stdlib-common") as String
+Libs.kotlinVersion = findProperty("version.org.jetbrains.kotlin") as String
 
 
 allprojects {
@@ -41,7 +41,7 @@ buildSrcVersions {
     rejectVersionIf {
         isStable(currentVersion) && isNonStable(candidate.version)
     }
-
+    orderBy = de.fayard.OrderBy.GROUP_AND_ALPHABETICAL
     useFqdnFor(*Libs.AndroidX.GROUPS)
 }
 

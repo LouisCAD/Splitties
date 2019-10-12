@@ -27,7 +27,7 @@ object Libs {
      * The actual dependencies versions come from "gradle.properties
      * Read the friendly documentation at https://github.com/jmfayard/buildSrcVersions/issues/77
      * **/
-    const val versionPlaceHolder = "_"
+    const val versionPlaceHolder = "+"
 
     // Actual version comes from "gradle.properties". See ./build.gradle.kts Keep in sync with buildSrc/build.gradle.kts
     var kotlinVersion = "1.3.50"
@@ -138,7 +138,7 @@ object Libs {
         const val loader = "androidx.loader:loader:$versionPlaceHolder"
         const val localBroadcastManager = "androidx.localbroadcastmanager:localbroadcastmanager:$versionPlaceHolder"
         const val media = "androidx.media:media:$versionPlaceHolder"
-        const val mediaWidget = "androidx.media-widget:media-widget:$versionPlaceHolder"
+        const val mediaWidget = "androidx.media-widget:media-widget:1.0.0-alpha06"
         const val media2 = "androidx.media2:media2:$versionPlaceHolder"
         const val mediaRouter = "androidx.mediarouter:mediarouter:$versionPlaceHolder"
         const val multidex = "androidx.multidex:multidex:$versionPlaceHolder"
