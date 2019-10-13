@@ -47,9 +47,9 @@ buildSrcVersions {
 }
 
 
-/** 
+/**
 For investigating build issue and bug reports, run
-  ./gradlew --scan $TASKNAME 
+  ./gradlew --scan $TASKNAME
 see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
  **/
 buildScan {
