@@ -3,7 +3,7 @@
 pluginManagement {
     repositories {
         // If enabled, it allows to test a plugin version released to mavenLocal()
-        mavenLocal()
+        //mavenLocal()
         gradlePluginPortal()
     }
 
