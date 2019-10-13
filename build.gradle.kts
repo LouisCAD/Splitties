@@ -11,7 +11,7 @@ plugins {
      * Plugin versions are set in `gradle.properties` by the property `plugin.$PLUGIN_ID=$PLUGIN_VERSION`.
      * See "settings.gradle.kts"
      */
-    id("de.fayard.buildSrcVersions")
+    id("de.fayard.refreshVersions")
     id ("com.gradle.build-scan")
 }
 
