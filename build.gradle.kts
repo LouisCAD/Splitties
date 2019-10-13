@@ -18,7 +18,8 @@ plugins {
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 // Libs.kotlinVersion comes from gradle.properties. Keep in sync with buildSrc/build.gradle.kts
-Libs.kotlinVersion = findProperty("version.org.jetbrains.kotlin") as String
+// There is a slight problem with Gradle expecting plugin kotlin-dsl=1.2.9, which is using Kotlin 1.3.50
+Libs.kotlinVersion = findProperty("version.org.jetbrains.kotlin") as? String ?: findProperty("version.kotlin-stdlib") as String
 
 
 allprojects {
@@ -42,7 +43,7 @@ buildSrcVersions {
         isStable(currentVersion) && isNonStable(candidate.version)
     }
     orderBy = de.fayard.OrderBy.GROUP_AND_ALPHABETICAL
-    useFqdnFor(*Libs.AndroidX.GROUPS)
+    useFqdnFor("annotations", *Libs.AndroidX.GROUPS)
 }
 
 
