@@ -11,9 +11,9 @@
 
 = Plugin {plugin_id}
 
-== Install the plugin
+{slack_badge} image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
 
-image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
+== Install the plugin
 
 Add in the top-level `build.gradle(.kts)`
 
