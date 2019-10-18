@@ -23,28 +23,6 @@ gradlePlugin {
     }
 }
 
-/**
-// To test the plugin locally, add this to settings.gradle.kts
-
-```kotlin
-pluginManagement {
-  repositories {
-    val localGradleRepo = "FULL_PATH_TO/buildSrcVersions/plugin/build/repository"
-    if (File(localGradleRepo).exists()) maven { setUrl(localGradleRepo) }
-    gradlePluginPortal()
-  }
-}
-
-```
-
- Then run $ ./gradlew :plugin:publish
- */
-publishing {
-    repositories {
-        maven(url = "build/repository")
-    }
-}
-
 repositories {
     mavenCentral()
     jcenter()

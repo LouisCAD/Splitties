@@ -15,7 +15,7 @@ open class SplittiesPlugin : Plugin<Project> {
 }
 
 fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
-    val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: errorMissingProperty()
+    val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: SPLITTIES_VERSION
     allprojects {
         configurations.all {
             if (name.contains("copy")) return@all
@@ -27,13 +27,4 @@ fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
             }
         }
     }
-}
-
-fun errorMissingProperty(): Nothing = with(PluginConfig) {
-    error("""
-Splitties version not configured. 
-Please add in "gradle.properties" something like:
-   $GRADLE_PROPERTY=$SPLITTIES_VERSION
-        """.trimIndent()
-    )
 }
