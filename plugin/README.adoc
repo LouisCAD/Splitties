@@ -1,5 +1,5 @@
-:plugin_version: 0.0.1
-:version: 3.0.0-dev-034
+:plugin_version: 0.1.0
+:version: 3.0.0-alpha06
 :plugin_id: com.louiscad.splitties
 :gradle_portal: https://plugins.gradle.org/plugin/{plugin_id}
 :plugin_badge: https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/{plugin_id}/{plugin_id}.gradle.plugin/maven-metadata.xml.svg?label=gradlePluginPortal&style=for-the-badge
