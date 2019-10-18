@@ -11,7 +11,7 @@
 
 = Plugin {plugin_id}
 
-{slack_badge} image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
+image:{splitties_badge}[Splitties] {slack_badge} image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
 
 == Install the plugin
 
@@ -100,5 +100,5 @@ pluginManagement {
     gradlePluginPortal()
   }
 }
----
+----
 
