@@ -44,3 +44,8 @@ configurations.all {
         ) useVersion(kotlinVersion)
     }
 }
+
+// https://docs.gradle.org/5.6.2/userguide/kotlin_dsl.html#sec:kotlin-dsl_plugin
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
+}
