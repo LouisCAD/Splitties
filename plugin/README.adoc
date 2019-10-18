@@ -90,7 +90,7 @@ TODO
 
 == Testing the plugin locally
 
-Run `./gradlew
+Run `./gradlew :plugins:publishToMavenLocal`
 
 [source,kotlin,subs=attributes]
 ----
