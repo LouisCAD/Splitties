@@ -3,10 +3,10 @@
 :plugin_id: com.louiscad.splitties
 :gradle_portal: https://plugins.gradle.org/plugin/{plugin_id}
 :plugin_badge: https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/{plugin_id}/{plugin_id}.gradle.plugin/maven-metadata.xml.svg?label=gradlePluginPortal&style=for-the-badge
-:splitties_badge: https://img.shields.io/github/v/release/LouisCAD/Splitties?label=Splitties%20Release&style=for-the-badge
+:splitties_badge: https://img.shields.io/github/v/release/LouisCAD/Splitties?label=Splitties%20Release
 :splitties_slack: https://app.slack.com/client/T09229ZC6/CHJP9K00L
 :slack_url: https://app.slack.com/client/T09229ZC6/CHJP9K00L
-:slack_image: https://img.shields.io/static/v1?label=kotlinlang&message=splitties&color=brightgreen&logo=slack&style=for-the-badge
+:slack_image: https://img.shields.io/static/v1?label=kotlinlang&message=splitties&color=brightgreen&logo=slack
 :slack_badge: image:{slack_image}["Kotlinlang Slack", link="{slack_url}"]
 
 = Plugin {plugin_id}
@@ -91,7 +91,7 @@ TODO
 == Testing the plugin locally
 
 Run `./gradlew
-```kotlin
+
 [source,kotlin,subs=attributes]
 ----
 pluginManagement {
@@ -101,4 +101,4 @@ pluginManagement {
   }
 }
 ---
-```
+
