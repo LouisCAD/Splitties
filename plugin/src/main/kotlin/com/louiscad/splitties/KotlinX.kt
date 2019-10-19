@@ -8,7 +8,7 @@ object KotlinX {
      * from either `version.org.jetbrains.kotlinx=xxx` or `version.$NAME=xxx` or `version.org.jetbrains.kotlinx..$NAME=xxx`
      **/
     object Coroutines {
-        private const val version = "1.3.1"
+        private const val version = "+"
         private const val artifactPrefix = "org.jetbrains.kotlinx:kotlinx-coroutines"
         const val core = "$artifactPrefix-core:$version"
         const val coreCommon = "$artifactPrefix-core-common:$version"
@@ -17,6 +17,5 @@ object KotlinX {
         const val android = "$artifactPrefix-android:$version"
         const val playServices = "$artifactPrefix-play-services:$version"
         const val test = "$artifactPrefix-test:$version"
-        val ALL: List<String> = listOf(core, coreCommon, coreNative, coreJs, android, playServices, test)
     }
 }

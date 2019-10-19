@@ -10,14 +10,13 @@ object Google {
     const val wearable = "com.google.android.wearable:wearable:$wearOsVersion"
     const val supportWearable = "com.google.android.support:wearable:$wearOsVersion"
 
-    val playServices = PlayServices
 
-    val ALL: List<String> = listOf(material, wearable, supportWearable)
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from either `version.$NAME=xxx` or `version.com.google.android.gms=xxx`
      **/
+    val playServices = PlayServices
     object PlayServices {
         private const val artifactPrefix = "com.google.android.gms:play-services"
         const val base = "$artifactPrefix-base:16.0.1"
@@ -28,7 +27,5 @@ object Google {
         const val vision = "$artifactPrefix-vision:$visionVersion"
         const val visionCommon = "$artifactPrefix-vision-common:$visionVersion"
         const val wearable = "$artifactPrefix-wearable:16.0.1"
-
-        val ALL: List<String> = listOf(base, auth, location, tasks, vision, visionCommon, wearable)
     }
 }
