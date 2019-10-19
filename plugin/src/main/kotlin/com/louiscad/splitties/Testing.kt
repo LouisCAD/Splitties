@@ -1,14 +1,14 @@
 package com.louiscad.splitties
 
 object Testing {
-    private const val strikt_version = "0.22.2"
-    private const val mockk_version = "1.9.3"
-    private const val mockitokotlin_version = "2.2.0"
-    private const val mockito_version = "3.1.2"
-    private const val junitJupiterVersion = "5.5.2"
-    private const val spek_version = "2.0.8"
-    private const val kotestVersion = "3.4.2"
-    private const val junit4_version = "4.12"
+    private const val strikt_version = "+"
+    private const val mockk_version = "+"
+    private const val mockitokotlin_version = "+"
+    private const val mockito_version = "+" // https://github.com/mockito/mockito/releases
+    private const val junitJupiterVersion = "+"
+    private const val spek_version = "+"
+    private const val kotestVersion = "+"
+    private const val junit4_version = "+"
 
     private const val kotestArtifact = "io.kotestArtifact:kotestArtifact-"
 
@@ -106,6 +106,7 @@ object Testing {
      * https://site.mockito.org/
      */
     const val mockitoCore = "org.mockito:mockito-core:$mockito_version"
+    const val mockitoAndroid = "org.mockito:mockito-android:$mockito_version"
 
     /**
      * Using Mockito with Kotlin

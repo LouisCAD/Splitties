@@ -111,37 +111,13 @@ object AndroidX {
     const val viewPager = "androidx.viewpager:viewpager:1.0.0"
     const val wear = "androidx.wear:wear:1.0.0"
     const val webkit = "androidx.webkit:webkit:1.0.0"
-
-    val ALL: List<String> = listOf(
-        annotation, appCompat, asyncLayoutInflater, browser,
-        car, cardView, collection, collectionKtx, constraintLayout,
-        constraintLayoutSolver, contentPager, coordinatorLayout, core, coreKtx,
-        cursorAdapter, customView, documentFile, drawerLayout, dynamicAnimation,
-        emoji, emojiAppCompat, emojiBundler, exifInterface, fragment,
-        fragmentKtx, gridLayout, heifWriter, interpolator, leanback,
-        leanbackPreference, loader, localBroadcastManager, media,
-        mediaWidget, media2, mediaRouter, multidex, multidexInstrumentation,
-        palette, percentLayout, paletteKtx, preference, preferenceKtx, print,
-        recommendation, recyclerView, recyclerViewSelection, slidingPaneLayout,
-        sqlite, sqliteFramework, sqliteKtx, swipeRefreshLayout, transition,
-        tvProvider, vectorDrawable, vectorDrawableAnimated, versionedParcelable,
-        wear, webkit, viewPager
-    )
-
-    val lifecycle = Lifecycle
-    val room = Room
-    val paging = Paging
-    val work = Work
-    val navigation = Navigation
-    val slice = Slice
-    val archCore = ArchCore
-    val test = Test
-    val legacy = Legacy
+    
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * Either `version.androidx.lifecycle` or `version.androidx.lifecycle...$NAME`
      **/
+    val lifecycle = Lifecycle
     object Lifecycle {
         private const val version = "2.0.0"
         const val common = "androidx.lifecycle:lifecycle-common:$version"
@@ -158,31 +134,24 @@ object AndroidX {
         const val service = "androidx.lifecycle:lifecycle-service:$version"
         const val viewModel = "androidx.lifecycle:lifecycle-viewmodel:$version"
         const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
-
-        val ALL: List<String> = listOf(
-            common, commonJava8, compiler, extensions, liveDataCore, liveData,
-            process, reactiveStreams, reactiveStreamsKtx, runtime,
-            service, viewModel, viewModelKtx
-        )
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from either `version.androidx.room` or `version.androidx.room...$NAME`
      **/
+    val room = Room
+
     object Room {
+        const val artifact = "androidx.room:room"
         private const val version = "2.0.0"
-        const val common = "androidx.room:room-common:$version"
-        const val compiler = "androidx.room:room-compiler:$version"
-        const val guava = "androidx.room:room-guava:$version"
-        const val migration = "androidx.room:room-migration:$version"
-        const val runtime = "androidx.room:room-runtime:$version"
-        const val rxJava2 = "androidx.room:room-rxjava2:$version"
-        const val testing = "androidx.room:room-testing:$version"
-
-
-        val ALL: List<String> = listOf(common, compiler, guava, migration, runtime, rxJava2, testing)
-
+        const val common = "$artifact-common:$version"
+        const val compiler = "$artifact-compiler:$version"
+        const val guava = "$artifact-guava:$version"
+        const val migration = "$artifact-migration:$version"
+        const val runtime = "$artifact-runtime:$version"
+        const val rxJava2 = "$artifact-rxjava2:$version"
+        const val testing = "$artifact-testing:$version"
     }
 
 
@@ -190,32 +159,31 @@ object AndroidX {
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.paging=xxx` or `version.androidx.paging..$NAME=xxx`
      **/
+    val paging = Paging
     object Paging {
         private const val version = "2.0.0"
         const val common = "androidx.paging:paging-common:$version"
         const val runtime = "androidx.paging:paging-runtime:$version"
         const val rxJava2 = "androidx.paging:paging-rxjava2:$version"
-
-        val ALL: List<String> = listOf(common, runtime, rxJava2)
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.work=xxx` or `version.androidx.work..$NAME=xxx`
      **/
+    val work = Work
     object Work {
         private const val version = "2.0.0"
         const val runtime = "androidx.work:work-runtime:$version"
         const val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
         const val testing = "androidx.work:work-testing:$version"
-
-        val ALL: List<String> = listOf(runtime, runtimeKtx, testing)
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.navigation=xxx` or `version.androidx.navigation..$NAME=xxx`
      **/
+    val navigation = Navigation
     object Navigation {
         private const val version = "2.0.0"
         private const val artifactPrefix = "androidx.navigation:navigation"
@@ -229,46 +197,39 @@ object AndroidX {
         const val uiKtx = "$artifactPrefix-ui-ktx:$version"
         const val safeArgsGenerator = "$artifactPrefix-safe-args-generator:$version"
         const val safeArgsGradlePlugin = "$artifactPrefix-safe-args-gradle-plugin:$version"
-
-        val ALL: List<String> = listOf(
-            common, commonKtx, fragmentKtx, fragment, runtime, runtimeKtx,
-            ui, uiKtx, safeArgsGenerator, safeArgsGradlePlugin
-        )
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.slice=xxx` or `version.androidx.slice..$NAME=xxx`
      **/
+    val slice = Slice
     object Slice {
         private const val version = "1.0.0"
         const val builders = "androidx.slice:slice-builders:$version"
         const val buildersKtx = "androidx.slice:slice-builders-ktx:1.0.0-alpha6"
         const val core = "androidx.slice:slice-core:$version"
         const val view = "androidx.slice:slice-view:$version"
-
-        val ALL: List<String> = listOf(builders, buildersKtx, core, view)
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.arch.core=xxx` or `version.androidx.arch.core..$NAME=xxx`
      **/
+    val archCore = ArchCore
     object ArchCore {
         private const val version = "2.0.0"
         const val common = "androidx.arch.core:core-common:$version"
         const val runtime = "androidx.arch.core:core-runtime:$version"
         const val testing = "androidx.arch.core:core-testing:$version"
-
-        val ALL: List<String> = listOf(common, runtime, testing)
     }
 
     /**
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.test=xxx` or `version.androidx.test..$NAME=xxx`
      **/
+    val test = Test
     object Test {
-        val espresso = Espresso
         private const val runnerVersion = "1.2.0"
         private const val rulesVersion = runnerVersion
         private const val monitorVersion = runnerVersion
@@ -281,19 +242,17 @@ object AndroidX {
         const val rules = "androidx.test:rules:$rulesVersion"
         const val runner = "androidx.test:runner:$runnerVersion"
 
-        val ext = Ext
 
         /**
          * The actual dependency version comes from `gradle.properties`
          * from `version.androidx.test=xxx` or `version.androidx.test..$NAME=xxx`
          **/
+        val ext = Ext
         object Ext {
             private const val extJunitVersion = "1.1.1"
             const val junit = "androidx.test.ext:junit:$extJunitVersion"
             const val junitKtx = "androidx.test.ext:junit-ktx:$extJunitVersion"
             const val truth = "androidx.test.ext:truth:$coreVersion"
-
-            val ALL: List<String> = listOf(junit, junitKtx, truth)
         }
 
         const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
@@ -303,27 +262,13 @@ object AndroidX {
 
         const val uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
         const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:2.2.0-alpha1"
-
-        val ALL: List<String> = listOf(
-            core,
-            coreKtx,
-            monitor,
-            orchestrator,
-            runner,
-            rules,
-            jankTestHelperV23,
-            jankTestHelper,
-            services,
-            uiAutomator,
-            uiAutomatorV18
-        )
-
+        
         /**
          * The actual dependency version comes from `gradle.properties`
          * from `version.androidx.test.espresso=xxx` or `version.androidx.test.espresso..$NAME=xxx`
          **/
+        val espresso = Espresso
         object Espresso {
-            val idling = Idling
             private const val version = "3.1.1"
             const val core = "androidx.test.espresso:espresso-core:$version"
             const val contrib = "androidx.test.espresso:espresso-contrib:$version"
@@ -335,18 +280,16 @@ object AndroidX {
             const val remote = "androidx.test.espresso:espresso-remote:$version"
             const val web = "androidx.test.espresso:espresso-web:$version"
 
-            val ALL: List<String> = listOf(core, contrib, idlingResource, intents, accessibility, remote, web)
 
             /**
              * The actual dependency version comes from `gradle.properties`
              * from `version.androidx.test.espresso.idling=xxx` or `version.androidx.test.espresso.idling..$NAME=xxx`
              **/
+            val idling = Idling
             object Idling {
                 const val concurrent =
                     "androidx.test.espresso.idling:idling-concurrent:$version"
                 const val net = "androidx.test.espresso.idling:idling-net:$version"
-
-                val ALL: List<String> = listOf(concurrent, net)
             }
         }
     }
@@ -355,6 +298,7 @@ object AndroidX {
      * The actual dependency version comes from `gradle.properties`
      * from `version.androidx.legacy=xxx` or `version.androidx.legacy..$NAME=xxx`
      **/
+    val legacy = Legacy
     object Legacy {
         private const val version = "1.0.0"
         const val preferenceV14 = "androidx.legacy:legacy-preference-v14:$version"
@@ -362,7 +306,5 @@ object AndroidX {
         const val supportCoreUtils = "androidx.legacy:legacy-support-core-utils:$version"
         const val supportV13 = "androidx.legacy:legacy-support-v13:$version"
         const val supportV4 = "androidx.legacy:legacy-support-v4:$version"
-
-        val ALL: List<String> = listOf(preferenceV14, supportCoreUi, supportCoreUtils, supportV13, supportV4)
     }
 }
