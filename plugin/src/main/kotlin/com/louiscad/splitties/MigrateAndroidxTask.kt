@@ -12,10 +12,11 @@ open class MigrateAndroidxTask: DefaultTask() {
 
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
-        //TODO: use read resource from class loader instead of hard coding it. Could not get ti work.
-        val androidXClassMappingCsvFile = File("/Users/jmfayard/GitHub/Splitties/plugin/src/main/resources/androidx-class-mapping.csv")
+        val androidxArtifactMappings: List<String> =
+            this::class.java.getResourceAsStream("/androidx-artifact-mapping.csv").reader().readLines()
+        val androidxClassMappings: List<String> =
+            this::class.java.getResourceAsStream("/androidx-class-mapping.csv").reader().readLines()
 
-        val CSVNAME = "androidx-class-mapping.csv"
         println("Let's migrate this Android project from support libraries to AndroidX.")
         val dir = project.rootProject.projectDir
 
@@ -23,17 +24,14 @@ open class MigrateAndroidxTask: DefaultTask() {
         println("moduleDirectories=$moduleDirectories")
         val sourceFiles = sourceFiles(moduleDirectories)
         val gradleFiles = gradleFiles(moduleDirectories)
-        println(sourceFiles)
         println("There's ${sourceFiles.size} source files that may need migration")
 
-        val supportLibsToAndroidXMappings = supportLibsToAndroidXMappings(androidXClassMappingCsvFile)
+        val supportLibsToAndroidXMappings = supportLibsToAndroidXMappings(androidxClassMappings)
         val rawSupportLibsToAndroidXPackageMappings = rawSupportLibsToAndroidXPackageMappings(supportLibsToAndroidXMappings)
-        val supportLibsToAndroidXStarImportMappings = supportLibsToAndroidXMappings(androidXClassMappingCsvFile)
+        val supportLibsToAndroidXStarImportMappings = supportLibsToAndroidXStarImportMappings(rawSupportLibsToAndroidXPackageMappings)
         println("CSV file ok.")
 
         val replaces: List<Pair<String, String>> = supportLibsToAndroidXMappings + supportLibsToAndroidXStarImportMappings
-        val supportedExtensions = sourceExtensions + gradleExtension
-
 
         println("Starting batch migration")
         val editedSourceFilesCount = sourceFiles.count { it.migrateToAndroidX(replaces) }
@@ -80,8 +78,8 @@ internal object AndroidxMigrator {
         }?.asIterable() ?: emptyList()
     }
 
-    fun supportLibsToAndroidXMappings(androidXClassMappingCsvFile: File): List<Pair<String, String>> {
-        return androidXClassMappingCsvFile.readLines().asSequence().drop(1)
+    fun supportLibsToAndroidXMappings(androidXClassMapping: List<String>): List<Pair<String, String>> {
+        return androidXClassMapping.asSequence().drop(1)
                 .map { line ->
                     val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
                     check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
