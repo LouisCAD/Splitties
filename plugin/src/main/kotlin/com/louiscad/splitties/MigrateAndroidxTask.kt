@@ -20,45 +20,59 @@ open class MigrateAndroidxTask: DefaultTask() {
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
         println()
-        println("## Searching Android Support Dependencies")
-        val artifacts: List<ArtifactMapping> = readArtifactMappings()
-        val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
-        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
-
-        println("## Use instead those Androidx libraries")
-        val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
-        printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
-
         println("## Migrating classes from support libraries to AndroidX.")
+        println("$OK Parsing file androidx-class-mapping.csv")
         val androidxClassMappings: List<String> = readAndroidxClassMappings()
 
         val moduleDirectories: List<File> = project.subprojects.map { it.projectDir }
-        println("moduleDirectories=$moduleDirectories")
+        println("$OK Modules: ${moduleDirectories.map { it.relativeTo(project.rootDir) }}")
         val sourceFiles = sourceFiles(moduleDirectories)
         val gradleFiles = gradleFiles(moduleDirectories)
-        println("There's ${sourceFiles.size} source files that may need migration")
+        println("$OK Found ${sourceFiles.size} source files that may need migration")
 
         val supportLibsToAndroidXMappings = supportLibsToAndroidXMappings(androidxClassMappings)
         val rawSupportLibsToAndroidXPackageMappings = rawSupportLibsToAndroidXPackageMappings(supportLibsToAndroidXMappings)
         val supportLibsToAndroidXStarImportMappings = supportLibsToAndroidXStarImportMappings(rawSupportLibsToAndroidXPackageMappings)
-        println("CSV file ok.")
+        println("$OK File androidx-class-mapping.csv parsed correctly")
 
         val replaces: List<Pair<String, String>> = supportLibsToAndroidXMappings + supportLibsToAndroidXStarImportMappings
 
-        println("Starting batch migration")
+        println("$OK Starting batch migration...")
         val editedSourceFilesCount = sourceFiles.count { it.migrateToAndroidX(replaces) }
         val editedGradleFilesCount = gradleFiles.count { it.migrateToAndroidX(replaces) }
 
         println(
-                "\n$editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
+                "\n$OK $editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
                         "have been migrated (${sourceFiles.count() - editedSourceFilesCount} didn't need it)."
         )
         println(
-                "$editedGradleFilesCount gradle files have been migrated " +
+                "$OK $editedGradleFilesCount gradle files have been migrated " +
                         "(${gradleFiles.count() - editedGradleFilesCount} didn't need it)."
         )
-        println("AndroidX migration complete!")
-        println("You now just need to update the dependencies, if not already done.")
+
+        println()
+        println("## Detecting Gradle properties")
+        val hasProperties = PROPERTIES.all { project.hasProperty(it) }
+        if (hasProperties) {
+            println("$OK gradle.properties already contains $PROPERTIES")
+        } else {
+            val file = project.rootProject.file("gradle.properties")
+            file.appendText(GRADLE_PROPERTIES)
+            println("$OK Added ${PROPERTIES} to file gradle.properties")
+        }
+
+        println()
+        println("## Searching Android Support Dependencies")
+        println("$OK Parsing file androidx-artifact-mapping.csv")
+        val artifacts: List<ArtifactMapping> = readArtifactMappings()
+        val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
+        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
+
+        println()
+        println("## Your turn: use instead those Androidx libraries")
+        val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
+        printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
+
 
     }
 
@@ -72,6 +86,9 @@ internal data class ArtifactMapping(
 )
 
 internal object AndroidxMigrator {
+    const val OK = "✔ \uD83C\uDD97"
+    val PROPERTIES = listOf("android.useAndroidX", "android.enableJetifier")
+    val GRADLE_PROPERTIES = PROPERTIES.joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "$it=true" }
 
     val Dependency.artifact: String
         get() = "$group:$name"

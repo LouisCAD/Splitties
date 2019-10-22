@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.louiscad.splitties"
-version = "0.1.1"
+version = "0.1.2"
 
 gradlePlugin {
     plugins {
