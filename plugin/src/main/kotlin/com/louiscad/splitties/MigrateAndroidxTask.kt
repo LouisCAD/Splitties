@@ -5,11 +5,13 @@ import com.louiscad.splitties.AndroidxMigrator.gradleSyntax
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
+import org.gradle.api.UnknownProjectException
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+
 
 open class MigrateAndroidxTask: DefaultTask() {
    init {
@@ -19,6 +21,22 @@ open class MigrateAndroidxTask: DefaultTask() {
 
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
+        println()
+        println("## Searching Android Support Dependencies")
+        println("$OK Parsing file androidx-artifact-mapping.csv")
+        val artifacts: List<ArtifactMapping> = readArtifactMappings()
+        val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
+        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
+
+        println("## Checking that you use compileSdkVersion 28")
+        val detected = tryDetectCompileSdkVersion(project.rootDir)
+        val version = detected.mapNotNull { it.trim().substringAfter(" ").substringAfter("=").toIntOrNull() }.firstOrNull()
+        println(when(version) {
+            null -> "⚠️ Make sure you are using compileSdkVersion 28. See $MIGRATE_TO_28"
+            28 -> "$OK You are using compileSdkVersion 28"
+            else -> throw GradleException("You should migrate first to compileSdkVersion 28. See $MIGRATE_TO_28")
+        })
+
         println()
         println("## Migrating classes from support libraries to AndroidX.")
         println("$OK Parsing file androidx-class-mapping.csv")
@@ -62,19 +80,14 @@ open class MigrateAndroidxTask: DefaultTask() {
         }
 
         println()
-        println("## Searching Android Support Dependencies")
-        println("$OK Parsing file androidx-artifact-mapping.csv")
-        val artifacts: List<ArtifactMapping> = readArtifactMappings()
-        val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
-        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
-
-        println()
         println("## Your turn: use instead those Androidx libraries")
         val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
         printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
 
 
     }
+
+
 
 
 }
@@ -89,6 +102,7 @@ internal object AndroidxMigrator {
     const val OK = "✔ \uD83C\uDD97"
     val PROPERTIES = listOf("android.useAndroidX", "android.enableJetifier")
     val GRADLE_PROPERTIES = PROPERTIES.joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "$it=true" }
+    val MIGRATE_TO_28 = "https://developer.android.com/about/versions/pie/android-9.0-migration"
 
     val Dependency.artifact: String
         get() = "$group:$name"
@@ -111,6 +125,18 @@ internal object AndroidxMigrator {
                 val (old, new) = it.split(",")
                 ArtifactMapping(old, new)
             }
+    }
+
+    fun tryDetectCompileSdkVersion(rootDir: File): List<String> {
+        return rootDir.walk()
+            .filter { it.isFile && it.extension == "gradle" }
+            .flatMap { it.readLines().mapNotNull { containsCompileSdkVersion(it) }.asSequence() }
+            .toList()
+    }
+
+    fun containsCompileSdkVersion(line: String) = when {
+        line.contains("compileSdkVersion") -> line
+        else -> null
     }
 
     fun readAndroidxClassMappings(): List<String> {
