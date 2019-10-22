@@ -4,8 +4,6 @@
 
 @file:Suppress("SpellCheckingInspection")
 
-import de.fayard.BuildSrcVersionsExtension
-
 plugins {
     /**
      * Plugin versions are set in `gradle.properties` by the property `plugin.$PLUGIN_ID=$PLUGIN_VERSION`.
