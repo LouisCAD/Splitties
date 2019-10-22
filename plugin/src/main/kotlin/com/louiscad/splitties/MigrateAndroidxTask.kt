@@ -1,6 +1,13 @@
 package com.louiscad.splitties
 
+import com.louiscad.splitties.AndroidxMigrator.artifact
+import com.louiscad.splitties.AndroidxMigrator.gradleSyntax
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
+import org.gradle.api.Project
+import org.gradle.api.artifacts.Configuration
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
@@ -12,13 +19,18 @@ open class MigrateAndroidxTask: DefaultTask() {
 
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
-        val androidxArtifactMappings: List<String> =
-            this::class.java.getResourceAsStream("/androidx-artifact-mapping.csv").reader().readLines()
-        val androidxClassMappings: List<String> =
-            this::class.java.getResourceAsStream("/androidx-class-mapping.csv").reader().readLines()
+        println()
+        println("## Searching Android Support Dependencies")
+        val artifacts: List<ArtifactMapping> = readArtifactMappings()
+        val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
+        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
 
-        println("Let's migrate this Android project from support libraries to AndroidX.")
-        val dir = project.rootProject.projectDir
+        println("## Use instead those Androidx libraries")
+        val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
+        printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
+
+        println("## Migrating classes from support libraries to AndroidX.")
+        val androidxClassMappings: List<String> = readAndroidxClassMappings()
 
         val moduleDirectories: List<File> = project.subprojects.map { it.projectDir }
         println("moduleDirectories=$moduleDirectories")
@@ -49,9 +61,59 @@ open class MigrateAndroidxTask: DefaultTask() {
         println("You now just need to update the dependencies, if not already done.")
 
     }
+
+
 }
 
+
+internal data class ArtifactMapping(
+    val supportArtifact: String,
+    val androidXArtifact: String
+)
+
 internal object AndroidxMigrator {
+
+    val Dependency.artifact: String
+        get() = "$group:$name"
+
+    fun gradleSyntax(artifact: String) : String {
+        val configuration = if (artifact.contains("test")) "androidTestImplementation" else "implementation"
+        return """$configuration("$artifact")"""
+    }
+
+    fun printGradleSyntax(artifacts: List<String>) {
+        println(artifacts.joinToString("\n", prefix = "\n", postfix = "\n") { gradleSyntax(it) })
+    }
+
+    fun readArtifactMappings(): List<ArtifactMapping> {
+        val lines: List<String> = this::class.java.getResourceAsStream("/androidx-artifact-mapping.csv").reader().readLines()
+        return lines
+            .drop(1)
+            .filter { it.contains(",") }
+            .map {
+                val (old, new) = it.split(",")
+                ArtifactMapping(old, new)
+            }
+    }
+
+    fun readAndroidxClassMappings(): List<String> {
+        return this::class.java.getResourceAsStream("/androidx-class-mapping.csv").reader().readLines()
+    }
+
+    fun findAndroidSupportDependencies(project: Project, artifacts: List<ArtifactMapping>): List<Dependency> {
+        val supportArtifacts = artifacts.map(ArtifactMapping::supportArtifact)
+
+        val allConfigurations: Set<Configuration> = project.rootProject.allprojects.flatMap {
+            it.configurations
+        }.toSet()
+
+        return allConfigurations
+            .flatMap { configuration ->
+                configuration.allDependencies
+                    .filter { it.artifact in supportArtifacts }
+            }.distinctBy { it.artifact }
+
+    }
 
     val sourceExtensions = listOf("kt", "java", "xml")
 
@@ -116,7 +178,7 @@ internal object AndroidxMigrator {
         check(extension in supportedExtensions)
         val sourceCode = readText()
         var editedSourceCode = sourceCode
-        val migratingMsg = "Migrating file named \"$name\" with full name: \"$path\"… "
+        val migratingMsg = "Migrating file \"$name\" … "
         print(migratingMsg)
         replaces.forEach { (supportLibSnippet, androidXSnippet) ->
             editedSourceCode = editedSourceCode.replace(supportLibSnippet, androidXSnippet)
@@ -125,9 +187,9 @@ internal object AndroidxMigrator {
             print("\b".repeat(migratingMsg.length))
             false
         } else {
-            print("Overwriting file… ")
+            print("overwriting file… ")
             writeText(editedSourceCode)
-            println("Done.✔🆗") // Emojis can be cut off by terminal line breaks, hence the checkmark.
+            println(" Done. ✔🆗") // Emojis can be cut off by terminal line breaks, hence the checkmark.
             true
         }
     }
