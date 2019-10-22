@@ -30,7 +30,7 @@ open class MigrateAndroidxTask: DefaultTask() {
 
         println("## Checking that you use compileSdkVersion 28")
         val detected = tryDetectCompileSdkVersion(project.rootDir)
-        val version = detected.mapNotNull { it.trim().substringAfter(" ").substringAfter("=").toIntOrNull() }.firstOrNull()
+        val version = detected.mapNotNull { detectVersion(it) }.firstOrNull()
         println(when(version) {
             null -> "⚠️ Make sure you are using compileSdkVersion 28. See $MIGRATE_TO_28"
             28 -> "$OK You are using compileSdkVersion 28"
@@ -83,13 +83,7 @@ open class MigrateAndroidxTask: DefaultTask() {
         println("## Your turn: use instead those Androidx libraries")
         val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
         printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
-
-
     }
-
-
-
-
 }
 
 
@@ -133,6 +127,21 @@ internal object AndroidxMigrator {
             .filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
             .flatMap { it.readLines().mapNotNull { containsCompileSdkVersion(it) }.asSequence() }
             .toList()
+    }
+
+    /***
+     * Convert one of those lines to 28 or null
+     *
+     * compileSdkVersion 28
+     * compileSdkVersion(28)
+     * compileSdkVersion = 28
+     */
+    fun detectVersion(line: String): Int? {
+        var input = line.trim()
+        listOf("compileSdkVersion", "(", ")", "=").forEach {
+            input = input.replace(it, " ")
+        }
+        return input.trim().substringAfterLast(" ").toIntOrNull()
     }
 
     fun containsCompileSdkVersion(line: String) = when {
