@@ -129,7 +129,8 @@ internal object AndroidxMigrator {
 
     fun tryDetectCompileSdkVersion(rootDir: File): List<String> {
         return rootDir.walk()
-            .filter { it.isFile && it.extension == "gradle" }
+            .filter { it.isFile }
+            .filter { it.name.endsWith(".gradle.kts") || it.name.endsWith(".gradle") }
             .flatMap { it.readLines().mapNotNull { containsCompileSdkVersion(it) }.asSequence() }
             .toList()
     }
