@@ -4,7 +4,7 @@ object Splitties {
     val pack = Packs
 
     private const val artifactPrefix = "com.louiscad.splitties:splitties"
-    private const val version = "3.0.0-dev-034"
+    private const val version = PluginConfig.SPLITTIES_VERSION
 
     object Packs {
         const val androidBase = "$artifactPrefix-fun-pack-android-base:$version"
