@@ -4,6 +4,7 @@ package com.louiscad.splitties
  * The actual dependency version comes from `gradle.properties`
  * from either `version.androidx.$GROUP=xxx` or `version.androidx.$GROUP...$NAME=xxx`
  **/
+
 object AndroidX {
     val GROUPS = arrayOf(
         "android.arch.core", "android.arch.lifecycle", "android.arch.navigation", "android.arch.paging",
@@ -29,88 +30,89 @@ object AndroidX {
         "androidx.ui", "androidx.vectordrawable", "androidx.versionedparcelable", "androidx.viewpager",
         "androidx.viewpager2", "androidx.wear", "androidx.webkit", "androidx.work"
     )
+    const val placeholderVersion = "+"
     private object Versions {
-        const val core = "1.0.1"
-        const val multidex = "2.0.0"
-        const val palette = "1.0.0"
-        const val preference = "1.0.0"
-        const val recyclerView = "1.0.0"
-        const val sqlite = "2.0.0"
-        const val vectorDrawable = "1.0.0"
-        const val leanback = "1.0.0"
-        const val emoji = "1.0.0"
-        const val constraintLayout = "1.1.3"
-        const val collection = "1.0.0"
+        const val core = placeholderVersion // "1.0.1"
+        const val multidex = placeholderVersion // "2.0.0"
+        const val palette = placeholderVersion // "1.0.0"
+        const val preference = placeholderVersion // "1.0.0"
+        const val recyclerView = placeholderVersion // "1.0.0"
+        const val sqlite = placeholderVersion // "2.0.0"
+        const val vectorDrawable = placeholderVersion // "1.0.0"
+        const val leanback = placeholderVersion // "1.0.0"
+        const val emoji = placeholderVersion // "1.0.0"
+        const val constraintLayout = placeholderVersion // "1.1.3"
+        const val collection = placeholderVersion // "1.0.0"
     }
     private val versions = Versions
-    const val annotation = "androidx.annotation:annotation:1.0.0"
-    const val appCompat = "androidx.appcompat:appcompat:1.0.2"
-    const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:1.0.0"
-    const val browser = "androidx.browser:browser:1.0.0"
-    const val car = "androidx.car:car:1.0.0-alpha5"
-    const val cardView = "androidx.cardview:cardview:1.0.0"
+    const val annotation = "androidx.annotation:annotation:$placeholderVersion" // 1.0.0"
+    const val appCompat = "androidx.appcompat:appcompat:$placeholderVersion" // 1.0.2"
+    const val asyncLayoutInflater = "androidx.asynclayoutinflater:asynclayoutinflater:$placeholderVersion" // 1.0.0"
+    const val browser = "androidx.browser:browser:$placeholderVersion" // 1.0.0"
+    const val car = "androidx.car:car:$placeholderVersion" // 1.0.0-alpha5"
+    const val cardView = "androidx.cardview:cardview:$placeholderVersion" // 1.0.0"
     const val collection = "androidx.collection:collection:${versions.collection}"
     const val collectionKtx = "androidx.collection:collection-ktx:${versions.collection}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     const val constraintLayoutSolver =
         "androidx.constraintlayout:constraintlayout-solver:${versions.constraintLayout}"
-    const val contentPager = "androidx.contentpager:contentpager:1.0.0"
-    const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:1.0.0"
+    const val contentPager = "androidx.contentpager:contentpager:$placeholderVersion" // 1.0.0"
+    const val coordinatorLayout = "androidx.coordinatorlayout:coordinatorlayout:$placeholderVersion" // 1.0.0"
     const val core = "androidx.core:core:${versions.core}"
     const val coreKtx = "androidx.core:core-ktx:${versions.core}"
-    const val cursorAdapter = "androidx.cursoradapter:cursoradapter:1.0.0"
-    const val customView = "androidx.customview:customview:1.0.0"
-    const val documentFile = "androidx.documentfile:documentfile:1.0.0"
-    const val drawerLayout = "androidx.drawerlayout:drawerlayout:1.0.0"
-    const val dynamicAnimation = "androidx.dynamicanimation:dynamicanimation:1.0.0"
+    const val cursorAdapter = "androidx.cursoradapter:cursoradapter:$placeholderVersion" // 1.0.0"
+    const val customView = "androidx.customview:customview:$placeholderVersion" // 1.0.0"
+    const val documentFile = "androidx.documentfile:documentfile:$placeholderVersion" // 1.0.0"
+    const val drawerLayout = "androidx.drawerlayout:drawerlayout:$placeholderVersion" // 1.0.0"
+    const val dynamicAnimation = "androidx.dynamicanimation:dynamicanimation:$placeholderVersion" // 1.0.0"
     const val emoji = "androidx.emoji:emoji:${versions.emoji}"
     const val emojiAppCompat = "androidx.emoji:emoji-appcompat:${versions.emoji}"
     const val emojiBundler = "androidx.emoji:emoji-bundled:${versions.emoji}"
-    const val exifInterface = "androidx.exifinterface:exifinterface:1.0.0"
-    const val fragment = "androidx.fragment:fragment:1.0.0"
-    const val fragmentKtx = "androidx.fragment:fragment-ktx:1.0.0"
-    const val gridLayout = "androidx.gridlayout:gridlayout:1.0.0"
-    const val heifWriter = "androidx.heifwriter:heifwriter:1.0.0"
-    const val interpolator = "androidx.interpolator:interpolator:1.0.0"
+    const val exifInterface = "androidx.exifinterface:exifinterface:$placeholderVersion" // 1.0.0"
+    const val fragment = "androidx.fragment:fragment:$placeholderVersion" // 1.0.0"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:$placeholderVersion" // 1.0.0"
+    const val gridLayout = "androidx.gridlayout:gridlayout:$placeholderVersion" // 1.0.0"
+    const val heifWriter = "androidx.heifwriter:heifwriter:$placeholderVersion" // 1.0.0"
+    const val interpolator = "androidx.interpolator:interpolator:$placeholderVersion" // 1.0.0"
     const val leanback = "androidx.leanback:leanback:${versions.leanback}"
     const val leanbackPreference =
         "androidx.leanback:leanback-preference:${versions.leanback}"
-    const val loader = "androidx.loader:loader:1.0.0"
+    const val loader = "androidx.loader:loader:$placeholderVersion" // 1.0.0"
     const val localBroadcastManager =
-        "androidx.localbroadcastmanager:localbroadcastmanager:1.0.0"
-    const val media = "androidx.media:media:1.0.0"
+        "androidx.localbroadcastmanager:localbroadcastmanager:$placeholderVersion" // 1.0.0"
+    const val media = "androidx.media:media:$placeholderVersion" // 1.0.0"
     const val mediaWidget = "androidx.media-widget:media-widget:1.0.0-alpha5"
     const val media2 = "androidx.media2:media2:1.0.0-alpha02"
-    const val mediaRouter = "androidx.mediarouter:mediarouter:1.0.0"
+    const val mediaRouter = "androidx.mediarouter:mediarouter:$placeholderVersion" // 1.0.0"
     const val multidex = "androidx.multidex:multidex:${versions.multidex}"
     const val multidexInstrumentation =
         "androidx.multidex:multidex-instrumentation:${versions.multidex}"
     const val palette = "androidx.palette:palette:${versions.palette}"
     const val paletteKtx = "androidx.palette:palette-ktx:${versions.palette}"
-    const val percentLayout = "androidx.percentlayout:percentlayout:1.0.0"
+    const val percentLayout = "androidx.percentlayout:percentlayout:$placeholderVersion" // 1.0.0"
     const val preference = "androidx.preference:preference:${versions.preference}"
     const val preferenceKtx = "androidx.preference:preference-ktx:${versions.preference}"
-    const val print = "androidx.print:print:1.0.0"
-    const val recommendation = "androidx.recommendation:recommendation:1.0.0"
+    const val print = "androidx.print:print:$placeholderVersion" // 1.0.0"
+    const val recommendation = "androidx.recommendation:recommendation:$placeholderVersion" // 1.0.0"
     const val recyclerView = "androidx.recyclerview:recyclerview:${versions.recyclerView}"
     const val recyclerViewSelection =
         "androidx.recyclerview:recyclerview-selection:${versions.recyclerView}"
-    const val slidingPaneLayout = "androidx.slidingpanelayout:slidingpanelayout:1.0.0"
+    const val slidingPaneLayout = "androidx.slidingpanelayout:slidingpanelayout:$placeholderVersion" // 1.0.0"
     const val sqlite = "androidx.sqlite:sqlite:${versions.sqlite}"
     const val sqliteFramework = "androidx.sqlite:sqlite-framework:${versions.sqlite}"
     const val sqliteKtx = "androidx.sqlite:sqlite-ktx:${versions.sqlite}"
-    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    const val transition = "androidx.transition:transition:1.0.0"
-    const val tvProvider = "androidx.tvprovider:tvprovider:1.0.0"
+    const val swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:$placeholderVersion" // 1.0.0"
+    const val transition = "androidx.transition:transition:$placeholderVersion" // 1.0.0"
+    const val tvProvider = "androidx.tvprovider:tvprovider:$placeholderVersion" // 1.0.0"
     const val vectorDrawable =
         "androidx.vectordrawable:vectordrawable:${versions.vectorDrawable}"
     const val vectorDrawableAnimated =
         "androidx.vectordrawable:vectordrawable-animated:${versions.vectorDrawable}"
-    const val versionedParcelable = "androidx.versionedparcelable:versionedparcelable:1.0.0"
-    const val viewPager = "androidx.viewpager:viewpager:1.0.0"
-    const val wear = "androidx.wear:wear:1.0.0"
-    const val webkit = "androidx.webkit:webkit:1.0.0"
+    const val versionedParcelable = "androidx.versionedparcelable:versionedparcelable:$placeholderVersion" // 1.0.0"
+    const val viewPager = "androidx.viewpager:viewpager:$placeholderVersion" // 1.0.0"
+    const val wear = "androidx.wear:wear:$placeholderVersion" // 1.0.0"
+    const val webkit = "androidx.webkit:webkit:$placeholderVersion" // 1.0.0"
     
 
     /**
@@ -144,7 +146,7 @@ object AndroidX {
 
     object Room {
         const val artifact = "androidx.room:room"
-        private const val version = "2.0.0"
+        private const val version = placeholderVersion // "2.0.0"
         const val common = "$artifact-common:$version"
         const val compiler = "$artifact-compiler:$version"
         const val guava = "$artifact-guava:$version"
@@ -161,7 +163,7 @@ object AndroidX {
      **/
     val paging = Paging
     object Paging {
-        private const val version = "2.0.0"
+        private const val version = placeholderVersion // "2.0.0"
         const val common = "androidx.paging:paging-common:$version"
         const val runtime = "androidx.paging:paging-runtime:$version"
         const val rxJava2 = "androidx.paging:paging-rxjava2:$version"
@@ -173,7 +175,7 @@ object AndroidX {
      **/
     val work = Work
     object Work {
-        private const val version = "2.0.0"
+        private const val version = placeholderVersion // "2.0.0"
         const val runtime = "androidx.work:work-runtime:$version"
         const val runtimeKtx = "androidx.work:work-runtime-ktx:$version"
         const val testing = "androidx.work:work-testing:$version"
@@ -185,7 +187,7 @@ object AndroidX {
      **/
     val navigation = Navigation
     object Navigation {
-        private const val version = "2.0.0"
+        private const val version = placeholderVersion // "2.0.0"
         private const val artifactPrefix = "androidx.navigation:navigation"
         const val common = "$artifactPrefix-common:$version"
         const val commonKtx = "$artifactPrefix-common-ktx:$version"
@@ -205,7 +207,7 @@ object AndroidX {
      **/
     val slice = Slice
     object Slice {
-        private const val version = "1.0.0"
+        private const val version = placeholderVersion // "1.0.0"
         const val builders = "androidx.slice:slice-builders:$version"
         const val buildersKtx = "androidx.slice:slice-builders-ktx:1.0.0-alpha6"
         const val core = "androidx.slice:slice-core:$version"
@@ -218,7 +220,7 @@ object AndroidX {
      **/
     val archCore = ArchCore
     object ArchCore {
-        private const val version = "2.0.0"
+        private const val version = placeholderVersion // "2.0.0"
         const val common = "androidx.arch.core:core-common:$version"
         const val runtime = "androidx.arch.core:core-runtime:$version"
         const val testing = "androidx.arch.core:core-testing:$version"
@@ -230,11 +232,11 @@ object AndroidX {
      **/
     val test = Test
     object Test {
-        private const val runnerVersion = "1.2.0"
+        private const val runnerVersion = placeholderVersion // "1.2.0"
         private const val rulesVersion = runnerVersion
         private const val monitorVersion = runnerVersion
         private const val orchestratorVersion = runnerVersion
-        private const val coreVersion = "1.2.0"
+        private const val coreVersion = placeholderVersion // "1.2.0"
         const val core = "androidx.test:core:$coreVersion"
         const val coreKtx = "androidx.test:core-ktx:$coreVersion"
         const val monitor = "androidx.test:monitor:$monitorVersion"
@@ -249,18 +251,18 @@ object AndroidX {
          **/
         val ext = Ext
         object Ext {
-            private const val extJunitVersion = "1.1.1"
+            private const val extJunitVersion = placeholderVersion // "1.1.1"
             const val junit = "androidx.test.ext:junit:$extJunitVersion"
             const val junitKtx = "androidx.test.ext:junit-ktx:$extJunitVersion"
             const val truth = "androidx.test.ext:truth:$coreVersion"
         }
 
-        const val jankTestHelper = "androidx.test.jank:janktesthelper:1.0.1"
+        const val jankTestHelper = "androidx.test.jank:janktesthelper:$placeholderVersion" // 1.0.1"
         const val jankTestHelperV23 = "androidx.test.jank:janktesthelper-v23:1.0.1-alpha1"
 
         const val services = "androidx.test.services:test-services:$runnerVersion"
 
-        const val uiAutomator = "androidx.test.uiautomator:uiautomator:2.2.0"
+        const val uiAutomator = "androidx.test.uiautomator:uiautomator:$placeholderVersion" // "2.2.0"
         const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:2.2.0-alpha1"
         
         /**
@@ -269,7 +271,7 @@ object AndroidX {
          **/
         val espresso = Espresso
         object Espresso {
-            private const val version = "3.1.1"
+            private const val version = placeholderVersion // "3.1.1"
             const val core = "androidx.test.espresso:espresso-core:$version"
             const val contrib = "androidx.test.espresso:espresso-contrib:$version"
             const val idlingResource =
@@ -300,7 +302,7 @@ object AndroidX {
      **/
     val legacy = Legacy
     object Legacy {
-        private const val version = "1.0.0"
+        private const val version = placeholderVersion // "1.0.0"
         const val preferenceV14 = "androidx.legacy:legacy-preference-v14:$version"
         const val supportCoreUi = "androidx.legacy:legacy-support-core-ui:$version"
         const val supportCoreUtils = "androidx.legacy:legacy-support-core-utils:$version"
