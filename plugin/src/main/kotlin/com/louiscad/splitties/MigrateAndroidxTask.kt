@@ -1,23 +1,24 @@
 package com.louiscad.splitties
 
-import com.louiscad.splitties.AndroidxMigrator.artifact
-import com.louiscad.splitties.AndroidxMigrator.gradleSyntax
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Project
-import org.gradle.api.UnknownProjectException
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
-import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import kotlin.reflect.KClass
+import kotlin.reflect.KVisibility
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.javaField
+import kotlin.reflect.typeOf
 
 
-open class MigrateAndroidxTask: DefaultTask() {
-   init {
-       group = "help"
-       description = "Migrate package to AndroidX"
-   }
+open class MigrateAndroidxTask : DefaultTask() {
+    init {
+        group = "help"
+        description = "Migrate package to AndroidX"
+    }
 
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
@@ -31,11 +32,13 @@ open class MigrateAndroidxTask: DefaultTask() {
         println("## Checking that you use compileSdkVersion 28")
         val detected = tryDetectCompileSdkVersion(project.rootDir)
         val version = detected.mapNotNull { detectVersion(it) }.firstOrNull()
-        println(when(version) {
-            null -> "⚠️ Make sure you are using compileSdkVersion 28. See $MIGRATE_TO_28"
-            28 -> "$OK You are using compileSdkVersion 28"
-            else -> throw GradleException("You should migrate first to compileSdkVersion 28. See $MIGRATE_TO_28")
-        })
+        println(
+            when (version) {
+                null -> "⚠️ Make sure you are using compileSdkVersion 28. See $MIGRATE_TO_28"
+                28 -> "$OK You are using compileSdkVersion 28"
+                else -> throw GradleException("You should migrate first to compileSdkVersion 28. See $MIGRATE_TO_28")
+            }
+        )
 
         println()
         println("## Migrating classes from support libraries to AndroidX.")
@@ -49,23 +52,26 @@ open class MigrateAndroidxTask: DefaultTask() {
         println("$OK Found ${sourceFiles.size} source files that may need migration")
 
         val supportLibsToAndroidXMappings = supportLibsToAndroidXMappings(androidxClassMappings)
-        val rawSupportLibsToAndroidXPackageMappings = rawSupportLibsToAndroidXPackageMappings(supportLibsToAndroidXMappings)
-        val supportLibsToAndroidXStarImportMappings = supportLibsToAndroidXStarImportMappings(rawSupportLibsToAndroidXPackageMappings)
+        val rawSupportLibsToAndroidXPackageMappings =
+            rawSupportLibsToAndroidXPackageMappings(supportLibsToAndroidXMappings)
+        val supportLibsToAndroidXStarImportMappings =
+            supportLibsToAndroidXStarImportMappings(rawSupportLibsToAndroidXPackageMappings)
         println("$OK File androidx-class-mapping.csv parsed correctly")
 
-        val replaces: List<Pair<String, String>> = supportLibsToAndroidXMappings + supportLibsToAndroidXStarImportMappings
+        val replaces: List<Pair<String, String>> =
+            supportLibsToAndroidXMappings + supportLibsToAndroidXStarImportMappings
 
         println("$OK Starting batch migration...")
         val editedSourceFilesCount = sourceFiles.count { it.migrateToAndroidX(replaces) }
         val editedGradleFilesCount = gradleFiles.count { it.migrateToAndroidX(replaces) }
 
         println(
-                "\n$OK $editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
-                        "have been migrated (${sourceFiles.count() - editedSourceFilesCount} didn't need it)."
+            "\n$OK $editedSourceFilesCount source files (${sourceExtensions.joinToString(",") { it }}) " +
+                "have been migrated (${sourceFiles.count() - editedSourceFilesCount} didn't need it)."
         )
         println(
-                "$OK $editedGradleFilesCount gradle files have been migrated " +
-                        "(${gradleFiles.count() - editedGradleFilesCount} didn't need it)."
+            "$OK $editedGradleFilesCount gradle files have been migrated " +
+                "(${gradleFiles.count() - editedGradleFilesCount} didn't need it)."
         )
 
         println()
@@ -101,7 +107,7 @@ internal object AndroidxMigrator {
     val Dependency.artifact: String
         get() = "$group:$name"
 
-    fun gradleSyntax(artifact: String) : String {
+    fun gradleSyntax(artifact: String): String {
         val configuration = if (artifact.contains("test")) "androidTestImplementation" else "implementation"
         return """$configuration("$artifact")"""
     }
@@ -111,7 +117,8 @@ internal object AndroidxMigrator {
     }
 
     fun readArtifactMappings(): List<ArtifactMapping> {
-        val lines: List<String> = this::class.java.getResourceAsStream("/androidx-artifact-mapping.csv").reader().readLines()
+        val lines: List<String> =
+            this::class.java.getResourceAsStream("/androidx-artifact-mapping.csv").reader().readLines()
         return lines
             .drop(1)
             .filter { it.contains(",") }
@@ -195,26 +202,31 @@ internal object AndroidxMigrator {
 
     fun supportLibsToAndroidXMappings(androidXClassMapping: List<String>): List<Pair<String, String>> {
         return androidXClassMapping.asSequence().drop(1)
-                .map { line ->
-                    val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
-                    check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
-                    check(androidXClassName.isLegalClassName()) { "Illegal entry in csv: $androidXClassName" }
-                    supportLibClassName to androidXClassName
-                }.sortedByDescending { (supportLibClassName, _) -> supportLibClassName }.toList()
+            .map { line ->
+                val (supportLibClassName, androidXClassName) = line.split(",").also { check(it.size == 2) }
+                check(supportLibClassName.isLegalClassName()) { "Illegal entry in csv: $supportLibClassName" }
+                check(androidXClassName.isLegalClassName()) { "Illegal entry in csv: $androidXClassName" }
+                supportLibClassName to androidXClassName
+            }.sortedByDescending { (supportLibClassName, _) -> supportLibClassName }.toList()
     }
-    fun rawSupportLibsToAndroidXPackageMappings(supportLibsToAndroidXMappings: List<Pair<String, String>> ): List<Pair<String, String>> =
-            supportLibsToAndroidXMappings.asSequence().map { (supportLibClassName, androidXClassName) ->
-                supportLibClassName.packageNameFromClassName() to androidXClassName.packageNameFromClassName()
-            }.distinct().toList()
 
-    fun supportLibsToAndroidXStarImportMappings(rawSupportLibsToAndroidXPackageMappings: List<Pair<String, String>>): List<Pair<String, String>> =
-            rawSupportLibsToAndroidXPackageMappings.map { (supportLibPackageName, _/*androidXPackageName*/) ->
-                val supportLibStarImport = "import $supportLibPackageName.*"
-                val androidXStarImports = rawSupportLibsToAndroidXPackageMappings.filter { (slpn, _) ->
-                    supportLibPackageName == slpn
-                }.joinToString("\n") { (_, axpn) -> "import $axpn.*" }
-                supportLibStarImport to androidXStarImports
-            }
+    fun rawSupportLibsToAndroidXPackageMappings(
+        supportLibsToAndroidXMappings: List<Pair<String, String>>
+    ): List<Pair<String, String>> =
+        supportLibsToAndroidXMappings.asSequence().map { (supportLibClassName, androidXClassName) ->
+            supportLibClassName.packageNameFromClassName() to androidXClassName.packageNameFromClassName()
+        }.distinct().toList()
+
+    fun supportLibsToAndroidXStarImportMappings(
+        rawSupportLibsToAndroidXPackageMappings: List<Pair<String, String>>
+    ): List<Pair<String, String>> =
+        rawSupportLibsToAndroidXPackageMappings.map { (supportLibPackageName, _/*androidXPackageName*/) ->
+            val supportLibStarImport = "import $supportLibPackageName.*"
+            val androidXStarImports = rawSupportLibsToAndroidXPackageMappings.filter { (slpn, _) ->
+                supportLibPackageName == slpn
+            }.joinToString("\n") { (_, axpn) -> "import $axpn.*" }
+            supportLibStarImport to androidXStarImports
+        }
 
 
     fun String.simpleNameFromFullyQualified(): String = substring(indexOfFirst { it.isUpperCase() })
@@ -247,4 +259,25 @@ internal object AndroidxMigrator {
         }
     }
 
+    fun getArtifactNameToSplittiesConstantMapping(): List<Pair<String, String>> {
+        return listOf(AndroidX, Google, Kotlin, KotlinX, Splitties, Square, Testing).flatMap { objectInstance ->
+            (objectInstance::class).getArtifactNameToSplittiesConstantMapping(objectInstance::class.simpleName!!)
+        }
+    }
+
+    @UseExperimental(ExperimentalStdlibApi::class)
+    private fun KClass<*>.getArtifactNameToSplittiesConstantMapping(prefix: String): List<Pair<String, String>> {
+        return nestedClasses.filter { it.visibility == KVisibility.PUBLIC }.flatMap { kClass ->
+            val propertyName = kClass.simpleName!!.let { c -> "${c.first().toLowerCase()}${c.substring(1)}"}
+            kClass.getArtifactNameToSplittiesConstantMapping("$prefix.$propertyName")
+        } + this.memberProperties.filter {
+            it.isConst &&
+                it.visibility == KVisibility.PUBLIC &&
+                it.returnType == typeOf<String>()
+        }.map {
+            val artifactName = it.javaField!!.get(null).toString().substringBeforeLast(':')
+            val constantName = "$prefix.${it.name}"
+            artifactName to constantName
+        }
+    }
 }
