@@ -21,6 +21,7 @@ open class MigrateAndroidxTask: DefaultTask() {
 
     @TaskAction
     fun migratePackages() = with(AndroidxMigrator) {
+        val OK = PluginConfig.OK
         println()
         println("## Searching Android Support Dependencies")
         println("$OK Parsing file androidx-artifact-mapping.csv")
@@ -93,7 +94,7 @@ internal data class ArtifactMapping(
 )
 
 internal object AndroidxMigrator {
-    const val OK = "✔ \uD83C\uDD97"
+
     val PROPERTIES = listOf("android.useAndroidX", "android.enableJetifier")
     val GRADLE_PROPERTIES = PROPERTIES.joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "$it=true" }
     val MIGRATE_TO_28 = "https://developer.android.com/about/versions/pie/android-9.0-migration"

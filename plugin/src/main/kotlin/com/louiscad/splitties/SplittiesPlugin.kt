@@ -6,25 +6,15 @@ import org.gradle.api.Project
 
 open class SplittiesPlugin : Plugin<Project> {
 
-    override fun apply(project: Project) = project.run {
-        tasks.register("migrateToAndroidX", MigrateAndroidxTask::class.java)
-        splittiesVersionComesFromGradleProperties()
-        Unit
+    override fun apply(project: Project) {
+        // Keep in mind the plugin could be applied in multiple modules
+        val rootProject = project.rootProject
+        if (PluginConfig.configurationDone) return
+        rootProject.tasks.register("migrateToAndroidX", MigrateAndroidxTask::class.java)
+        PluginConfig.copyPluginsGradleKtsIfNeeded(rootProject)
+        PluginConfig.configureSplittiesVersion(rootProject, PluginConfig.SPLITTIES_VERSION)
+        PluginConfig.configurationDone = true
     }
 
 }
 
-fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
-    val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: SPLITTIES_VERSION
-    allprojects {
-        configurations.all {
-            if (name.contains("copy")) return@all
-            resolutionStrategy {
-                eachDependency {
-                    if (requested.group == GROUP)
-                        useVersion(splittiesVersion)
-                }
-            }
-        }
-    }
-}
