@@ -9,6 +9,7 @@ import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.kotlin.dsl.withType
+import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 
 object Publishing {
@@ -55,19 +56,41 @@ fun PublishingExtension.setupAllPublications(project: Project) {
         it.artifactId = "$prefix-${project.name}$suffix"
     }
     setupPublishRepo(project)
-    // Mac is the main publishing platform, so we make it publish everything possible
-    val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
-    publishTasks.matching {
-        it.name.startsWith("publishKotlinMultiplatform") ||
-        it.name.startsWith("publishMetadata") ||
-        it.name.startsWith("publishAndroid") ||
-        it.name.startsWith("publishJvm") ||
-        it.name.startsWith("publishJs") ||
-        it.name.startsWith("publishLinuxX64") ||
-        it.name.startsWith("publishMacos") ||
-        it.name.startsWith("publishIos")
-    }.all {
-        onlyIf { HostManager.hostIsMac }
+
+
+    project.tasks.register("publishToRepository") {
+        group = "publishing"
+        val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
+        val publishToRepoTasks = publishTasks.filterNot { it.name.endsWith("ToMavenLocal") }
+
+        val hostSpecificPublicationTasks = when (HostManager.host.family) {
+            Family.OSX -> publishToRepoTasks.filter {
+                it.name.startsWith("publishMacos") ||
+                    it.name.startsWith("publishIos") ||
+                    it.name.startsWith("publishTvos") ||
+                    it.name.startsWith("publishWatchos")
+            }
+            Family.LINUX -> publishToRepoTasks.filter {
+                it.name.startsWith("publishLinux")
+            }
+            Family.MINGW -> publishToRepoTasks.filter {
+                it.name.startsWith("publishMingw")
+            }
+            Family.ZEPHYR, Family.IOS, Family.ANDROID, Family.WASM -> {
+                error("Unsupported publishing host: ${HostManager.host}. Kudos for making it run here though.")
+            }
+        }
+        hostSpecificPublicationTasks.forEach { task -> dependsOn(task) }
+
+        val publishAll = project.findProperty("mpp.publishAll")?.toString()?.toBoolean() ?: false
+
+        if (publishAll) publishToRepoTasks.filter {
+            it.name.startsWith("publishKotlinMultiplatform") ||
+                it.name.startsWith("publishMetadata") ||
+                it.name.startsWith("publishAndroid") ||
+                it.name.startsWith("publishJvm") ||
+                it.name.startsWith("publishJs")
+        }.forEach { task -> dependsOn(task) }
     }
 }
 
@@ -80,9 +103,9 @@ private fun PublishingExtension.setupPublishRepo(project: Project) {
             val bintrayPackageName = "splitties"
             setUrl(
                 "https://api.bintray.com/maven/" +
-                        "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                        "publish=0;" +
-                        "override=1"
+                    "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
+                    "publish=0;" +
+                    "override=1"
             )
             credentials {
                 username = project.findProperty("bintray_user") as String?
