@@ -20,8 +20,8 @@ kotlin {
     js()
     macos()
     ios()
-    if (isRunningInIde.not() || HostManager.hostIsLinux) linuxX64()
-    if (isRunningInIde.not() || HostManager.hostIsMingw) mingwX64()
+    linux(x64 = true)
+    mingw(x64 = true)
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
