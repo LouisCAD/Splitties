@@ -1,7 +1,7 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
 # https://github.com/marketplace/actions/gradle-command
 name: Gradle 5.6.3
-on: [pull_request]
+on: [pull_request, push]
 jobs:
     gradle:
         strategy:
