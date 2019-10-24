@@ -1,6 +1,6 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
 # https://github.com/marketplace/actions/gradle-command
-name: Gradle 5.6.3
+name: Check build and run tests
 on: [pull_request, push]
 jobs:
     gradle:
@@ -15,5 +15,4 @@ jobs:
                   java-version: 8
             - uses: eskatos/gradle-command-action@v1
               with:
-                  gradle-version: 5.6.3
                   arguments: --scan testDebugUnitTest
