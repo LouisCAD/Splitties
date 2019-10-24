@@ -6,9 +6,12 @@ import org.gradle.api.Project
 
 open class SplittiesPlugin : Plugin<Project> {
 
-    override fun apply(project: Project) = project.run {
-        tasks.register("migrateToAndroidX", MigrateAndroidxTask::class.java)
-        splittiesVersionComesFromGradleProperties()
+    override fun apply(project: Project) = project.rootProject.run {
+        if (PluginConfig.ALREADY_RUN.not()) {
+            PluginConfig.ALREADY_RUN = true
+            tasks.register("migrateToAndroidX", MigrateAndroidxTask::class.java)
+            splittiesVersionComesFromGradleProperties()
+        }
         Unit
     }
 

@@ -27,7 +27,7 @@ open class MigrateAndroidxTask : DefaultTask() {
         println("$OK Parsing file androidx-artifact-mapping.csv")
         val artifacts: List<ArtifactMapping> = readArtifactMappings()
         val androidSupportDependencies = findAndroidSupportDependencies(project, artifacts)
-        printGradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" })
+        println(gradleSyntax(androidSupportDependencies.map { "${it.group}:${it.name}:${it.version}" }, emptyMap()))
 
         println("## Checking that you use compileSdkVersion 28")
         val detected = tryDetectCompileSdkVersion(project.rootDir)
@@ -88,7 +88,9 @@ open class MigrateAndroidxTask : DefaultTask() {
         println()
         println("## Your turn: use instead those Androidx libraries")
         val map = artifacts.associate { it.supportArtifact to it.androidXArtifact }
-        printGradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] })
+        val splitties = getArtifactNameToSplittiesConstantMapping()
+
+        println(gradleSyntax(androidSupportDependencies.mapNotNull { map[it.artifact] }, splitties))
     }
 }
 
@@ -107,13 +109,15 @@ internal object AndroidxMigrator {
     val Dependency.artifact: String
         get() = "$group:$name"
 
-    fun gradleSyntax(artifact: String): String {
-        val configuration = if (artifact.contains("test")) "androidTestImplementation" else "implementation"
-        return """$configuration("$artifact")"""
-    }
-
-    fun printGradleSyntax(artifacts: List<String>) {
-        println(artifacts.joinToString("\n", prefix = "\n", postfix = "\n") { gradleSyntax(it) })
+    fun gradleSyntax(artifacts: List<String>, splitties: Map<String, String>): String {
+        return artifacts.joinToString("\n", prefix = "\n", postfix = "\n") { artifact ->
+            val configuration = if (artifact.contains("test")) "androidTestImplementation" else "implementation"
+            if (artifact in splitties) {
+                "$configuration(${splitties[artifact]})"
+            } else {
+                """$configuration("$artifact")"""
+            }
+        }
     }
 
     fun readArtifactMappings(): List<ArtifactMapping> {
@@ -259,10 +263,10 @@ internal object AndroidxMigrator {
         }
     }
 
-    fun getArtifactNameToSplittiesConstantMapping(): List<Pair<String, String>> {
+    fun getArtifactNameToSplittiesConstantMapping(): Map<String, String> {
         return listOf(AndroidX, Google, Kotlin, KotlinX, Splitties, Square, Testing).flatMap { objectInstance ->
             (objectInstance::class).getArtifactNameToSplittiesConstantMapping(objectInstance::class.simpleName!!)
-        }
+        }.toMap()
     }
 
     @UseExperimental(ExperimentalStdlibApi::class)
