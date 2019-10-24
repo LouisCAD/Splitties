@@ -19,7 +19,7 @@ open class SplittiesPlugin : Plugin<Project> {
 
 fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
     val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: SPLITTIES_VERSION
-    allprojects {
+    rootProject.allprojects {
         configurations.all {
             if (name.contains("copy")) return@all
             resolutionStrategy {

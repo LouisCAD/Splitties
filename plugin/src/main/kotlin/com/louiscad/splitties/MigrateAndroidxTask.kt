@@ -110,6 +110,9 @@ internal object AndroidxMigrator {
         get() = "$group:$name"
 
     fun gradleSyntax(artifacts: List<String>, splitties: Map<String, String>): String {
+        if (artifacts.isEmpty()) {
+            return "$OK No Android support dependency needs to be migrated"
+        }
         return artifacts.joinToString("\n", prefix = "\n", postfix = "\n") { artifact ->
             val configuration = if (artifact.contains("test")) "androidTestImplementation" else "implementation"
             if (artifact in splitties) {
