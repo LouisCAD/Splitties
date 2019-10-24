@@ -10,7 +10,7 @@ plugins {
      * See "settings.gradle.kts"
      */
     id("de.fayard.refreshVersions")
-    id ("com.gradle.build-scan")
+    `build-scan`
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
