@@ -6,5 +6,5 @@ object PluginConfig {
     const val GRADLE_PROPERTY = "version.$GROUP"
     const val SPLITTIES_VERSION = "3.0.0-alpha06"
 
-    var ALREADY_RUN: Boolean = false
+    internal var ALREADY_RUN: Boolean = false
 }
