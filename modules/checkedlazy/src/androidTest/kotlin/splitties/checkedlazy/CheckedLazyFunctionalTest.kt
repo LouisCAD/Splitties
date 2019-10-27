@@ -4,12 +4,15 @@
 
 package splitties.checkedlazy
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
+import org.junit.runner.RunWith
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
+@RunWith(AndroidJUnit4::class)
 class CheckedLazyFunctionalTest {
 
     @Test
