@@ -15,7 +15,7 @@ on:
       - '**.md'
       - '**.adoc'
 jobs:
-  gradle:
+  run-tests:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
