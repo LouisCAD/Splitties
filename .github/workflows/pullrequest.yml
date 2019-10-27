@@ -18,11 +18,9 @@ jobs:
         runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v1
-            - name: Setup JDK
             - uses: actions/setup-java@v1
-              with:
-                  java-version: 11
-            - name: Run Gradle task
+                with:
+                    java-version: 11
             - uses: eskatos/gradle-command-action@v1
-              with:
-                  arguments: --scan testDebugUnitTest
+                with:
+                    arguments: --scan testDebugUnitTest
