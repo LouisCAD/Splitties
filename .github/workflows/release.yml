@@ -2,24 +2,43 @@
 # https://github.com/marketplace/actions/gradle-command
 name: Publish to repository
 on:
-    push:
+    pull_request:
+        paths:
+            - 'libraries_version.properties'
         branches:
             - master
             - develop
-    release:
-        # Only use the types keyword to narrow down the activity types that will trigger your workflow.
-        types: [published, created, edited]
+    push:
+        paths:
+            - 'libraries_version.properties'
+        branches:
+            - master
+            - develop
 jobs:
-    gradle:
+    mac-and-windows-publishing:
         strategy:
             matrix:
-                os: [ubuntu-latest, windows-latest, macOS-latest]
+                os: [macOS-latest, windows-latest]
         runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v1
+            - name: Setup JDK
             - uses: actions/setup-java@v1
               with:
                   java-version: 11
+            - name: Run Gradle task
             - uses: eskatos/gradle-command-action@v1
               with:
-                  arguments: --scan --dry-run publishToRepository
+                  arguments: -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan publishToRepository
+    linux-and-mpp-publishing:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Setup JDK
+            - uses: actions/setup-java@v1
+                with:
+                    java-version: 11
+            - name: Run Gradle task
+            - uses: eskatos/gradle-command-action@v1
+                with:
+                    arguments: -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -Pmpp.publishAll=true publishToRepository

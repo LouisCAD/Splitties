@@ -1,7 +1,15 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
 # https://github.com/marketplace/actions/gradle-command
 name: Check build and run tests
-on: [pull_request, push]
+on:
+    pull_request:
+        paths-ignore:
+            - '**.md'
+            - '**.adoc'
+    push:
+        paths-ignore:
+            - '**.md'
+            - '**.adoc'
 jobs:
     gradle:
         strategy:
@@ -10,9 +18,11 @@ jobs:
         runs-on: ${{ matrix.os }}
         steps:
             - uses: actions/checkout@v1
+            - name: Setup JDK
             - uses: actions/setup-java@v1
               with:
-                  java-version: 8
+                  java-version: 11
+            - name: Run Gradle task
             - uses: eskatos/gradle-command-action@v1
               with:
                   arguments: --scan testDebugUnitTest
