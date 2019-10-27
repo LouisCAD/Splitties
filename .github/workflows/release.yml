@@ -2,12 +2,6 @@
 # https://github.com/marketplace/actions/gradle-command
 name: Publish to repository
 on:
-  pull_request:
-    paths:
-      - 'libraries_version.properties'
-    branches:
-      - master
-      - develop
   push:
     paths:
       - 'libraries_version.properties'
