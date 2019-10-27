@@ -11,3 +11,6 @@ insert_final_newline = true
 
 [gradlew.bat]
 end_of_line = crlf
+
+[*.yml]
+indent_size = 2
