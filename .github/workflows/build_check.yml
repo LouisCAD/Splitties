@@ -8,6 +8,9 @@ on:
       - '**.md'
       - '**.adoc'
   push:
+    branches:
+      - develop
+      - master
     paths-ignore:
       - '**.md'
       - '**.adoc'
