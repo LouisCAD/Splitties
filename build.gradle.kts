@@ -21,6 +21,13 @@ Libs.kotlinVersion = "1.3.50"
 
 
 allprojects {
+    tasks.whenTaskAdded {
+        if("DebugUnitTest" in name || "ReleaseUnitTest" in name) {
+            enabled = false
+            // MPP + Android unit testing is so broken we just disable it altogether,
+            // (discussion here https://kotlinlang.slack.com/archives/C3PQML5NU/p1572168720226200)
+        }
+    }
     repositories {
         setupForProject()
     }
@@ -47,7 +54,7 @@ buildSrcVersions {
 
 /**
 For investigating build issue and bug reports, run
-  ./gradlew --scan $TASKNAME
+./gradlew --scan $TASKNAME
 see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
  **/
 buildScan {
