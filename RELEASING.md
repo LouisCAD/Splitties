@@ -9,6 +9,7 @@ with `kotlinc -script Releasing.kts` and follow the steps directly from the comm
 
 ## Publishing a dev version
 
-1. Make sure `splitties.version` in the [gradle.properties](gradle.properties) file is
+1. Make sure `splitties.version` in the [libraries_version.properties](libraries_version.properties) file is
 set to a `-dev-` version.
 2. Run `./gradlew clean bintrayUpload`.
+<!-- TODO: The step above is obsolete is set to be replaced by a GitHub Action -->

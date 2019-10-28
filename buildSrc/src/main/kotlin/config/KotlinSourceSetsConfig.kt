@@ -22,12 +22,37 @@ import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 import org.jetbrains.kotlin.konan.target.Family
 import org.jetbrains.kotlin.konan.target.HostManager
 
+fun KotlinTargetContainerWithPresetFunctions.linux(
+    x64: Boolean = false,
+    arm32Hfp: Boolean = false,
+    arm64: Boolean = false,
+    mips32: Boolean = false,
+    mipsel32: Boolean = false
+) {
+    if (HostManager.hostIsLinux.not() && isRunningInIde) return
+    if (x64) linuxX64()
+    if (arm32Hfp) linuxArm32Hfp()
+    if (arm64) linuxArm64()
+    if (mips32) linuxMips32()
+    if (mipsel32) linuxMipsel32()
+}
+
+fun KotlinTargetContainerWithPresetFunctions.mingw(
+    x64: Boolean = false,
+    x86: Boolean = false
+) {
+    if (HostManager.hostIsMingw.not() && isRunningInIde) return
+    if (x64) mingwX64()
+    if (x86) mingwX86()
+}
+
 fun KotlinTargetContainerWithPresetFunctions.macos() {
-    if (HostManager.hostIsMac) macosX64()
+    if (HostManager.hostIsMac.not() && isRunningInIde) return
+    macosX64()
 }
 
 fun KotlinTargetContainerWithPresetFunctions.ios() {
-    if (HostManager.hostIsMac.not()) return
+    if (HostManager.hostIsMac.not() && isRunningInIde) return
     if (isRunningInIde) {
         if (use32bitsInIde) iosArm32() else iosX64()
     } else iosAll()
@@ -254,7 +279,6 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
         configureAction(false)
     }
     val testSourceSet = create("${name}Test").apply {
-        dependsOn(mainSourceSet)
         dependsOn.forEach { getByName("${it}Test") }
         configureAction(true)
     }
