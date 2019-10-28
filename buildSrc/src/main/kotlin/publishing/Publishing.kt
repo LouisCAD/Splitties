@@ -97,14 +97,15 @@ fun PublishingExtension.setupAllPublications(project: Project) {
 private fun PublishingExtension.setupPublishRepo(project: Project) {
     repositories {
         maven {
+            val isDevVersion = project.isDevVersion
             name = "bintray"
             val bintrayUsername = "louiscad"
-            val bintrayRepoName = if (project.isDevVersion) "splitties-dev" else "maven"
+            val bintrayRepoName = if (isDevVersion) "splitties-dev" else "maven"
             val bintrayPackageName = "splitties"
             setUrl(
                 "https://api.bintray.com/maven/" +
                     "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                    "publish=0;" +
+                    "publish=${if (isDevVersion) 1 else 0};" +
                     "override=1"
             )
             credentials {
