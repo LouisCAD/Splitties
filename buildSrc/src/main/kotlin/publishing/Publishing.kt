@@ -105,7 +105,7 @@ private fun PublishingExtension.setupPublishRepo(project: Project) {
             setUrl(
                 "https://api.bintray.com/maven/" +
                     "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                    "publish=${if (isDevVersion) 1 else 0};" +
+                    "publish=0;" + // Never auto-publish to allow override.
                     "override=1"
             )
             credentials {
