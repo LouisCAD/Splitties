@@ -27,4 +27,4 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: --scan test
+          arguments: --scan test allTests
