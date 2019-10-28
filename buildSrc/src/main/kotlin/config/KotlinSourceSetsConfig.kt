@@ -279,7 +279,6 @@ private fun NamedDomainObjectContainer<KotlinSourceSet>.createMainAndTest(
         configureAction(false)
     }
     val testSourceSet = create("${name}Test").apply {
-        //dependsOn(mainSourceSet)
         dependsOn.forEach { getByName("${it}Test") }
         configureAction(true)
     }
