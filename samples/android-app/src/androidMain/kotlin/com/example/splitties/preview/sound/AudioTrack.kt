@@ -99,6 +99,7 @@ private suspend fun playSound(sound: ByteArray, samplingRate: Int) {
         withContext(NonCancellable) {
             audioTrack.fadeVolumeDown()
         }
+        throw e
     } finally {
         audioTrack.release()
     }
@@ -131,7 +132,7 @@ private suspend fun AudioTrack.fadeVolumeDown(
 }
 
 suspend fun playDiapason(durationInMillis: Int = 1000) = Dispatchers.Default {
-    val sound = generateTone(durationInMillis = durationInMillis)
+    val sound = generateTone(frequency = 440.0, durationInMillis = durationInMillis)
     playSound(sound, defaultSamplingRate)
 }
 

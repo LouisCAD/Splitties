@@ -144,7 +144,7 @@ var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.
 var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
 
 val ongoingReleaseFile = dir.resolve("ongoing_release.splitties")
-val versionsFile = dir.resolve("gradle.properties")
+val versionsFile = dir.resolve("libraries_version.properties")
 val libVersionLineStart = "splitties.version="
 
 if (ongoingReleaseFile.exists()) {
@@ -217,6 +217,7 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         "git tag -a v$newVersion -m \"Version $newVersion\"".executeAndPrint()
     }
     CLEAN_AND_UPLOAD -> {
+        TODO("This step is obsolete is set to be replaced by a GitHub Action")
         val cleanAndUploadCommand = "./gradlew clean bintrayUpload"
         printInfo("Running `$cleanAndUploadCommand`")
         cleanAndUploadCommand.executeAndPrint()

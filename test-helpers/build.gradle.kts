@@ -2,8 +2,6 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-import org.jetbrains.kotlin.konan.target.HostManager
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -20,8 +18,8 @@ kotlin {
     js()
     macos()
     ios()
-    if (isRunningInIde.not() || HostManager.hostIsLinux) linuxX64()
-    if (isRunningInIde.not() || HostManager.hostIsMingw) mingwX64()
+    linux(x64 = true)
+    mingw(x64 = true)
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {

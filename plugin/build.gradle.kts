@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.louiscad.splitties"
-version = "0.0.1"
+version = "0.1.2"
 
 gradlePlugin {
     plugins {
@@ -20,28 +20,6 @@ gradlePlugin {
             description = "A family of small Kotlin libraries for delightful Android development\n"
             implementationClass = "com.louiscad.splitties.SplittiesPlugin"
         }
-    }
-}
-
-/**
-// To test the plugin locally, add this to settings.gradle.kts
-
-```kotlin
-pluginManagement {
-  repositories {
-    val localGradleRepo = "FULL_PATH_TO/buildSrcVersions/plugin/build/repository"
-    if (File(localGradleRepo).exists()) maven { setUrl(localGradleRepo) }
-    gradlePluginPortal()
-  }
-}
-
-```
-
- Then run $ ./gradlew :plugin:publish
- */
-publishing {
-    repositories {
-        maven(url = "build/repository")
     }
 }
 
@@ -77,3 +55,6 @@ java {
 kotlinDslPluginOptions {
     experimentalWarning.set(false)
 }
+
+// TODO: delete this and the referenced dummy file when https://github.com/ben-manes/gradle-versions-plugin/issues/334 is fixed
+apply(from = "dummy-dependencies.gradle.kts")

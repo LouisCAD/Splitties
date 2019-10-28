@@ -1,5 +1,27 @@
 @file:Suppress("SpellCheckingInspection")
 
+pluginManagement {
+    repositories {
+        // If enabled, it allows to test a plugin version released to mavenLocal()
+        //mavenLocal()
+        gradlePluginPortal()
+    }
+
+    /**
+     * This `resolutionStrategy` allows plugin versions to be configured from `gradle.properties
+     * The convention is simply
+     *     plugin.$PLUGINID=$PLUGIN_VERSION
+     */
+    val resolutionStrategyConfig: String? by extra
+    resolutionStrategy.eachPlugin {
+        val property = "plugin.${requested.id.id}"
+        if (extra.has(property) && resolutionStrategyConfig != "false") {
+            val version = extra.get(property) as String
+            if (resolutionStrategyConfig == "verbose") println("ResolutionStrategy used version=$version from property=$property")
+            useVersion(version)
+        }
+    }
+}
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
