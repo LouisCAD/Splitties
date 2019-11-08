@@ -32,7 +32,7 @@ fun RepositoryHandler.setupForProject() {
         url = "https://dl.bintray.com/louiscad/splitties-dev"
     ).ensureGroups("com.louiscad.splitties")
 
-    if ("eap" in Libs.kotlinVersion) maven(
+    if ("eap" in Versions.kotlin) maven(
         url = "https://dl.bintray.com/kotlin/kotlin-eap"
     ).ensureGroups("org.jetbrains.kotlin")
 
