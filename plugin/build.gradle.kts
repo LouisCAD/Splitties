@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.louiscad.splitties"
-version = "0.1.2"
+version = "0.1.3"
 
 gradlePlugin {
     plugins {
@@ -40,6 +40,8 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
+    val experimentalAnnotations = listOf("kotlin.Experimental")
+    kotlinOptions.freeCompilerArgs = experimentalAnnotations.map { "-Xuse-experimental=$it"}
 }
 
 tasks.withType<Test>().configureEach {

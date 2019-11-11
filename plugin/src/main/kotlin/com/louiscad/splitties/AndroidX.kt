@@ -6,31 +6,7 @@ package com.louiscad.splitties
  **/
 
 object AndroidX {
-    val GROUPS = arrayOf(
-        "android.arch.core", "android.arch.lifecycle", "android.arch.navigation", "android.arch.paging",
-        "android.arch.persistence", "android.arch.persistence.room", "android.arch.work",
-        "androidx.activity", "androidx.ads", "androidx.annotation", "androidx.appcompat",
-        "androidx.arch.core", "androidx.asynclayoutinflater", "androidx.autofill",
-        "androidx.benchmark", "androidx.biometric", "androidx.browser", "androidx.camera",
-        "androidx.car", "androidx.cardview", "androidx.collection", "androidx.compose",
-        "androidx.concurrent", "androidx.constraintlayout", "androidx.contentpager",
-        "androidx.coordinatorlayout", "androidx.core", "androidx.cursoradapter", "androidx.customview",
-        "androidx.databinding", "androidx.documentfile", "androidx.drawerlayout", "androidx.dynamicanimation",
-        "androidx.emoji", "androidx.enterprise", "androidx.exifinterface", "androidx.fragment",
-        "androidx.gridlayout", "androidx.heifwriter", "androidx.interpolator", "androidx.leanback",
-        "androidx.legacy", "androidx.lifecycle", "androidx.loader", "androidx.localbroadcastmanager",
-        "androidx.media", "androidx.media2", "androidx.mediarouter", "androidx.multidex",
-        "androidx.navigation", "androidx.paging", "androidx.palette", "androidx.percentlayout",
-        "androidx.preference", "androidx.print", "androidx.recommendation", "androidx.recyclerview",
-        "androidx.remotecallback", "androidx.room", "androidx.savedstate", "androidx.security",
-        "androidx.sharetarget", "androidx.slice", "androidx.slidingpanelayout", "androidx.sqlite",
-        "androidx.swiperefreshlayout", "androidx.test", "androidx.test.espresso", "androidx.test.espresso.idling",
-        "androidx.test.ext", "androidx.test.janktesthelper", "androidx.test.services",
-        "androidx.test.uiautomator", "androidx.textclassifier", "androidx.transition", "androidx.tvprovider",
-        "androidx.ui", "androidx.vectordrawable", "androidx.versionedparcelable", "androidx.viewpager",
-        "androidx.viewpager2", "androidx.wear", "androidx.webkit", "androidx.work"
-    )
-    const val placeholderVersion = "+"
+    private const val placeholderVersion = "+"
     private object Versions {
         const val core = placeholderVersion // "1.0.1"
         const val multidex = placeholderVersion // "2.0.0"
@@ -113,7 +89,7 @@ object AndroidX {
     const val viewPager = "androidx.viewpager:viewpager:$placeholderVersion" // 1.0.0"
     const val wear = "androidx.wear:wear:$placeholderVersion" // 1.0.0"
     const val webkit = "androidx.webkit:webkit:$placeholderVersion" // 1.0.0"
-    
+
 
     /**
      * The actual dependency version comes from `gradle.properties`
@@ -145,7 +121,7 @@ object AndroidX {
     val room = Room
 
     object Room {
-        const val artifact = "androidx.room:room"
+        private const val artifact = "androidx.room:room"
         private const val version = placeholderVersion // "2.0.0"
         const val common = "$artifact-common:$version"
         const val compiler = "$artifact-compiler:$version"
@@ -264,7 +240,7 @@ object AndroidX {
 
         const val uiAutomator = "androidx.test.uiautomator:uiautomator:$placeholderVersion" // "2.2.0"
         const val uiAutomatorV18 = "androidx.test.uiautomator:uiautomator-v18:2.2.0-alpha1"
-        
+
         /**
          * The actual dependency version comes from `gradle.properties`
          * from `version.androidx.test.espresso=xxx` or `version.androidx.test.espresso..$NAME=xxx`
