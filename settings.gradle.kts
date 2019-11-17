@@ -81,5 +81,3 @@ arrayOf(
 
 include("plugin")
 include("test-helpers")
-
-enableFeaturePreview("GRADLE_METADATA")
