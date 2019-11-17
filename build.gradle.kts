@@ -6,7 +6,7 @@
 
 
 plugins {
-    id("de.fayard.refreshVersions") version "0.8.2"
+    id("de.fayard.refreshVersions")
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
