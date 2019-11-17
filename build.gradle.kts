@@ -4,69 +4,24 @@
 
 @file:Suppress("SpellCheckingInspection")
 
+
 plugins {
-    /**
-     * Plugin versions are set in `gradle.properties` by the property `plugin.$PLUGIN_ID=$PLUGIN_VERSION`.
-     * See "settings.gradle.kts"
-     */
     id("de.fayard.refreshVersions")
-    `build-scan`
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-// Libs.kotlinVersion comes from gradle.properties. Keep in sync with buildSrc/build.gradle.kts
-Libs.kotlinVersion = "1.3.50"
-//findProperty("version.org.jetbrains.kotlin") as? String ?: findProperty("version.kotlin-stdlib") as String
-
+task<Delete>("clean") {
+    delete(rootProject.buildDir)
+}
 
 allprojects {
+    repositories { setupForProject() }
     tasks.whenTaskAdded {
         if("DebugUnitTest" in name || "ReleaseUnitTest" in name) {
             enabled = false
             // MPP + Android unit testing is so broken we just disable it altogether,
             // (discussion here https://kotlinlang.slack.com/archives/C3PQML5NU/p1572168720226200)
         }
-    }
-    repositories {
-        setupForProject()
-    }
-}
-
-task<Delete>("clean") {
-    delete(rootProject.buildDir)
-}
-
-/**
- * Use ./gradlew refreshVersions to find available updates
- * See https://github.com/jmfayard/buildSrcVersions/issues/77
- */
-buildSrcVersions {
-
-    // Configuration: https://github.com/jmfayard/buildSrcVersions/issues/53
-    rejectVersionIf {
-        isStable(currentVersion) && isNonStable(candidate.version)
-    }
-    orderBy = de.fayard.OrderBy.GROUP_AND_ALPHABETICAL
-    useFqdnFor("annotations", *Libs.AndroidX.GROUPS)
-}
-
-
-/**
-For investigating build issue and bug reports, run
-./gradlew --scan $TASKNAME
-see https://dev.to/jmfayard/the-one-gradle-trick-that-supersedes-all-the-others-5bpg
- **/
-buildScan {
-    termsOfServiceUrl = "https://gradle.com/terms-of-service"
-    termsOfServiceAgree = "yes"
-}
-
-
-tasks.create<DefaultTask>("hello") {
-    group = "custom"
-    description = "Hello World! Minimal task useful to debug build problems."
-    doLast {
-        println("Hello Gradle!")
     }
 }
