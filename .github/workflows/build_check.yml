@@ -7,6 +7,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.adoc'
+      - '.editorconfig'
+      - '**/.gitignore'
   push:
     branches:
       - develop
@@ -14,6 +16,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.adoc'
+      - '.editorconfig'
+      - '**/.gitignore'
 jobs:
   run-tests:
     strategy:
