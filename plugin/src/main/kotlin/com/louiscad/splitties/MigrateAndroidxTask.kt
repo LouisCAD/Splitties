@@ -2,6 +2,7 @@ package com.louiscad.splitties
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.Incubating
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.Dependency
@@ -13,7 +14,7 @@ import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.javaField
 import kotlin.reflect.typeOf
 
-
+@Incubating
 open class MigrateAndroidxTask : DefaultTask() {
     init {
         group = "help"
@@ -95,12 +96,12 @@ open class MigrateAndroidxTask : DefaultTask() {
 }
 
 
-internal data class ArtifactMapping(
+private data class ArtifactMapping(
     val supportArtifact: String,
     val androidXArtifact: String
 )
 
-internal object AndroidxMigrator {
+private object AndroidxMigrator {
     const val OK = "✔ \uD83C\uDD97"
     val PROPERTIES = listOf("android.useAndroidX", "android.enableJetifier")
     val GRADLE_PROPERTIES = PROPERTIES.joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "$it=true" }
