@@ -1,33 +1,45 @@
 package com.louiscad.splitties
 
 
-
-/**
- * The actual dependency version comes from `gradle.properties`
- * from either `version.$NAME=xxx` or `version.com.squareup.okhttp=xxx` or `version.com.squreup.retrofit2=xxxx`
- **/
 object Square {
-    private const val okHttpVersion = "+"
-    private const val retrofitversion = "+"
 
-    const val okHttp = "com.squareup.okhttp3:okhttp:$okHttpVersion"
-    const val okHttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
-    const val okhttpMockWebserver = "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+    const val moshi = "com.squareup.moshi:moshi:_"
 
-    private const val artifact = "com.squareup.retrofit2"
-    const val retrofit = "$artifact:retrofit:$retrofitversion"
-    const val retrofitMoshi = "$artifact:converter-moshi:$retrofitversion"
-    const val retrofitGson = "$artifact:converter-moshi:$retrofitversion"
-    const val retrofitJava8 = "$artifact:adapter-java8:$retrofitversion"
-    const val retrofitMock = "$artifact:retrofit-mock:$retrofitversion"
-    const val retrofitSimplexml = "$artifact:converter-simplexml:$retrofitversion"
-    const val retrofitScalars = "$artifact:converter-scalars:$retrofitversion"
-    const val retrofitJackson = "$artifact:converter-jackson:$retrofitversion"
-    const val retrofitRxjava1 = "$artifact:adapter-rxjava:$retrofitversion"
-    const val retrofitRxjava2 = "$artifact:adapter-rxjava2:$retrofitversion"
+    val okHttp3 = OkHttp3
+    val retrofit2 = Retrofit2
 
+    object OkHttp3 {
+        private const val artifactPrefix = "com.squareup.okhttp3"
+        const val okHttp = "$artifactPrefix:okhttp:_"
+        const val loggingInterceptor = "$artifactPrefix:logging-interceptor:_"
+        const val mockWebServer = "$artifactPrefix:mockwebserver:_"
+    }
 
+    object Retrofit2 {
+        private const val artifact = "com.squareup.retrofit2"
 
-    private const val moshiVersion = "+"
-    const val moshi = "com.squareup.moshi:moshi:$moshiVersion"
+        const val retrofit = "$artifact:retrofit:_"
+        const val mock = "$artifact:retrofit-mock:_"
+
+        val converter = Converter
+        val adapter = Adapter
+
+        object Converter {
+            private const val artifact = "${Retrofit2.artifact}:converter"
+
+            const val scalars = "$artifact-scalars:_"
+
+            const val moshi = "$artifact-moshi:_"
+            const val gson = "$artifact-gson:_"
+            const val jackson = "$artifact-jackson:_"
+
+            const val simpleXml = "$artifact-simplexml:_"
+        }
+
+        object Adapter {
+            const val retrofitJava8 = "$artifact:adapter-java8:_"
+            const val retrofitRxJava1 = "$artifact:adapter-rxjava:_"
+            const val retrofitRxJava2 = "$artifact:adapter-rxjava2:_"
+        }
+    }
 }

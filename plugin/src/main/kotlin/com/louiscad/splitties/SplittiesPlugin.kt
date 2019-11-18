@@ -17,7 +17,7 @@ open class SplittiesPlugin : Plugin<Project> {
 
 }
 
-fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
+private fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
     val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: SPLITTIES_VERSION
     rootProject.allprojects {
         configurations.all {
