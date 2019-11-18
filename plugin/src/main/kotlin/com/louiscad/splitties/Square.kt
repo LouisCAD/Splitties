@@ -1,6 +1,8 @@
 package com.louiscad.splitties
 
+import org.gradle.api.Incubating
 
+@Incubating
 object Square {
 
     const val moshi = "com.squareup.moshi:moshi:_"

@@ -1,5 +1,8 @@
 package com.louiscad.splitties
 
+import org.gradle.api.Incubating
+
+@Incubating
 object Testing {
 
     /**
