@@ -64,5 +64,4 @@ object Splitties {
     const val viewsSelectable = "$artifactPrefix-views-selectable:_"
     const val viewsSelectableAppcompat = "$artifactPrefix-views-selectable-appcompat:_"
     const val viewsSelectableConstraintlayout = "$artifactPrefix-views-selectable-constraintlayout:_"
-
 }
