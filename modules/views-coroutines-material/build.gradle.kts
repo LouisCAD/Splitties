@@ -17,9 +17,9 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
             api(splitties("views-coroutines"))
-            api(Libs.google.material)
+            api(Google.material)
         }
     }
 }

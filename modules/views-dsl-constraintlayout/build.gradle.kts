@@ -18,9 +18,9 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("views-dsl"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.constraintLayout)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.constraintLayout)
             implementation(splitties("collections"))
         }
         matching { it.name.startsWith("android") }.all {

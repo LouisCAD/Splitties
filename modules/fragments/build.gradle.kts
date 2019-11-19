@@ -20,8 +20,8 @@ kotlin {
             api(splitties("experimental"))
         }
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.fragment)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.fragment)
             api(splitties("lifecycle-coroutines"))
         }
         matching { it.name.startsWith("android") }.all {

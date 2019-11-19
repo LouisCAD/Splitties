@@ -79,5 +79,4 @@ arrayOf(
     "android-app"
 ).forEach { include(":samples:$it") }
 
-include("plugin")
 include("test-helpers")

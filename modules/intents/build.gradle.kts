@@ -21,8 +21,8 @@ kotlin {
             api(splitties("bundle"))
             implementation(splitties("appctx"))
             implementation(splitties("exceptions"))
-            api(Libs.kotlin.stdlibJdk7)
-            compileOnly(Libs.androidX.fragment)
+            api(Kotlin.stdlib.jdk7)
+            compileOnly(AndroidX.fragment)
         }
     }
 }

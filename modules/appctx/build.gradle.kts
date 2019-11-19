@@ -17,8 +17,8 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
             api(splitties("initprovider"))
         }
     }

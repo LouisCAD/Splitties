@@ -21,7 +21,7 @@ kotlin {
         }
         androidMain.dependencies {
             implementation(splitties("mainthread"))
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
     }
 }

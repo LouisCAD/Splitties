@@ -18,13 +18,13 @@ kotlin {
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
         }
         jvmMain.dependencies {
-            api(kotlin("stdlib-jdk7"))
+            api(Kotlin.stdlib.jdk7)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
+            api(Kotlin.stdlib.js)
         }
     }
 }

@@ -22,16 +22,16 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            compileOnly(Libs.kotlinX.coroutines.coreCommon)
+            compileOnly(KotlinX.coroutines.coreCommon)
         }
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(Libs.kotlin.stdlibJdk7)
-            compileOnly(Libs.kotlinX.coroutines.android)
+            api(Kotlin.stdlib.jdk7)
+            compileOnly(KotlinX.coroutines.android)
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.coreNative)
+                api(KotlinX.coroutines.coreNative)
             }
         }
         appleMain {
@@ -53,8 +53,8 @@ kotlin {
 }
 
 dependencies {
-    androidTestImplementation(Libs.androidX.test.runner)
-    testImplementation(Libs.roboElectric)
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {

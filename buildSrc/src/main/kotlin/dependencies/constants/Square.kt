@@ -1,4 +1,4 @@
-package com.louiscad.splitties
+@file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection", "unused")
 
 import org.gradle.api.Incubating
 

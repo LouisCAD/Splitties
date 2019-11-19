@@ -17,9 +17,9 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.google.material)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(Google.material)
             implementation(splitties("resources"))
         }
     }

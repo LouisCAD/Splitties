@@ -2,3 +2,4 @@
 /.gradle
 /.idea
 .kotlintest
+local.properties

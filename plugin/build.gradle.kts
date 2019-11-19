@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.louiscad.splitties"
-version = "0.1.3"
+version = "0.1.4"
 
 gradlePlugin {
     plugins {
@@ -26,6 +26,7 @@ gradlePlugin {
 repositories {
     mavenCentral()
     jcenter()
+    gradlePluginPortal()
 }
 
 pluginBundle {
@@ -34,6 +35,7 @@ pluginBundle {
     tags = listOf("android", "kotlin")
 }
 dependencies {
+    api("de.fayard.refreshVersions:de.fayard.refreshVersions.gradle.plugin:0.8.4")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
 }
 

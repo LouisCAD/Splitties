@@ -1,4 +1,8 @@
-package com.louiscad.splitties
+/*
+ * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ */
+
+@file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection", "unused")
 
 import org.gradle.api.Incubating
 
@@ -19,6 +23,13 @@ object Testing {
 
     val mockK = MockK
     val mockito = Mockito
+
+    /**
+     * Run unit tests in the JVM with the Android environment.
+     *
+     * GitHub page: [robolectric/robolectric](https://github.com/robolectric/robolectric)
+     */
+    const val roboElectric = "org.robolectric:robolectric:_"
 
     /**
      * The new major version of the programmer-friendly testing framework for Java

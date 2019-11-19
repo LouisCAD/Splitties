@@ -17,11 +17,11 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
             api(splitties("views-selectable"))
             api(splitties("views-selectable-constraintlayout"))
-            api(Libs.androidX.constraintLayout)
-            implementation(Libs.androidX.appCompat)
+            api(AndroidX.constraintLayout)
+            implementation(AndroidX.appCompat)
             implementation(splitties("views-dsl-appcompat"))
             implementation(splitties("views-dsl-constraintlayout"))
         }

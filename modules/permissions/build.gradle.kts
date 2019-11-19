@@ -17,13 +17,13 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
             api(splitties("fragments"))
             implementation(splitties("mainthread"))
             implementation(splitties("appctx"))
             implementation(splitties("activities"))
             implementation(splitties("intents"))
-            implementation(Libs.androidX.coreKtx)
+            implementation(AndroidX.coreKtx)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

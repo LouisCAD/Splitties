@@ -20,9 +20,9 @@ kotlin {
             api(splitties("views-dsl"))
             api(splitties("views-appcompat"))
             api(splitties("initprovider"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.appCompat)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.appCompat)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

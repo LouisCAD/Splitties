@@ -21,8 +21,8 @@ kotlin {
         }
         androidMain.dependencies {
             api(splitties("views"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
             implementation(splitties("collections"))
             implementation(splitties("exceptions"))
         }

@@ -2,32 +2,20 @@ package com.louiscad.splitties
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-
+import org.gradle.kotlin.dsl.register
 
 open class SplittiesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) = project.rootProject.run {
-        if (PluginConfig.ALREADY_RUN.not()) {
-            PluginConfig.ALREADY_RUN = true
-            tasks.register("migrateToAndroidX", MigrateAndroidxTask::class.java)
-            splittiesVersionComesFromGradleProperties()
+        pluginManager.apply("de.fayard.refreshVersions")
+        if (alreadyRun.not()) {
+            alreadyRun = true
+            tasks.register<MigrateAndroidxTask>("migrateToAndroidX")
         }
         Unit
     }
 
-}
-
-private fun Project.splittiesVersionComesFromGradleProperties() = with(PluginConfig) {
-    val splittiesVersion = findProperty(GRADLE_PROPERTY) as? String ?: SPLITTIES_VERSION
-    rootProject.allprojects {
-        configurations.all {
-            if (name.contains("copy")) return@all
-            resolutionStrategy {
-                eachDependency {
-                    if (requested.group == GROUP)
-                        useVersion(splittiesVersion)
-                }
-            }
-        }
+    private companion object {
+        private var alreadyRun = false
     }
 }

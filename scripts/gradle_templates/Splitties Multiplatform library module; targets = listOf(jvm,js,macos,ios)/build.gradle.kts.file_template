@@ -16,14 +16,14 @@ kotlin {
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
             api(splitties("experimental"))
         }
         jvmMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
+            api(Kotlin.stdlib.js)
         }
         nativeMain {
             dependencies {}

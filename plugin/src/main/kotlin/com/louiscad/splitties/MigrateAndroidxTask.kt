@@ -1,5 +1,12 @@
 package com.louiscad.splitties
 
+import AndroidX
+import Google
+import Kotlin
+import KotlinX
+import Splitties
+import Square
+import Testing
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.Incubating
@@ -105,7 +112,7 @@ private object AndroidxMigrator {
     const val OK = "✔ \uD83C\uDD97"
     val PROPERTIES = listOf("android.useAndroidX", "android.enableJetifier")
     val GRADLE_PROPERTIES = PROPERTIES.joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "$it=true" }
-    val MIGRATE_TO_28 = "https://developer.android.com/about/versions/pie/android-9.0-migration"
+    const val MIGRATE_TO_28 = "https://developer.android.com/about/versions/pie/android-9.0-migration"
 
     val Dependency.artifact: String
         get() = "$group:$name"
@@ -185,7 +192,7 @@ private object AndroidxMigrator {
 
     val sourceExtensions = listOf("kt", "java", "xml")
 
-    val gradleExtension = "gradle"
+    const val gradleExtension = "gradle"
 
     fun File.findSourceFiles(): List<File> {
         val filesWithExtension = listFiles { file: File ->

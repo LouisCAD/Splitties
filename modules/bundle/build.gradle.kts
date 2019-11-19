@@ -19,8 +19,8 @@ kotlin {
         androidMain.dependencies {
             implementation(splitties("exceptions"))
             implementation(splitties("mainthread"))
-            api(Libs.kotlin.stdlibJdk7)
-            compileOnly(Libs.androidX.core) // Used for reference in KDOC.
+            api(Kotlin.stdlib.jdk7)
+            compileOnly(AndroidX.core) // Used for reference in KDOC.
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

@@ -18,8 +18,8 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("bundle"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.fragment)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.fragment)
         }
     }
 }

@@ -21,10 +21,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            compileOnly(Libs.kotlinX.coroutines.coreCommon)
+            compileOnly(KotlinX.coroutines.coreCommon)
         }
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
         nativeMain {
             dependencies {}

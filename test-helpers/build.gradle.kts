@@ -23,29 +23,30 @@ kotlin {
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
-            api(kotlin("test-common"))
-            api(kotlin("test-annotations-common"))
-            api(Libs.kotlinX.coroutines.coreCommon)
+            api(Kotlin.stdlib.common)
+            api(Kotlin.stdlib.common)
+            api(Kotlin.test.common)
+            api(Kotlin.test.annotationsCommon)
+            api(KotlinX.coroutines.coreCommon)
         }
         allJvmMain {
             dependencies {
-                api(Libs.kotlin.stdlibJdk7)
-                api(Libs.kotlinX.coroutines.core)
-                api(Libs.kotlin.testJunit)
+                api(Kotlin.stdlib.jdk7)
+                api(KotlinX.coroutines.core)
+                api(Kotlin.test.junit)
             }
         }
         androidMain.dependencies {
-            api(Libs.kotlinX.coroutines.android)
-            api(Libs.androidX.test.ext.junit)
+            api(KotlinX.coroutines.android)
+            api(AndroidX.test.ext.junit)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
-            api(Libs.kotlinX.coroutines.coreJs)
+            api(Kotlin.stdlib.js)
+            api(KotlinX.coroutines.coreJs)
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.coreNative)
+                api(KotlinX.coroutines.coreNative)
             }
         }
         all {

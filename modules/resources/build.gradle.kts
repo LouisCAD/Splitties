@@ -18,9 +18,9 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            compileOnly(Libs.androidX.fragment)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            compileOnly(AndroidX.fragment)
             implementation(splitties("appctx"))
             implementation(splitties("mainthread"))
         }

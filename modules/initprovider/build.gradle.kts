@@ -18,7 +18,7 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(splitties("exceptions"))
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
     }
 }

@@ -18,8 +18,8 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("initprovider"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.stetho)
+            api(Kotlin.stdlib.jdk7)
+            @Suppress("GradleDependency") api("com.facebook.stetho:stetho:_")
         }
     }
 }

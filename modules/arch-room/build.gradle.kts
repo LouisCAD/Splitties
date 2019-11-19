@@ -18,9 +18,9 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.room.runtime)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.room.runtime)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

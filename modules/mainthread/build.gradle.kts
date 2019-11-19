@@ -21,13 +21,13 @@ kotlin {
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
         }
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
+            api(Kotlin.stdlib.js)
         }
         commonTest {
             dependencies {
@@ -38,8 +38,8 @@ kotlin {
 }
 
 dependencies {
-    androidTestImplementation(Libs.androidX.test.runner)
-    testImplementation(Libs.roboElectric)
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {
