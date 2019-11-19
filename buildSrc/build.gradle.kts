@@ -6,6 +6,7 @@ import org.gradle.api.artifacts.repositories.MavenArtifactRepository as MvnArtif
 
 plugins {
     `kotlin-dsl`
+    id("de.fayard.refreshVersions")
 }
 
 fun MvnArtifactRepo.ensureModulesStartingWith(vararg regexp: String): MvnArtifactRepo = apply {
@@ -25,24 +26,11 @@ repositories {
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
 }
 
-val kotlinVersion = "1.3.50" // Don't forget to update in Dependencies.kt too!
-
+@Suppress("GradlePluginVersion")
 dependencies {
     compileOnly(gradleKotlinDsl())
-    implementation("com.android.tools.build:gradle:3.5.0")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-}
-
-configurations.all {
-    val isKotlinCompiler = name == "embeddedKotlin" ||
-            name.startsWith("kotlin") ||
-            name.startsWith("kapt")
-    if (isKotlinCompiler.not()) resolutionStrategy.eachDependency {
-        @Suppress("UnstableApiUsage")
-        if (requested.group == "org.jetbrains.kotlin" &&
-            requested.module.name == "kotlin-compiler-embeddable"
-        ) useVersion(kotlinVersion)
-    }
+    implementation("com.android.tools.build:gradle:_")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
 }
 
 // https://docs.gradle.org/5.6.2/userguide/kotlin_dsl.html#sec:kotlin-dsl_plugin

@@ -7,6 +7,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.adoc'
+      - '.editorconfig'
+      - '**/.gitignore'
   push:
     branches:
       - develop
@@ -14,6 +16,8 @@ on:
     paths-ignore:
       - '**.md'
       - '**.adoc'
+      - '.editorconfig'
+      - '**/.gitignore'
 jobs:
   run-tests:
     strategy:
@@ -27,4 +31,4 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: --scan test allTests
+          arguments: test allTests --stacktrace --scan
