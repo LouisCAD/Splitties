@@ -2,6 +2,7 @@ package com.louiscad.splitties
 
 import AndroidX
 import Google
+import JakeWharton
 import Kotlin
 import KotlinX
 import Splitties
@@ -275,7 +276,16 @@ private object AndroidxMigrator {
     }
 
     fun getArtifactNameToSplittiesConstantMapping(): Map<String, String> {
-        return listOf(AndroidX, Google, Kotlin, KotlinX, Splitties, Square, Testing).flatMap { objectInstance ->
+        return listOf(
+            AndroidX,
+            Google,
+            JakeWharton,
+            Kotlin,
+            KotlinX,
+            Splitties,
+            Square,
+            Testing
+        ).flatMap { objectInstance ->
             (objectInstance::class).getArtifactNameToSplittiesConstantMapping(objectInstance::class.simpleName!!)
         }.toMap()
     }

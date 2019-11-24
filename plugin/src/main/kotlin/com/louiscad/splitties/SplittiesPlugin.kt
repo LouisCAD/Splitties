@@ -8,6 +8,7 @@ import org.gradle.kotlin.dsl.register
 open class SplittiesPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
+        project.apply(plugin = "de.fayard.dependencies")
         if (project == project.rootProject) {
             project.apply(plugin = "de.fayard.refreshVersions")
             if (alreadyRun.not()) {

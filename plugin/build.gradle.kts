@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.louiscad.splitties"
-version = "0.1.6"
+version = "0.2.0"
 
 gradlePlugin {
     plugins {
@@ -34,8 +34,12 @@ pluginBundle {
     vcsUrl = "https://github.com/LouisCAD/Splitties"
     tags = listOf("android", "kotlin")
 }
+
 dependencies {
-    implementation("de.fayard:refreshVersions:0.8.4")
+    fun plugin(id: String, version: String): String = "$id:$id.gradle.plugin:$version"
+
+    implementation(plugin("de.fayard.refreshVersions", version = "0.8.4"))
+    implementation(plugin("de.fayard.dependencies", version = "0.5.0"))
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
 }
 
@@ -43,7 +47,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
     val experimentalAnnotations = listOf("kotlin.Experimental")
-    kotlinOptions.freeCompilerArgs = experimentalAnnotations.map { "-Xuse-experimental=$it"}
+    kotlinOptions.freeCompilerArgs = experimentalAnnotations.map { "-Xuse-experimental=$it" }
 }
 
 tasks.withType<Test>().configureEach {
