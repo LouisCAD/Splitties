@@ -63,7 +63,7 @@ fun PublishingExtension.setupAllPublications(project: Project) {
         val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
         val publishToRepoTasks = publishTasks.filterNot { it.name.endsWith("ToMavenLocal") }
 
-        val hostSpecificPublicationTasks = when (HostManager.host.family) {
+        val hostSpecificPublicationTasks = when (val family = HostManager.host.family) {
             Family.OSX -> publishToRepoTasks.filter {
                 it.name.startsWith("publishMacos") ||
                     it.name.startsWith("publishIos") ||
@@ -76,9 +76,10 @@ fun PublishingExtension.setupAllPublications(project: Project) {
             Family.MINGW -> publishToRepoTasks.filter {
                 it.name.startsWith("publishMingw")
             }
-            Family.ZEPHYR, Family.IOS, Family.ANDROID, Family.WASM -> {
-                error("Unsupported publishing host: ${HostManager.host}. Kudos for making it run here though.")
-            }
+            else -> error(
+                "Unsupported publishing host: ${HostManager.host} from family $family. " +
+                    "Kudos for making it run here though."
+            )
         }
         hostSpecificPublicationTasks.forEach { task -> dependsOn(task) }
 
