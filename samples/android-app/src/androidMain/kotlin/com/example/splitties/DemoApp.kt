@@ -13,7 +13,7 @@ class DemoApp : Application() {
     companion object {
         init {
             if (SDK_INT < 29) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
             }
         }
     }
