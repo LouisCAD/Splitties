@@ -21,7 +21,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan publishToRepository
+          arguments: publishToRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   linux-and-mpp-publishing:
     runs-on: ubuntu-latest
     steps:
@@ -31,4 +31,4 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -Pmpp.publishAll=true publishToRepository
+          arguments: publishToRepository -Pmpp.publishAll=true -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes

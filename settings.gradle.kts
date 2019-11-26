@@ -6,6 +6,17 @@
 
 import de.fayard.versions.setupVersionPlaceholdersResolving
 
+plugins {
+    id("com.gradle.enterprise").version("3.1")
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = settings.extra.properties["buildScan.termsOfServiceAgree"] as String?
+    }
+}
+
 @Suppress("UnstableApiUsage")
 buildscript {
     repositories { gradlePluginPortal() }
