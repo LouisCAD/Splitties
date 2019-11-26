@@ -3,10 +3,13 @@
  */
 package splitties.lifecycle.coroutines
 
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 
 /** Returns as soon as this [Lifecycle] is in the resumed state. */
@@ -44,8 +47,8 @@ suspend fun Lifecycle.awaitState(state: Lifecycle.State) {
         if (currentState == Lifecycle.State.DESTROYED) { // Fast path to cancellation
             cancel()
         } else suspendCancellableCoroutine<Unit> { c ->
-            val observer = object : GenericLifecycleObserver {
-                override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
+            val observer = object : LifecycleEventObserver {
+                override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                     if (currentState >= state) {
                         removeObserver(this)
                         c.resume(Unit)

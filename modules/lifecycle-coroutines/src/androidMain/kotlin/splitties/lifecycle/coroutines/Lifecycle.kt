@@ -3,12 +3,16 @@
  */
 package splitties.lifecycle.coroutines
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State.INITIALIZED
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 /**
  * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that will be cancelled as
@@ -43,11 +47,8 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
             Lifecycle.State.DESTROYED -> job.cancel()
             else -> GlobalScope.launch(Dispatchers.MainAndroid) {
                 // Ensures state is in sync.
-                addObserver(@SuppressLint("RestrictedApi") object : GenericLifecycleObserver {
-                    override fun onStateChanged(
-                        source: LifecycleOwner?,
-                        event: Lifecycle.Event
-                    ) {
+                addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                         if (currentState < activeWhile) {
                             removeObserver(this)
                             job.cancel()
