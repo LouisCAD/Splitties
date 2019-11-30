@@ -51,7 +51,9 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     mavenPublications.findByName("kotlinMultiplatform")?.let {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
         val suffix = "-mpp"
-        it.artifactId = "$prefix-${project.name}$suffix"
+        project.afterEvaluate {
+            it.artifactId = "$prefix-${project.name}$suffix"
+        }
     }
     setupPublishRepo(project)
 

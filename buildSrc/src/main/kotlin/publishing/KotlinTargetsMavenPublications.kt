@@ -23,7 +23,9 @@ fun KotlinTarget.configureMavenPublication(publishReleaseVariantOnly: Boolean = 
     }
     mavenPublication {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
-        artifactId = "$prefix-${project.name}$suffix"
+        project.afterEvaluate {
+            artifactId = "$prefix-${project.name}$suffix"
+        }
         if (platformType == androidJvm) {
             // We disable metadata generation for Android publications, so the release variants can
             // be used for any buildType of the consumer projects without having to specify
