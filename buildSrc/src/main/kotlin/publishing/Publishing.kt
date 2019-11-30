@@ -44,8 +44,6 @@ fun MavenPublication.setupPom() = pom {
 }
 
 fun PublishingExtension.setupAllPublications(project: Project) {
-    project.configurations.create("compileClasspath")
-    //TODO: Remove line above when https://youtrack.jetbrains.com/issue/KT-27170 is fixed
     project.group = "com.louiscad.splitties"
     project.version = project.thisLibraryVersion
     val mavenPublications = publications.withType<MavenPublication>()
