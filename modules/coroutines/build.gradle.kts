@@ -11,7 +11,7 @@ kotlin {
     jvm()
     js()
     macos()
-    ios()
+    ios(supportArm32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {

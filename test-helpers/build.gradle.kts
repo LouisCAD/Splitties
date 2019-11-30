@@ -17,7 +17,7 @@ kotlin {
     jvm()
     js()
     macos()
-    ios()
+    ios(supportArm32 = true)
     linux(x64 = true)
     mingw(x64 = true)
     setupSourceSets()

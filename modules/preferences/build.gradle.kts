@@ -16,13 +16,13 @@ android {
 kotlin {
     android()
     macos()
-    ios()
+    ios(supportArm32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            compileOnly(KotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.coreCommon)
         }
         androidMain.dependencies {
             api(splitties("appctx"))

@@ -51,10 +51,10 @@ fun KotlinTargetContainerWithPresetFunctions.macos() {
     macosX64()
 }
 
-fun KotlinTargetContainerWithPresetFunctions.ios() {
+fun KotlinTargetContainerWithPresetFunctions.ios(supportArm32: Boolean) {
     if (HostManager.hostIsMac.not() && isRunningInIde) return
     if (isRunningInIde) {
-        if (use32bitsInIde) iosArm32() else iosX64()
+        if (supportArm32 && use32bitsInIde) iosArm32() else iosX64()
     } else iosAll()
 }
 
@@ -222,11 +222,14 @@ fun KotlinMultiplatformExtension.setupSourceSets() {
                     }
                 }
                 if (supportIos) {
+                    val (main, test) = createMainAndTest("ios", dependsOn = "apple")
                     iosTargets.forEach { target ->
                         if (target.konanTarget.architecture.bitness == 64) {
                             target.mainSourceSet.dependsOn(apple64Main)
                             target.testSourceSet.dependsOn(apple64Test)
                         }
+                        target.mainSourceSet.dependsOn(main)
+                        target.testSourceSet.dependsOn(test)
                     }
                 }
             }

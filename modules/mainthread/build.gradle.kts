@@ -14,7 +14,7 @@ android {
 
 kotlin {
     android()
-    ios()
+    ios(supportArm32 = true)
     macos()
     js()
     configure(targets) { configureMavenPublication() }
