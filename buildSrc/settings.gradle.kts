@@ -7,7 +7,7 @@ import de.fayard.versions.setupVersionPlaceholdersResolving
 @Suppress("UnstableApiUsage")
 buildscript {
     repositories { gradlePluginPortal() }
-    dependencies.classpath("de.fayard.refreshVersions:de.fayard.refreshVersions.gradle.plugin:0.8.5")
+    dependencies.classpath("de.fayard.refreshVersions:de.fayard.refreshVersions.gradle.plugin:0.8.6")
 }
 
 setupVersionPlaceholdersResolving()
