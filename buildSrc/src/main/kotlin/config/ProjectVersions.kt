@@ -9,8 +9,8 @@ import org.gradle.kotlin.dsl.extra
 import java.util.Properties
 
 object ProjectVersions {
-    const val androidBuildTools = "28.0.3"
-    const val androidSdk = 28
+    const val androidBuildTools = "29.0.2"
+    const val androidSdk = 29
 }
 
 val Project.thisLibraryVersion: String
