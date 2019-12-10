@@ -13,7 +13,13 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
 import java.util.Locale
 
-fun KotlinTarget.configureMavenPublication(publishReleaseVariantOnly: Boolean = true) {
+fun KotlinTarget.configureMavenPublication(
+    publishReleaseVariantOnly: Boolean = false
+) {
+    require(publishReleaseVariantOnly.not()) {
+        "Consuming release libraries from Android app modules doesn't work despite matchingFallbacks, " +
+            "so we require to publish both debug and release variants for now."
+    }
     val suffix = when (platformType) {
         common -> "-metadata"
         jvm -> ""
@@ -26,10 +32,11 @@ fun KotlinTarget.configureMavenPublication(publishReleaseVariantOnly: Boolean = 
         project.afterEvaluate {
             artifactId = "$prefix-${project.name}$suffix"
         }
-        if (platformType == androidJvm) {
+        if (publishReleaseVariantOnly && platformType == androidJvm) {
             // We disable metadata generation for Android publications, so the release variants can
             // be used for any buildType of the consumer projects without having to specify
-            // matchingFallbacks unless the multiplatform artifact is used.
+            // matchingFallbacks unless the multiplatform artifact is used...
+            // but this doesn't seem to work with application modules, so it's guarded by publishReleaseVariantOnly.
             val capitalizedPublicationName = "${name.first().toTitleCase()}${name.substring(1)}"
             val metadataTaskName = "generateMetadataFileFor${capitalizedPublicationName}Publication"
             project.tasks.named(metadataTaskName) { enabled = false }
