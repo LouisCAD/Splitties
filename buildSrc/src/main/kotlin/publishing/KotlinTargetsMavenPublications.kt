@@ -44,6 +44,7 @@ fun KotlinTarget.configureMavenPublication(
     }
     if (platformType == androidJvm) {
         this as KotlinAndroidTarget
+        publishLibraryVariantsGroupedByFlavor = true
         if (publishReleaseVariantOnly) {
             publishLibraryVariants("release")
             // Relies on metadata to be disabled (done above) to avoid buildType mismatch on consumers.
