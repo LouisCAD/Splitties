@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Kotlin, Java and xml files" pattern="(file:*.java||file:*.kt||file:*.xml)&amp;&amp;!file[*]:.idea//*&amp;&amp;!file[*]:build//*" />
+</component>

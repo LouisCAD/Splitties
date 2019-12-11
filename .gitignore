@@ -1,11 +1,26 @@
-*.iml
-.gradle
+# Local files
 /local.properties
-.DS_Store
+ongoing_release.splitties
+
+# Gradle project-specific cache directory
+.gradle
+/buildSrc/.gradle/
+
+# Gradle build output directory
 /build
+/buildSrc/build/
+
+# unneeded IDE files, with whitelist
+*.iml
+/.idea/*
+!/.idea/copyright
+!/.idea/dictionaries
+!/.idea/runConfigurations.xml
+!/.idea/scopes
+
+# Android Studio and Android Gradle plugin files
 /captures
 .externalNativeBuild
-/.idea/**
-ongoing_release.splitties
-/buildSrc/build/
-/buildSrc/.gradle/
+
+# macOS files
+.DS_Store
