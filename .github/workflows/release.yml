@@ -22,9 +22,8 @@ jobs:
       - uses: actions/cache@v1.1.0
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
@@ -41,9 +40,8 @@ jobs:
       - uses: actions/cache@v1.1.0
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: publishLinux${{ arch }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
@@ -60,9 +58,8 @@ jobs:
       - uses: actions/cache@v1.1.0
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
@@ -79,9 +76,8 @@ jobs:
       - uses: actions/cache@v1.1.0
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
