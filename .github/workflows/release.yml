@@ -26,7 +26,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+          arguments: publish${{ matrix.qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   linux-publishing:
     strategy:
       matrix:
@@ -44,7 +44,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: publishLinux${{ arch }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+          arguments: publishLinux${{ matrix.arch }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   mac-publishing:
     strategy:
       matrix:
@@ -62,7 +62,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+          arguments: publish${{ matrix.qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   mpp-publishing:
     strategy:
       matrix:
@@ -80,4 +80,4 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+          arguments: publish${{ matrix.qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
