@@ -9,6 +9,7 @@ on:
       - '**.adoc'
       - '.editorconfig'
       - '**/.gitignore'
+      - 'libraries_version.properties'
   push:
     branches:
       - develop
@@ -18,6 +19,7 @@ on:
       - '**.adoc'
       - '.editorconfig'
       - '**/.gitignore'
+      - 'libraries_version.properties'
 jobs:
   run-tests:
     strategy:
