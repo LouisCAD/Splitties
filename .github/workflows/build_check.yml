@@ -3,7 +3,9 @@
 name: Check build and run tests
 on:
   pull_request:
-    types: [assigned, opened, synchronize, reopened, ready_for_review]
+    branches:
+      - develop
+      - master
     paths-ignore:
       - '**.md'
       - '**.adoc'
