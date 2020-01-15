@@ -56,43 +56,6 @@ fun PublishingExtension.setupAllPublications(project: Project) {
         }
     }
     setupPublishRepo(project)
-
-
-    project.tasks.register("publishToRepository") {
-        group = "publishing"
-        val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
-        val publishToRepoTasks = publishTasks.filterNot { it.name.endsWith("ToMavenLocal") }
-
-        val hostSpecificPublicationTasks = when (val family = HostManager.host.family) {
-            Family.OSX -> publishToRepoTasks.filter {
-                it.name.startsWith("publishMacos") ||
-                    it.name.startsWith("publishIos") ||
-                    it.name.startsWith("publishTvos") ||
-                    it.name.startsWith("publishWatchos")
-            }
-            Family.LINUX -> publishToRepoTasks.filter {
-                it.name.startsWith("publishLinux")
-            }
-            Family.MINGW -> publishToRepoTasks.filter {
-                it.name.startsWith("publishMingw")
-            }
-            else -> error(
-                "Unsupported publishing host: ${HostManager.host} from family $family. " +
-                    "Kudos for making it run here though."
-            )
-        }
-        hostSpecificPublicationTasks.forEach { task -> dependsOn(task) }
-
-        val publishAll = project.findProperty("mpp.publishAll")?.toString()?.toBoolean() ?: false
-
-        if (publishAll) publishToRepoTasks.filter {
-            it.name.startsWith("publishKotlinMultiplatform") ||
-                it.name.startsWith("publishMetadata") ||
-                it.name.startsWith("publishAndroid") ||
-                it.name.startsWith("publishJvm") ||
-                it.name.startsWith("publishJs")
-        }.forEach { task -> dependsOn(task) }
-    }
 }
 
 private fun PublishingExtension.setupPublishRepo(project: Project) {

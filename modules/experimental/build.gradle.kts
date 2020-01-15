@@ -12,6 +12,8 @@ kotlin {
     js()
     macos()
     ios(supportArm32 = true)
+    watchos()
+    tvos()
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
