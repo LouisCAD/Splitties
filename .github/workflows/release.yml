@@ -13,40 +13,40 @@ jobs:
     strategy:
       matrix:
         qualifier: [MingwX64, MingwX86]
-      runs-on: windows-latest
-      steps:
-        - uses: actions/checkout@v1
-        - uses: actions/setup-java@v1
-          with:
-            java-version: 11
-        - uses: actions/cache@v1.1.0
-          with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-            restore-keys: |
-              ${{ runner.os }}-gradle-
-        - uses: eskatos/gradle-command-action@v1
-          with:
-            arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: publish${{ qualifier }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   linux-publishing:
     strategy:
       matrix:
         arch: [X64, Arm32Hfp, Arm64, Mips32, Mipsel32]
-      runs-on: windows-latest
-      steps:
-        - uses: actions/checkout@v1
-        - uses: actions/setup-java@v1
-          with:
-            java-version: 11
-        - uses: actions/cache@v1.1.0
-          with:
-            path: ~/.gradle/caches
-            key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-            restore-keys: |
-              ${{ runner.os }}-gradle-
-        - uses: eskatos/gradle-command-action@v1
-          with:
-            arguments: publishLinux${{ arch }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: actions/cache@v1.1.0
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: publishLinux${{ arch }}ToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }} --scan -PbuildScan.termsOfServiceAgree=yes
   mac-publishing:
     strategy:
       matrix:
