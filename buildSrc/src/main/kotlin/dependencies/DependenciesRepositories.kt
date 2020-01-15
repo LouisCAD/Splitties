@@ -17,7 +17,8 @@ fun RepositoryHandler.setupForProject() {
         "com.google.firebase",
         "io.fabric.sdk.android",
         "com.crashlytics.sdk.android",
-        "org.chromium.net"
+        "org.chromium.net",
+        "com.android"
     ).ensureGroupsStartingWith(
         "androidx.",
         "com.android.",
