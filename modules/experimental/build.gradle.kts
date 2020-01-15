@@ -15,6 +15,7 @@ kotlin {
     watchos()
     tvos()
     mingw(x64 = true, x86 = true)
+    linux(x64 = true, arm32Hfp = true, arm64 = true, mips32 = true, mipsel32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
