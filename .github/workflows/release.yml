@@ -30,7 +30,7 @@ jobs:
   linux-publishing:
     strategy:
       matrix:
-        arch: [X64, Arm32Hfp, Arm64, Mips32, Mipsel32]
+        arch: [X64, Arm32Hfp, Arm64]
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
