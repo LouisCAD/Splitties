@@ -12,6 +12,7 @@ on:
       - '.editorconfig'
       - '**/.gitignore'
       - 'libraries_version.properties'
+      - '.github/workflows/release.yml'
   push:
     branches:
       - develop
@@ -22,6 +23,7 @@ on:
       - '.editorconfig'
       - '**/.gitignore'
       - 'libraries_version.properties'
+      - '.github/workflows/release.yml'
 jobs:
   run-tests:
     strategy:
