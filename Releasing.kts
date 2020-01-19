@@ -120,7 +120,6 @@ enum class BintrayReleaseStep { // Order of the steps, must be kept right.
     `Request README update confirmation`,
     `Request CHANGELOG update confirmation`,
     `Commit "prepare for release" and tag`,
-    `Clean and upload`,
     `Push release to origin`,
     `Request PR submission`,
     `Request bintray publish`,
@@ -216,16 +215,10 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         "git commit -am \"Prepare for release $newVersion\"".executeAndPrint()
         "git tag -a v$newVersion -m \"Version $newVersion\"".executeAndPrint()
     }
-    `Clean and upload` -> {
-        TODO("This step is obsolete is set to be replaced by a GitHub Action")
-        val cleanAndUploadCommand = "./gradlew clean bintrayUpload"
-        printInfo("Running `$cleanAndUploadCommand`")
-        cleanAndUploadCommand.executeAndPrint()
-        printQuestion("Please check upload succeded.")
-    }
     `Push release to origin` -> {
         val pushToOriginCommand = "git push origin"
         printInfo("Will now run $pushToOriginCommand")
+        printInfo("Once complete, GitHub should kick-off the release GitHub Action that will perform the publishing.")
         requestUserConfirmation("Continue?")
         pushToOriginCommand.executeAndPrint()
     }
@@ -233,6 +226,9 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         requestManualAction("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
     }
     `Request bintray publish` -> {
+        printInfo("To perform this step, we need to wait for the artifacts building and uploading to Bintray.")
+        requestUserConfirmation("Did the publishing/release Github Action complete successfully?")
+        printInfo("Alright, we take your word. Let's release the artifacts now:")
         requestManualAction("Sign in on Bintray and publish the packages.")
     }
     `Push tags to origin` -> {
@@ -245,7 +241,7 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         requestManualAction("Merge the pull request for the new version on GitHub.")
     }
     `Request GitHub release publication` -> {
-        requestManualAction("Publish release on GitHub.")
+        requestManualAction("Publish release on GitHub with the changelog.")
     }
     `Update master branch` -> {
         printInfo("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
@@ -314,6 +310,8 @@ fun openUrl(url: String) {
     }
     command.execute()
 }
+
 releaseOnBintray()
+
 val createAndroidStudioCommandLineLauncherUrl = "https://stackoverflow.com/a/48266060/4433326"
 //openUrl(createAndroidStudioCommandLineLauncherUrl)
