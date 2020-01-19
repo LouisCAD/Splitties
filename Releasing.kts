@@ -116,22 +116,22 @@ fun requestUserConfirmation(yesNoQuestion: String) {
 }
 
 enum class BintrayReleaseStep { // Order of the steps, must be kept right.
-    CHANGE_THIS_LIBRARY_CONSTANT,
-    REQUEST_README_UPDATE_CONFIRMATION,
-    REQUEST_CHANGELOG_UPDATE_CONFIRMATION,
-    COMMIT_PREPARE_FOR_RELEASE_AND_TAG,
-    CLEAN_AND_UPLOAD,
-    PUSH_RELEASE_TO_ORIGIN,
-    REQUEST_PR_SUBMISSION,
-    REQUEST_BINTRAY_PUBLISH,
-    PUSH_TAGS_TO_ORIGIN,
-    REQUEST_PR_MERGE,
-    REQUEST_GITHUB_RELEASE_PUBLICATION,
-    UPDATE_MASTER_BRANCH,
-    UPDATE_DEVELOP_BRANCH_FROM_MASTER,
-    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_DEV_VERSION,
-    COMMIT_PREPARE_NEXT_DEV_VERSION,
-    PUSH_AT_LAST;
+    `Change this library version`,
+    `Request README update confirmation`,
+    `Request CHANGELOG update confirmation`,
+    `Commit "prepare for release" and tag`,
+    `Clean and upload`,
+    `Push release to origin`,
+    `Request PR submission`,
+    `Request bintray publish`,
+    `Push tags to origin`,
+    `Request PR merge`,
+    `Request GitHub release publication`,
+    `Update master branch`,
+    `Update develop branch from master`,
+    `Change this library version back to a dev version`,
+    `Commit "prepare next dev version"`,
+    `Push, at last`;
 }
 
 fun checkOnDevelopBranch() {
@@ -184,12 +184,12 @@ if (ongoingReleaseFile.exists()) {
         }.sorted().toList()
         check("v$input" !in existingVersions) { "This version already exists!" }
     }!!
-    startAtStep = CHANGE_THIS_LIBRARY_CONSTANT
+    startAtStep = `Change this library version`
 }
 
 
 fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
-    CHANGE_THIS_LIBRARY_CONSTANT -> {
+    `Change this library version` -> {
         checkOnDevelopBranch()
         printInfo("New version: \"$newVersion\"")
         requestUserConfirmation("Confirm?")
@@ -204,62 +204,62 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
             )
         )
     }
-    REQUEST_README_UPDATE_CONFIRMATION -> {
+    `Request README update confirmation` -> {
         requestManualAction("Update the `README.md` with the new version and any other changes.")
         dir.resolve("README.md").checkChanged()
     }
-    REQUEST_CHANGELOG_UPDATE_CONFIRMATION -> {
+    `Request CHANGELOG update confirmation` -> {
         requestManualAction("Update the `CHANGELOG.md` for the impending release.")
         dir.resolve("CHANGELOG.md").checkChanged()
     }
-    COMMIT_PREPARE_FOR_RELEASE_AND_TAG -> {
+    `Commit "prepare for release" and tag` -> {
         "git commit -am \"Prepare for release $newVersion\"".executeAndPrint()
         "git tag -a v$newVersion -m \"Version $newVersion\"".executeAndPrint()
     }
-    CLEAN_AND_UPLOAD -> {
+    `Clean and upload` -> {
         TODO("This step is obsolete is set to be replaced by a GitHub Action")
         val cleanAndUploadCommand = "./gradlew clean bintrayUpload"
         printInfo("Running `$cleanAndUploadCommand`")
         cleanAndUploadCommand.executeAndPrint()
         printQuestion("Please check upload succeded.")
     }
-    PUSH_RELEASE_TO_ORIGIN -> {
+    `Push release to origin` -> {
         val pushToOriginCommand = "git push origin"
         printInfo("Will now run $pushToOriginCommand")
         requestUserConfirmation("Continue?")
         pushToOriginCommand.executeAndPrint()
     }
-    REQUEST_PR_SUBMISSION -> {
+    `Request PR submission` -> {
         requestManualAction("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
     }
-    REQUEST_BINTRAY_PUBLISH -> {
+    `Request bintray publish` -> {
         requestManualAction("Sign in on Bintray and publish the packages.")
     }
-    PUSH_TAGS_TO_ORIGIN -> {
+    `Push tags to origin` -> {
         val pushToOriginWithTagsCommand = "git push origin --tags"
         printInfo("Will now run $pushToOriginWithTagsCommand")
         requestUserConfirmation("Continue?")
         pushToOriginWithTagsCommand.executeAndPrint()
     }
-    REQUEST_PR_MERGE -> {
+    `Request PR merge` -> {
         requestManualAction("Merge the pull request for the new version on GitHub.")
     }
-    REQUEST_GITHUB_RELEASE_PUBLICATION -> {
+    `Request GitHub release publication` -> {
         requestManualAction("Publish release on GitHub.")
     }
-    UPDATE_MASTER_BRANCH -> {
+    `Update master branch` -> {
         printInfo("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
         requestUserConfirmation("Continue?")
         "git checkout master".executeAndPrint()
         "git pull origin".executeAndPrint()
     }
-    UPDATE_DEVELOP_BRANCH_FROM_MASTER -> {
+    `Update develop branch from master` -> {
         printInfo("About to checkout the develop branch (and update it from master for merge commits).")
         requestUserConfirmation("Continue?")
         "git checkout develop".executeAndPrint()
         "git merge master".executeAndPrint()
     }
-    CHANGE_THIS_LIBRARY_CONSTANT_BACK_TO_A_DEV_VERSION -> {
+    `Change this library version back to a dev version` -> {
         printInfo("Let's update the library for next development version.")
         printInfo("If you want to keep using $currentDevVersion, enter an empty line.")
         printInfo("Otherwise, enter the name of the next target version (`-dev-001` will be added automatically)")
@@ -274,12 +274,12 @@ fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
         )
         printInfo("${versionsFile.path} has been edited with next developement version ($nextDevVersion).")
     }
-    COMMIT_PREPARE_NEXT_DEV_VERSION -> {
+    `Commit "prepare next dev version"` -> {
         val nextDevVersionCommitCommand = "git commit -am \"Prepare next development version.\""
         requestUserConfirmation("Will run $nextDevVersionCommitCommand Continue?")
         nextDevVersionCommitCommand.executeAndPrint()
     }
-    PUSH_AT_LAST -> {
+    `Push, at last` -> {
         val pushToOriginCommand = "git push origin"
         requestUserConfirmation("Finally the last step: Running: `$pushToOriginCommand`. Continue?")
         pushToOriginCommand.executeAndPrint()
