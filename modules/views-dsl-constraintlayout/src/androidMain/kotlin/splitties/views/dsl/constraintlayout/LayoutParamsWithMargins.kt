@@ -8,12 +8,8 @@ package splitties.views.dsl.constraintlayout
 
 import android.view.View
 import androidx.annotation.Px
-import splitties.views.dsl.core.endMargin
-import splitties.views.dsl.core.horizontalMargin
-import splitties.views.dsl.core.margin
-import splitties.views.dsl.core.startMargin
-import splitties.views.dsl.core.verticalMargin
-import splitties.views.existingOrNewId
+import splitties.views.*
+import splitties.views.dsl.core.*
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams as LP
 
 inline fun LP.centerHorizontally(@Px margin: Int) {
@@ -90,69 +86,81 @@ inline fun LP.centerOn(view: View, @Px horizontalMargin: Int, @Px verticalMargin
     this.verticalMargin = verticalMargin
 }
 
-inline fun LP.before(view: View, @Px margin: Int) = endToStartOf(view, margin)
-inline fun LP.above(view: View, @Px margin: Int) = bottomToTopOf(view, margin)
-inline fun LP.after(view: View, @Px margin: Int) = startToEndOf(view, margin)
-inline fun LP.below(view: View, @Px margin: Int) = topToBottomOf(view, margin)
+inline fun LP.before(view: View, @Px margin: Int, @Px goneMargin: Int = goneEndMargin) = endToStartOf(view, margin, goneMargin)
+inline fun LP.above(view: View, @Px margin: Int, @Px goneMargin: Int = goneBottomMargin) = bottomToTopOf(view, margin, goneMargin)
+inline fun LP.after(view: View, @Px margin: Int, @Px goneMargin: Int = goneStartMargin) = startToEndOf(view, margin, goneMargin)
+inline fun LP.below(view: View, @Px margin: Int, @Px goneMargin: Int = goneTopMargin) = topToBottomOf(view, margin, goneMargin)
 
-inline fun LP.topToTopOf(view: View, @Px margin: Int) {
+inline fun LP.topToTopOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneTopMargin) {
     topToTop = view.existingOrNewId
     topMargin = margin
+    goneTopMargin = goneMargin
 }
 
-inline fun LP.topToBottomOf(view: View, @Px margin: Int) {
+inline fun LP.topToBottomOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneTopMargin) {
     topToBottom = view.existingOrNewId
     topMargin = margin
+    goneTopMargin = goneMargin
 }
 
-inline fun LP.bottomToTopOf(view: View, @Px margin: Int) {
+inline fun LP.bottomToTopOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneBottomMargin) {
     bottomToTop = view.existingOrNewId
     bottomMargin = margin
+    goneBottomMargin = goneMargin
 }
 
-inline fun LP.bottomToBottomOf(view: View, @Px margin: Int) {
+inline fun LP.bottomToBottomOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneBottomMargin) {
     bottomToBottom = view.existingOrNewId
     bottomMargin = margin
+    goneBottomMargin = goneMargin
 }
 
-inline fun LP.startToStartOf(view: View, @Px margin: Int) {
+inline fun LP.startToStartOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneStartMargin) {
     startToStart = view.existingOrNewId
     startMargin = margin
+    goneStartMargin = goneMargin
 }
 
-inline fun LP.startToEndOf(view: View, @Px margin: Int) {
+inline fun LP.startToEndOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneStartMargin) {
     startToEnd = view.existingOrNewId
     startMargin = margin
+    goneStartMargin = goneMargin
 }
 
-inline fun LP.endToStartOf(view: View, @Px margin: Int) {
+inline fun LP.endToStartOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneEndMargin) {
     endToStart = view.existingOrNewId
     endMargin = margin
+    goneEndMargin = goneMargin
 }
 
-inline fun LP.endToEndOf(view: View, @Px margin: Int) {
+inline fun LP.endToEndOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneEndMargin) {
     endToEnd = view.existingOrNewId
     endMargin = margin
+    goneEndMargin = goneMargin
 }
 
-inline fun LP.leftToLeftOf(view: View, @Px margin: Int) {
+inline fun LP.leftToLeftOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneLeftMargin) {
     leftToLeft = view.existingOrNewId
     leftMargin = margin
+    goneLeftMargin = goneMargin
 }
 
-inline fun LP.leftToRightOf(view: View, @Px margin: Int) {
+inline fun LP.leftToRightOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneLeftMargin) {
     leftToRight = view.existingOrNewId
     leftMargin = margin
+    goneLeftMargin = goneMargin
 }
 
-inline fun LP.rightToRightOf(view: View, @Px margin: Int) {
+inline fun LP.rightToRightOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneRightMargin) {
     rightToRight = view.existingOrNewId
     rightMargin = margin
+    goneRightMargin = goneMargin
 }
 
-inline fun LP.rightToLeftOf(view: View, @Px margin: Int) {
+inline fun LP.rightToLeftOf(view: View, @Px margin: Int, @Px goneMargin: Int = goneRightMargin) {
     rightToLeft = view.existingOrNewId
     rightMargin = margin
+    goneRightMargin = goneMargin
 }
 
 inline fun LP.alignVerticallyOn(view: View, @Px margin: Int) {
