@@ -25,7 +25,7 @@ on:
       - 'libraries_version.properties'
       - '.github/workflows/release.yml'
 jobs:
-  Host agnostic tests:
+  Host-agnostic-tests:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
@@ -38,7 +38,7 @@ jobs:
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: jvmTest jsTest testDebugUnitTest testReleaseUnitTest tasks --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
-  macOS tests:
+  macOS-tests:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
@@ -48,7 +48,7 @@ jobs:
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: macosX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
-  Linux tests:
+  Linux-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -58,7 +58,7 @@ jobs:
       - uses: eskatos/gradle-command-action@v1
         with:
           arguments: linuxX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
-  Windows tests:
+  Windows-tests:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
