@@ -12,17 +12,16 @@ import splitties.views.*
 import splitties.views.dsl.core.*
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams as LP
 
-@Suppress("unused")
-inline val LP.parentId
+inline val @Suppress("unused") LP.parentId
     get() = LP.PARENT_ID
-@Suppress("unused")
-inline val LP.packed
+
+inline val @Suppress("unused") LP.packed
     get() = LP.CHAIN_PACKED
-@Suppress("unused")
-inline val LP.spread
+
+inline val @Suppress("unused") LP.spread
     get() = LP.CHAIN_SPREAD
-@Suppress("unused")
-inline val LP.spreadInside
+
+inline val @Suppress("unused") LP.spreadInside
     get() = LP.CHAIN_SPREAD_INSIDE
 
 
