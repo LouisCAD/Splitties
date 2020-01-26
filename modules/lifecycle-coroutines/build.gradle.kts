@@ -25,12 +25,12 @@ kotlin {
             api(Kotlin.stdlib.jdk7)
             api(KotlinX.coroutines.android)
             api(AndroidX.lifecycle.common)
+            api(AndroidX.lifecycle.runtimeKtx)
         }
         getByName("androidTest").dependencies {
             implementation(splitties("experimental"))
             implementation(KotlinX.coroutines.test)
             implementation(Kotlin.test.junit)
-            implementation(AndroidX.lifecycle.runtime)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

@@ -1,14 +1,13 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
+@file:Suppress("DEPRECATION")
+
 package splitties.lifecycle.coroutines
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.mainthread.isMainThread
 import java.util.concurrent.ConcurrentHashMap
@@ -19,8 +18,10 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * Note that this value is cached until the Lifecycle reaches the destroyed state.
  */
-@ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
+@Deprecated(
+    message = defaultDeprecationMessage,
+    replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope")
+)
 @UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
 val Lifecycle.coroutineScope: CoroutineScope
     get() = cachedLifecycleCoroutineScopes.let { cache ->
@@ -40,8 +41,10 @@ val Lifecycle.coroutineScope: CoroutineScope
  * This is an inline property, just there for convenient usage from any [LifecycleOwner],
  * like FragmentActivity, AppCompatActivity, Fragment and LifecycleService.
  */
-@ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
+@Deprecated(
+    message = defaultDeprecationMessage,
+    replaceWith = ReplaceWith("lifecycleScope", "androidx.lifecycle.lifecycleScope")
+)
 inline val LifecycleOwner.lifecycleScope
     get() = lifecycle.coroutineScope
 
@@ -51,9 +54,11 @@ inline val LifecycleOwner.lifecycleScope
  * This is an inline property, just there for convenient usage from any [LifecycleOwner],
  * like FragmentActivity, AppCompatActivity, Fragment and LifecycleService.
  */
-@Deprecated("Naming changed", ReplaceWith("lifecycleScope", "splitties.lifecycle.coroutines.lifecycleScope"))
-@ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
+@Deprecated(
+    message = defaultDeprecationMessage,
+    replaceWith = ReplaceWith("lifecycleScope", "androidx.lifecycle.lifecycleScope"),
+    level = DeprecationLevel.ERROR
+)
 inline val LifecycleOwner.coroutineScope
     get() = lifecycleScope
 
@@ -65,10 +70,17 @@ inline val LifecycleOwner.coroutineScope
  *
  * You can use this job for custom [CoroutineScope]s, or as a parent [Job].
  */
-@ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
+@Deprecated(
+    message = defaultDeprecationMessage,
+    replaceWith = ReplaceWith(
+        "coroutineScope.coroutineContext[Job]!!",
+        "androidx.lifecycle.coroutineScope",
+        "kotlinx.coroutines.Job"
+    )
+)
 val Lifecycle.job: Job
     get() = cachedLifecycleJobs.let { cache ->
+        @UseExperimental(ExperimentalSplittiesApi::class)
         cache[this] ?: createJob().also {
             if (it.isActive) {
                 cache[this] = it

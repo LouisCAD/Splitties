@@ -8,9 +8,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.coroutines.launch
-import splitties.lifecycle.coroutines.lifecycleScope
+import kotlinx.coroutines.*
 
 class PreferencesBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
