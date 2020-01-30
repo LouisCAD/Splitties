@@ -66,7 +66,7 @@ private fun PublishingExtension.setupPublishRepo(project: Project) {
             setUrl(
                 "https://api.bintray.com/maven/" +
                     "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                    "publish=0;" + // Never auto-publish to allow override.
+                    "publish=1;" + // Might conflict with override. TODO: Revert or remove this comment based on results
                     "override=1"
             )
             credentials {
