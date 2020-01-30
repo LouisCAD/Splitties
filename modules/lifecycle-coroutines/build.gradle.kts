@@ -17,6 +17,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         commonMain.dependencies {
+            implementation(splitties("coroutines"))
             api(splitties("experimental"))
         }
         androidMain.dependencies {
