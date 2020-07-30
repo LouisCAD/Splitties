@@ -25,7 +25,7 @@ task<Delete>("clean") {
 allprojects {
     repositories { setupForProject() }
     tasks.whenTaskAdded {
-        if("DebugUnitTest" in name || "ReleaseUnitTest" in name) {
+        if ("DebugUnitTest" in name || "ReleaseUnitTest" in name) {
             enabled = false
             // MPP + Android unit testing is so broken we just disable it altogether,
             // (discussion here https://kotlinlang.slack.com/archives/C3PQML5NU/p1572168720226200)
