@@ -4,6 +4,7 @@
 
 package com.example.splitties.preferences
 
+import kotlinx.coroutines.flow.*
 import splitties.preferences.Preferences
 import splitties.preferences.SuspendPrefsAccessor
 
@@ -14,6 +15,12 @@ class SamplePreferences private constructor() : Preferences(name = "sample") {
     var showAnnoyingPopupAtLaunch by showAnnoyingPopupAtLaunchField
     val showAnnoyingPopupInLoopField = boolPref("annoying_popup_loop", defaultValue = false)
     var showAnnoyingPopupInLoop by showAnnoyingPopupInLoopField
+
+    val someFlow: Flow<Boolean>
+
+    var somePrefField by boolPref("somePref", defaultValue = false).also {
+        someFlow = it.valueFlow()
+    }
 
     companion object : SuspendPrefsAccessor<SamplePreferences>(::SamplePreferences)
 }
