@@ -290,7 +290,7 @@ private object AndroidxMigrator {
         }.toMap()
     }
 
-    @UseExperimental(ExperimentalStdlibApi::class)
+    @OptIn(ExperimentalStdlibApi::class)
     private fun KClass<*>.getArtifactNameToSplittiesConstantMapping(prefix: String): List<Pair<String, String>> {
         return nestedClasses.filter { it.visibility == KVisibility.PUBLIC }.flatMap { kClass ->
             val propertyName = kClass.simpleName!!.let { c -> "${c.first().toLowerCase()}${c.substring(1)}"}
