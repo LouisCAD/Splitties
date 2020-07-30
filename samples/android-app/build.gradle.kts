@@ -85,7 +85,7 @@ kotlin {
                 AndroidX.appCompat,
                 AndroidX.coreKtx,
                 AndroidX.constraintLayout,
-                Google.material,
+                Google.android.material,
                 JakeWharton.timber,
                 KotlinX.coroutines.android
             ).forEach {

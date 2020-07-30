@@ -2,12 +2,25 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-import de.fayard.versions.setupVersionPlaceholdersResolving
+import de.fayard.refreshVersions.bootstrapRefreshVersionsForBuildSrc
 
-@Suppress("UnstableApiUsage")
-buildscript {
-    repositories { gradlePluginPortal() }
-    dependencies.classpath("de.fayard.refreshVersions:de.fayard.refreshVersions.gradle.plugin:0.8.6")
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        jcenter()
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
 }
 
-setupVersionPlaceholdersResolving()
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        jcenter()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5-dev-007")
+}
+
+bootstrapRefreshVersionsForBuildSrc()

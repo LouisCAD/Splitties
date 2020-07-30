@@ -19,7 +19,7 @@ kotlin {
         androidMain.dependencies {
             api(Kotlin.stdlib.jdk7)
             api(AndroidX.annotation)
-            api(Google.material)
+            api(Google.android.material)
             implementation(splitties("resources"))
         }
     }

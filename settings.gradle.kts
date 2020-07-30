@@ -4,7 +4,24 @@
 
 @file:Suppress("SpellCheckingInspection")
 
-import de.fayard.versions.setupVersionPlaceholdersResolving
+import de.fayard.refreshVersions.bootstrapRefreshVersions
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5-dev-007")
+}
 
 plugins {
     id("com.gradle.enterprise").version("3.1")
@@ -17,13 +34,7 @@ gradleEnterprise {
     }
 }
 
-@Suppress("UnstableApiUsage")
-buildscript {
-    repositories { gradlePluginPortal() }
-    dependencies.classpath("de.fayard.refreshVersions:de.fayard.refreshVersions.gradle.plugin:0.8.6")
-}
-
-setupVersionPlaceholdersResolving()
+bootstrapRefreshVersions()
 
 arrayOf(
     "activities",

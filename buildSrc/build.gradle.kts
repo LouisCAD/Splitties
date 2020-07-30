@@ -4,7 +4,6 @@
 
 plugins {
     `kotlin-dsl`
-    id("de.fayard.refreshVersions")
 }
 
 repositories {

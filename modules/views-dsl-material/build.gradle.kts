@@ -25,7 +25,7 @@ kotlin {
             api(splitties("initprovider"))
             api(Kotlin.stdlib.jdk7)
             api(AndroidX.annotation)
-            api(Google.material)
+            api(Google.android.material)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

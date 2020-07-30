@@ -19,7 +19,7 @@ kotlin {
         androidMain.dependencies {
             api(Kotlin.stdlib.jdk7)
             api(splitties("views-coroutines"))
-            api(Google.material)
+            api(Google.android.material)
         }
     }
 }

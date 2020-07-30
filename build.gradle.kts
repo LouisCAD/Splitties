@@ -5,8 +5,15 @@
 @file:Suppress("SpellCheckingInspection")
 
 
+buildscript {
+    repositories { setupForProject() }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
+        classpath("com.android.tools.build:gradle:_")
+    }
+}
+
 plugins {
-    id("de.fayard.refreshVersions")
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
