@@ -59,7 +59,7 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("NewInference")
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")

@@ -119,7 +119,7 @@ suspend inline fun <R> View.visibleUntilLongClicked(
  * @see invisibleInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -142,7 +142,7 @@ inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () 
  * @see invisibleInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.goneInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -165,7 +165,7 @@ inline fun <R> View.goneInScope(block: () -> R): R {
  * @see goneInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.invisibleInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {

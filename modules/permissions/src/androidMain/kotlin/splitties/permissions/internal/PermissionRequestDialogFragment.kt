@@ -25,7 +25,7 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
         runCatching { dismissAllowingStateLoss() } // Activity may be detached, so we catch.
     }
 
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
     private val asyncGrant = CompletableDeferred<PermissionRequestResult>(lifecycle.createJob())
 
     override fun onCreate(savedInstanceState: Bundle?) {

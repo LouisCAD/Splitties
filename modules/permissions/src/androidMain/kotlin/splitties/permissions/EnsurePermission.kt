@@ -195,7 +195,7 @@ suspend inline fun ensurePermission(
 }
 
 @PublishedApi
-@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+@OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
 internal suspend fun Context.openApplicationDetailsSettingsAndAwaitResumed(lifecycle: Lifecycle) {
     startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
         data = "package:$packageName".toUri()

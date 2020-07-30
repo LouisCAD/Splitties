@@ -89,7 +89,7 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
     setup: DF.() -> Unit = {}
 ): DF = newDialogRef().apply(setup).also {
     if (isStateSaved) {
-        @UseExperimental(ExperimentalSplittiesApi::class)
+        @OptIn(ExperimentalSplittiesApi::class)
         lifecycle.awaitResumed()
         if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)
     } else if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)

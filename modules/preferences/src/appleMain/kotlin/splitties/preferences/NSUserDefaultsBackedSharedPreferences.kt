@@ -135,7 +135,7 @@ internal class NSUserDefaultsBackedSharedPreferences(
                         when (val listener = it.get()) {
                             null -> changeListeners -= it
                             else -> {
-                                @UseExperimental(NonSymmetricalApi::class)
+                                @OptIn(NonSymmetricalApi::class)
                                 listener.onSharedPreferenceChanged(
                                     sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
                                     key = key
@@ -170,7 +170,7 @@ internal class NSUserDefaultsBackedSharedPreferences(
                     when (val listener = it.get()) {
                         null -> changeListeners -= it
                         else -> {
-                            @UseExperimental(NonSymmetricalApi::class)
+                            @OptIn(NonSymmetricalApi::class)
                             listener.onSharedPreferenceChanged(
                                 sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
                                 key = key

@@ -44,7 +44,7 @@ import splitties.toast.toast
 import splitties.views.dsl.core.*
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

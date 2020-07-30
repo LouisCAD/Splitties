@@ -25,11 +25,11 @@ import kotlin.test.assertTrue
 @ExperimentalSplittiesApi
 class LifecycleTest {
 
-    @UseExperimental(ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val mainDispatcherSurrogate = newSingleThreadContext("main thread surrogate")
 
     @BeforeTest
-    @UseExperimental(ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
         Dispatchers.setMain(mainDispatcherSurrogate)
     }

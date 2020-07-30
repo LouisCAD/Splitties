@@ -34,7 +34,7 @@ kotlin {
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap
     message = defaultDeprecationMessage,
     replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope")
 )
-@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
+@OptIn(MainDispatcherPerformanceIssueWorkaround::class)
 val Lifecycle.coroutineScope: CoroutineScope
     get() = cachedLifecycleCoroutineScopes.let { cache ->
         cache[this] ?: job.let { job ->
@@ -80,7 +80,7 @@ inline val LifecycleOwner.coroutineScope
 )
 val Lifecycle.job: Job
     get() = cachedLifecycleJobs.let { cache ->
-        @UseExperimental(ExperimentalSplittiesApi::class)
+        @OptIn(ExperimentalSplittiesApi::class)
         cache[this] ?: createJob().also {
             if (it.isActive) {
                 cache[this] = it

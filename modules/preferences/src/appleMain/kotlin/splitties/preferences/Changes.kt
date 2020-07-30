@@ -15,7 +15,7 @@ import platform.Foundation.NSUserDefaultsDidChangeNotification
 import splitties.experimental.NonSymmetricalApi
 import splitties.mainthread.isMainThread
 
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 internal actual fun SharedPreferences.changesFlow(
     key: String,
     emitAfterRegister: Boolean
@@ -34,15 +34,15 @@ internal actual fun SharedPreferences.changesFlow(
             defaultNotificationCenter.removeObserver(observer)
         }
     } else {
-        @UseExperimental(NonSymmetricalApi::class)
+        @OptIn(NonSymmetricalApi::class)
         val listener = OnSharedPreferenceChangeListener { _, changedKey ->
             if (key == changedKey) runCatching { offer(Unit) }
         }
-        @UseExperimental(NonSymmetricalApi::class)
+        @OptIn(NonSymmetricalApi::class)
         registerOnSharedPreferenceChangeListener(listener)
         if (emitAfterRegister) runCatching { offer(Unit) }
         awaitClose {
-            @UseExperimental(NonSymmetricalApi::class)
+            @OptIn(NonSymmetricalApi::class)
             unregisterOnSharedPreferenceChangeListener(listener)
         }
 

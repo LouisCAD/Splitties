@@ -152,7 +152,7 @@ class UiPreView @JvmOverloads constructor(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 private inline fun <R> View.withStyledAttributes(
     attrs: AttributeSet?,
     attrsRes: IntArray,

@@ -24,7 +24,7 @@ import kotlin.test.assertEquals
 import kotlin.time.ExperimentalTime
 import kotlin.time.seconds
 
-@UseExperimental(
+@OptIn(
     ExperimentalSplittiesApi::class,
     ExperimentalTime::class,
     ExperimentalCoroutinesApi::class
@@ -180,7 +180,7 @@ class PreferencesTests {
         val flow = changesPrefs.someBoolField.changesFlow().buffer(Channel.UNLIMITED)
         repeat(4) {
             var count = 0
-            @UseExperimental(FlowPreview::class)
+            @OptIn(FlowPreview::class)
             flow.onEach { count++ }.produceIn(this).consume {
                 awaitCallbackFlowActivation(extraDispatches = 1 /* For onEach operator */)
                 writePrefs.someBool = readPrefs.someBool.not()
@@ -199,7 +199,7 @@ class PreferencesTests {
         val startValue = 7
         writePrefs.someInt = startValue
         val flow = readPrefs.someIntField.valueFlow().buffer(Channel.UNLIMITED)
-        @UseExperimental(FlowPreview::class)
+        @OptIn(FlowPreview::class)
         flow.produceIn(this).consume {
             awaitCallbackFlowActivation()
             assertEquals(startValue, receive())

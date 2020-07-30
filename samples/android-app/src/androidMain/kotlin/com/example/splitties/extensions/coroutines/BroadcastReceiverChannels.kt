@@ -45,7 +45,7 @@ fun broadcastReceiverChannel(
         }
     }
     val ctx = appCtx
-    @UseExperimental(ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     channel.invokeOnClose {
         ctx.unregisterReceiver(receiver)
     }

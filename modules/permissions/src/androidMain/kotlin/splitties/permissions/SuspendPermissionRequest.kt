@@ -52,7 +52,7 @@ suspend fun requestPermission(
     ) {
         return PermissionRequestResult.Granted
     }
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
     return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
         permissionNames = arrayOf(permission)
     }.awaitResult()
@@ -75,7 +75,7 @@ internal suspend fun requestAllPermissions(
     ) {
         return PermissionRequestResult.Granted
     }
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
     return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
         permissionNames = permissions
     }.awaitResult()

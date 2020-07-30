@@ -36,14 +36,14 @@ suspend fun <R> Dialog.showInScope(
     block: suspend () -> R
 ): R = try {
     coroutineScope {
-        @UseExperimental(ExperimentalCoroutinesApi::class)
+        @OptIn(ExperimentalCoroutinesApi::class)
         val dismissJob = launch(start = CoroutineStart.UNDISPATCHED) {
             suspendCancellableCoroutine<Unit> { c ->
                 setOnDismissListener { c.resume(Unit) }
                 show()
             }
         }
-        @UseExperimental(ExperimentalCoroutinesApi::class)
+        @OptIn(ExperimentalCoroutinesApi::class)
         val blockAsync = async(start = CoroutineStart.UNDISPATCHED) {
             block()
         }
