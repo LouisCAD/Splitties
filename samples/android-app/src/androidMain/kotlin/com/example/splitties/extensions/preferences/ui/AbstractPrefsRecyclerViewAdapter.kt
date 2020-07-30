@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.splitties.extensions.recyclerview.ListAdapter
+import splitties.collections.forEachByIndex
+import splitties.collections.forEachWithIndex
 import splitties.mainthread.checkMainThread
 
 abstract class AbstractPrefsRecyclerViewAdapter : ListAdapter<Item, RecyclerView.ViewHolder> {
@@ -50,24 +52,4 @@ abstract class AbstractPrefsRecyclerViewAdapter : ListAdapter<Item, RecyclerView
     private val prefs = mutableSetOf<SharedPreferences>()
 
     abstract override fun getItemViewType(position: Int): Int
-}
-
-// TODO: Replace with splitties.collections.forEachByIndex import when
-//  https://youtrack.jetbrains.com/issue/KT-30116 is fixed.
-private inline fun <T> List<T>.forEachByIndex(action: (T) -> Unit) {
-    val initialSize = size
-    for (i in 0..lastIndex) {
-        if (size != initialSize) throw ConcurrentModificationException()
-        action(get(i))
-    }
-}
-
-// TODO: Replace with splitties.collections.forEachWithIndex import when
-//  https://youtrack.jetbrains.com/issue/KT-30116 is fixed.
-private inline fun <T> List<T>.forEachWithIndex(action: (Int, T) -> Unit) {
-    val initialSize = size
-    for (i in 0..lastIndex) {
-        if (size != initialSize) throw ConcurrentModificationException()
-        action(i, get(i))
-    }
 }
