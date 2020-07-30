@@ -15,6 +15,7 @@ fun RepositoryHandler.setupForProject() {
     google().ensureGroups(
         "com.google.gms",
         "com.google.firebase",
+        "com.google.test.platform",
         "io.fabric.sdk.android",
         "com.crashlytics.sdk.android",
         "org.chromium.net",
