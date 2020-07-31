@@ -7,10 +7,8 @@ package splitties.lifecycle.coroutines
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.coroutineScope
 import kotlinx.coroutines.*
-import splitties.experimental.ExperimentalSplittiesApi
-import splitties.mainthread.isMainThread
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that is cancelled when
@@ -22,18 +20,8 @@ import java.util.concurrent.ConcurrentHashMap
     message = defaultDeprecationMessage,
     replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope")
 )
-@OptIn(MainDispatcherPerformanceIssueWorkaround::class)
-val Lifecycle.coroutineScope: CoroutineScope
-    get() = cachedLifecycleCoroutineScopes.let { cache ->
-        cache[this] ?: job.let { job ->
-            val newScope = CoroutineScope(job + Dispatchers.MainAndroid)
-            if (job.isActive) {
-                cache[this] = newScope
-                job.invokeOnCompletion { _ -> cache -= this }
-            }
-            newScope
-        }
-    }
+inline val Lifecycle.coroutineScope: CoroutineScope
+    get() = coroutineScope
 
 /**
  * Calls [Lifecycle.coroutineScope] for the [Lifecycle] of this [LifecycleOwner].
@@ -79,35 +67,4 @@ inline val LifecycleOwner.coroutineScope
     )
 )
 val Lifecycle.job: Job
-    get() = cachedLifecycleJobs.let { cache ->
-        @OptIn(ExperimentalSplittiesApi::class)
-        cache[this] ?: createJob().also {
-            if (it.isActive) {
-                cache[this] = it
-                it.invokeOnCompletion { _ -> cache -= this }
-            }
-        }
-    }
-
-private inline val cachedLifecycleJobs: MutableMap<Lifecycle, Job>
-    get() = try {
-        if (isMainThread) mainThreadJobs else anyThreadJobs
-    } catch (cantCheckMainThreadInTestsError: ExceptionInInitializerError) {
-        anyThreadJobs
-    } catch (cantCheckMainThreadInTestsError: NoClassDefFoundError) {
-        anyThreadJobs
-    }
-private inline val cachedLifecycleCoroutineScopes: MutableMap<Lifecycle, CoroutineScope>
-    get() = try {
-        if (isMainThread) mainThreadScopes else anyThreadScopes
-    } catch (cantCheckMainThreadInTestsError: ExceptionInInitializerError) {
-        anyThreadScopes
-    } catch (cantCheckMainThreadInTestsError: NoClassDefFoundError) {
-        anyThreadScopes
-    }
-
-private val mainThreadJobs = mutableMapOf<Lifecycle, Job>()
-private val mainThreadScopes = mutableMapOf<Lifecycle, CoroutineScope>()
-
-private val anyThreadJobs = ConcurrentHashMap<Lifecycle, Job>()
-private val anyThreadScopes = ConcurrentHashMap<Lifecycle, CoroutineScope>()
+    get() = coroutineScope.coroutineContext[Job]!!
