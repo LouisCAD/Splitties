@@ -1,11 +1,11 @@
-# Material Dialog
+# Alert Dialog Material
 
 *Create simple alert dialogs in material design with simple code*
 
 ## Example
 
 ```kotlin
-import splitties.materialdialog.materialDialog
+import splitties.alertdialog.material.materialAlertDialog
 import splitties.alertdialog.appcompat.cancelButton
 import splitties.alertdialog.appcompat.messageResource
 import splitties.alertdialog.appcompat.okButton
@@ -17,7 +17,7 @@ class YourActivity : AppCompatActivity {
     //...
 
     private fun doIrreversibleStuffOrCancel() {
-        materialDialog {
+        materialAlertDialog {
             messageResource = R.string.dialog_msg_confirm_irreversible_stuff
             okButton { irreversibleStuff() }
             cancelButton()
@@ -31,5 +31,5 @@ class YourActivity : AppCompatActivity {
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-materialdialog:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-material:$splitties_version")
 ```

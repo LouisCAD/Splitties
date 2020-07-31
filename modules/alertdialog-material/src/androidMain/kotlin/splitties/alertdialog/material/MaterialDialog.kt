@@ -1,8 +1,8 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package splitties.materialdialog
+package splitties.alertdialog.material
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -17,7 +17,7 @@ import splitties.alertdialog.appcompat.title
  * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
  * [AlertDialog.show] on the created dialog.
  */
-inline fun Context.materialDialog(dialogConfig: MaterialAlertDialogBuilder.() -> Unit): AlertDialog {
+inline fun Context.materialAlertDialog(dialogConfig: MaterialAlertDialogBuilder.() -> Unit): AlertDialog {
     return MaterialAlertDialogBuilder(this)
         .apply(dialogConfig)
         .create()
@@ -28,7 +28,7 @@ inline fun Context.materialDialog(dialogConfig: MaterialAlertDialogBuilder.() ->
  * [iconResource], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
  * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
  */
-inline fun Context.materialDialog(
+inline fun Context.materialAlertDialog(
     title: CharSequence? = null,
     message: CharSequence? = null,
     @DrawableRes iconResource: Int = 0,
@@ -47,7 +47,7 @@ inline fun Context.materialDialog(
  * [icon], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
  * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
  */
-inline fun Context.materialDialog(
+inline fun Context.materialAlertDialog(
     title: CharSequence? = null,
     message: CharSequence? = null,
     icon: Drawable? = null,

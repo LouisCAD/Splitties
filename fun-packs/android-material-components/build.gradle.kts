@@ -21,8 +21,8 @@ kotlin {
         androidMain.dependencies {
             api(project(":fun-packs:android-appcompat"))
             listOf(
+                "alertdialog-material",
                 "material-lists",
-                "materialdialog",
                 "snackbar",
                 "views-cardview",
                 "views-coroutines-material",
