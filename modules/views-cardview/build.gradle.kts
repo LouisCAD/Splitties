@@ -18,8 +18,8 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("views"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.cardView)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.cardView)
         }
     }
 }

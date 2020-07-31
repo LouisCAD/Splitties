@@ -23,9 +23,9 @@ kotlin {
             api(splitties("views-dsl-recyclerview"))
             api(splitties("views-material"))
             api(splitties("initprovider"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.google.material)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(Google.android.material)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.splitties.R
 import com.example.splitties.about.AboutActivity
 import com.example.splitties.demo.DemoActivity
@@ -28,7 +29,7 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import splitties.activities.start
@@ -36,15 +37,14 @@ import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.showAndAwaitOkOrDismiss
 import splitties.coroutines.repeatWhileActive
 import splitties.fragments.showAsync
-import splitties.lifecycle.coroutines.lifecycleScope
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.vibrator
 import splitties.toast.toast
-import splitties.views.dsl.core.setContentView
+import splitties.views.dsl.core.*
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
-@UseExperimental(ExperimentalCoroutinesApi::class, ObsoleteCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class)
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

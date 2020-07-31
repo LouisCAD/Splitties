@@ -33,7 +33,7 @@ sealed class PrefDelegate<T>(
     fun changesFlow(): Flow<Unit> = preferences.prefs.changesFlow(key)
 
     fun valueFlow(): Flow<T> {
-        @UseExperimental(ExperimentalCoroutinesApi::class)
+        @OptIn(ExperimentalCoroutinesApi::class)
         return preferences.prefs.changesFlow(key, emitAfterRegister = true).map { getValue() }
             .conflate().distinctUntilChanged()
     }

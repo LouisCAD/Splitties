@@ -51,7 +51,7 @@ class DemoAdapter(
     ) {
 
         init {
-            @UseExperimental(ExperimentalSplittiesApi::class)
+            @OptIn(ExperimentalSplittiesApi::class)
             itemView.layoutParams = layoutManager.verticalListLayoutParams()
             itemView.onClick { host.onDemoItemClicked(data) }
         }

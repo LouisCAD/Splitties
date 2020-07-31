@@ -126,7 +126,7 @@ class UiPreView @JvmOverloads constructor(
                     (i == 0 && parameterType == Context::class.java) || parameterType.isInterface
                 }
             } ?: illegalArg(
-                "No suitable constructor found. Need one with Context as" +
+                "No suitable constructor found. Need one with Context as " +
                         "first parameter, and only interface types for other parameters, if any."
             )
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
@@ -152,7 +152,7 @@ class UiPreView @JvmOverloads constructor(
     }
 }
 
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 private inline fun <R> View.withStyledAttributes(
     attrs: AttributeSet?,
     attrsRes: IntArray,

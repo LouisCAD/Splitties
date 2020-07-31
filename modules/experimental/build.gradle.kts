@@ -9,24 +9,28 @@ plugins {
 
 kotlin {
     jvm()
-    js()
+    js { useCommonJs() }
     macos()
-    ios()
+    ios(supportArm32 = true)
+    watchos()
+    tvos()
+    mingw(x64 = true, x86 = true)
+    linux(x64 = true, arm32Hfp = true, arm64 = true, mips32 = true, mipsel32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
         }
         jvmMain.dependencies {
-            api(kotlin("stdlib-jdk7"))
+            api(Kotlin.stdlib.jdk7)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
+            api(Kotlin.stdlib.js)
         }
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

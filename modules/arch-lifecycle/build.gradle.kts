@@ -22,16 +22,16 @@ kotlin {
         androidMain.dependencies {
             api(splitties("checkedlazy"))
             api(splitties("exceptions"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.fragment)
-            api(Libs.androidX.lifecycle.extensions)
-            api(Libs.androidX.lifecycle.viewModel)
-            api(Libs.androidX.lifecycle.liveData)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.fragment)
+            api(AndroidX.lifecycle.extensions)
+            api(AndroidX.lifecycle.viewModel)
+            api(AndroidX.lifecycle.liveData)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

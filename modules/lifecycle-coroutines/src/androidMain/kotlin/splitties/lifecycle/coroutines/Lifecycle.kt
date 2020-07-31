@@ -3,12 +3,12 @@
  */
 package splitties.lifecycle.coroutines
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.State.INITIALIZED
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.*
+import splitties.experimental.ExperimentalSplittiesApi
 
 /**
  * Returns a [CoroutineScope] that uses [Dispatchers.MainAndroid] by default, and that will be cancelled as
@@ -18,10 +18,9 @@ import kotlinx.coroutines.*
  * **Beware**: if the current state is lower than the passed [activeWhile] state, you'll get an
  * already cancelled scope.
  */
-@PotentialFutureAndroidXLifecycleKtxApi
-@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
+@ExperimentalSplittiesApi
 fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
-    return CoroutineScope(createJob(activeWhile) + Dispatchers.MainAndroid)
+    return CoroutineScope(createJob(activeWhile) + Dispatchers.Main.immediate)
 }
 
 /**
@@ -32,8 +31,7 @@ fun Lifecycle.createScope(activeWhile: Lifecycle.State): CoroutineScope {
  * **Beware**: if the current state is lower than the passed [activeWhile] state, you'll get an
  * already cancelled job.
  */
-@PotentialFutureAndroidXLifecycleKtxApi
-@UseExperimental(MainDispatcherPerformanceIssueWorkaround::class)
+@ExperimentalSplittiesApi
 fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     require(activeWhile != Lifecycle.State.DESTROYED) {
         "DESTROYED is a terminal state that is forbidden for createJob(…), to avoid leaks."
@@ -41,13 +39,10 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.MainAndroid) {
+            else -> GlobalScope.launch(Dispatchers.Main) {
                 // Ensures state is in sync.
-                addObserver(@SuppressLint("RestrictedApi") object : GenericLifecycleObserver {
-                    override fun onStateChanged(
-                        source: LifecycleOwner?,
-                        event: Lifecycle.Event
-                    ) {
+                addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                         if (currentState < activeWhile) {
                             removeObserver(this)
                             job.cancel()

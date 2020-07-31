@@ -2,7 +2,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:UseExperimental(ExperimentalSplittiesApi::class)
+@file:OptIn(ExperimentalSplittiesApi::class)
 
 package splitties.views
 

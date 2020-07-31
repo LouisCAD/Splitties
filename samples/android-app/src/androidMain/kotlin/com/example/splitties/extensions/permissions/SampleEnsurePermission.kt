@@ -2,7 +2,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:UseExperimental(ExperimentalSplittiesApi::class)
+@file:OptIn(ExperimentalSplittiesApi::class)
 
 package com.example.splitties.extensions.permissions
 
@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.example.splitties.R
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.DialogButton
@@ -66,7 +65,7 @@ suspend inline fun Fragment.ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensurePermission(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permission = permission,
     askDialogTitle = askDialogTitle,

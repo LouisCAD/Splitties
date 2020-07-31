@@ -14,5 +14,5 @@ import kotlinx.coroutines.Dispatchers
  */
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
-@Experimental(level = Experimental.Level.ERROR)
+@RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 annotation class MainDispatcherPerformanceIssueWorkaround

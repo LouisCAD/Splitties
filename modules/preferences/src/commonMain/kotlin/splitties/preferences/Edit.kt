@@ -16,14 +16,14 @@ inline fun <P : Preferences> P.edit(
     blocking: Boolean = false,
     crossinline editions: P.() -> Unit
 ) {
-    @UseExperimental(InternalSplittiesApi::class)
+    @OptIn(InternalSplittiesApi::class)
     beginEdit(blocking)
     try {
         editions()
-        @UseExperimental(InternalSplittiesApi::class)
+        @OptIn(InternalSplittiesApi::class)
         endEdit()
     } catch (t: Throwable) {
-        @UseExperimental(InternalSplittiesApi::class)
+        @OptIn(InternalSplittiesApi::class)
         abortEdit()
         throw t
     }

@@ -2,13 +2,10 @@
 
 *Coroutines integration with [`Lifecycle`][lifecycle]s.*
 
-Extension properties:
-
-| **Name** | **Description**
-| -------- | ---------------
-| `LifecycleOwner.lifecycleScope` | A scope that dispatches on Android Main thread and is active until the LifecycleOwner is destroyed.
-| `Lifecycle.coroutineScope` | A scope that dispatches on Android Main thread and is active until the Lifecycle is destroyed.
-| `Lifecycle.job` | A job that is cancelled when the Lifecycle is destroyed.
+**Note:**
+This split exposes its dependency on `AndroidX Lifecycle runtime KTX`, which notably brings
+`lifecycleScope` for `LifecycleOwner` (`Activity`, `Fragment`, `LifecycleService`…) and
+`coroutineScope` for `Lifecycle`. See the [documentation of Android Lifecycle here](https://developer.android.com/reference/kotlin/androidx/lifecycle/package-summary).
 
 Extension functions:
 
@@ -45,14 +42,6 @@ class MainActivity : AppCompatActivity() {
     }
 }
 ```
-
-## Performance fix for Dispatchers.Main initialization
-
-Note that this split includes a workaround for [this performance issue in kotlinx.coroutines](
-https://github.com/Kotlin/kotlinx.coroutines/issues/878) caused by `ServiceLoader` doing I/O.
-An alternative to `Dispatchers.Main` is used internally so it doesn't cause slow cold starts for
-your app. You can use it directly too as it is defined as `Dispatchers.MainAndroid`, but note that
-it will be removed when a proper fix in kotlinx.coroutines or in the Android toolchain is released.
 
 ## Download
 

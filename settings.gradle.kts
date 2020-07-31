@@ -1,8 +1,40 @@
-@file:Suppress("SpellCheckingInspection")
-
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
+
+@file:Suppress("SpellCheckingInspection")
+
+import de.fayard.refreshVersions.bootstrapRefreshVersions
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5-dev-009")
+}
+
+plugins {
+    id("com.gradle.enterprise").version("3.1")
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = settings.extra.properties["buildScan.termsOfServiceAgree"] as String?
+    }
+}
+
+bootstrapRefreshVersions()
 
 arrayOf(
     "activities",
@@ -70,7 +102,4 @@ arrayOf(
     "android-app"
 ).forEach { include(":samples:$it") }
 
-include("plugin")
 include("test-helpers")
-
-enableFeaturePreview("GRADLE_METADATA")

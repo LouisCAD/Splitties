@@ -18,7 +18,7 @@ internal class SingleViewAdapter<V : View>(
     val layoutManager = if (vertical) verticalLayoutManager() else horizontalLayoutManager()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = view.apply {
-        @UseExperimental(ExperimentalSplittiesApi::class)
+        @OptIn(ExperimentalSplittiesApi::class)
         layoutParams = layoutManager.verticalListLayoutParams()
     }.let { object : RecyclerView.ViewHolder(it) {} }
 

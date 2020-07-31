@@ -21,8 +21,8 @@ kotlin {
             api(splitties("alertdialog-appcompat"))
         }
         androidMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            implementation(Libs.kotlinX.coroutines.core)
+            api(Kotlin.stdlib.jdk7)
+            implementation(KotlinX.coroutines.core)
             implementation(splitties("resources"))
         }
     }

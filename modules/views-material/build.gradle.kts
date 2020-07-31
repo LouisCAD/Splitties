@@ -22,9 +22,9 @@ kotlin {
             api(splitties("views-cardview"))
             api(splitties("views-recyclerview"))
             api(splitties("snackbar"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.google.material)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(Google.android.material)
         }
     }
 }

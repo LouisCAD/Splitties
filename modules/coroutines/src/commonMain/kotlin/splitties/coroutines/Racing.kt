@@ -37,7 +37,7 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     return coroutineScope {
         @Suppress("RemoveExplicitTypeArguments")
         select<T> {
-            @UseExperimental(ExperimentalCoroutinesApi::class)
+            @OptIn(ExperimentalCoroutinesApi::class)
             val racersAsyncList = racers.map {
                 async(start = Undispatched, block = it)
             }
@@ -83,7 +83,7 @@ inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope
  * For races where the number of racers is static, you can use the slightly more efficient [raceOf]
  * function and directly pass the cancellable lambdas you want to race concurrently.
  */
-@UseExperimental(ExperimentalTypeInference::class)
+@OptIn(ExperimentalTypeInference::class)
 suspend fun <T> race(
     @BuilderInference
     builder: suspend RacingScope<T>.() -> Unit
@@ -120,7 +120,7 @@ suspend fun <T> race(
                 }
             }
         }
-        @UseExperimental(ExperimentalCoroutinesApi::class)
+        @OptIn(ExperimentalCoroutinesApi::class)
         launch(builderJob, start = Undispatched) {
             racingScope.builder()
         }

@@ -1,5 +1,29 @@
 # Change log for Splitties
 
+<!--## Version 3.0.0-alpha07 (2020-??-??)-->
+## [Unreleased]
+Compiled with Kotlin 1.3.61 and kotlinx.coroutines 1.3.3-native-mt.
+
+**This release introduces 1 new split:**
+- [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android)
+
+### Alert Dialog and Alert Dialog AppCompat
+Add `isCancellable` parameter (defaults to `true`, as when unspecified) to `alertDialog` builders.
+
+### Collections
+`forEachReversedWithIndex` extension for `List` now has an `allowSafeModifications` parameter.
+When set to `true` (default is `false`), you can mutate the list as long as it doesn't prevent the
+next iteration from happening (or that you perform a non local return to stop iterating altogether).
+
+_As usual, unsafe operations while iterating a list can result in a `ConcurrentModificationException`
+or in an `IndexOutOfBoundsException` to be thrown._
+
+### Dimensions
+The `dip` and `dp` functions now return the type of their argument (`Int` or `Float`).
+
+### TK
+TODO: Fill the changelog with a consistent style.
+
 ## Version 3.0.0-alpha06 (2019-05-03)
 Compiled with Kotlin 1.3.31.
 
@@ -150,7 +174,7 @@ APIs that are likely to change have an experimental annotation that triggers a w
 
 All the old support library artifacts have been replaced by AndroidX ones.
 
-If your project has not migrated to AndroidX yet, please follow the quick steps below. 
+If your project has not migrated to AndroidX yet, please follow the quick steps below.
 
 <details>
 <summary>

@@ -6,7 +6,7 @@ package splitties.internal.test
 
 import kotlin.reflect.KClass
 
-@UseExperimental(ExperimentalMultiplatform::class)
+@OptIn(ExperimentalMultiplatform::class)
 @OptionalExpectation
 expect annotation class RunWith(val value: KClass<out Runner>)
 

@@ -21,8 +21,8 @@ kotlin {
         }
         androidMain.dependencies {
             api(splitties("views"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
             implementation(splitties("collections"))
             implementation(splitties("exceptions"))
         }
@@ -32,7 +32,7 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
                 useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
             }

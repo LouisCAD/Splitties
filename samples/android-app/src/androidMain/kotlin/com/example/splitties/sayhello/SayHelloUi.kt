@@ -21,7 +21,7 @@ import splitties.views.material.text
 import splitties.views.onClick
 import splitties.views.type
 
-@UseExperimental(ExperimentalSplittiesApi::class)
+@OptIn(ExperimentalSplittiesApi::class)
 class SayHelloUi(override val ctx: Context) : Ui {
     private val materialStyles = MaterialComponentsStyles(ctx)
     private val firstNameInput = materialStyles.textInputLayout.outlinedBox {

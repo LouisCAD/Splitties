@@ -19,7 +19,7 @@ kotlin {
         androidMain.dependencies {
             api(splitties("mainthread"))
             api(splitties("exceptions"))
-            api(Libs.kotlin.stdlibJdk7)
+            api(Kotlin.stdlib.jdk7)
         }
         commonTest {
             dependencies {
@@ -30,8 +30,8 @@ kotlin {
 }
 
 dependencies {
-    androidTestImplementation(Libs.androidX.test.runner)
-    testImplementation(Libs.roboElectric)
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {

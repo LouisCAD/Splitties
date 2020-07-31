@@ -7,9 +7,7 @@
 import org.gradle.api.Project
 import org.gradle.api.publish.PublishingExtension
 import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.kotlin.dsl.withType
-import org.jetbrains.kotlin.konan.target.HostManager
 
 object Publishing {
     const val gitUrl = "https://github.com/LouisCAD/Splitties.git"
@@ -43,8 +41,6 @@ fun MavenPublication.setupPom() = pom {
 }
 
 fun PublishingExtension.setupAllPublications(project: Project) {
-    project.configurations.create("compileClasspath")
-    //TODO: Remove line above when https://youtrack.jetbrains.com/issue/KT-27170 is fixed
     project.group = "com.louiscad.splitties"
     project.version = project.thisLibraryVersion
     val mavenPublications = publications.withType<MavenPublication>()
@@ -52,37 +48,26 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     mavenPublications.findByName("kotlinMultiplatform")?.let {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
         val suffix = "-mpp"
-        it.artifactId = "$prefix-${project.name}$suffix"
+        project.afterEvaluate {
+            it.artifactId = "$prefix-${project.name}$suffix"
+        }
     }
     setupPublishRepo(project)
-    // Mac is the main publishing platform, so we make it publish everything possible
-    val publishTasks = project.tasks.withType<AbstractPublishToMaven>()
-    publishTasks.matching {
-        it.name.startsWith("publishKotlinMultiplatform") ||
-        it.name.startsWith("publishMetadata") ||
-        it.name.startsWith("publishAndroid") ||
-        it.name.startsWith("publishJvm") ||
-        it.name.startsWith("publishJs") ||
-        it.name.startsWith("publishLinuxX64") ||
-        it.name.startsWith("publishMacos") ||
-        it.name.startsWith("publishIos")
-    }.all {
-        onlyIf { HostManager.hostIsMac }
-    }
 }
 
 private fun PublishingExtension.setupPublishRepo(project: Project) {
     repositories {
         maven {
+            val isDevVersion = project.isDevVersion
             name = "bintray"
             val bintrayUsername = "louiscad"
-            val bintrayRepoName = if (project.isDevVersion) "splitties-dev" else "maven"
+            val bintrayRepoName = if (isDevVersion) "splitties-dev" else "maven"
             val bintrayPackageName = "splitties"
             setUrl(
                 "https://api.bintray.com/maven/" +
-                        "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                        "publish=0;" +
-                        "override=1"
+                    "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
+                    "publish=1;" + // Might conflict with override. TODO: Revert or remove this comment based on results
+                    "override=1"
             )
             credentials {
                 username = project.findProperty("bintray_user") as String?

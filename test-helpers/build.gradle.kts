@@ -2,8 +2,6 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-import org.jetbrains.kotlin.konan.target.HostManager
-
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
@@ -17,42 +15,43 @@ android {
 kotlin {
     android()
     jvm()
-    js()
+    js { useCommonJs() }
     macos()
-    ios()
-    if (isRunningInIde.not() || HostManager.hostIsLinux) linuxX64()
-    if (isRunningInIde.not() || HostManager.hostIsMingw) mingwX64()
+    ios(supportArm32 = true)
+    linux(x64 = true)
+    mingw(x64 = true)
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
-            api(kotlin("test-common"))
-            api(kotlin("test-annotations-common"))
-            api(Libs.kotlinX.coroutines.coreCommon)
+            api(Kotlin.stdlib.common)
+            api(Kotlin.stdlib.common)
+            api(Kotlin.test.common)
+            api(Kotlin.test.annotationsCommon)
+            api(KotlinX.coroutines.coreCommon)
         }
         allJvmMain {
             dependencies {
-                api(Libs.kotlin.stdlibJdk7)
-                api(Libs.kotlinX.coroutines.core)
-                api(Libs.kotlin.testJunit)
+                api(Kotlin.stdlib.jdk7)
+                api(KotlinX.coroutines.core)
+                api(Kotlin.test.junit)
             }
         }
         androidMain.dependencies {
-            api(Libs.kotlinX.coroutines.android)
-            api(Libs.androidX.test.ext.junit)
+            api(KotlinX.coroutines.android)
+            api(AndroidX.test.ext.junit)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
-            api(Libs.kotlinX.coroutines.coreJs)
+            api(Kotlin.stdlib.js)
+            api(KotlinX.coroutines.coreJs)
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.coreNative)
+                api(KotlinX.coroutines.coreNative)
             }
         }
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

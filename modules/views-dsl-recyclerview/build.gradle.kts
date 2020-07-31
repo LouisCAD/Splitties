@@ -22,13 +22,13 @@ kotlin {
         androidMain.dependencies {
             api(splitties("views-dsl"))
             api(splitties("views-recyclerview"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.recyclerView)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.recyclerView)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
                 useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
             }

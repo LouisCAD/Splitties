@@ -19,8 +19,8 @@ kotlin {
         androidMain.dependencies {
             api(splitties("bitflags"))
             api(splitties("views"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.appCompat)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.appCompat)
         }
     }
 }

@@ -23,15 +23,15 @@ kotlin {
             api(splitties("dimensions"))
             api(splitties("resources"))
             api(splitties("systemservices"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.coreKtx)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.coreKtx)
             implementation(splitties("mainthread"))
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

@@ -59,14 +59,14 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("NewInference")
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")
             }
         }
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
         }
         androidMain.dependencies {
             implementation(project(":fun-packs:android-material-components-with-views-dsl"))
@@ -80,17 +80,15 @@ kotlin {
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
             }
-            with(Libs) {
-                arrayOf(
-                    kotlin.stdlibJdk7,
-                    androidX.appCompat,
-                    androidX.coreKtx,
-                    androidX.constraintLayout,
-                    google.material,
-                    timber,
-                    kotlinX.coroutines.android
-                )
-            }.forEach {
+            arrayOf(
+                Kotlin.stdlib.jdk7,
+                AndroidX.appCompat,
+                AndroidX.coreKtx,
+                AndroidX.constraintLayout,
+                Google.android.material,
+                JakeWharton.timber,
+                KotlinX.coroutines.android
+            ).forEach {
                 implementation(it)
             }
         }

@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.yield
 import splitties.activities.startActivity
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.awaitResumed
 
 /**
@@ -108,7 +107,7 @@ suspend inline fun Fragment.ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensurePermission(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permission = permission,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
@@ -195,7 +194,7 @@ suspend inline fun ensurePermission(
 }
 
 @PublishedApi
-@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+@OptIn(ExperimentalSplittiesApi::class)
 internal suspend fun Context.openApplicationDetailsSettingsAndAwaitResumed(lifecycle: Lifecycle) {
     startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
         data = "package:$packageName".toUri()

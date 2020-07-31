@@ -5,14 +5,17 @@
 package splitties.mainthread
 
 import android.os.Looper
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import org.junit.runner.RunWith
 import kotlin.test.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
+@RunWith(AndroidJUnit4::class)
 class MainThreadCheckFunctionalTest {
 
     @Test

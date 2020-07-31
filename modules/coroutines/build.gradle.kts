@@ -9,34 +9,34 @@ plugins {
 
 kotlin {
     jvm()
-    js()
+    js { useCommonJs() }
     macos()
-    ios()
+    ios(supportArm32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
-            api(kotlin("stdlib-common"))
+            api(Kotlin.stdlib.common)
             api(splitties("experimental"))
             implementation(splitties("collections"))
-            api(Libs.kotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.coreCommon)
         }
         jvmMain.dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.kotlinX.coroutines.core)
+            api(Kotlin.stdlib.jdk7)
+            api(KotlinX.coroutines.core)
         }
         jsMain.dependencies {
-            api(kotlin("stdlib-js"))
-            api(Libs.kotlinX.coroutines.coreJs)
+            api(Kotlin.stdlib.js)
+            api(KotlinX.coroutines.coreJs)
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.coreNative)
+                api(KotlinX.coroutines.coreNative)
             }
         }
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }

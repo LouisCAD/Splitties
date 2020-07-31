@@ -4,21 +4,12 @@
 
 package splitties.lifecycle.coroutines
 
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.setMain
+import kotlinx.coroutines.*
+import kotlinx.coroutines.test.*
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -30,15 +21,15 @@ import kotlin.test.assertFalse
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
+@Suppress("DEPRECATION")
 @ExperimentalSplittiesApi
-@PotentialFutureAndroidXLifecycleKtxApi
 class LifecycleTest {
 
-    @UseExperimental(ObsoleteCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     private val mainDispatcherSurrogate = newSingleThreadContext("main thread surrogate")
 
     @BeforeTest
-    @UseExperimental(ExperimentalCoroutinesApi::class)
+    @OptIn(ExperimentalCoroutinesApi::class)
     fun setUp() {
         Dispatchers.setMain(mainDispatcherSurrogate)
     }
@@ -94,7 +85,7 @@ class LifecycleTest {
     fun test_lifecycle_owner_scope_is_lifecycle_scope() = runBlocking {
         val lifecycleOwner = TestLifecycleOwner()
         val lifecycle = lifecycleOwner.lifecycle
-        assertSame(lifecycle.coroutineScope, lifecycleOwner.coroutineScope)
+        assertSame(lifecycle.coroutineScope, lifecycleOwner.lifecycleScope)
     }
 
     @Test
@@ -131,8 +122,8 @@ class LifecycleTest {
         val activeWhile = Lifecycle.State.INITIALIZED
         val job = with(lifecycle) {
             Job().also { job ->
-                addObserver(object : GenericLifecycleObserver {
-                    override fun onStateChanged(source: LifecycleOwner?, event: Lifecycle.Event) {
+                addObserver(object : LifecycleEventObserver {
+                    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                         if (currentState < activeWhile) {
                             removeObserver(this)
                             job.cancel()

@@ -5,11 +5,20 @@
 package splitties.lifecycle.coroutines
 
 /**
- * Symbols having this annotation will be deprecated, then removed after AndroidX Lifecycle KTX
- * gets a similar API, which is under review as of January the 24th of 2019:
- * https://android-review.googlesource.com/c/platform/frameworks/support/+/869365/14
+ * Symbols that had this annotation have been deprecated for AndroidX Lifecycle runtime KTX.
+ * They will be removed along with this annotation in Splitties 3.0.0.
+ *
+ * BTW, Google's AndroidX team released it as stable about a year after it was in review in AOSP...
+ * Depending on AndroidX as a library author requires a lot of patience as of 2019/2020.
+ * Let's hope it gets better in the future.
+ *
+ * Good that Splitties can bring advances earlier!
  */
+@Deprecated("AndroidX Lifecycle runtime KTX has now been released.")
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
-@Experimental(level = Experimental.Level.WARNING)
+@RequiresOptIn(level = RequiresOptIn.Level.WARNING)
 annotation class PotentialFutureAndroidXLifecycleKtxApi
+
+internal const val deprecationPrefix = "Now available in AndroidX Lifecycle runtime KTX"
+internal const val defaultDeprecationMessage = "$deprecationPrefix (uses Dispatchers.Main.immediate)."

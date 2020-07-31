@@ -7,12 +7,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.coroutineScope
 import com.example.splitties.R
 import com.example.splitties.extensions.permissions.ensurePermissionOrFinishAndCancel
 import kotlinx.coroutines.launch
 import splitties.dimensions.dip
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
-import splitties.lifecycle.coroutines.coroutineScope
 import splitties.views.centerText
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.contentView
@@ -23,7 +22,6 @@ import splitties.views.dsl.core.textView
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
 
-@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
 class PermissionsExampleActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n") // This is an example where i18n matters less than readable code.

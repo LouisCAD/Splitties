@@ -16,22 +16,22 @@ android {
 kotlin {
     android()
     macos()
-    ios()
+    ios(supportArm32 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            compileOnly(Libs.kotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.coreCommon)
         }
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(Libs.kotlin.stdlibJdk7)
-            compileOnly(Libs.kotlinX.coroutines.android)
+            api(Kotlin.stdlib.jdk7)
+            compileOnly(KotlinX.coroutines.android)
         }
         nativeMain {
             dependencies {
-                api(Libs.kotlinX.coroutines.coreNative)
+                api(KotlinX.coroutines.coreNative)
             }
         }
         appleMain {
@@ -41,7 +41,7 @@ kotlin {
         }
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
         commonTest {
@@ -53,8 +53,8 @@ kotlin {
 }
 
 dependencies {
-    androidTestImplementation(Libs.androidX.test.runner)
-    testImplementation(Libs.roboElectric)
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {

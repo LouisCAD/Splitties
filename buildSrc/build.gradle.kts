@@ -2,45 +2,28 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-import org.gradle.api.artifacts.repositories.MavenArtifactRepository as MvnArtifactRepo
-
 plugins {
     `kotlin-dsl`
 }
 
-fun MvnArtifactRepo.ensureModulesStartingWith(vararg regexp: String): MvnArtifactRepo = apply {
-    @Suppress("UnstableApiUsage")
-    content {
-        regexp.forEach {
-            val groupRegex = it.substringBefore(':').replace(".", "\\.")
-            val moduleNameRegex = it.substringAfter(':').replace(".", "\\.") + ".*"
-            includeModuleByRegex(groupRegex, moduleNameRegex)
-        }
-    }
-}
-
 repositories {
     google()
+    mavenCentral()
     jcenter()
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+    maven(url = "https://dl.bintray.com/jmfayard/maven")
 }
 
-val kotlinVersion = "1.3.50" // Don't forget to update in Dependencies.kt too!
-
+@Suppress("GradlePluginVersion")
 dependencies {
     compileOnly(gradleKotlinDsl())
-    implementation("com.android.tools.build:gradle:3.5.0")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+    implementation("com.android.tools.build:gradle:_")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:_")
+    implementation("de.fayard.refreshVersions:refreshVersions:_")
 }
 
-configurations.all {
-    val isKotlinCompiler = name == "embeddedKotlin" ||
-            name.startsWith("kotlin") ||
-            name.startsWith("kapt")
-    if (isKotlinCompiler.not()) resolutionStrategy.eachDependency {
-        @Suppress("UnstableApiUsage")
-        if (requested.group == "org.jetbrains.kotlin" &&
-            requested.module.name == "kotlin-compiler-embeddable"
-        ) useVersion(kotlinVersion)
-    }
+// https://docs.gradle.org/5.6.2/userguide/kotlin_dsl.html#sec:kotlin-dsl_plugin
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
 }
