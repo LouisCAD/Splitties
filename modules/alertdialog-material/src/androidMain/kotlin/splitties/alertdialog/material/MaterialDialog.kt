@@ -13,7 +13,7 @@ import splitties.alertdialog.appcompat.message
 import splitties.alertdialog.appcompat.title
 
 /**
- * Instantiates an [MaterialAlertDialogBuilder] for the [Context], applies the [dialogConfig] lambda to
+ * Instantiates a [MaterialAlertDialogBuilder] for the [Context], applies the [dialogConfig] lambda to
  * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
  * [AlertDialog.show] on the created dialog.
  */
@@ -24,7 +24,7 @@ inline fun Context.materialAlertDialog(dialogConfig: MaterialAlertDialogBuilder.
 }
 
 /**
- * Instantiates an [MaterialAlertDialogBuilder] for the [Context], sets the passed [title], [message] and
+ * Instantiates a [MaterialAlertDialogBuilder] for the [Context], sets the passed [title], [message] and
  * [iconResource], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
  * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
  */
@@ -43,7 +43,7 @@ inline fun Context.materialAlertDialog(
 }
 
 /**
- * Instantiates an [MaterialAlertDialogBuilder] for the [Context], sets the passed [title], [message] and
+ * Instantiates a [MaterialAlertDialogBuilder] for the [Context], sets the passed [title], [message] and
  * [icon], applies the [dialogConfig] lambda to it, then creates an [AlertDialog] from
  * the builder, and returns it, so you can call [AlertDialog.show] on the created dialog.
  */
