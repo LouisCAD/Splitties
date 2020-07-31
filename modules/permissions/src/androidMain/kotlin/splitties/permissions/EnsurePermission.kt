@@ -107,7 +107,7 @@ suspend inline fun Fragment.ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensurePermission(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permission = permission,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,

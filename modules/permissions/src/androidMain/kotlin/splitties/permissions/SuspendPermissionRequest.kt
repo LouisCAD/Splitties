@@ -36,7 +36,7 @@ suspend inline fun FragmentActivity.requestPermission(
  */
 suspend inline fun Fragment.requestPermission(
     permission: String
-): PermissionRequestResult = requestPermission(requireFragmentManager(), lifecycle, permission)
+): PermissionRequestResult = requestPermission(parentFragmentManager, lifecycle, permission)
 
 /**
  * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].

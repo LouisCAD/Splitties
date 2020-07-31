@@ -150,7 +150,7 @@ suspend inline fun Fragment.ensureAllPermissions(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensureAllPermissions(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permissions = permissions,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
@@ -199,7 +199,7 @@ suspend inline fun Fragment.ensureAllPermissions(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensureAllPermissions(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permissionNames = permissionNames,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
