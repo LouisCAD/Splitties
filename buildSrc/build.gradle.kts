@@ -8,8 +8,10 @@ plugins {
 
 repositories {
     google()
+    mavenCentral()
     jcenter()
     maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+    maven(url = "https://dl.bintray.com/jmfayard/maven")
 }
 
 @Suppress("GradlePluginVersion")
@@ -17,6 +19,8 @@ dependencies {
     compileOnly(gradleKotlinDsl())
     implementation("com.android.tools.build:gradle:_")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:_")
+    implementation("de.fayard.refreshVersions:refreshVersions:_")
 }
 
 // https://docs.gradle.org/5.6.2/userguide/kotlin_dsl.html#sec:kotlin-dsl_plugin
