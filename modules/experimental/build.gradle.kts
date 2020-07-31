@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     jvm()
-    js()
+    js { useCommonJs() }
     macos()
     ios(supportArm32 = true)
     watchos()

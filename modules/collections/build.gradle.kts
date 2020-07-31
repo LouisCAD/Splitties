@@ -9,7 +9,7 @@ plugins {
 
 kotlin {
     jvm()
-    js()
+    js { useCommonJs() }
     macos()
     ios(supportArm32 = true)
     linux(x64 = true)
