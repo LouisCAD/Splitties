@@ -9,8 +9,8 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import kotlinx.coroutines.CompletableDeferred
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.intents.intent
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.createJob
 import splitties.permissions.PermissionRequestResult
 
@@ -25,7 +25,7 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
         runCatching { dismissAllowingStateLoss() } // Activity may be detached, so we catch.
     }
 
-    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
+    @OptIn(ExperimentalSplittiesApi::class)
     private val asyncGrant = CompletableDeferred<PermissionRequestResult>(lifecycle.createJob())
 
     override fun onCreate(savedInstanceState: Bundle?) {

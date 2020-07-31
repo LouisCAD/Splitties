@@ -13,7 +13,6 @@ import androidx.lifecycle.Lifecycle
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.show
 import splitties.init.appCtx
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.permissions.internal.PermissionRequestDialogFragment
 
 /**
@@ -52,7 +51,6 @@ suspend fun requestPermission(
     ) {
         return PermissionRequestResult.Granted
     }
-    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
     return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
         permissionNames = arrayOf(permission)
     }.awaitResult()
@@ -75,7 +73,6 @@ internal suspend fun requestAllPermissions(
     ) {
         return PermissionRequestResult.Granted
     }
-    @OptIn(PotentialFutureAndroidXLifecycleKtxApi::class)
     return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
         permissionNames = permissions
     }.awaitResult()
