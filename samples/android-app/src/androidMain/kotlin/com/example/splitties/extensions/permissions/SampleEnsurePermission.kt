@@ -12,7 +12,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.example.splitties.R
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.DialogButton
