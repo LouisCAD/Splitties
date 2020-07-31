@@ -32,6 +32,8 @@ Currently, only JVM (including Android) and JS are supported, but future Kotlin/
 [Alert Dialog](modules/alertdialog).
 - **[Alert Dialog AppCompat Coroutines:](modules/alertdialog-appcompat-coroutines)**
 `showAndAwait` extension functions for AppCompat AlertDialog.
+- **[Alert Dialog Material:](modules/alertdialog-appcompat)** Material Components extension of
+[Alert Dialog AppCompat](modules/alertdialog-appcompat).
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
 observe `Lifecycle`s.
