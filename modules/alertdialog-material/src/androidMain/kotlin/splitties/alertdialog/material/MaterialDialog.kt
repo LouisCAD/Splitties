@@ -68,18 +68,18 @@ inline var MaterialAlertDialogBuilder.backgroundInsetStart: Int
         setBackgroundInsetStart(value)
     }
 
-/** Write only property that sets backgroundInsetEnd. */
-inline var MaterialAlertDialogBuilder.backgroundInsetEnd: Int
-    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
-    set(value) {
-        setBackgroundInsetEnd(value)
-    }
-
 /** Write only property that sets backgroundInsetTop. */
 inline var MaterialAlertDialogBuilder.backgroundInsetTop: Int
     @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
     set(value) {
         setBackgroundInsetTop(value)
+    }
+
+/** Write only property that sets backgroundInsetEnd. */
+inline var MaterialAlertDialogBuilder.backgroundInsetEnd: Int
+    @Deprecated(NO_GETTER, level = DeprecationLevel.HIDDEN) get() = noGetter
+    set(value) {
+        setBackgroundInsetEnd(value)
     }
 
 /** Write only property that sets backgroundInsetBottom. */
