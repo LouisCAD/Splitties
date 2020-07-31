@@ -4,6 +4,8 @@
 
 @file:Suppress("SpellCheckingInspection")
 
+import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+
 
 buildscript {
     repositories { setupForProject() }
@@ -21,6 +23,20 @@ task<Delete>("clean") {
 
 allprojects {
     repositories { setupForProject() }
+
+    @Suppress("DEPRECATION") // Alternative is to do it for each android plugin id.
+    plugins.withType(com.android.build.gradle.BasePlugin::class.java).configureEach {
+        project.extensions.getByType<com.android.build.gradle.BaseExtension>().apply {
+            compileOptions {
+                sourceCompatibility = JavaVersion.VERSION_1_8
+                targetCompatibility = JavaVersion.VERSION_1_8
+            }
+        }
+    }
+    tasks.withType<KotlinJvmCompile>().configureEach {
+        kotlinOptions.jvmTarget = "1.8"
+    }
+
     tasks.whenTaskAdded {
         if ("DebugUnitTest" in name || "ReleaseUnitTest" in name) {
             enabled = false
