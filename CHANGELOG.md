@@ -2,9 +2,10 @@
 
 <!--## Version 3.0.0-alpha07 (2020-??-??)-->
 ## [Unreleased]
-Compiled with Kotlin 1.3.61 and kotlinx.coroutines 1.3.3-native-mt.
+Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
-**This release introduces 1 new split:**
+**This release introduces 2 new splits:**
+- [Alert Dialog Material](modules/alertdialog-material) (Android only)
 - [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android)
 
 ### Alert Dialog and Alert Dialog AppCompat
