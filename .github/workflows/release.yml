@@ -3,6 +3,11 @@
 name: Publish to repository
 on:
   workflow_dispatch:
+    inputs:
+      dummy:
+        description: 'Dummy value'
+        required: false
+        default: ''
   push:
     paths:
       - 'libraries_version.properties'
