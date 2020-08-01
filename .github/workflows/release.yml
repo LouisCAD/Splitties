@@ -2,6 +2,7 @@
 # https://github.com/marketplace/actions/gradle-command
 name: Publish to repository
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'libraries_version.properties'
