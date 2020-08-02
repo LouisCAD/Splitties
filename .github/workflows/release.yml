@@ -32,7 +32,7 @@ jobs:
     strategy:
       matrix:
         arch: [X64, Arm32Hfp, Arm64]
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-java@v1
