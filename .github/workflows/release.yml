@@ -26,8 +26,8 @@ jobs:
         with:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
-      - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }}
+        with: # We don't use the retry script here because it doesn't work on Windows.
+          arguments: publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }} --scan -PbuildScan.termsOfServiceAgree=yes
   linux-publishing:
     strategy:
       matrix:
@@ -40,7 +40,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
       - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publishLinux${{ matrix.arch }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }}
+        run: ./run_gradle_task_with_retries.sh publishLinux${{ matrix.arch }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
   mac-publishing:
     strategy:
       matrix:
@@ -53,7 +53,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
       - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }}
+        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
   host-independent-platforms-publishing:
     strategy:
       matrix:
@@ -66,7 +66,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
       - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }}
+        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
   multiplatform-metadata-publishing:
     runs-on: ubuntu-latest
     steps:
@@ -76,4 +76,4 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
       - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publishMetadataPublicationToBintrayRepository publishKotlinMultiplatformPublicationToBintrayRepository -Pbintray_user=${{ secrets.bintray_user }} -Pbintray_api_key=${{ secrets.bintray_api_key }}
+        run: ./run_gradle_task_with_retries.sh publishMetadataPublicationToBintrayRepository publishKotlinMultiplatformPublicationToBintrayRepository -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
