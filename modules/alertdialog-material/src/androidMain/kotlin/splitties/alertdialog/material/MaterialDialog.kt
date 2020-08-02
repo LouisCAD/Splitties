@@ -32,12 +32,14 @@ inline fun Context.materialAlertDialog(
     title: CharSequence? = null,
     message: CharSequence? = null,
     @DrawableRes iconResource: Int = 0,
+    isCancellable: Boolean = true,
     dialogConfig: MaterialAlertDialogBuilder.() -> Unit = {}
 ): AlertDialog {
     return MaterialAlertDialogBuilder(this).apply {
         this.title = title
         this.message = message
         setIcon(iconResource)
+        setCancelable(isCancellable)
         dialogConfig()
     }.create()
 }
@@ -51,12 +53,14 @@ inline fun Context.materialAlertDialog(
     title: CharSequence? = null,
     message: CharSequence? = null,
     icon: Drawable? = null,
+    isCancellable: Boolean = true,
     dialogConfig: MaterialAlertDialogBuilder.() -> Unit = {}
 ): AlertDialog {
     return MaterialAlertDialogBuilder(this).apply {
         this.title = title
         this.message = message
         setIcon(icon)
+        setCancelable(isCancellable)
         dialogConfig()
     }.create()
 }
