@@ -14,6 +14,7 @@ on:
       - 'libraries_version.properties'
       - '.github/workflows/release.yml'
       - 'Releasing.kts'
+      - 'libraries_version.properties'
   push:
     branches:
       - develop
@@ -26,6 +27,7 @@ on:
       - 'libraries_version.properties'
       - '.github/workflows/release.yml'
       - 'Releasing.kts'
+      - 'libraries_version.properties'
 jobs:
   Host-agnostic-tests:
     strategy:
