@@ -5,13 +5,19 @@
 Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
 **This release introduces 2 new splits:**
-- [Alert Dialog Material](modules/alertdialog-material) (Android only)
+- [Alert Dialog Material](modules/alertdialog-material) (Android only) Thanks @ivoberger for the contribution!
 - [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android)
 
 ### Alert Dialog and Alert Dialog AppCompat
+
+#### Added
+
 Add `isCancellable` parameter (defaults to `true`, as when unspecified) to `alertDialog` builders.
 
 ### Collections
+
+#### Added
+
 `forEachReversedWithIndex` extension for `List` now has an `allowSafeModifications` parameter.
 When set to `true` (default is `false`), you can mutate the list as long as it doesn't prevent the
 next iteration from happening (or that you perform a non local return to stop iterating altogether).
@@ -20,10 +26,144 @@ _As usual, unsafe operations while iterating a list can result in a `ConcurrentM
 or in an `IndexOutOfBoundsException` to be thrown._
 
 ### Dimensions
-The `dip` and `dp` functions now return the type of their argument (`Int` or `Float`).
 
-### TK
-TODO: Fill the changelog with a consistent style.
+#### Changed
+
+The `dip` and `dp` functions now return the type of their argument (`Int` or `Float`).
+_You'll need to migrate usages of the previous `dp` function, so they pass a `Float`. Use "Find in Path" in the IDE to find them before fixing. If you often passed the same value to `dp`, the "Replace in Path" IDE option can save you even more time._
+
+### Lifecycle Coroutines
+
+#### Added
+
+- `Lifecycle.isStartedFlow()`
+- `Lifecycle.isStartedFlow(timeout: Duration)`
+- `Lifecycle.isResumedFlow()`
+- `Lifecycle.isResumedFlow(timeout: Duration)`
+- `Lifecycle.stateFlow(): Flow<Lifecycle.State>`
+
+#### Changed
+
+The following extension functions for `Lifecycle` have been promoted to `@ExperimentalSplittiesApi` (from `@PotentialFutureAndroidXLifecycleKtxApi`):
+- `createScope`
+- `createJob`
+- `awaitResumed`
+- `awaitStarted`
+- `awaitCreated`
+- `awaitState`
+
+#### Deprecated
+
+`Dispatchers.MainAndroid` is no longer needed and has been deprecated since the performance issue that affected `Dispatchers.Main` has been fixed since kotlinx.coroutines `1.3.3`.
+
+The following extension properties have been deprecated because they are now provided by AndroidX Lifecycle Runtime KTX:
+- `Lifecycle.coroutineScope`
+- `LifecycleOwner.lifecycleScope`
+
+`Lifecycle.job` has also been deprecated even though there's no as-concise replacement because it doesn't satisfy a common use case.
+
+### Main Thread
+
+#### Added
+
+Now supports macOS, iOS and JS.
+
+### Material Lists
+
+#### Changed
+
+- Ensure all `TextView`s in the list items have are at least one line tall, even if the text is empty.
+- Support enabled/disabled state by making child views duplicate parent state.
+
+### Permissions
+
+#### Added
+
+New `ensureAllPermissions` function available in top-level and as extension for `FragmentActivity` and `Fragment`.
+
+### Preferences
+
+#### Added
+
+- Now supports macOS and iOS (backed by `NSUserDefaults`, but supports custom implementation too, just like on Android).
+- Added `preferences` property to `PrefDelegate`s.
+- Added `key` property to `PrefDelegate`s.
+- Added `valueFlow()` function to `PrefDelegate`s to get current value and changes of a pref field.
+
+#### Changed
+
+- The `availableAtDirectBoot` parameter has been renamed to `androidAvailableAtDirectBoot`.
+- The `XxxPref` classes (e.g. `BoolPref`, `StringPref`, etc.) are no longer inner classes but are now part of the `PrefDelegate` sealed class hierarchy.
+
+### Resources
+
+#### Added
+
+- New `resolveThemeAttribute` extension function for `Context`. This is the replacement for `withStyledAttributes`.
+
+#### Deprecated
+
+- `withStyledAttributes` must be replaced by new `resolveThemeAttribute` that also has an implementation that is working reliably in IDE Preview. It will be removed in a future release.
+
+### Snackbar
+
+#### Changed
+
+- The `snack`, `longSnack` and `snackForever` extension functions now work with any `View` instead of just `CoordinatorLayout`.
+
+### System Services
+
+#### Added
+- Add `biometricManager` from API 29.
+- Add `roleManager` from API 29.
+
+### Views AppCompat
+
+#### Added
+
+- `configActionBar` extension function for `AppCompatActivity`.
+- `homeAsUp` extension read/write property for `ActionBar`.
+
+#### Changed
+
+- `ActionBar.showTitle` now supports reading current value.
+- `ActionBar.showHome` now supports reading current value.
+- `ActionBar.useLogo` now supports reading current value.
+- `ActionBar.showCustomView` now supports reading current value.
+
+#### Deprecated
+- `ActionBar.showHomeAsUp` has been deprecated and must be replaced by `homeAsUp`. It will be removed in a future release.
+
+### Views Coroutines & Views Coroutines Material
+
+#### Bug fixes
+
+- Fix a very rare crash that would occur when performing two clicks or long clicks in a row (e.g. by calling `performClick` twice without a UI thread dispatch) when using `View.awaitOneClick()`, `View.awaitOneLongClick()` or `FloatingActionButton.showAndAwaitOneClickThenHide()`.
+
+### Views DSL
+
+#### Added
+
+- `UiPreView` is now included by default, the extra "Views DSL IDE Preview" module is no longer needed. If you never use it in your production code, R8 should remove it from your release app. This has been done to simplify setup.
+- The `isInPreview` extension properties for `Ui` and `View` allow you to condition content to show based on whether it's the actual app or the IDE preview. Note that it statically evaluates to `false` in release builds (unlike `View.isInEditmode`), so the compiler will remove any code placed in the branch of an `if (isInPreview)` condition, and will allow R8 to remove any code that was only used in IDE preview.
+- There's 2 new overloads of the `ViewGroup.add` extension functions that take either a `beforeChild` or an `afterChild` parameter. You must use the parameter name to call one of these overloads. It comes handy in `ViewGroup`s where the order of the child `View`s matters (e.g. `FrameLayout` and `LinearLayout`).
+- `space` to create an `android.widget.Space` from a `Ui`, a `View` or a `Context` reference. Thanks to @Miha-x64 for the contribution!
+
+#### Changed
+
+- `UiPreView` now shows known error cases in the preview itself with a red warning triangle icon.
+
+### Views DSL ConstraintLayout
+
+#### Added
+
+- Add new extensions: `above`, `below`, `before` and `after` for `ConstraintLayout.LayoutParams`.
+
+### Views DSL IDE preview
+
+**This module has been deprecated.** It will no longer published in future releases.
+
+Its content has been moved to the main "Views DSL" split.
 
 ## Version 3.0.0-alpha06 (2019-05-03)
 Compiled with Kotlin 1.3.31.
