@@ -196,6 +196,10 @@ inline fun LP.bottomToBottomOf(
     goneBottomMargin = goneMargin
 }
 
+inline fun LP.baselineToBaselineOf(view: View) {
+    baselineToBaseline = view.existingOrNewId
+}
+
 inline fun LP.startToStartOf(
     view: View,
     @Px margin: Int = startMargin,
