@@ -55,16 +55,13 @@ inline fun LP.centerInParent() {
 }
 
 inline fun LP.centerInParent(@Px margin: Int) {
-    centerHorizontally()
-    centerVertically()
-    this.margin = margin
+    centerHorizontally(margin = margin)
+    centerVertically(margin = margin)
 }
 
 inline fun LP.centerInParent(@Px horizontalMargin: Int, @Px verticalMargin: Int) {
-    centerHorizontally()
-    centerVertically()
-    this.horizontalMargin = horizontalMargin
-    this.verticalMargin = verticalMargin
+    centerHorizontally(margin = horizontalMargin)
+    centerVertically(margin = verticalMargin)
 }
 
 
