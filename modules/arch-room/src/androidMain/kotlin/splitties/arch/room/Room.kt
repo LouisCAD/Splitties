@@ -29,21 +29,29 @@ inline fun <reified DB : RoomDatabase> roomDb(name: String, config: DbConfig<DB>
 
 inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Send a PR to AndroidX for this inline extension
+    @Suppress("DEPRECATION")
     beginTransaction()
     try {
         body(this)
+        @Suppress("DEPRECATION")
         setTransactionSuccessful()
     } finally {
+        @Suppress("DEPRECATION")
         endTransaction()
     }
 }
 
 inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R {
     contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
+    //TODO: Send a PR to AndroidX for this inline extension
     return try {
+        @Suppress("DEPRECATION")
         beginTransaction()
+        @Suppress("DEPRECATION")
         body(this).also { setTransactionSuccessful() }
     } finally {
+        @Suppress("DEPRECATION")
         endTransaction()
     }
 }
