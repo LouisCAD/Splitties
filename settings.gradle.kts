@@ -20,7 +20,7 @@ buildscript {
         gradlePluginPortal()
         maven(url = "https://dl.bintray.com/jmfayard/maven")
     }
-    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5-dev-009")
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5")
 }
 
 plugins {

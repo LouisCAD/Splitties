@@ -83,7 +83,7 @@ kotlin {
             arrayOf(
                 Kotlin.stdlib.jdk7,
                 AndroidX.appCompat,
-                AndroidX.coreKtx,
+                AndroidX.core.ktx,
                 AndroidX.constraintLayout,
                 Google.android.material,
                 JakeWharton.timber,

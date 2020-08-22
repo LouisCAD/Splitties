@@ -23,7 +23,7 @@ kotlin {
             implementation(splitties("appctx"))
             implementation(splitties("activities"))
             implementation(splitties("intents"))
-            implementation(AndroidX.coreKtx)
+            implementation(AndroidX.core.ktx)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {

@@ -21,7 +21,7 @@ kotlin {
         }
         androidMain.dependencies {
             api(Kotlin.stdlib.jdk7)
-            api(AndroidX.coreKtx)
+            api(AndroidX.core.ktx)
             api(KotlinX.coroutines.android)
         }
         getByName("androidTest").dependencies {

@@ -25,7 +25,7 @@ kotlin {
             api(splitties("systemservices"))
             api(Kotlin.stdlib.jdk7)
             api(AndroidX.annotation)
-            api(AndroidX.coreKtx)
+            api(AndroidX.core.ktx)
             implementation(splitties("mainthread"))
         }
         matching { it.name.startsWith("android") }.all {
