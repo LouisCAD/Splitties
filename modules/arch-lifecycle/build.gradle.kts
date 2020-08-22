@@ -24,12 +24,12 @@ kotlin {
             api(splitties("exceptions"))
             api(Kotlin.stdlib.jdk7)
             api(AndroidX.annotation)
-            api(AndroidX.fragment)
-            api(AndroidX.lifecycle.extensions)
-            api(AndroidX.lifecycle.viewModel)
-            api(AndroidX.lifecycle.liveData)
+            api(AndroidX.fragmentKtx)
+            api(AndroidX.lifecycle.runtimeKtx)
+            api(AndroidX.lifecycle.viewModelKtx)
+            api(AndroidX.lifecycle.liveDataKtx)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }

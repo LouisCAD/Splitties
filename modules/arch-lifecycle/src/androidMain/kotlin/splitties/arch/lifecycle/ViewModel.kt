@@ -4,69 +4,90 @@
 
 package splitties.arch.lifecycle
 
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import splitties.checkedlazy.mainThreadLazy
 
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope() = mainThreadLazy {
-    ViewModelProviders.of(this).get(VM::class.java)
-}
+private const val deprecationMessageStart = "An equivalent to this extension is now provided in AndroidX"
 
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> Fragment.activityScope() = mainThreadLazy {
-    ViewModelProviders.of(activity!!).get(VM::class.java)
-}
+@Deprecated(
+    message = "$deprecationMessageStart Activity KTX",
+    replaceWith = ReplaceWith(
+        "viewModels<VM>()",
+        "androidx.activity.app.viewModels"
+    )
+)
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(): Lazy<VM> = viewModels()
 
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> Fragment.fragmentScope() = mainThreadLazy {
-    ViewModelProviders.of(this).get(VM::class.java)
-}
+@Deprecated(
+    message = "$deprecationMessageStart Fragment KTX",
+    replaceWith = ReplaceWith(
+        "activityViewModels<VM>()",
+        "androidx.fragment.app.activityViewModels"
+    )
+)
+inline fun <reified VM : ViewModel> Fragment.activityScope(): Lazy<VM> = activityViewModels()
+
+@Deprecated(
+    message = "$deprecationMessageStart Fragment KTX",
+    replaceWith = ReplaceWith(
+        "viewModels<VM>()",
+        "androidx.fragment.app.viewModels"
+    )
+)
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(): Lazy<VM> = viewModels()
+
+@Deprecated(
+    message = "$deprecationMessageStart Activity KTX",
+    replaceWith = ReplaceWith(
+        "viewModels<VM>(factoryProducer = { factory })",
+        "androidx.activity.app.viewModels"
+    )
+)
+inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
+    factory: ViewModelProvider.Factory
+): Lazy<VM> = viewModels(factoryProducer = { factory })
+
+@Deprecated(
+    message = "$deprecationMessageStart Fragment KTX",
+    replaceWith = ReplaceWith(
+        "activityViewModels<VM>(factoryProducer = { factory })",
+        "androidx.fragment.app.activityViewModels"
+    )
+)
+inline fun <reified VM : ViewModel> Fragment.activityScope(
+    factory: ViewModelProvider.Factory
+): Lazy<VM> = activityViewModels(factoryProducer = { factory })
+
+@Deprecated(
+    message = "$deprecationMessageStart Fragment KTX",
+    replaceWith = ReplaceWith(
+        "viewModels<VM>(factoryProducer = { factory })",
+        "androidx.fragment.app.viewModels"
+    )
+)
+inline fun <reified VM : ViewModel> Fragment.fragmentScope(
+    factory: ViewModelProvider.Factory
+): Lazy<VM> = viewModels(factoryProducer = { factory })
 
 @ObsoleteSplittiesLifecycleApi
 inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
-    factory: ViewModelProvider.Factory
-) = mainThreadLazy {
-    ViewModelProviders.of(this, factory).get(VM::class.java)
-}
-
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> Fragment.activityScope(
-    factory: ViewModelProvider.Factory
-) = mainThreadLazy {
-    ViewModelProviders.of(activity!!, factory).get(VM::class.java)
-}
-
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> Fragment.fragmentScope(
-    factory: ViewModelProvider.Factory
-) = mainThreadLazy {
-    ViewModelProviders.of(this, factory).get(VM::class.java)
-}
-
-@ObsoleteSplittiesLifecycleApi
-inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
     noinline factory: () -> VM
-) = mainThreadLazy {
-    ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
-}
+): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
 
 @ObsoleteSplittiesLifecycleApi
 inline fun <reified VM : ViewModel> Fragment.activityScope(
     noinline factory: () -> VM
-) = mainThreadLazy {
-    ViewModelProviders.of(activity!!, TypeSafeViewModelFactory(factory)).get(VM::class.java)
-}
+): Lazy<VM> = activityViewModels { TypeSafeViewModelFactory(factory) }
 
 @ObsoleteSplittiesLifecycleApi
 inline fun <reified VM : ViewModel> Fragment.fragmentScope(
     noinline factory: () -> VM
-) = mainThreadLazy {
-    ViewModelProviders.of(this, TypeSafeViewModelFactory(factory)).get(VM::class.java)
-}
+): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
 
 @PublishedApi
 internal class TypeSafeViewModelFactory<VM : ViewModel>(
