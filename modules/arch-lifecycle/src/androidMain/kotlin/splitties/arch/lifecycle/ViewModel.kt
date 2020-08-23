@@ -12,6 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+//region Deprecated symbols because they made it into AndroidX (with a different name).
+
 private const val deprecationMessageStart = "An equivalent to this extension is now provided in AndroidX"
 
 @Deprecated(
@@ -73,6 +75,8 @@ inline fun <reified VM : ViewModel> Fragment.activityScope(
 inline fun <reified VM : ViewModel> Fragment.fragmentScope(
     factory: ViewModelProvider.Factory
 ): Lazy<VM> = viewModels(factoryProducer = { factory })
+
+//endregion
 
 @ObsoleteSplittiesLifecycleApi
 inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
