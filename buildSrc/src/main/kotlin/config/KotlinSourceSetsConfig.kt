@@ -322,8 +322,8 @@ private fun KotlinMultiplatformExtension.setupAndroidTestSourceSetsAndDependenci
         }
     }
     project.dependencies {
-        "androidTestImplementation"(AndroidX.test.runner)
-        "testImplementation"(Testing.roboElectric)
+        "androidTestImplementation"("androidx.test.runner:_")
+        "testImplementation"("org.robolectric:robolectric:_")
     }
 }
 
