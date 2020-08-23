@@ -12,6 +12,19 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+inline fun <reified VM : ViewModel> FragmentActivity.viewModels(
+    noinline factory: () -> VM
+): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
+
+inline fun <reified VM : ViewModel> Fragment.activityViewModels(
+    noinline factory: () -> VM
+): Lazy<VM> = activityViewModels { TypeSafeViewModelFactory(factory) }
+
+inline fun <reified VM : ViewModel> Fragment.viewModels(
+    noinline factory: () -> VM
+): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
+
+
 //region Deprecated symbols because they made it into AndroidX (with a different name).
 
 private const val deprecationMessageStart = "An equivalent to this extension is now provided in AndroidX"
@@ -78,20 +91,41 @@ inline fun <reified VM : ViewModel> Fragment.fragmentScope(
 
 //endregion
 
-@ObsoleteSplittiesLifecycleApi
+//region Deprecated symbols because we renamed to follow AndroidX naming.
+
+private const val renamedDeprecationMessage = "This function is being renamed to follow AndroidX naming."
+
+@Deprecated(
+    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+        "viewModels<VM>(factory)",
+        "splitties.arch.lifecycle.viewModels"
+    )
+)
 inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
     noinline factory: () -> VM
-): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
+): Lazy<VM> = viewModels(factory)
 
-@ObsoleteSplittiesLifecycleApi
+@Deprecated(
+    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+        "viewModels<VM>(factory)",
+        "splitties.arch.lifecycle.activityViewModels"
+    )
+)
 inline fun <reified VM : ViewModel> Fragment.activityScope(
     noinline factory: () -> VM
-): Lazy<VM> = activityViewModels { TypeSafeViewModelFactory(factory) }
+): Lazy<VM> = activityViewModels(factory)
 
-@ObsoleteSplittiesLifecycleApi
+@Deprecated(
+    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+        "viewModels<VM>(factory)",
+        "splitties.arch.lifecycle.viewModels"
+    )
+)
 inline fun <reified VM : ViewModel> Fragment.fragmentScope(
     noinline factory: () -> VM
-): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
+): Lazy<VM> = viewModels(factory)
+
+//endregion
 
 @PublishedApi
 internal class TypeSafeViewModelFactory<VM : ViewModel>(
