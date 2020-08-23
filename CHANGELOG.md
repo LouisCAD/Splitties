@@ -14,6 +14,31 @@ Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
 Add `isCancellable` parameter (defaults to `true`, as when unspecified) to `alertDialog` builders.
 
+### Arch Lifecycle
+
+#### Added
+
+- `viewModels { … }` for `FragmentActivity` and `Fragment`
+- `activityViewModels { … }` for `Fragment`
+
+#### Changed
+
+This split no longer depends on the `androidx.lifecycle:lifecycle-extensions` artifact that has been deprecated in AndroidX Lifecycle 2.2.0 and is no longer published in later versions.
+
+#### Deprecated
+
+AndroidX Lifecycle KTX artifacts caught up with features that this split originally provided, so we've deprecated that overlap:
+
+- `activityScope()` for `Activity` -> `viewModels()`
+- `activityScope()` for `Fragment` -> `activityViewModels()`
+- `fragmentScope()` for `Fragment` -> `viewModels()`
+
+Also, we provided variants of these that took a lambda. Since AndroidX doesn't provide such a facility, they have been kept, but the old naming has been deprecated to match the AndroidX naming.
+
+_Note that these changes provide a ReplaceWith clause for easy migration._
+
+**Important:** Next alpha release will move the deprecation level to error, and the alpha release after will remove them completely. (So it's best to not skip this update if you were using these extensions.)
+
 ### Collections
 
 #### Added
