@@ -24,6 +24,14 @@ inline fun <reified VM : ViewModel> Fragment.viewModels(
     noinline factory: () -> VM
 ): Lazy<VM> = viewModels { TypeSafeViewModelFactory(factory) }
 
+@PublishedApi
+internal class TypeSafeViewModelFactory<VM : ViewModel>(
+    private val factory: () -> VM
+) : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel?> create(modelClass: Class<T>) = factory() as T
+}
+
 
 //region Deprecated symbols because they made it into AndroidX (with a different name).
 
@@ -126,11 +134,3 @@ inline fun <reified VM : ViewModel> Fragment.fragmentScope(
 ): Lazy<VM> = viewModels(factory)
 
 //endregion
-
-@PublishedApi
-internal class TypeSafeViewModelFactory<VM : ViewModel>(
-    private val factory: () -> VM
-) : ViewModelProvider.Factory {
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>) = factory() as T
-}
