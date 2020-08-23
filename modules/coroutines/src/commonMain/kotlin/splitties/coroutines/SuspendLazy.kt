@@ -47,6 +47,6 @@ private class SuspendLazySuspendingImpl<out T>(
     context: CoroutineContext,
     initializer: suspend CoroutineScope.() -> T
 ) : SuspendLazy<T> {
-    private val deferred = coroutineScope.async(context, start = LAZY, block = initializer)
+    private val deferred by lazy { coroutineScope.async(context, start = LAZY, block = initializer) }
     override suspend operator fun invoke(): T = deferred.await()
 }
