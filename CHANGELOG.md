@@ -184,6 +184,12 @@ New `ensureAllPermissions` function available in top-level and as extension for 
 
 - Add new extensions: `above`, `below`, `before` and `after` for `ConstraintLayout.LayoutParams`.
 
+### Views DSL Material
+
+#### Added
+
+Add `slider`, `rangeSlider` and `shapeableImageView` extensions for `View`, `Ui` and `Context`. They can instantiate the new widgets from the version 1.2.0 of the material-components-android library.
+
 ### Views DSL IDE preview
 
 **This module has been deprecated.** It will no longer published in future releases.
