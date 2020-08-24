@@ -11,7 +11,6 @@ import androidx.lifecycle.LifecycleEventObserver
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
-import splitties.coroutines.delay
 import splitties.coroutines.offerCatching
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.time.*
