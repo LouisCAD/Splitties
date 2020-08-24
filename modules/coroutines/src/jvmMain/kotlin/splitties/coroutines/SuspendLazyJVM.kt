@@ -8,7 +8,9 @@
 package splitties.coroutines
 
 import kotlinx.coroutines.Dispatchers
+import splitties.experimental.ExperimentalSplittiesApi
 
+@ExperimentalSplittiesApi
 fun <T> suspendBlockingLazyIO(
     initializer: () -> T
 ): SuspendLazy<T> = suspendBlockingLazy(Dispatchers.IO, initializer)

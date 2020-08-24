@@ -6,6 +6,7 @@ package splitties.coroutines
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.channels.SendChannel
+import splitties.experimental.ExperimentalSplittiesApi
 
 /**
  * [SendChannel.offer] that returns `false` when this [SendChannel.isClosedForSend], instead of
@@ -18,6 +19,7 @@ import kotlinx.coroutines.channels.SendChannel
  *
  * See this issue: [https://github.com/Kotlin/kotlinx.coroutines/issues/974](https://github.com/Kotlin/kotlinx.coroutines/issues/974)
  */
+@ExperimentalSplittiesApi
 fun <E> SendChannel<E>.offerCatching(element: E): Boolean {
     return runCatching { offer(element) }.getOrDefault(false)
 }

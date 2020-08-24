@@ -37,6 +37,7 @@ kotlin {
         all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
+                useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
             }
         }
     }

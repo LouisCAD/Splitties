@@ -15,6 +15,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import splitties.collections.forEachByIndex
+import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
 
@@ -32,6 +33,7 @@ suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs 
  *
  * Use [race] if the racers need to be launched dynamically.
  */
+@ExperimentalSplittiesApi
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     require(racers.isNotEmpty()) { "A race needs racers." }
     return coroutineScope {
@@ -56,6 +58,7 @@ suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
  *
  * You should not implement this interface yourself.
  */
+@ExperimentalSplittiesApi
 interface RacingScope<in T> : CoroutineScope {
     @Deprecated(
         message = "Internal API",
@@ -70,6 +73,7 @@ interface RacingScope<in T> : CoroutineScope {
  *
  * Use it inside the lambda passed to the [race] function.
  */
+@ExperimentalSplittiesApi
 inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope.() -> T) {
     @Suppress("DEPRECATION")
     launchRacerInternal(block)
@@ -83,6 +87,7 @@ inline fun <T> RacingScope<T>.launchRacer(noinline block: suspend CoroutineScope
  * For races where the number of racers is static, you can use the slightly more efficient [raceOf]
  * function and directly pass the cancellable lambdas you want to race concurrently.
  */
+@ExperimentalSplittiesApi
 @OptIn(ExperimentalTypeInference::class)
 suspend fun <T> race(
     @BuilderInference

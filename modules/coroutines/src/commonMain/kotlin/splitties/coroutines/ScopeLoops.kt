@@ -15,6 +15,7 @@ import kotlin.coroutines.coroutineContext
  * function can be handy. The fact that is is inline allows you to do a non local return just like
  * you would from a while loop.
  */
+@ExperimentalSplittiesApi
 suspend inline fun repeatWhileActive(block: () -> Unit): Nothing {
     while (true) {
         coroutineContext.ensureActive()

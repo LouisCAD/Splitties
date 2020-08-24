@@ -13,21 +13,25 @@ import kotlinx.coroutines.CoroutineStart.LAZY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
+import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.jvm.JvmMultifileClass
 import kotlin.jvm.JvmName
 
+@ExperimentalSplittiesApi
 fun <T> suspendBlockingLazy(
     dispatcher: CoroutineDispatcher = Dispatchers.Default,
     initializer: () -> T
 ): SuspendLazy<T> = SuspendLazyBlockingImpl(dispatcher, initializer)
 
+@ExperimentalSplittiesApi
 fun <T> CoroutineScope.suspendLazy(
     context: CoroutineContext = EmptyCoroutineContext,
     initializer: suspend CoroutineScope.() -> T
 ): SuspendLazy<T> = SuspendLazySuspendingImpl(this, context, initializer)
 
+@ExperimentalSplittiesApi
 interface SuspendLazy<out T> {
     suspend operator fun invoke(): T
 }
