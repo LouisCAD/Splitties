@@ -5,9 +5,10 @@ when using [Views DSL](../views-dsl/README.md).*
 
 Supported platforms: **Android**.
 
-`dip` and `dp` extension functions on `View` and `Context` take an `Int`
-parameter and return the value in Android's dp. The former (dip) returns an
-`Int` while the latter (dp) returns a `Float`.
+The `dp` and `dip` extensions functions for `View` and `Context` are exactly the same,
+use the naming you prefer. They convert a value in Android's `dp` to pixels for use in code.
+
+The overload taking an `Int` returns an `Int`, the one taking a `Float` returns a `Float`.
 
 ## Examples
 
@@ -16,7 +17,7 @@ val minTapTargetSize = dip(48)
 ```
 
 ```kotlin
-val circleDiameter = dp(48)
+val circleDiameter = dp(48f)
 ```
 
 ## Download
