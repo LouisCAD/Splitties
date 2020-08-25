@@ -1,12 +1,14 @@
 # Preferences
 
-*Property syntax for Android's SharedPreferences.*
+*Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.*
 
 Supported platforms: **macOS** (x64), **iOS** (arm32, arm64 & x64), **Android**.
 
 This library uses Kotlin's property delegation to make using
-SharedPreferences as easy as accessing a property on an object. It
-relies on the `appCtx` module of this library to allow usage in `object`,
+SharedPreferences as easy as accessing a property on an object, and provides an `NSUserDefaults`
+backed implementation for macOS and iOS.
+
+On Android, it relies on the `appCtx` module of this library to allow usage in `object`,
 and can support storage on device encrypted storage for devices
 supporting Direct Boot. See [the source code](
 /src/androidMain/kotlin/splitties/preferences) for more information.
@@ -30,7 +32,11 @@ object GamePreferences : Preferences("gameState") {
     var currentLevel by IntPref("currentLevel", 1)
     var bossesFought by IntPref("bossBattleVictories", 0)
     var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
+
+    private val pseudoField = StringPref("playerPseudo", "Player 1")
+    var currentPseudo: String by pseudoField
+    val pseudoUpdates: Flow<String> = pseudoField.valueFlow()
+
     var favoriteCharacter by stringOrNullPref()
 }
 ```
@@ -67,6 +73,9 @@ The supported types are:
 For **default SharedPreferences**, make an `object` that extends
 `DefaultPreferences` instead of `Preferences`.
 
+Note that for better encapsulation, you might want to keep the mutable delegated properties private
+in some cases, and expose functions and flows instead.
+
 ### Why `object` and not `class`?
 
 Unless you use coroutines (read more about this in next section just below),
@@ -82,6 +91,9 @@ properties may be desirable. (If you do, please open an issue to tell us
 about this use case. It may become an example shown here.)
 
 ## Loading the preferences without blocking the main thread
+
+_Note that this feature is currently only supported on Android.
+Feel free to open an issue if you want it on other platforms._
 
 The `object` approach described above has several advantages, one of
 the most significant being ease of use anywhere in your app, but that
@@ -113,9 +125,9 @@ class GamePreferences private constructor() : Preferences("gameState") {
 ```
 
 Here are all the changes:
-- We moved from `object` to `class`.
-- We added a `private constructor()`.
-- We added a `companion object` that extends the `SuspendPrefsAccessor` abstract
+1. We moved from `object` to `class`.
+2. We added a `private constructor()`.
+3. We added a `companion object` that extends the `SuspendPrefsAccessor` abstract
 class and calls its constructor with a reference to the constructor.
 
 With this change, we can no longer access the `GamePreferences` singleton directly

@@ -65,7 +65,7 @@ https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
-- **[Preferences:](modules/preferences)** Property syntax for Android's SharedPreferences.
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
 - **[Selectable Views:](modules/views-selectable)** Selectable Views with `foreground` property before
