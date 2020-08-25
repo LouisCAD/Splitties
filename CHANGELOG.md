@@ -104,7 +104,7 @@ Now supports macOS, iOS and JS.
 
 #### Added
 
-New `ensureAllPermissions` function available in top-level and as extension for `FragmentActivity` and `Fragment`.
+New `ensureAllPermissions` function available in top-level and as extension for `FragmentActivity` and `Fragment` to request multiple permissions in a row and ensure you have them all granted.
 
 ### Preferences
 
