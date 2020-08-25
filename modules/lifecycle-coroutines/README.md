@@ -17,6 +17,9 @@ Extension functions:
 | `Lifecycle.awaitStarted` | A suspending function that returns/resumes as soon as the state of the Lifecycle is at least started.
 | `Lifecycle.awaitCreated` | A suspending function that returns/resumes as soon as the state of the Lifecycle is at least created.
 | `Lifecycle.awaitState` | A suspending function that returns/resumes as soon as the state of the Lifecycle is at least the passed state.
+| `Lifecycle.isStartedFlow` | Returns a `Flow` whose value is `true` while the lifecycle is started. An experimental overload takes a timeout.
+| `Lifecycle.isResumedFlow` | Returns a `Flow` whose value is `true` while the lifecycle is resumed. An experimental overload takes a timeout.
+| `Lifecycle.stateFlow` | Returns a `Flow` whose value reflects the current `Lifecycle.STATE`.
 | `Lifecycle.createJob` | A job that is active while the state is at least the passed one.
 | `Lifecycle.createScope` | A scope that dispatches on Android Main thread and is active while the state is at least the passed one.
 
@@ -26,10 +29,27 @@ Extension functions:
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         lifecycleScope.launch {
             someSuspendFunction()
-            someOtherSuspendFunction()
-            someCancellableSuspendFunction()
+            lifecycle.awaitResumed()
+            showSomethingWithAnimation()
+        }
+
+        isStartedFlow(5.seconds).transformLatest { isStarted ->
+            if (isStarted) {
+                emitAll(someDataUpdates())
+            }
+        }.onEach { dataSnapshot ->
+            ui.updateLatestData(dataSnapshot)
+        }.launchIn(lifecycleScope)
+
+        lifecycleScope.launch {
+            isResumedFlow().collectLatest { isResumed ->
+                if (isResumed) {
+                    stats.usageTracker.countTimeSpentUntilCancelled()
+                }
+            }
         }
     }
 
