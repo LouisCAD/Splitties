@@ -39,6 +39,7 @@ import splitties.views.gravityEndBottom
 import splitties.views.imageResource
 import splitties.views.material.contentScrimColor
 import splitties.views.textResource
+import com.google.android.material.R as MaterialR
 
 class MainUiImpl(override val ctx: Context) : MainAndroidUi {
 
@@ -112,7 +113,7 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
     private val appBar = appBarLayout(theme = R.style.AppTheme_AppBarOverlay) {
         add(collapsingToolbarLayout {
             fitsSystemWindows = true
-            contentScrimColor = styledColor(R.attr.colorPrimary)
+            contentScrimColor = styledColor(MaterialR.attr.colorPrimary)
             add(toolbar {
                 (ctx as? AppCompatActivity)?.setSupportActionBar(this)
                 popupTheme = R.style.AppTheme_PopupOverlay
