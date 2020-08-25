@@ -2,6 +2,8 @@
 
 *Android Views + Kotlin coroutines.*
 
+Supported platforms: **Android**.
+
 Extension functions:
 
 | **Name** | **Description**

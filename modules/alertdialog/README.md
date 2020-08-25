@@ -2,6 +2,8 @@
 
 *Create simple alert dialogs with simple code*
 
+Supported platforms: **Android**.
+
 You may be looking for [the Material version](../alertdialog-material) or
 [the AppCompat version](../alertdialog-appcompat/README.md).
 

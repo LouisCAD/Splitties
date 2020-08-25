@@ -2,6 +2,8 @@
 
 *Create simple alert dialogs in material design with simple code*
 
+Supported platforms: **Android**.
+
 ## Example
 
 ```kotlin

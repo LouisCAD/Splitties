@@ -2,6 +2,8 @@
 
 *[Selectable Views](../views-selectable) for ConstraintLayout.*
 
+Supported platforms: **Android**.
+
 ## Usage
 
 Just use `SelectableConstraintLayout` with the proper import instead of

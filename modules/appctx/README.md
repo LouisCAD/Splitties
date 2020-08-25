@@ -2,6 +2,8 @@
 
 *Always have your application `Context` at hand with `appCtx`.*
 
+Supported platforms: **Android**.
+
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
 provides two read-only properties:
 

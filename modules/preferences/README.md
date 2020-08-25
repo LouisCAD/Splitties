@@ -2,6 +2,8 @@
 
 *Property syntax for Android's SharedPreferences.*
 
+Supported platforms: **macOS** (x64), **iOS** (arm32, arm64 & x64), **Android**.
+
 This library uses Kotlin's property delegation to make using
 SharedPreferences as easy as accessing a property on an object. It
 relies on the `appCtx` module of this library to allow usage in `object`,

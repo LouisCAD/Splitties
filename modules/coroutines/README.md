@@ -2,6 +2,8 @@
 
 *General purpose extensions to kotlinx.coroutines.*
 
+Supported platforms: **Linux** (x64), **MingW (x64)**, **macOS** (x64), **iOS** (arm32, arm64 & x64), **JS**, **JVM** (including Android).
+
 ## Offering a value to a `SendChannel` (including inside `callbackFlow`) safely
 
 Calling the `offer` function in `SendChannel` as it can crash your program if the channel is closed,

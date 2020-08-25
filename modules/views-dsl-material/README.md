@@ -2,6 +2,8 @@
 
 *Material Components extension of [Views DSL](../views-dsl)*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [Functions to instantiate Views and ViewGroups from Material Components](#functions-to-instantiate-views-and-viewgroups-from-material-components)
@@ -83,7 +85,7 @@ and a default height of `wrapContent` so you don't have to specify them in
 most of the cases.
 
 It also has a `scrollFlags` parameter which defaults to `ENTER_ALWAYS`, same
-as when inflated from an xml layout. 
+as when inflated from an xml layout.
 
 Use it when you add a `View` to an `AppBarLayout`.
 

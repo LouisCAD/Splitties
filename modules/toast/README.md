@@ -3,6 +3,8 @@
 *Show a toast by just calling `toast(yourText)`, and dodge [API 25
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).*
 
+Supported platforms: **Android**.
+
 To create and show a
 [`Toast`](https://developer.android.com/guide/topics/ui/notifiers/toasts.html),
 just call `toast(…)` (for breakfast) or `longToast(…)` (for breakslow) with

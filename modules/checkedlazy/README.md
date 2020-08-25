@@ -1,4 +1,10 @@
 # Checked Lazy
+
+*`mainThreadLazy` that checks property access on
+ main thread, and `checkedLazy` to make your own variant.*
+
+Supported platforms: **Android**.
+
 This library provides a `checkedLazy()` method that returns a `Lazy` delegate,
 as well as `mainThreadLazy()`.
 

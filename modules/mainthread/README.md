@@ -2,6 +2,8 @@
 
 *Properties and precondition checkers related to Android, iOS and macOS main thread.*
 
+Supported platforms: **macOS** (x64), **iOS** (arm32, arm64 & x64), **Android**, **JS**.
+
 ## Content
 
 This split provides several properties related to main Thread and 2

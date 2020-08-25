@@ -2,6 +2,8 @@
 
 *Coroutines integration with [`Lifecycle`][lifecycle]s.*
 
+Supported platforms: **Android**.
+
 **Note:**
 This split exposes its dependency on `AndroidX Lifecycle runtime KTX`, which notably brings
 `lifecycleScope` for `LifecycleOwner` (`Activity`, `Fragment`, `LifecycleService`…) and
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             someCancellableSuspendFunction()
         }
     }
-    
+
     override fun onStart() {
         super.onStart()
         val startedScope = lifecycle.createScope(activeWhile = Lifecycle.State.STARTED)

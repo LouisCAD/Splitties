@@ -2,6 +2,8 @@
 
 *Grab a snack without ceremony with `snack(…)` and `longSnack(…)`*
 
+Supported platforms: **Android**.
+
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
 provides extensions to show a
 [`Snackbar`](https://material.io/components/android/catalog/snackbar/),

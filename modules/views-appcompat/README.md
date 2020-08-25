@@ -2,6 +2,8 @@
 
 *AppCompat extension of [Views](../views)*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### Tooltip helpers

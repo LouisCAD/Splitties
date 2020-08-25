@@ -4,6 +4,8 @@
 https://material.io/design/color/#tools-for-picking-colors
 ) as color resources.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 This split contains color resources for all the colors referenced in the

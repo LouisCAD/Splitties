@@ -2,6 +2,8 @@
 
 *No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.*
 
+Supported platforms: **Android**.
+
 This library contains all the Android System Services as of API 29.
 It allows accessing them with a simple property.
 

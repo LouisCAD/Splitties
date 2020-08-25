@@ -2,6 +2,8 @@
 
 *`showAndAwait` extension functions for AppCompat AlertDialog.*
 
+Supported platforms: **Android**.
+
 ## Example
 
 ```kotlin

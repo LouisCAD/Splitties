@@ -3,6 +3,8 @@
 *Android `dp` extensions for `View` and `Context`. Particularly handy
 when using [Views DSL](../views-dsl/README.md).*
 
+Supported platforms: **Android**.
+
 `dip` and `dp` extension functions on `View` and `Context` take an `Int`
 parameter and return the value in Android's dp. The former (dip) returns an
 `Int` while the latter (dp) returns a `Float`.

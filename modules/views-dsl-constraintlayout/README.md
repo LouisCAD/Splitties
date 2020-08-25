@@ -2,6 +2,8 @@
 
 *ConstraintLayout extension of [Views DSL](../views-dsl).*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [`ConstraintLayout` tailored `lParams` extension](#constraintlayout-tailored-lparams-extension)

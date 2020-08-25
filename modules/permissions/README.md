@@ -2,6 +2,8 @@
 
 *Request runtime permissions without polluting your codebase.*
 
+Supported platforms: **Android**.
+
 The most straightforward way to request runtime permissions on Android is not… straightforward, and
 that's why there are so many libraries that attempt to make it easier.
 

@@ -2,6 +2,8 @@
 
 *`forEach` for `List`s without `Iterator` allocation.*
 
+Supported platforms: **Linux** (x64), **MingW (x64)**, **macOS** (x64), **iOS** (arm32, arm64 & x64), **JS**, **JVM** (including Android).
+
 ## Content
 
 The `forEachByIndex` and `forEachWithIndex` extension functions for `List`

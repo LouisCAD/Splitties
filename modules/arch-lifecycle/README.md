@@ -2,6 +2,8 @@
 
 *Extensions to get `ViewModel`s, use `LiveData` and observe `Lifecycle`s.*
 
+Supported platforms: **Android**.
+
 This makes using Android Architecture Components nicer in Kotlin.
 
 ## Content
@@ -50,9 +52,9 @@ These extensions make observing a `LiveData` null-safe (despite `LiveData` not b
 
 ```kotlin
 class YourActivity : AppCompatActivity() {
-    
+
     private val viewModel by activityScope<YourViewModel>()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         observe(viewModel.yourLiveData) { data: YourData? ->
             updateUi(data)
@@ -69,7 +71,7 @@ class YourActivity : AppCompatActivity() {
 
 ```kotlin
 class YourViewModel : ViewModel() {
-    
+
     val yourLiveData: LiveData<YourData> = createYourLiveData()
     val anotherLiveData = yourLiveData.map { it?.someProperty }
 }

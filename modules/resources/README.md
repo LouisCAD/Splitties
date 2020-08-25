@@ -3,6 +3,8 @@
 *Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 All the extensions of this module are currently available on
