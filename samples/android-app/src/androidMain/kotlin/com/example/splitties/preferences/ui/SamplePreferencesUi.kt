@@ -5,6 +5,7 @@
 package com.example.splitties.preferences.ui
 
 import android.content.Context
+import android.util.AttributeSet
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.example.splitties.R
 import com.example.splitties.extensions.preferences.ui.BoolPrefItem
@@ -15,6 +16,8 @@ import com.example.splitties.preferences.SamplePreferences
 import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.resources.drawable
 import splitties.views.dsl.core.Ui
+import splitties.views.dsl.core.withTheme
+import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.recyclerview.recyclerView
 import splitties.views.recyclerview.verticalLayoutManager
 
@@ -67,3 +70,17 @@ class SamplePreferencesUi(override val ctx: Context) : Ui {
         layoutManager = verticalLayoutManager()
     }
 }
+
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class SamplePreferencesUiPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = { SamplePreferencesUi(it) }
+)
+//endregion

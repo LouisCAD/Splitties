@@ -5,6 +5,7 @@
 package com.example.splitties.main
 
 import android.content.Context
+import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import com.example.splitties.R
 import splitties.dimensions.dip
@@ -17,12 +18,8 @@ import splitties.views.dsl.coordinatorlayout.anchorTo
 import splitties.views.dsl.coordinatorlayout.appBarLParams
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.coordinatorlayout.defaultLParams
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.margin
-import splitties.views.dsl.core.matchParent
-import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.verticalLayout
+import splitties.views.dsl.core.*
+import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.EXIT_UNTIL_COLLAPSED
 import splitties.views.dsl.material.MaterialComponentsStyles
 import splitties.views.dsl.material.PIN
@@ -132,3 +129,17 @@ class MainUiImpl(override val ctx: Context) : MainAndroidUi {
         })
     }
 }
+
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class MainUiImplPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = { MainUiImpl(it) }
+)
+//endregion

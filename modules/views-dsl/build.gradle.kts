@@ -25,8 +25,6 @@ kotlin {
             api(AndroidX.annotation)
             implementation(splitties("collections"))
             implementation(splitties("exceptions"))
-        }
-        androidDebug.dependencies {
             implementation(splitties("appctx"))
         }
         all {

@@ -5,6 +5,7 @@
 package com.example.splitties.demo
 
 import android.content.Context
+import android.util.AttributeSet
 import androidx.appcompat.app.AppCompatActivity
 import com.example.splitties.R
 import splitties.dimensions.dip
@@ -16,6 +17,8 @@ import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.margin
+import splitties.views.dsl.core.withTheme
+import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.*
 import splitties.views.dsl.recyclerview.recyclerView
 import splitties.views.gravityEndBottom
@@ -51,3 +54,21 @@ class DemoUi(override val ctx: Context, host: Host) : Ui {
         })
     }
 }
+
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class DemoUiPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = {
+        DemoUi(it, object : DemoUi.Host {
+            override fun onDemoItemClicked(demoItem: DemoItem) = Unit
+        })
+    }
+)
+//endregion

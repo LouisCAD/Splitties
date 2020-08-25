@@ -6,6 +6,7 @@ package com.example.splitties.about
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -26,15 +27,12 @@ import splitties.views.dsl.constraintlayout.lParams
 import splitties.views.dsl.constraintlayout.startOfParent
 import splitties.views.dsl.constraintlayout.topOfParent
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
-import splitties.views.dsl.core.Ui
-import splitties.views.dsl.core.add
-import splitties.views.dsl.core.lastChild
-import splitties.views.dsl.core.margin
-import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.wrapContent
+import splitties.views.dsl.core.*
+import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.textAppearance
 import splitties.views.textResource
+import com.google.android.material.R as MaterialR
 
 class AboutUiWithLabels(override val ctx: Context) : Ui {
 
@@ -67,12 +65,12 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
     }
 
     private fun label(@StringRes txtResId: Int) = textView {
-        textAppearance = R.style.TextAppearance_MaterialComponents_Body2
+        textAppearance = MaterialR.style.TextAppearance_MaterialComponents_Body2
         text = buildSpannedString { bold { append(txt(txtResId)) } }
     }
 
     private inline fun tv(initView: TextView.() -> Unit = {}) = textView {
-        textAppearance = R.style.TextAppearance_MaterialComponents_Body2
+        textAppearance = MaterialR.style.TextAppearance_MaterialComponents_Body2
         initView()
     }
 
@@ -90,3 +88,17 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         })
     }
 }
+
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class AboutUiWithLabelsPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = { AboutUiWithLabels(it) }
+)
+//endregion
