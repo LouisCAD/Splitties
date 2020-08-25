@@ -13,7 +13,7 @@ add an action and execute action on dismiss.
 ## Usage
 
 On a `CoordinatorLayout` or any other `View`, call `snack(…)`, `longSnack(…)` (if you're really
-hungry), or `snackForever(…)` for an indefinite duration, with a string
+hungry, for example), or `snackForever(…)` for an indefinite duration, with a string
 resource id, or a `CharSequence`.
 
 You can add optional braces to access the `Snackbar` instance before it is
