@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.views.dsl.idepreview
@@ -18,11 +18,7 @@ import splitties.resources.str
 import splitties.resources.strArray
 import splitties.resources.styledColor
 import splitties.views.backgroundColor
-import splitties.views.dsl.core.R
-import splitties.views.dsl.core.Ui
-import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.matchParent
-import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.*
 import splitties.views.gravityCenterVertical
 import splitties.views.padding
 import splitties.views.setCompoundDrawables
@@ -34,13 +30,32 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
+import splitties.views.dsl.core.R
 
 /**
- * This class is dedicated to previewing `Ui` subclasses in the IDE with an xml file referencing it.
- * Add it to your debug build and use this class in xml layout files in your debug sources. See the
- * sample for complete examples.
+ * This class is dedicated to previewing `Ui` subclasses in the IDE.
  *
- * Here is an example xml layout file that would preview a `MainUi` class in the `main` package:
+ * You can enable the preview with code or a dedicated xml file.
+ *
+ * Here's an example in Kotlin:
+ *
+ * ```kotlin
+ * //region IDE preview
+ * @Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+ * private class MainUiImplPreview(
+ *     context: Context,
+ *     attrs: AttributeSet? = null,
+ *     defStyleAttr: Int = 0
+ * ) : UiPreView(
+ *     context = context.withTheme(R.style.AppTheme),
+ *     attrs = attrs,
+ *     defStyleAttr = defStyleAttr,
+ *     createUi = { MainUiImpl(it) }
+ * )
+ * //endregion
+ * ```
+ *
+ * And here is an example xml layout file that would preview a `MainUi` class in the `main` package:
  *
  * ```xml
  * <splitties.views.dsl.idepreview.UiPreView
@@ -51,15 +66,32 @@ import kotlin.coroutines.EmptyCoroutineContext
  *     android:theme="@style/AppTheme.NoActionBar"
  *     app:class_package_name_relative="main.MainUi"/>
  * ```
+ *
+ * Note that only the Kotlin version is safe from refactorings (such as renames, package moving…).
+ *
+ * If you use the xml approach, it's recommended to add it to your debug sources straightaway.
+ * For the Kotlin approach, R8 or proguard will see the class is unused and will strip it so long as you
+ * have `minifyEnabled = true`.
+ *
+ * See the sample for complete examples.
  */
-class UiPreView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+open class UiPreView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    createUi: ((Context) -> Ui)? = null
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
     init {
         backgroundColor = styledColor(android.R.attr.colorBackground)
+        require(isInEditMode) { "Only intended for use in IDE!" }
+        this.context.injectAsAppCtx()
         try {
-            init(context, attrs, defStyleAttr)
+            if (createUi == null) {
+                init(this.context, attrs, defStyleAttr)
+            } else {
+                add(createUi(this.context).root, lParams(matchParent, matchParent))
+            }
         } catch (t: IllegalArgumentException) {
             backgroundColor = Color.WHITE
             addView(textView {
@@ -74,8 +106,6 @@ class UiPreView @JvmOverloads constructor(
     }
 
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
-        require(isInEditMode) { "Only intended for use in IDE!" }
-        context.injectAsAppCtx()
         val uiClass: Class<out Ui> = withStyledAttributes(
             attrs = attrs,
             attrsRes = R.styleable.UiPreView,
@@ -108,9 +138,9 @@ class UiPreView @JvmOverloads constructor(
                         }
                     } ?: illegalArg(
                         "Package-name relative class \"$it\" not found!\nDid you make a typo?\n\n" +
-                                "Searched in the following root packages:\n" +
-                                "- $packageName\n" +
-                                otherPackages.joinToString(separator = "\n", prefix = "- ")
+                            "Searched in the following root packages:\n" +
+                            "- $packageName\n" +
+                            otherPackages.joinToString(separator = "\n", prefix = "- ")
                     )
                 }
             } ?: illegalArg("No class name attribute provided")
@@ -127,8 +157,9 @@ class UiPreView @JvmOverloads constructor(
                 }
             } ?: illegalArg(
                 "No suitable constructor found. Need one with Context as " +
-                        "first parameter, and only interface types for other parameters, if any."
+                    "first parameter, and only interface types for other parameters, if any."
             )
+
             @Suppress("UNUSED_ANONYMOUS_PARAMETER")
             val parameters = mutableListOf<Any>(context).also { params ->
                 uiConstructor.parameterTypes.forEachIndexed { index, parameterType ->
