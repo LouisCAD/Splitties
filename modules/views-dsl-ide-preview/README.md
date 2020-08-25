@@ -3,7 +3,7 @@
 *Preview UIs made with Splitties Views DSL.*
 
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
-has been deprecated and is now included directly into the debug variant of the
+has been **deprecated** and is now included directly into the debug variant of the
 [Views DSL](../views-dsl/README.md#ide-preview) split. The package name has been left unchanged.
 
 ## Dependency (for reference)
