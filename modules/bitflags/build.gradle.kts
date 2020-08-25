@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -12,6 +12,8 @@ kotlin {
     js { useCommonJs() }
     macos()
     ios(supportArm32 = true)
+    linux(x64 = true)
+    mingw(x64 = true)
     configure(targets) { configureMavenPublication() }
     setupSourceSets()
     sourceSets {
