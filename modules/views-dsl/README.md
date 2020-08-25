@@ -19,7 +19,7 @@ Splitties Views DSL has been designed to be:
 * Reliable
 * Flexible
 
-That's 7 key considerations, which are all necessary to make a great library.
+That's 7 key considerations, which we believe are all necessary to make a great library.
 
 ## Introduction
 
@@ -87,7 +87,7 @@ probably already familiar to you._
   * [Possibilities brought by the `Ui` interface](#possibilities-brought-by-the-ui-interface)
     * [IDE Preview](#ide-preview)
       * [IDE Preview Example](#ide-preview-example)
-      * [Important info regarding IDE Preview](#important-info-regarding-ide-preview)
+      * [Important info regarding xml based IDE Preview](#important-info-regarding-xml-based-ide-preview)
         * [Interfaces parameters](#interfaces-parameters)
         * [Known issues and their workaround](#known-issues-and-their-workaround)
         * [Finding a suitable constructor to instantiate your UI](#finding-a-suitable-constructor-to-instantiate-your-ui)
@@ -489,14 +489,54 @@ and [`DemoActivity`](
 
 #### IDE Preview
 
-The debug variant of this module provides a class named `UiPreView` that you can
-use in xml layout files to preview your `Ui` subclasses right from the IDE.
+With the `UiPreView` class, you can preview your `Ui` implementations right from the IDE,
+(requires Android Studio 4.0 or newer).
+
+You can do it in code and have access to it contextually by selecting the "Split" or "Design" view
+in the top right corner of the editor, or you can do it in xml and benefit from options not yet
+available in `View` subclasses preview such as configuration switching (night mode, locale, etc).
+
+While the real app might show actual data, you'll likely want to show sample data in the IDE
+preview. To support this use case in the best way possible such as there's no impact on the
+production code, Splitties brings the `isInPreview` inline extension property for `Ui` and `View`.
+
+When your app is compiled in release mode, it evaluates to `false` as a constant value
+(unlike `View.isInEditmode`), which means that any code path under this condition will be removed by
+the compiler (kotlinc), and R8 or proguard will then remove any extra code that was only used in
+the IDE preview.
 
 ##### IDE Preview Example
+
+Below is a preview example in Kotlin that the IDE can display.
+
+```kotlin
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class MainUiImplPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = { MainUiImpl(it) }
+)
+//endregion
+```
+
+It is surrounded by a "region" so it can be collapsed by the IDE as you can see in the
+screenshot just below.
+
+![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20kotlin%20example.png)
 
 Below is a preview xml layout example that the IDE can display.
 It assumes there's a class implementing `Ui` named `MainUi` in the `main`
 subpackage (relative to the app/library package name).
+
+Beware that for the xml approach, any refactoring changes will not be reflected in the xml file,
+so if you change the package or the name of your `Ui` implementation class, you'll have to
+remember to edit the xml preview too to keep it working.
 
 ```xml
 <splitties.views.dsl.idepreview.UiPreView
@@ -511,13 +551,13 @@ Here's a screenshot of how it looks like with [DemoUi from the sample](
 ../../samples/android-app/src/androidMain/kotlin/com/example/splitties/demo/DemoUi.kt) after the
 `mergeDebugJavaResource` gradle task has been run:
 
-![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20example.png)
+![Example screenshot](Splitties%20View%20DSL%20IDE%20preview%20xml%20example.png)
 
-##### Important info regarding IDE Preview
+##### Important info regarding xml based IDE Preview
 
 ###### Interfaces parameters
 
-In order for preview to work, your `Ui` subclass need to have its first parameter of type `Context`.
+In order for the xml preview to work, your `Ui` subclass need to have its first parameter of type `Context`.
 For the subsequent parameters (if applicable), any `interface` is supported, but its methods need to
 not be called when this view is created and drawn, or an exception will be thrown.
 
