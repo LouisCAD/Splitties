@@ -336,6 +336,9 @@ situations.
 The `ViewGroup.add(…)` function requires an instance of `ViewGroup.LayoutParams`,
 see how Splitties helps instantiating it with minimal, yet explicit code.
 
+The `add` function also has 2 overloads that take either a `beforeChild` or an `afterChild`
+argument, handy when the order of Views matters or when adding views dynamically.
+
 #### ViewGroups extension functions to instantiate LayoutParams
 
 Splitties provides several methods named `lParams(…) { … }` for the 2 Android's
