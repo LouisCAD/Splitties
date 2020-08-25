@@ -97,7 +97,7 @@ Now supports macOS, iOS and JS.
 
 #### Changed
 
-- Ensure all `TextView`s in the list items have are at least one line tall, even if the text is empty.
+- Ensure all `TextView`s in the list items are at least one line tall, even if the text is empty.
 - Support enabled/disabled state by making child views duplicate parent state.
 
 ### Permissions
