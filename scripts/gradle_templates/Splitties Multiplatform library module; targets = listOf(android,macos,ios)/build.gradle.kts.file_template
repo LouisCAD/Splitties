@@ -21,7 +21,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            compileOnly(KotlinX.coroutines.coreCommon)
+            compileOnly(KotlinX.coroutines.core)
         }
         androidMain.dependencies {
             api(Kotlin.stdlib.jdk7)

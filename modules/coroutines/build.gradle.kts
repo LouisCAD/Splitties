@@ -21,20 +21,13 @@ kotlin {
             api(Kotlin.stdlib.common)
             api(splitties("experimental"))
             implementation(splitties("collections"))
-            api(KotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.core)
         }
         jvmMain.dependencies {
             api(Kotlin.stdlib.jdk7)
-            api(KotlinX.coroutines.core)
         }
         jsMain.dependencies {
             api(Kotlin.stdlib.js)
-            api(KotlinX.coroutines.coreJs)
-        }
-        nativeMain {
-            dependencies {
-                api(KotlinX.coroutines.coreNative)
-            }
         }
         all {
             languageSettings.apply {

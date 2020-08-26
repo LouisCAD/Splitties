@@ -22,17 +22,12 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            api(KotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.core)
         }
         androidMain.dependencies {
             api(splitties("appctx"))
             api(Kotlin.stdlib.jdk7)
             compileOnly(KotlinX.coroutines.android)
-        }
-        nativeMain {
-            dependencies {
-                api(KotlinX.coroutines.coreNative)
-            }
         }
         appleMain {
             dependencies {

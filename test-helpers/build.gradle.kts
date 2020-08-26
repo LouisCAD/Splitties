@@ -27,12 +27,11 @@ kotlin {
             api(Kotlin.stdlib.common)
             api(Kotlin.test.common)
             api(Kotlin.test.annotationsCommon)
-            api(KotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.core)
         }
         allJvmMain {
             dependencies {
                 api(Kotlin.stdlib.jdk7)
-                api(KotlinX.coroutines.core)
                 api(Kotlin.test.junit)
             }
         }
@@ -42,12 +41,6 @@ kotlin {
         }
         jsMain.dependencies {
             api(Kotlin.stdlib.js)
-            api(KotlinX.coroutines.coreJs)
-        }
-        nativeMain {
-            dependencies {
-                api(KotlinX.coroutines.coreNative)
-            }
         }
         all {
             languageSettings.apply {
