@@ -1,13 +1,6 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
-# https://github.com/marketplace/actions/gradle-command
 name: Publish to repository
 on:
-  workflow_dispatch:
-    inputs:
-      dummy:
-        description: 'Dummy value'
-        required: false
-        default: ''
   push:
     paths:
       - 'libraries_version.properties'
@@ -16,64 +9,29 @@ on:
       - develop
 jobs:
   windows-publishing:
-    strategy:
-      matrix:
-        qualifier: [MingwX64, MingwX86]
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with: # We don't use the retry script here because it doesn't work on Windows.
-          arguments: publish${{ matrix.qualifier }}PublicationToBintrayRepository --parallel -Pkotlin.native.disableCompilerDaemon=true -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }} --scan -PbuildScan.termsOfServiceAgree=yes
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Publish Windows artifacts
+        run: ./gradlew publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
   linux-publishing:
-    strategy:
-      matrix:
-        arch: [X64, Arm32Hfp, Arm64]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-      - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publishLinux${{ matrix.arch }}PublicationToBintrayRepository --parallel -Pkotlin.native.disableCompilerDaemon=true -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
-  mac-publishing:
-    strategy:
-      matrix:
-        qualifier: [MacosX64, IosArm32, IosArm64, IosX64, WatchosArm32, WatchosArm64, WatchosX86, TvosArm64, TvosX64]
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Publish Linux artifacts
+        run: ./gradlew publishLinuxX64PublicationToBintrayRepository publishLinuxArm64PublicationToBintrayRepository publishLinuxArm32HfpPublicationToBintrayRepository
+  macos-publishing:
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-      - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository --parallel -Pkotlin.native.disableCompilerDaemon=true -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
-  host-independent-platforms-publishing:
-    strategy:
-      matrix:
-        qualifier: [Android, Jvm, Js]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-      - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publish${{ matrix.qualifier }}PublicationToBintrayRepository --parallel -Pkotlin.native.disableCompilerDaemon=true -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
-  multiplatform-metadata-publishing:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-      - name: Run gradle task with retries
-        run: ./run_gradle_task_with_retries.sh publishMetadataPublicationToBintrayRepository publishKotlinMultiplatformPublicationToBintrayRepository --parallel -Pkotlin.native.disableCompilerDaemon=true -Pbintray_user=${{ secrets.BINTRAY_USER }} -Pbintray_api_key=${{ secrets.BINTRAY_API_KEY }}
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Publish all artifacts macOS can publish
+        run: ./gradlew publishAllPublicationsToBintrayRepository
+env:
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  ORG_GRADLE_PROJECT_kotlin.native.disableCompilerDaemon: true
+  ORG_GRADLE_PROJECT_bintray_user: ${{ secrets.BINTRAY_USER }}
+  ORG_GRADLE_PROJECT_bintray_api_key: ${{ secrets.BINTRAY_API_KEY }}
+  ORG_GRADLE_PROJECT_buildScan.termsOfServiceAgree: yes
