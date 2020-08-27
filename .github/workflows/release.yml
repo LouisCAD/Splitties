@@ -2,8 +2,8 @@
 name: Publish to repository
 on:
   push:
-    paths:
-      - 'libraries_version.properties'
+#    paths:
+#      - 'libraries_version.properties'
     branches:
       - master
       - develop
