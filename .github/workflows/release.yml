@@ -30,8 +30,6 @@ jobs:
       - name: Publish all artifacts macOS can publish
         run: ./gradlew publishAllPublicationsToBintrayRepository
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
-  ORG_GRADLE_PROJECT_kotlin.native.disableCompilerDaemon: true
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.project.buildScan.termsOfServiceAgree=yes -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   ORG_GRADLE_PROJECT_bintray_user: ${{ secrets.BINTRAY_USER }}
   ORG_GRADLE_PROJECT_bintray_api_key: ${{ secrets.BINTRAY_API_KEY }}
-  ORG_GRADLE_PROJECT_buildScan.termsOfServiceAgree: yes
