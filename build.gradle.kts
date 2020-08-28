@@ -45,12 +45,3 @@ allprojects {
         }
     }
 }
-
-println("Printing all properties!")
-properties.forEach { (k, v) ->
-    print(k)
-    print(" -> ")
-    println(v)
-}
-println("Printing all properties done!")
-error("Abort")
