@@ -3,7 +3,7 @@ name: Publish to repository
 on:
   push:
     paths:
-      - 'libraries_version.properties'
+      - 'libraries_version.txt'
     branches:
       - master
       - develop

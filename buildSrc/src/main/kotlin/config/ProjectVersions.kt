@@ -17,9 +17,7 @@ val Project.thisLibraryVersion: String
     get() {
         val key = "splitties.version"
         return rootProject.extra.properties.getOrPut(key) {
-            Properties().also {
-                it.load(rootProject.file("libraries_version.properties").reader())
-            }.getProperty(key)
+            rootProject.file("libraries_version.txt").readLines().first()
         } as String
     }
 

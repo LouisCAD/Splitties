@@ -11,10 +11,10 @@ on:
       - '**.adoc'
       - '.editorconfig'
       - '**/.gitignore'
-      - 'libraries_version.properties'
+      - 'libraries_version.txt'
       - '.github/workflows/release.yml'
       - 'Releasing.kts'
-      - 'libraries_version.properties'
+      - 'libraries_version.txt'
   push:
     branches:
       - develop
@@ -24,10 +24,10 @@ on:
       - '**.adoc'
       - '.editorconfig'
       - '**/.gitignore'
-      - 'libraries_version.properties'
+      - 'libraries_version.txt'
       - '.github/workflows/release.yml'
       - 'Releasing.kts'
-      - 'libraries_version.properties'
+      - 'libraries_version.txt'
 jobs:
   Host-agnostic-tests:
     strategy:
