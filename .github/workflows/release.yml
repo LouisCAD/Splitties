@@ -8,28 +8,51 @@ on:
       - master
       - develop
 jobs:
-  windows-publishing:
+  windows-upload:
     runs-on: windows-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Publish Windows artifacts
-        run: ./gradlew publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
-  linux-publishing:
+      - name: Upload Windows artifacts
+        run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
+  linux-upload:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Publish Linux artifacts
-        run: ./gradlew publishLinuxX64PublicationToBintrayRepository publishLinuxArm64PublicationToBintrayRepository publishLinuxArm32HfpPublicationToBintrayRepository
-  macos-publishing:
+      - name: Upload Linux artifacts
+        run: ./gradlew --scan publishLinuxArm64PublicationToBintrayRepository publishLinuxArm32HfpPublicationToBintrayRepository
+  macos-upload:
     runs-on: macOS-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Publish all artifacts macOS can publish
-        run: ./gradlew publishAllPublicationsToBintrayRepository
+      - name: Upload all artifacts macOS can build
+        run: ./gradlew --scan publishAllPublicationsToBintrayRepository
+  windows-checking:
+    runs-on: windows-latest
+    needs: [windows-upload, linux-upload, macos-upload]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Check Windows build with latest artifacts
+        run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
+  macos-checking:
+    runs-on: macOS-latest
+    needs: [windows-upload, linux-upload, macos-upload]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Check macOS build with latest artifacts
+        run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
+  linux-checking-and-publish:
+    runs-on: ubuntu-latest
+    needs: [macos-checking, windows-checking]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Check Linux build with latest artifacts, then publish
+        run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build publishBintrayRelease
 env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.project.buildScan.termsOfServiceAgree=yes -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
-  ORG_GRADLE_PROJECT_bintray_user: ${{ secrets.BINTRAY_USER }}
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   ORG_GRADLE_PROJECT_bintray_api_key: ${{ secrets.BINTRAY_API_KEY }}
