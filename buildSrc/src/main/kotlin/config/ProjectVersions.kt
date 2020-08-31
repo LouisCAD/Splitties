@@ -16,12 +16,10 @@ object ProjectVersions {
 val Project.thisLibraryVersion: String
     get() {
         val key = "splitties.version"
-        return rootProject.extra.properties.getOrElse(key) {
+        return rootProject.extra.properties.getOrPut(key) {
             Properties().also {
                 it.load(rootProject.file("libraries_version.properties").reader())
-            }.getProperty(key).also { value ->
-                rootProject.extra.properties[key] = value // Cache it in root project's extra properties.
-            }
+            }.getProperty(key)
         } as String
     }
 
