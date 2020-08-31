@@ -15,6 +15,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Upload Windows artifacts
         run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
+        shell: bash
   linux-upload:
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +38,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Check Windows build with latest artifacts
         run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
+        shell: bash
   macos-checking:
     runs-on: macOS-latest
     needs: [windows-upload, linux-upload, macos-upload]
