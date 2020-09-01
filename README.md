@@ -301,7 +301,7 @@ For maven and alternative build-systems, check the [Bintray page](
 https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
-Releases are announced on GitHub, you can subscribe by[clicking on "Watch", then "Releases only"](
+Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
 https://help.github.com/en/articles/watching-and-unwatching-releases-for-a-repository
 ).
 
