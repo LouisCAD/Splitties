@@ -293,7 +293,7 @@ allProjects {
         maven { url 'https://dl.bintray.com/louiscad/splitties-dev' }
     }
     ext {
-        splitties_version = '3.0.0-dev-008'
+        splitties_version = '3.0.0-dev-077'
     }
 }
 ```
