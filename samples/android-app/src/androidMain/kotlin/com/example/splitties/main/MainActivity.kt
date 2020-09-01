@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package com.example.splitties.main
@@ -24,14 +24,8 @@ import com.example.splitties.preview.sound.playDiapason
 import com.example.splitties.preview.vibrator.VibrationEffect
 import com.example.splitties.preview.vibrator.vibrate
 import com.example.splitties.sayhello.SayHelloActivity
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.isActive
-import kotlinx.coroutines.launch
 import splitties.activities.start
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.showAndAwaitOkOrDismiss

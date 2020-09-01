@@ -1,7 +1,35 @@
 # Change log for Splitties
 
-<!--## Version 3.0.0-alpha07 (2020-??-??)-->
 ## [Unreleased]
+
+Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
+
+### Views DSL AppCompat
+
+#### Changed
+
+Only instantiate AppCompat version of Android widgets if the current theme inherits
+an AppCompat theme.
+
+#### Added
+
+Add the missing AppCompat version of `ToggleButton`.
+
+### Views DSL Material
+
+#### Changed
+
+Only instantiate Material Components version of Android widgets if the current theme inherits
+a material theme.
+
+#### Added
+
+Add the following missing Material Components counterparts of Android widgets:
+`CheckBox`, `RadioButton`, `TextView`, `AutoCompleteTextView`.
+
+
+## Version 3.0.0-alpha07 (2020-09-01)
+
 Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
 **This release introduces 2 new splits:**
@@ -196,13 +224,17 @@ Add `slider`, `rangeSlider` and `shapeableImageView` extensions for `View`, `Ui`
 
 Its content has been moved to the main "Views DSL" split.
 
+
 ## Version 3.0.0-alpha06 (2019-05-03)
+
 Compiled with Kotlin 1.3.31.
 
 ### Permissions
 Handle empty `grantResults` for permission request ([#191](https://github.com/LouisCAD/Splitties/issues/191)).
 
+
 ## Version 3.0.0-alpha05 (2019-04-29)
+
 Compiled with Kotlin 1.3.31.
 
 **This release introduces 3 new splits:**
@@ -264,6 +296,7 @@ Two set-only extensions properties have been added for `MaterialButton`:
 
 
 ## Version 3.0.0-alpha04 (2019-03-03)
+
 Compiled with Kotlin 1.3.21.
 
 ### New features
@@ -282,6 +315,7 @@ Compiled with Kotlin 1.3.21.
 
 
 ## Version 3.0.0-alpha03 (2019-02-05)
+
 Compiled with Kotlin 1.3.20.
 
 **This release introduces a new split: [Views Coroutines](modules/views-coroutines/README.md).**
@@ -335,6 +369,7 @@ This release has the following new artifact:
 
 
 ## Version 3.0.0-alpha01 (2018-12-21)
+
 This release is compiled with Kotlin 1.3.11.
 
 It is a breaking release (more details in the changes section), and the API is subject to changes
@@ -422,6 +457,7 @@ This release removes these two artifacts:
 
 
 ## Version 2.1.1 (2018-11-25)
+
 This release is compiled with Kotlin 1.3.10.
 
 ### Changes
@@ -437,6 +473,7 @@ done in `putExtras` instead. You can see more info in the updated KDoc of these 
 
 
 ## Version 2.1.0 (2018-11-13)
+
 This release targets Android SDK 28, and splits depending on support libraries use version 28.0.0.
 
 ### Changes
@@ -447,6 +484,7 @@ design support library version 28.0.0.
 
 
 ## Version 2.0.0 (2018-11-13)
+
 This release targets Android SDK 27, and splits depending on support libraries use version 27.1.1.
 
 ### Changes
@@ -456,6 +494,7 @@ This release targets Android SDK 27, and splits depending on support libraries u
 
 
 ## Version 2.0.0-beta1 (2018-11-13)
+
 This release **breaks binary and source compatibility**.
 
 ### Kotlin 1.3.0
@@ -477,6 +516,7 @@ or beta stage.
 
 
 ## Version 2.0.0-alpha9 (2018-11-13)
+
 This release **breaks binary and source compatibility**.
 
 It renames several package names and modules, for more consistency across the project.
@@ -547,6 +587,7 @@ This release removes all these artifacts:
 
 
 ## Version 2.0.0-alpha8 (2018-11-12)
+
 This release **breaks binary compatibility**.
 
 It removes all deprecated symbols that had their deprecation level raised to error in 2.0.0-alpha7.
@@ -557,12 +598,14 @@ crash at runtime because of not found classes.
 
 
 ## Version 2.0.0-alpha7 (2018-11-12)
+
 Raise all deprecated symbols deprecation level to error.
 
 Use this version to make sure you don't use them in your projects, next version will remove them!
 
 
 ## Version 2.0.0-alpha6 (2018-11-11)
+
 Version 2.0.0-alpha5 broke the API, this version fixes this.
 
 ### Like version 2.0.0-alpha5, but without breaking the API from 2.0.0-alpha4
@@ -648,6 +691,7 @@ The `wrapInRecyclerView` extension function now accepts an optional lambda to co
 
 
 ## Version 2.0.0-alpha5 (2018-11-02)
+
 _This release is **breaking** if you come from version 2.0.0-alpha4, especially if you were using
 View DSL. It's highly recommended to directly migrate from version 2.0.0-alpha4 to 2.0.0-alpha6,
 which has a smoother migration path, and [a guide](
@@ -774,12 +818,14 @@ This release removes these two artifacts:
 
 
 ## Version 2.0.0-alpha4 (2018-07-09)
+
 * Provide `ReplaceWith` migrations for `add` methods deprecated in version 2.0.0-alpha2.
 * Add default empty lambda for `startActivity(action: String…)` methods.
 * Compiled with Kotlin 1.2.51
 
 
 ## Version 2.0.0-alpha3 (2018-06-09)
+
 ### New features
 #### Bundle
 There are 2 new methods: `bundleOrDefault(…)` and `bundleOrElse { … }` to allow default values in
@@ -803,6 +849,7 @@ API and have been replaced by the `ReadWriteProperty` interface.
 
 
 ## Version 2.0.0-alpha2 (2018-05-21)
+
 ### 9 new library modules (amounting to a total of 42 splits):
 - **Activities**: Start activities with minimal boilerplate
 - **Collections**: `forEach` for `List`s without `Iterator` allocation
@@ -893,6 +940,7 @@ allProjects {
 
 
 ## Version 2.0.0-alpha1 (2018-03-11)
+
 ### 26 new library modules (amounting to a total of 33 splits):
 - **Alert Dialog**: Create simple alert dialogs with simple code
 - **Alert Dialog AppCompat**: AppCompat version of Alert Dialog
@@ -1013,6 +1061,7 @@ allProjects {
 
 
 ## Version 1.3.0 (2017-04-17)
+
 ### 5 new library modules:
 - **App Context**: Have a `Context` everywhere
 - **Concurrency**: Single thread `lazy` implementations, with reporting via [Timber](
@@ -1032,6 +1081,7 @@ https://material.io/guidelines/)
 
 
 ## Version 1.2 (2016-09-19)
+
 This version adds the `setHost(Host host)` method in `ViewWrapper.Binder` interface where `Host` can
 be any type you want you can use from the implementing item View to communicate with your Activity,
 Fragment, Presenter, or whatever. Note this adds a third type parameter to the `ViewWrapper` class,
@@ -1039,12 +1089,14 @@ and a second one for the `ViewWrapper.Binder` class.
 
 
 ## Version 1.1 (2016-09-11)
+
 This version adds the `setViewHolder(ViewWrapper holder)` method in `ViewWrapper.Binder` interface
 so list item `View`s can now get a reference to their `ViewHolder`, and call `getAdapterPosition()`
 on it for example.
 
 
 ## Version 1.0 (2016-08-24)
+
 This is the first release of Splitties. It includes two independent modules:
 - Typesafe RecyclerView
 - Selectable ViewGroups

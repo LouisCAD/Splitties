@@ -23,6 +23,7 @@ Currently, only JVM (including Android) and JS are supported, but future Kotlin/
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
+- **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
 
 ## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
@@ -142,7 +143,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -154,7 +155,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### Android AppCompat
@@ -168,7 +169,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -178,7 +179,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### Android Material Components
@@ -193,7 +194,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -204,7 +205,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### All the artifacts (47)
@@ -215,7 +216,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha06"
+        splitties_version = "3.0.0-alpha07"
     }
 }
 ```
@@ -237,6 +238,7 @@ implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
 implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
 implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
 implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
@@ -291,7 +293,7 @@ allProjects {
         maven { url 'https://dl.bintray.com/louiscad/splitties-dev' }
     }
     ext {
-        splitties_version = '3.0.0-dev-008'
+        splitties_version = '3.0.0-dev-077'
     }
 }
 ```
@@ -301,7 +303,7 @@ For maven and alternative build-systems, check the [Bintray page](
 https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
-Releases are announced on GitHub, you can subscribe by[clicking on "Watch", then "Releases only"](
+Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
 https://help.github.com/en/articles/watching-and-unwatching-releases-for-a-repository
 ).
 

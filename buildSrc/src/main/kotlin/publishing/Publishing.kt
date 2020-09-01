@@ -57,21 +57,27 @@ fun PublishingExtension.setupAllPublications(project: Project) {
 
 private fun PublishingExtension.setupPublishRepo(project: Project) {
     repositories {
+
+        fun bintrayProperty(keySuffix: String): String = project.property("splitties.bintray.$keySuffix") as String
+
+        val bintrayUsername = bintrayProperty("user")
+        val bintrayApiKey = project.findProperty("bintray_api_key") as String? ?: return@repositories
         maven {
-            val isDevVersion = project.isDevVersion
             name = "bintray"
-            val bintrayUsername = "louiscad"
-            val bintrayRepoName = if (isDevVersion) "splitties-dev" else "maven"
-            val bintrayPackageName = "splitties"
+            val isDevVersion = project.isDevVersion
+            val bintrayRepoName = bintrayProperty(if (isDevVersion) "repo.dev" else "repo.release")
+            val bintrayPackageName = bintrayProperty("package")
             setUrl(
                 "https://api.bintray.com/maven/" +
                     "$bintrayUsername/$bintrayRepoName/$bintrayPackageName/;" +
-                    "publish=1;" + // Might conflict with override. TODO: Revert or remove this comment based on results
                     "override=1"
+                // We don't (no longer) publish on upload because it increases the risk of the bintray API returning
+                // HTTP 405 or 409 errors, it allows publishing an invalid release.
+                // We publish later once we validated all artifacts.
             )
             credentials {
-                username = project.findProperty("bintray_user") as String?
-                password = project.findProperty("bintray_api_key") as String?
+                username = bintrayUsername
+                password = bintrayApiKey
             }
         }
     }

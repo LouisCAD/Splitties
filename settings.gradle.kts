@@ -30,7 +30,7 @@ plugins {
 gradleEnterprise {
     buildScan {
         termsOfServiceUrl = "https://gradle.com/terms-of-service"
-        termsOfServiceAgree = settings.extra.properties["buildScan.termsOfServiceAgree"] as String?
+        termsOfServiceAgree = "yes"
     }
 }
 
@@ -103,3 +103,7 @@ arrayOf(
 ).forEach { include(":samples:$it") }
 
 include("test-helpers")
+
+if (extra.properties["splitties.bintray.check"].toString().toBoolean()) {
+    include(":tools:publication-checker")
+}

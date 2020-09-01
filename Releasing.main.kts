@@ -6,13 +6,14 @@
 
 @file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
 @file:Repository("https://dl.bintray.com/louiscad/maven")
-@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.1.2")
+@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.1.3")
 //@file:Repository("file:///Users/louiscad/.m2/repository")
 
 import java.io.File
-import Releasing_main.BintrayReleaseStep.*
+import Releasing_main.ReleaseStep.*
 import lib_publisher_tools.cli.CliUi
 import lib_publisher_tools.cli.defaultImpl
+import lib_publisher_tools.cli.runUntilSuccessWithErrorPrintingOrCancel
 import lib_publisher_tools.vcs.Vcs
 import lib_publisher_tools.vcs.checkoutDevelop
 import lib_publisher_tools.vcs.checkoutMaster
@@ -21,7 +22,10 @@ import lib_publisher_tools.vcs.isOnDevelopBranch
 import lib_publisher_tools.vcs.mergeMasterIntoCurrent
 import lib_publisher_tools.vcs.pullFromOrigin
 import lib_publisher_tools.vcs.pushToOrigin
+import lib_publisher_tools.versioning.StabilityLevel
+import lib_publisher_tools.versioning.Version
 import lib_publisher_tools.versioning.checkIsValidVersionString
+import lib_publisher_tools.versioning.stabilityLevel
 
 val dir = File(".")
 
@@ -37,14 +41,14 @@ fun checkOnDevelopBranch() {
 }
 
 @Suppress("EnumEntryName")
-enum class BintrayReleaseStep { // Order of the steps, must be kept right.
+enum class ReleaseStep { // Order of the steps, must be kept right.
     `Change this library version`,
-    `Request README update confirmation`,
+    `Request doc update confirmation`,
     `Request CHANGELOG update confirmation`,
     `Commit "prepare for release" and tag`,
     `Push release to origin`,
     `Request PR submission`,
-    `Request bintray publish`,
+    `Wait for successful release by CI`,
     `Push tags to origin`,
     `Request PR merge`,
     `Request GitHub release publication`,
@@ -55,158 +59,210 @@ enum class BintrayReleaseStep { // Order of the steps, must be kept right.
     `Push, at last`;
 }
 
-var currentDevVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
-var newVersion: String //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
-var startAtStep: BintrayReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+val ongoingReleaseFile = dir.resolve("ongoing_release.tmp.properties")
+val versionsFile = dir.resolve("libraries_version.txt")
 
-val ongoingReleaseFile = dir.resolve("ongoing_release.splitties")
-val versionsFile = dir.resolve("libraries_version.properties")
-val libVersionLineStart = "splitties.version="
+inner class OngoingReleaseImpl {
+    fun load() = properties.load(ongoingReleaseFile.inputStream())
+    fun write() = properties.store(ongoingReleaseFile.outputStream(), null)
+    fun clear() = ongoingReleaseFile.delete()
+
+    private val properties = java.util.Properties()
+
+    var versionBeforeRelease: String by properties
+    var newVersion: String by properties
+
+    var currentStepName: String by properties
+}
+
+//TODO: Make OngoingRelease and object again when https://youtrack.jetbrains.com/issue/KT-19423 is fixed.
+@Suppress("PropertyName")
+val OngoingRelease = OngoingReleaseImpl()
+
+var startAtStep: ReleaseStep //TODO: Make a val again when https://youtrack.jetbrains.com/issue/KT-20059 is fixed
+
+val versionTagPrefix = "v"
 
 if (ongoingReleaseFile.exists()) {
-    ongoingReleaseFile.readLines().let {
-        currentDevVersion = it[0]
-        newVersion = it[1]
-        startAtStep = BintrayReleaseStep.valueOf(it[2])
-    }
+    OngoingRelease.load()
+    startAtStep = ReleaseStep.valueOf(OngoingRelease.currentStepName)
 } else {
     checkOnDevelopBranch()
-    currentDevVersion = let { _ ->
-        val libraryVersionLine = versionsFile.readLines().singleOrNull { line ->
-            line.startsWith(libVersionLineStart)
-        } ?: throw IllegalStateException("Library version line not found.")
-        libraryVersionLine.substring(startIndex = libVersionLineStart.length).also { versionName ->
-            check("-dev-" in versionName) {
-                "Version in ${versionsFile.path} should be a `-dev-` version."
+    with(OngoingRelease) {
+        versionBeforeRelease = versionsFile.bufferedReader().use { it.readLine() }.also {
+            check(it.contains("-dev-")) {
+                "The current version needs to be a dev version, but we got: $it"
             }
         }
+        newVersion = askNewVersionInput(
+            currentVersion = versionBeforeRelease,
+            tagPrefix = versionTagPrefix
+        )
+        startAtStep = ReleaseStep.values().first()
     }
-    cliUi.printInfo("Current version: $currentDevVersion")
+}
+
+fun askNewVersionInput(
+    currentVersion: String,
+    tagPrefix: String
+): String = cliUi.runUntilSuccessWithErrorPrintingOrCancel {
+    cliUi.printInfo("Current version: $currentVersion")
     cliUi.printQuestion("Please enter the name of the new version you want to release:")
-    newVersion = readLine()?.trimEnd().also { input ->
-        input.checkIsValidVersionString()
-        when {
-            "-dev-" in input -> throw IllegalStateException("Dev versions not allowed")
-            "-SNAPSHOT" in input -> throw IllegalStateException("Snapshots not allowed")
-        }
-        val existingVersions = git.getTags().filter {
-            it.startsWith("v") && it.getOrElse(1) { ' ' }.isDigit()
-        }.sorted().toList()
-        check("v$input" !in existingVersions) { "This version already exists!" }
-    }!!
-    startAtStep = `Change this library version`
+    val input = readLine()?.trimEnd() ?: error("Empty input!")
+    input.checkIsValidVersionString()
+    when {
+        "-dev-" in input -> error("Dev versions not allowed")
+        "-SNAPSHOT" in input -> error("Snapshots not allowed")
+    }
+    val existingVersions = git.getTags().filter {
+        it.startsWith(tagPrefix) && it.getOrElse(tagPrefix.length) { ' ' }.isDigit()
+    }.sorted().toList()
+    check("$tagPrefix$input" !in existingVersions) { "This version already exists!" }
+    input
 }
 
 
-fun runBintrayReleaseStep(step: BintrayReleaseStep) = when (step) {
+fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
     `Change this library version` -> {
         checkOnDevelopBranch()
-        cliUi.printInfo("New version: \"$newVersion\"")
-        cliUi.requestUserConfirmation("Confirm?")
-        val versionsFileTextBeforeEdits = versionsFile.readText()
-        val libraryVersionLine = versionsFile.readLines().singleOrNull { line ->
-            line.startsWith(libVersionLineStart)
-        } ?: throw IllegalStateException("Library version line not found.")
-        versionsFile.writeText(
-            versionsFileTextBeforeEdits.replace(
-                oldValue = libraryVersionLine,
-                newValue = "$libVersionLineStart$newVersion"
-            )
-        )
+        OngoingRelease.newVersion.let { newVersion ->
+            printInfo("Splitties new version: \"$newVersion\"")
+            requestUserConfirmation("Confirm?")
+            versionsFile.writeText(newVersion)
+        }
     }
-    `Request README update confirmation` -> {
-        cliUi.requestManualAction("Update the `README.md` with the new version and any other changes.")
-        dir.resolve("README.md").checkChanged()
+    `Request doc update confirmation` -> {
+        arrayOf(
+            "README.md"
+        ).forEach { relativePath ->
+            do {
+                requestManualAction(
+                    instructions = "Update the `$relativePath` file with the new version (if needed)," +
+                        " and any other changes needed for this release."
+                )
+                if (git.didFileChange(dir.resolve(relativePath))) {
+                    break
+                }
+                if (askIfYes(
+                        yesNoQuestion = "Are you sure the $relativePath file doesn't need to be updated?"
+                    )
+                ) {
+                    break
+                }
+            } while (true)
+        }.also {
+            if (askIfYes(
+                    yesNoQuestion = "Apart from the changelog, is there other files that " +
+                        "need to be updated for this new release?"
+                )
+            ) {
+                requestManualAction(
+                    instructions = "Let's ensure all these other files are updated."
+                )
+            }
+        }
     }
     `Request CHANGELOG update confirmation` -> {
-        cliUi.requestManualAction("Update the `CHANGELOG.md` for the impending release.")
+        requestManualAction("Update the `CHANGELOG.md` for the impending release.")
         dir.resolve("CHANGELOG.md").checkChanged()
     }
-    `Commit "prepare for release" and tag` -> {
+    `Commit "prepare for release" and tag` -> with(OngoingRelease) {
         git.commitAllFiles(commitMessage = "Prepare for release $newVersion")
-        git.tagAnnotated(tag = "v$newVersion", annotationMessage = "Version $newVersion")
+        git.tagAnnotated(tag = "$versionTagPrefix$newVersion", annotationMessage = "Version $newVersion")
     }
     `Push release to origin` -> {
-        cliUi.printInfo("Will now push to origin repository")
-        cliUi.printInfo("Once complete, GitHub should kick-off the release GitHub Action that will perform the publishing.")
-        cliUi.requestUserConfirmation("Continue?")
+        printInfo("Will now push to origin repository")
+        printInfo("Once complete, GitHub should kick-off the release GitHub Action that will perform the publishing.")
+        requestUserConfirmation("Continue?")
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        cliUi.requestManualAction("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
+        requestManualAction("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
     }
-    `Request bintray publish` -> {
-        cliUi.printInfo("To perform this step, we need to wait for the artifacts building and uploading to Bintray.")
-        cliUi.requestUserConfirmation("Did the publishing/release Github Action complete successfully?")
-        cliUi.printInfo("Alright, we take your word. Let's release the artifacts now:")
-        cliUi.requestManualAction("Sign in on Bintray and publish the packages.")
+    `Wait for successful release by CI` -> {
+        printInfo("To perform this step, we need to wait for the artifacts building and uploading to Bintray.")
+        requestUserConfirmation("Did the publishing/release Github Action complete successfully?")
+        printInfo("Alright, we take your word.")
     }
     `Push tags to origin` -> {
-        cliUi.printInfo("Will now push with tags.")
-        cliUi.requestUserConfirmation("Continue?")
+        printInfo("Will now push with tags.")
+        requestUserConfirmation("Continue?")
         git.pushToOrigin(withTags = true)
     }
     `Request PR merge` -> {
-        cliUi.requestManualAction("Merge the pull request for the new version on GitHub.")
+        requestManualAction("Merge the pull request for the new version on GitHub.")
     }
     `Request GitHub release publication` -> {
-        cliUi.requestManualAction("Publish release on GitHub with the changelog.")
+        requestManualAction("Publish release on GitHub with the changelog.")
     }
     `Update master branch` -> {
-        cliUi.printInfo("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
-        cliUi.requestUserConfirmation("Continue?")
+        printInfo("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
+        requestUserConfirmation("Continue?")
         git.checkoutMaster()
         git.pullFromOrigin()
     }
     `Update develop branch from master` -> {
-        cliUi.printInfo("About to checkout the develop branch (and update it from master for merge commits).")
-        cliUi.requestUserConfirmation("Continue?")
+        printInfo("About to checkout the develop branch (and update it from master for merge commits).")
+        requestUserConfirmation("Continue?")
         git.checkoutDevelop()
         git.mergeMasterIntoCurrent()
     }
     `Change this library version back to a dev version` -> {
-        cliUi.printInfo("Let's update the library for next development version.")
-        cliUi.printInfo("If you want to keep using $currentDevVersion, enter an empty line.")
-        cliUi.printInfo("Otherwise, enter the name of the next target version (`-dev-001` will be added automatically)")
-        val nextDevVersion: String = readLine().let { input ->
-            if (input.isNullOrBlank()) currentDevVersion else "$input-dev-001"
-        }
-        versionsFile.writeText(
-            versionsFile.readText().replace(
-                oldValue = "$libVersionLineStart$newVersion",
-                newValue = "$libVersionLineStart$nextDevVersion"
+        val newVersion = Version(OngoingRelease.newVersion)
+
+        val isNewVersionStable: Boolean = newVersion.stabilityLevel().let { level ->
+            if (level == StabilityLevel.Stable) true
+            else level == StabilityLevel.Unknown && askIfYes(
+                yesNoQuestion = "The stabilityLevel of the new release is unknown. Is it a stable one?"
             )
-        )
-        cliUi.printInfo("${versionsFile.path} has been edited with next development version ($nextDevVersion).")
+        }
+        val nextDevVersion: String = if (isNewVersionStable) {
+            printInfo("Congratulations for this new stable release!")
+            printInfo("Let's update the library for next development version.")
+            runUntilSuccessWithErrorPrintingOrCancel {
+                printInfo("Enter the name of the next target version (`-dev-000` will be added automatically)")
+                val input = readLine()
+                input.checkIsValidVersionString()
+                when (Version(input).stabilityLevel()) {
+                    StabilityLevel.Unknown, StabilityLevel.Stable -> Unit
+                    else -> error("You need to enter a stable target version")
+                }
+                "$input-dev-000"
+            }
+        } else OngoingRelease.versionBeforeRelease.let {
+            val devVersionSuffix = it.substringAfter("-dev-").toInt().let { lastReleaseNumber ->
+                (lastReleaseNumber + 1).toString().padStart(length = 3, padChar = '0')
+            }
+            "${it.substringBefore("-dev-")}-dev-$devVersionSuffix"
+        }
+        versionsFile.writeText(nextDevVersion)
+        printInfo("${versionsFile.path} has been edited with next development version ($nextDevVersion).")
     }
     `Commit "prepare next dev version"` -> git.commitAllFiles(
         commitMessage = "Prepare next development version.".also {
-            cliUi.requestUserConfirmation(
+            requestUserConfirmation(
                 yesNoQuestion = """Will commit all files with message "$it" Continue?"""
             )
         }
     )
     `Push, at last` -> {
-        cliUi.requestUserConfirmation("Finally the last step: the last push. Continue?")
+        requestUserConfirmation("Finally the last step: the last push. Continue?")
         git.pushToOrigin()
     }
 }
 
-fun releaseOnBintray() {
+fun performRelease() {
     var stepIndex = startAtStep.ordinal
-    val enumValues = enumValues<BintrayReleaseStep>().toList()
+    val enumValues = enumValues<ReleaseStep>().toList()
     while (stepIndex < enumValues.size) {
         val step = enumValues[stepIndex]
-        ongoingReleaseFile.writeText(buildString {
-            appendln(currentDevVersion)
-            appendln(newVersion)
-            appendln(step.name)
-        })
-        runBintrayReleaseStep(step)
+        OngoingRelease.currentStepName = step.name
+        OngoingRelease.write()
+        cliUi.runReleaseStep(step)
         stepIndex++
     }
-    ongoingReleaseFile.delete()
+    OngoingRelease.clear()
     cliUi.printQuestion("All Done! Let's brag about this new release!!")
 }
 
-releaseOnBintray()
+performRelease()
