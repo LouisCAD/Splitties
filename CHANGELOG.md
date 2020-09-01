@@ -1,5 +1,33 @@
 # Change log for Splitties
 
+## [Unreleased]
+
+Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
+
+### Views DSL AppCompat
+
+#### Changed
+
+Only instantiate AppCompat version of Android widgets if the current theme inherits
+an AppCompat theme.
+
+#### Added
+
+Add the missing AppCompat version of `ToggleButton`.
+
+### Views DSL Material
+
+#### Changed
+
+Only instantiate Material Components version of Android widgets if the current theme inherits
+a material theme.
+
+#### Added
+
+Add the following missing Material Components counterparts of Android widgets:
+`CheckBox`, `RadioButton`, `TextView`, `AutoCompleteTextView`.
+
+
 ## Version 3.0.0-alpha07 (2020-09-01)
 
 Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
@@ -196,12 +224,14 @@ Add `slider`, `rangeSlider` and `shapeableImageView` extensions for `View`, `Ui`
 
 Its content has been moved to the main "Views DSL" split.
 
+
 ## Version 3.0.0-alpha06 (2019-05-03)
 
 Compiled with Kotlin 1.3.31.
 
 ### Permissions
 Handle empty `grantResults` for permission request ([#191](https://github.com/LouisCAD/Splitties/issues/191)).
+
 
 ## Version 3.0.0-alpha05 (2019-04-29)
 
