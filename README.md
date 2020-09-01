@@ -23,6 +23,7 @@ Currently, only JVM (including Android) and JS are supported, but future Kotlin/
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
+- **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
 
 ## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
@@ -237,6 +238,7 @@ implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
 implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
 implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
 implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
