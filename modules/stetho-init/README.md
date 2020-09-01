@@ -3,6 +3,8 @@
 *Have [Stetho](https://github.com/facebook/stetho) for your debug builds,
 without writing any code!*
 
+Supported platforms: **Android**.
+
 This library uses an [InitProvider](
 ../initprovider/src/androidMain/kotlin/splitties/initprovider/InitProvider.kt
 ) (like [appCtx](

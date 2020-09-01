@@ -1,5 +1,7 @@
 # Views RecyclerView
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### RecyclerView extensions

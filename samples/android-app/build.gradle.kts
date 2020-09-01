@@ -17,14 +17,11 @@ android {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)
         versionCode = 1
-        versionName = ProjectVersions.thisLibrary
+        versionName = thisLibraryVersion
         resConfigs("en", "fr")
-        proguardFile(getDefaultProguardFile("proguard-android-optimize.txt"))
+        proguardFile("../proguard-android-really-optimize.txt")
         proguardFile("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-    packagingOptions {
-        pickFirst("META-INF/atomicfu.kotlin_module")
     }
     signingConfigs {
         getByName("debug") {
@@ -49,6 +46,11 @@ android {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
     }
+    packagingOptions {
+        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
+        exclude("**/*.kotlin_builtins") // Reduce apk size
+        exclude("**/*.kotlin_metadata") // Reduce apk size
+    }
 }
 
 kotlin {
@@ -56,15 +58,17 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                enableLanguageFeature("NewInference")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
                 useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
+                useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")
             }
         }
-        getByName("commonMain").dependencies {
-            api(kotlin("stdlib-common"))
+        commonMain.dependencies {
+            api(Kotlin.stdlib.common)
         }
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             implementation(project(":fun-packs:android-material-components-with-views-dsl"))
             arrayOf(
                 "arch-lifecycle",
@@ -72,22 +76,19 @@ kotlin {
                 "checkedlazy",
                 "exceptions",
                 "initprovider",
-                "lifecycle-coroutines",
                 "typesaferecyclerview"
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
             }
-            with(Libs) {
-                arrayOf(
-                    kotlin.stdlibJdk7,
-                    androidX.appCompat,
-                    androidX.coreKtx,
-                    androidX.constraintLayout,
-                    google.material,
-                    timber,
-                    kotlinX.coroutines.android
-                )
-            }.forEach {
+            arrayOf(
+                Kotlin.stdlib.jdk7,
+                AndroidX.appCompat,
+                AndroidX.core.ktx,
+                AndroidX.constraintLayout,
+                Google.android.material,
+                JakeWharton.timber,
+                KotlinX.coroutines.android
+            ).forEach {
                 implementation(it)
             }
         }

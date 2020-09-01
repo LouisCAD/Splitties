@@ -3,6 +3,8 @@
 *`BundleSpec` to use `Bundle` with property syntax for `Intent` extras
 and more.*
 
+Supported platforms: **Android**.
+
 ## Non-exhaustive list of use cases
 
 * `Intent` extras of Activities, BroadcastReceivers, Services, etc.

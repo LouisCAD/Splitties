@@ -4,20 +4,20 @@
 
 package splitties.lifecycle.coroutines
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainCoroutineDispatcher
-import kotlinx.coroutines.android.asCoroutineDispatcher
+import kotlinx.coroutines.*
+import kotlinx.coroutines.android.*
 import splitties.mainhandler.mainHandler
 
 /**
- * Similar to [Dispatchers.Main] but without slow initialization caused by ServiceLoader doing I/O.
- *
- * TODO: Remove when [this issue](https://github.com/Kotlin/kotlinx.coroutines/issues/878) is resolved.
- *
- * Will be deprecated then removed when issue linked above is fixed.
+ * This was a workaround for [an issue](https://github.com/Kotlin/kotlinx.coroutines/issues/878) in versions of
+ * kotlinx.coroutines preceding the version 1.3.3, where [Dispatchers.Main] had a slow initialization caused by
+ * ServiceLoader doing I/O.
  */
 @Suppress("unused")
-@MainDispatcherPerformanceIssueWorkaround
+@Deprecated(
+    "Since kotlinx.coroutines 1.3.3, Dispatchers.Main performance issue is fixed, so this is no longer needed.",
+    ReplaceWith("Dispatchers.Main")
+)
 val Dispatchers.MainAndroid: MainCoroutineDispatcher
     get() = androidMainDispatcher ?: try {
         mainHandler.asCoroutineDispatcher("splitties-main-dispatcher")

@@ -9,28 +9,29 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import kotlinx.coroutines.CompletableDeferred
+import splitties.experimental.ExperimentalSplittiesApi
 import splitties.intents.intent
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.createJob
 import splitties.permissions.PermissionRequestResult
 
 @RequiresApi(23)
 internal class PermissionRequestDialogFragment : DialogFragment() {
 
-    var permissionName: String? = null
+    var permissionNames: Array<out String>? = null
+
     suspend fun awaitResult(): PermissionRequestResult = try {
         asyncGrant.await()
     } finally {
         runCatching { dismissAllowingStateLoss() } // Activity may be detached, so we catch.
     }
 
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+    @OptIn(ExperimentalSplittiesApi::class)
     private val asyncGrant = CompletableDeferred<PermissionRequestResult>(lifecycle.createJob())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        permissionName?.also {
-            requestPermissions(arrayOf(it), 1)
+        permissionNames?.also {
+            requestPermissions(it, 1)
         } ?: dismissAllowingStateLoss()
     }
 
@@ -39,42 +40,43 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        handleGrantResult(grantResults.getOrNull(0))
+        handleGrantResult(grantResults)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         checkNotNull(data) // data is always provided from PermissionRequestFallbackActivity result.
         val extras = data.extras!! // and its result always contains the grantResult extra.
-        handleGrantResult(extras.get(PermissionRequestFallbackActivity.GRANT_RESULT) as Int?)
+        handleGrantResult(extras.get(PermissionRequestFallbackActivity.GRANT_RESULT) as IntArray)
     }
 
-    private fun handleGrantResult(grantResult: Int?) {
-        val permission = permissionName ?: return
-        if (grantResult == null) {
-            fallbackRequestFromTransparentActivity(permission)
+    private fun handleGrantResult(grantResults: IntArray) {
+        val permissions = permissionNames ?: return
+        if (grantResults.isEmpty()) {
+            fallbackRequestFromTransparentActivity(permissions)
             return
         }
         try {
-            when (grantResult) {
-                PackageManager.PERMISSION_GRANTED -> {
-                    asyncGrant.complete(PermissionRequestResult.Granted)
-                }
-                else -> asyncGrant.complete(
-                    value = if (shouldShowRequestPermissionRationale(permission)) {
-                        PermissionRequestResult.Denied.MayAskAgain(permission)
-                    } else {
-                        PermissionRequestResult.Denied.DoNotAskAgain(permission)
-                    }
-                )
+            val indexOfFirstNotGranted = grantResults.indexOfFirst {
+                it != PackageManager.PERMISSION_GRANTED
             }
+            val result = if (indexOfFirstNotGranted == -1) {
+                PermissionRequestResult.Granted
+            } else permissions[indexOfFirstNotGranted].let { firstDeniedPermission ->
+                if (shouldShowRequestPermissionRationale(firstDeniedPermission)) {
+                    PermissionRequestResult.Denied.MayAskAgain(firstDeniedPermission)
+                } else {
+                    PermissionRequestResult.Denied.DoNotAskAgain(firstDeniedPermission)
+                }
+            }
+            asyncGrant.complete(result)
         } finally {
             dismissAllowingStateLoss()
         }
     }
 
-    private fun fallbackRequestFromTransparentActivity(permission: String) {
+    private fun fallbackRequestFromTransparentActivity(permissions: Array<out String>) {
         startActivityForResult(PermissionRequestFallbackActivity.intent { _, extrasSpec ->
-            extrasSpec.permissionName = permission
+            extrasSpec.permissionNames = permissions
         }, 1)
     }
 }

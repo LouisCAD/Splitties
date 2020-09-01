@@ -2,6 +2,8 @@
 
 *CardView extension of [Views](../views)*
 
+Supported platforms: **Android**.
+
 ## Content
 
 `contentPadding` allows to set the padding of the content of a `CardView`

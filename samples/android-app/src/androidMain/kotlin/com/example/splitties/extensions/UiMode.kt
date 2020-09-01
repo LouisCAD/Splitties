@@ -2,20 +2,30 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("NOTHING_TO_INLINE")
+
 package com.example.splitties.extensions
 
-import android.app.UiModeManager
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
-import splitties.exceptions.illegalArg
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_AUTO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.appcompat.app.AppCompatDelegate.getDefaultNightMode
+import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import timber.log.Timber
 
-fun AppCompatActivity.toggleNightMode() {
-    val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-    val newNightMode = when (currentNightMode) {
-        Configuration.UI_MODE_NIGHT_YES -> UiModeManager.MODE_NIGHT_NO
-        Configuration.UI_MODE_NIGHT_UNDEFINED, Configuration.UI_MODE_NIGHT_NO -> UiModeManager.MODE_NIGHT_YES
-        else -> illegalArg(currentNightMode)
+inline fun AppCompatActivity.toggleNightMode() {
+    delegate.toggleNightMode()
+}
+
+fun AppCompatDelegate.toggleNightMode() {
+    val newNightMode = when (val currentNightMode = getDefaultNightMode()) {
+        MODE_NIGHT_YES -> MODE_NIGHT_NO
+        MODE_NIGHT_NO, MODE_NIGHT_AUTO, MODE_NIGHT_FOLLOW_SYSTEM -> MODE_NIGHT_YES
+        else -> MODE_NIGHT_YES.also { Timber.w("Unexpected night mode: $currentNightMode") }
     }
-    delegate.setLocalNightMode(newNightMode)
-    recreate()
+    setDefaultNightMode(newNightMode)
+    applyDayNight()
 }

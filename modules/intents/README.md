@@ -3,6 +3,8 @@
 *Transform `companion object`s into powerful typesafe intent specs, and
 create `PendingIntent`s the clean and easy way.*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [Using `companion object`s as typesafe and key-safe intent specs](#using-companion-objects-as-typesafe-and-key-safe-intent-specs)

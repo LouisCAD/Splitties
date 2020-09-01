@@ -2,6 +2,8 @@
 
 *Request runtime permissions without polluting your codebase.*
 
+Supported platforms: **Android**.
+
 The most straightforward way to request runtime permissions on Android is not… straightforward, and
 that's why there are so many libraries that attempt to make it easier.
 
@@ -20,7 +22,8 @@ Top-level functions:
 | -------- | ---------------
 | `hasPermission` | Returns true if the passed runtime permission is granted to the current app.
 | `requestPermission` | Requests the passed permission if needed and returns the result.
-| `ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only if granted.
+| `ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only once granted.
+| `ensureAllPermissions` | Requests the passed permissions, taking the user to app details in settings if needed and returns only once all are granted.
 
 Extension functions:
 
@@ -28,8 +31,10 @@ Extension functions:
 | -------- | ---------------
 | `Fragment.requestPermission` | Requests the passed permission if needed and returns the result.
 | `FragmentActivity.requestPermission` | Requests the passed permission if needed and returns the result.
-| `Fragment.ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only if granted.
-| `FragmentActivity.ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only if granted.
+| `Fragment.ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only once granted.
+| `Fragment.ensureAllPermissions` | Requests the passed permissions, taking the user to app details in settings if needed and returns only once all are granted.
+| `FragmentActivity.ensurePermission` | Requests the passed permission, taking the user to app details in settings if needed and returns only once granted.
+| `FragmentActivity.ensureAllPermissions` | Requests the passed permissions, taking the user to app details in settings if needed and returns only once all are granted.
 
 ## Usage
 

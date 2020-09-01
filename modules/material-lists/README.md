@@ -3,6 +3,8 @@
 *List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).*
 
+Supported platforms: **Android**.
+
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
 provides Android `View`s that are the implementation for most of
 [the lists components](

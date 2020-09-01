@@ -9,8 +9,7 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 
 /**
- * **Requires** you have the following dependency in your project:
- * `org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1`
+ * **Requires** your project to depend on kotlinx.coroutines
  *
  * ## IMPORTANT:
  * Make sure that your `Preferences` subclass **constructor is private**!

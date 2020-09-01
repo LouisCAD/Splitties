@@ -4,13 +4,46 @@
 
 package splitties.views.appcompat
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.DeprecationLevel.HIDDEN
+import splitties.bitflags.hasFlag
+import splitties.bitflags.minusFlag
+import splitties.bitflags.withFlag
 
-@SuppressLint("LogNotTimber") // Timber is not a dependency here, but lint passes through.
+@Suppress("NOTHING_TO_INLINE") // This overload is optimized for the most common use case.
+inline fun AppCompatActivity.configActionBar(
+    homeAsUp: Boolean = supportActionBar?.homeAsUp ?: false
+) {
+    supportActionBar?.also {
+        it.homeAsUp = homeAsUp
+    } ?: Log.wtf(
+        "ActionBar",
+        "No ActionBar in this Activity! Config skipped.",
+        AssertionError()
+    )
+}
+
+fun AppCompatActivity.configActionBar(
+    homeAsUp: Boolean = supportActionBar?.homeAsUp ?: false,
+    showTitle: Boolean = supportActionBar?.showTitle ?: false,
+    showHome: Boolean = supportActionBar?.showHome ?: false,
+    useLogo: Boolean = supportActionBar?.useLogo ?: false,
+    showCustomView: Boolean = supportActionBar?.showCustomView ?: false
+) {
+    supportActionBar?.also {
+        it.homeAsUp = homeAsUp
+        it.showTitle = showTitle
+        it.showHome = showHome
+        it.useLogo = useLogo
+        it.showCustomView = showCustomView
+    } ?: Log.wtf(
+        "ActionBar",
+        "No ActionBar in this Activity! Config skipped.",
+        AssertionError()
+    )
+}
+
 inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
     supportActionBar?.config() ?: Log.wtf(
         "ActionBar",
@@ -20,21 +53,45 @@ inline fun AppCompatActivity.configActionBar(config: ActionBar.() -> Unit) {
 }
 
 inline var ActionBar.showTitle: Boolean
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setDisplayShowTitleEnabled(value)
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_SHOW_TITLE)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_SHOW_TITLE, value)
+    }
 
 inline var ActionBar.showHome: Boolean
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setDisplayShowHomeEnabled(value)
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_SHOW_HOME)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_SHOW_HOME, value)
+    }
 
-inline var ActionBar.showHomeAsUp: Boolean
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setDisplayHomeAsUpEnabled(value)
+inline var ActionBar.homeAsUp: Boolean
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_HOME_AS_UP)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_HOME_AS_UP, value)
+    }
 
 inline var ActionBar.useLogo: Boolean
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setDisplayUseLogoEnabled(value)
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_USE_LOGO)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_USE_LOGO, value)
+    }
 
 inline var ActionBar.showCustomView: Boolean
-    @Deprecated(NO_GETTER, level = HIDDEN) get() = noGetter
-    set(value) = setDisplayShowCustomEnabled(value)
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_SHOW_CUSTOM)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_SHOW_CUSTOM, value)
+    }
+
+@Deprecated("Naming changed", ReplaceWith("homeAsUp", "splitties.views.appcompat.homeAsUp"))
+inline var ActionBar.showHomeAsUp: Boolean
+    get() = displayOptions.hasFlag(ActionBar.DISPLAY_HOME_AS_UP)
+    set(value) {
+        displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_HOME_AS_UP, value)
+    }
+
+@PublishedApi
+@Suppress("NOTHING_TO_INLINE")
+internal inline fun Int.setFlag(flag: Int, value: Boolean): Int {
+    return if (value) withFlag(flag)
+    else minusFlag(flag)
+}

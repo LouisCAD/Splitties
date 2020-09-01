@@ -2,6 +2,8 @@
 
 *AppCompat extension of [Views DSL](../views-dsl)*
 
+Supported platforms: **Android**.
+
 ## How AppCompat works with xml
 
 When using an AppCompat theme, the `LayoutInflater` replaces the platform

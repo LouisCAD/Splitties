@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -14,28 +13,28 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(splitties("experimental"))
         }
-        getByName("androidMain").dependencies {
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.coreKtx)
-            api(Libs.kotlinX.coroutines.android)
+        androidMain.dependencies {
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.core.ktx)
+            api(KotlinX.coroutines.android)
         }
         getByName("androidTest").dependencies {
-            implementation(Libs.kotlin.testJunit)
-            implementation(Libs.androidX.test.coreKtx)
-            implementation(Libs.androidX.test.runner)
-            implementation(Libs.androidX.test.ext.junit)
-            implementation(Libs.androidX.test.espresso.core)
-            implementation(Libs.kotlinX.coroutines.android)
+            implementation(Kotlin.test.junit)
+            implementation(AndroidX.test.coreKtx)
+            implementation(AndroidX.test.runner)
+            implementation(AndroidX.test.ext.junit)
+            implementation(AndroidX.test.espresso.core)
+            implementation(KotlinX.coroutines.android)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.Experimental")
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
         }
     }
@@ -44,9 +43,5 @@ kotlin {
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

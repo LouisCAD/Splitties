@@ -2,6 +2,8 @@
 
 *[Selectable Views](../views-selectable) for AppCompatTextView.*
 
+Supported platforms: **Android**.
+
 ## Usage
 
 Just use `SelectableTextView` with the proper import instead of

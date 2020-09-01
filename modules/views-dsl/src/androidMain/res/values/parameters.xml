@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+
+<resources>
+    <string name="splitties_views_dsl_ide_preview_package_name_suffix" translatable="false">.debug</string>
+    <string-array name="splitties_ui_preview_base_package_names">
+        <!-- Empty by default. Application (or library) modules can override it. -->
+    </string-array>
+</resources>

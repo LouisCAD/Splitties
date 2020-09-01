@@ -2,6 +2,8 @@
 
 *Room helpers to instantiate your DB and perform transactions in Kotlin.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### Room Database instantiation

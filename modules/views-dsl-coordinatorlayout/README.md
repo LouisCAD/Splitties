@@ -2,6 +2,8 @@
 
 *CoordinatorLayout extension of [Views DSL](../views-dsl).*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [Functions to instantiate a CoordinatorLayout](#functions-to-instantiate-a-coordinatorlayout)

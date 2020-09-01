@@ -6,6 +6,7 @@
 
 package splitties.views.dsl.material
 
+import androidx.appcompat.R
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import splitties.resources.styledDimenPxSize
 import splitties.views.dsl.core.matchParent

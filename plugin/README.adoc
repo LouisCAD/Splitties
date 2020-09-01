@@ -1,0 +1,106 @@
+:plugin_version: 0.1.0
+:version: 3.0.0-alpha07
+:plugin_id: com.louiscad.splitties
+:gradle_portal: https://plugins.gradle.org/plugin/{plugin_id}
+:plugin_badge: https://img.shields.io/maven-metadata/v/https/plugins.gradle.org/m2/{plugin_id}/{plugin_id}.gradle.plugin/maven-metadata.xml.svg?label=gradlePluginPortal&style=for-the-badge
+:splitties_badge: https://img.shields.io/github/v/release/LouisCAD/Splitties?label=Splitties%20Release
+:splitties_slack: https://app.slack.com/client/T09229ZC6/CHJP9K00L
+:slack_url: https://app.slack.com/client/T09229ZC6/CHJP9K00L
+:slack_image: https://img.shields.io/static/v1?label=kotlinlang&message=splitties&color=brightgreen&logo=slack
+:slack_badge: image:{slack_image}["Kotlinlang Slack", link="{slack_url}"]
+
+= Plugin {plugin_id}
+
+image:{splitties_badge}[Splitties] {slack_badge} image:{plugin_badge}:[{gradle_portal}:gradlePluginPortal]
+
+**WARNING: This plugin is has not been tested thoroughly yet and might go away. Use at your own risk.**
+
+== Install the plugin
+
+Add in the top-level `build.gradle(.kts)`
+
+[source,kotlin,subs=attributes]
+----
+plugins {
+  id("com.louiscad.splitties") version "{plugin_version}"
+}
+----
+
+You can find the latest version at {gradle_portal}
+
+== Run migrateToAndroidX
+
+=== Why?
+
+Theoretically, migrating a project to AndroidX is easy: you just select the menu `Refactor > Migrate to AndroidX` from the "Refactor" menu.
+
+Unfortunately, in addition to being unacceptably slow, it didn't work properly for Splitties (except for a past attempt which had to be abandoned for API stability reasons).
+
+Our experience was waiting minutes with an unresponsive IDE, then giving up with no other choice than force closing Android Studio,
+and finally getting a broken project, with some dangling fully qualified references (instead of proper import replacement).
+We reverted and looked for an alternative that would work properly, and perform faster.
+
+Using the CSV export of the https://developer.android.com/jetpack/androidx/migrate/artifact-mappings[artifact mappings] and https://developer.android.com/jetpack/androidx/migrate/class-mappings:[class mappings],
+we implemented a basic search and replace in Kotlin that runs in a matter of seconds.
+
+You can use it for your project too, so you can migrate to AndroidX quickly, and in a fun way.
+
+=== How?
+
+```bash
+$ ./gradlew migrateToAndroidX`
+There's 24 source files that may need migration
+CSV file ok.
+Starting batch migration
+Migrating file named "MainActivityTest.kt" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/androidTest/java/com/raywenderlich/android/smallvictories/MainActivityTest.kt"… Overwriting file… Done.✔🆗
+Migrating file named "VictoryViewModelTest.kt" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/androidTest/java/com/raywenderlich/android/smallvictories/VictoryViewModelTest.kt"… Overwriting file… Done.✔🆗
+Migrating file named "content_main.xml" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/main/res/layout/content_main.xml"… Overwriting file… Done.✔🆗
+Migrating file named "activity_main.xml" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/main/res/layout/activity_main.xml"… Overwriting file… Done.✔🆗
+Migrating file named "MainActivity.kt" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/main/java/com/raywenderlich/android/smallvictories/MainActivity.kt"… Overwriting file… Done.✔🆗
+Migrating file named "VictoryViewModel.kt" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/main/java/com/raywenderlich/android/smallvictories/VictoryViewModel.kt"… Overwriting file… Done.✔🆗
+Migrating file named "SplashActivity.kt" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/src/main/java/com/raywenderlich/android/smallvictories/SplashActivity.kt"… Overwriting file… Done.✔🆗
+Migrating file named "build.gradle" with full name: "/Users/jmfayard/Downloads/SmallVictories/update-legacy-project/app/build.gradle"… Overwriting file… Done.✔🆗oid/smallvictories/VictoryUiModel.kt"…
+
+7 source files (kt,java,xml) have been migrated (17 didn't need it).
+1 gradle files have been migrated (0 didn't need it).
+AndroidX migration complete!
+You now just need to update the dependencies, if not already done.
+
+```
+
+Note that this script doesn't migrate the dependencies, because it would have been harder to handle all the edge cases. Feel free to submit a pull-request.
+
+
+== Configure Splitties version
+
+image:{splitties_badge}[Splitties]
+
+Add in `gradle.properties`:
+
+[source,properties,subs=attributes]
+----
+version.com.louiscad.splitties={version}
+----
+
+You can find the latest release at https://github.com/LouisCAD/Splitties/releases
+
+
+== Add depdencies
+
+TODO
+
+
+== Testing the plugin locally
+
+Run `./gradlew :plugins:publishToMavenLocal`
+
+[source,kotlin,subs=attributes]
+----
+pluginManagement {
+  repositories {
+    mavenLocal()
+    gradlePluginPortal()
+  }
+}
+----
+

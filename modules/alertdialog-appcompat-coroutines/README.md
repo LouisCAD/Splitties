@@ -2,6 +2,8 @@
 
 *`showAndAwait` extension functions for AppCompat AlertDialog.*
 
+Supported platforms: **Android**.
+
 ## Example
 
 ```kotlin
@@ -22,5 +24,5 @@ suspend fun shouldWeReallyDeleteFromTrash(): Boolean = alertDialog(
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version"))
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
 ```

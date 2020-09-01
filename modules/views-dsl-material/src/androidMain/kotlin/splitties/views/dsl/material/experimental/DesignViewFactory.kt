@@ -31,7 +31,7 @@ inline fun <reified V : View> instantiateMaterialView(
     FloatingActionButton::class.java -> FloatingActionButton(context)
     MaterialCardView::class.java -> MaterialCardView(context)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
-        override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
+        override fun getBehavior() = FixedAppBarLayoutBehavior()
     }
     NavigationView::class.java -> NavigationView(context)
     BottomNavigationView::class.java -> BottomNavigationView(context)
@@ -54,7 +54,7 @@ inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
     FloatingActionButton::class.java -> FloatingActionButton(context, null, styleThemeAttribute)
     MaterialCardView::class.java -> MaterialCardView(context, null, styleThemeAttribute)
     AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
-        override fun getBehavior(): CoordinatorLayout.Behavior<*> = FixedAppBarLayoutBehavior()
+        override fun getBehavior() = FixedAppBarLayoutBehavior()
     }
     NavigationView::class.java -> NavigationView(context, null, styleThemeAttribute)
     BottomNavigationView::class.java -> BottomNavigationView(context, null, styleThemeAttribute)

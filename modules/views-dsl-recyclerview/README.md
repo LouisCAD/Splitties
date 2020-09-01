@@ -2,6 +2,8 @@
 
 *RecyclerView extension of [Views DSL](../views-dsl)*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [RecyclerView with scrollbars](#recyclerview-with-scrollbars)

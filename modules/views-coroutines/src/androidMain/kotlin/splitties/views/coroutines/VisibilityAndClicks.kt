@@ -39,7 +39,10 @@ suspend fun View.awaitOneClick(
     if (disableAfterClick) isEnabled = true
     if (hideAfterClick) isVisible = true
     suspendCancellableCoroutine<Unit> { continuation ->
-        setOnClickListener { continuation.resume(Unit) }
+        setOnClickListener {
+            setOnClickListener(null)
+            continuation.resume(Unit)
+        }
     }
 } finally {
     setOnClickListener(null)
@@ -58,7 +61,10 @@ suspend fun View.awaitOneLongClick(
     if (disableAfterClick) isEnabled = true
     if (hideAfterClick) isVisible = true
     suspendCancellableCoroutine<Unit> { continuation ->
-        setOnLongClickListener { continuation.resume(Unit); true }
+        setOnLongClickListener {
+            setOnLongClickListener(null)
+            continuation.resume(Unit); true
+        }
     }
 } finally {
     setOnLongClickListener(null)
@@ -113,7 +119,7 @@ suspend inline fun <R> View.visibleUntilLongClicked(
  * @see invisibleInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -136,7 +142,7 @@ inline fun <R> View.visibleInScope(finallyInvisible: Boolean = false, block: () 
  * @see invisibleInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.goneInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
@@ -159,7 +165,7 @@ inline fun <R> View.goneInScope(block: () -> R): R {
  * @see goneInScope
  */
 @ExperimentalSplittiesApi
-@UseExperimental(ExperimentalContracts::class)
+@OptIn(ExperimentalContracts::class)
 inline fun <R> View.invisibleInScope(block: () -> R): R {
     contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {

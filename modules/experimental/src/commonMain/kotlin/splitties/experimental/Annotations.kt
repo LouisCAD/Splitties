@@ -6,10 +6,15 @@ package splitties.experimental
 
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
-@Experimental(level = Experimental.Level.WARNING)
+@RequiresOptIn(level = RequiresOptIn.Level.WARNING)
 annotation class ExperimentalSplittiesApi
 
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
-@Experimental(level = Experimental.Level.ERROR)
+@RequiresOptIn(level = RequiresOptIn.Level.ERROR)
+annotation class NonSymmetricalApi
+
+@MustBeDocumented
+@Retention(value = AnnotationRetention.BINARY)
+@RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 annotation class InternalSplittiesApi

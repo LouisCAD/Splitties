@@ -2,6 +2,8 @@
 
 *Start activities from fragments and do transactions with minimal boilerplate.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### Starting Activities

@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -14,16 +13,16 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("views-dsl"))
             api(splitties("views-appcompat"))
             api(splitties("initprovider"))
-            api(Libs.kotlin.stdlibJdk7)
-            api(Libs.androidX.annotation)
-            api(Libs.androidX.appCompat)
+            api(Kotlin.stdlib.jdk7)
+            api(AndroidX.annotation)
+            api(AndroidX.appCompat)
         }
         matching { it.name.startsWith("android") }.all {
             languageSettings.apply {
@@ -38,9 +37,5 @@ kotlin {
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

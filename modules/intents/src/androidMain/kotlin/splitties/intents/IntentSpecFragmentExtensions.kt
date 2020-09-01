@@ -11,7 +11,7 @@ import splitties.exceptions.unsupported
 // WARNING. If this file is renamed, edit the proguard-rules.pro file accordingly.
 
 @JvmName("new")
-@Suppress("DeprecatedCallableAddReplaceWith", "unused")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused", "UNUSED_PARAMETER")
 @Deprecated(noExtrasSpecMsg, level = DeprecationLevel.ERROR) // FOOL GUARD, DO NOT REMOVE
 inline fun <ISpec : ActivityIntentSpec<*, Nothing>> Fragment.start(
     intentSpec: ISpec,

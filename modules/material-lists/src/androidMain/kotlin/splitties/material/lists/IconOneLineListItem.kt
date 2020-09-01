@@ -9,10 +9,18 @@ import android.text.TextUtils.TruncateAt.END
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.TextView
+import androidx.appcompat.R
 import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.views.appcompat.imgTintList
-import splitties.views.dsl.core.*
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.endMargin
+import splitties.views.dsl.core.imageView
+import splitties.views.dsl.core.lParams
+import splitties.views.dsl.core.startMargin
+import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.verticalMargin
+import splitties.views.dsl.core.wrapContent
 import splitties.views.selectable.SelectableLinearLayout
 import splitties.views.textAppearance
 
@@ -38,6 +46,7 @@ class IconOneLineListItem(
 
     val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        isDuplicateParentStateEnabled = true
     }
 
     /**
@@ -46,8 +55,10 @@ class IconOneLineListItem(
      */
     val firstLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
         textAppearance = R.style.TextAppearance_AppCompat_Subhead
+        isDuplicateParentStateEnabled = true
     }
 
     init {

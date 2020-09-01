@@ -13,7 +13,6 @@ import splitties.snackbar.onDismiss
 import splitties.snackbar.snack
 import splitties.snackbar.snackForever
 import splitties.views.appcompat.configActionBar
-import splitties.views.appcompat.showHomeAsUp
 import splitties.views.dsl.core.setContentView
 import splitties.views.onClick
 
@@ -24,9 +23,7 @@ class DemoActivity : AppCompatActivity(), DemoUi.Host {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(ui)
-        configActionBar {
-            showHomeAsUp = true
-        }
+        configActionBar(homeAsUp = true)
         ui.fab.onClick {
             ui.root.snack(R.string.title_feature_not_available) {
                 onDismiss {

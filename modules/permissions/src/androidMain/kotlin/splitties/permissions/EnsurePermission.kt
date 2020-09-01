@@ -6,7 +6,7 @@ package splitties.permissions
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.provider.Settings
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import kotlinx.coroutines.yield
 import splitties.activities.startActivity
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.awaitResumed
 
 /**
@@ -108,7 +107,7 @@ suspend inline fun Fragment.ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensurePermission(
     activity = requireActivity(),
-    fragmentManager = requireFragmentManager(),
+    fragmentManager = parentFragmentManager,
     lifecycle = lifecycle,
     permission = permission,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
@@ -171,7 +170,7 @@ suspend inline fun ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ) {
     var askCount = 0
-    if (Build.VERSION.SDK_INT < 23) return
+    if (SDK_INT < 23) return
     askLoop@ while (!hasPermission(permission)) {
         if (askCount > 0 ||
             showRationaleBeforeFirstAsk ||
@@ -195,7 +194,7 @@ suspend inline fun ensurePermission(
 }
 
 @PublishedApi
-@UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+@OptIn(ExperimentalSplittiesApi::class)
 internal suspend fun Context.openApplicationDetailsSettingsAndAwaitResumed(lifecycle: Lifecycle) {
     startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
         data = "package:$packageName".toUri()

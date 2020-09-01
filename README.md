@@ -32,6 +32,8 @@ Currently, only JVM (including Android) and JS are supported, but future Kotlin/
 [Alert Dialog](modules/alertdialog).
 - **[Alert Dialog AppCompat Coroutines:](modules/alertdialog-appcompat-coroutines)**
 `showAndAwait` extension functions for AppCompat AlertDialog.
+- **[Alert Dialog Material:](modules/alertdialog-appcompat)** Material Components extension of
+[Alert Dialog AppCompat](modules/alertdialog-appcompat).
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
 observe `Lifecycle`s.
@@ -63,7 +65,7 @@ https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
-- **[Preferences:](modules/preferences)** Property syntax for Android's SharedPreferences.
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
 - **[Selectable Views:](modules/views-selectable)** Selectable Views with `foreground` property before
@@ -88,13 +90,12 @@ for `ImageView` tinting, `ActionBar` and tooltip.
 `contentPadding` property.
 - **[Views Coroutines:](modules/views-coroutines)** Android Views + Kotlin coroutines.
 - **[Views Coroutines Material:](modules/views-coroutines-material)** Material Components + Kotlin coroutines.
-- **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code.
+- **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
 - **[Views DSL AppCompat:](modules/views-dsl-appcompat)** AppCompat extension of [Views DSL](modules/views-dsl).
 - **[Views DSL ConstraintLayout:](modules/views-dsl-constraintlayout)** ConstraintLayout extension of
 [Views DSL](modules/views-dsl).
 - **[Views DSL CoordinatorLayout:](modules/views-dsl-coordinatorlayout)** CoordinatorLayout extension of
 [Views DSL](modules/views-dsl).
-- **[Views DSL IDE preview:](modules/views-dsl-ide-preview)** Preview [Views DSL](modules/views-dsl) UIs in the IDE.
 - **[Views DSL Material:](modules/views-dsl-material)** Material Components extension of [Views DSL](modules/views-dsl).
 - **[Views DSL RecyclerView:](modules/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](modules/views-dsl).
 - **[Views Material:](modules/views-material)** Material Components extension of [Views](modules/views).
@@ -141,7 +142,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -153,7 +154,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### Android AppCompat
@@ -167,7 +168,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -177,7 +178,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### Android Material Components
@@ -192,7 +193,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha07")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -203,7 +204,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha06")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha07")
 ```
 
 #### All the artifacts (47)
@@ -214,7 +215,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha06"
+        splitties_version = "3.0.0-alpha07"
     }
 }
 ```

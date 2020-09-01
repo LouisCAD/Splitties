@@ -1,59 +1,93 @@
-@file:Suppress("SpellCheckingInspection")
-
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("SpellCheckingInspection")
+
+import de.fayard.refreshVersions.bootstrapRefreshVersions
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        maven(url = "https://dl.bintray.com/jmfayard/maven")
+    }
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5")
+}
+
+plugins {
+    id("com.gradle.enterprise").version("3.1")
+}
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
+    }
+}
+
+bootstrapRefreshVersions()
+
 arrayOf(
-    ":activities",
-    ":alertdialog",
-    ":alertdialog-appcompat",
-    ":alertdialog-appcompat-coroutines",
-    ":appctx",
-    ":arch-lifecycle",
-    ":arch-room",
-    ":bitflags",
-    ":bundle",
-    ":checkedlazy",
-    ":collections",
-    ":dimensions",
-    ":exceptions",
-    ":experimental",
-    ":fragmentargs",
-    ":fragments",
-    ":initprovider",
-    ":intents",
-    ":lifecycle-coroutines",
-    ":mainhandler",
-    ":mainthread",
-    ":material-colors",
-    ":material-lists",
-    ":permissions",
-    ":preferences",
-    ":resources",
-    ":snackbar",
-    ":stetho-init",
-    ":systemservices",
-    ":toast",
-    ":typesaferecyclerview",
-    ":views",
-    ":views-coroutines",
-    ":views-coroutines-material",
-    ":views-appcompat",
-    ":views-cardview",
-    ":views-dsl",
-    ":views-dsl-appcompat",
-    ":views-dsl-constraintlayout",
-    ":views-dsl-coordinatorlayout",
-    ":views-dsl-ide-preview",
-    ":views-dsl-material",
-    ":views-dsl-recyclerview",
-    ":views-material",
-    ":views-recyclerview",
-    ":views-selectable",
-    ":views-selectable-appcompat",
-    ":views-selectable-constraintlayout"
-).forEach { include(":modules$it") }
+    "activities",
+    "alertdialog",
+    "alertdialog-appcompat",
+    "alertdialog-appcompat-coroutines",
+    "alertdialog-material",
+    "appctx",
+    "arch-lifecycle",
+    "arch-room",
+    "bitflags",
+    "bundle",
+    "checkedlazy",
+    "collections",
+    "coroutines",
+    "dimensions",
+    "exceptions",
+    "experimental",
+    "fragmentargs",
+    "fragments",
+    "initprovider",
+    "intents",
+    "lifecycle-coroutines",
+    "mainhandler",
+    "mainthread",
+    "material-colors",
+    "material-lists",
+    "permissions",
+    "preferences",
+    "resources",
+    "snackbar",
+    "stetho-init",
+    "systemservices",
+    "toast",
+    "typesaferecyclerview",
+    "views",
+    "views-appcompat",
+    "views-cardview",
+    "views-coroutines",
+    "views-coroutines-material",
+    "views-dsl",
+    "views-dsl-appcompat",
+    "views-dsl-constraintlayout",
+    "views-dsl-coordinatorlayout",
+    "views-dsl-ide-preview",
+    "views-dsl-material",
+    "views-dsl-recyclerview",
+    "views-material",
+    "views-recyclerview",
+    "views-selectable",
+    "views-selectable-appcompat",
+    "views-selectable-constraintlayout"
+).forEach { include(":modules:$it") }
 
 arrayOf(
     "android-base",
@@ -68,6 +102,8 @@ arrayOf(
     "android-app"
 ).forEach { include(":samples:$it") }
 
-include(":tests")
+include("test-helpers")
 
-enableFeaturePreview("GRADLE_METADATA")
+if (extra.properties["splitties.bintray.check"].toString().toBoolean()) {
+    include(":tools:publication-checker")
+}

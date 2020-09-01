@@ -4,9 +4,9 @@
 
 package splitties.arch.lifecycle
 
-import androidx.lifecycle.GenericLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.*
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import splitties.experimental.ExperimentalSplittiesApi
 
@@ -16,7 +16,7 @@ import splitties.experimental.ExperimentalSplittiesApi
  */
 //TODO: Move the artifact so it depends only on lifecycle-common.
 @ExperimentalSplittiesApi
-interface LifecycleObserver : GenericLifecycleObserver {
+interface LifecycleObserver : LifecycleEventObserver {
 
     fun onCreate(owner: LifecycleOwner) = Unit
     fun onStart(owner: LifecycleOwner) = Unit

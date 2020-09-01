@@ -2,6 +2,8 @@
 
 *`unexpectedValue(…)`, `unsupportedAction(…)` and similar functions that return `Nothing`.*
 
+Supported platforms: **Android**.
+
 Here's the list of these functions:
 * `unexpectedValue(…)` (puts the value in the `IllegalStateException` message)
 * `illegalArg(…)` (shortcut to `throw IllegalArgumentException(…)`)

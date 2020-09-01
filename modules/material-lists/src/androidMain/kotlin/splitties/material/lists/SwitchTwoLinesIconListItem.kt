@@ -11,10 +11,25 @@ import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.views.appcompat.imgTintList
 import splitties.views.dsl.appcompat.switch
-import splitties.views.dsl.constraintlayout.*
-import splitties.views.dsl.core.*
+import splitties.views.dsl.constraintlayout.bottomOfParent
+import splitties.views.dsl.constraintlayout.centerVertically
+import splitties.views.dsl.constraintlayout.endOfParent
+import splitties.views.dsl.constraintlayout.endToStartOf
+import splitties.views.dsl.constraintlayout.lParams
+import splitties.views.dsl.constraintlayout.startOfParent
+import splitties.views.dsl.constraintlayout.startToStartOf
+import splitties.views.dsl.constraintlayout.topOfParent
+import splitties.views.dsl.constraintlayout.topToBottomOf
+import splitties.views.dsl.core.add
+import splitties.views.dsl.core.endMargin
+import splitties.views.dsl.core.imageView
+import splitties.views.dsl.core.startMargin
+import splitties.views.dsl.core.textView
+import splitties.views.dsl.core.verticalMargin
+import splitties.views.dsl.core.wrapContent
 import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.views.textAppearance
+import androidx.appcompat.R as AppCompatR
 
 class SwitchTwoLinesIconListItem(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0, disableDefaultTint: Boolean
@@ -36,22 +51,29 @@ class SwitchTwoLinesIconListItem(
         disableDefaultTint: Boolean
     ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
-    val switch = switch(R.id.toggle)
+    val switch = switch(R.id.toggle) {
+        isDuplicateParentStateEnabled = true
+    }
 
     val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
+        isDuplicateParentStateEnabled = true
     }
 
     val firstLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
-        textAppearance = R.style.TextAppearance_AppCompat_Subhead
+        textAppearance = AppCompatR.style.TextAppearance_AppCompat_Subhead
+        isDuplicateParentStateEnabled = true
     }
 
     val secondLine = textView {
         ellipsize = END
+        minLines = 1
         maxLines = 1
-        textAppearance = R.style.TextAppearance_AppCompat_Small
+        textAppearance = AppCompatR.style.TextAppearance_AppCompat_Small
+        isDuplicateParentStateEnabled = true
     }
 
     init {

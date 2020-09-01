@@ -2,6 +2,8 @@
 
 *ConstraintLayout extension of [Views DSL](../views-dsl).*
 
+Supported platforms: **Android**.
+
 ## Table of contents
 
 * [`ConstraintLayout` tailored `lParams` extension](#constraintlayout-tailored-lparams-extension)
@@ -26,20 +28,20 @@ result is a more readable UI code, without performance compromises.
 ## `ConstraintLayout.LayoutParams` extensions for safe and readable usage
 
 With this split also comes a set of extension functions to use in
-`lParams(…) { … }`.
+`lParams(…) { … }`. Almost all of them have optional `margin` and `goneMargin` parameters.
 
 Center relatively to parent:
-* `centerHorizontally()`
-* `centerVertically()`
-* `centerInParent()`
+* `centerHorizontally(…)`
+* `centerVertically(…)`
+* `centerInParent(…)`
 
 Parent relative constraints:
-* `topOfParent()`
-* `bottomOfParent()`
-* `startOfParent()`
-* `endOfParent()`
-* `leftOfParent()`
-* `rightOfParent()`
+* `topOfParent(…)`
+* `bottomOfParent(…)`
+* `startOfParent(…)`
+* `endOfParent(…)`
+* `leftOfParent(…)`
+* `rightOfParent(…)`
 
 Center relatively to another `View`:
 * `alignVerticallyOn(…)`
@@ -47,6 +49,10 @@ Center relatively to another `View`:
 * `centerOn(…)`
 
 View relative constraints:
+* `above(…)` (alias to `bottomToTopOf(…)`)
+* `below(…)` (alias to `topToBottomOf(…)`)
+* `before(…)` (alias to `endToStartOf(…)`)
+* `after(…)` (alias to `startToEndOf(…)`)
 * `topToTopOf(…)`
 * `topToBottomOf(…)`
 * `bottomToTopOf(…)`

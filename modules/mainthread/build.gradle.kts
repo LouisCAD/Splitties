@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -14,21 +13,37 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    ios(supportArm32 = true)
+    macos()
+    js { useCommonJs() }
+    configure(targets) { configureMavenPublication() }
+    setupSourceSets()
     sourceSets {
-        getByName("androidMain").dependencies {
-            api(Libs.kotlin.stdlibJdk7)
+        commonMain.dependencies {
+            api(Kotlin.stdlib.common)
+        }
+        androidMain.dependencies {
+            api(Kotlin.stdlib.jdk7)
+        }
+        jsMain.dependencies {
+            api(Kotlin.stdlib.js)
+        }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
+            }
         }
     }
+}
+
+dependencies {
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

@@ -2,6 +2,8 @@
 
 *Start activities with minimal boilerplate.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### Starting Activities

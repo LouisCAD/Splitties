@@ -3,6 +3,8 @@
 *Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.*
 
+Supported platforms: **Android**.
+
 ## Content
 
 All the extensions of this module are currently available on
@@ -69,6 +71,12 @@ arguments.
 There's also optional format arguments.
 * `styledTxtArray(…)` takes an array theme attribute and returns an
 `Array<out CharSequence>?`
+
+### Any resource type
+
+The `resolveThemeAttribute` extension function for `Context` takes a resource id of
+type `R.attr` and returns its corresponding resource id as resolved from the current
+theme in the `Context`.
 
 ## Download
 

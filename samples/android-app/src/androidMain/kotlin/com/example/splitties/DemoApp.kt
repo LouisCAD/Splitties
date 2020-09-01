@@ -5,12 +5,16 @@
 package com.example.splitties
 
 import android.app.Application
+import android.os.Build.VERSION.SDK_INT
 import androidx.appcompat.app.AppCompatDelegate
 
+@Suppress("unused") // Used in AndroidManifest.xml, bug in Android Studio.
 class DemoApp : Application() {
     companion object {
         init {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO)
+            if (SDK_INT < 29) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+            }
         }
     }
 }

@@ -10,11 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import splitties.permissions.internal.PermissionRequestDialogFragment
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.show
 import splitties.init.appCtx
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
+import splitties.permissions.internal.PermissionRequestDialogFragment
 
 /**
  * Returns true if the passed [permission] is granted, or if the device API level is lower than 23
@@ -37,7 +36,7 @@ suspend inline fun FragmentActivity.requestPermission(
  */
 suspend inline fun Fragment.requestPermission(
     permission: String
-): PermissionRequestResult = requestPermission(requireFragmentManager(), lifecycle, permission)
+): PermissionRequestResult = requestPermission(parentFragmentManager, lifecycle, permission)
 
 /**
  * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].
@@ -52,8 +51,29 @@ suspend fun requestPermission(
     ) {
         return PermissionRequestResult.Granted
     }
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
-        permissionName = permission
+        permissionNames = arrayOf(permission)
+    }.awaitResult()
+}
+
+/**
+ * Requests the passed [permissions] if needed, and returns the [PermissionRequestResult].
+ */
+@PublishedApi
+@JvmName("requestPermissions")
+internal suspend fun requestAllPermissions(
+    fragmentManager: FragmentManager,
+    lifecycle: Lifecycle,
+    permissions: Array<out String>
+): PermissionRequestResult {
+    if (SDK_INT < 23 ||
+        permissions.all { permission ->
+            appCtx.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+        }
+    ) {
+        return PermissionRequestResult.Granted
+    }
+    return fragmentManager.show(lifecycle, ::PermissionRequestDialogFragment) {
+        permissionNames = permissions
     }.awaitResult()
 }

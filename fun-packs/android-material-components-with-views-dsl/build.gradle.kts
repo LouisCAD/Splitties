@@ -8,7 +8,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -16,10 +15,10 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithFunPackPublication(project)
+    android()
+    configure(targets) { configureMavenPublication() }
     sourceSets {
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(project(":fun-packs:android-material-components"))
             api(project(":fun-packs:android-appcompat-with-views-dsl"))
             listOf(
@@ -33,9 +32,5 @@ kotlin {
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

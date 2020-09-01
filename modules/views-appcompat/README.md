@@ -2,6 +2,8 @@
 
 *AppCompat extension of [Views](../views)*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### Tooltip helpers
@@ -25,10 +27,10 @@ The `configActionBar { … }` extension function for `AppCompatActivity`
 allows to easily setup the `supportActionBar`. If it is null, the passed
 lambda is ignored, and an `AssertionError` is logged.
 
-The write only `showTitle`, `showHome`, `showHomeAsUp`, `useLogo` and
-`showCustomView` boolean extension properties are meant to be used on an
-`Actionbar` (usually inside the `configActionBar { … }` lambda). They are
-more readable than the `setDisplayHomeAsUpEnabled` and alike methods.
+The `showTitle`, `showHome`, `homeAsUp`, `useLogo` and `showCustomView` boolean
+extension properties are meant to be used on an `Actionbar`
+(usually inside the `configActionBar { … }` lambda).
+They are more readable than the `setDisplayHomeAsUpEnabled` and alike methods.
 
 ### Config changes handling Toolbar
 

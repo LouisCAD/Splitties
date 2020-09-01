@@ -2,6 +2,11 @@
 
 *Create simple alert dialogs with simple code*
 
+Supported platforms: **Android**.
+
+You may also need [the Material version](../alertdialog-material) and
+[the coroutines extensions](../alertdialog-appcompat-coroutines/README.md).
+
 ## Example
 
 ```kotlin

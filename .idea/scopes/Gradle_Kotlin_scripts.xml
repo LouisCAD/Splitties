@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Gradle Kotlin scripts" pattern="file:*.gradle.kts&amp;&amp;!file[*]:.idea//*&amp;&amp;!file[*]:build//*" />
+</component>

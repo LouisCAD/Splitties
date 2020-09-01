@@ -6,7 +6,6 @@ plugins {
     id("com.android.library")
     kotlin("multiplatform")
     `maven-publish`
-    id("com.jfrog.bintray")
 }
 
 android {
@@ -15,28 +14,51 @@ android {
 }
 
 kotlin {
-    metadataPublication(project)
-    androidWithPublication(project)
+    android()
+    macos()
+    ios(supportArm32 = true)
+    configure(targets) { configureMavenPublication() }
+    setupSourceSets()
     sourceSets {
-        getByName("commonMain").dependencies {
+        commonMain.dependencies {
             api(splitties("experimental"))
+            api(KotlinX.coroutines.coreCommon)
         }
-        getByName("androidMain").dependencies {
+        androidMain.dependencies {
             api(splitties("appctx"))
-            api(splitties("mainthread"))
-
-            api(Libs.kotlin.stdlibJdk7)
-            compileOnly(Libs.kotlinX.coroutines.android)
+            api(Kotlin.stdlib.jdk7)
+            compileOnly(KotlinX.coroutines.android)
+        }
+        nativeMain {
+            dependencies {
+                api(KotlinX.coroutines.coreNative)
+            }
+        }
+        appleMain {
+            dependencies {
+                implementation(splitties("mainthread"))
+            }
+        }
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation(project(":test-helpers"))
+            }
         }
     }
+}
+
+dependencies {
+    androidTestImplementation(AndroidX.test.runner)
+    testImplementation(Testing.roboElectric)
 }
 
 afterEvaluate {
     publishing {
         setupAllPublications(project)
-    }
-
-    bintray {
-        setupPublicationsUpload(project, publishing, skipMetadataPublication = true)
     }
 }

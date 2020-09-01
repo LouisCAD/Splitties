@@ -9,11 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import kotlinx.coroutines.launch
+import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.*
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi
 import splitties.lifecycle.coroutines.awaitResumed
-import splitties.lifecycle.coroutines.coroutineScope
 
 /**
  * Shows the [DialogFragment] created in [newDialogRef] as soon as [lifecycle] is in
@@ -31,7 +30,6 @@ inline fun <DF : DialogFragment> FragmentManager.showAsync(
     tag: String? = null,
     setup: DF.() -> Unit = {}
 ): DF = newDialogRef().apply(setup).also {
-    @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
     if (isStateSaved) lifecycle.coroutineScope.launch {
         lifecycle.awaitResumed()
         it.show(this@showAsync, tag)
@@ -52,7 +50,7 @@ inline fun <DF : DialogFragment> Fragment.showAsync(
     newDialogRef: () -> DF,
     tag: String? = null,
     setup: DF.() -> Unit = {}
-): DF = requireFragmentManager().showAsync(lifecycle, newDialogRef, tag, setup)
+): DF = parentFragmentManager.showAsync(lifecycle, newDialogRef, tag, setup)
 
 /**
  * Shows the [DialogFragment] created in [newDialogRef] as soon as this Activity's lifecycle is in
@@ -91,7 +89,7 @@ suspend inline fun <DF : DialogFragment> FragmentManager.show(
     setup: DF.() -> Unit = {}
 ): DF = newDialogRef().apply(setup).also {
     if (isStateSaved) {
-        @UseExperimental(PotentialFutureAndroidXLifecycleKtxApi::class)
+        @OptIn(ExperimentalSplittiesApi::class)
         lifecycle.awaitResumed()
         if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)
     } else if (commitNowWhenResumed) it.showNow(this, tag) else it.show(this, tag)
@@ -115,7 +113,7 @@ suspend inline fun <DF : DialogFragment> Fragment.show(
     tag: String? = null,
     commitNowWhenResumed: Boolean = true,
     setup: DF.() -> Unit = {}
-): DF = requireFragmentManager().show(lifecycle, newDialogRef, tag, commitNowWhenResumed, setup)
+): DF = parentFragmentManager.show(lifecycle, newDialogRef, tag, commitNowWhenResumed, setup)
 
 /**
  * Shows the [DialogFragment] created in [newDialogRef] as soon as this Activity's lifecycle is in

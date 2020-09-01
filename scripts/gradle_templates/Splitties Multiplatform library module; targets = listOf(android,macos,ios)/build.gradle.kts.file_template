@@ -1,0 +1,44 @@
+/*
+ * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ */
+
+plugins {
+    id("com.android.library")
+    kotlin("multiplatform")
+    `maven-publish`
+}
+
+android {
+    setDefaults()
+}
+
+kotlin {
+    android()
+    macos()
+    ios()
+    configure(targets) { configureMavenPublication() }
+    setupSourceSets()
+    sourceSets {
+        commonMain.dependencies {
+            api(splitties("experimental"))
+            compileOnly(KotlinX.coroutines.coreCommon)
+        }
+        androidMain.dependencies {
+            api(Kotlin.stdlib.jdk7)
+        }
+        nativeMain {
+            dependencies {}
+        }
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    publishing {
+        setupAllPublications(project)
+    }
+}

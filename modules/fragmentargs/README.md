@@ -2,6 +2,8 @@
 
 *Fragment arguments without ceremony thanks to delegated properties.*
 
+Supported platforms: **Android**.
+
 ### Example
 
 ```kotlin

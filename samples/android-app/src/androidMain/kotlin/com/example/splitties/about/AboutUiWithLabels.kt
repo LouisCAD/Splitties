@@ -6,6 +6,7 @@ package com.example.splitties.about
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -17,12 +18,21 @@ import com.example.splitties.R
 import com.example.splitties.extensions.ui.addDefaultAppBar
 import splitties.dimensions.dip
 import splitties.resources.txt
-import splitties.views.dsl.constraintlayout.*
+import splitties.views.dsl.constraintlayout.after
+import splitties.views.dsl.constraintlayout.alignVerticallyOn
+import splitties.views.dsl.constraintlayout.below
+import splitties.views.dsl.constraintlayout.constraintLayout
+import splitties.views.dsl.constraintlayout.endBarrier
+import splitties.views.dsl.constraintlayout.lParams
+import splitties.views.dsl.constraintlayout.startOfParent
+import splitties.views.dsl.constraintlayout.topOfParent
 import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.core.*
+import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.textAppearance
 import splitties.views.textResource
+import com.google.android.material.R as MaterialR
 
 class AboutUiWithLabels(override val ctx: Context) : Ui {
 
@@ -42,8 +52,8 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
         }
         val labelsBarrier = endBarrier(libNameLabel, authorLabel, licenseLabel)
         addLabelAndTv(labelsBarrier, libNameLabel, libNameTv) { topOfParent() }
-        addLabelAndTv(labelsBarrier, authorLabel, authorTv) { topToBottomOf(libNameTv) }
-        addLabelAndTv(labelsBarrier, licenseLabel, licenseTv) { topToBottomOf(authorTv) }
+        addLabelAndTv(labelsBarrier, authorLabel, authorTv) { below(lastChild) }
+        addLabelAndTv(labelsBarrier, licenseLabel, licenseTv) { below(lastChild) }
     }
 
     override val root = coordinatorLayout {
@@ -55,12 +65,12 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
     }
 
     private fun label(@StringRes txtResId: Int) = textView {
-        textAppearance = R.style.TextAppearance_MaterialComponents_Body2
+        textAppearance = MaterialR.style.TextAppearance_MaterialComponents_Body2
         text = buildSpannedString { bold { append(txt(txtResId)) } }
     }
 
     private inline fun tv(initView: TextView.() -> Unit = {}) = textView {
-        textAppearance = R.style.TextAppearance_MaterialComponents_Body2
+        textAppearance = MaterialR.style.TextAppearance_MaterialComponents_Body2
         initView()
     }
 
@@ -74,7 +84,21 @@ class AboutUiWithLabels(override val ctx: Context) : Ui {
             startOfParent(); addLabelConstraints()
         })
         add(tv, lParams(wrapContent, wrapContent) {
-            startToEndOf(labelBarrier, margin = dip(8)); alignVerticallyOn(label)
+            after(labelBarrier, margin = dip(8)); alignVerticallyOn(label)
         })
     }
 }
+
+//region IDE preview
+@Deprecated("For IDE preview only", level = DeprecationLevel.HIDDEN)
+private class AboutUiWithLabelsPreview(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : UiPreView(
+    context = context.withTheme(R.style.AppTheme),
+    attrs = attrs,
+    defStyleAttr = defStyleAttr,
+    createUi = { AboutUiWithLabels(it) }
+)
+//endregion

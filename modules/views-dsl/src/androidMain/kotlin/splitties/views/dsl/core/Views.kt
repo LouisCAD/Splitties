@@ -387,3 +387,32 @@ inline fun Ui.seekBar(
     contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
     return ctx.seekBar(id, theme, initView)
 }
+
+// Space
+
+inline fun Context.space(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: Space.() -> Unit = {}
+): Space {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return view(id, theme, initView)
+}
+
+inline fun View.space(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: Space.() -> Unit = {}
+): Space {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return context.space(id, theme, initView)
+}
+
+inline fun Ui.space(
+    @IdRes id: Int = View.NO_ID,
+    @StyleRes theme: Int = NO_THEME,
+    initView: Space.() -> Unit = {}
+): Space {
+    contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+    return ctx.space(id, theme, initView)
+}

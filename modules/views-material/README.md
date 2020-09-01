@@ -2,6 +2,8 @@
 
 *Material Components extension of [Views](../views).*
 
+Supported platforms: **Android**.
+
 ## Content
 
 ### CollapsingToolbarLayout extensions
