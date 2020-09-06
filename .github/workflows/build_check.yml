@@ -41,7 +41,7 @@ jobs:
           java-version: 11
       - uses: eskatos/gradle-command-action@v1
         with:
-          arguments: jvmTest jsTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+          arguments: jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
   macOS-tests:
     runs-on: macOS-latest
     steps:
