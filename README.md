@@ -328,7 +328,7 @@ You can also join the discussion on Kotlin's Slack in the
 A "split" is a module of the Splitties library that you can add as a
 dependency. It only includes the required transitive dependencies.
 This allows you to only add what you need in your app or library module,
-so the final apk is as small as possible and doesn't include stuff not used
+so the final apk/ipa/app is as small as possible and doesn't include stuff not used
 by your app.
 
 Let's say you're build a Wear OS app using the Views DSL.
