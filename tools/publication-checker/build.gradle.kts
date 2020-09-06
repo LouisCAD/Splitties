@@ -55,22 +55,41 @@ kotlin {
     linux(x64 = true)
 
     sourceSets {
+        val group = "com.louiscad.splitties"
+        val version = thisLibraryVersion
+
         commonMain.dependencies {
 
-            val group = "com.louiscad.splitties"
-            val version = thisLibraryVersion
-
-            rootProject.rootDir.resolve("modules").listFiles { file ->
-                file.isDirectory && file.resolve("build.gradle.kts").exists()
-            }!!.also { check(it.isNotEmpty()) }.forEach {
+            rootProject.project(":modules").subprojects.filter {
+                it.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+            }.forEach {
                 implementation("$group:splitties-${it.name}") {
                     version { strictly(version) }
                 }
             }
 
-            rootProject.rootDir.resolve("fun-packs").listFiles { file ->
-                file.isDirectory && file.resolve("build.gradle.kts").exists()
-            }!!.also { check(it.isNotEmpty()) }.forEach {
+            rootProject.project(":fun-packs").subprojects.filter {
+                it.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+            }.forEach {
+                implementation("$group:splitties-fun-pack-${it.name}") {
+                    version { strictly(version) }
+                }
+            }
+        }
+
+        androidMain.dependencies {
+
+            rootProject.project(":modules").subprojects.filter {
+                it.plugins.hasPlugin("org.jetbrains.kotlin.android")
+            }.forEach {
+                implementation("$group:splitties-${it.name}") {
+                    version { strictly(version) }
+                }
+            }
+
+            rootProject.project(":fun-packs").subprojects.filter {
+                it.plugins.hasPlugin("org.jetbrains.kotlin.android")
+            }.forEach {
                 implementation("$group:splitties-fun-pack-${it.name}") {
                     version { strictly(version) }
                 }
