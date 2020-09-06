@@ -2,7 +2,18 @@
 
 ## [Unreleased]
 
-Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
+Compiled with Kotlin 1.4.0 and kotlinx.coroutines 1.3.9-native-mt.
+
+### Platforms added
+
+watchOS support has been added to the following [splits](README.md#what-is-a-split "What is a split in Splitties?"):
+- [Bit Flags](modules/bitflags)
+- [Collections](modules/collections)
+- [Coroutines](modules/coroutines)
+- [Main Thread](modules/mainthread)
+- [Preferences](modules/preferences)
+
+All CPU architectures are supported (arm32, arm64 & X86 for simulator).
 
 ### Views DSL AppCompat
 
