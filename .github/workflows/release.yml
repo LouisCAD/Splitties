@@ -13,16 +13,9 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Upload Windows artifacts
-        run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
+      - name: Upload Windows x64 bits artifacts
+        run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository
         shell: bash
-  linux-upload:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
-      - name: Upload Linux artifacts
-        run: ./gradlew --scan publishLinuxArm64PublicationToBintrayRepository publishLinuxArm32HfpPublicationToBintrayRepository
   macos-upload:
     runs-on: macOS-latest
     steps:
