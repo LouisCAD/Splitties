@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -15,39 +15,43 @@ android {
 kotlin {
     android()
     jvm()
-    js { useCommonJs() }
-    macos()
-    ios(supportArm32 = true)
+    js()
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86()
+
     linux(x64 = true)
     mingw(x64 = true)
-    setupSourceSets()
+
     sourceSets {
         commonMain.dependencies {
-            api(Kotlin.stdlib.common)
-            api(Kotlin.stdlib.common)
             api(Kotlin.test.common)
             api(Kotlin.test.annotationsCommon)
-            api(KotlinX.coroutines.coreCommon)
+            api(KotlinX.coroutines.core)
         }
-        allJvmMain {
+        val allButJvmMain by creating {
+            dependsOn(commonMain)
+            jsMain.dependsOn(this)
+        }
+        val allJvmMain by creating {
+            dependsOn(commonMain)
+            androidMain.dependsOn(this)
+            jvmMain.dependsOn(this)
             dependencies {
-                api(Kotlin.stdlib.jdk7)
-                api(KotlinX.coroutines.core)
                 api(Kotlin.test.junit)
             }
+        }
+        val nativeMain by creating {
+            dependsOn(allButJvmMain)
+            val platforms = listOf("linux", "mingw", "macos", "ios", "watchos", "tvos")
+            filter { sourceSet ->
+                platforms.any { sourceSet.name.startsWith(it) }
+            }.forEach { it.dependsOn(this) }
         }
         androidMain.dependencies {
             api(KotlinX.coroutines.android)
             api(AndroidX.test.ext.junit)
-        }
-        jsMain.dependencies {
-            api(Kotlin.stdlib.js)
-            api(KotlinX.coroutines.coreJs)
-        }
-        nativeMain {
-            dependencies {
-                api(KotlinX.coroutines.coreNative)
-            }
         }
         all {
             languageSettings.apply {

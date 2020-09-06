@@ -44,13 +44,16 @@ android {
 
 kotlin {
     android()
-    js { useCommonJs() }
-    macos()
-    ios(supportArm32 = true)
-    watchos()
-    tvos()
-    mingw(x64 = true, x86 = true)
-    linux(x64 = true, arm32Hfp = true, arm64 = true, mips32 = true, mipsel32 = true)
+    jvm()
+    js()
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86()
+
+    mingw(x64 = true)
+    linux(x64 = true)
+
     sourceSets {
         commonMain.dependencies {
 

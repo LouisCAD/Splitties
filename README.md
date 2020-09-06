@@ -18,12 +18,12 @@ Each module has been designed to have a **small footprint** and be as **efficien
 
 ## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?")
 
-Currently, only JVM (including Android) and JS are supported, but future Kotlin/Native support is considered (you can subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/189) to get updated on that).
-
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
 - **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
+- **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to the main thread.
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` and macOS/iOS/watchOS `NSUserDefaults`.
 
 ## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
@@ -60,13 +60,11 @@ and create `PendingIntent`s the clean and easy way.
 [`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
 - **[Main Handler:](modules/mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
-- **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to Android main thread.
 - **[Material Colors:](modules/material-colors)** [2014 Material Design color palettes](
 https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
-- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
 - **[Selectable Views:](modules/views-selectable)** Selectable Views with `foreground` property before

@@ -9,24 +9,16 @@ plugins {
 
 kotlin {
     jvm()
-    js { useCommonJs() }
-    macos()
-    ios(supportArm32 = true)
+    js()
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86()
+
     linux(x64 = true)
     mingw(x64 = true)
+
     configure(targets) { configureMavenPublication() }
-    setupSourceSets()
-    sourceSets {
-        commonMain.dependencies {
-            api(Kotlin.stdlib.common)
-        }
-        jvmMain.dependencies {
-            api(Kotlin.stdlib.jdk7)
-        }
-        jsMain.dependencies {
-            api(Kotlin.stdlib.js)
-        }
-    }
 }
 
 publishing {
