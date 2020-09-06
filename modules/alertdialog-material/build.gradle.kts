@@ -14,6 +14,7 @@ android {
 
 kotlin {
     android()
+
     configure(targets) { configureMavenPublication() }
     sourceSets {
         commonMain.dependencies {

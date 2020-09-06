@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -15,24 +15,30 @@ android {
 
 kotlin {
     android()
-    macos()
-    ios(supportArm32 = true)
+
+    macosX64()
+    iosArm32(); iosArm64(); iosX64()
+    watchosArm32(); watchosArm64(); watchosX86()
+
     configure(targets) { configureMavenPublication() }
-    setupSourceSets()
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
             api(KotlinX.coroutines.core)
         }
+        val allButAndroidMain by creating {
+            dependsOn(commonMain)
+        }
+        val darwinMain by creating {
+            dependsOn(allButAndroidMain)
+            val platforms = listOf("macos", "ios", "watchos", "tvos")
+            filter { sourceSet ->
+                platforms.any { sourceSet.name.startsWith(it) }
+            }.forEach { it.dependsOn(this) }
+        }
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(Kotlin.stdlib.jdk7)
             compileOnly(KotlinX.coroutines.android)
-        }
-        appleMain {
-            dependencies {
-                implementation(splitties("mainthread"))
-            }
         }
         all {
             languageSettings.apply {
