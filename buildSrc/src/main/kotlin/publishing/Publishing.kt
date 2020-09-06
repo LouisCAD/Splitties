@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("PackageDirectoryMismatch")
@@ -47,9 +47,8 @@ fun PublishingExtension.setupAllPublications(project: Project) {
     mavenPublications.all { setupPom() }
     mavenPublications.findByName("kotlinMultiplatform")?.let {
         val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
-        val suffix = "-mpp"
         project.afterEvaluate {
-            it.artifactId = "$prefix-${project.name}$suffix"
+            it.artifactId = "$prefix-${project.name}"
         }
     }
     setupPublishRepo(project)
