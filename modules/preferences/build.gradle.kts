@@ -35,6 +35,10 @@ kotlin {
             filter { sourceSet ->
                 platforms.any { sourceSet.name.startsWith(it) }
             }.forEach { it.dependsOn(this) }
+
+            dependencies {
+                implementation(splitties("mainthread"))
+            }
         }
         androidMain.dependencies {
             api(splitties("appctx"))
