@@ -46,7 +46,8 @@ kotlin {
             dependsOn(allButJvmMain)
             val platforms = listOf("linux", "mingw", "macos", "ios", "watchos", "tvos")
             filter { sourceSet ->
-                platforms.any { sourceSet.name.startsWith(it) }
+                sourceSet.name.endsWith("Main") &&
+                    platforms.any { sourceSet.name.startsWith(it) }
             }.forEach { it.dependsOn(this) }
         }
         androidMain.dependencies {
