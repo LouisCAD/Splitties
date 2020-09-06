@@ -26,7 +26,8 @@ kotlin {
             dependsOn(commonMain)
             val platforms = listOf("macos", "ios", "watchos", "tvos")
             filter { sourceSet ->
-                platforms.any { sourceSet.name.startsWith(it) }
+                sourceSet.name.endsWith("Main") &&
+                    platforms.any { sourceSet.name.startsWith(it) }
             }.forEach { it.dependsOn(this) }
         }
         commonTest {
