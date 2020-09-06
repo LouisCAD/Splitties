@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew --scan publishAllPublicationsToBintrayRepository
   windows-checking:
     runs-on: windows-latest
-    needs: [windows-upload, linux-upload, macos-upload]
+    needs: [windows-upload, macos-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -34,7 +34,7 @@ jobs:
         shell: bash
   macos-checking:
     runs-on: macOS-latest
-    needs: [windows-upload, linux-upload, macos-upload]
+    needs: [windows-upload, macos-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
