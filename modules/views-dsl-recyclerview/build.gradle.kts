@@ -26,7 +26,7 @@ kotlin {
             api(AndroidX.annotation)
             api(AndroidX.recyclerView)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")

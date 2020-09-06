@@ -27,7 +27,7 @@ kotlin {
             api(AndroidX.annotation)
             api(Google.android.material)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")

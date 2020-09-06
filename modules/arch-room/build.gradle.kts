@@ -22,7 +22,7 @@ kotlin {
             api(AndroidX.annotation)
             api(AndroidX.room.runtime)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
             }

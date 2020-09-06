@@ -24,7 +24,7 @@ kotlin {
             api(AndroidX.fragment)
             api(splitties("lifecycle-coroutines"))
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }

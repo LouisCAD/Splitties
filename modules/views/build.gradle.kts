@@ -28,7 +28,7 @@ kotlin {
             api(AndroidX.core.ktx)
             implementation(splitties("mainthread"))
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
                 useExperimentalAnnotation("kotlin.RequiresOptIn")

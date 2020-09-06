@@ -33,7 +33,7 @@ kotlin {
             implementation(KotlinX.coroutines.test)
             implementation(Kotlin.test.junit)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }

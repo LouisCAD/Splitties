@@ -22,7 +22,7 @@ kotlin {
             implementation(splitties("mainthread"))
             compileOnly(AndroidX.core) // Used for reference in KDOC.
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
             }

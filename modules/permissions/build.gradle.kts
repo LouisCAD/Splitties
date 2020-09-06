@@ -25,7 +25,7 @@ kotlin {
             implementation(splitties("intents"))
             implementation(AndroidX.core.ktx)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }

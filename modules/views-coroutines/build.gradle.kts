@@ -32,7 +32,7 @@ kotlin {
             implementation(AndroidX.test.espresso.core)
             implementation(KotlinX.coroutines.android)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }
