@@ -14,7 +14,7 @@ android {
 
 kotlin {
     android()
-    js()
+    js { browser(); nodejs() }
 
     macosX64()
     iosArm32(); iosArm64(); iosX64()
