@@ -32,8 +32,6 @@ val bintrayRepoName = bintrayProperty(if (isDevVersion) "repo.dev" else "repo.re
 val bintrayPackageName = bintrayProperty("package")
 
 repositories {
-    mavenLocal().ensureGroups("com.louiscad.splitties")
-    return@repositories
     maven("https://dl.bintray.com/$bintrayUsername/$bintrayRepoName/") {
         name = "bintray/$bintrayUsername/$bintrayRepoName"
         credentials {
