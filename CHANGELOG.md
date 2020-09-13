@@ -51,8 +51,8 @@ Add the following missing Material Components counterparts of Android widgets:
 Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
 **This release introduces 2 new splits:**
-- [Alert Dialog Material](modules/alertdialog-material) (Android only) Thanks @ivoberger for the contribution!
-- [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android)
+- [Alert Dialog Material](modules/alertdialog-material) (Android only) It is included in the "Android Material Components" fun pack. Thanks @ivoberger for the contribution!
+- [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android) It is included in the "Android base" fun pack.
 
 ### Alert Dialog and Alert Dialog AppCompat
 

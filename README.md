@@ -119,6 +119,7 @@ Includes the following modules:
 - [bitflags](modules/bitflags)
 - [bundle](modules/bundle)
 - [collections](modules/collections)
+- [coroutines](modules/coroutines)
 - [dimensions](modules/dimensions)
 - [fragments](modules/fragments)
 - [fragmentargs](modules/fragmentargs)
@@ -183,6 +184,7 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with
 #### Android Material Components
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
+- [alertdialog-material](modules/alertdialog-material)
 - [material-lists](modules/material-lists)
 - [snackbar](modules/snackbar)
 - [views-cardview](modules/views-cardview)
