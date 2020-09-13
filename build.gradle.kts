@@ -35,6 +35,7 @@ allprojects {
         }
     }
     tasks.withType<KotlinJvmCompile>().configureEach {
+        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
         kotlinOptions.jvmTarget = "1.8"
     }
 
