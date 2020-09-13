@@ -5,7 +5,7 @@
 @file:Suppress("SpellCheckingInspection")
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 buildscript {
     repositories { setupForProject() }
@@ -23,6 +23,12 @@ plugins {
 
 allprojects {
     repositories { setupForProject() }
+    afterEvaluate {
+        // Remove log pollution until Android support in KMP improves.
+        project.extensions.findByType<KotlinMultiplatformExtension>()?.let { kmpExt ->
+            kmpExt.sourceSets.removeAll { it.name == "androidAndroidTestRelease" }
+        }
+    }
 
     @Suppress("DEPRECATION") // Alternative is to do it for each android plugin id.
     plugins.withType(com.android.build.gradle.BasePlugin::class.java).configureEach {
