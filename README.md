@@ -302,7 +302,7 @@ https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
-https://help.github.com/en/articles/watching-and-unwatching-releases-for-a-repository
+https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/viewing-your-subscriptions#configuring-your-watch-settings-for-an-individual-repository
 ).
 
 ## Improve this library
