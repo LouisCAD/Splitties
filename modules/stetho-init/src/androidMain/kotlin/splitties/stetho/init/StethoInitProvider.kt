@@ -7,7 +7,9 @@ package splitties.stetho.init
 import com.facebook.stetho.Stetho
 
 import splitties.initprovider.InitProvider
+import splitties.initprovider.ObsoleteContentProviderHack
 
+@OptIn(ObsoleteContentProviderHack::class)
 class StethoInitProvider : InitProvider() {
 
     override fun onCreate(): Boolean {

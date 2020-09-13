@@ -15,6 +15,13 @@ watchOS support has been added to the following [splits](README.md#what-is-a-spl
 
 All CPU architectures are supported (arm32, arm64 & X86 for simulator).
 
+#### Init Provider
+
+#### Changed
+
+Now requires to opt-in to `@ObsoleteContentProviderHack`.
+This split will be deprecated once [App Startup from AndroidX](https://developer.android.com/topic/libraries/app-startup) goes stable.
+
 ### Views DSL AppCompat
 
 #### Changed
