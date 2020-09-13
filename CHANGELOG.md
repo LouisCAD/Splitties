@@ -15,7 +15,13 @@ watchOS support has been added to the following [splits](README.md#what-is-a-spl
 
 All CPU architectures are supported (arm32, arm64 & X86 for simulator).
 
-#### Init Provider
+### Arch Room
+
+#### Deprecated
+
+Deprecated the `transaction` and `inTransaction` extension functions in favor of `withTransaction` (Room KTX) and `runInTransaction` (Room runtime) itself.
+
+### Init Provider
 
 #### Changed
 

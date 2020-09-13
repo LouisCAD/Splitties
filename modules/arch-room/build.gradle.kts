@@ -21,6 +21,7 @@ kotlin {
             api(splitties("appctx"))
             api(AndroidX.annotation)
             api(AndroidX.room.runtime)
+            api(AndroidX.room.ktx)
         }
         all {
             languageSettings.apply {
