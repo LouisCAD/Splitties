@@ -28,6 +28,16 @@ Deprecated the `transaction` and `inTransaction` extension functions in favor of
 Now requires to opt-in to `@ObsoleteContentProviderHack`.
 This split will be deprecated once [App Startup from AndroidX](https://developer.android.com/topic/libraries/app-startup) goes stable.
 
+### Lifecycle Coroutines
+
+#### Deprecated
+
+Deprecated symbols now have error level. Next release will remove them.
+
+#### Removed
+
+- `LifecycleOwner.coroutineScope` that was at error deprecation level. Use `LifecycleOwner.lifecycleScope` from AndroidX instead.
+
 ### Views DSL AppCompat
 
 #### Changed
