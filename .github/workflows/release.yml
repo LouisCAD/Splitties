@@ -5,7 +5,7 @@ on:
     paths:
       - 'libraries_version.txt'
     branches:
-      - master
+      - main
       - develop
 jobs:
   windows-upload:
