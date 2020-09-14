@@ -16,10 +16,8 @@ import lib_publisher_tools.cli.defaultImpl
 import lib_publisher_tools.cli.runUntilSuccessWithErrorPrintingOrCancel
 import lib_publisher_tools.vcs.Vcs
 import lib_publisher_tools.vcs.checkoutDevelop
-import lib_publisher_tools.vcs.checkoutMaster
 import lib_publisher_tools.vcs.git
 import lib_publisher_tools.vcs.isOnDevelopBranch
-import lib_publisher_tools.vcs.mergeMasterIntoCurrent
 import lib_publisher_tools.vcs.pullFromOrigin
 import lib_publisher_tools.vcs.pushToOrigin
 import lib_publisher_tools.versioning.StabilityLevel
@@ -52,8 +50,8 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Push tags to origin`,
     `Request PR merge`,
     `Request GitHub release publication`,
-    `Update master branch`,
-    `Update develop branch from master`,
+    `Update main branch`,
+    `Update develop branch from main`,
     `Change this library version back to a dev version`,
     `Commit "prepare next dev version"`,
     `Push, at last`;
@@ -177,7 +175,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        requestManualAction("Create a pull request from the `develop` to the `master` branch on GitHub for the new version, if not already done.")
+        requestManualAction("Create a pull request from the `develop` to the `main` branch on GitHub for the new version, if not already done.")
     }
     `Wait for successful release by CI` -> {
         printInfo("To perform this step, we need to wait for the artifacts building and uploading to Bintray.")
@@ -195,17 +193,17 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
     `Request GitHub release publication` -> {
         requestManualAction("Publish release on GitHub with the changelog.")
     }
-    `Update master branch` -> {
-        printInfo("Will now checkout the `master` branch, pull from GitHub (origin) to update the local `master` branch.")
+    `Update main branch` -> {
+        printInfo("Will now checkout the `main` branch, pull from GitHub (origin) to update the local `main` branch.")
         requestUserConfirmation("Continue?")
-        git.checkoutMaster()
+        git.checkoutBranch("main")
         git.pullFromOrigin()
     }
-    `Update develop branch from master` -> {
-        printInfo("About to checkout the develop branch (and update it from master for merge commits).")
+    `Update develop branch from main` -> {
+        printInfo("About to checkout the develop branch (and update it from main for merge commits).")
         requestUserConfirmation("Continue?")
         git.checkoutDevelop()
-        git.mergeMasterIntoCurrent()
+        git.mergeBranchIntoCurrent(sourceBranch = "main")
     }
     `Change this library version back to a dev version` -> {
         val newVersion = Version(OngoingRelease.newVersion)
