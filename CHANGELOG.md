@@ -45,6 +45,15 @@ Deprecated symbols now have error level. Next release will remove them.
 Using this API now requires to opt-in to `@UnreliableToastApi` so the developers acknowledge
 the gotchas of `android.widget.Toast` or use something else (like snackbars, banners or dialogs).
 
+### Views
+
+#### Changed
+
+The `onClick` parameter changed from a `crossinline` lambda to a `View.OnClickListener` now
+that Kotlin 1.4 brings SAM conversion for Kotlin functions taking SAM Java interfaces.
+Usage should not change. Note that there is now an implicit `it` parameter of type `View` that
+might break existing code if an outer `it` was used in the `onClick` lambda.
+
 ### Views DSL AppCompat
 
 #### Changed

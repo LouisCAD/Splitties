@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
@@ -13,7 +13,7 @@ import android.view.View
  *
  * If this View is not clickable, it becomes clickable.
  */
-inline fun View.onClick(crossinline block: () -> Unit) = setOnClickListener { block() }
+inline fun View.onClick(block: View.OnClickListener) = setOnClickListener(block)
 
 /**
  * Register the [block] lambda as [View.OnLongClickListener] to this View.
