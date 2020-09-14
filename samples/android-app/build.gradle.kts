@@ -61,8 +61,6 @@ kotlin {
                 enableLanguageFeature("NewInference")
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
-                useExperimentalAnnotation("splitties.lifecycle.coroutines.PotentialFutureAndroidXLifecycleKtxApi")
-                useExperimentalAnnotation("splitties.lifecycle.coroutines.MainDispatcherPerformanceIssueWorkaround")
             }
         }
         commonMain.dependencies {
