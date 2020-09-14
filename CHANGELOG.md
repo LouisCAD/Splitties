@@ -54,6 +54,12 @@ that Kotlin 1.4 brings SAM conversion for Kotlin functions taking SAM Java inter
 Usage should not change. Note that there is now an implicit `it` parameter of type `View` that
 might break existing code if an outer `it` was used in the `onClick` lambda.
 
+### Views DSL
+
+#### Changed
+
+All lambdas in `AndroidStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
+
 ### Views DSL AppCompat
 
 #### Changed
