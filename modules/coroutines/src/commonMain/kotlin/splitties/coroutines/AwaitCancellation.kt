@@ -6,13 +6,15 @@ package splitties.coroutines
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
-import splitties.experimental.ExperimentalSplittiesApi
 
 /**
  * Suspends until cancellation, in which case it will throw a [CancellationException].
  *
  * Handy because it returns [Nothing], allowing it to be used in any coroutine,
  * regardless of the required return type.
+ *
+ * NOTE: Will be deprecated then removed once [this PR](https://github.com/Kotlin/kotlinx.coroutines/pull/2225)
+ * makes it into a kotlinx.coroutines release.
  */
-@ExperimentalSplittiesApi
+@FutureOverlapWithKotlinXCoroutines
 suspend inline fun awaitCancellation(): Nothing = suspendCancellableCoroutine {}

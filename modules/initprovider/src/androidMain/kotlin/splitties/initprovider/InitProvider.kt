@@ -12,6 +12,7 @@ import splitties.exceptions.unsupported
 /**
  * Base class for [ContentProvider]s used for initialization purposes.
  */
+@ObsoleteContentProviderHack
 abstract class InitProvider : ContentProvider() {
     final override fun insert(uri: Uri, values: ContentValues?) = unsupported()
     final override fun query(

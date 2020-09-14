@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -14,15 +14,16 @@ android {
 
 kotlin {
     android()
+
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
             api(splitties("appctx"))
-            api(Kotlin.stdlib.jdk7)
             api(AndroidX.annotation)
             api(AndroidX.room.runtime)
+            api(AndroidX.room.ktx)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
             }

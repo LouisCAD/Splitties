@@ -19,6 +19,7 @@ import android.app.WallpaperManager
 import android.app.admin.DevicePolicyManager
 import android.app.job.JobScheduler
 import android.app.role.RoleManager
+import android.app.slice.SliceManager
 import android.app.usage.NetworkStatsManager
 import android.app.usage.StorageStatsManager
 import android.app.usage.UsageStatsManager
@@ -140,6 +141,8 @@ import android.view.View
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityManager
 import android.view.accessibility.CaptioningManager
+import android.view.autofill.AutofillManager
+import android.view.contentcapture.ContentCaptureManager
 import android.view.inputmethod.InputMethodManager
 import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
@@ -255,6 +258,8 @@ inline val textClassificationManager: TextClassificationManager
 /** Null if invoked in an instant app. */
 inline val wifiAwareManager: WifiAwareManager?
     @RequiresApi(26) get() = getSystemService(WIFI_AWARE_SERVICE)
+inline val autofillManager: AutofillManager
+    @RequiresApi(26) get() = appCtx.getSystemService(AutofillManager::class.java)
 
 inline val crossProfileApps: CrossProfileApps
     @RequiresApi(28) get() = getSystemService(CROSS_PROFILE_APPS_SERVICE)
@@ -262,11 +267,15 @@ inline val euiccManager: EuiccManager @RequiresApi(28) get() = getSystemService(
 inline val ipSecManager: IpSecManager @RequiresApi(28) get() = getSystemService(IPSEC_SERVICE)
 inline val wifiRttManager: WifiRttManager
     @RequiresApi(28) get() = getSystemService(WIFI_RTT_RANGING_SERVICE)
+inline val sliceManager: SliceManager
+    @RequiresApi(28) get() = appCtx.getSystemService(SliceManager::class.java)
 
 inline val biometricManager: BiometricManager
     @RequiresApi(29) get() = getSystemService(BIOMETRIC_SERVICE)
 
 inline val roleManager: RoleManager @RequiresApi(29) get() = getSystemService(ROLE_SERVICE)
+inline val contentCaptureManager: ContentCaptureManager
+    @RequiresApi(29) get() = appCtx.getSystemService(ContentCaptureManager::class.java)
 
 @Suppress("UNCHECKED_CAST")
 @PublishedApi

@@ -13,16 +13,9 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Upload Windows artifacts
-        run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository publishMingwX86PublicationToBintrayRepository
+      - name: Upload Windows x64 bits artifacts
+        run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository
         shell: bash
-  linux-upload:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repo
-        uses: actions/checkout@v2
-      - name: Upload Linux artifacts
-        run: ./gradlew --scan publishLinuxArm64PublicationToBintrayRepository publishLinuxArm32HfpPublicationToBintrayRepository
   macos-upload:
     runs-on: macOS-latest
     steps:
@@ -32,7 +25,7 @@ jobs:
         run: ./gradlew --scan publishAllPublicationsToBintrayRepository
   windows-checking:
     runs-on: windows-latest
-    needs: [windows-upload, linux-upload, macos-upload]
+    needs: [windows-upload, macos-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -41,7 +34,7 @@ jobs:
         shell: bash
   macos-checking:
     runs-on: macOS-latest
-    needs: [windows-upload, linux-upload, macos-upload]
+    needs: [windows-upload, macos-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -53,8 +46,10 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-      - name: Check Linux build with latest artifacts, then publish
-        run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build publishBintrayRelease
+      - name: Check Linux build with latest artifacts
+        run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
+      - name: Publish all uploaded artifacts for this version
+        run: ./gradlew --scan -Psplitties.bintray.check=true publishBintrayRelease
 env:
   GRADLE_OPTS: -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   ORG_GRADLE_PROJECT_bintray_api_key: ${{ secrets.BINTRAY_API_KEY }}

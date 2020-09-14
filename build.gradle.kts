@@ -1,11 +1,11 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("SpellCheckingInspection")
 
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
-
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 buildscript {
     repositories { setupForProject() }
@@ -15,14 +15,20 @@ buildscript {
     }
 }
 
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-task<Delete>("clean") {
-    delete(rootProject.buildDir)
+plugins {
+    id("com.osacky.doctor")
 }
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 allprojects {
     repositories { setupForProject() }
+    afterEvaluate {
+        // Remove log pollution until Android support in KMP improves.
+        project.extensions.findByType<KotlinMultiplatformExtension>()?.let { kmpExt ->
+            kmpExt.sourceSets.removeAll { it.name == "androidAndroidTestRelease" }
+        }
+    }
 
     @Suppress("DEPRECATION") // Alternative is to do it for each android plugin id.
     plugins.withType(com.android.build.gradle.BasePlugin::class.java).configureEach {
@@ -31,9 +37,11 @@ allprojects {
                 sourceCompatibility = JavaVersion.VERSION_1_8
                 targetCompatibility = JavaVersion.VERSION_1_8
             }
+            lintOptions.isAbortOnError = false
         }
     }
     tasks.withType<KotlinJvmCompile>().configureEach {
+        kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
         kotlinOptions.jvmTarget = "1.8"
     }
 

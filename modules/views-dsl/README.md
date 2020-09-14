@@ -21,6 +21,25 @@ Splitties Views DSL has been designed to be:
 
 That's 7 key considerations, which we believe are all necessary to make a great library.
 
+## What about Jetpack Compose?
+
+We think that Jetpack Compose is really great and is definitely the future of UI development.
+
+Regarding the present though, as of September of the year 2020, APIs based on `android.view.View`
+are still the foundation that powers nearly all Android apps, and that API is already stable, unlike
+Jetpack Compose that is currently in alpha. Splitties Views DSL is as stable as its foundation,
+its API hasn't changed since 2018 and there's no plan on breaking changes.
+
+Splitties Views DSL has a seamless interoperability with existing Views and xml layout, maybe more
+seamless than Jetpack Compose.
+
+To sum it up, Splitties is a great way to use Kotlin in your UI code with an API you already know,
+plus extensions provided by Splitties Views DSL to cut down on boilerplate while Jetpack Compose
+stabilizes (which should complete sometime in 2021).
+
+If you have any further questions on this topic, feel free to ask it in the `#splitties` channel of
+the Kotlin's Slack or in the issues here on GitHub.
+
 ## Introduction
 
 As said above, Splitties Views DSL has been designed to be *simple*.

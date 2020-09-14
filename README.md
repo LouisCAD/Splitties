@@ -16,14 +16,14 @@ See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
 
 Each module has been designed to have a **small footprint** and be as **efficient** as possible.
 
-## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?")
-
-Currently, only JVM (including Android) and JS are supported, but future Kotlin/Native support is considered (you can subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/189) to get updated on that).
+## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?") (Kotlin 1.4.10)
 
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
 - **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
+- **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to the main thread.
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` and macOS/iOS/watchOS `NSUserDefaults`.
 
 ## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
@@ -60,13 +60,11 @@ and create `PendingIntent`s the clean and easy way.
 [`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
 - **[Main Handler:](modules/mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
-- **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to Android main thread.
 - **[Material Colors:](modules/material-colors)** [2014 Material Design color palettes](
 https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 - **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
-- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
 - **[Selectable Views:](modules/views-selectable)** Selectable Views with `foreground` property before
@@ -121,6 +119,7 @@ Includes the following modules:
 - [bitflags](modules/bitflags)
 - [bundle](modules/bundle)
 - [collections](modules/collections)
+- [coroutines](modules/coroutines)
 - [dimensions](modules/dimensions)
 - [fragments](modules/fragments)
 - [fragmentargs](modules/fragmentargs)
@@ -143,7 +142,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -155,7 +154,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-beta01")
 ```
 
 #### Android AppCompat
@@ -169,7 +168,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -179,12 +178,13 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-beta01")
 ```
 
 #### Android Material Components
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
+- [alertdialog-material](modules/alertdialog-material)
 - [material-lists](modules/material-lists)
 - [snackbar](modules/snackbar)
 - [views-cardview](modules/views-cardview)
@@ -194,7 +194,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -205,7 +205,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-beta01")
 ```
 
 #### All the artifacts (47)
@@ -216,7 +216,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha07"
+        splitties_version = "3.0.0-beta01"
     }
 }
 ```
@@ -290,10 +290,10 @@ allProjects {
     repositories {
         google()
         jcenter() // Add dev versions repo below
-        maven { url 'https://dl.bintray.com/louiscad/splitties-dev' }
+        maven(url = "https://dl.bintray.com/louiscad/splitties-dev")
     }
     ext {
-        splitties_version = '3.0.0-dev-008'
+        splitties_version = '3.0.0-dev-107'
     }
 }
 ```
@@ -304,7 +304,7 @@ https://bintray.com/louiscad/maven/splitties).
 
 ## New versions notifications
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
-https://help.github.com/en/articles/watching-and-unwatching-releases-for-a-repository
+https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/viewing-your-subscriptions#configuring-your-watch-settings-for-an-individual-repository
 ).
 
 ## Improve this library
@@ -330,7 +330,7 @@ You can also join the discussion on Kotlin's Slack in the
 A "split" is a module of the Splitties library that you can add as a
 dependency. It only includes the required transitive dependencies.
 This allows you to only add what you need in your app or library module,
-so the final apk is as small as possible and doesn't include stuff not used
+so the final apk/ipa/app is as small as possible and doesn't include stuff not used
 by your app.
 
 Let's say you're build a Wear OS app using the Views DSL.

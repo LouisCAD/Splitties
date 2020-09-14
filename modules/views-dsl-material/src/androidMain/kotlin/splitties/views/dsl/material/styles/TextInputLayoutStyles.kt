@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.views.dsl.material.styles
@@ -12,6 +12,8 @@ import com.google.android.material.textfield.TextInputLayout
 import splitties.views.dsl.core.NO_THEME
 import splitties.views.dsl.core.styles.styledView
 import splitties.views.dsl.material.R
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 @Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
 inline class TextInputLayoutStyles @PublishedApi internal constructor(
@@ -21,47 +23,59 @@ inline class TextInputLayoutStyles @PublishedApi internal constructor(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: TextInputLayout.() -> Unit = {}
-    ): TextInputLayout = ctx.styledView(
-        newViewRef = ::TextInputLayout,
-        styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_FilledBox,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    ): TextInputLayout {
+        contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+        return ctx.styledView(
+            newViewRef = ::TextInputLayout,
+            styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_FilledBox,
+            id = id,
+            theme = theme,
+            initView = initView
+        )
+    }
 
     inline fun filledBoxDense(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: TextInputLayout.() -> Unit = {}
-    ): TextInputLayout = ctx.styledView(
-        newViewRef = ::TextInputLayout,
-        styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    ): TextInputLayout {
+        contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+        return ctx.styledView(
+            newViewRef = ::TextInputLayout,
+            styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_FilledBox_Dense,
+            id = id,
+            theme = theme,
+            initView = initView
+        )
+    }
 
     inline fun outlinedBox(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: TextInputLayout.() -> Unit = {}
-    ): TextInputLayout = ctx.styledView(
-        newViewRef = ::TextInputLayout,
-        styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_OutlinedBox,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    ): TextInputLayout {
+        contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+        return ctx.styledView(
+            newViewRef = ::TextInputLayout,
+            styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_OutlinedBox,
+            id = id,
+            theme = theme,
+            initView = initView
+        )
+    }
 
     inline fun outlinedBoxDense(
         @IdRes id: Int = View.NO_ID,
         @StyleRes theme: Int = NO_THEME,
         initView: TextInputLayout.() -> Unit = {}
-    ): TextInputLayout = ctx.styledView(
-        newViewRef = ::TextInputLayout,
-        styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense,
-        id = id,
-        theme = theme,
-        initView = initView
-    )
+    ): TextInputLayout {
+        contract { callsInPlace(initView, InvocationKind.EXACTLY_ONCE) }
+        return ctx.styledView(
+            newViewRef = ::TextInputLayout,
+            styleAttr = R.attr.Widget_MaterialComponents_TextInputLayout_OutlinedBox_Dense,
+            id = id,
+            theme = theme,
+            initView = initView
+        )
+    }
 }

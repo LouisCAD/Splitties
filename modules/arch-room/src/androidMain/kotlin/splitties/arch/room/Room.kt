@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.arch.room
@@ -27,9 +27,13 @@ inline fun <reified DB : RoomDatabase> roomDb(name: String, config: DbConfig<DB>
     return roomDb(appCtx, name, config)
 }
 
+@Deprecated(
+    "This function uses deprecated methods. " +
+        "Use withTransaction { } or runInTransaction { } instead."
+)
 inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
-    //TODO: Send a PR to AndroidX for this inline extension
+    //TODO: Send a PR to AndroidX for this inline extension?
     @Suppress("DEPRECATION")
     beginTransaction()
     try {
@@ -42,9 +46,13 @@ inline fun <DB : RoomDatabase> DB.transaction(body: (db: DB) -> Unit) {
     }
 }
 
+@Deprecated(
+    "This function uses deprecated methods. " +
+        "Use withTransaction { } or runInTransaction { } instead."
+)
 inline fun <DB : RoomDatabase, R> DB.inTransaction(body: (db: DB) -> R): R {
     contract { callsInPlace(body, InvocationKind.EXACTLY_ONCE) }
-    //TODO: Send a PR to AndroidX for this inline extension
+    //TODO: Send a PR to AndroidX for this inline extension?
     return try {
         @Suppress("DEPRECATION")
         beginTransaction()

@@ -19,6 +19,10 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
             isMinifyEnabled = false
         }
     }
+    @Suppress("UnstableApiUsage")
+    buildFeatures {
+        this.buildConfig = generateBuildConfig
+    }
     sourceSets.getByName("main") {
         manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
@@ -34,14 +38,6 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     sourceSets.getByName("androidTest") {
         java.srcDir("src/commonTest/kotlin")
         java.srcDir("src/androidTest/kotlin")
-    }
-    if (generateBuildConfig.not()) {
-        // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
-        libraryVariants.all {
-            generateBuildConfigProvider.configure {
-                enabled = false
-            }
-        }
     }
     packagingOptions {
         // Remove line below when the following issue is ACTUALLY fixed (not just closed)

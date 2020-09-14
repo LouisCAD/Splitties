@@ -1,12 +1,109 @@
 # Change log for Splitties
 
+## Version 3.0.0-beta01 (2020-09-14)
+
+Compiled with Kotlin 1.4.10 and kotlinx.coroutines 1.3.9-native-mt.
+
+This release has **multiplatform** splits compatible with iOS, macOS and watchOS projects that use Kotlin/Native 1.4.0 and 1.4.10.
+Feedback is appreciated (Twitter, Kotlin's Slack, GitHub issues…).
+
+### Platforms added
+
+watchOS support has been added to the following [splits](README.md#what-is-a-split "What is a split in Splitties?"):
+- [Bit Flags](modules/bitflags)
+- [Collections](modules/collections)
+- [Coroutines](modules/coroutines)
+- [Main Thread](modules/mainthread)
+- [Preferences](modules/preferences)
+
+All CPU architectures are supported (arm32, arm64 & X86 for simulator).
+
+### Arch Room
+
+#### Deprecated
+
+Deprecated the `transaction` and `inTransaction` extension functions in favor of `withTransaction` (Room KTX) and `runInTransaction` (Room runtime) itself.
+
+### Init Provider
+
+#### Changed
+
+Now requires to opt-in to `@ObsoleteContentProviderHack`.
+This split will be deprecated once [App Startup from AndroidX](https://developer.android.com/topic/libraries/app-startup) goes stable.
+
+### Lifecycle Coroutines
+
+#### Deprecated
+
+Deprecated symbols now have error level. Next release will remove them.
+
+#### Removed
+
+- `LifecycleOwner.coroutineScope` that was at error deprecation level. Use `LifecycleOwner.lifecycleScope` from AndroidX instead.
+
+### Toast
+
+#### Changed
+
+Using this API now requires to opt-in to `@UnreliableToastApi` so the developers acknowledge
+the gotchas of `android.widget.Toast` or use something else (like snackbars, banners or dialogs).
+
+### Views
+
+#### Added
+
+Add the following read/write extensions properties for `View`:
+- `startPadding`
+- `endPadding`
+- `leftPadding`
+- `rightPadding`
+
+#### Changed
+
+The `onClick` parameter changed from a `crossinline` lambda to a `View.OnClickListener` now
+that Kotlin 1.4 brings SAM conversion for Kotlin functions taking SAM Java interfaces.
+Usage should not change. Note that there is now an implicit `it` parameter of type `View` that
+might break existing code if an outer `it` was used in the `onClick` lambda.
+
+### Views DSL
+
+#### Changed
+
+All lambdas in `AndroidStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
+
+### Views DSL AppCompat
+
+#### Changed
+
+- Only instantiate AppCompat version of Android widgets if the current theme inherits
+an AppCompat theme.
+- All lambdas in `AppCompatStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
+
+#### Added
+
+Add the missing AppCompat version of `ToggleButton`.
+
+### Views DSL Material
+
+#### Changed
+
+- Only instantiate Material Components version of Android widgets if the current theme inherits
+a material theme.
+- All lambdas in `MaterialComponentsStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
+
+#### Added
+
+Add the following missing Material Components counterparts of Android widgets:
+`CheckBox`, `RadioButton`, `TextView`, `AutoCompleteTextView`.
+
+
 ## Version 3.0.0-alpha07 (2020-09-01)
 
 Compiled with Kotlin 1.3.72 and kotlinx.coroutines 1.3.8.
 
 **This release introduces 2 new splits:**
-- [Alert Dialog Material](modules/alertdialog-material) (Android only) Thanks @ivoberger for the contribution!
-- [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android)
+- [Alert Dialog Material](modules/alertdialog-material) (Android only) It is included in the "Android Material Components" fun pack. Thanks @ivoberger for the contribution!
+- [Coroutines](modules/coroutines) (supports macOS, iOS, JS, JVM & Android) It is included in the "Android base" fun pack.
 
 ### Alert Dialog and Alert Dialog AppCompat
 
@@ -196,12 +293,14 @@ Add `slider`, `rangeSlider` and `shapeableImageView` extensions for `View`, `Ui`
 
 Its content has been moved to the main "Views DSL" split.
 
+
 ## Version 3.0.0-alpha06 (2019-05-03)
 
 Compiled with Kotlin 1.3.31.
 
 ### Permissions
 Handle empty `grantResults` for permission request ([#191](https://github.com/LouisCAD/Splitties/issues/191)).
+
 
 ## Version 3.0.0-alpha05 (2019-04-29)
 

@@ -18,7 +18,8 @@ import kotlinx.coroutines.*
  */
 @Deprecated(
     message = defaultDeprecationMessage,
-    replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope")
+    replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope"),
+    level = DeprecationLevel.ERROR
 )
 inline val Lifecycle.coroutineScope: CoroutineScope
     get() = coroutineScope
@@ -31,24 +32,11 @@ inline val Lifecycle.coroutineScope: CoroutineScope
  */
 @Deprecated(
     message = defaultDeprecationMessage,
-    replaceWith = ReplaceWith("lifecycleScope", "androidx.lifecycle.lifecycleScope")
-)
-inline val LifecycleOwner.lifecycleScope
-    get() = lifecycle.coroutineScope
-
-/**
- * Calls [Lifecycle.coroutineScope] for the [Lifecycle] of this [LifecycleOwner].
- *
- * This is an inline property, just there for convenient usage from any [LifecycleOwner],
- * like FragmentActivity, AppCompatActivity, Fragment and LifecycleService.
- */
-@Deprecated(
-    message = defaultDeprecationMessage,
     replaceWith = ReplaceWith("lifecycleScope", "androidx.lifecycle.lifecycleScope"),
     level = DeprecationLevel.ERROR
 )
-inline val LifecycleOwner.coroutineScope
-    get() = lifecycleScope
+inline val LifecycleOwner.lifecycleScope
+    get() = lifecycle.coroutineScope
 
 /**
  * Returns a [SupervisorJob] that will be cancelled as soon as the [Lifecycle] reaches
@@ -64,7 +52,8 @@ inline val LifecycleOwner.coroutineScope
         "coroutineScope.coroutineContext[Job]!!",
         "androidx.lifecycle.coroutineScope",
         "kotlinx.coroutines.Job"
-    )
+    ),
+    level = DeprecationLevel.ERROR
 )
 val Lifecycle.job: Job
     get() = coroutineScope.coroutineContext[Job]!!

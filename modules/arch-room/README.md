@@ -19,17 +19,6 @@ application context, if you want to use a different context (e.g. to use
 The last parameter is a lambda with the db builder as receiver where you
 can things like migrations.
 
-### Room Database transactions
-
-`transaction { … }` is the inline version of `runInTransaction`, with your
-database as receiver.
-
-`inTransaction { … }` does the same as `transaction { … }` but returns
-the value of the last expression of the lambda.
-
-Inlining brings a slight performance improvement at runtime and reduces the
-number of classes, making the apk smaller.
-
 ## Download
 
 ```groovy

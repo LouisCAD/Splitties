@@ -8,9 +8,6 @@ import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.kotlin.dsl.maven
 
 fun RepositoryHandler.setupForProject() {
-    jcenter()
-
-    mavenCentral().ensureGroupsStartingWith("com.jakewharton.", "com.squareup.")
 
     google().ensureGroups(
         "com.google.gms",
@@ -28,15 +25,21 @@ fun RepositoryHandler.setupForProject() {
         "android.arch"
     )
 
-    maven(url = "https://maven.fabric.io/public").ensureGroups("io.fabric.tools")
+    mavenCentral().ensureGroupsStartingWith("com.jakewharton.", "com.squareup.")
 
+    jcenter()
+
+    /* // Disabled because we're in Splitties itself.
     maven(
         url = "https://dl.bintray.com/louiscad/splitties-dev"
     ).ensureGroups("com.louiscad.splitties")
+    */
 
+    /*
     maven(
         url = "https://dl.bintray.com/kotlin/kotlin-eap"
     ).ensureGroups("org.jetbrains.kotlin")
+    */
 
     maven(
         url = "https://oss.sonatype.org/content/repositories/snapshots"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -14,13 +14,13 @@ android {
 
 kotlin {
     android()
+
     configure(targets) { configureMavenPublication() }
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
         }
         androidMain.dependencies {
-            api(Kotlin.stdlib.jdk7)
             api(AndroidX.core.ktx)
             api(KotlinX.coroutines.android)
         }
@@ -32,7 +32,7 @@ kotlin {
             implementation(AndroidX.test.espresso.core)
             implementation(KotlinX.coroutines.android)
         }
-        matching { it.name.startsWith("android") }.all {
+        all {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 package splitties.views.dsl.core.experimental
 
@@ -11,7 +11,7 @@ import androidx.annotation.AttrRes
 import splitties.collections.forEachReversedByIndex
 import splitties.exceptions.illegalArg
 import splitties.experimental.InternalSplittiesApi
-import splitties.views.dsl.core.ViewFactory
+import splitties.views.dsl.core.*
 import java.lang.reflect.Constructor
 
 typealias ViewInstantiator = (Class<out View>, Context) -> View?
@@ -129,4 +129,17 @@ private val cachedViewConstructors by lazy(LazyThreadSafetyMode.PUBLICATION) {
 }
 private val cachedThemeAttrStyledViewConstructors by lazy(LazyThreadSafetyMode.PUBLICATION) {
     mutableMapOf<Class<out View>, Constructor<out View>>()
+}
+
+@InternalSplittiesApi
+fun Context.hasThemeAttributes(themeAttributes: IntArray): Boolean {
+    val a = obtainStyledAttributes(themeAttributes)
+    for (i in themeAttributes.indices) {
+        if (a.hasValue(i).not()) {
+            a.recycle()
+            return false
+        }
+    }
+    a.recycle()
+    return true
 }

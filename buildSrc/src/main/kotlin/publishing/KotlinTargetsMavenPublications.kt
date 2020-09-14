@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("PackageDirectoryMismatch")
@@ -20,11 +20,13 @@ fun KotlinTarget.configureMavenPublication(
         "Consuming release libraries from Android app modules doesn't work despite matchingFallbacks, " +
             "so we require to publish both debug and release variants for now."
     }
+    val isInMultiplatformModule = project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
+    if (isInMultiplatformModule.not()) return // The mavenPublication block would not be run anyway.
     val suffix = when (platformType) {
         common -> "-metadata"
-        jvm -> ""
+        jvm -> "-jvm"
         js -> "-js"
-        androidJvm -> ""
+        androidJvm -> "-android"
         native -> "-${name.toLowerCase(Locale.ROOT)}"
     }
     mavenPublication {
