@@ -31,25 +31,12 @@ import splitties.views.dsl.core.wrapContent
 import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.views.textAppearance
 
-class IconTwoLinesCheckBoxListItem(
-    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0, disableDefaultTint: Boolean
+class IconTwoLinesCheckBoxListItem @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0,
+    disableDefaultTint: Boolean = false
 ) : SelectableConstraintLayout(context, attrs, defStyleAttr) {
-    constructor(
-        context: Context
-    ) : this(context, null, disableDefaultTint = false)
-    constructor(
-        context: Context,
-        attrs: AttributeSet?
-    ) : this(context, attrs, disableDefaultTint = false)
-    constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int
-    ) : this(context, attrs, defStyleAttr, disableDefaultTint = false)
-    constructor(
-        context: Context,
-        disableDefaultTint: Boolean
-    ) : this(context, null, disableDefaultTint = disableDefaultTint)
 
     val icon = imageView {
         if (!disableDefaultTint) imgTintList = styledColorSL(android.R.attr.textColorSecondary)
