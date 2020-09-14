@@ -16,7 +16,7 @@ See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
 
 Each module has been designed to have a **small footprint** and be as **efficient** as possible.
 
-## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?")
+## All the multiplatform [splits](#what-is-a-split "What is a split in Splitties?") (Kotlin 1.4.10)
 
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
@@ -142,7 +142,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -154,7 +154,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-beta01")
 ```
 
 #### Android AppCompat
@@ -168,7 +168,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -178,7 +178,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-beta01")
 ```
 
 #### Android Material Components
@@ -194,7 +194,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-beta01")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -205,7 +205,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-alpha07")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-beta01")
 ```
 
 #### All the artifacts (47)
@@ -216,7 +216,7 @@ into your root project `build.gradle` file:
 ```groovy
 allProjects {
     ext {
-        splitties_version = "3.0.0-alpha07"
+        splitties_version = "3.0.0-beta01"
     }
 }
 ```
@@ -290,10 +290,10 @@ allProjects {
     repositories {
         google()
         jcenter() // Add dev versions repo below
-        maven { url 'https://dl.bintray.com/louiscad/splitties-dev' }
+        maven(url = "https://dl.bintray.com/louiscad/splitties-dev")
     }
     ext {
-        splitties_version = '3.0.0-dev-077'
+        splitties_version = '3.0.0-dev-107'
     }
 }
 ```

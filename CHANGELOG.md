@@ -1,8 +1,11 @@
 # Change log for Splitties
 
-## [Unreleased]
+## Version 3.0.0-beta01 (2020-09-14)
 
-Compiled with Kotlin 1.4.0 and kotlinx.coroutines 1.3.9-native-mt.
+Compiled with Kotlin 1.4.10 and kotlinx.coroutines 1.3.9-native-mt.
+
+This release has **multiplatform** splits compatible with iOS, macOS and watchOS projects that use Kotlin/Native 1.4.0 and 1.4.10.
+Feedback is appreciated (Twitter, Kotlin's Slack, GitHub issues…).
 
 ### Platforms added
 
