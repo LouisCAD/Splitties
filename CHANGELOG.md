@@ -76,8 +76,9 @@ Add the missing AppCompat version of `ToggleButton`.
 
 #### Changed
 
-Only instantiate Material Components version of Android widgets if the current theme inherits
+- Only instantiate Material Components version of Android widgets if the current theme inherits
 a material theme.
+- All lambdas in `MaterialComponentsStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
 
 #### Added
 
