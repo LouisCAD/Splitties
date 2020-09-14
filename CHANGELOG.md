@@ -64,8 +64,9 @@ All lambdas in `AndroidStyles` now have a contract. That allows you to initializ
 
 #### Changed
 
-Only instantiate AppCompat version of Android widgets if the current theme inherits
+- Only instantiate AppCompat version of Android widgets if the current theme inherits
 an AppCompat theme.
+- All lambdas in `AppCompatStyles` now have a contract. That allows you to initialize `val`s declared in the outer scope.
 
 #### Added
 
