@@ -47,6 +47,14 @@ the gotchas of `android.widget.Toast` or use something else (like snackbars, ban
 
 ### Views
 
+#### Added
+
+Add the following read/write extensions properties for `View`:
+- `startPadding`
+- `endPadding`
+- `leftPadding`
+- `rightPadding`
+
 #### Changed
 
 The `onClick` parameter changed from a `crossinline` lambda to a `View.OnClickListener` now

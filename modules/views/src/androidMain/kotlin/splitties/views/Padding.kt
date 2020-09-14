@@ -44,6 +44,14 @@ inline var View.endPadding: Int
         else -> setPadding(paddingLeft, paddingTop, value, paddingBottom)
     }
 
+inline var View.leftPadding: Int
+    get() = paddingLeft
+    set(@Px value) = setPadding(value, paddingTop, paddingRight, paddingBottom)
+
+inline var View.rightPadding: Int
+    get() = paddingRight
+    set(@Px value) = setPadding(paddingLeft, paddingTop, value, paddingBottom)
+
 fun View.setPaddingDp(
     start: Int = 0,
     top: Int = 0,
