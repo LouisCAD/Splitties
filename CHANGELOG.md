@@ -38,6 +38,13 @@ Deprecated symbols now have error level. Next release will remove them.
 
 - `LifecycleOwner.coroutineScope` that was at error deprecation level. Use `LifecycleOwner.lifecycleScope` from AndroidX instead.
 
+### Toast
+
+#### Changed
+
+Using this API now requires to opt-in to `@UnreliableToastApi` so the developers acknowledge
+the gotchas of `android.widget.Toast` or use something else (like snackbars, banners or dialogs).
+
 ### Views DSL AppCompat
 
 #### Changed

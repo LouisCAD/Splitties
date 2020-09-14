@@ -24,40 +24,58 @@ import splitties.systemservices.windowManager
 import kotlin.LazyThreadSafetyMode.NONE
 
 @PublishedApi
+@UnreliableToastApi
 internal fun Context.createToast(text: CharSequence, duration: Int): Toast {
     val ctx = if (SDK_INT == 25) SafeToastCtx(this) else this
     return Toast.makeText(ctx, text, duration)
 }
 
 @PublishedApi
+@UnreliableToastApi
 internal fun Context.createToast(@StringRes resId: Int, duration: Int): Toast {
     return createToast(txt(resId), duration)
 }
 
+@UnreliableToastApi
 inline fun Context.toast(
     @StringRes msgResId: Int
 ) = createToast(msgResId, Toast.LENGTH_SHORT).show()
 
+@UnreliableToastApi
 inline fun Fragment.toast(@StringRes msgResId: Int) = ctx.toast(msgResId)
+@UnreliableToastApi
 inline fun View.toast(@StringRes msgResId: Int) = context.toast(msgResId)
+@UnreliableToastApi
 inline fun toast(@StringRes msgResId: Int) = appCtx.toast(msgResId)
 
+@UnreliableToastApi
 inline fun Context.toast(msg: CharSequence) = createToast(msg, Toast.LENGTH_SHORT).show()
+@UnreliableToastApi
 inline fun Fragment.toast(msg: CharSequence) = ctx.toast(msg)
+@UnreliableToastApi
 inline fun View.toast(msg: CharSequence) = context.toast(msg)
+@UnreliableToastApi
 inline fun toast(msg: CharSequence) = appCtx.toast(msg)
 
+@UnreliableToastApi
 inline fun Context.longToast(
     @StringRes msgResId: Int
 ) = createToast(msgResId, Toast.LENGTH_LONG).show()
 
+@UnreliableToastApi
 inline fun Fragment.longToast(@StringRes msgResId: Int) = ctx.longToast(msgResId)
+@UnreliableToastApi
 inline fun View.longToast(@StringRes msgResId: Int) = context.longToast(msgResId)
+@UnreliableToastApi
 inline fun longToast(@StringRes msgResId: Int) = appCtx.longToast(msgResId)
 
+@UnreliableToastApi
 inline fun Context.longToast(msg: CharSequence) = createToast(msg, Toast.LENGTH_LONG).show()
+@UnreliableToastApi
 inline fun Fragment.longToast(msg: CharSequence) = ctx.longToast(msg)
+@UnreliableToastApi
 inline fun View.longToast(msg: CharSequence) = context.longToast(msg)
+@UnreliableToastApi
 inline fun longToast(msg: CharSequence) = appCtx.longToast(msg)
 
 @PublishedApi
