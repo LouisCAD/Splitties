@@ -20,7 +20,7 @@ buildscript {
         maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
         maven(url = "https://dl.bintray.com/jmfayard/maven")
     }
-    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.5")
+    dependencies.classpath("de.fayard.refreshVersions:refreshVersions:0.9.6-dev-003")
 }
 
 bootstrapRefreshVersionsForBuildSrc()
