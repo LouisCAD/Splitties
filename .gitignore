@@ -24,3 +24,7 @@ ongoing_release.splitties
 
 # macOS files
 .DS_Store
+
+
+site/
+docs/CHANGELOG.md
