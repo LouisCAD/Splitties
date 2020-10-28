@@ -1,0 +1,22 @@
+name: Publish MkDocs website to GitHub pages
+on:
+  push:
+    branches:
+      - master
+      - mkdocs
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - 'CHANGELOG.md'
+      # Any additional files/dirs that take part in updating the website must be added here.
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: sh docs/before-publish.sh
+      - run: pip install -r docs/requirements.txt
+      - run: mkdocs gh-deploy --force

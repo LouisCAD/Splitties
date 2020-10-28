@@ -1,0 +1,118 @@
+# pip install -r docs/requirements.txt
+# mkdocs serve
+
+site_name: Splitties
+site_url: https://LouisCAD.github.io/Splitties/
+repo_name: refreshVersions
+repo_url: https://github.com/LouisCAD/Splitties/
+site_description: "A collection of hand-crafted extensions for your Kotlin projects."
+site_author: LouisCAD
+remote_branch: gh-pages
+#edit_uri: ""
+
+extra:
+  link:
+    playground: https://github.com/LouisCAD/kotlin-libraries-playground
+    site: https://LouisCAD.github.io/Splitties/
+    github: https://github.com/LouisCAD/Splitties/
+    master: https://github.com/LouisCAD/Splitties/blob/master
+    issues: https://github.com/LouisCAD/Splitties/issues
+    slack: https://app.slack.com/client/T09229ZC6/CHJP9K00L
+  version:
+    splities2: '2.1.1'
+    splitties3: '3.0.0-beta01'
+    gradle: 6.7
+  keyboard_shortcuts:
+    find_actions: <kbd>ctrl</kbd>/<kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>A</kbd>
+
+copyright: 'Copyright &copy; 2020 jmfayard'
+
+theme:
+  name: 'material'
+## TODO: we need a logo
+#  favicon: images/icon-square.png
+#  logo: images/icon-square.png
+  palette:
+    primary: 'teal'
+    accent: 'white'
+
+extra_css:
+  - 'app.css'
+
+markdown_extensions:
+  - smarty
+  - codehilite:
+      guess_lang: false
+  - footnotes
+  - meta
+  - toc:
+      permalink: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tilde
+  - pymdownx.tabbed
+  - tables
+
+nav:
+  - 'Change Log': CHANGELOG.md
+  - 'Splitties 3':
+    - activities : 3/activities.md
+    - alertdialog-appcompat-coroutines : 3/alertdialog-appcompat-coroutines.md
+    - alertdialog-appcompat : 3/alertdialog-appcompat.md
+    - alertdialog-material : 3/alertdialog-material.md
+    - alertdialog : 3/alertdialog.md
+    - appctx : 3/appctx.md
+    - arch-lifecycle : 3/arch-lifecycle.md
+    - arch-room : 3/arch-room.md
+    - bitflags : 3/bitflags.md
+    - bundle : 3/bundle.md
+    - checkedlazy : 3/checkedlazy.md
+    - collections : 3/collections.md
+    - coroutines : 3/coroutines.md
+    - dimensions : 3/dimensions.md
+    - exceptions : 3/exceptions.md
+    - fragmentargs : 3/fragmentargs.md
+    - fragments : 3/fragments.md
+    - initprovider : 3/initprovider.md
+    - intents : 3/intents.md
+    - lifecycle-coroutines : 3/lifecycle-coroutines.md
+    - mainhandler : 3/mainhandler.md
+    - mainthread : 3/mainthread.md
+    - material-colors : 3/material-colors.md
+    - material-lists : 3/material-lists.md
+    - permissions : 3/permissions.md
+    - preferences : 3/preferences.md
+    - resources : 3/resources.md
+    - sample-android-app : 3/sample-android-app.md
+    - snackbar : 3/snackbar.md
+    - stetho-init : 3/stetho-init.md
+    - systemservices : 3/systemservices.md
+    - toast : 3/toast.md
+    - typesaferecyclerview : 3/typesaferecyclerview.md
+    - views-appcompat : 3/views-appcompat.md
+    - views-cardview : 3/views-cardview.md
+    - views-coroutines-material : 3/views-coroutines-material.md
+    - views-coroutines : 3/views-coroutines.md
+    - views-dsl-appcompat : 3/views-dsl-appcompat.md
+    - views-dsl-constraintlayout : 3/views-dsl-constraintlayout.md
+    - views-dsl-coordinatorlayout : 3/views-dsl-coordinatorlayout.md
+    - views-dsl-ide-preview : 3/views-dsl-ide-preview.md
+    - views-dsl-material : 3/views-dsl-material.md
+    - views-dsl-recyclerview : 3/views-dsl-recyclerview.md
+    - views-dsl : 3/views-dsl.md
+    - views-material : 3/views-material.md
+    - views-recyclerview : 3/views-recyclerview.md
+    - views-selectable-appcompat : 3/views-selectable-appcompat.md
+    - views-selectable-constraintlayout : 3/views-selectable-constraintlayout.md
+    - views-selectable : 3/views-selectable.md
+    - views : 3/views.md
+
+
+plugins:
+  - search
+  - markdownextradata: {}
