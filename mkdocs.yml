@@ -3,7 +3,7 @@
 
 site_name: Splitties
 site_url: https://LouisCAD.github.io/Splitties/
-repo_name: refreshVersions
+repo_name: Splitties
 repo_url: https://github.com/LouisCAD/Splitties/
 site_description: "A collection of hand-crafted extensions for your Kotlin projects."
 site_author: LouisCAD
@@ -112,6 +112,44 @@ nav:
     - views-selectable : 3/views-selectable.md
     - views : 3/views.md
 
+  - 'Splitties 2':
+    - Overview : 2/README.md
+    - CHANGELOG : 2/CHANGELOG.md
+    - Kotlin-UIs-vs-xml-layouts : 2/Kotlin-UIs-vs-xml-layouts.md
+    - activities : 2/activities.md
+    - alertdialog-appcompat : 2/alertdialog-appcompat.md
+    - alertdialog : 2/alertdialog.md
+    - appctx : 2/appctx.md
+    - fragmentargs : 2/fragmentargs.md
+    - fragments : 2/fragments.md
+    - initprovider : 2/initprovider.md
+    - intents : 2/intents.md
+    - mainhandler : 2/mainhandler.md
+    - mainthread : 2/mainthread.md
+    - material-colors : 2/material-colors.md
+    - material-lists : 2/material-lists.md
+    - preferences : 2/preferences.md
+    - resources : 2/resources.md
+    - sample : 2/sample.md
+    - snackbar : 2/snackbar.md
+    - stetho-init : 2/stetho-init.md
+    - systemservices : 2/systemservices.md
+    - toast : 2/toast.md
+    - typesaferecyclerview : 2/typesaferecyclerview.md
+    - views-appcompat : 2/views-appcompat.md
+    - views-cardview : 2/views-cardview.md
+    - views-design : 2/views-design.md
+    - views-dsl-appcompat : 2/views-dsl-appcompat.md
+    - views-dsl-constraintlayout : 2/views-dsl-constraintlayout.md
+    - views-dsl-design : 2/views-dsl-design.md
+    - views-dsl-ide-preview : 2/views-dsl-ide-preview.md
+    - views-dsl-recyclerview : 2/views-dsl-recyclerview.md
+    - views-dsl : 2/views-dsl.md
+    - views-recyclerview : 2/views-recyclerview.md
+    - views-selectable-appcompat : 2/views-selectable-appcompat.md
+    - views-selectable-constraintlayout : 2/views-selectable-constraintlayout.md
+    - views-selectable : 2/views-selectable.md
+    - views : 2/views.md
 
 plugins:
   - search
