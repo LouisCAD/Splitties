@@ -111,7 +111,6 @@ nav:
     - views-selectable-constraintlayout : 3/views-selectable-constraintlayout.md
     - views-selectable : 3/views-selectable.md
     - views : 3/views.md
-
   - 'Splitties 2':
     - Overview : 2/README.md
     - CHANGELOG : 2/CHANGELOG.md
@@ -120,6 +119,14 @@ nav:
     - alertdialog-appcompat : 2/alertdialog-appcompat.md
     - alertdialog : 2/alertdialog.md
     - appctx : 2/appctx.md
+    - arch-lifecycle : 2/arch-lifecycle.md
+    - arch-room : 2/arch-room.md
+    - bitflags : 2/bitflags.md
+    - bundle : 2/bundle.md
+    - checkedlazy : 2/checkedlazy.md
+    - collections : 2/collections.md
+    - dimensions : 2/dimensions.md
+    - exceptions : 2/exceptions.md
     - fragmentargs : 2/fragmentargs.md
     - fragments : 2/fragments.md
     - initprovider : 2/initprovider.md
