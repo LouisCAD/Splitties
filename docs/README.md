@@ -20,87 +20,87 @@ Each module has been designed to have a **small footprint** and be as **efficien
 
 Currently, only JVM (including Android) and JS are supported, but future Kotlin/Native support is considered (you can subscribe to [this issue](https://github.com/LouisCAD/Splitties/issues/189) to get updated on that).
 
-- **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
+- **[Bit Flags:](3/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`,
 `Short`, `Byte`, and their unsigned counterparts.
-- **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
-- **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
+- **[Collections:](3/collections)** `forEach` for `List`s without `Iterator` allocation.
+- **[Coroutines:](3/coroutines)** General purpose extensions to kotlinx.coroutines.
 
 ## All the Android [splits](#what-is-a-split "What is a split in Splitties?")
 
-- **[Activities:](modules/activities)** Start activities with minimal boilerplate.
-- **[Alert Dialog:](modules/alertdialog)** Create simple alert dialogs with simple code.
-- **[Alert Dialog AppCompat:](modules/alertdialog-appcompat)** AppCompat version of
-[Alert Dialog](modules/alertdialog).
-- **[Alert Dialog AppCompat Coroutines:](modules/alertdialog-appcompat-coroutines)**
+- **[Activities:](3/activities)** Start activities with minimal boilerplate.
+- **[Alert Dialog:](3/alertdialog)** Create simple alert dialogs with simple code.
+- **[Alert Dialog AppCompat:](3/alertdialog-appcompat)** AppCompat version of
+[Alert Dialog](3/alertdialog).
+- **[Alert Dialog AppCompat Coroutines:](3/alertdialog-appcompat-coroutines)**
 `showAndAwait` extension functions for AppCompat AlertDialog.
-- **[Alert Dialog Material:](modules/alertdialog-appcompat)** Material Components extension of
-[Alert Dialog AppCompat](modules/alertdialog-appcompat).
-- **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
-- **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
+- **[Alert Dialog Material:](3/alertdialog-appcompat)** Material Components extension of
+[Alert Dialog AppCompat](3/alertdialog-appcompat).
+- **[App Context:](3/appctx)** Always have your application `Context` at hand with `appCtx`.
+- **[Arch Lifecycle:](3/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
 observe `Lifecycle`s.
-- **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform
+- **[Arch Room:](3/arch-room)** Room helpers to instantiate your DB and perform
 transactions in Kotlin.
-- **[Bundle:](modules/bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent`
+- **[Bundle:](3/bundle)** `BundleSpec` to use `Bundle` with property syntax for `Intent`
 extras and more.
-- **[Checked Lazy:](modules/checkedlazy)** `mainThreadLazy` that checks property access on
+- **[Checked Lazy:](3/checkedlazy)** `mainThreadLazy` that checks property access on
 main thread, and `checkedLazy` to make your own variant.
-- **[Dimensions:](modules/dimensions)** Android `dp` extensions for `View` and `Context`.
-Particularly handy when using [Views DSL](modules/views-dsl).
-- **[Exceptions:](modules/exceptions)** `unexpectedValue(…)`, `unsupportedAction(…)` and similar
+- **[Dimensions:](3/dimensions)** Android `dp` extensions for `View` and `Context`.
+Particularly handy when using [Views DSL](3/views-dsl).
+- **[Exceptions:](3/exceptions)** `unexpectedValue(…)`, `unsupportedAction(…)` and similar
 functions that return `Nothing`.
-- **[Fragments:](modules/fragments)** Start activities from fragments and do transactions with
+- **[Fragments:](3/fragments)** Start activities from fragments and do transactions with
 minimal boilerplate.
-- **[Fragment Args:](modules/fragmentargs)** Fragment arguments without ceremony thanks to
+- **[Fragment Args:](3/fragmentargs)** Fragment arguments without ceremony thanks to
 delegated properties.
-- **[Init Provider:](modules/initprovider)** Base class for `ContentProvider`s used for automatic
+- **[Init Provider:](3/initprovider)** Base class for `ContentProvider`s used for automatic
 initialization purposes.
-- **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
+- **[Intents:](3/intents)** Transform `companion object`s into powerful typesafe intent specs,
 and create `PendingIntent`s the clean and easy way.
-- **[Lifecycle Coroutines:](modules/lifecycle-coroutines)** Coroutines integration with AndroidX
+- **[Lifecycle Coroutines:](3/lifecycle-coroutines)** Coroutines integration with AndroidX
 [`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
-- **[Main Handler:](modules/mainhandler)** Top-level `mainHandler` property to stop allocating multiple
+- **[Main Handler:](3/mainhandler)** Top-level `mainHandler` property to stop allocating multiple
 `Handler`s for main `Looper`.
-- **[Main Thread:](modules/mainthread)** Properties and precondition checkers related to Android main thread.
-- **[Material Colors:](modules/material-colors)** [2014 Material Design color palettes](
+- **[Main Thread:](3/mainthread)** Properties and precondition checkers related to Android main thread.
+- **[Material Colors:](3/material-colors)** [2014 Material Design color palettes](
 https://material.io/design/color/#tools-for-picking-colors) as color resources.
-- **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
+- **[Material Lists:](3/material-lists)** List item Views implementing [Material Design guidelines](
 https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
-- **[Permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
-- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
-- **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
+- **[Permissions:](3/permissions)** Request runtime permissions without polluting your codebase.
+- **[Preferences:](3/preferences)** Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.
+- **[Resources:](3/resources)** Extensions to get resources like strings, colors or drawables easily,
 with support for themed attributes.
-- **[Selectable Views:](modules/views-selectable)** Selectable Views with `foreground` property before
+- **[Selectable Views:](3/views-selectable)** Selectable Views with `foreground` property before
 API 23.
-- **[Selectable Views AppCompat:](modules/views-selectable-appcompat)** [Selectable Views](modules/views-selectable)
+- **[Selectable Views AppCompat:](3/views-selectable-appcompat)** [Selectable Views](3/views-selectable)
 for AppCompatTextView.
-- **[Selectable Views ConstraintLayout:](modules/views-selectable-constraintlayout)**
-[Selectable Views](modules/views-selectable) for ConstraintLayout.
-- **[Snackbar:](modules/snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
-- **[Stetho init:](modules/stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
+- **[Selectable Views ConstraintLayout:](3/views-selectable-constraintlayout)**
+[Selectable Views](3/views-selectable) for ConstraintLayout.
+- **[Snackbar:](3/snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
+- **[Stetho init:](3/stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
 builds, without writing any code!
-- **[System Services:](modules/systemservices)** No more
+- **[System Services:](3/systemservices)** No more
 `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
-- **[Toast:](modules/toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
+- **[Toast:](3/toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
 `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
-- **[Typesafe RecyclerView:](modules/typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
+- **[Typesafe RecyclerView:](3/typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for
 easy basic usage of `RecyclerView`.
-- **[Views:](modules/views)** Extensions function and properties on `View`s.
-- **[Views AppCompat:](modules/views-appcompat)** AppCompat extension of [Views](modules/views). Includes helpers
+- **[Views:](3/views)** Extensions function and properties on `View`s.
+- **[Views AppCompat:](3/views-appcompat)** AppCompat extension of [Views](3/views). Includes helpers
 for `ImageView` tinting, `ActionBar` and tooltip.
-- **[Views CardView:](modules/views-cardview)** CardView extension of [Views](modules/views). Provides a
+- **[Views CardView:](3/views-cardview)** CardView extension of [Views](3/views). Provides a
 `contentPadding` property.
-- **[Views Coroutines:](modules/views-coroutines)** Android Views + Kotlin coroutines.
-- **[Views Coroutines Material:](modules/views-coroutines-material)** Material Components + Kotlin coroutines.
-- **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
-- **[Views DSL AppCompat:](modules/views-dsl-appcompat)** AppCompat extension of [Views DSL](modules/views-dsl).
-- **[Views DSL ConstraintLayout:](modules/views-dsl-constraintlayout)** ConstraintLayout extension of
-[Views DSL](modules/views-dsl).
-- **[Views DSL CoordinatorLayout:](modules/views-dsl-coordinatorlayout)** CoordinatorLayout extension of
-[Views DSL](modules/views-dsl).
-- **[Views DSL Material:](modules/views-dsl-material)** Material Components extension of [Views DSL](modules/views-dsl).
-- **[Views DSL RecyclerView:](modules/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](modules/views-dsl).
-- **[Views Material:](modules/views-material)** Material Components extension of [Views](modules/views).
-- **[Views RecyclerView:](modules/views-recyclerview)** RecyclerView extension of [Views](modules/views).
+- **[Views Coroutines:](3/views-coroutines)** Android Views + Kotlin coroutines.
+- **[Views Coroutines Material:](3/views-coroutines-material)** Material Components + Kotlin coroutines.
+- **[Views DSL:](3/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
+- **[Views DSL AppCompat:](3/views-dsl-appcompat)** AppCompat extension of [Views DSL](3/views-dsl).
+- **[Views DSL ConstraintLayout:](3/views-dsl-constraintlayout)** ConstraintLayout extension of
+[Views DSL](3/views-dsl).
+- **[Views DSL CoordinatorLayout:](3/views-dsl-coordinatorlayout)** CoordinatorLayout extension of
+[Views DSL](3/views-dsl).
+- **[Views DSL Material:](3/views-dsl-material)** Material Components extension of [Views DSL](3/views-dsl).
+- **[Views DSL RecyclerView:](3/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](3/views-dsl).
+- **[Views Material:](3/views-material)** Material Components extension of [Views](3/views).
+- **[Views RecyclerView:](3/views-recyclerview)** RecyclerView extension of [Views](3/views).
 
 ## Download
 
@@ -116,29 +116,29 @@ are grouping artifacts that include _most_ splits.
 These 2 packs don't include AppCompat and are suitable for WearOS apps.
 
 Includes the following modules:
-- [activities](modules/activities)
-- [appctx](modules/appctx)
-- [bitflags](modules/bitflags)
-- [bundle](modules/bundle)
-- [collections](modules/collections)
-- [dimensions](modules/dimensions)
-- [fragments](modules/fragments)
-- [fragmentargs](modules/fragmentargs)
-- [intents](modules/intents)
-- [lifecycle-coroutines](modules/lifecycle-coroutines)
-- [mainhandler](modules/mainhandler)
-- [mainthread](modules/mainthread)
-- [material-colors](modules/material-colors)
-- [permissions](modules/permissions)
-- [preferences](modules/preferences)
-- [resources](modules/resources)
-- [systemservices](modules/systemservices)
-- [toast](modules/toast)
-- [views](modules/views)
-- [views-coroutines](modules/views-coroutines)
-- [views-recyclerview](modules/views-recyclerview)
-- [views-selectable](modules/views-selectable)
-- [views-selectable-constraintlayout](modules/views-selectable-constraintlayout)
+- [activities](3/activities)
+- [appctx](3/appctx)
+- [bitflags](3/bitflags)
+- [bundle](3/bundle)
+- [collections](3/collections)
+- [dimensions](3/dimensions)
+- [fragments](3/fragments)
+- [fragmentargs](3/fragmentargs)
+- [intents](3/intents)
+- [lifecycle-coroutines](3/lifecycle-coroutines)
+- [mainhandler](3/mainhandler)
+- [mainthread](3/mainthread)
+- [material-colors](3/material-colors)
+- [permissions](3/permissions)
+- [preferences](3/preferences)
+- [resources](3/resources)
+- [systemservices](3/systemservices)
+- [toast](3/toast)
+- [views](3/views)
+- [views-coroutines](3/views-coroutines)
+- [views-recyclerview](3/views-recyclerview)
+- [views-selectable](3/views-selectable)
+- [views-selectable-constraintlayout](3/views-selectable-constraintlayout)
 
 Gradle dependency:
 
@@ -148,9 +148,9 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-alp
 
 There's also a version with Views DSL. It additionally includes the following modules:
 
-- [views-dsl](modules/views-dsl)
-- [views-dsl-constraintlayout](modules/views-dsl-constraintlayout)
-- [views-dsl-recyclerview](modules/views-dsl-recyclerview)
+- [views-dsl](3/views-dsl)
+- [views-dsl-constraintlayout](3/views-dsl-constraintlayout)
+- [views-dsl-recyclerview](3/views-dsl-recyclerview)
 
 Gradle dependency:
 
@@ -161,10 +161,10 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-view
 #### Android AppCompat
 
 These 2 packs include the [Android base](#android-base) pack, and the following modules:
-- [alertdialog-appcompat](modules/alertdialog-appcompat)
-- [alertdialog-appcompat-coroutines](modules/alertdialog-appcompat-coroutines)
-- [views-appcompat](modules/views-appcompat)
-- [views-selectable-appcompat](modules/views-selectable-appcompat)
+- [alertdialog-appcompat](3/alertdialog-appcompat)
+- [alertdialog-appcompat-coroutines](3/alertdialog-appcompat-coroutines)
+- [views-appcompat](3/views-appcompat)
+- [views-selectable-appcompat](3/views-selectable-appcompat)
 
 Gradle dependency:
 
@@ -174,7 +174,7 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
 [Android base pack](#android-base) and the following module:
-- [views-dsl-appcompat](modules/views-dsl-appcompat)
+- [views-dsl-appcompat](3/views-dsl-appcompat)
 
 Gradle dependency:
 
@@ -185,11 +185,11 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with
 #### Android Material Components
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
-- [material-lists](modules/material-lists)
-- [snackbar](modules/snackbar)
-- [views-cardview](modules/views-cardview)
-- [views-coroutines-material](modules/views-coroutines-material)
-- [views-material](modules/views-material)
+- [material-lists](3/material-lists)
+- [snackbar](3/snackbar)
+- [views-cardview](3/views-cardview)
+- [views-coroutines-material](3/views-coroutines-material)
+- [views-material](3/views-material)
 
 Gradle dependency:
 
@@ -199,8 +199,8 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-material-compo
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
 [Android AppCompat pack](#android-appcompat) and the following modules:
-- [views-dsl-coordinatorlayout](modules/views-dsl-coordinatorlayout)
-- [views-dsl-material](modules/views-dsl-material)
+- [views-dsl-coordinatorlayout](3/views-dsl-coordinatorlayout)
+- [views-dsl-material](3/views-dsl-material)
 
 Gradle dependency:
 
@@ -227,54 +227,54 @@ allProjects {
 </summary>
 
 ```kts
-implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
-implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
-implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
-implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
-implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
-implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
-implementation("com.louiscad.splitties:splitties-permissions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
-implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
-implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
-implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
-implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
-implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
+implementation("com.louiscad.splitties:splitties-activities:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-alertdialog:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-appctx:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-arch-lifecycle:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-arch-room:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-bitflags:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-bundle:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-checkedlazy:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-collections:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-coroutines:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-dimensions:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-exceptions:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-fragments:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-fragmentargs:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-initprovider:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-intents:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-mainhandler:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-mainthread:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-material-colors:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-material-lists:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-permissions:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-preferences:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-resources:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-snackbar:{{version.splitties3}}")
+debugImplementation("com.louiscad.splitties:splitties-stetho-init:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-systemservices:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-toast:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-appcompat:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-cardview:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-coroutines:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-coroutines-material:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:{{version.splitties3}}")
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl-material:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-material:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-recyclerview:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-selectable:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:{{version.splitties3}}")
+implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:{{version.splitties3}}")
 ```
 
 </details>

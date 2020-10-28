@@ -19,5 +19,5 @@ You also have the reverse equivalents: `forEachReversedByIndex` and
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
+implementation("com.louiscad.splitties:splitties-collections:{{version.splitties3}}")
 ```

@@ -27,5 +27,5 @@ on the result of the call instead of inside the optional inline lambda.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
+implementation("com.louiscad.splitties:splitties-snackbar:{{version.splitties3}}")
 ```

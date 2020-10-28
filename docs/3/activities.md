@@ -21,5 +21,5 @@ lambda to edit the intent further, like `start`.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
+implementation("com.louiscad.splitties:splitties-activities:{{version.splitties3}}")
 ```

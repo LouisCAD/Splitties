@@ -19,5 +19,5 @@ Extension functions:
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-views-coroutines:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-coroutines:{{version.splitties3}}")
 ```

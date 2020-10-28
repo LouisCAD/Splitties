@@ -81,5 +81,5 @@ Be sure to test it to make sure you have set it up properly.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:{{version.splitties3}}")
 ```

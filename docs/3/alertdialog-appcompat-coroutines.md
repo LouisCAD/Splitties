@@ -24,5 +24,5 @@ suspend fun shouldWeReallyDeleteFromTrash(): Boolean = alertDialog(
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:{{version.splitties3}}")
 ```

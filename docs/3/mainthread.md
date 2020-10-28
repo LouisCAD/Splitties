@@ -23,5 +23,5 @@ Thread (always throws in JS).
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainthread:{{version.splitties3}}")
 ```

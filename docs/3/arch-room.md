@@ -33,5 +33,5 @@ number of classes, making the apk smaller.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
+implementation("com.louiscad.splitties:splitties-arch-room:{{version.splitties3}}")
 ```

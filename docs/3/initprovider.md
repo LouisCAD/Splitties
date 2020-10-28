@@ -11,5 +11,5 @@ implementations to see how it's meant to be used.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
+implementation("com.louiscad.splitties:splitties-initprovider:{{version.splitties3}}")
 ```

@@ -14,5 +14,5 @@ sync `Handler`, you can simply use `mainHandlerAsync`, also provided in this spl
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
+implementation("com.louiscad.splitties:splitties-mainhandler:{{version.splitties3}}")
 ```

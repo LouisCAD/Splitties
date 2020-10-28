@@ -223,5 +223,5 @@ fun doStuff(ui: SomeUi) { // Can run on main/UI thread.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
+implementation("com.louiscad.splitties:splitties-coroutines:{{version.splitties3}}")
 ```

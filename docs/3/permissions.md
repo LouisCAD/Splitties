@@ -54,5 +54,5 @@ and you can see how it is used in [PermissionsExampleActivity](../../samples/and
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-permissions:$splitties_version")
+implementation("com.louiscad.splitties:splitties-permissions:{{version.splitties3}}")
 ```

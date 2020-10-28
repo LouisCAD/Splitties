@@ -33,5 +33,5 @@ class YourActivity : AppCompatActivity {
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-alertdialog-material:$splitties_version")
+implementation("com.louiscad.splitties:splitties-alertdialog-material:{{version.splitties3}}")
 ```

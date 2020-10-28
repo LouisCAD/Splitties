@@ -81,5 +81,5 @@ theme in the `Context`.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
+implementation("com.louiscad.splitties:splitties-resources:{{version.splitties3}}")
 ```

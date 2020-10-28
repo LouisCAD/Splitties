@@ -9,5 +9,5 @@ has been **deprecated** and is now included directly into the debug variant of t
 ## Dependency (for reference)
 
 ```groovy
-debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
+debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:{{version.splitties3}}")
 ```

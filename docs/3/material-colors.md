@@ -20,5 +20,5 @@ generator).
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-colors:{{version.splitties3}}")
 ```

@@ -30,5 +30,5 @@ class YourClass {
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
+implementation("com.louiscad.splitties:splitties-checkedlazy:{{version.splitties3}}")
 ```

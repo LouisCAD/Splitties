@@ -21,5 +21,5 @@ See it in action in the sample: [DemoAdapter](
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
+implementation("com.louiscad.splitties:splitties-typesaferecyclerview:{{version.splitties3}}")
 ```

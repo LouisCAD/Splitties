@@ -31,5 +31,5 @@ See an example in the [sample module](../../samples/android-app).
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
+implementation("com.louiscad.splitties:splitties-material-lists:{{version.splitties3}}")
 ```

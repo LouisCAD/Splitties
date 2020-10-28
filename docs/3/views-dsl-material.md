@@ -168,5 +168,5 @@ state even if the host Activity is killed by the system.
 ## Download
 
 ```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
+implementation("com.louiscad.splitties:splitties-views-dsl-material:{{version.splitties3}}")
 ```
