@@ -67,7 +67,7 @@ and a default height of `wrapContent` so you don't have to specify them in
 most of the cases.
 
 It also has a `scrollFlags` parameter which defaults to `ENTER_ALWAYS`, same
-as when inflated from an xml layout. 
+as when inflated from an xml layout.
 
 Use it when you add a `View` to an `AppBarLayout`.
 
@@ -153,5 +153,5 @@ state even if the host Activity is killed by the system.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-design:{{version.splitties2}}"
 ```

@@ -122,7 +122,7 @@ Both overloads allow the following 3 **optional** parameters:
 you declared it in xml, [as done in the sample](../sample/src/main/res/values/view_ids.xml)
 * `@StyleRes theme: Int`, resource of a theme overlay that will be applied to
 the View. Example argument: `R.style.AppTheme_AppBarOverlay`
-* `initView: V.() -> Unit`, a lambda that is like `apply` for the created View. 
+* `initView: V.() -> Unit`, a lambda that is like `apply` for the created View.
 
 **The first overload** of `view` takes a required first parameter that is a function
 taking a `Context`, and returning a `View`. Since constructors are also
@@ -367,7 +367,7 @@ To avoid this issue, you can be alert when you're typing/auto-completing `lParam
 you're in (direct parent of the child View you are adding).
 
 #### Other extensions for `ViewGroup`
- 
+
 * `wrapContent` and `matchParent` inline extensions properties on
 `ViewGroup` are convenience aliases to `ViewGroup.LayoutParams.WRAP_CONTENT`
 and `ViewGroup.LayoutParams.MATCH_PARENT`.
@@ -512,7 +512,7 @@ Here's an example of how you may write multiplatform user interface contracts:
 In Kotlin common code, you would write an interface that is platform agnostic
 but declares the needed symbols that all platforms can share:
 
-Continuing our email app example, you would write these two interfaces: 
+Continuing our email app example, you would write these two interfaces:
 ```kotlin
 interface InboxUiContract {
     // Whatever you need
@@ -581,5 +581,5 @@ scrollbars and proper `itemView` layout parameters.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl:{{version.splitties2}}"
 ```

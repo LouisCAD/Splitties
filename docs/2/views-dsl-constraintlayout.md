@@ -79,5 +79,5 @@ Note that `View` ids are crucial to `ConstraintLayout` machinery.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-dsl-constraintlayout:{{version.splitties2}}"
 ```

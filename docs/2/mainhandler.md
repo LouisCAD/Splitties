@@ -9,5 +9,5 @@ please open an issue.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-mainhandler:$splitties_version"
+implementation "com.louiscad.splitties:splitties-mainhandler:{{version.splitties2}}"
 ```

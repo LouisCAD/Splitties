@@ -146,5 +146,5 @@ below API 16).
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-intents:$splitties_version"
+implementation "com.louiscad.splitties:splitties-intents:{{version.splitties2}}"
 ```

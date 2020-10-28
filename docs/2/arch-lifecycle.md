@@ -39,9 +39,9 @@ class SomeFragment : Fragment() {
 
 ```kotlin
 class YourActivity : AppCompatActivity() {
-    
+
     private val viewModel by activityScope<YourViewModel>()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         observe(viewModel.yourLiveData) { data: YourData? ->
             updateUi(data)
@@ -58,7 +58,7 @@ class YourActivity : AppCompatActivity() {
 
 ```kotlin
 class YourViewModel : ViewModel() {
-    
+
     val yourLiveData: LiveData<YourData> = createYourLiveData()
     val anotherLiveData = yourLiveData.map { it?.someProperty }
 }
@@ -71,5 +71,5 @@ result in lags or ANRs).
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version"
+implementation "com.louiscad.splitties:splitties-arch-lifecycle:{{version.splitties2}}"
 ```

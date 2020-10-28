@@ -20,5 +20,5 @@ val circleDiameter = dp(48)
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-dimensions:$splitties_version"
+implementation "com.louiscad.splitties:splitties-dimensions:{{version.splitties2}}"
 ```

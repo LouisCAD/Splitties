@@ -19,7 +19,7 @@ extra:
     issues: https://github.com/LouisCAD/Splitties/issues
     slack: https://app.slack.com/client/T09229ZC6/CHJP9K00L
   version:
-    splities2: '2.1.1'
+    splitties2: '2.1.1'
     splitties3: '3.0.0-beta01'
     gradle: 6.7
   keyboard_shortcuts:
@@ -157,7 +157,7 @@ nav:
     - views-selectable-constraintlayout : 2/views-selectable-constraintlayout.md
     - views-selectable : 2/views-selectable.md
     - views : 2/views.md
-
+  - Releasing : RELEASING.md
 plugins:
   - search
   - markdownextradata: {}

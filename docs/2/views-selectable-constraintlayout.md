@@ -11,5 +11,5 @@ default doesn't suit your needs.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-selectable-constraintlayout:{{version.splitties2}}"
 ```

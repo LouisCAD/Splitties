@@ -3,7 +3,7 @@
 *Grab a snack without ceremony with `snack(…)` and `longSnack(…)`*
 
 This [split](../README.md#what-is-a-split "What is a split in Splitties?")
-provides extensions to show a 
+provides extensions to show a
 [`Snackbar`](https://material.io/components/android/catalog/snackbar/),
 boilerplate free. It also has a small extension functions based DSL to
 add an action and execute action on dismiss.
@@ -25,5 +25,5 @@ on the result of the call instead of inside the optional inline lambda.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-snackbar:$splitties_version"
+implementation "com.louiscad.splitties:splitties-snackbar:{{version.splitties2}}"
 ```

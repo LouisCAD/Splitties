@@ -14,7 +14,7 @@ and voilà!
 ### Usage
 Add the dependency to your debug build like in the example below:
 ```groovy
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-stetho-init:{{version.splitties2}}"
 ```
 
 Assuming your Android device is visible from adb on your computer, you can
@@ -24,5 +24,5 @@ debug app in Chrome Dev Tools, no further configuration required.
 ## Download
 
 ```groovy
-debugImplementation "com.louiscad.splitties:splitties-stetho-init:$splitties_version"
+debugImplementation "com.louiscad.splitties:splitties-stetho-init:{{version.splitties2}}"
 ```

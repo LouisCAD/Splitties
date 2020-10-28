@@ -134,5 +134,5 @@ it a `suspend` function.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-preferences:$splitties_version"
+implementation "com.louiscad.splitties:splitties-preferences:{{version.splitties2}}"
 ```

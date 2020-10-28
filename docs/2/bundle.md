@@ -143,5 +143,5 @@ class DemoActivity : AppCompatActivity() {
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-bundle:$splitties_version"
+implementation "com.louiscad.splitties:splitties-bundle:{{version.splitties2}}"
 ```

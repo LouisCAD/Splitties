@@ -45,5 +45,5 @@ handles this without needing to be recreated.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-appcompat:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-appcompat:{{version.splitties2}}"
 ```

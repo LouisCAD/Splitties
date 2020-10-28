@@ -16,7 +16,7 @@ core KTX, and included the dependency transitively instead.
 
 ### View background properties
 
-`bg` is an alias to the `background` property for `View, but works below 
+`bg` is an alias to the `background` property for `View, but works below
 API 16, using `setBackgroundDrawable(…)`.
 
 `backgroundColor` allows to set the background color of a `View` using
@@ -154,5 +154,5 @@ and returns the `id` of the View, existing or just generated.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views:{{version.splitties2}}"
 ```

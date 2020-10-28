@@ -22,5 +22,5 @@ code.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-recyclerview:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-recyclerview:{{version.splitties2}}"
 ```

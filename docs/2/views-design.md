@@ -21,5 +21,5 @@ child `EditText`.
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-views-design:$splitties_version"
+implementation "com.louiscad.splitties:splitties-views-design:{{version.splitties2}}"
 ```

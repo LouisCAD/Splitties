@@ -32,5 +32,5 @@ fun performSomeVibration(vibe: VibrationEffect) {
 ## Download
 
 ```groovy
-implementation "com.louiscad.splitties:splitties-systemservices:$splitties_version"
+implementation "com.louiscad.splitties:splitties-systemservices:{{version.splitties2}}"
 ```
