@@ -17,6 +17,7 @@ buildscript {
 
 plugins {
     id("com.osacky.doctor")
+    id("com.gradleup.auto.manifest") version "1.0.3" apply false
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.

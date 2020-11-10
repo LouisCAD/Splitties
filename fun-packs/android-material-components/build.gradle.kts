@@ -11,7 +11,7 @@ plugins {
 }
 
 android {
-    setDefaults()
+    setDefaults(project)
 }
 
 kotlin {

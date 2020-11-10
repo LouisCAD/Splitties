@@ -4,9 +4,10 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
+import org.gradle.api.Project
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
-fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
+fun AndroidLibraryExtension.setDefaults(project: Project, generateBuildConfig: Boolean = false) {
     compileSdkVersion(ProjectVersions.androidSdk)
     buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
@@ -24,15 +25,15 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
         this.buildConfig = generateBuildConfig
     }
     sourceSets.getByName("main") {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        if (project.file("src/androidMain/AndroidManifest.xml").exists()) {
+            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        }
         res.srcDir("src/androidMain/res")
     }
     sourceSets.getByName("debug") {
-        manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         res.srcDir("src/androidDebug/res")
     }
     sourceSets.getByName("release") {
-        manifest.srcFile("src/androidRelease/AndroidManifest.xml")
         res.srcDir("src/androidRelease/res")
     }
     sourceSets.getByName("androidTest") {
