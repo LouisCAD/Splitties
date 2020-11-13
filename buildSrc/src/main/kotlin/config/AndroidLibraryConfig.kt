@@ -25,15 +25,18 @@ fun AndroidLibraryExtension.setDefaults(project: Project, generateBuildConfig: B
         this.buildConfig = generateBuildConfig
     }
     sourceSets.getByName("main") {
-        if (project.file("src/androidMain/AndroidManifest.xml").exists()) {
-            manifest.srcFile("src/androidMain/AndroidManifest.xml")
+        val srcDir = manifest.srcFile.parentFile.parentFile
+        srcDir.resolve("androidMain/AndroidManifest.xml").let {
+            if (it.exists()) manifest.srcFile(it)
         }
         res.srcDir("src/androidMain/res")
     }
     sourceSets.getByName("debug") {
+        manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         res.srcDir("src/androidDebug/res")
     }
     sourceSets.getByName("release") {
+        manifest.srcFile("src/androidRelease/AndroidManifest.xml")
         res.srcDir("src/androidRelease/res")
     }
     sourceSets.getByName("androidTest") {
