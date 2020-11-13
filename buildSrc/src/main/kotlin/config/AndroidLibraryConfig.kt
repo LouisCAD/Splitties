@@ -4,10 +4,9 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
-import org.gradle.api.Project
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
-fun AndroidLibraryExtension.setDefaults(project: Project, generateBuildConfig: Boolean = false) {
+fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     compileSdkVersion(ProjectVersions.androidSdk)
     buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {

@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    setDefaults(project)
+    setDefaults()
     sourceSets.getByName("main").java.srcDir("src/androidMain/java")
 }
 

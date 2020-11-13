@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    setDefaults(project)
+    setDefaults()
     buildTypes.getByName("release").consumerProguardFiles("proguard-rules.pro")
 }
 
