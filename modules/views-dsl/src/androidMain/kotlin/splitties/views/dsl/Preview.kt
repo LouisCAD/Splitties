@@ -5,6 +5,7 @@
 package splitties.views.dsl
 
 import android.view.View
+import splitties.views.dsl.core.BuildConfig
 import splitties.views.dsl.core.Ui
 
 val View.isInPreview: Boolean

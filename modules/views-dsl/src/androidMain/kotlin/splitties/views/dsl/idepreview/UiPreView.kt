@@ -30,7 +30,7 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
-import splitties.views.dsl.R
+import splitties.views.dsl.core.R
 
 /**
  * This class is dedicated to previewing `Ui` subclasses in the IDE.
