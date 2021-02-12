@@ -19,7 +19,7 @@ import splitties.mainthread.isMainThread
 internal actual fun SharedPreferences.changesFlow(
     key: String,
     emitAfterRegister: Boolean
-): Flow<Unit> = channelFlow<Unit> {
+): Flow<Unit> = channelFlow {
     if (this@changesFlow is NSUserDefaultsBackedSharedPreferences) {
         val defaultNotificationCenter = NSNotificationCenter.defaultCenter
         val observer = defaultNotificationCenter.addObserverForName(

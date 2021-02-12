@@ -15,7 +15,7 @@ import splitties.experimental.NonSymmetricalApi
 internal actual fun SharedPreferences.changesFlow(
     key: String,
     emitAfterRegister: Boolean
-): Flow<Unit> = channelFlow<Unit> {
+): Flow<Unit> = channelFlow {
     @OptIn(NonSymmetricalApi::class)
     val listener = OnSharedPreferenceChangeListener { _, changedKey ->
         if (key == changedKey) runCatching { offer(Unit) }
