@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Disable TCP-UDP offload
+        run: Disable-NetAdapterChecksumOffload -Name * -TcpIPv4 -UdpIPv4 -TcpIPv6 -UdpIPv6
+        shell: pwsh
       - name: Upload Windows x64 bits artifacts
         run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository
         shell: bash
@@ -20,6 +23,10 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Disable TCP-UDP offload
+        run: |
+          sudo sysctl -w net.link.generic.system.hwcksum_tx=0
+          sudo sysctl -w net.link.generic.system.hwcksum_rx=0
       - name: Upload all artifacts macOS can build
         run: ./gradlew --scan publishAllPublicationsToBintrayRepository
   windows-checking:
@@ -28,6 +35,9 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Disable TCP-UDP offload
+        run: Disable-NetAdapterChecksumOffload -Name * -TcpIPv4 -UdpIPv4 -TcpIPv6 -UdpIPv6
+        shell: pwsh
       - name: Check Windows build with latest artifacts
         run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
         shell: bash
@@ -37,6 +47,10 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Disable TCP-UDP offload
+        run: |
+          sudo sysctl -w net.link.generic.system.hwcksum_tx=0
+          sudo sysctl -w net.link.generic.system.hwcksum_rx=0
       - name: Check macOS build with latest artifacts
         run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
   linux-checking-and-publish:
@@ -45,6 +59,8 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Disable TCP-UDP offload
+        run: sudo ethtool -K eth0 tx off rx off
       - name: Check Linux build with latest artifacts
         run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
       - name: Publish all uploaded artifacts for this version
