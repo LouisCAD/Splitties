@@ -1,5 +1,14 @@
 # Change log for Splitties
 
+## [Unreleased]
+
+Compiled with Kotlin 1.4.30 and kotlinx.coroutines 1.4.2-native-mt.
+
+### Lifecycle Coroutines
+
+Introduce the `whileStarted(Lifecyle)` extension function for `Flow` to have a flow emit values only while the passed `Lifecycle` is started.
+
+
 ## Version 3.0.0-beta01 (2020-09-14)
 
 Compiled with Kotlin 1.4.10 and kotlinx.coroutines 1.3.9-native-mt.
