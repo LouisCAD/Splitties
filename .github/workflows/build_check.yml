@@ -37,25 +37,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: ./gradlew jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+        run: ./gradlew jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan
   macOS-tests:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: ./gradlew macosX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+        run: ./gradlew macosX64Test --stacktrace --scan
   Linux-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: ./gradlew linuxX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+        run: ./gradlew linuxX64Test --stacktrace --scan
   Windows-tests:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: ./gradlew mingwX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+        run: ./gradlew mingwX64Test --stacktrace --scan
         shell: bash
 env:
   GRADLE_OPTS: -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
