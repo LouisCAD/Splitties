@@ -40,8 +40,4 @@ fun RepositoryHandler.setupForProject() {
         url = "https://dl.bintray.com/kotlin/kotlin-eap"
     ).ensureGroups("org.jetbrains.kotlin")
     */
-
-    maven(
-        url = "https://oss.sonatype.org/content/repositories/snapshots"
-    ).ensureGroups("org.androidannotations")
 }
