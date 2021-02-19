@@ -28,7 +28,7 @@ fun generateTone(
     val count = (44100.0 * 2.0 * (durationMs / 1000.0)).toInt() and 1.inv()
     val samples = ShortArray(count)
     for (i in 0 until count step 2) {
-        val sample = (sin(2 * PI * i / (44100.0 / freqHz)) * 0x7FFF).toShort()
+        val sample = (sin(2 * PI * i / (44100.0 / freqHz)) * 0x7FFF).toInt().toShort()
         samples[i] = sample
         samples[i + 1] = sample
     }
@@ -67,7 +67,7 @@ private fun generateTone(
     var idx = 0
     for (dVal in samples) {
         // scale to maximum amplitude
-        val value = (dVal * amplitude16bits).toShort()
+        val value = (dVal * amplitude16bits).toInt().toShort()
         // in 16 bit wav PCM, first byte is the low order byte
         generatedSound[idx++] = (value and 0x00ff).toByte()
         generatedSound[idx++] = ((value.toInt() and 0xff00) ushr 8).toByte()
