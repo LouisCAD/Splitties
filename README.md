@@ -52,8 +52,6 @@ functions that return `Nothing`.
 minimal boilerplate.
 - **[Fragment Args:](modules/fragmentargs)** Fragment arguments without ceremony thanks to
 delegated properties.
-- **[Init Provider:](modules/initprovider)** Base class for `ContentProvider`s used for automatic
-initialization purposes.
 - **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
 and create `PendingIntent`s the clean and easy way.
 - **[Lifecycle Coroutines:](modules/lifecycle-coroutines)** Coroutines integration with AndroidX
@@ -243,7 +241,6 @@ implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
 implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
 implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
-implementation("com.louiscad.splitties:splitties-initprovider:$splitties_version")
 implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
 implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
 implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
