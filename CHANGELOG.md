@@ -2,7 +2,11 @@
 
 ## [Unreleased]
 
-Compiled with Kotlin 1.4.30 and kotlinx.coroutines 1.4.2-native-mt.
+Compiled with Kotlin 1.4.30 and kotlinx.coroutines 1.4.3-native-mt.
+
+### App Context
+
+Replace the initializing `ContentProvider` with AndroidX App Startup.
 
 ### Lifecycle Coroutines
 

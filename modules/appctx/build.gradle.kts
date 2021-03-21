@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 plugins {
@@ -19,7 +19,7 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(AndroidX.annotation)
-            api(splitties("initprovider"))
+            implementation(AndroidX.startup.runtime)
         }
     }
 }
