@@ -9,7 +9,7 @@ If the sentence above is not clear enough or if you need more explanations,
 please open an issue.
 
 Note that `mainHandler` is async, which means there's no vSync delays. If you need a
-sync `Handler`, you can simply use `mainHandlerAsync`, also provided in this split.
+sync `Handler`, you can simply use `mainHandlerSync`, also provided in this split.
 
 ## Download
 
