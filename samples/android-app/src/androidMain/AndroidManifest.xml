@@ -68,13 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.splitties.main.MainActivity" />
         </activity>
-
-        <provider
-            android:name="com.example.splitties.AppInitProvider"
-            android:authorities="${applicationId}.init"
-            android:exported="false"
-            android:initOrder="899" />
-
     </application>
 
 </manifest>
