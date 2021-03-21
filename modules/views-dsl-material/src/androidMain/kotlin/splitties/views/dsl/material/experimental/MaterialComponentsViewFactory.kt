@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 package splitties.views.dsl.material.experimental
 
@@ -17,6 +17,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.tabs.TabLayout
@@ -54,6 +55,7 @@ internal inline fun <reified V : View> instantiateMaterialView(
     TabLayout::class.java -> TabLayout(context)
     TextInputLayout::class.java -> TextInputLayout(context)
     TextInputEditText::class.java -> TextInputEditText(context)
+    ShapeableImageView::class.java -> ShapeableImageView(context)
     else -> null
 } as V?
 
@@ -85,6 +87,7 @@ internal inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
     TabLayout::class.java -> TabLayout(context, null, styleThemeAttribute)
     TextInputLayout::class.java -> TextInputLayout(context, null, styleThemeAttribute)
     TextInputEditText::class.java -> TextInputEditText(context, null, styleThemeAttribute)
+    ShapeableImageView::class.java -> ShapeableImageView(context, null, styleThemeAttribute)
     else -> null
 } as V?
 
