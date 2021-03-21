@@ -8,6 +8,10 @@ Compiled with Kotlin 1.4.30 and kotlinx.coroutines 1.4.3-native-mt.
 
 Replace the initializing `ContentProvider` with AndroidX App Startup.
 
+### Coroutines
+
+Deprecate `awaitCancellation()` in favor of the one now included right into kotlinx.coroutines.
+
 ### Lifecycle Coroutines
 
 Introduce the `whileStarted(Lifecyle)` extension function for `Flow` to have a flow emit values only while the passed `Lifecycle` is started.

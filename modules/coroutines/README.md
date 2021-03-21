@@ -119,42 +119,6 @@ suspend fun awaitSomeActionTrigger(
 }
 ```
 
-## Await cancellation
-
-In code that embraces coroutines capabilities like being able to run some code on cancellation
-(for example with a `finally` block encompassing suspending code), it can be handy to suspend a
-coroutine until it is cancelled, for example to delay the hiding of a part of a UI, or stop an
-ongoing side operation that is not needed after cancellation.
-
-So Splitties provides a function named `awaitCancellation()` that returns `Nothing` so you can
-use it in any suspending code when needed.
-
-#### UI code example with `try`/`finally`
-
-```kotlin
-suspend fun showStuffUntilCancelled(data: Stuff): Nothing {
-    try {
-        someSubView.text = data.title
-        anotherSubView.text = data.description
-        someView.isVisible = true
-        awaitCancellation() // Suspends so the view stays visible
-    } finally {
-        someView.isVisible = false // Called on cancellation, cannot forget to hide the view!
-    }
-}
-```
-
-Same version using `visibleInScope` from [Views Coroutines](../views-coroutines/):
-```kotlin
-suspend fun showStuffUntilCancelled(data: Stuff): Nothing {
-    someSubView.text = data.title
-    anotherSubView.text = data.description
-    someView.visibleInScope {
-        awaitCancellation() // Suspends so the view stays visible
-    }
-}
-```
-
 ## Suspending version of `lazy`
 
 These 3 functions provide a `SuspendLazy` instance:
