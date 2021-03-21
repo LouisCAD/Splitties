@@ -1,17 +1,22 @@
 <!--
-  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  ~ Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
   -->
 
 <manifest package="splitties.views.dsl.material"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application>
         <provider
-            android:name="splitties.views.dsl.material.experimental.MaterialViewInstantiatorInjectProvider"
-            android:authorities="${applicationId}.splitties.views.dsl.material.experimental.init"
-            android:enabled="true"
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:directBootAware="true"
             android:exported="false"
-            android:initOrder="20">
+            tools:ignore="UnusedAttribute"
+            tools:node="merge">
+            <meta-data
+                android:name="splitties.views.dsl.material.experimental.MaterialViewInstantiatorInjecter"
+                android:value="androidx.startup" />
         </provider>
     </application>
 </manifest>

@@ -47,7 +47,7 @@ handles config changes.
 If your app needs to use AppCompat themed widgets in a non default process, you'll need to
 manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
 [this InitProvider](
-src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjectProvider.kt
+src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjecter.kt
 ) into a package of an android library/app module of your project, then declare it in the
 `AndroidManifest.xml` of the module exactly like it is done [here](
 src/androidMain/AndroidManifest.xml
