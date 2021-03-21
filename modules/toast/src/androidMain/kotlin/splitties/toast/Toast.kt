@@ -93,7 +93,7 @@ private class SafeToastCtx(ctx: Context) : ContextWrapper(ctx) {
     }
 
     override fun getApplicationContext(): Context = SafeToastCtx(baseContext.applicationContext)
-    override fun getSystemService(name: String): Any = when (name) {
+    override fun getSystemService(name: String): Any? = when (name) {
         Context.LAYOUT_INFLATER_SERVICE -> toastLayoutInflater
         Context.WINDOW_SERVICE -> toastWindowManager
         else -> super.getSystemService(name)
