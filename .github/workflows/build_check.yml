@@ -2,32 +2,7 @@
 # https://github.com/marketplace/actions/gradle-command
 name: Check build and run tests
 on:
-  pull_request:
-    branches:
-      - develop
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.adoc'
-      - '.editorconfig'
-      - '**/.gitignore'
-      - 'libraries_version.txt'
-      - '.github/workflows/release.yml'
-      - 'Releasing.kts'
-      - 'libraries_version.txt'
-  push:
-    branches:
-      - develop
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.adoc'
-      - '.editorconfig'
-      - '**/.gitignore'
-      - 'libraries_version.txt'
-      - '.github/workflows/release.yml'
-      - 'Releasing.kts'
-      - 'libraries_version.txt'
+  workflow_dispatch:
 jobs:
   Host-agnostic-tests:
     strategy:
