@@ -12,6 +12,9 @@ Replace the initializing `ContentProvider` with AndroidX App Startup.
 
 Introduce the `whileStarted(Lifecyle)` extension function for `Flow` to have a flow emit values only while the passed `Lifecycle` is started.
 
+### Stetho Init
+
+Replace the initializing `ContentProvider` with AndroidX App Startup.
 
 ## Version 3.0.0-beta01 (2020-09-14)
 

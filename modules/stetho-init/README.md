@@ -5,13 +5,9 @@ without writing any code!*
 
 Supported platforms: **Android**.
 
-This library uses an [InitProvider](
-../initprovider/src/androidMain/kotlin/splitties/initprovider/InitProvider.kt
-) (like [appCtx](
-../appctx/src/androidMain/kotlin/splitties/init/AppCtxInitProvider.kt
-), and similarly to Firebase) to initialize Stetho
-automatically. You just have to include the dependency on your debug build
-and voilà!
+This library automatically initializes Stetho (it's relying on AndroidX App Startup).
+
+You just have to include the dependency on your debug build and voilà!
 
 ### Usage
 Add the dependency to your debug build like in the example below:
