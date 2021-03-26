@@ -15,6 +15,74 @@ Some Android targeting modules have a content similar to what [Anko](https://git
 See [a short comparison of Splitties with Anko here](Comparison_with_anko.md).
 
 Each module has been designed to have a **small footprint** and be as **efficient** as possible.
+
+## A few examples
+
+Splitties is all about simplifying your code. Here are a few examples:
+
+**Kotlin:**
+```kotlin
+startActivity(Intent(this, DemoActivity::class.java))
+```
+
+**Kotlin with Splitties [Activities](modules/activities):**
+```kotlin
+start<DemoActivity>()
+```
+
+----
+
+**Kotlin:**
+```kotlin
+Snackbar.make(root, R.string.refresh_successful, Snackbar.LENGTH_SHORT)
+    .show()
+```
+
+**Kotlin with Splitties [Snackbar](modules/snackbar):**
+```kotlin
+root.snack(R.string.refresh_successful)
+```
+----
+
+**Racing coroutines:** (`raceOf(…)` comes from [the Coroutines module](modules/coroutines))
+
+```kotlin
+suspend fun awaitUserChoice(ui: SomeUi, choices: List<Stuff>): Stuff? = raceOf({
+    ui.awaitSomeUserAction(choices)
+}, {
+    ui.awaitDismissal()
+    null
+}, {
+    launch {
+        doSideStuff()
+    }
+    ui.showSomethingInRealtimeUntilCancelled() // Returns Nothing, will run, but never "win".
+})
+```
+
+----
+
+**Kotlin:**
+```kotlin
+Snackbar.make(root, getString(R.string.deleted_x_items, deletedCount), Snackbar.LENGTH_LONG)
+    .setAction(android.R.string.cancel) {
+        deleteOperation.requestRollback()
+    }
+    .setActionTextColor(ContextCompat.getColor(this, R.color.fancy_color))
+    .show()
+```
+
+**Kotlin with Splitties [Snackbar](modules/snackbar):**
+```kotlin
+root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
+    action(android.R.string.cancel, textColor = color(R.color.fancy_color)) {
+        deleteOperation.requestRollback()
+    }
+}
+```
+
+----
+
 ## Overview
 - [System interaction (Android only)](#system-interaction-android-only)
 - [User input and user interface related splits](#user-input-and-user-interface-related-splits)
