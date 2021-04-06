@@ -3,6 +3,6 @@ plugins {
     id("org.jetbrains.dokka")
 }
 
-configure<PublishingExtension> {
+publishing {
     setupAllPublications(project)
 }
