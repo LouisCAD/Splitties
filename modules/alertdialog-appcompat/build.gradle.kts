@@ -5,8 +5,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -22,11 +21,5 @@ kotlin {
             api(AndroidX.annotation)
             api(AndroidX.appCompat)
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
     }
 }

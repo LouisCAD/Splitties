@@ -5,8 +5,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -22,11 +21,5 @@ kotlin {
             api(splitties("views-coroutines"))
             api(Google.android.material)
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
     }
 }

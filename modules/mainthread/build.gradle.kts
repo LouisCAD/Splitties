@@ -5,8 +5,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -42,10 +41,4 @@ kotlin {
 dependencies {
     androidTestImplementation(AndroidX.test.runner)
     testImplementation(Testing.roboElectric)
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
-    }
 }

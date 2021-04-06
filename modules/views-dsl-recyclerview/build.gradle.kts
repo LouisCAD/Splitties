@@ -5,8 +5,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -34,11 +33,5 @@ kotlin {
                 useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
             }
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
     }
 }

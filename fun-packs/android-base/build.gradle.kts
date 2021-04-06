@@ -7,8 +7,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -48,11 +47,5 @@ kotlin {
                 "views-selectable-constraintlayout"
             ).forEach { api(splitties(it)) }
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
     }
 }

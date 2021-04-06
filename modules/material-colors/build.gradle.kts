@@ -5,8 +5,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 android {
@@ -17,10 +16,4 @@ kotlin {
     android()
 
     configure(targets) { configureMavenPublication() }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
-    }
 }

@@ -4,8 +4,7 @@
 
 plugins {
     kotlin("multiplatform")
-    `maven-publish`
-    id("org.jetbrains.dokka")
+    publish
 }
 
 kotlin {
@@ -33,8 +32,4 @@ kotlin {
             }
         }
     }
-}
-
-publishing {
-    setupAllPublications(project)
 }
