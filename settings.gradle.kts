@@ -9,6 +9,7 @@ import de.fayard.refreshVersions.bootstrapRefreshVersions
 pluginManagement {
     repositories {
         gradlePluginPortal()
+        mavenCentral()
         google()
         maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
     }
