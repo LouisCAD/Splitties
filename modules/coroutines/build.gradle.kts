@@ -5,6 +5,7 @@
 plugins {
     kotlin("multiplatform")
     `maven-publish`
+    id("org.jetbrains.dokka")
 }
 
 kotlin {
