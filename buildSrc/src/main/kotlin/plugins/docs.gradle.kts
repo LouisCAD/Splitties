@@ -8,12 +8,7 @@ plugins {
 tasks {
     withType<DokkaTask>() {
         dokkaSourceSets.configureEach {
-            includes.from(listOf("README.md"))
+            includes.from("README.md")
         }
-    }
-
-    withType<DokkaMultiModuleTask>().configureEach {
-        val dokkaDir = buildDir.resolve("dokka")
-        outputDirectory.set(dokkaDir)
     }
 }
