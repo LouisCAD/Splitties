@@ -28,7 +28,7 @@ val projectDir: File = Paths.get("").toFile().let { currentDir: File ->
 val docsDir = projectDir.resolve("docs")
 
 //language=RegExp
-val linksRegex = """\[(?<text>.+)\]\((?<url>[^ ]+)(?: \"(?<title>.+)\")?\)""".toRegex()
+val linksRegex = """\[(?<text>.+)\]\((?<url>[^) ]+)(?: \"(?<title>.+)\")?\)""".toRegex()
 val gitMainBranchUrl = "https://github.com/LouisCAD/Splitties/tree/main"
 
 suspend fun readTextWithAdaptationForMkDocs(sourceFile: File): String = Dispatchers.Default {
