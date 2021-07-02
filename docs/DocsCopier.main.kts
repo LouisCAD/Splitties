@@ -9,9 +9,14 @@
 //@file:Repository("file:///Users/louiscad/.m2/repository")
 @file:DependsOn("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
 
+@file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
+@file:Suppress("experimental_is_not_enabled")
+
 import kotlinx.coroutines.*
 import java.io.File
 import java.nio.file.Paths
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
 
 val projectDir: File = Paths.get("").toFile().let { currentDir: File ->
     when (val dirName = currentDir.absoluteFile.name) {
@@ -56,11 +61,11 @@ suspend fun readTextWithAdaptationForMkDocs(sourceFile: File): String = Dispatch
     }
 }
 
-val namesOfTopLevelMarkdownFiles = listOf(
-    "README.md", "CHANGELOG.md", "Comparison_with_anko.md"
-)
 
-runBlocking(Dispatchers.Default) {
+suspend fun copyAdaptedTopLevelMarkdownFiles(): Unit = coroutineScope {
+    val namesOfTopLevelMarkdownFiles = listOf(
+        "README.md", "CHANGELOG.md", "Comparison_with_anko.md"
+    )
     namesOfTopLevelMarkdownFiles.forEach { fileName ->
         launch {
             docsDir.resolve(fileName).writeText(
@@ -68,24 +73,38 @@ runBlocking(Dispatchers.Default) {
             )
         }
     }
-    projectDir.resolve("modules").let readmeFilesAdaptationAndCopy@{ modulesDir ->
-        val dirsWithReadme: List<File> = Dispatchers.IO {
-            modulesDir.listFiles { file ->
-                file.isDirectory && file.resolve("README.md").exists()
-            }!!.asList()
-        }
-        val destinationDir = docsDir.resolve("modules")
-        dirsWithReadme.forEach { dir ->
-            Dispatchers.IO {
-                dir.list()
-            }?.forEach { fileName ->
-                if (fileName.endsWith(".md")) launch {
-                    val targetFile = destinationDir.resolve(dir.name).resolve(fileName)
-                    targetFile.writeText(
-                        readTextWithAdaptationForMkDocs(sourceFile = dir.resolve(fileName))
-                    )
-                }
+}
+
+suspend fun copyAdaptedMarkdownFilesFromModules(): Unit = coroutineScope {
+    val modulesDir = projectDir.resolve("modules")
+    val dirsWithReadme: List<File> = Dispatchers.IO {
+        modulesDir.listFiles { file ->
+            file.isDirectory && file.resolve("README.md").exists()
+        }!!.asList()
+    }
+    val destinationDir = docsDir.resolve("modules")
+    dirsWithReadme.forEach { dir ->
+        Dispatchers.IO {
+            dir.list()
+        }?.forEach { fileName ->
+            if (fileName.endsWith(".md")) launch {
+                val targetFile = destinationDir.resolve(dir.name).resolve(fileName)
+                targetFile.writeText(
+                    readTextWithAdaptationForMkDocs(sourceFile = dir.resolve(fileName))
+                )
             }
         }
     }
 }
+
+println("Copying the docs…")
+
+@OptIn(ExperimentalTime::class)
+val copyDuration = measureTime {
+    runBlocking(Dispatchers.Default) {
+        launch { copyAdaptedTopLevelMarkdownFiles() }
+        copyAdaptedMarkdownFilesFromModules()
+    }
+}
+
+println("Done! Took $copyDuration")
