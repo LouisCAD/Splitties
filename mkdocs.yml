@@ -1,0 +1,94 @@
+## Testing the website locally for development
+# pip install -r docs/requirements.txt
+# ./docs/DocsCopier.main.kts (see here to install Kotlin: https://kotlinlang.org/docs/command-line.html)
+# mkdocs serve
+
+## Building the website locally and see the warnings in the terminal:
+# mkdocs build --site-dir build/website
+
+site_name: Splitties
+
+repo_name: LouisCAD/Splitties
+repo_url: https://github.com/LouisCAD/Splitties
+edit_uri: https://github.com/LouisCAD/Splitties/edit/main # Needed because we copy docs.
+remote_branch: gh-pages
+
+site_description: "Life is too short to google for dependencies and versions"
+
+site_author: LouisCAD
+copyright: 'Copyright © 2021 Louis CAD'
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    primary: 'green'
+    accent: 'blue'
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - toc:
+      permalink: true # Brings buttons for anchor links (doesn't actually bring true permalinks).
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - markdownextradata: {}
+
+nav:
+  - 'Overview': README.md
+  - 'Modules':
+    - 'Activities': modules/activities/README.md
+    - 'Alert Dialog': modules/alertdialog/README.md
+    - 'Alert Dialog AppCompat': modules/alertdialog-appcompat/README.md
+    - 'Alert Dialog AppCompat Coroutines': modules/alertdialog-appcompat-coroutines/README.md
+    - 'Alert Dialog Material': modules/alertdialog-material/README.md
+    - 'App Context': modules/appctx/README.md
+    - 'Arch Lifecycle': modules/arch-lifecycle/README.md
+    - 'Arch Room': modules/arch-room/README.md
+    - 'Bit Flags': modules/bitflags/README.md
+    - 'Bundle': modules/bundle/README.md
+    - 'Collections': modules/collections/README.md
+    - 'Coroutines': modules/coroutines/README.md
+    - 'Checked Lazy': modules/checkedlazy/README.md
+    - 'Dimensions': modules/dimensions/README.md
+    - 'Exceptions': modules/exceptions/README.md
+    - 'Fragments': modules/fragments/README.md
+    - 'Fragment Args': modules/fragmentargs/README.md
+    - 'Init Provider': modules/initprovider/README.md
+    - 'Intents': modules/intents/README.md
+    - 'Lifecycle Coroutines': modules/lifecycle-coroutines/README.md
+    - 'Main Handler': modules/mainhandler/README.md
+    - 'Main Thread': modules/mainthread/README.md
+    - 'Material Colors': modules/material-colors/README.md
+    - 'Material Lists': modules/material-lists/README.md
+    - 'Preferences': modules/preferences/README.md
+    - 'Permissions': modules/permissions/README.md
+    - 'Resources': modules/resources/README.md
+    - 'Selectable Views': modules/views-selectable/README.md
+    - 'Selectable Views AppCompat': modules/views-selectable-appcompat/README.md
+    - 'Selectable Views ConstraintLayout': modules/views-selectable-constraintlayout/README.md
+    - 'Snackbar': modules/snackbar/README.md
+    - 'Stetho init': modules/stetho-init/README.md
+    - 'System Services': modules/systemservices/README.md
+    - 'Toast': modules/toast/README.md
+    - 'Typesafe RecyclerView': modules/typesaferecyclerview/README.md
+    - 'Views': modules/views/README.md
+    - 'Views AppCompat': modules/views-appcompat/README.md
+    - 'Views CardView': modules/views-cardview/README.md
+    - 'Views Coroutines': modules/views-coroutines/README.md
+    - 'Views Coroutines Material': modules/views-coroutines-material/README.md
+    - 'Views DSL': modules/views-dsl/README.md
+    - 'Views DSL AppCompat': modules/views-dsl-appcompat/README.md
+    - 'Views DSL ConstraintLayout': modules/views-dsl-constraintlayout/README.md
+    - 'Views DSL CoordinatorLayout': modules/views-dsl-coordinatorlayout/README.md
+    - 'Views DSL Material': modules/views-dsl-material/README.md
+    - 'Views DSL RecyclerView': modules/views-dsl-recyclerview/README.md
+    - 'Views Material': modules/views-material/README.md
+    - 'Views RecyclerView': modules/views-recyclerview/README.md
+  - 'Change Log': CHANGELOG.md
