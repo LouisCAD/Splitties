@@ -1,0 +1,10 @@
+<!--
+  ~ Copyright 2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  -->
+
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DocsCopier" type="KotlinStandaloneScriptRunConfigurationType">
+    <option name="filePath" value="$PROJECT_DIR$/docs/DocsCopier.main.kts" />
+    <method v="2" />
+  </configuration>
+</component>
