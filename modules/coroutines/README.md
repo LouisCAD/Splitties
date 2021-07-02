@@ -81,9 +81,6 @@ suspend fun awaitUserChoice(ui: SomeUi, choices: List<Stuff>): Stuff? = raceOf({
     ui.awaitDismissal()
     null
 }, {
-    launch {
-        doSideStuff()
-    }
     ui.showSomethingInRealtimeUntilCancelled() // Returns Nothing, will run, but never "win".
 })
 ```
