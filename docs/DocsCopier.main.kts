@@ -68,9 +68,11 @@ suspend fun copyAdaptedTopLevelMarkdownFiles(): Unit = coroutineScope {
     )
     namesOfTopLevelMarkdownFiles.forEach { fileName ->
         launch {
-            docsDir.resolve(fileName).writeText(
-                readTextWithAdaptationForMkDocs(projectDir.resolve(fileName))
-            )
+            val newContent = readTextWithAdaptationForMkDocs(projectDir.resolve(fileName))
+            val targetFile = docsDir.resolve(fileName)
+            Dispatchers.IO {
+                targetFile.writeText(newContent)
+            }
         }
     }
 }
@@ -88,10 +90,13 @@ suspend fun copyAdaptedMarkdownFilesFromModules(): Unit = coroutineScope {
             dir.list()
         }?.forEach { fileName ->
             if (fileName.endsWith(".md")) launch {
-                val targetFile = destinationDir.resolve(dir.name).resolve(fileName)
-                targetFile.writeText(
-                    readTextWithAdaptationForMkDocs(sourceFile = dir.resolve(fileName))
-                )
+                val targetDir = destinationDir.resolve(dir.name)
+                val targetFile = targetDir.resolve(fileName)
+                val newContent = readTextWithAdaptationForMkDocs(sourceFile = dir.resolve(fileName))
+                Dispatchers.IO {
+                    targetDir.mkdirs()
+                    targetFile.writeText(newContent)
+                }
             }
         }
     }
