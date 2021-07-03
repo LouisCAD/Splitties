@@ -90,7 +90,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
   - [Creating View based UIs with the power of Kotlin (Android only)](#creating-view-based-uis-with-the-power-of-kotlin-android-only)
   - [Various UI utilities (Android only)](#various-ui-utilities-android-only)
   - [Material Design helpers (Android only)](#various-ui-utilities-android-only)
-- [Inter and cross app communication: Activities, Fragments, Intents and Bundles](#inter-and-cross-app-communication-activities-fragments-intents-and-bundles)
+- [Inter and cross app communication: Activities, Fragments, Intents, and Bundles](#inter-and-cross-app-communication-activities-fragments-intents-and-bundles)
 - [Concurrency (Multiplatform)](#concurrency-multiplatform)
 - [Data persistence (Multiplatform)](#data-persistence-multiplatform)
 - [Utilities (Multiplatform)](#utilities-multiplatform)
@@ -156,7 +156,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
   https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 
-## Inter and cross app communication: Activities, Fragments, Intents and Bundles
+## Inter and cross app communication: Activities, Fragments, Intents, and Bundles
 - **[Activities:](modules/activities)** Start activities with minimal boilerplate.
 - **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
   and create `PendingIntent`s the clean and easy way.
