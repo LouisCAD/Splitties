@@ -32,6 +32,8 @@ val projectDir: File = Paths.get("").toFile().let { currentDir: File ->
 
 val docsDir = projectDir.resolve("docs")
 
+// Regex inspired by http://blog.michaelperrin.fr/2019/02/04/advanced-regular-expressions/
+// If needed, look at the article again to support nested brackets (not needed so far).
 //language=RegExp
 val linksRegex = """\[(?<text>.+)\]\((?<url>[^) ]+)(?: \"(?<title>.+)\")?\)""".toRegex()
 val gitMainBranchUrl = "https://github.com/LouisCAD/Splitties/tree/main"
