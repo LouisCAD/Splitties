@@ -29,6 +29,7 @@ extra_css:
   - stylesheets/extra.css
 
 markdown_extensions:
+  - mdx_truly_sane_lists # Makes 2 spaces (instead of 4) enough for nested lists (as GFM supports).
   - toc:
       permalink: true # Brings buttons for anchor links (doesn't actually bring true permalinks).
   - pymdownx.highlight
