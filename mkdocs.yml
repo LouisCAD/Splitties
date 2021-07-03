@@ -10,7 +10,7 @@ site_name: Splitties
 
 repo_name: LouisCAD/Splitties
 repo_url: https://github.com/LouisCAD/Splitties
-edit_uri: https://github.com/LouisCAD/Splitties/edit/main # Needed because we copy docs.
+edit_uri: edit/main # Needed because we copy docs.
 remote_branch: gh-pages
 
 site_description: "Life is too short to google for dependencies and versions"
