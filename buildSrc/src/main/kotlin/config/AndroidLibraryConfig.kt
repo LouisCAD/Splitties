@@ -8,7 +8,6 @@ import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
 fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
         minSdkVersion(14)
         targetSdkVersion(ProjectVersions.androidSdk)

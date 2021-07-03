@@ -9,7 +9,6 @@ import org.gradle.kotlin.dsl.extra
 import java.util.Properties
 
 object ProjectVersions {
-    const val androidBuildTools = "29.0.2"
     const val androidSdk = 29
 }
 
