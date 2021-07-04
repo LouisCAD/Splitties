@@ -19,7 +19,7 @@ jobs:
         run: ./gradlew --scan publishMingwX64PublicationToBintrayRepository
         shell: bash
   macos-upload:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -42,7 +42,7 @@ jobs:
         run: ./gradlew --scan -Psplitties.bintray.check=true :tools:publication-checker:build
         shell: bash
   macos-checking:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     needs: [windows-upload, macos-upload]
     steps:
       - name: Checkout the repo
