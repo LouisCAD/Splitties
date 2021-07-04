@@ -14,3 +14,6 @@ end_of_line = crlf
 
 [*.yml]
 indent_size = 2
+
+[*.md]
+indent_size = 2

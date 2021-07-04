@@ -6,7 +6,7 @@ package splitties.alertdialog.appcompat.coroutines
 
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
-import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.*
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.resources.appTxt
 import kotlin.coroutines.resume
@@ -69,23 +69,23 @@ suspend fun <R> AlertDialog.showAndAwait(
     neutralButton: DialogButton<R>? = null,
     dismissValue: R
 ): R = try {
-    suspendCancellableCoroutine { c ->
-        val clickListener = DialogInterface.OnClickListener { _, which ->
-            when (which) {
-                DialogInterface.BUTTON_POSITIVE -> positiveButton
-                DialogInterface.BUTTON_NEUTRAL -> neutralButton
-                DialogInterface.BUTTON_NEGATIVE -> negativeButton
-                else -> null
-            }?.apply { c.resume(value) }
-        }
-        positiveButton?.let { setButton(DialogInterface.BUTTON_POSITIVE, it.text, clickListener) }
-        neutralButton?.let { setButton(DialogInterface.BUTTON_NEUTRAL, it.text, clickListener) }
-        negativeButton?.let { setButton(DialogInterface.BUTTON_NEGATIVE, it.text, clickListener) }
-        setOnDismissListener {
-            runCatching { c.resume(dismissValue) } // Resuming twice throws, but we can ignore it.
-        }
-        show()
+    val valueAsync = CompletableDeferred<R>()
+    val clickListener = DialogInterface.OnClickListener { _, which ->
+        when (which) {
+            DialogInterface.BUTTON_POSITIVE -> positiveButton
+            DialogInterface.BUTTON_NEUTRAL -> neutralButton
+            DialogInterface.BUTTON_NEGATIVE -> negativeButton
+            else -> null
+        }?.apply { valueAsync.complete(value) }
     }
+    positiveButton?.let { setButton(DialogInterface.BUTTON_POSITIVE, it.text, clickListener) }
+    neutralButton?.let { setButton(DialogInterface.BUTTON_NEUTRAL, it.text, clickListener) }
+    negativeButton?.let { setButton(DialogInterface.BUTTON_NEGATIVE, it.text, clickListener) }
+    setOnDismissListener {
+        valueAsync.complete(dismissValue)
+    }
+    show()
+    valueAsync.await()
 } finally {
     dismiss() // Dismiss call is ignored if already dismissed (including by button press).
 }

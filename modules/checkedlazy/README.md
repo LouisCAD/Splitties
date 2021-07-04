@@ -5,6 +5,8 @@
 
 Supported platforms: **Android**.
 
+_NOTE: Coroutines can replace the need for this split altogether in most cases._
+
 This library provides a `checkedLazy()` method that returns a `Lazy` delegate,
 as well as `mainThreadLazy()`.
 

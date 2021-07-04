@@ -1,9 +1,10 @@
 /*
- * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("PackageDirectoryMismatch")
 
+import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.androidJvm
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.common
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.js
@@ -55,3 +56,5 @@ fun KotlinTarget.configureMavenPublication(
         }
     }
 }
+
+val Project.isFunPack: Boolean get() = parent?.name == "fun-packs"

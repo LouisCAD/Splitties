@@ -5,10 +5,15 @@ purposes.*
 
 Supported platforms: **Android**.
 
-**This split will be deprecated** once [App Startup from AndroidX](https://developer.android.com/topic/libraries/app-startup) goes stable.
+## This split is deprecated
 
-See the [Stetho Init](../stetho-init) and [App Context](../appctx)
-implementations to see how it's meant to be used.
+Each `ContentProvider` adds a small app startup penalty,
+which can add-up to significant delays for cold start.
+
+Please, use [AndroidX App Startup](https://developer.android.com/topic/libraries/app-startup)
+instead to avoid that problem.
+
+This split **will be removed** before Splitties 3.0.0 release.
 
 ## Download
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.init
@@ -9,9 +9,9 @@ import android.app.Activity
 import android.app.Application
 import android.app.Service
 import android.app.backup.BackupAgent
-import android.content.ContentProvider
 import android.content.Context
 import android.content.ContextWrapper
+import android.os.Build.VERSION.SDK_INT
 import android.view.ContextThemeWrapper
 
 /**
@@ -20,10 +20,36 @@ import android.view.ContextThemeWrapper
  *
  * This [Context] which by default is an instance of your [Application] class is initialized before
  * [Application.onCreate] is called (but after your [Application]'s constructor has run) thanks to
- * [AppCtxInitProvider] which is initialized by Android as early as possible when your app's
+ * AndroidX App Startup which is initialized by Android as early as possible when your app's
  * process is created.
  */
-val appCtx: Context get() = internalCtx ?: initAndGetAppCtxWithReflection()
+val appCtx: Context get() = internalCtx ?: internalCtxUninitialized()
+
+private fun internalCtxUninitialized(): Nothing {
+    val processName = getProcessName()
+    val isDefaultProcess = ':' !in processName
+    val (cause: String, solutions: List<String>) = when {
+        isDefaultProcess -> "App Startup didn't run" to listOf(
+            "If App Startup has been disabled, enable it back in the AndroidManifest.xml file of the app.",
+            "For other cases, call injectAsAppCtx() in the app's Application subclass in its initializer or in its onCreate function."
+        )
+        else -> "App Startup is not enabled for non default processes" to listOf(
+            "Call injectAsAppCtx() in the app's Application subclass in its initializer or in its onCreate function."
+        )
+    }
+    error(buildString {
+        appendLine("appCtx has not been initialized!")
+        when (solutions.size) {
+            1 -> appendLine("Possible solution: ${solutions.single()}")
+            else -> {
+                appendLine("$cause. Possible solutions:")
+                solutions.forEachIndexed { index, solution ->
+                    append(index + 1); append(". "); append(solution)
+                }
+            }
+        }
+    })
+}
 
 @SuppressLint("StaticFieldLeak")
 private var internalCtx: Context? = null
@@ -66,19 +92,13 @@ fun Context.canLeakMemory(): Boolean = when (this) {
     else -> applicationContext === null
 }
 
-/**
- * This methods is only run if [appCtx] is accessed while [AppCtxInitProvider] hasn't been
- * initialized. This may happen in case you're accessing it outside the default process, or in case
- * you are accessing it in a [ContentProvider] with a higher priority than [AppCtxInitProvider]
- * (900 at the time of writing this doc).
- *
- * If you don't want this code that uses reflection to ever run, see [injectAsAppCtx].
- */
-@SuppressLint("PrivateApi")
-private fun initAndGetAppCtxWithReflection(): Context {
-    // Fallback, should only run once per non default process.
+private fun getProcessName(): String {
+    if (SDK_INT >= 28) return Application.getProcessName()
+    @SuppressLint("PrivateApi", "DiscouragedPrivateApi")
     val activityThread = Class.forName("android.app.ActivityThread")
-    val ctx = activityThread.getDeclaredMethod("currentApplication").invoke(null) as Context
-    internalCtx = ctx
-    return ctx
+    // Before API 18, the method was incorrectly named "currentPackageName",
+    // but it still returned the process name
+    // See https://github.com/aosp-mirror/platform_frameworks_base/commit/b57a50bd16ce25db441da5c1b63d48721bb90687
+    val methodName = if (SDK_INT >= 18) "currentProcessName" else "currentPackageName"
+    return activityThread.getDeclaredMethod(methodName).invoke(null) as String
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  ~ Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -26,6 +26,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -67,19 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.splitties.main.MainActivity" />
         </activity>
-
-        <provider
-            android:name="com.example.splitties.AppInitProvider"
-            android:authorities="${applicationId}.init"
-            android:exported="false"
-            android:initOrder="899" />
-
-        <provider
-            android:name="com.example.splitties.SecondProcessInitProvider"
-            android:authorities="${applicationId}.appctxinitprovider.second_process"
-            android:exported="false"
-            android:initOrder="900"
-            android:process=":second_process" />
     </application>
 
 </manifest>

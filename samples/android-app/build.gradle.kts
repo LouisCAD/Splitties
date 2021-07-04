@@ -11,7 +11,6 @@ plugins {
 
 android {
     compileSdkVersion(ProjectVersions.androidSdk)
-    buildToolsVersion(ProjectVersions.androidBuildTools)
     defaultConfig {
         applicationId = "com.louiscad.splittiessample"
         minSdkVersion(14)

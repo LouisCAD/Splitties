@@ -19,6 +19,7 @@ Extension functions:
 | `Lifecycle.awaitState` | A suspending function that returns/resumes as soon as the state of the Lifecycle is at least the passed state.
 | `Lifecycle.isStartedFlow` | Returns a `Flow` whose value is `true` while the lifecycle is started. An experimental overload takes a timeout.
 | `Lifecycle.isResumedFlow` | Returns a `Flow` whose value is `true` while the lifecycle is resumed. An experimental overload takes a timeout.
+| `Flow.whileStarted` | Returns a Flow that emits the values from the receiver only while the passed `Lifecycle` is in the started state.
 | `Lifecycle.stateFlow` | Returns a `Flow` whose value reflects the current `Lifecycle.STATE`.
 | `Lifecycle.createJob` | A job that is active while the state is at least the passed one.
 | `Lifecycle.createScope` | A scope that dispatches on Android Main thread and is active while the state is at least the passed one.
@@ -34,6 +35,12 @@ class MainActivity : AppCompatActivity() {
             someSuspendFunction()
             lifecycle.awaitResumed()
             showSomethingWithAnimation()
+        }
+
+        lifecycleScope.launch {
+            someValuesToDisplayWhileVisible().whileStarted(lifecycle).collectLatest {
+                ui.displayLatestValue(it)
+            }
         }
 
         isStartedFlow(5.seconds).transformLatest { isStarted ->

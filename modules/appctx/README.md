@@ -63,54 +63,19 @@ https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.
 ## Advanced use cases
 
 ### Multi-process apps and libraries
-While most apps run on single-process, on the default one, some need to
+
+While most apps run in a single-process, on the default one, some need to
 run some components in different processes. If your app needs to access
-`appCtx` or `directBootCtx` directly, or indirectly in a component that
-has it's `android:process` tag in `AndroidManifest.xml` set to
+`appCtx` or `directBootCtx` directly, or indirectly, in a component that
+has its `android:process` tag in `AndroidManifest.xml` set to
 `:the_name_of_your_private_process` or
-`the_fully_qualified_name_of_your_shared_process`, you have 3 solutions:
-1. Do nothing and let `appCtx` init itself with reflection on first access
-2. Call `injectAsAppCtx()` in the `onCreate()` method of your custom
-`Application` subclass.
-3. Subclass `AppCtxInitProvider` and declare it correctly in your
-`AndroidManifest.xml` for each non default process. This option may be the
-best one if you're making a library that has its own process as no further
-configuration will be required on the app side. See instructions below:
+`the_fully_qualified_name_of_your_shared_process`, you need to do the following:
 
-#### How to declare an AppCtxInitProvider correctly (for multi-process usage)
+Call `injectAsAppCtx()` in the `init` block (or constructor) of your custom `Application` subclass.
 
-1. Subclass `AppCtxInitProvider`
-2. Register your subclass as a `provider` in your AndroidManifest.xml file.
-3. Specify it's `android:process` attribute to the name of your app's non
-default process. (beware of typos)
-4. Set `android:exported` to false.
-5. Set `android:authorities` to something other than
-`${applicationId}.appctxinitprovider`. The suggested naming convention is
-`${applicationId}.appctxinitprovider.the_name_of_your_process` so the
-content provider authority doesn't clash with another one from your app,
-or from a third-party app.
-6. If your component is Direct Boot aware, add
-`android:directBootAware="true"`.
-7. If you use `appCtx` or `directBootCtx` in another Content Provider,
-make sure to specify `android:initOrder` to a higher value than
-the one of the other Content Provider which use the ctx properties.
-
-The result should look like this:
-
-```xml
-<provider
-    android:name=".SecondProcessInitProvider"
-    android:authorities="${applicationId}.appctxinitprovider.second_process"
-    android:exported="false"
-    android:initOrder="900"
-    android:process=":second_process"/>
-```
-
-```kotlin
-import AppCtxInitProvider
-
-class SecondProcessInitProvider : AppCtxInitProvider()
-```
+If you're making a library, an alternative solution that will not require further configuration on
+the app side is to declare your own `ContentProvider` for that process and call
+`injectAsAppCtx()` from its `onCreate` function.
 
 ## Download
 

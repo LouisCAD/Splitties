@@ -1,33 +1,7 @@
 # https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
 # https://github.com/marketplace/actions/gradle-command
 name: Check build and run tests
-on:
-  pull_request:
-    branches:
-      - develop
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.adoc'
-      - '.editorconfig'
-      - '**/.gitignore'
-      - 'libraries_version.txt'
-      - '.github/workflows/release.yml'
-      - 'Releasing.kts'
-      - 'libraries_version.txt'
-  push:
-    branches:
-      - develop
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.adoc'
-      - '.editorconfig'
-      - '**/.gitignore'
-      - 'libraries_version.txt'
-      - '.github/workflows/release.yml'
-      - 'Releasing.kts'
-      - 'libraries_version.txt'
+on: workflow_dispatch
 jobs:
   Host-agnostic-tests:
     strategy:
@@ -35,42 +9,27 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: ./gradlew jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan
   macOS-tests:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: macosX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: ./gradlew macosX64Test --stacktrace --scan
   Linux-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: linuxX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: ./gradlew linuxX64Test --stacktrace --scan
   Windows-tests:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: mingwX64Test --stacktrace --scan -PbuildScan.termsOfServiceAgree=yes
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: ./gradlew mingwX64Test --stacktrace --scan
+        shell: bash
 env:
   GRADLE_OPTS: -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"

@@ -2,8 +2,6 @@
  * Copyright 2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package splitties.lifecycle.coroutines
 
 import androidx.lifecycle.Lifecycle
@@ -44,14 +42,17 @@ actual fun Lifecycle.isStartedFlow(): Flow<Boolean> = stateFlow().map {
 }.distinctUntilChanged()
 
 @ExperimentalSplittiesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 @Suppress("RemoveExplicitTypeArguments") // Remove when new inference is successfully enabled.
 actual fun Lifecycle.stateFlow(): Flow<Lifecycle.State> = callbackFlow<Lifecycle.State> {
     val observer = LifecycleEventObserver { _, _ ->
         offerCatching(currentState)
-        if (currentState == Lifecycle.State.DESTROYED) channel.close()
+        if (currentState == Lifecycle.State.DESTROYED) close()
     }
     addObserver(observer)
-    awaitClose {
+    try {
+        awaitCancellation()
+    } finally {
         removeObserver(observer)
     }
 }.flowOn(Dispatchers.Main.immediate)

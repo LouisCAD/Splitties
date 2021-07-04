@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("SpellCheckingInspection")
@@ -7,7 +7,7 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    `maven-publish`
+    publish
 }
 
 android {
@@ -47,11 +47,5 @@ kotlin {
                 "views-selectable-constraintlayout"
             ).forEach { api(splitties(it)) }
         }
-    }
-}
-
-afterEvaluate {
-    publishing {
-        setupAllPublications(project)
     }
 }
