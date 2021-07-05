@@ -12,7 +12,7 @@ jobs:
 #        run: Disable-NetAdapterChecksumOffload -Name * -TcpIPv4 -UdpIPv4 -TcpIPv6 -UdpIPv6
 #        shell: pwsh
       - name: Upload Windows x64 bits artifacts
-        run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository
+        run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
         shell: bash
   macos-upload:
     runs-on: macos-latest
@@ -24,7 +24,7 @@ jobs:
 #          sudo sysctl -w net.link.generic.system.hwcksum_tx=0
 #          sudo sysctl -w net.link.generic.system.hwcksum_rx=0
       - name: Upload all artifacts macOS can build
-        run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository
+        run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
 env:
   GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   sonatype_username: ${{ secrets.SONATYPE_USERNAME }}
