@@ -8,6 +8,11 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
       - name: Upload Windows x64 bits artifacts
         run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
   macos-upload:
@@ -15,6 +20,11 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
       - name: Upload all artifacts macOS can build
         run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
 env:
