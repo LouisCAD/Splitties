@@ -18,7 +18,7 @@ jobs:
       - name: Upload all artifacts macOS can build
         run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
 env:
-  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   sonatype_username: ${{ secrets.SONATYPE_USERNAME }}
   sonatype_password: ${{ secrets.SONATYPE_PASSWORD }}
   GPG_key_id: ${{ secrets.GPG_KEY_ID }}
