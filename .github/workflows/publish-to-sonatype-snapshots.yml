@@ -1,4 +1,4 @@
-# https://help.github.com/en/github/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 name: Publish to Sonatype Snapshots
 on:
   workflow_dispatch:
