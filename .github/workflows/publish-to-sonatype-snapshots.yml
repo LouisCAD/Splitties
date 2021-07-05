@@ -15,6 +15,18 @@ jobs:
           java-version: '11'
       - name: Upload Windows x64 bits artifacts
         run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
+  linux-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Upload all artifacts Linux can build
+        run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
   macos-upload:
     runs-on: macos-latest
     steps:
@@ -25,8 +37,16 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '11'
-      - name: Upload all artifacts macOS can build
-        run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
+      - name: Upload Darwin artifacts
+        run: >-
+          ./gradlew --scan --console=plain
+          publishIosArm32PublicationToSonatypeSnapshotsRepository
+          publishIosArm64PublicationToSonatypeSnapshotsRepository
+          publishIosX64PublicationToSonatypeSnapshotsRepository
+          publishMacosX64PublicationToSonatypeSnapshotsRepository
+          publishWatchosArm32PublicationToSonatypeSnapshotsRepository
+          publishWatchosArm64PublicationToSonatypeSnapshotsRepository
+          publishWatchosX86PublicationToSonatypeSnapshotsRepository
 env:
   GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   sonatype_username: ${{ secrets.SONATYPE_USERNAME }}
