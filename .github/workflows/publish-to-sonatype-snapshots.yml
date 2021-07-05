@@ -13,7 +13,6 @@ jobs:
 #        shell: pwsh
       - name: Upload Windows x64 bits artifacts
         run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
-        shell: bash
   macos-upload:
     runs-on: macos-latest
     steps:
