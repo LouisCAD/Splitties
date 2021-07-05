@@ -8,9 +8,6 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-#      - name: Disable TCP-UDP offload
-#        run: Disable-NetAdapterChecksumOffload -Name * -TcpIPv4 -UdpIPv4 -TcpIPv6 -UdpIPv6
-#        shell: pwsh
       - name: Upload Windows x64 bits artifacts
         run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
   macos-upload:
@@ -18,10 +15,6 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
-#      - name: Disable TCP-UDP offload
-#        run: |
-#          sudo sysctl -w net.link.generic.system.hwcksum_tx=0
-#          sudo sysctl -w net.link.generic.system.hwcksum_rx=0
       - name: Upload all artifacts macOS can build
         run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
 env:
