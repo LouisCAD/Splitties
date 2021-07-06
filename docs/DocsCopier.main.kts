@@ -44,16 +44,18 @@ suspend fun readTextWithAdaptationForMkDocs(sourceFile: File): String = Dispatch
     }.replace(linksRegex) withRelativeLinksTranslated@{ matchResult ->
         val groups = matchResult.groups
         val urlGroup = groups[2]!!
-        val url = urlGroup.value.trim()
-        if ("://" in url || url.startsWith('#')) {
+        val url: String = urlGroup.value.trim()
+        if ("://" in url || url.startsWith('#')) { // Leave external and same-page links.
             return@withRelativeLinksTranslated matchResult.value
         }
-        if (url.substringBeforeLast('#').endsWith(".md")) {
+        if (url.substringBeforeLast('#').endsWith(".md")) { // Leave relative links to markdown files.
             return@withRelativeLinksTranslated matchResult.value
         }
-        if ('.' !in url.substringAfterLast('/', ".")) {
+        if ('.' !in url.substringAfterLast('/', missingDelimiterValue = ".")) { // Leave links to paths.
             return@withRelativeLinksTranslated matchResult.value
         }
+        // We want to rewrite relative links to files that are not part of the documentation (e.g. Kotlin files)
+        // to links pointing to the link in the GitHub repository.
         val sourceDir = sourceFile.parentFile ?: projectDir
         val newPath = sourceDir.relativeTo(projectDir).resolve(url).normalize()
         val replacement = "$gitMainBranchUrl/$newPath"
