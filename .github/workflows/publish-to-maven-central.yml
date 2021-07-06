@@ -28,8 +28,8 @@ jobs:
           java-version: '11'
       - name: Upload all artifacts Linux can build
         run: >-
-        ./gradlew --scan --console=plain
-        publishAllPublicationsToMavenCentralStagingRepository
+          ./gradlew --scan --console=plain
+          publishAllPublicationsToMavenCentralStagingRepository
         env:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   windows-upload:
@@ -44,8 +44,8 @@ jobs:
           java-version: '11'
       - name: Upload Windows x64 bits artifacts
         run: >-
-        ./gradlew --scan --console=plain
-        publishMingwX64PublicationToMavenCentralStagingRepository
+          ./gradlew --scan --console=plain
+          publishMingwX64PublicationToMavenCentralStagingRepository
         env:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   macos-upload:
