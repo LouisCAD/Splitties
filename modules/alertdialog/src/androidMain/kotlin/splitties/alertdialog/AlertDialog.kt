@@ -1,6 +1,8 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
+
+@file:OptIn(ExperimentalContracts::class)
 
 package splitties.alertdialog
 
@@ -14,6 +16,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import kotlin.DeprecationLevel.HIDDEN
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * Instantiates an [AlertDialog.Builder] for the [Context], applies the [dialogConfig] lambda to
@@ -21,6 +26,7 @@ import kotlin.DeprecationLevel.HIDDEN
  * [AlertDialog.show] on the created dialog.
  */
 inline fun Context.alertDialog(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
     return AlertDialog.Builder(this)
         .apply(dialogConfig)
         .create()
@@ -38,13 +44,16 @@ inline fun Context.alertDialog(
     isCancellable: Boolean = true,
     dialogConfig: AlertDialog.Builder.() -> Unit = {}
 ): AlertDialog {
-    return AlertDialog.Builder(this).apply {
-        this.title = title
-        this.message = message
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
+    return alertDialog(
+        title = title,
+        message = message,
+        icon = null,
+        isCancellable = isCancellable,
+    ) {
         setIcon(iconResource)
-        setCancelable(isCancellable)
         dialogConfig()
-    }.create()
+    }
 }
 
 /**
@@ -59,6 +68,7 @@ inline fun Context.alertDialog(
     isCancellable: Boolean = true,
     dialogConfig: AlertDialog.Builder.() -> Unit = {}
 ): AlertDialog {
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
     return AlertDialog.Builder(this).apply {
         this.title = title
         this.message = message
@@ -82,6 +92,7 @@ inline fun Context.alertDialog(
     )
 )
 inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
     return AlertDialog.Builder(this)
         .apply(dialogConfig)
         .create()

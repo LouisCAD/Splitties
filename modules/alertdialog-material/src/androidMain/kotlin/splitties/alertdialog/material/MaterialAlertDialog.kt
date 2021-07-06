@@ -1,6 +1,8 @@
 /*
- * Copyright 2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2020-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
+
+@file:OptIn(ExperimentalContracts::class)
 
 package splitties.alertdialog.material
 
@@ -11,6 +13,9 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import splitties.alertdialog.appcompat.message
 import splitties.alertdialog.appcompat.title
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * Instantiates a [MaterialAlertDialogBuilder] for the [Context], applies the [dialogConfig] lambda to
@@ -18,6 +23,7 @@ import splitties.alertdialog.appcompat.title
  * [AlertDialog.show] on the created dialog.
  */
 inline fun Context.materialAlertDialog(dialogConfig: MaterialAlertDialogBuilder.() -> Unit): AlertDialog {
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
     return MaterialAlertDialogBuilder(this)
         .apply(dialogConfig)
         .create()
@@ -35,13 +41,16 @@ inline fun Context.materialAlertDialog(
     isCancellable: Boolean = true,
     dialogConfig: MaterialAlertDialogBuilder.() -> Unit = {}
 ): AlertDialog {
-    return MaterialAlertDialogBuilder(this).apply {
-        this.title = title
-        this.message = message
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
+    return materialAlertDialog(
+        title = title,
+        message = message,
+        icon = null,
+        isCancellable = isCancellable,
+    ) {
         setIcon(iconResource)
-        setCancelable(isCancellable)
         dialogConfig()
-    }.create()
+    }
 }
 
 /**
@@ -56,6 +65,7 @@ inline fun Context.materialAlertDialog(
     isCancellable: Boolean = true,
     dialogConfig: MaterialAlertDialogBuilder.() -> Unit = {}
 ): AlertDialog {
+    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
     return MaterialAlertDialogBuilder(this).apply {
         this.title = title
         this.message = message
