@@ -31,10 +31,11 @@ publishing {
             it.artifactId = "$prefix-${project.name}"
         }
     }
-
-    mavenCentralStagingPublishing(
-        project = project,
-        repositoryId = System.getenv("sonatype_staging_repo_id")
-    )
-    sonatypeSnapshotsPublishing(project = project)
+    repositories {
+        mavenCentralStaging(
+            project = project,
+            repositoryId = System.getenv("sonatype_staging_repo_id")
+        )
+        sonatypeSnapshots(project = project)
+    }
 }
