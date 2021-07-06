@@ -2,7 +2,30 @@
 
 ## [Unreleased]
 
-Compiled with Kotlin 1.4.30 and kotlinx.coroutines 1.4.3-native-mt.
+Compiled with Kotlin 1.4.32 and kotlinx.coroutines 1.4.3-native-mt.
+
+This is the first release of Splitties that is published on MavenCentral!
+The maven coordinates are the same.
+
+Also, there's now a documentation website on [splitties.louiscad.com](https://splitties.louiscad.com), check it out!
+
+### Alert Dialog
+
+Add "calls in place exactly once" contracts for the lambdas of all the `alertDialog` functions.
+
+### Alert Dialog AppCompat
+
+Add "calls in place exactly once" contracts for the lambdas of all the `alertDialog` functions.
+
+### Alert Dialog AppCompat Coroutines
+
+Fix rare crash that could happen when waiting for a button click if multiple ones were clicked simultaneously.
+
+Now, only the first one to be considered clicked by the system will trigger, and the second one will be ignored.
+
+### Alert Dialog Material
+
+Add "calls in place exactly once" contracts for the lambdas of all the `materialAlertDialog` functions.
 
 ### App Context
 
