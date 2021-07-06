@@ -1,0 +1,146 @@
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: Publish to Maven Central
+on:
+  workflow_dispatch:
+jobs:
+  create-staging-repository:
+    name: Create staging repository
+    runs-on: ubuntu-latest
+    outputs:
+      repository_id: ${{ steps.create.outputs.repository_id }}
+    steps:
+      - id: create
+        uses: nexus-actions/create-nexus-staging-repo@v1.1
+        with:
+          username: ${{ secrets.SONATYPE_USERNAME }}
+          password: ${{ secrets.SONATYPE_PASSWORD }}
+          staging_profile_id: ${{ secrets.SONATYPE_PROFILE_ID }}
+          description: ${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}
+  linux-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Upload all artifacts Linux can build
+        run: >-
+        ./gradlew --scan --console=plain
+        publishAllPublicationsToMavenCentralStagingRepository
+        env:
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  windows-upload:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Upload Windows x64 bits artifacts
+        run: >-
+        ./gradlew --scan --console=plain
+        publishMingwX64PublicationToMavenCentralStagingRepository
+        env:
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  macos-upload:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Upload Darwin artifacts
+        run: >-
+          ./gradlew --scan --console=plain
+          publishIosArm32PublicationToMavenCentralStagingRepository
+          publishIosArm64PublicationToMavenCentralStagingRepository
+          publishIosX64PublicationToMavenCentralStagingRepository
+          publishMacosX64PublicationToMavenCentralStagingRepository
+          publishWatchosArm32PublicationToMavenCentralStagingRepository
+          publishWatchosArm64PublicationToMavenCentralStagingRepository
+          publishWatchosX86PublicationToMavenCentralStagingRepository
+        env:
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  linux-checking:
+    runs-on: ubuntu-latest
+    needs: [linux-upload]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Check Linux build with latest artifacts
+        run: ./gradlew --scan :tools:publication-checker:build
+        env:
+          check_publication: true
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  windows-checking:
+    runs-on: windows-latest
+    needs: [linux-upload, windows-upload]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Check Windows build with latest artifacts
+        run: ./gradlew --scan :tools:publication-checker:build
+        env:
+          check_publication: true
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  macos-checking:
+    runs-on: macos-latest
+    needs: [linux-upload, macos-upload]
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - name: Check macOS build with latest artifacts
+        run: ./gradlew --scan :tools:publication-checker:build
+        env:
+          check_publication: true
+          sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+  finalize:
+    runs-on: ubuntu-latest
+    needs: [ create-staging-repository, windows-checking, macos-checking, linux-checking ]
+    if: ${{ always() && needs.create-staging-repository.result == 'success' }}
+    steps:
+      - name: Discard staging repository
+        if: ${{ needs.build-and-upload.result != 'success' }}
+        uses: nexus-actions/drop-nexus-staging-repo@v1
+        with:
+          username: ${{ secrets.SONATYPE_USERNAME }}
+          password: ${{ secrets.SONATYPE_PASSWORD }}
+          staging_repository_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+      - name: Release
+        if: ${{ needs.build-and-upload.result == 'success' }}
+        uses: nexus-actions/release-nexus-staging-repo@v1.1
+        with:
+          username: ${{ secrets.SONATYPE_USERNAME }}
+          password: ${{ secrets.SONATYPE_PASSWORD }}
+          staging_repository_id: ${{ needs.create-staging-repository.outputs.repository_id }}
+env:
+  GRADLE_OPTS: -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.jvmargs="-Xmx5g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  sonatype_username: ${{ secrets.SONATYPE_USERNAME }}
+  sonatype_password: ${{ secrets.SONATYPE_PASSWORD }}
+  GPG_key_id: ${{ secrets.GPG_KEY_ID }}
+  GPG_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+  GPG_private_password: ${{ secrets.GPG_PRIVATE_PASSWORD }}
