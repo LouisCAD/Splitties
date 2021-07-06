@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2020 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("SpellCheckingInspection")
@@ -40,9 +40,13 @@ include {
         "android-material-components-with-views-dsl"()
     }
     "test-helpers"()
-    if (extra.properties["splitties.bintray.check"].toString().toBoolean()) {
-        "tools" { "publication-checker"() }
-    }
+
+    val checkPublication = "check_publication".let { key ->
+        extra.properties[key] ?: System.getenv(key)
+    } == "true"
+
+    if (checkPublication) "tools" { "publication-checker"() }
+
     "modules" {
         "activities"()
         "alertdialog"()
