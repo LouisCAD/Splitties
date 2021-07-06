@@ -2,9 +2,6 @@
  * Copyright 2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.signing
-
 plugins {
     `maven-publish`
     signing
