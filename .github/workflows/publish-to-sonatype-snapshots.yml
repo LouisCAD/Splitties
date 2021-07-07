@@ -48,7 +48,7 @@ jobs:
           publishWatchosArm64PublicationToSonatypeSnapshotsRepository
           publishWatchosX86PublicationToSonatypeSnapshotsRepository
 env:
-  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8" -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
   sonatype_username: ${{ secrets.SONATYPE_USERNAME }}
   sonatype_password: ${{ secrets.SONATYPE_PASSWORD }}
   GPG_key_id: ${{ secrets.GPG_KEY_ID }}
