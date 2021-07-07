@@ -14,7 +14,9 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Upload Windows x64 bits artifacts
-        run: ./gradlew --scan publishMingwX64PublicationToSonatypeSnapshotsRepository --console=plain
+        run: >-
+          ./gradlew --scan --console=plain
+          publishMingwX64PublicationToSonatypeSnapshotsRepository
   linux-upload:
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +28,9 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
       - name: Upload all artifacts Linux can build
-        run: ./gradlew --scan publishAllPublicationsToSonatypeSnapshotsRepository --console=plain
+        run: >-
+          ./gradlew --scan --console=plain
+          publishAllPublicationsToSonatypeSnapshotsRepository
   macos-upload:
     runs-on: macos-latest
     steps:
