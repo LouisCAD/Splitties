@@ -1,5 +1,6 @@
 # Local files
 /local.properties
+/buildSrc/local.properties
 ongoing_release.splitties
 
 # Gradle project-specific cache directory
