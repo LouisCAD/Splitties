@@ -198,7 +198,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 ## Download
 
 ### Gradle instructions
-Make sure you have `jcenter()` in the repositories defined in your project's
+Make sure you have `mavenCentral()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
 To make is easier to take advantage of the contents of Splitties for your Android projects, there
@@ -373,32 +373,29 @@ implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayo
 
 </details>
 
-#### Dev versions
-Let's say you need a new feature or a fix that did not make it to a release yet:
+#### Snapshots
 
-You can grab it in the latest dev version by adding the corresponding repository and
+Let's say you need to try a new feature or a fix that did not make it to a release yet:
+
+You can grab it in the snapshot version by adding the corresponding repository and
 changing the library version to the dev version you need in your root project `build.gradle` file:
 
 ```groovy
 allProjects {
     repositories {
-        google()
-        jcenter() // Add dev versions repo below
-        maven(url = "https://dl.bintray.com/louiscad/splitties-dev")
+        mavenCentral()
+        google() // Add sonatype snapshots repo below
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
     ext {
-        splitties_version = '3.0.0-dev-107'
+        splitties_version = '3.0.0-SNAPSHOT'
     }
 }
 ```
 
-### Other build systems
-For maven and alternative build-systems, check the [Bintray page](
-https://bintray.com/louiscad/maven/splitties).
-
 ## New versions notifications
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
-https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/viewing-your-subscriptions#configuring-your-watch-settings-for-an-individual-repository
+https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository
 ).
 
 ## Improve this library
