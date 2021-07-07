@@ -24,6 +24,7 @@ jobs:
           description: ${{ github.repository }}/${{ github.workflow }}#${{ github.run_number }}
   linux-upload:
     runs-on: ubuntu-latest
+    needs: [create-staging-repository]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -40,6 +41,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   windows-upload:
     runs-on: windows-latest
+    needs: [create-staging-repository]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -56,6 +58,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   macos-upload:
     runs-on: macos-latest
+    needs: [create-staging-repository]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -78,7 +81,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   linux-checking:
     runs-on: ubuntu-latest
-    needs: [linux-upload]
+    needs: [create-staging-repository, linux-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -94,7 +97,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   windows-checking:
     runs-on: windows-latest
-    needs: [linux-upload, windows-upload]
+    needs: [create-staging-repository, linux-upload, windows-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -110,7 +113,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   macos-checking:
     runs-on: macos-latest
-    needs: [linux-upload, macos-upload]
+    needs: [create-staging-repository, linux-upload, macos-upload]
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v2
@@ -126,7 +129,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   finalize:
     runs-on: ubuntu-latest
-    needs: [ create-staging-repository, windows-checking, macos-checking, linux-checking ]
+    needs: [create-staging-repository, windows-checking, macos-checking, linux-checking]
     if: ${{ always() && needs.create-staging-repository.result == 'success' }}
     steps:
       - name: Discard staging repository
