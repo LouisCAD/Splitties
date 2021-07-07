@@ -2,6 +2,12 @@
 name: Publish to Maven Central
 on:
   workflow_dispatch:
+  pull_request:
+    types: [opened]
+    paths:
+      - 'libraries_version.txt'
+    branches:
+      - release
 jobs:
   create-staging-repository:
     name: Create staging repository

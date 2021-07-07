@@ -1,31 +1,39 @@
 #!/usr/bin/env kotlin
 
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
-@file:Repository("https://dl.bintray.com/louiscad/maven")
-@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.1.3")
+@file:Repository("https://repo.maven.apache.org/maven2/")
+//@file:Repository("https://oss.sonatype.org/content/repositories/snapshots")
 //@file:Repository("file:///Users/louiscad/.m2/repository")
+@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.0")
 
+import Releasing_main.CiReleaseFailureCause.*
 import java.io.File
 import Releasing_main.ReleaseStep.*
 import lib_publisher_tools.cli.CliUi
 import lib_publisher_tools.cli.defaultImpl
 import lib_publisher_tools.cli.runUntilSuccessWithErrorPrintingOrCancel
-import lib_publisher_tools.vcs.Vcs
-import lib_publisher_tools.vcs.checkoutDevelop
-import lib_publisher_tools.vcs.git
-import lib_publisher_tools.vcs.isOnDevelopBranch
-import lib_publisher_tools.vcs.pullFromOrigin
-import lib_publisher_tools.vcs.pushToOrigin
+import lib_publisher_tools.vcs.*
 import lib_publisher_tools.versioning.StabilityLevel
 import lib_publisher_tools.versioning.Version
 import lib_publisher_tools.versioning.checkIsValidVersionString
 import lib_publisher_tools.versioning.stabilityLevel
 
+val gitHubRepoUrl = "https://github.com/LouisCAD/Splitties"
+
 val dir = File(".")
+
+val publishToMavenCentralWorkflowFilename = "publish-to-maven-central.yml".also {
+    check(dir.resolve(".github").resolve("workflows").resolve(it).exists()) {
+        "The $it file expected in the `.github/workflows dir wasn't found!\n" +
+                "The filename is required to be correct.\n" +
+                "If the release workflow needs to be retried, it will be used to make a valid link."
+    }
+}
+
+val publishToMavenCentralWorkflowLink = "$gitHubRepoUrl/actions/workflows/$publishToMavenCentralWorkflowFilename"
 
 val cliUi = CliUi.defaultImpl
 val git = Vcs.git
@@ -34,12 +42,14 @@ fun File.checkChanged() = check(git.didFileChange(this)) {
     "Expected changes in the following file: $this"
 }
 
-fun checkOnDevelopBranch() {
-    check(git.isOnDevelopBranch()) { "Please, checkout the `develop` branch first." }
+fun checkOnMainBranch() {
+    check(git.isOnMainBranch()) { "Please, checkout the `main` branch first." }
 }
 
 @Suppress("EnumEntryName")
 enum class ReleaseStep { // Order of the steps, must be kept right.
+    `Update release branch`,
+    `Update main branch from release`,
     `Change this library version`,
     `Request doc update confirmation`,
     `Request CHANGELOG update confirmation`,
@@ -50,11 +60,14 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Push tags to origin`,
     `Request PR merge`,
     `Request GitHub release publication`,
-    `Update main branch`,
-    `Update develop branch from main`,
-    `Change this library version back to a dev version`,
+    `Change this library version back to a SNAPSHOT`,
     `Commit "prepare next dev version"`,
     `Push, at last`;
+}
+
+sealed interface CiReleaseFailureCause {
+    enum class RequiresNewCommits : CiReleaseFailureCause { BuildFailure, PublishingRejection }
+    enum class RequiresRetrying : CiReleaseFailureCause { ThirdPartyOutage, NetworkOutage }
 }
 
 val ongoingReleaseFile = dir.resolve("ongoing_release.tmp.properties")
@@ -81,23 +94,25 @@ var startAtStep: ReleaseStep //TODO: Make a val again when https://youtrack.jetb
 
 val versionTagPrefix = "v"
 
+fun tagOfVersionBeingReleased(): String = "$versionTagPrefix${OngoingRelease.newVersion}"
+
 if (ongoingReleaseFile.exists()) {
     OngoingRelease.load()
     startAtStep = ReleaseStep.valueOf(OngoingRelease.currentStepName)
 } else {
-    checkOnDevelopBranch()
+    checkOnMainBranch()
     with(OngoingRelease) {
         versionBeforeRelease = versionsFile.bufferedReader().use { it.readLine() }.also {
-            check(it.contains("-dev-")) {
-                "The current version needs to be a dev version, but we got: $it"
+            check(it.contains("-dev-") || it.endsWith("-SNAPSHOT")) {
+                "The current version needs to be a SNAPSHOT or a dev version, but we got: $it"
             }
         }
         newVersion = askNewVersionInput(
             currentVersion = versionBeforeRelease,
             tagPrefix = versionTagPrefix
         )
-        startAtStep = ReleaseStep.values().first()
     }
+    startAtStep = ReleaseStep.values().first()
 }
 
 fun askNewVersionInput(
@@ -120,9 +135,22 @@ fun askNewVersionInput(
 }
 
 
-fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
+fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
+    `Update release branch` -> {
+        printInfo("Before proceeding to the release, we will ensure we merge changes from the release branch into the main branch.")
+        printInfo("Will now checkout the `release` branch and pull from GitHub (origin) to update the local `release` branch.")
+        requestUserConfirmation("Continue?")
+        git.checkoutBranch("release")
+        git.pullFromOrigin()
+    }
+    `Update main branch from release` -> {
+        printInfo("About to checkout the main branch (and update it from release for merge commits).")
+        requestUserConfirmation("Continue?")
+        git.checkoutMain()
+        git.mergeBranchIntoCurrent("release")
+    }
     `Change this library version` -> {
-        checkOnDevelopBranch()
+        checkOnMainBranch()
         OngoingRelease.newVersion.let { newVersion ->
             printInfo("Splitties new version: \"$newVersion\"")
             requestUserConfirmation("Confirm?")
@@ -136,7 +164,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
             do {
                 requestManualAction(
                     instructions = "Update the `$relativePath` file with the new version (if needed)," +
-                        " and any other changes needed for this release."
+                            " and any other changes needed for this release."
                 )
                 if (git.didFileChange(dir.resolve(relativePath))) {
                     break
@@ -151,7 +179,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
         }.also {
             if (askIfYes(
                     yesNoQuestion = "Apart from the changelog, is there other files that " +
-                        "need to be updated for this new release?"
+                            "need to be updated for this new release?"
                 )
             ) {
                 requestManualAction(
@@ -166,7 +194,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
     }
     `Commit "prepare for release" and tag` -> with(OngoingRelease) {
         git.commitAllFiles(commitMessage = "Prepare for release $newVersion")
-        git.tagAnnotated(tag = "$versionTagPrefix$newVersion", annotationMessage = "Version $newVersion")
+        git.tagAnnotated(tag = tagOfVersionBeingReleased(), annotationMessage = "Version $newVersion")
     }
     `Push release to origin` -> {
         printInfo("Will now push to origin repository")
@@ -175,16 +203,65 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        requestManualAction("Create a pull request from the `develop` to the `main` branch on GitHub for the new version, if not already done.")
+        requestManualAction("Create a pull request from the `main` to the `release` branch on GitHub for the new version, if not already done.")
     }
     `Wait for successful release by CI` -> {
-        printInfo("To perform this step, we need to wait for the artifacts building and uploading to Bintray.")
-        requestUserConfirmation("Did the publishing/release Github Action complete successfully?")
+        printInfo("To perform this step, we need to wait for the artifacts building and uploading.")
+        do {
+            printInfo("The build and publishing workflow is expected to take between 20 minutes and an hour.")
+            printInfo("")
+            printInfo("We recommend to set a timer for 30 minutes to not forget to check the status.")
+            printInfo("Suggestion: In case it's not complete after that time, set a 10min timer to check again, until completion.")
+            val succeeded = askIfYes("Did the publishing/release Github Action complete successfully?")
+            if (succeeded.not()) {
+                printQuestion("What was the cause of failure?")
+                val failureCause: CiReleaseFailureCause = askChoice(
+                    optionsWithValues = listOf(
+                        "Outage of a third party service (GitHub actions, Sonatype, MavenCentral, Google Maven…)" to RequiresRetrying.ThirdPartyOutage,
+                        "Network outage" to RequiresRetrying.NetworkOutage,
+                        "Build failure that requires new commits to fix" to RequiresNewCommits.BuildFailure,
+                        "Publication was rejected because of misconfiguration" to RequiresNewCommits.PublishingRejection
+                    )
+                )
+                when (failureCause) {
+                    is RequiresRetrying -> {
+                        printInfo("The outage will most likely be temporary.")
+                        when (failureCause) {
+                            RequiresRetrying.ThirdPartyOutage -> "You can search for the status page of the affected service and check it periodically."
+                            RequiresRetrying.NetworkOutage -> "You can retry when you feel or know it might be resolved."
+                        }.let { infoMessage ->
+                            printInfo(infoMessage)
+                        }
+                        printInfo("Once the outage is resolved, head to the following url to run the workflow again, on the right branch:")
+                        printInfo(publishToMavenCentralWorkflowLink)
+                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                    }
+                    is RequiresNewCommits -> {
+                        printInfo("Removing the version tag (will be put back later on)")
+                        git.deleteTag(tag = tagOfVersionBeingReleased())
+                        printInfo("tag removed")
+                        printInfo("Recovering from that is going to require new fixing commits to be pushed to the main branch.")
+                        printInfo("Note: you can keep this script waiting while you're resolving the build issue.")
+                        requestManualAction("Fix the issues and commit the changes")
+                        printInfo("Will now push the new commits")
+                        requestUserConfirmation("Continue?")
+                        git.pushToOrigin()
+                        printInfo("Now, head to the following url to run the workflow again, on the right branch:")
+                        printInfo(publishToMavenCentralWorkflowLink)
+                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                    }
+                }
+            }
+        } while (succeeded.not())
         printInfo("Alright, we take your word.")
     }
     `Push tags to origin` -> {
         printInfo("Will now push with tags.")
         requestUserConfirmation("Continue?")
+        if (git.getTags().none { it == tagOfVersionBeingReleased() }) with(OngoingRelease) {
+            printInfo("The tag for the impeding release is missing, so we're putting it back too.")
+            git.tagAnnotated(tag = tagOfVersionBeingReleased(), annotationMessage = "Version $newVersion")
+        }
         git.pushToOrigin(withTags = true)
     }
     `Request PR merge` -> {
@@ -193,19 +270,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
     `Request GitHub release publication` -> {
         requestManualAction("Publish release on GitHub with the changelog.")
     }
-    `Update main branch` -> {
-        printInfo("Will now checkout the `main` branch, pull from GitHub (origin) to update the local `main` branch.")
-        requestUserConfirmation("Continue?")
-        git.checkoutBranch("main")
-        git.pullFromOrigin()
-    }
-    `Update develop branch from main` -> {
-        printInfo("About to checkout the develop branch (and update it from main for merge commits).")
-        requestUserConfirmation("Continue?")
-        git.checkoutDevelop()
-        git.mergeBranchIntoCurrent(sourceBranch = "main")
-    }
-    `Change this library version back to a dev version` -> {
+    `Change this library version back to a SNAPSHOT` -> {
         val newVersion = Version(OngoingRelease.newVersion)
 
         val isNewVersionStable: Boolean = newVersion.stabilityLevel().let { level ->
@@ -218,20 +283,18 @@ fun CliUi.runReleaseStep(step: ReleaseStep) = when (step) {
             printInfo("Congratulations for this new stable release!")
             printInfo("Let's update the library for next development version.")
             runUntilSuccessWithErrorPrintingOrCancel {
-                printInfo("Enter the name of the next target version (`-dev-000` will be added automatically)")
+                printInfo("Enter the name of the next target version (`-SNAPSHOT` will be added automatically)")
                 val input = readLine()
                 input.checkIsValidVersionString()
                 when (Version(input).stabilityLevel()) {
                     StabilityLevel.Unknown, StabilityLevel.Stable -> Unit
                     else -> error("You need to enter a stable target version")
                 }
-                "$input-dev-000"
+                "$input-SNAPSHOT"
             }
         } else OngoingRelease.versionBeforeRelease.let {
-            val devVersionSuffix = it.substringAfter("-dev-").toInt().let { lastReleaseNumber ->
-                (lastReleaseNumber + 1).toString().padStart(length = 3, padChar = '0')
-            }
-            "${it.substringBefore("-dev-")}-dev-$devVersionSuffix"
+            if (it.endsWith("-SNAPSHOT")) it
+            else "${it.substringBefore("-dev-")}-SNAPSHOT"
         }
         versionsFile.writeText(nextDevVersion)
         printInfo("${versionsFile.path} has been edited with next development version ($nextDevVersion).")
