@@ -129,7 +129,7 @@ jobs:
           sonatype_staging_repo_id: ${{ needs.create-staging-repository.outputs.repository_id }}
   finalize:
     runs-on: ubuntu-latest
-    needs: [ create-staging-repository, windows-checking, macos-checking, linux-checking ]
+    needs: [create-staging-repository, windows-checking, macos-checking, linux-checking]
     if: ${{ always() && needs.create-staging-repository.result == 'success' }}
     steps:
       - name: Discard staging repository
