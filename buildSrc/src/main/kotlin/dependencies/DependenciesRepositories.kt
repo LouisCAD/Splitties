@@ -5,7 +5,6 @@
 @file:Suppress("PackageDirectoryMismatch", "SpellCheckingInspection")
 
 import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.kotlin.dsl.maven
 
 fun RepositoryHandler.setupForProject() {
 
@@ -25,19 +24,5 @@ fun RepositoryHandler.setupForProject() {
         "android.arch"
     )
 
-    mavenCentral().ensureGroupsStartingWith("com.jakewharton.", "com.squareup.")
-
-    jcenter()
-
-    /* // Disabled because we're in Splitties itself.
-    maven(
-        url = "https://dl.bintray.com/louiscad/splitties-dev"
-    ).ensureGroups("com.louiscad.splitties")
-    */
-
-    /*
-    maven(
-        url = "https://dl.bintray.com/kotlin/kotlin-eap"
-    ).ensureGroups("org.jetbrains.kotlin")
-    */
+    mavenCentral()
 }
