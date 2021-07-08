@@ -3,33 +3,24 @@
 name: Check build and run tests
 on: workflow_dispatch
 jobs:
-  Host-agnostic-tests:
+  check-build:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: ./gradlew jvmTest jsIrTest jsLegacyTest testDebugUnitTest testReleaseUnitTest --stacktrace --scan
-  macOS-tests:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: ./gradlew macosX64Test --stacktrace --scan
-  Linux-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: ./gradlew linuxX64Test --stacktrace --scan
-  Windows-tests:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run tests
-        run: ./gradlew mingwX64Test --stacktrace --scan
-        shell: bash
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+      - name: Configure JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '11'
+      - run: >-
+          ./gradlew --console=plain --stacktrace --scan
+          build
 env:
-  GRADLE_OPTS: -Dorg.gradle.parallel=true -Dkotlin.incremental=false -Dorg.gradle.project.kotlin.incremental.multiplatform=false -Dorg.gradle.project.kotlin.native.disableCompilerDaemon=true -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GRADLE_OPTS: -Dorg.gradle.jvmargs="-Xmx5g -XX:+UseParallelGC -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
+  GPG_key_id: ${{ secrets.GPG_KEY_ID }}
+  GPG_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+  GPG_private_password: ${{ secrets.GPG_PRIVATE_PASSWORD }}
