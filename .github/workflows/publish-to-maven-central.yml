@@ -133,14 +133,14 @@ jobs:
     if: ${{ always() && needs.create-staging-repository.result == 'success' }}
     steps:
       - name: Discard staging repository
-        if: ${{ needs.build-and-upload.result != 'success' }}
+        if: ${{ needs.windows-checking.result != 'success' || needs.macos-checking.result != 'success' || needs.linux-checking.result != 'success' }}
         uses: nexus-actions/drop-nexus-staging-repo@v1
         with:
           username: ${{ secrets.SONATYPE_USERNAME }}
           password: ${{ secrets.SONATYPE_PASSWORD }}
           staging_repository_id: ${{ needs.create-staging-repository.outputs.repository_id }}
       - name: Release
-        if: ${{ needs.build-and-upload.result == 'success' }}
+        if: ${{ needs.windows-checking.result == 'success' && needs.macos-checking.result == 'success' && needs.linux-checking.result == 'success' }}
         uses: nexus-actions/release-nexus-staging-repo@v1.1
         with:
           username: ${{ secrets.SONATYPE_USERNAME }}
