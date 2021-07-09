@@ -24,7 +24,7 @@ android {
     }
     signingConfigs {
         getByName("debug") {
-            storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+            storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore").takeIf { it.exists() }
             keyAlias = "androiddebugkey"
             keyPassword = "android"
             storePassword = "android"
