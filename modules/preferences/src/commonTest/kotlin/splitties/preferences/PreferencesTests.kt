@@ -21,8 +21,8 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
-import kotlin.time.seconds
 
 @OptIn(
     ExperimentalSplittiesApi::class,
@@ -63,7 +63,7 @@ class PreferencesTests {
 
     @Test
     fun test_changesFlow() = runTest(
-        timeout = 5.seconds,
+        timeout = Duration.seconds(5),
         alsoRunInNativeWorker = true,
         skipIfRoboelectric = true
     ) {
@@ -79,7 +79,7 @@ class PreferencesTests {
 
     @Test
     fun test_valueFlow() = runTest(
-        timeout = 5.seconds,
+        timeout = Duration.seconds(5),
         alsoRunInNativeWorker = true,
         skipIfRoboelectric = true
     ) {

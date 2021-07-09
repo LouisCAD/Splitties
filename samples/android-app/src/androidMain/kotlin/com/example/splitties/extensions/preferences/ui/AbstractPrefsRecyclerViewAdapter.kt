@@ -30,7 +30,7 @@ abstract class AbstractPrefsRecyclerViewAdapter : ListAdapter<Item, RecyclerView
         checkMainThread() // Ensure no race condition.
         // No need to unregister the listener as no strong reference to it is kept by Android.
         // The listener should be garbage collected with this adapter.
-        val itemsAdded = items.sumBy { item ->
+        val itemsAdded = items.sumOf { item ->
             item.dependentPrefs.count { prefDelegate -> prefs.add(prefDelegate.preferences.prefs) }
         }
         if (itemsAdded > 0) prefs.forEach { prefs ->

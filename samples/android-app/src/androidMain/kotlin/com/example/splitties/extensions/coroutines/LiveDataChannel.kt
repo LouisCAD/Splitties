@@ -16,7 +16,7 @@ import splitties.arch.lifecycle.LifecycleObserver
 fun <T> LifecycleOwner.channelOf(
     liveData: LiveData<T>
 ): ReceiveChannel<T?> = Channel<T?>(Channel.CONFLATED).also {
-    val observer = Observer<T?> { t -> it.offer(t) }
+    val observer = Observer<T?> { t -> it.trySend(t) }
     liveData.observe(this, observer)
     it.invokeOnClose { liveData.removeObserver(observer) }
     lifecycle.addObserver(object : LifecycleObserver {
