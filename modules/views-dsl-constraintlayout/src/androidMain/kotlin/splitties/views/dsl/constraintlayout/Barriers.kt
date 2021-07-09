@@ -31,8 +31,8 @@ fun CL.barrier(type: BarrierType, views: List<View>): Barrier = add(view(::Barri
     this.type = type.intValue
 }, lParams(wrapContent, wrapContent))
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class BarrierType @PublishedApi internal constructor(internal val intValue: Int) {
+@JvmInline
+value class BarrierType @PublishedApi internal constructor(internal val intValue: Int) {
     companion object {
         inline val START get() = BarrierType(Barrier.START)
         inline val LEFT get() = BarrierType(Barrier.LEFT)

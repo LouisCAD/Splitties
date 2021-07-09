@@ -39,8 +39,8 @@ class AppCompatStyles(@PublishedApi internal val ctx: Context) {
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ButtonAppCompatStyles @PublishedApi internal constructor(
+@JvmInline
+value class ButtonAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(
@@ -122,8 +122,8 @@ inline class ButtonAppCompatStyles @PublishedApi internal constructor(
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class TextViewAppCompatStyles @PublishedApi internal constructor(
+@JvmInline
+value class TextViewAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun spinnerItem(
@@ -142,8 +142,8 @@ inline class TextViewAppCompatStyles @PublishedApi internal constructor(
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
+@JvmInline
+value class SeekBarAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(
@@ -177,8 +177,8 @@ inline class SeekBarAppCompatStyles @PublishedApi internal constructor(
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class SpinnerAppCompatStyles @PublishedApi internal constructor(
+@JvmInline
+value class SpinnerAppCompatStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(

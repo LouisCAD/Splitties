@@ -15,8 +15,8 @@ import splitties.views.dsl.material.R
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class TabLayoutStyles @PublishedApi internal constructor(
+@JvmInline
+value class TabLayoutStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun default(

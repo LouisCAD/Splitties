@@ -14,14 +14,15 @@ import splitties.views.dsl.core.NO_THEME
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-inline class AndroidStyles(@PublishedApi internal val ctx: Context) {
+@JvmInline
+value class AndroidStyles(@PublishedApi internal val ctx: Context) {
     inline val progressBar get() = ProgressBarAndroidStyles(ctx)
     inline val ratingBar get() = RatingBarAndroidStyles(ctx)
     inline val button get() = ButtonAndroidStyles(ctx)
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
+@JvmInline
+value class ProgressBarAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun small(
@@ -61,8 +62,8 @@ inline class ProgressBarAndroidStyles @PublishedApi internal constructor(
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class RatingBarAndroidStyles @PublishedApi internal constructor(
+@JvmInline
+value class RatingBarAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     inline fun small(
@@ -93,8 +94,8 @@ inline class RatingBarAndroidStyles @PublishedApi internal constructor(
     }
 }
 
-@Suppress("NON_PUBLIC_PRIMARY_CONSTRUCTOR_OF_INLINE_CLASS")
-inline class ButtonAndroidStyles @PublishedApi internal constructor(
+@JvmInline
+value class ButtonAndroidStyles @PublishedApi internal constructor(
     @PublishedApi internal val ctx: Context
 ) {
     /** Small Button style. */
