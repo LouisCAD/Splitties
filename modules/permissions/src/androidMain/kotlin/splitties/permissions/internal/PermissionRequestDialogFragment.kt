@@ -1,6 +1,7 @@
 /*
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
+
 package splitties.permissions.internal
 
 import android.content.Intent
@@ -31,6 +32,7 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         permissionNames?.also {
+            @Suppress("Deprecation") // We don't need the ActivityResultContract APIs.
             requestPermissions(it, 1)
         } ?: dismissAllowingStateLoss()
     }
@@ -75,6 +77,7 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
     }
 
     private fun fallbackRequestFromTransparentActivity(permissions: Array<out String>) {
+        @Suppress("Deprecation") // We don't need the ActivityResultContract APIs.
         startActivityForResult(PermissionRequestFallbackActivity.intent { _, extrasSpec ->
             extrasSpec.permissionNames = permissions
         }, 1)
