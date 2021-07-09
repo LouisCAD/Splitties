@@ -34,6 +34,7 @@ import splitties.fragments.showAsync
 import splitties.preferences.edit
 import splitties.snackbar.longSnack
 import splitties.systemservices.vibrator
+import splitties.toast.UnreliableToastApi
 import splitties.toast.toast
 import splitties.views.dsl.core.*
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     prefs.showAnnoyingPopupInLoopField.valueFlow().collectLatest { loop ->
                         if (loop) while (isActive) {
+                            @OptIn(UnreliableToastApi::class)
                             toast("Next up in 6 seconds")
                             delay(6000)
                             alertDialog(
