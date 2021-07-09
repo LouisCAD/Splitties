@@ -18,10 +18,10 @@ internal actual fun SharedPreferences.changesFlow(
 ): Flow<Unit> = channelFlow {
     @OptIn(NonSymmetricalApi::class)
     val listener = OnSharedPreferenceChangeListener { _, changedKey ->
-        if (key == changedKey) runCatching { offer(Unit) }
+        if (key == changedKey) trySend(Unit)
     }
     registerOnSharedPreferenceChangeListener(listener)
-    if (emitAfterRegister) runCatching { offer(Unit) }
+    if (emitAfterRegister) trySend(Unit)
     awaitClose {
         unregisterOnSharedPreferenceChangeListener(listener)
     }

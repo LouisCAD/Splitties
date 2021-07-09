@@ -27,20 +27,20 @@ internal actual fun SharedPreferences.changesFlow(
             `object` = userDefaults,
             queue = if (isMainThread) NSOperationQueue.mainQueue else null
         ) {
-            runCatching { offer(Unit) }
+            trySend(Unit)
         }
-        if (emitAfterRegister) runCatching { offer(Unit) }
+        if (emitAfterRegister) trySend(Unit)
         awaitClose {
             defaultNotificationCenter.removeObserver(observer)
         }
     } else {
         @OptIn(NonSymmetricalApi::class)
         val listener = OnSharedPreferenceChangeListener { _, changedKey ->
-            if (key == changedKey) runCatching { offer(Unit) }
+            if (key == changedKey) trySend(Unit)
         }
         @OptIn(NonSymmetricalApi::class)
         registerOnSharedPreferenceChangeListener(listener)
-        if (emitAfterRegister) runCatching { offer(Unit) }
+        if (emitAfterRegister) trySend(Unit)
         awaitClose {
             @OptIn(NonSymmetricalApi::class)
             unregisterOnSharedPreferenceChangeListener(listener)

@@ -17,11 +17,11 @@ class AudioTrackPlaybackPositionUpdateListener(audioTrack: AudioTrack) {
 
     private val listener = object : AudioTrack.OnPlaybackPositionUpdateListener {
         override fun onMarkerReached(track: AudioTrack) {
-            markerChannel.offer(Unit)
+            markerChannel.trySend(Unit)
         }
 
         override fun onPeriodicNotification(track: AudioTrack) {
-            periodicNotificationChannel.offer(Unit)
+            periodicNotificationChannel.trySend(Unit)
         }
     }
 
