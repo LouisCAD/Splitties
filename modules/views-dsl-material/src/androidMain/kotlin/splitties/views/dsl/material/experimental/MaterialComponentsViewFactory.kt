@@ -7,7 +7,6 @@ import android.content.Context
 import android.view.View
 import android.widget.*
 import androidx.annotation.AttrRes
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.google.android.material.R
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -26,7 +25,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.textview.MaterialTextView
 import splitties.views.dsl.core.experimental.*
-import splitties.views.dsl.material.fixedimpls.*
 
 /**
  * Matches [com.google.android.material.theme.MaterialComponentsViewInflater] content plus other MDC-only
@@ -44,9 +42,7 @@ internal inline fun <reified V : View> instantiateMaterialView(
     // Material Components only views below
     FloatingActionButton::class.java -> FloatingActionButton(context)
     MaterialCardView::class.java -> MaterialCardView(context)
-    AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
-        override fun getBehavior() = FixedAppBarLayoutBehavior()
-    }
+    AppBarLayout::class.java -> AppBarLayout(context)
     NavigationView::class.java -> NavigationView(context)
     BottomNavigationView::class.java -> BottomNavigationView(context)
     CollapsingToolbarLayout::class.java -> ConfigChangesHandlingCollapsingToolbarLayout(
@@ -76,9 +72,7 @@ internal inline fun <reified V : View> instantiateThemeAttrStyledMaterialView(
     // Material Components only views below
     FloatingActionButton::class.java -> FloatingActionButton(context, null, styleThemeAttribute)
     MaterialCardView::class.java -> MaterialCardView(context, null, styleThemeAttribute)
-    AppBarLayout::class.java -> object : AppBarLayout(context), CoordinatorLayout.AttachedBehavior {
-        override fun getBehavior() = FixedAppBarLayoutBehavior()
-    }
+    AppBarLayout::class.java -> AppBarLayout(context, null, styleThemeAttribute)
     NavigationView::class.java -> NavigationView(context, null, styleThemeAttribute)
     BottomNavigationView::class.java -> BottomNavigationView(context, null, styleThemeAttribute)
     CollapsingToolbarLayout::class.java -> ConfigChangesHandlingCollapsingToolbarLayout(
