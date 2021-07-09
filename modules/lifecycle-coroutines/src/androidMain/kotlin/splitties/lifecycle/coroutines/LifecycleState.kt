@@ -7,9 +7,7 @@ package splitties.lifecycle.coroutines
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.flow.*
-import splitties.coroutines.offerCatching
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.time.*
 
@@ -46,7 +44,7 @@ actual fun Lifecycle.isStartedFlow(): Flow<Boolean> = stateFlow().map {
 @Suppress("RemoveExplicitTypeArguments") // Remove when new inference is successfully enabled.
 actual fun Lifecycle.stateFlow(): Flow<Lifecycle.State> = callbackFlow<Lifecycle.State> {
     val observer = LifecycleEventObserver { _, _ ->
-        offerCatching(currentState)
+        trySend(currentState)
         if (currentState == Lifecycle.State.DESTROYED) close()
     }
     addObserver(observer)
