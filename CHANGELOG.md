@@ -1,5 +1,20 @@
 # Change log for Splitties
 
+## [Unreleased]
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+Other transitive dependencies have also been upgraded to the latest stable version.
+
+It includes upgrades to various AndroidX libraries, Material Design Components 1.4.0, and Stetho 1.6.0.
+
+### Coroutines
+
+#### Deprecation
+
+The `SendChannel.offerCatching` has been deprecated in favor of `trySend` from kotlinx.coroutines 1.5+
+
+
 ## Version 3.0.0-beta02 (2021-07-08)
 
 Compiled with Kotlin 1.4.32 and kotlinx.coroutines 1.4.3-native-mt.
