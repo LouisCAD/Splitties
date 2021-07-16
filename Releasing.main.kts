@@ -7,7 +7,7 @@
 @file:Repository("https://repo.maven.apache.org/maven2/")
 //@file:Repository("https://oss.sonatype.org/content/repositories/snapshots")
 //@file:Repository("file:///Users/louiscad/.m2/repository")
-@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.0")
+@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.2")
 
 import Releasing_main.CiReleaseFailureCause.*
 import java.io.File
@@ -140,8 +140,22 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         printInfo("Before proceeding to the release, we will ensure we merge changes from the release branch into the main branch.")
         printInfo("Will now checkout the `release` branch and pull from GitHub (origin) to update the local `release` branch.")
         requestUserConfirmation("Continue?")
-        git.checkoutBranch("release")
-        git.pullFromOrigin()
+        if (git.hasBranch("release")) {
+            git.checkoutBranch("release")
+            git.pullFromOrigin()
+        } else {
+            printInfo("The branch release doesn't exist locally. Fetching from remote…")
+            git.fetch()
+            if (git.hasRemoteBranch(remoteName = "origin", branchName = "release")) {
+                printInfo("The branch exists on the origin remote. Checking out.")
+                git.checkoutAndTrackRemoteBranch("origin", "release")
+            } else {
+                printInfo("Creating and checking out the release branch")
+                git.createAndCheckoutBranch("release")
+                printInfo("Pushing the new release branch…")
+                git.push(repository = "origin", setUpstream = true, branchName = "release")
+            }
+        }
     }
     `Update main branch from release` -> {
         printInfo("About to checkout the main branch (and update it from release for merge commits).")
@@ -237,9 +251,11 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
                     }
                     is RequiresNewCommits -> {
-                        printInfo("Removing the version tag (will be put back later on)")
-                        git.deleteTag(tag = tagOfVersionBeingReleased())
-                        printInfo("tag removed")
+                        if (git.hasTag(tagOfVersionBeingReleased())) {
+                            printInfo("Removing the version tag (will be put back later on)")
+                            git.deleteTag(tag = tagOfVersionBeingReleased())
+                            printInfo("tag removed")
+                        }
                         printInfo("Recovering from that is going to require new fixing commits to be pushed to the main branch.")
                         printInfo("Note: you can keep this script waiting while you're resolving the build issue.")
                         requestManualAction("Fix the issues and commit the changes")
@@ -258,7 +274,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
     `Push tags to origin` -> {
         printInfo("Will now push with tags.")
         requestUserConfirmation("Continue?")
-        if (git.getTags().none { it == tagOfVersionBeingReleased() }) with(OngoingRelease) {
+        if (git.hasTag(tagOfVersionBeingReleased()).not()) with(OngoingRelease) {
             printInfo("The tag for the impeding release is missing, so we're putting it back too.")
             git.tagAnnotated(tag = tagOfVersionBeingReleased(), annotationMessage = "Version $newVersion")
         }
