@@ -1,6 +1,6 @@
 # Change log for Splitties
 
-## Version 3.0.0-beta02 (2021-06-08)
+## Version 3.0.0-beta02 (2021-07-08)
 
 Compiled with Kotlin 1.4.32 and kotlinx.coroutines 1.4.3-native-mt.
 
