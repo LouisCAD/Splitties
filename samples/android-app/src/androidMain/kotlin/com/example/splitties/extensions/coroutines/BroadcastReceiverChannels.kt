@@ -11,7 +11,6 @@ import android.content.IntentFilter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import splitties.coroutines.offerCatching
 import splitties.init.appCtx
 
 @Suppress("NOTHING_TO_INLINE")
@@ -41,7 +40,7 @@ fun broadcastReceiverChannel(
     val channel = Channel<Intent>(capacity = capacity)
     val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            channel.offerCatching(intent)
+            channel.trySend(intent)
         }
     }
     val ctx = appCtx

@@ -25,5 +25,5 @@ fun runTest(
     alsoRunInNativeWorker = alsoRunInNativeWorker,
     skipIfRoboelectric = skipIfRoboelectric
 ) {
-    withTimeout(timeout.toLongMilliseconds(), block)
+    withTimeout(timeout.inWholeMilliseconds, block)
 }

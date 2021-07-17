@@ -23,8 +23,9 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        getByName("debug") {
-            storeFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+        val debugKeystoreFile = file("${System.getProperty("user.home")}/.android/debug.keystore")
+        if (debugKeystoreFile.exists()) getByName("debug") {
+            storeFile = debugKeystoreFile
             keyAlias = "androiddebugkey"
             keyPassword = "android"
             storePassword = "android"
@@ -38,7 +39,7 @@ android {
         getByName("release") {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("debug")
         }
     }
     sourceSets.getByName("main") {

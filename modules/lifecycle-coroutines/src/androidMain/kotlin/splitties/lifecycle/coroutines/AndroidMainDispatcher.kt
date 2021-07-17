@@ -16,7 +16,8 @@ import splitties.mainhandler.mainHandler
 @Suppress("unused")
 @Deprecated(
     "Since kotlinx.coroutines 1.3.3, Dispatchers.Main performance issue is fixed, so this is no longer needed.",
-    ReplaceWith("Dispatchers.Main")
+    ReplaceWith("Dispatchers.Main"),
+    DeprecationLevel.ERROR
 )
 val Dispatchers.MainAndroid: MainCoroutineDispatcher
     get() = androidMainDispatcher ?: try {

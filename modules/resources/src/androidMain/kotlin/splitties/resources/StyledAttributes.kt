@@ -41,8 +41,11 @@ private val uiThreadConfinedCachedTypeValue = TypedValue()
 private val cachedTypeValue = TypedValue()
 
 
-@Deprecated("IDE Preview doesn't support this way of resolving a theme attribute. " +
-        "Use the resolveThemeAttribute function to directly get the resource id instead.")
+@Deprecated(
+    "IDE Preview doesn't support this way of resolving a theme attribute. " +
+            "Use the resolveThemeAttribute function to directly get the resource id instead.",
+    level = DeprecationLevel.ERROR
+)
 inline fun <T> Context.withStyledAttributes(
     @AttrRes attrRes: Int,
     func: TypedArray.(firstIndex: Int) -> T

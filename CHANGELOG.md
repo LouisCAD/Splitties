@@ -1,6 +1,55 @@
 # Change log for Splitties
 
-## Version 3.0.0-beta02 (2021-06-08)
+## Version 3.0.0-beta03 (2021-07-17)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+Other transitive dependencies have also been upgraded to the latest stable version.
+
+It includes upgrades to various AndroidX libraries, Material Design Components 1.4.0, and Stetho 1.6.0.
+
+This release is advancing deprecation cycles before the upcoming, long awaited 3.0.0 release.
+
+### Coroutines
+
+#### Deprecations
+
+The `SendChannel.offerCatching` has been deprecated in favor of `trySend` from kotlinx.coroutines 1.5+
+
+The deprecation level of `awaitCancellation()` has been raised from warning to error. Use the one from kotlinx.coroutines instead.
+
+#### Lifecycle coroutines
+
+#### Deprecations
+
+`Dispatchers.MainAndroid` deprecation level has been raised from warning to error. Using `Dispatchers.Main` is fine performance wise since kotlinx.coroutines 1.3.3.
+The `PotentialFutureAndroidXLifecycleKtxApi` annotation deprecation level was also raised to error.
+
+The following symbols that were previously deprecated at error level are now hidden and will be removed in the next release:
+- `Lifecycle.coroutineScope`
+- `Lifecycle.job`
+- `LifecycleOwner.lifecycleScope`
+- `MainDispatcherPerformanceIssueWorkaround`
+
+### Preferences
+
+#### Deprecations
+
+Raise the deprecation level of the implicit key delegates from warning to error.
+
+### Resources
+
+#### Deprecations
+
+Raise the deprecation level of `Context.withStyledAttributes` to error.
+
+### Views AppCompat
+
+#### Deprecations
+
+Raise the deprecation level of `ActionBar.showHomeAsUp` to error.
+
+## Version 3.0.0-beta02 (2021-07-08)
 
 Compiled with Kotlin 1.4.32 and kotlinx.coroutines 1.4.3-native-mt.
 

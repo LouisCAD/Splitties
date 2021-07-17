@@ -5,7 +5,7 @@
 package splitties.stetho.init
 
 import android.content.Context
-import android.support.annotation.Keep
+import androidx.annotation.Keep
 import androidx.startup.Initializer
 import com.facebook.stetho.Stetho
 

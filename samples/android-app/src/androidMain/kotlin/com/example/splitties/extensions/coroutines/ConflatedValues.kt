@@ -23,7 +23,7 @@ abstract class ConflatedValues<CV : ConflatedValues<CV, T>, T> private construct
     /** Can be called from a subclass method to perform an arbitrary update/refresh. */
     protected fun triggerUpdate() {
         @Suppress("UNCHECKED_CAST")
-        updateChannel.offer((this as CV).conflateAll())
+        updateChannel.trySend((this as CV).conflateAll())
     }
 
     protected fun <E> conflatedValue(initialValue: E): ReadWriteProperty<Any?, E> =

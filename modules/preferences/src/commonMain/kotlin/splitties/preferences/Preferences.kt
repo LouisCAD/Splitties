@@ -120,39 +120,39 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
     ) = StringSetOrNullPref(this, key = key, defaultValue = defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun boolPref(defaultValue: Boolean) = BoolPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun intPref(defaultValue: Int) = IntPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun floatPref(defaultValue: Float) = FloatPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun longPref(defaultValue: Long) = LongPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun stringPref(defaultValue: String) = StringPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun stringOrNullPref(
         defaultValue: String?
     ) = StringOrNullPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun stringSetPref(
         defaultValue: Set<String> = emptySet()
     ) = StringSetPrefProvider(defaultValue)
 
     @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
+    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.ERROR)
     protected fun stringSetOrNullPref(
         defaultValue: Set<String>? = null
     ) = StringSetOrNullPrefProvider(defaultValue)

@@ -17,7 +17,7 @@ package splitties.lifecycle.coroutines
 @Deprecated("AndroidX Lifecycle runtime KTX has now been released.")
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
-@RequiresOptIn(level = RequiresOptIn.Level.WARNING)
+@RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 annotation class PotentialFutureAndroidXLifecycleKtxApi
 
 internal const val deprecationPrefix = "Now available in AndroidX Lifecycle runtime KTX"

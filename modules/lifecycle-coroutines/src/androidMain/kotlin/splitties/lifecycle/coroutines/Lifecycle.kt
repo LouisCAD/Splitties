@@ -39,7 +39,7 @@ fun Lifecycle.createJob(activeWhile: Lifecycle.State = INITIALIZED): Job {
     return SupervisorJob().also { job ->
         when (currentState) {
             Lifecycle.State.DESTROYED -> job.cancel()
-            else -> GlobalScope.launch(Dispatchers.Main) {
+            else -> @OptIn(DelicateCoroutinesApi::class) GlobalScope.launch(Dispatchers.Main) {
                 // Ensures state is in sync.
                 addObserver(object : LifecycleEventObserver {
                     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {

@@ -19,7 +19,7 @@ import kotlinx.coroutines.*
 @Deprecated(
     message = defaultDeprecationMessage,
     replaceWith = ReplaceWith("coroutineScope", "androidx.lifecycle.coroutineScope"),
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 inline val Lifecycle.coroutineScope: CoroutineScope
     get() = coroutineScope
@@ -33,7 +33,7 @@ inline val Lifecycle.coroutineScope: CoroutineScope
 @Deprecated(
     message = defaultDeprecationMessage,
     replaceWith = ReplaceWith("lifecycleScope", "androidx.lifecycle.lifecycleScope"),
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 inline val LifecycleOwner.lifecycleScope
     get() = lifecycle.coroutineScope
@@ -53,7 +53,7 @@ inline val LifecycleOwner.lifecycleScope
         "androidx.lifecycle.coroutineScope",
         "kotlinx.coroutines.Job"
     ),
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 val Lifecycle.job: Job
     get() = coroutineScope.coroutineContext[Job]!!
