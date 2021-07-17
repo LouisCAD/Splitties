@@ -17,6 +17,6 @@ import kotlinx.coroutines.Dispatchers
 @RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 @Deprecated(
     "No longer needed. Dispatchers.Main performance issue has been fixed since kotlinx.coroutines 1.3.3",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 annotation class MainDispatcherPerformanceIssueWorkaround
