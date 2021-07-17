@@ -31,6 +31,12 @@ The following symbols that were previously deprecated at error level are now hid
 - `LifecycleOwner.lifecycleScope`
 - `MainDispatcherPerformanceIssueWorkaround`
 
+### Preferences
+
+#### Deprecations
+
+Raise the deprecation level of the implicit key delegates from warning to error.
+
 ## Version 3.0.0-beta02 (2021-07-08)
 
 Compiled with Kotlin 1.4.32 and kotlinx.coroutines 1.4.3-native-mt.
