@@ -82,7 +82,11 @@ inline var ActionBar.showCustomView: Boolean
         displayOptions = displayOptions.setFlag(ActionBar.DISPLAY_SHOW_CUSTOM, value)
     }
 
-@Deprecated("Naming changed", ReplaceWith("homeAsUp", "splitties.views.appcompat.homeAsUp"))
+@Deprecated(
+    message = "Naming changed. Will be removed before Splitties 3.0.0",
+    replaceWith = ReplaceWith("homeAsUp", "splitties.views.appcompat.homeAsUp"),
+    level = DeprecationLevel.ERROR
+)
 inline var ActionBar.showHomeAsUp: Boolean
     get() = displayOptions.hasFlag(ActionBar.DISPLAY_HOME_AS_UP)
     set(value) {
