@@ -116,13 +116,9 @@ class ModuleParentScope(
         val moduleName = ":$this"
         val projectName = "$parentalPath$moduleName"
         include(projectName)
-        project(projectName).let {
-            println("Project [before]: ${it.name}, ${it.path}, $projectName")
-        }
         if (prefix.isNotEmpty()) {
             project(projectName).let {
                 it.name = "$prefix${it.name}"
-                println("Project [after]: ${it.name}, ${it.path}, $projectName")
             }
         }
         block?.let { buildNode ->
