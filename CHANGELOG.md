@@ -1,5 +1,13 @@
 # Change log for Splitties
 
+## Version 3.0.0-beta04 (2021-07-30)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+### Fix
+
+Fix iOS/multiplatform publication (see [issue #280](https://github.com/LouisCAD/Splitties/issues/280)).
+
 ## Version 3.0.0-beta03 (2021-07-17)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
