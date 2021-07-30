@@ -25,12 +25,6 @@ publishing {
         artifact(project.tasks.emptyJavadocJar())
         setupPom()
     }
-    mavenPublications.findByName("kotlinMultiplatform")?.let {
-        val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
-        project.afterEvaluate {
-            it.artifactId = "$prefix-${project.name}"
-        }
-    }
     repositories {
         mavenCentralStaging(
             project = project,

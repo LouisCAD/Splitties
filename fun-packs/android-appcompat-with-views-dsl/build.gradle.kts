@@ -20,8 +20,8 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(project(":fun-packs:android-appcompat"))
-            api(project(":fun-packs:android-base-with-views-dsl"))
+            api(splittiesFunPack("android-appcompat"))
+            api(splittiesFunPack("android-base-with-views-dsl"))
             api(splitties("views-dsl-appcompat"))
         }
     }

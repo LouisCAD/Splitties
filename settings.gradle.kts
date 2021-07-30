@@ -31,7 +31,7 @@ include {
     "samples" {
         "android-app"()
     }
-    "fun-packs" {
+    "fun-packs"(childrenPrefix = "splitties-fun-pack-") {
         "android-base"()
         "android-base-with-views-dsl"()
         "android-appcompat"()
@@ -47,7 +47,7 @@ include {
 
     if (checkPublication) "tools" { "publication-checker"() }
 
-    "modules" {
+    "modules"(childrenPrefix = "splitties-") {
         "activities"()
         "alertdialog"()
         "alertdialog-appcompat"()
@@ -104,18 +104,32 @@ include {
 //region include DSL
 class ModuleParentScope(
     private val name: String,
-    private val parent: ModuleParentScope? = null
+    private val parent: ModuleParentScope? = null,
+    private val prefix: String
 ) {
 
-    operator fun String.invoke(block: (ModuleParentScope.() -> Unit)? = null) {
+    operator fun String.invoke(
+        childrenPrefix: String = "",
+        block: (ModuleParentScope.() -> Unit)? = null
+    ) {
         check(startsWith(':').not())
         val moduleName = ":$this"
         val projectName = "$parentalPath$moduleName"
         include(projectName)
+        project(projectName).let {
+            println("Project [before]: ${it.name}, ${it.path}, $projectName")
+        }
+        if (prefix.isNotEmpty()) {
+            project(projectName).let {
+                it.name = "$prefix${it.name}"
+                println("Project [after]: ${it.name}, ${it.path}, $projectName")
+            }
+        }
         block?.let { buildNode ->
             ModuleParentScope(
                 name = moduleName,
-                parent = this@ModuleParentScope
+                parent = this@ModuleParentScope,
+                prefix = childrenPrefix
             ).buildNode()
         }
     }
@@ -126,7 +140,7 @@ class ModuleParentScope(
 
 }
 
-inline fun include(block: ModuleParentScope.() -> Unit) {
-    ModuleParentScope("").block()
+inline fun include(prefix: String = "", block: ModuleParentScope.() -> Unit) {
+    ModuleParentScope(name = "", prefix = prefix).block()
 }
 //endregion
