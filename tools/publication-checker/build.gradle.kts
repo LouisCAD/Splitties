@@ -76,7 +76,7 @@ kotlin {
             val sourceSet: KotlinSourceSet = target.mainSourceSet
             if (splitTargets.any { it.targetsSamePlatformAs(target) }) {
                 sourceSet.dependencies {
-                    implementation("$group:splitties-${project.name}") {
+                    implementation("$group:${project.name}") {
                         version { strictly(version) }
                     }
                 }
@@ -93,7 +93,7 @@ kotlin {
             val sourceSet: KotlinSourceSet = target.mainSourceSet
             if (splitTargets.any { it.targetsSamePlatformAs(target) }) {
                 sourceSet.dependencies {
-                    implementation("$group:splitties-fun-pack-${project.name}") {
+                    implementation("$group:${project.name}") {
                         version { strictly(version) }
                     }
                 }

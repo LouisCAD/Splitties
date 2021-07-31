@@ -4,15 +4,9 @@
 
 @file:Suppress("PackageDirectoryMismatch")
 
-import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.androidJvm
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.common
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.js
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.jvm
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType.native
 import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
-import java.util.Locale
 
 fun KotlinTarget.configureMavenPublication(
     publishReleaseVariantOnly: Boolean = false
@@ -23,18 +17,7 @@ fun KotlinTarget.configureMavenPublication(
     }
     val isInMultiplatformModule = project.plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")
     if (isInMultiplatformModule.not()) return // The mavenPublication block would not be run anyway.
-    val suffix = when (platformType) {
-        common -> "-metadata"
-        jvm -> "-jvm"
-        js -> "-js"
-        androidJvm -> "-android"
-        native -> "-${name.toLowerCase(Locale.ROOT)}"
-    }
     mavenPublication {
-        val prefix = if (project.isFunPack) "splitties-fun-pack" else "splitties"
-        project.afterEvaluate {
-            artifactId = "$prefix-${project.name}$suffix"
-        }
         if (publishReleaseVariantOnly && platformType == androidJvm) {
             // We disable metadata generation for Android publications, so the release variants can
             // be used for any buildType of the consumer projects without having to specify
@@ -56,5 +39,3 @@ fun KotlinTarget.configureMavenPublication(
         }
     }
 }
-
-val Project.isFunPack: Boolean get() = parent?.name == "fun-packs"

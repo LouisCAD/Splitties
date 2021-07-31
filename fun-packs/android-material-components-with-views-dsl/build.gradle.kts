@@ -20,8 +20,8 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(project(":fun-packs:android-material-components"))
-            api(project(":fun-packs:android-appcompat-with-views-dsl"))
+            api(splittiesFunPack("android-material-components"))
+            api(splittiesFunPack("android-appcompat-with-views-dsl"))
             listOf(
                 "views-dsl-coordinatorlayout",
                 "views-dsl-material"

@@ -67,7 +67,7 @@ kotlin {
             api(Kotlin.stdlib.common)
         }
         androidMain.dependencies {
-            implementation(project(":fun-packs:android-material-components-with-views-dsl"))
+            implementation(splittiesFunPack("android-material-components-with-views-dsl"))
             arrayOf(
                 "arch-lifecycle",
                 "arch-room",

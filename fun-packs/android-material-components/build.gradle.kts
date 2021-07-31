@@ -20,7 +20,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(project(":fun-packs:android-appcompat"))
+            api(splittiesFunPack("android-appcompat"))
             listOf(
                 "alertdialog-material",
                 "material-lists",

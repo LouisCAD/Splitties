@@ -20,7 +20,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(project(":fun-packs:android-base"))
+            api(splittiesFunPack("android-base"))
             listOf(
                 "views-dsl",
                 "views-dsl-constraintlayout",
