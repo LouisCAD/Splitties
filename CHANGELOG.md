@@ -1,5 +1,25 @@
 # Change log for Splitties
 
+## Version 3.0.0-rc01 (2021-08-01)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+This release removes previously deprecated code.
+
+**Make sure you don't have transitive dependencies that relied on deprecated code from a previous release of Splitties!** If that's the case, you'll see the host app crash at runtime.
+
+### Removed
+
+The "Init provider" split has been removed and is no longer published starting with this release.
+
+You can find if you are using it by searching for its maven coordinates:
+`com.louiscad.splitties:splitties-initprovider` (the "Find in Path" IDE option can help you locate it).
+
+If you used it, you'll need to move to [AndroidX App Startup](https://developer.android.com/topic/libraries/app-startup).
+
+All the other previously deprecated symbols at hidden level have been removed.
+This completes the deprecation cycle for the upcoming Splitties 3.0.0 release.
+
 ## Version 3.0.0-beta06 (2021-08-01)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.

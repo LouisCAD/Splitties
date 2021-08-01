@@ -66,7 +66,6 @@ include {
         "experimental"()
         "fragmentargs"()
         "fragments"()
-        "initprovider"()
         "intents"()
         "lifecycle-coroutines"()
         "mainhandler"()

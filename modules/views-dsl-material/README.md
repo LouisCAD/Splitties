@@ -44,16 +44,21 @@ handles config changes.
 
 ### Multi-process apps
 
-If your app needs to use AppCompat themed widgets in a non default process, you'll need to
-manually setup ViewFactory so it uses AppCompat. Here's how you need to it: Copy paste
-[this InitProvider](
-src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjecter.kt
-) into a package of an android library/app module of your project, then declare it in the
-`AndroidManifest.xml` of the module exactly like it is done [here](
-src/androidMain/AndroidManifest.xml
-). To do so, copy paste it, then fix the package of the class under the `android:name` xml attribute
-of the `provider` tag, then specify the `android:process` value to the one of your non default
-process.
+If your app needs to use Material themed widgets in the non default process, you'll need to
+manually setup ViewFactory, so it uses Material Components.
+
+Here's how you need to do it:
+1. Copy and paste
+   [this Initializer](
+   src/androidMain/kotlin/splitties/views/dsl/material/experimental/MaterialViewInstantiatorInjecter.kt
+   ) into a package of an android library/app module of your project
+2. Create an internal subclass of `androidx.startup.InitializationProvider`
+4. Declare that subclass in the
+   `AndroidManifest.xml` of the module exactly like it is done [here](
+   src/androidMain/AndroidManifest.xml
+   ). To do so, copy and paste it, then fix the package of the class under the `android:name` xml attribute
+   of the `provider` tag, specify the `android:process` value to the one of your non default
+   process, and finally changed the `android:name` xml attribute of the `meta-data` tag to the initializer you copied in the first step.
 
 Be sure to test it to make sure you have set it up properly.
 

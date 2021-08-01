@@ -73,7 +73,6 @@ kotlin {
                 "arch-room",
                 "checkedlazy",
                 "exceptions",
-                "initprovider",
                 "typesaferecyclerview"
             ).forEach { moduleName ->
                 implementation(splitties(moduleName))
