@@ -6,7 +6,6 @@
 
 package splitties.alertdialog
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -76,27 +75,6 @@ inline fun Context.alertDialog(
         setCancelable(isCancellable)
         dialogConfig()
     }.create()
-}
-
-/**
- * Instantiates an [AlertDialog.Builder] for the [Activity], applies the [dialogConfig] lambda to
- * it, then creates an [AlertDialog] from the builder, and returns it, so you can call
- * [AlertDialog.show] on the created dialog.
- */
-@Deprecated(
-    message = "This function is limited to Activity only and its name is not explicit enough. " +
-            "Use the alertDialog function instead.",
-    level = HIDDEN,
-    replaceWith = ReplaceWith(
-        expression = "this.alertDialog(dialogConfig)",
-        imports = ["splitties.alertdialog.alertDialog"]
-    )
-)
-inline fun Activity.alert(dialogConfig: AlertDialog.Builder.() -> Unit): AlertDialog {
-    contract { callsInPlace(dialogConfig, InvocationKind.EXACTLY_ONCE) }
-    return AlertDialog.Builder(this)
-        .apply(dialogConfig)
-        .create()
 }
 
 /**
