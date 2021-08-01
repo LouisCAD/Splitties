@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.lifecycle.coroutines
@@ -17,7 +17,7 @@ import splitties.mainhandler.mainHandler
 @Deprecated(
     "Since kotlinx.coroutines 1.3.3, Dispatchers.Main performance issue is fixed, so this is no longer needed.",
     ReplaceWith("Dispatchers.Main"),
-    DeprecationLevel.ERROR
+    DeprecationLevel.HIDDEN
 )
 val Dispatchers.MainAndroid: MainCoroutineDispatcher
     get() = androidMainDispatcher ?: try {

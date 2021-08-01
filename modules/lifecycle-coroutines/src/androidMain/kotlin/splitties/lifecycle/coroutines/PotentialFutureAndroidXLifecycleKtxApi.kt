@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.lifecycle.coroutines
@@ -14,11 +14,9 @@ package splitties.lifecycle.coroutines
  *
  * Good that Splitties can bring advances earlier!
  */
-@Deprecated("AndroidX Lifecycle runtime KTX has now been released.")
+@Deprecated("AndroidX Lifecycle runtime KTX has now been released.", level = DeprecationLevel.ERROR)
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
 @RequiresOptIn(level = RequiresOptIn.Level.ERROR)
 annotation class PotentialFutureAndroidXLifecycleKtxApi
 
-internal const val deprecationPrefix = "Now available in AndroidX Lifecycle runtime KTX"
-internal const val defaultDeprecationMessage = "$deprecationPrefix (uses Dispatchers.Main.immediate)."

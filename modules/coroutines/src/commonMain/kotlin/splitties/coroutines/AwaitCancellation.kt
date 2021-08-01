@@ -21,7 +21,7 @@ import kotlinx.coroutines.awaitCancellation as kotlinxCoroutinesAwaitCancellatio
 @Deprecated(
     message = "awaitCancellation() is now included right into kotlinx.coroutines. " +
         "This symbol will be removed before the 3.0.0 release of Splitties.",
-    level = DeprecationLevel.ERROR,
+    level = DeprecationLevel.HIDDEN,
     replaceWith = ReplaceWith("awaitCancellation()", "kotlinx.coroutines.awaitCancellation")
 )
 @FutureOverlapWithKotlinXCoroutines

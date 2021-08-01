@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
@@ -44,7 +44,7 @@ private val cachedTypeValue = TypedValue()
 @Deprecated(
     "IDE Preview doesn't support this way of resolving a theme attribute. " +
             "Use the resolveThemeAttribute function to directly get the resource id instead.",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 inline fun <T> Context.withStyledAttributes(
     @AttrRes attrRes: Int,

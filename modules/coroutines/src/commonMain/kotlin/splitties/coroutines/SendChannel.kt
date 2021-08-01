@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.coroutines
@@ -20,7 +20,8 @@ import kotlinx.coroutines.channels.SendChannel
  */
 @Deprecated(
     message = "Deprecated in the favour of 'trySend' method",
-    ReplaceWith("trySend(element)")
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("trySend(element)")
 )
 fun <E> SendChannel<E>.offerCatching(element: E): Boolean {
     return trySend(element).isSuccess

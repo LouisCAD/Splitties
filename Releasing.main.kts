@@ -53,7 +53,7 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Change this library version`,
     `Request doc update confirmation`,
     `Request CHANGELOG update confirmation`,
-    `Commit "prepare for release" and tag`,
+    `Commit 'prepare for release' and tag`,
     `Push release to origin`,
     `Request PR submission`,
     `Wait for successful release by CI`,
@@ -61,7 +61,7 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Request PR merge`,
     `Request GitHub release publication`,
     `Change this library version back to a SNAPSHOT`,
-    `Commit "prepare next dev version"`,
+    `Commit 'prepare next dev version'`,
     `Push, at last`;
 }
 
@@ -206,18 +206,24 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         requestManualAction("Update the `CHANGELOG.md` for the impending release.")
         dir.resolve("CHANGELOG.md").checkChanged()
     }
-    `Commit "prepare for release" and tag` -> with(OngoingRelease) {
+    `Commit 'prepare for release' and tag` -> with(OngoingRelease) {
         git.commitAllFiles(commitMessage = "Prepare for release $newVersion")
         git.tagAnnotated(tag = tagOfVersionBeingReleased(), annotationMessage = "Version $newVersion")
     }
     `Push release to origin` -> {
         printInfo("Will now push to origin repository")
-        printInfo("Once complete, GitHub should kick-off the release GitHub Action that will perform the publishing.")
         requestUserConfirmation("Continue?")
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        requestManualAction("Create a pull request from the `main` to the `release` branch on GitHub for the new version, if not already done.")
+        printInfo("You now need to create a pull request from the `main` to the `release` branch on GitHub for the new version,")
+        printInfo("if not already done.")
+        printInfo("You can do so by heading over to the following url:")
+        printInfo("$gitHubRepoUrl/compare/release...main")
+        printInfo("Here's a title suggestion which you can copy/paste:")
+        printInfo("Prepare for release ${OngoingRelease.newVersion}")
+        printInfo("Once submitted, GitHub should kick-off the release GitHub Action that will perform the publishing.")
+        requestManualAction("PR submitted?")
     }
     `Wait for successful release by CI` -> {
         printInfo("To perform this step, we need to wait for the artifacts building and uploading.")
@@ -248,7 +254,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         }
                         printInfo("Once the outage is resolved, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
                     }
                     is RequiresNewCommits -> {
                         if (git.hasTag(tagOfVersionBeingReleased())) {
@@ -264,7 +270,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         git.pushToOrigin()
                         printInfo("Now, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
                     }
                 }
             }
@@ -315,7 +321,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         versionsFile.writeText(nextDevVersion)
         printInfo("${versionsFile.path} has been edited with next development version ($nextDevVersion).")
     }
-    `Commit "prepare next dev version"` -> git.commitAllFiles(
+    `Commit 'prepare next dev version'` -> git.commitAllFiles(
         commitMessage = "Prepare next development version.".also {
             requestUserConfirmation(
                 yesNoQuestion = """Will commit all files with message "$it" Continue?"""

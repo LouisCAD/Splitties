@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.exceptions
@@ -9,7 +9,11 @@ import android.content.Intent
 /** Throws an [IllegalStateException] with a message that includes [value]. */
 fun unexpectedValue(value: Any?): Nothing = throw IllegalStateException("Unexpected value: $value")
 
-@Deprecated("Use error from stdlib instead", ReplaceWith("error(errorMessage)"))
+@Deprecated(
+    message = "Use error from stdlib instead",
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith("error(errorMessage)")
+)
 /** Throws an [IllegalStateException] with the passed message. */
 fun illegal(errorMessage: String = ""): Nothing = error(errorMessage)
 

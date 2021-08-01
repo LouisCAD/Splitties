@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.arch.lifecycle
@@ -39,6 +39,7 @@ private const val deprecationMessageStart = "An equivalent to this extension is 
 
 @Deprecated(
     message = "$deprecationMessageStart Activity KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "viewModels<VM>()",
         "androidx.activity.app.viewModels"
@@ -48,6 +49,7 @@ inline fun <reified VM : ViewModel> FragmentActivity.activityScope(): Lazy<VM> =
 
 @Deprecated(
     message = "$deprecationMessageStart Fragment KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "activityViewModels<VM>()",
         "androidx.fragment.app.activityViewModels"
@@ -57,6 +59,7 @@ inline fun <reified VM : ViewModel> Fragment.activityScope(): Lazy<VM> = activit
 
 @Deprecated(
     message = "$deprecationMessageStart Fragment KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "viewModels<VM>()",
         "androidx.fragment.app.viewModels"
@@ -66,6 +69,7 @@ inline fun <reified VM : ViewModel> Fragment.fragmentScope(): Lazy<VM> = viewMod
 
 @Deprecated(
     message = "$deprecationMessageStart Activity KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "viewModels<VM>(factoryProducer = { factory })",
         "androidx.activity.app.viewModels"
@@ -77,6 +81,7 @@ inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
 
 @Deprecated(
     message = "$deprecationMessageStart Fragment KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "activityViewModels<VM>(factoryProducer = { factory })",
         "androidx.fragment.app.activityViewModels"
@@ -88,6 +93,7 @@ inline fun <reified VM : ViewModel> Fragment.activityScope(
 
 @Deprecated(
     message = "$deprecationMessageStart Fragment KTX",
+    level = DeprecationLevel.ERROR,
     replaceWith = ReplaceWith(
         "viewModels<VM>(factoryProducer = { factory })",
         "androidx.fragment.app.viewModels"
@@ -104,7 +110,9 @@ inline fun <reified VM : ViewModel> Fragment.fragmentScope(
 private const val renamedDeprecationMessage = "This function is being renamed to follow AndroidX naming."
 
 @Deprecated(
-    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+    message = renamedDeprecationMessage,
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
         "viewModels<VM>(factory)",
         "splitties.arch.lifecycle.viewModels"
     )
@@ -114,7 +122,9 @@ inline fun <reified VM : ViewModel> FragmentActivity.activityScope(
 ): Lazy<VM> = viewModels(factory)
 
 @Deprecated(
-    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+    message = renamedDeprecationMessage,
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
         "viewModels<VM>(factory)",
         "splitties.arch.lifecycle.activityViewModels"
     )
@@ -124,7 +134,9 @@ inline fun <reified VM : ViewModel> Fragment.activityScope(
 ): Lazy<VM> = activityViewModels(factory)
 
 @Deprecated(
-    message = renamedDeprecationMessage, replaceWith = ReplaceWith(
+    message = renamedDeprecationMessage,
+    level = DeprecationLevel.ERROR,
+    replaceWith = ReplaceWith(
         "viewModels<VM>(factory)",
         "splitties.arch.lifecycle.viewModels"
     )
