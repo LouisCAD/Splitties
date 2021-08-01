@@ -14,7 +14,7 @@ package splitties.lifecycle.coroutines
  *
  * Good that Splitties can bring advances earlier!
  */
-@Deprecated("AndroidX Lifecycle runtime KTX has now been released.", level = DeprecationLevel.ERROR)
+@Deprecated("AndroidX Lifecycle runtime KTX has now been released.", level = DeprecationLevel.HIDDEN)
 @MustBeDocumented
 @Retention(value = AnnotationRetention.BINARY)
 @RequiresOptIn(level = RequiresOptIn.Level.ERROR)

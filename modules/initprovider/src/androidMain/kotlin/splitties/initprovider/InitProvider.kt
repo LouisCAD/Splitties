@@ -21,7 +21,7 @@ import splitties.exceptions.unsupported
         "which can add-up to significant delays for cold start. " +
         "Please, use AndroidX App Startup instead to avoid that problem. " +
         "This will be removed before Splitties 3.0.0 release.",
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 abstract class InitProvider : ContentProvider() {
     final override fun insert(uri: Uri, values: ContentValues?) = unsupported()

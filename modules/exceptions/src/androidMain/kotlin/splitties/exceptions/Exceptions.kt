@@ -11,7 +11,7 @@ fun unexpectedValue(value: Any?): Nothing = throw IllegalStateException("Unexpec
 
 @Deprecated(
     message = "Use error from stdlib instead",
-    level = DeprecationLevel.ERROR,
+    level = DeprecationLevel.HIDDEN,
     replaceWith = ReplaceWith("error(errorMessage)")
 )
 /** Throws an [IllegalStateException] with the passed message. */
