@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.views.appcompat
@@ -85,7 +85,7 @@ inline var ActionBar.showCustomView: Boolean
 @Deprecated(
     message = "Naming changed. Will be removed before Splitties 3.0.0",
     replaceWith = ReplaceWith("homeAsUp", "splitties.views.appcompat.homeAsUp"),
-    level = DeprecationLevel.ERROR
+    level = DeprecationLevel.HIDDEN
 )
 inline var ActionBar.showHomeAsUp: Boolean
     get() = displayOptions.hasFlag(ActionBar.DISPLAY_HOME_AS_UP)
