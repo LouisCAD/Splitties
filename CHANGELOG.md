@@ -1,6 +1,6 @@
 # Change log for Splitties
 
-## [Unreleased] Version 3.0.0-beta06 (2021-08-01)
+## Version 3.0.0-beta06 (2021-08-01)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
 
@@ -8,7 +8,7 @@ This release is advancing deprecation cycles further before the upcoming 3.0.0 r
 
 ## Deprecation cycle
 
-All previously deprecated symbols were either removed, or moved one step closer to it:
+All previously deprecated symbols were either removed, or hidden:
 
 - Error → Hidden
 - Hidden → _Removed_
