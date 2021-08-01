@@ -61,7 +61,6 @@ nav:
     - 'Exceptions': modules/exceptions/README.md
     - 'Fragments': modules/fragments/README.md
     - 'Fragment Args': modules/fragmentargs/README.md
-    - 'Init Provider': modules/initprovider/README.md
     - 'Intents': modules/intents/README.md
     - 'Lifecycle Coroutines': modules/lifecycle-coroutines/README.md
     - 'Main Handler': modules/mainhandler/README.md
