@@ -212,12 +212,18 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
     }
     `Push release to origin` -> {
         printInfo("Will now push to origin repository")
-        printInfo("Once complete, GitHub should kick-off the release GitHub Action that will perform the publishing.")
         requestUserConfirmation("Continue?")
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        requestManualAction("Create a pull request from the `main` to the `release` branch on GitHub for the new version, if not already done.")
+        printInfo("You now need to create a pull request from the `main` to the `release` branch on GitHub for the new version,")
+        printInfo("if not already done.")
+        printInfo("You can do so by heading over to the following url:")
+        printInfo("$gitHubRepoUrl/compare/release...main")
+        printInfo("Here's a title suggestion which you can copy/paste:")
+        printInfo("Prepare for release ${OngoingRelease.newVersion}")
+        printInfo("Once submitted, GitHub should kick-off the release GitHub Action that will perform the publishing.")
+        requestManualAction("PR submitted?")
     }
     `Wait for successful release by CI` -> {
         printInfo("To perform this step, we need to wait for the artifacts building and uploading.")
