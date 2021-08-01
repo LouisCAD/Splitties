@@ -248,7 +248,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         }
                         printInfo("Once the outage is resolved, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
                     }
                     is RequiresNewCommits -> {
                         if (git.hasTag(tagOfVersionBeingReleased())) {
@@ -264,7 +264,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         git.pushToOrigin()
                         printInfo("Now, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `release` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
                     }
                 }
             }
