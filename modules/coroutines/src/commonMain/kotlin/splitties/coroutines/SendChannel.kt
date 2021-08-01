@@ -20,7 +20,7 @@ import kotlinx.coroutines.channels.SendChannel
  */
 @Deprecated(
     message = "Deprecated in the favour of 'trySend' method",
-    level = DeprecationLevel.ERROR,
+    level = DeprecationLevel.HIDDEN,
     replaceWith = ReplaceWith("trySend(element)")
 )
 fun <E> SendChannel<E>.offerCatching(element: E): Boolean {

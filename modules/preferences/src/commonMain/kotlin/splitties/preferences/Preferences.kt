@@ -10,7 +10,6 @@
 package splitties.preferences
 
 import splitties.experimental.InternalSplittiesApi
-import kotlin.reflect.KProperty
 
 abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
 
@@ -119,113 +118,7 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
         defaultValue: Set<String>? = null
     ) = StringSetOrNullPref(this, key = key, defaultValue = defaultValue)
 
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun boolPref(defaultValue: Boolean) = BoolPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun intPref(defaultValue: Int) = IntPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun floatPref(defaultValue: Float) = FloatPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun longPref(defaultValue: Long) = LongPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun stringPref(defaultValue: String) = StringPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun stringOrNullPref(
-        defaultValue: String?
-    ) = StringOrNullPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun stringSetPref(
-        defaultValue: Set<String> = emptySet()
-    ) = StringSetPrefProvider(defaultValue)
-
-    @Suppress("DEPRECATION")
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.HIDDEN)
-    protected fun stringSetOrNullPref(
-        defaultValue: Set<String>? = null
-    ) = StringSetOrNullPrefProvider(defaultValue)
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class BoolPrefProvider internal constructor(private val defaultValue: Boolean) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): BoolPref {
-            return BoolPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class IntPrefProvider internal constructor(private val defaultValue: Int) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): IntPref {
-            return IntPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class FloatPrefProvider internal constructor(private val defaultValue: Float) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): FloatPref {
-            return FloatPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class LongPrefProvider internal constructor(private val defaultValue: Long) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): LongPref {
-            return LongPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class StringPrefProvider internal constructor(
-        private val defaultValue: String
-    ) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): StringPref {
-            return StringPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class StringOrNullPrefProvider internal constructor(
-        private val defaultValue: String?
-    ) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): StringOrNullPref {
-            return StringOrNullPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class StringSetPrefProvider internal constructor(
-        private val defaultValue: Set<String>
-    ) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): StringSetPref {
-            return StringSetPref(property.name, defaultValue)
-        }
-    }
-
-    @Deprecated(IMPLICIT_KEY_DEPRECATION, level = DeprecationLevel.WARNING)
-    protected inner class StringSetOrNullPrefProvider internal constructor(
-        private val defaultValue: Set<String>?
-    ) {
-        operator fun provideDelegate(thisRef: Any?, property: KProperty<*>): StringSetOrNullPref {
-            return StringSetOrNullPref(property.name, defaultValue)
-        }
-    }
-
-    companion object {
-        private const val IMPLICIT_KEY_DEPRECATION = "Please specify the key explicitly. " +
-                "The ability to implicitly use the property name as a key will be removed before " +
-                "Splitties 3.0.0 after its deprecation level is raised to error in next version."
-    }
+    companion object
 }
 
 sealed class PreferencesBase(val prefs: SharedPreferences) {

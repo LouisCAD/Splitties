@@ -86,7 +86,7 @@ inline fun Context.alertDialog(
 @Deprecated(
     message = "This function is limited to Activity only and its name is not explicit enough. " +
             "Use the alertDialog function instead.",
-    level = DeprecationLevel.ERROR,
+    level = HIDDEN,
     replaceWith = ReplaceWith(
         expression = "this.alertDialog(dialogConfig)",
         imports = ["splitties.alertdialog.alertDialog"]
