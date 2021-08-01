@@ -53,7 +53,7 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Change this library version`,
     `Request doc update confirmation`,
     `Request CHANGELOG update confirmation`,
-    `Commit "prepare for release" and tag`,
+    `Commit 'prepare for release' and tag`,
     `Push release to origin`,
     `Request PR submission`,
     `Wait for successful release by CI`,
@@ -61,7 +61,7 @@ enum class ReleaseStep { // Order of the steps, must be kept right.
     `Request PR merge`,
     `Request GitHub release publication`,
     `Change this library version back to a SNAPSHOT`,
-    `Commit "prepare next dev version"`,
+    `Commit 'prepare next dev version'`,
     `Push, at last`;
 }
 
@@ -206,7 +206,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         requestManualAction("Update the `CHANGELOG.md` for the impending release.")
         dir.resolve("CHANGELOG.md").checkChanged()
     }
-    `Commit "prepare for release" and tag` -> with(OngoingRelease) {
+    `Commit 'prepare for release' and tag` -> with(OngoingRelease) {
         git.commitAllFiles(commitMessage = "Prepare for release $newVersion")
         git.tagAnnotated(tag = tagOfVersionBeingReleased(), annotationMessage = "Version $newVersion")
     }
@@ -321,7 +321,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         versionsFile.writeText(nextDevVersion)
         printInfo("${versionsFile.path} has been edited with next development version ($nextDevVersion).")
     }
-    `Commit "prepare next dev version"` -> git.commitAllFiles(
+    `Commit 'prepare next dev version'` -> git.commitAllFiles(
         commitMessage = "Prepare next development version.".also {
             requestUserConfirmation(
                 yesNoQuestion = """Will commit all files with message "$it" Continue?"""
