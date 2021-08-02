@@ -3,14 +3,17 @@
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(InternalSplittiesApi::class)
 
 package splitties.resources
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.annotation.DimenRes
 import androidx.fragment.app.Fragment
+import splitties.experimental.InternalSplittiesApi
 import splitties.init.appCtx
 
 inline fun Context.dimen(@DimenRes dimenResId: Int): Float = resources.getDimension(dimenResId)
@@ -55,9 +58,21 @@ inline fun View.dimenPxOffset(@DimenRes dimenResId: Int) = context.dimenPxOffset
  */
 inline fun appDimenPxOffset(@DimenRes dimenResId: Int) = appCtx.dimenPxOffset(dimenResId)
 
+
+private fun TypedValue.checkOfDimensionType() {
+    require(type == TypedValue.TYPE_DIMENSION) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "dimension")
+    }
+}
+
+
 // Styled resources below
 
-fun Context.styledDimen(@AttrRes attr: Int): Float = dimen(resolveThemeAttribute(attr))
+fun Context.styledDimen(@AttrRes attr: Int): Float = withResolvedThemeAttribute(attr) {
+    checkOfDimensionType()
+    TypedValue.complexToDimension(data, resources.displayMetrics)
+}
+
 inline fun Fragment.styledDimen(@AttrRes attr: Int) = context!!.styledDimen(attr)
 inline fun View.styledDimen(@AttrRes attr: Int) = context.styledDimen(attr)
 /**
