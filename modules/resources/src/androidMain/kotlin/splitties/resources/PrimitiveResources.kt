@@ -27,6 +27,7 @@ inline fun View.bool(@BoolRes boolResId: Int) = context.bool(boolResId)
  */
 inline fun appBool(@BoolRes boolResId: Int) = appCtx.bool(boolResId)
 
+
 inline fun Context.int(@IntegerRes intResId: Int): Int = resources.getInteger(intResId)
 inline fun Fragment.int(@IntegerRes intResId: Int) = context!!.int(intResId)
 inline fun View.int(@IntegerRes intResId: Int) = context.int(intResId)
@@ -38,6 +39,7 @@ inline fun View.int(@IntegerRes intResId: Int) = context.int(intResId)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appInt(@IntegerRes intResId: Int) = appCtx.int(intResId)
+
 
 inline fun Context.intArray(
     @ArrayRes intArrayResId: Int
@@ -54,6 +56,7 @@ inline fun View.intArray(@ArrayRes intArrayResId: Int) = context.intArray(intArr
  */
 inline fun appIntArray(@ArrayRes intArrayResId: Int) = appCtx.intArray(intArrayResId)
 
+
 // Styled resources below
 
 fun Context.styledBool(@AttrRes attr: Int): Boolean = bool(resolveThemeAttribute(attr))
@@ -68,6 +71,7 @@ inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appStyledBool(@AttrRes attr: Int) = appCtx.styledBool(attr)
+
 
 fun Context.styledInt(@AttrRes attr: Int): Int = int(resolveThemeAttribute(attr))
 inline fun Fragment.styledInt(@AttrRes attr: Int) = context!!.styledInt(attr)
