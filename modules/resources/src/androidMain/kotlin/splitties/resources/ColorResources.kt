@@ -89,7 +89,22 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
  */
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
 
-fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList = colorSL(resolveThemeAttribute(attr))
+fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList = withResolvedThemeAttribute(attr) {
+    when (resourceId) {
+        0 -> {
+            require(type in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT) {
+                unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color")
+            }
+            ColorStateList.valueOf(data)
+        }
+        else -> {
+            require(type == TypedValue.TYPE_STRING && string.startsWith("res/color/")) {
+                unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color")
+            }
+            colorSL(resourceId)
+        }
+    }
+}
 
 inline fun Fragment.styledColorSL(@AttrRes attr: Int) = context!!.styledColorSL(attr)
 inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
