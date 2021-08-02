@@ -84,7 +84,12 @@ inline fun View.styledDimen(@AttrRes attr: Int) = context.styledDimen(attr)
  */
 inline fun appStyledDimen(@AttrRes attr: Int) = appCtx.styledDimen(attr)
 
-fun Context.styledDimenPxSize(@AttrRes attr: Int): Int = dimenPxSize(resolveThemeAttribute(attr))
+
+fun Context.styledDimenPxSize(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
+    checkOfDimensionType()
+    TypedValue.complexToDimensionPixelSize(data, resources.displayMetrics)
+}
+
 inline fun Fragment.styledDimenPxSize(@AttrRes attr: Int) = context!!.styledDimenPxSize(attr)
 inline fun View.styledDimenPxSize(@AttrRes attr: Int) = context.styledDimenPxSize(attr)
 /**
