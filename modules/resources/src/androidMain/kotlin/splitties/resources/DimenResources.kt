@@ -103,7 +103,10 @@ inline fun appStyledDimenPxSize(@AttrRes attr: Int) = appCtx.styledDimenPxSize(a
 
 fun Context.styledDimenPxOffset(
     @AttrRes attr: Int
-): Int = dimenPxOffset(resolveThemeAttribute(attr))
+): Int = withResolvedThemeAttribute(attr) {
+    checkOfDimensionType()
+    TypedValue.complexToDimensionPixelOffset(data, resources.displayMetrics)
+}
 
 inline fun Fragment.styledDimenPxOffset(@AttrRes attr: Int) = context!!.styledDimenPxOffset(attr)
 inline fun View.styledDimenPxOffset(@AttrRes attr: Int) = context.styledDimenPxOffset(attr)
