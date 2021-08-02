@@ -9,7 +9,6 @@ package splitties.resources
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build.VERSION.SDK_INT
 import android.util.TypedValue
 import android.view.View
@@ -63,8 +62,6 @@ inline fun View.colorSL(@ColorRes colorRes: Int) = context.colorSL(colorRes)
 inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
 
 // Styled resources below
-
-private inline val defaultColor get() = Color.RED
 
 @ColorInt
 fun Context.styledColor(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
