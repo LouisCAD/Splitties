@@ -31,6 +31,7 @@ fun Context.color(@ColorRes colorRes: Int): Int = if (SDK_INT >= 23) getColor(co
 
 inline fun Fragment.color(@ColorRes colorRes: Int) = context!!.color(colorRes)
 inline fun View.color(@ColorRes colorRes: Int) = context.color(colorRes)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -39,6 +40,7 @@ inline fun View.color(@ColorRes colorRes: Int) = context.color(colorRes)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appColor(@ColorRes colorRes: Int) = appCtx.color(colorRes)
+
 
 /**
  * @see [androidx.core.content.ContextCompat.getColorStateList]
@@ -52,6 +54,7 @@ fun Context.colorSL(@ColorRes colorRes: Int): ColorStateList {
 
 inline fun Fragment.colorSL(@ColorRes colorRes: Int) = context!!.colorSL(colorRes)
 inline fun View.colorSL(@ColorRes colorRes: Int) = context.colorSL(colorRes)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -60,6 +63,7 @@ inline fun View.colorSL(@ColorRes colorRes: Int) = context.colorSL(colorRes)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
+
 
 // Styled resources below
 
@@ -77,6 +81,8 @@ fun Context.styledColor(@AttrRes attr: Int): Int = withResolvedThemeAttribute(at
 
 inline fun Fragment.styledColor(@AttrRes attr: Int) = context!!.styledColor(attr)
 inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
+
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -105,6 +111,7 @@ fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList = withResolvedThem
 
 inline fun Fragment.styledColorSL(@AttrRes attr: Int) = context!!.styledColorSL(attr)
 inline fun View.styledColorSL(@AttrRes attr: Int) = context.styledColorSL(attr)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
