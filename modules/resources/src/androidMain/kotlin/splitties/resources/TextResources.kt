@@ -180,7 +180,7 @@ inline fun appStrArray(@ArrayRes stringResId: Int) = appCtx.strArray(stringResId
 
 // Styled resources below
 
-fun Context.styledTxt(@AttrRes attr: Int): CharSequence? = txt(resolveThemeAttribute(attr))
+fun Context.styledTxt(@AttrRes attr: Int): CharSequence = txt(resolveThemeAttribute(attr))
 inline fun Fragment.styledTxt(@AttrRes attr: Int) = context!!.styledTxt(attr)
 inline fun View.styledTxt(@AttrRes attr: Int) = context.styledTxt(attr)
 /**
@@ -192,7 +192,7 @@ inline fun View.styledTxt(@AttrRes attr: Int) = context.styledTxt(attr)
  */
 inline fun appStyledTxt(@AttrRes attr: Int) = appCtx.styledTxt(attr)
 
-fun Context.styledStr(@AttrRes attr: Int): String? = str(resolveThemeAttribute(attr))
+fun Context.styledStr(@AttrRes attr: Int): String = str(resolveThemeAttribute(attr))
 inline fun Fragment.styledStr(@AttrRes attr: Int) = context!!.styledStr(attr)
 inline fun View.styledStr(@AttrRes attr: Int) = context.styledStr(attr)
 /**
@@ -207,7 +207,7 @@ inline fun appStyledStr(@AttrRes attr: Int) = appCtx.styledStr(attr)
 fun Context.styledStr(
     @AttrRes attr: Int,
     vararg formatArgs: Any?
-): String? = str(resolveThemeAttribute(attr), *formatArgs)
+): String = str(resolveThemeAttribute(attr), *formatArgs)
 
 inline fun Fragment.styledStr(
     @AttrRes attr: Int,
@@ -233,7 +233,7 @@ inline fun appStyledStr(
 
 fun Context.styledTxtArray(
     @AttrRes attr: Int
-): Array<out CharSequence>? = txtArray(resolveThemeAttribute(attr))
+): Array<out CharSequence> = txtArray(resolveThemeAttribute(attr))
 
 inline fun Fragment.styledTxtArray(@AttrRes attr: Int) = context!!.styledTxtArray(attr)
 inline fun View.styledTxtArray(@AttrRes attr: Int) = context.styledTxtArray(attr)
