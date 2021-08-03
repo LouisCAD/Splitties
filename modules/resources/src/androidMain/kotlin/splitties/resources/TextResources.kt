@@ -22,6 +22,7 @@ import splitties.init.appCtx
 inline fun Context.txt(@StringRes stringResId: Int): CharSequence = resources.getText(stringResId)
 inline fun Fragment.txt(@StringRes stringResId: Int) = context!!.txt(stringResId)
 inline fun View.txt(@StringRes stringResId: Int) = context.txt(stringResId)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -61,6 +62,7 @@ inline fun appStr(
 inline fun Context.str(@StringRes stringResId: Int): String = resources.getString(stringResId)
 inline fun Fragment.str(@StringRes stringResId: Int) = context!!.str(stringResId)
 inline fun View.str(@StringRes stringResId: Int) = context.str(stringResId)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -158,6 +160,7 @@ inline fun Context.txtArray(
 
 inline fun Fragment.txtArray(@ArrayRes stringResId: Int) = context!!.txtArray(stringResId)
 inline fun View.txtArray(@ArrayRes stringResId: Int) = context.txtArray(stringResId)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -173,6 +176,7 @@ inline fun Context.strArray(
 
 inline fun Fragment.strArray(@ArrayRes stringResId: Int) = context!!.strArray(stringResId)
 inline fun View.strArray(@ArrayRes stringResId: Int) = context.strArray(stringResId)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -197,6 +201,7 @@ fun Context.styledTxt(@AttrRes attr: Int): CharSequence = withResolvedThemeAttri
 
 inline fun Fragment.styledTxt(@AttrRes attr: Int) = context!!.styledTxt(attr)
 inline fun View.styledTxt(@AttrRes attr: Int) = context.styledTxt(attr)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -214,6 +219,7 @@ fun Context.styledStr(@AttrRes attr: Int): String = withResolvedThemeAttribute(a
 
 inline fun Fragment.styledStr(@AttrRes attr: Int) = context!!.styledStr(attr)
 inline fun View.styledStr(@AttrRes attr: Int) = context.styledStr(attr)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
@@ -222,6 +228,7 @@ inline fun View.styledStr(@AttrRes attr: Int) = context.styledStr(attr)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appStyledStr(@AttrRes attr: Int) = appCtx.styledStr(attr)
+
 
 fun Context.styledStr(
     @AttrRes attr: Int,
@@ -256,12 +263,14 @@ inline fun appStyledStr(
     vararg formatArgs: Any?
 ) = appCtx.styledStr(attr, *formatArgs)
 
+
 fun Context.styledTxtArray(
     @AttrRes attr: Int
 ): Array<out CharSequence> = txtArray(resolveThemeAttribute(attr))
 
 inline fun Fragment.styledTxtArray(@AttrRes attr: Int) = context!!.styledTxtArray(attr)
 inline fun View.styledTxtArray(@AttrRes attr: Int) = context.styledTxtArray(attr)
+
 /**
  * Use this method for non configuration dependent resources when you don't have a [Context]
  * or when you're calling it from an Activity or a Fragment member (as the Context is not
