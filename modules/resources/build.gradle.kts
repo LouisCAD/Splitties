@@ -20,9 +20,11 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(AndroidX.annotation)
+            api(splitties("experimental"))
             compileOnly(AndroidX.fragment)
             implementation(splitties("appctx"))
             implementation(splitties("mainthread"))
+            implementation(splitties("exceptions"))
         }
     }
 }
