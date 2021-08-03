@@ -3,16 +3,20 @@
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(InternalSplittiesApi::class)
 
 package splitties.resources
 
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import splitties.experimental.InternalSplittiesApi
 import splitties.init.appCtx
 
 inline fun Context.txt(@StringRes stringResId: Int): CharSequence = resources.getText(stringResId)
@@ -178,9 +182,19 @@ inline fun View.strArray(@ArrayRes stringResId: Int) = context.strArray(stringRe
  */
 inline fun appStrArray(@ArrayRes stringResId: Int) = appCtx.strArray(stringResId)
 
+private fun TypedValue.checkOfStringType() {
+    require(type == TypedValue.TYPE_STRING) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "string")
+    }
+}
+
 // Styled resources below
 
-fun Context.styledTxt(@AttrRes attr: Int): CharSequence = txt(resolveThemeAttribute(attr))
+fun Context.styledTxt(@AttrRes attr: Int): CharSequence = withResolvedThemeAttribute(attr) {
+    checkOfStringType()
+    string
+}
+
 inline fun Fragment.styledTxt(@AttrRes attr: Int) = context!!.styledTxt(attr)
 inline fun View.styledTxt(@AttrRes attr: Int) = context.styledTxt(attr)
 /**
