@@ -3,16 +3,19 @@
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(InternalSplittiesApi::class)
 
 package splitties.resources
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
 import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
+import splitties.experimental.InternalSplittiesApi
 import splitties.init.appCtx
 
 inline fun Context.bool(@BoolRes boolResId: Int): Boolean = resources.getBoolean(boolResId)
@@ -59,7 +62,16 @@ inline fun appIntArray(@ArrayRes intArrayResId: Int) = appCtx.intArray(intArrayR
 
 // Styled resources below
 
-fun Context.styledBool(@AttrRes attr: Int): Boolean = bool(resolveThemeAttribute(attr))
+fun Context.styledBool(@AttrRes attr: Int): Boolean = withResolvedThemeAttribute(attr) {
+    require(type == TypedValue.TYPE_INT_BOOLEAN) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "bool")
+    }
+    when (val value = data) {
+        0 -> false
+        1 -> true
+        else -> error("Expected 0 or 1 but got $value")
+    }
+}
 
 inline fun Fragment.styledBool(@AttrRes attr: Int) = context!!.styledBool(attr)
 inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
