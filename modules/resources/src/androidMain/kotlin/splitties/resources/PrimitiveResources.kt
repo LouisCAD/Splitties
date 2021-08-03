@@ -85,7 +85,13 @@ inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
 inline fun appStyledBool(@AttrRes attr: Int) = appCtx.styledBool(attr)
 
 
-fun Context.styledInt(@AttrRes attr: Int): Int = int(resolveThemeAttribute(attr))
+fun Context.styledInt(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
+    require(type == TypedValue.TYPE_INT_DEC || type == TypedValue.TYPE_INT_HEX) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "int")
+    }
+    data
+}
+
 inline fun Fragment.styledInt(@AttrRes attr: Int) = context!!.styledInt(attr)
 inline fun View.styledInt(@AttrRes attr: Int) = context.styledInt(attr)
 /**
