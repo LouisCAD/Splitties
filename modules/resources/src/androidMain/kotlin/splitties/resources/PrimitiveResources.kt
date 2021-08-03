@@ -3,16 +3,19 @@
  */
 
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(InternalSplittiesApi::class)
 
 package splitties.resources
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.View
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
 import androidx.annotation.IntegerRes
 import androidx.fragment.app.Fragment
+import splitties.experimental.InternalSplittiesApi
 import splitties.init.appCtx
 
 inline fun Context.bool(@BoolRes boolResId: Int): Boolean = resources.getBoolean(boolResId)
@@ -27,6 +30,7 @@ inline fun View.bool(@BoolRes boolResId: Int) = context.bool(boolResId)
  */
 inline fun appBool(@BoolRes boolResId: Int) = appCtx.bool(boolResId)
 
+
 inline fun Context.int(@IntegerRes intResId: Int): Int = resources.getInteger(intResId)
 inline fun Fragment.int(@IntegerRes intResId: Int) = context!!.int(intResId)
 inline fun View.int(@IntegerRes intResId: Int) = context.int(intResId)
@@ -38,6 +42,7 @@ inline fun View.int(@IntegerRes intResId: Int) = context.int(intResId)
  * For theme dependent resources, the application theme will be implicitly used.
  */
 inline fun appInt(@IntegerRes intResId: Int) = appCtx.int(intResId)
+
 
 inline fun Context.intArray(
     @ArrayRes intArrayResId: Int
@@ -54,9 +59,19 @@ inline fun View.intArray(@ArrayRes intArrayResId: Int) = context.intArray(intArr
  */
 inline fun appIntArray(@ArrayRes intArrayResId: Int) = appCtx.intArray(intArrayResId)
 
+
 // Styled resources below
 
-fun Context.styledBool(@AttrRes attr: Int): Boolean = bool(resolveThemeAttribute(attr))
+fun Context.styledBool(@AttrRes attr: Int): Boolean = withResolvedThemeAttribute(attr) {
+    require(type == TypedValue.TYPE_INT_BOOLEAN) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "bool")
+    }
+    when (val value = data) {
+        0 -> false
+        1 -> true
+        else -> error("Expected 0 or 1 but got $value")
+    }
+}
 
 inline fun Fragment.styledBool(@AttrRes attr: Int) = context!!.styledBool(attr)
 inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
@@ -69,7 +84,14 @@ inline fun View.styledBool(@AttrRes attr: Int) = context.styledBool(attr)
  */
 inline fun appStyledBool(@AttrRes attr: Int) = appCtx.styledBool(attr)
 
-fun Context.styledInt(@AttrRes attr: Int): Int = int(resolveThemeAttribute(attr))
+
+fun Context.styledInt(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
+    require(type == TypedValue.TYPE_INT_DEC || type == TypedValue.TYPE_INT_HEX) {
+        unexpectedThemeAttributeTypeErrorMessage(expectedKind = "int")
+    }
+    data
+}
+
 inline fun Fragment.styledInt(@AttrRes attr: Int) = context!!.styledInt(attr)
 inline fun View.styledInt(@AttrRes attr: Int) = context.styledInt(attr)
 /**

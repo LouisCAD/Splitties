@@ -6,10 +6,9 @@
 
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
-import java.util.Properties
 
 object ProjectVersions {
-    const val androidSdk = 29
+    const val androidSdk = 30
 }
 
 val Project.thisLibraryVersion: String

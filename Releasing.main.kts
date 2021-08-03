@@ -7,7 +7,7 @@
 @file:Repository("https://repo.maven.apache.org/maven2/")
 //@file:Repository("https://oss.sonatype.org/content/repositories/snapshots")
 //@file:Repository("file:///Users/louiscad/.m2/repository")
-@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.2")
+@file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.3")
 
 import Releasing_main.CiReleaseFailureCause.*
 import java.io.File
@@ -288,9 +288,16 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
     }
     `Request PR merge` -> {
         requestManualAction("Merge the pull request for the new version on GitHub.")
+        printInfo("Now that the pull request has been merged into the release branch on GitHub,")
+        printInfo("we are going to update our local release branch")
+        requestUserConfirmation("Ready?")
+        git.updateBranchFromOrigin(targetBranch = "release")
     }
     `Request GitHub release publication` -> {
-        requestManualAction("Publish release on GitHub with the changelog.")
+        printInfo("It's now time to publish the release on GitHub, so people get notified.")
+        printInfo("Copy the section of this release from the CHANGELOG file, and head over to the following url to proceed:")
+        printInfo("https://github.com/LouisCAD/Splitties/releases/new")
+        requestManualAction("Publish the release ${OngoingRelease.newVersion} on GitHub with the changelog.")
     }
     `Change this library version back to a SNAPSHOT` -> {
         val newVersion = Version(OngoingRelease.newVersion)

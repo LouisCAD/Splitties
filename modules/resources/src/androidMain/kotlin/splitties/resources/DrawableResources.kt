@@ -52,6 +52,7 @@ inline fun View.drawable(@DrawableRes drawableResId: Int) = context.drawable(dra
  */
 inline fun appDrawable(@DrawableRes drawableResId: Int) = appCtx.drawable(drawableResId)
 
+
 // Styled resources below
 
 fun Context.styledDrawable(@AttrRes attr: Int): Drawable? = drawable(resolveThemeAttribute(attr))

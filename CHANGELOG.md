@@ -1,5 +1,25 @@
 # Change log for Splitties
 
+## Version 3.0.0-rc02 (2021-08-03)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+### Resources
+
+#### Fixes
+
+By resolving a subtle issue that could break IDE preview, the version 3.0.0-alpha07 of Splitties also broke the `styledColor` function and some other in come cases. If you had a color theme attribute and had a theme that was setting its value, pointing to another color resource, you'd be in luck. However, if the color value was set inline, right into the theme, it'd crash ([as you can see in this issue](https://github.com/LouisCAD/Splitties/issues/258)). This release fixes this kind of problem for all the
+affected functions:
+- `styledColor`
+- `styledColorSL`
+- `styledDimen`
+- `styledDimenPxSize`
+- `styledDimenPxOffset`
+- `styledBool`
+- `styledInt`
+- `styledTxt`
+- `styledStr`
+
 ## Version 3.0.0-rc01 (2021-08-01)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
