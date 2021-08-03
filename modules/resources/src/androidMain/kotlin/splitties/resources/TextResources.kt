@@ -206,7 +206,12 @@ inline fun View.styledTxt(@AttrRes attr: Int) = context.styledTxt(attr)
  */
 inline fun appStyledTxt(@AttrRes attr: Int) = appCtx.styledTxt(attr)
 
-fun Context.styledStr(@AttrRes attr: Int): String = str(resolveThemeAttribute(attr))
+
+fun Context.styledStr(@AttrRes attr: Int): String = withResolvedThemeAttribute(attr) {
+    checkOfStringType()
+    string.toString()
+}
+
 inline fun Fragment.styledStr(@AttrRes attr: Int) = context!!.styledStr(attr)
 inline fun View.styledStr(@AttrRes attr: Int) = context.styledStr(attr)
 /**
@@ -221,7 +226,13 @@ inline fun appStyledStr(@AttrRes attr: Int) = appCtx.styledStr(attr)
 fun Context.styledStr(
     @AttrRes attr: Int,
     vararg formatArgs: Any?
-): String = str(resolveThemeAttribute(attr), *formatArgs)
+): String = withResolvedThemeAttribute(attr) {
+    checkOfStringType()
+    val locale = resources.configuration.let {
+        if (SDK_INT >= 24) it.locales[0] else @Suppress("deprecation") it.locale
+    }
+    String.format(locale, string.toString(), *formatArgs)
+}
 
 inline fun Fragment.styledStr(
     @AttrRes attr: Int,
