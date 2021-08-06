@@ -192,7 +192,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
             } while (true)
         }.also {
             if (askIfYes(
-                    yesNoQuestion = "Apart from the changelog, are there other files that " +
+                    yesNoQuestion = "Apart from the changelog, are there any other files that " +
                             "need to be updated for this new release?"
                 )
             ) {
