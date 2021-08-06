@@ -198,6 +198,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 ## Download
 
 ### Gradle instructions
+
 Make sure you have `mavenCentral()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
