@@ -10,8 +10,9 @@ To create and show a
 just call `toast(…)` (for breakfast) or `longToast(…)` (for breakslow) with
 either a string resource id or a `CharSequence`.
 
-## Download
+## Setup
 
-```groovy
-implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
-```
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.toast`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-toast`.

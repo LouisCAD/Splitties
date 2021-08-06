@@ -4,6 +4,13 @@
 
 Supported platforms: **Linux** (x64), **MingW (x64)**, **macOS** (x64), **iOS** (arm32, arm64 & x64), **JS**, **JVM** (including Android).
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.coroutines`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-coroutines`.
+
 ## Offering a value to a `SendChannel` (including inside `callbackFlow`) safely
 
 Calling the `offer` function in `SendChannel` as it can crash your program if the channel is closed,
@@ -179,10 +186,4 @@ fun doStuff(ui: SomeUi) { // Can run on main/UI thread.
     val thing = expensiveThing() // Will suspend until DoHeavyInstantiation() is done.
     ui.displaySomeDataNicely(thing)
 }
-```
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
 ```

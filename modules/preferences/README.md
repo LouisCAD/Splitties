@@ -13,6 +13,13 @@ and can support storage on device encrypted storage for devices
 supporting Direct Boot. See [the source code](
 /src/androidMain/kotlin/splitties/preferences) for more information.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.preferences`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-preferences`.
+
 ## Table of contents
 
 * [Defining the preferences properties in an object](#defining-the-preferences-properties-in-an-object)
@@ -144,9 +151,3 @@ instantiated singleton.
 If you have non suspending functions that would need to access the preferences,
 you have two options: pass your `Preferences` subclass as a parameter, or make
 it a `suspend` function.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
-```

@@ -5,6 +5,13 @@ with support for themed attributes.*
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.resources`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-resources`.
+
 ## Content
 
 All the extensions of this module are currently available on
@@ -78,8 +85,3 @@ The `resolveThemeAttribute` extension function for `Context` takes a resource id
 type `R.attr` and returns its corresponding resource id as resolved from the current
 theme in the `Context`.
 
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
-```

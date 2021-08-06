@@ -4,6 +4,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsDslMaterial`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-dsl-material`.
+
 ## Table of contents
 
 * [Functions to instantiate Views and ViewGroups from Material Components](#functions-to-instantiate-views-and-viewgroups-from-material-components)
@@ -24,7 +31,6 @@ Supported platforms: **Android**.
   * [`bottomSheetBehavior`](#bottomsheetbehavior)
   * [Bottom sheet state extensions](#bottom-sheet-state-extensions)
 * [TextInputLayout helper](#textinputlayout-helper)
-* [Download](#download)
 
 ## Functions to instantiate Views and ViewGroups from Material Components
 
@@ -169,9 +175,3 @@ used for the `TextInputEditText` that it creates and adds to the layout.
 
 The id is required so the content of the user input is saved in instance
 state even if the host Activity is killed by the system.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
-```

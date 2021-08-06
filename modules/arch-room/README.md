@@ -4,6 +4,17 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+This dependency is not included in any of the [fun-packs](../../README.md#download),
+because many apps don't need Room, either because they use [SqlDelight](https://github.com/cashapp/sqldelight) or another database system,
+or because they don't need a database at all.
+
+Add it with [refreshVersions](https://github.com/jmfayard/refreshVersions):
+`Splitties.archRoom`.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-arch-room`.
+
 ## Content
 
 ### Room Database instantiation
@@ -18,9 +29,3 @@ application context, if you want to use a different context (e.g. to use
 
 The last parameter is a lambda with the db builder as receiver where you
 can things like migrations.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
-```

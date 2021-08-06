@@ -4,6 +4,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsAppcompat`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-appcompat`.
+
 ## Content
 
 ### Tooltip helpers
@@ -43,9 +50,3 @@ updates it when configuration changes so you can avoid restarting your
 `Activity` when the device rotates, goes into multi-window mode or undergoes
 any other window size related config change if the rest of your content
 handles this without needing to be recreated.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
-```

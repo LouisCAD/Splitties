@@ -21,6 +21,13 @@ Splitties Views DSL has been designed to be:
 
 That's 7 key considerations, which we believe are all necessary to make a great library.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsDsl`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-dsl`.
+
 ## What about Jetpack Compose?
 
 We think that Jetpack Compose is really great and is definitely the future of UI development.
@@ -755,9 +762,3 @@ user interfaces right from the IDE.
 * [Material](../views-dsl-material) provides extensions for Material Components
 * [RecyclerView](../views-dsl-recyclerview) provides extensions to have
 scrollbars and proper `itemView` layout parameters.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
-```

@@ -4,6 +4,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsDslAppcompat`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-dsl-appcompat`.
+
 ## How AppCompat works with xml
 
 When using an AppCompat theme, the `LayoutInflater` replaces the platform
@@ -82,9 +89,3 @@ of the `provider` tag, specify the `android:process` value to the one of your no
 process, and finally changed the `android:name` xml attribute of the `meta-data` tag to the initializer you copied in the first step.
 
 Be sure to test it to make sure you have set it up properly.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
-```

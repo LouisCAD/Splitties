@@ -4,6 +4,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.appctx`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-appctx`.
+
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
 provides two read-only properties:
 
@@ -76,9 +83,3 @@ Call `injectAsAppCtx()` in the `init` block (or constructor) of your custom `App
 If you're making a library, an alternative solution that will not require further configuration on
 the app side is to declare your own `ContentProvider` for that process and call
 `injectAsAppCtx()` from its `onCreate` function.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
-```
