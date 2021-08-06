@@ -1,5 +1,21 @@
 # Change log for Splitties
 
+## [Unreleased] Version 3.0.0-rc03 (2021-08-03)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+### App Context
+
+#### Added
+
+The `AppCtxInitializer` class is now public, so you can put it in the list of dependencies of your own [AndroidX App Startup](https://developer.android.com/topic/libraries/app-startup) Initializer in case it relies on `appCtx` to be initialized.
+
+### Resources
+
+#### Fix
+
+In 3.0.0-rc02, changes in `styledColorSL` made it break when the theme attribute was pointing to a color resource that had no selector (i.e. a non inlined plain color code like `#00bbff`). This has now been fixed, and the code also got simpler.
+
 ## Version 3.0.0-rc02 (2021-08-03)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
