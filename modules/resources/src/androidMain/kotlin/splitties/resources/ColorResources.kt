@@ -69,12 +69,9 @@ inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
 
 @ColorInt
 fun Context.styledColor(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
-    when (type) {
-        in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT -> data
-        TypedValue.TYPE_STRING -> {
-            if (string.startsWith("res/color/")) color(resourceId)
-            else illegalArg(unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color"))
-        }
+    when  {
+        type in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT -> data
+        type == TypedValue.TYPE_STRING && string.startsWith("res/color/") -> color(resourceId)
         else -> illegalArg(unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color"))
     }
 }
@@ -93,19 +90,12 @@ inline fun View.styledColor(@AttrRes attr: Int) = context.styledColor(attr)
 inline fun appStyledColor(@AttrRes attr: Int) = appCtx.styledColor(attr)
 
 fun Context.styledColorSL(@AttrRes attr: Int): ColorStateList = withResolvedThemeAttribute(attr) {
-    when (resourceId) {
-        0 -> {
-            require(type in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT) {
-                unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color")
-            }
-            ColorStateList.valueOf(data)
-        }
-        else -> {
-            require(type == TypedValue.TYPE_STRING && string.startsWith("res/color/")) {
-                unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color")
-            }
-            colorSL(resourceId)
-        }
+    if (type in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT) {
+        ColorStateList.valueOf(data)
+    } else if (type == TypedValue.TYPE_STRING && string.startsWith("res/color/")) {
+        colorSL(resourceId)
+    } else {
+        illegalArg(errorMessage = unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color"))
     }
 }
 

@@ -20,6 +20,7 @@ kotlin {
         androidMain.dependencies {
             api(AndroidX.annotation)
             implementation(AndroidX.startup.runtime)
+            implementation(splitties("experimental"))
         }
     }
 }
