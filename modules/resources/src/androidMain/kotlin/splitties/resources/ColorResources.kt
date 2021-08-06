@@ -69,12 +69,9 @@ inline fun appColorSL(@ColorRes colorRes: Int) = appCtx.colorSL(colorRes)
 
 @ColorInt
 fun Context.styledColor(@AttrRes attr: Int): Int = withResolvedThemeAttribute(attr) {
-    when (type) {
-        in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT -> data
-        TypedValue.TYPE_STRING -> {
-            if (string.startsWith("res/color/")) color(resourceId)
-            else illegalArg(unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color"))
-        }
+    when  {
+        type in TypedValue.TYPE_FIRST_COLOR_INT..TypedValue.TYPE_LAST_COLOR_INT -> data
+        type == TypedValue.TYPE_STRING && string.startsWith("res/color/") -> color(resourceId)
         else -> illegalArg(unexpectedThemeAttributeTypeErrorMessage(expectedKind = "color"))
     }
 }
