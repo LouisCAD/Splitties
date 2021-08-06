@@ -81,6 +81,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 ----
 
 ## Overview
+
 - [System interaction (Android only)](#system-interaction-android-only)
 - [User input and user interface related splits](#user-input-and-user-interface-related-splits)
   - [Small messages (Android only)](#small-messages-android-only)
@@ -98,17 +99,20 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - [Legacy (Android only)](#legacy-android-only)
 
 ## System interaction (Android only):
+
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[System Services:](modules/systemservices)** No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
 
 ## User input and user interface related splits:
 
 ### Small messages (Android only)
+
 - **[Snackbar:](modules/snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
 - **[Toast:](modules/toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
   `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
 
 ### Dialogs (Android only)
+
 - **[Alert Dialog:](modules/alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](modules/alertdialog-appcompat)** AppCompat version of
   [Alert Dialog](modules/alertdialog).
@@ -118,9 +122,11 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
   [Alert Dialog AppCompat](modules/alertdialog-appcompat).
 
 ### System UI (Android only)
+
 - **[Dangerous permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
 
 ### Extensions for Views (Android only)
+
 - **[Views:](modules/views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](modules/views-appcompat)** AppCompat extension of [Views](modules/views). Includes helpers for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](modules/views-cardview)** CardView extension of [Views](modules/views). Provides a `contentPadding` property.
@@ -130,6 +136,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Views Coroutines:](modules/views-coroutines)** Android Views + Kotlin coroutines.
 
 ### Creating View based UIs with the power of Kotlin (Android only)
+
 - **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
 - **[Views DSL AppCompat:](modules/views-dsl-appcompat)** AppCompat extension of [Views DSL](modules/views-dsl).
 - **[Views DSL ConstraintLayout:](modules/views-dsl-constraintlayout)** ConstraintLayout extension of
@@ -140,6 +147,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Views DSL RecyclerView:](modules/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](modules/views-dsl).
 
 ### Various UI utilities (Android only)
+
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
   with support for themed attributes.
 - **[Dimensions:](modules/dimensions)** Android `dp` extensions for `View` and `Context`.
@@ -151,12 +159,14 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Typesafe RecyclerView:](modules/typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of `RecyclerView`.
 
 ### Material Design helpers (Android only)
+
 - **[Material Colors:](modules/material-colors)** [2014 Material Design color palettes](
   https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
   https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 
 ## Inter and cross app communication: Activities, Fragments, Intents, and Bundles
+
 - **[Activities:](modules/activities)** Start activities with minimal boilerplate.
 - **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
   and create `PendingIntent`s the clean and easy way.
@@ -168,6 +178,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
   extras and more.
 
 ## Concurrency (Multiplatform)
+
 - **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
 - **[Lifecycle Coroutines (Android only):](modules/lifecycle-coroutines)** Coroutines integration with AndroidX
   [`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
@@ -177,19 +188,23 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Checked Lazy (Android only):](modules/checkedlazy)** `mainThreadLazy` that checks property access on
 
 ## Data persistence (Multiplatform)
+
 - **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` and macOS/iOS/watchOS `NSUserDefaults`. **NOTE:** For Android, consider using [AndroidX DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
 - **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform
   transactions in Kotlin.
 
 ## Utilities (Multiplatform)
+
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
 
 ## Debugging (Android only)
+
 - **[Stetho init:](modules/stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
   builds, without writing any code!
 
 ## Legacy (Android only)
+
 - **[Exceptions:](modules/exceptions)** `unexpectedValue(…)`, `unsupportedAction(…)` and similar
   functions that return `Nothing`.
 - **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
@@ -400,6 +415,7 @@ allProjects {
 ```
 
 ## New versions notifications
+
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
 https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository
 ).
@@ -408,6 +424,7 @@ However, if you use [refreshVersions](https://github.com/jmfayard/refreshVersion
 you'll also learn about updates when you run the `refreshVersions` task right in the `versions.properties` file.
 
 ## Improve this library
+
 If you want this library to have **a new feature or an improvement** in a
 new or in an existing module, please, open an issue or vote/comment a
 similar one first, so it can be discussed.
@@ -427,6 +444,7 @@ You can also join the discussion on Kotlin's Slack in the
 [here](http://slack.kotlinlang.org/)).
 
 ## What is a split
+
 A "split" is a module of the Splitties library that you can add as a
 dependency. It only includes the required transitive dependencies.
 This allows you to only add what you need in your app or library module,
@@ -456,5 +474,6 @@ https://medium.com/@CodingDoug/kotlin-android-a-brass-tacks-experiment-part-3-84
 ). It is fair to say that Views DSL has its root in this experiment.
 
 ## License
+
 This library is published under Apache License version 2.0 which you can see
 [here](https://github.com/LouisCAD/Splitties/blob/master/LICENSE).
