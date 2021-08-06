@@ -420,7 +420,7 @@ can be discussed.
 
 **If you find a bug**, please open an issue with all the important details.
 If you know a simple fix that is not API breaking and that does not have
-side-effects that need to be considered, you may also directly submit a PR.
+side effects that need to be considered, you may also directly submit a PR.
 
 You can also join the discussion on Kotlin's Slack in the
 [#splitties](https://kotlinlang.slack.com/messages/splitties) channel (you can get an invitation
