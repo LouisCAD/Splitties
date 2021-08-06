@@ -217,7 +217,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 Make sure you have `mavenCentral()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
-To make is easier to take advantage of the contents of Splitties for your Android projects, there
+To make it easier to take advantage of the contents of Splitties for your Android projects, there
 are grouping artifacts that include _most_ splits.
 
 #### Android base
