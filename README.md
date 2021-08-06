@@ -207,6 +207,8 @@ are grouping artifacts that include _most_ splits.
 
 #### Android base
 
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.androidBase` or `Splitties.pack.androidBaseWithViewsDsl`.
+
 These 2 packs don't include AppCompat and are suitable for WearOS apps.
 
 Includes the following modules:
@@ -255,6 +257,8 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-view
 
 #### Android AppCompat
 
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.appCompat` or `Splitties.pack.appCompatWithViewsDsl`.
+
 These 2 packs include the [Android base](#android-base) pack, and the following modules:
 - [alertdialog-appcompat](modules/alertdialog-appcompat)
 - [alertdialog-appcompat-coroutines](modules/alertdialog-appcompat-coroutines)
@@ -278,6 +282,8 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with
 ```
 
 #### Android Material Components
+
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.androidMdc` or `Splitties.pack.androidMdcWithViewsDsl`.
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
 - [alertdialog-material](modules/alertdialog-material)
@@ -306,70 +312,72 @@ implementation("com.louiscad.splitties:splitties-fun-pack-android-material-compo
 
 #### All the artifacts (47)
 
-Add the version of the library to not repeat yourself if you use multiple
-artifacts, and make sure their versions are in sync by adding an ext property
-into your root project `build.gradle` file:
-```groovy
-allProjects {
-    ext {
-        splitties_version = "3.0.0-rc03"
-    }
-}
-```
+Since you might use multiple artifacts, to not repeat yourself, we recommend you to put the version in a central place,
+so it's little effort to upgrade to newer versions.
+
+The best way to do this is to use [refreshVersions](https://github.com/jmfayard/refreshVersions),
+it has built-in dependency notations for `Splitties`, and also many other popular and qualitative libraries,
+like kotlinx, AndroidX, libraries from Square/CashApp and libraries from Google.
+
+Most importantly, with it, running the `refreshVersions` task will show you the available updates in a matter of seconds,
+for all of your dependencies, right into the `versions.properties`, in a way that makes upgrading effortless,
+even with just the keyboard.
+
+FYI, the current latest release of Splitties is the version `3.0.0-rc03`
 
 <details>
 <summary>
-<b>Here are all the artifacts of this library. Just use the ones you need. (Click to expand)</b>
+<b>Here are the maven coordinates of all the artifacts of this library, for reference. (Click to expand)</b>
 </summary>
 
-```kts
-implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
-implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
-implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
-implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
-implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
-implementation("com.louiscad.splitties:splitties-permissions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
-implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
-implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
-implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
-implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
-implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
+```
+com.louiscad.splitties:splitties-activities
+com.louiscad.splitties:splitties-alertdialog
+com.louiscad.splitties:splitties-alertdialog-appcompat
+com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines
+com.louiscad.splitties:splitties-appctx
+com.louiscad.splitties:splitties-arch-lifecycle
+com.louiscad.splitties:splitties-arch-room
+com.louiscad.splitties:splitties-bitflags
+com.louiscad.splitties:splitties-bundle
+com.louiscad.splitties:splitties-checkedlazy
+com.louiscad.splitties:splitties-collections
+com.louiscad.splitties:splitties-coroutines
+com.louiscad.splitties:splitties-dimensions
+com.louiscad.splitties:splitties-exceptions
+com.louiscad.splitties:splitties-fragments
+com.louiscad.splitties:splitties-fragmentargs
+com.louiscad.splitties:splitties-intents
+com.louiscad.splitties:splitties-lifecycle-coroutines
+com.louiscad.splitties:splitties-mainhandler
+com.louiscad.splitties:splitties-mainthread
+com.louiscad.splitties:splitties-material-colors
+com.louiscad.splitties:splitties-material-lists
+com.louiscad.splitties:splitties-permissions
+com.louiscad.splitties:splitties-preferences
+com.louiscad.splitties:splitties-resources
+com.louiscad.splitties:splitties-snackbar
+com.louiscad.splitties:splitties-stetho-init
+com.louiscad.splitties:splitties-systemservices
+com.louiscad.splitties:splitties-toast
+com.louiscad.splitties:splitties-typesaferecyclerview
+com.louiscad.splitties:splitties-views
+com.louiscad.splitties:splitties-views-appcompat
+com.louiscad.splitties:splitties-views-cardview
+com.louiscad.splitties:splitties-views-coroutines
+com.louiscad.splitties:splitties-views-coroutines-material
+com.louiscad.splitties:splitties-views-dsl
+com.louiscad.splitties:splitties-views-dsl-appcompat
+com.louiscad.splitties:splitties-views-dsl-constraintlayout
+com.louiscad.splitties:splitties-views-dsl-coordinatorlayout
+com.louiscad.splitties:splitties-views-dsl-ide-preview
+com.louiscad.splitties:splitties-views-dsl-material
+com.louiscad.splitties:splitties-views-dsl-recyclerview
+com.louiscad.splitties:splitties-views-material
+com.louiscad.splitties:splitties-views-recyclerview
+com.louiscad.splitties:splitties-views-selectable
+com.louiscad.splitties:splitties-views-selectable-appcompat
+com.louiscad.splitties:splitties-views-selectable-constraintlayout
 ```
 
 </details>
@@ -378,8 +386,8 @@ implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayo
 
 Let's say you need to try a new feature or a fix that did not make it to a release yet:
 
-You can grab it in the snapshot version by adding the corresponding repository and
-changing the library version to the dev version you need in your root project `build.gradle` file:
+You can grab it in the snapshot version by adding the corresponding repository as shown below, and
+changing the library version to the latest snapshot, `3.0.0-SNAPSHOT`:
 
 ```groovy
 allProjects {
@@ -388,9 +396,6 @@ allProjects {
         google() // Add sonatype snapshots repo below
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
-    ext {
-        splitties_version = '3.0.0-SNAPSHOT'
-    }
 }
 ```
 
@@ -398,6 +403,9 @@ allProjects {
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
 https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository
 ).
+
+However, if you use [refreshVersions](https://github.com/jmfayard/refreshVersions),
+you'll also learn about updates when you run the `refreshVersions` task right in the `versions.properties` file.
 
 ## Improve this library
 If you want this library to have **a new feature or an improvement** in a
