@@ -31,7 +31,7 @@ API 21 because they delegate to AndroidX's `ImageViewCompat`.
 ### ActionBar extensions
 
 The `configActionBar { … }` extension function for `AppCompatActivity`
-allows to easily setup the `supportActionBar`. If it is null, the passed
+allows to easily set up the `supportActionBar`. If it is null, the passed
 lambda is ignored, and an `AssertionError` is logged.
 
 The `showTitle`, `showHome`, `homeAsUp`, `useLogo` and `showCustomView` boolean
@@ -46,7 +46,7 @@ for portrait and landscape modes, but they are not updated when the
 configuration changes.
 
 `splitties.views.appcompat.Toolbar` extends it and
-updates it when configuration changes so you can avoid restarting your
-`Activity` when the device rotates, goes into multi-window mode or undergoes
-any other window size related config change if the rest of your content
+updates it when configuration changes, so you can avoid restarting your
+`Activity` when the device rotates, goes into multi-window mode,
+or undergoes any other window size related config change if the rest of your content
 handles this without needing to be recreated.

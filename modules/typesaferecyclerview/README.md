@@ -5,7 +5,7 @@
 
 Supported platforms: **Android**.
 
-This modules consists of two `ViewHolder` subclasses that make it typesafe,
+This module consists of two `ViewHolder` subclasses that make it typesafe,
 and easier to use for the common use case which is to bind a `ViewHolder` to a
 POJO (plain-old Java `Object`) or a POKA (plain-old Kotlin `Any`).
 See the sample to understand how it works.
