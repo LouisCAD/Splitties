@@ -85,3 +85,4 @@ The `resolveThemeAttribute` extension function for `Context` takes a resource id
 type `R.attr` and returns its corresponding resource id as resolved from the current
 theme in the `Context`.
 
+That means it won't work with theme attributes whose corresponding values in the given theme are declared inline (and unlike the `styledXxx` functions which support this case).
