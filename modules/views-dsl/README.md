@@ -125,7 +125,6 @@ probably already familiar to you._
     * [Redesign](#redesign)
     * [A/B Testing](#ab-testing)
 * [Additional modules](#additional-modules)
-* [Download](#download)
 
 ## The extensions
 
