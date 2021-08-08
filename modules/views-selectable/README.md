@@ -15,14 +15,15 @@ available on `FrameLayout` and all Views on API 23+. It defaults to
 `android.R.attr.selectableItemBackground`, showing visual feedback when the
 user selects the View (ripple effect on Lollipop and newer Android versions).
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsSelectable`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-selectable`.
+
 ## Usage
 
 Just use `SelectableLinearLayout` and `SelectableTextView` instead of
 `LinearLayout` and `TextView`, and change the `foregroundSelector`
 `Drawable` if the default doesn't suit your needs.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
-```

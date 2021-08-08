@@ -432,7 +432,7 @@ similar one first, so it can be discussed.
 **Documentation contributions** are also welcome.
 For typos or other small improvements, feel free to submit a PR
 (pull request) directly.
-For more significant doc contributions, please, open an issue first so it
+For more significant doc contributions, please open an issue first, so it
 can be discussed.
 
 **If you find a bug**, please open an issue with all the important details.
@@ -451,7 +451,7 @@ This allows you to only add what you need in your app or library module,
 so the final apk/ipa/app is as small as possible and doesn't include stuff not used
 by your app.
 
-Let's say you're build a Wear OS app using the Views DSL.
+Let's say you're building a Wear OS app using the Views DSL.
 Wear OS apps don't need AppCompat. Including it would be a waste of
 bandwidth and storage. The Views DSL core module relies on the Android
 SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat

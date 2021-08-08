@@ -21,6 +21,13 @@ Splitties Views DSL has been designed to be:
 
 That's 7 key considerations, which we believe are all necessary to make a great library.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsDsl`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-dsl`.
+
 ## What about Jetpack Compose?
 
 We think that Jetpack Compose is really great and is definitely the future of UI development.
@@ -118,7 +125,6 @@ probably already familiar to you._
     * [Redesign](#redesign)
     * [A/B Testing](#ab-testing)
 * [Additional modules](#additional-modules)
-* [Download](#download)
 
 ## The extensions
 
@@ -207,7 +213,7 @@ one for `Context`. Also, remember to make them inline to avoid lambda allocation
 
 #### Using styles defined in xml
 
-There are some times where you need to use an xml defined style,
+There are some times when you need to use an XML defined style,
 such as when using a style defined in AppCompat like `Widget_AppCompat_Button_Colored`.
 
 Splitties makes it really easy to use xml styles defined in Android, AppCompat and Material Components.
@@ -352,8 +358,8 @@ That's why this split has an **inline** alias to it named just `add(…)` for `V
 It has the extra benefit of returning the passed `View`, which can be handy in some
 situations.
 
-The `ViewGroup.add(…)` function requires an instance of `ViewGroup.LayoutParams`,
-see how Splitties helps instantiating it with minimal, yet explicit code.
+The `ViewGroup.add(…)` function requires an instance of `ViewGroup.LayoutParams`.
+See in the next section how Splitties helps instantiate it with minimal, yet explicit code.
 
 The `add` function also has 2 overloads that take either a `beforeChild` or an `afterChild`
 argument, handy when the order of Views matters or when adding views dynamically.
@@ -422,7 +428,7 @@ and fix the inconsistent name ordering (`leftMargin`, but `marginStart`?).
 
 ## The interface for user interfaces, named `Ui`
 
-This section doesn't just writes so many words about how **the `Ui` interface
+This section doesn't just write so many words about how **the `Ui` interface
 has only 2 properties**. It explains why **it is useful**, how to **use it the right
 way**, and the **possibilities** it offers.
 
@@ -438,7 +444,7 @@ interface Ui {
 ### Why this interface
 
 As said above, you can put your UI code directly in an `Activity` or a `Fragment`,
-but the fact you can doesn't mean you should. Mixing UI code with business logic,
+but the fact that you can, doesn't mean that you should. Mixing UI code with business logic,
 data storage code, network calls and miscellaneous boilerplate in the same
 "god" class will quickly make further work (like feature additions and maintenance)
 very hard, because you're likely not a god programmer, and even if you are, your
@@ -516,7 +522,7 @@ With the `UiPreView` class, you can preview your `Ui` implementations right from
 
 You can do it in code and have access to it contextually by selecting the "Split" or "Design" view
 in the top right corner of the editor, or you can do it in xml and benefit from options not yet
-available in `View` subclasses preview such as configuration switching (night mode, locale, etc).
+available in `View` subclasses preview such as configuration switching (night mode, locale, etc.).
 
 While the real app might show actual data, you'll likely want to show sample data in the IDE
 preview. To support this use case in the best way possible such as there's no impact on the
@@ -588,7 +594,7 @@ exception thrown if you use an `actor` or other code relying on coroutines at in
 
 ###### Known issues and their workaround
 
-* If preview doesn't work or doesn't reflect latest changes, it's likely
+* If preview doesn't work or doesn't reflect the latest changes, it's likely
 because you didn't execute the `mergeDebugJavaResource` gradle task on your project (module actually).
 IDE preview currently only works with compiled classes and xml layouts. Running the
 `mergeDebugJavaResource` gradle task will save you time as it doesn't involve all the subsequent tasks
@@ -631,7 +637,7 @@ before trying to instantiate the class. If you use another suffix, or have
 other suffixes for other debuggable buildTypes, or use productFlavors, you're
 in luck! The package name suffix to drop is configurable from your resources.
 
-Just copy paste the string resource below in your project in a value resource
+Just copy and paste the string resource below in your project in a value resource
 file named something like `config.xml` or `do_not_translate.xml`, and edit it
 to the suffix you use:
 
@@ -687,7 +693,7 @@ discussed. Also, maybe you, or someone you know, can contribute.
 
 Here's an example of how you may write multiplatform user interface contracts:
 
-In Kotlin common code, you would write an interface that is platform agnostic
+In Kotlin common code, you would write an interface that is platform-agnostic
 but declares the needed symbols that all platforms can share:
 
 Continuing our email app example, you would write these two interfaces:
@@ -755,9 +761,3 @@ user interfaces right from the IDE.
 * [Material](../views-dsl-material) provides extensions for Material Components
 * [RecyclerView](../views-dsl-recyclerview) provides extensions to have
 scrollbars and proper `itemView` layout parameters.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
-```

@@ -2,6 +2,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.viewsRecyclerview`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-views-recyclerview`.
+
 ## Content
 
 ### RecyclerView extensions
@@ -20,9 +27,3 @@ Kotlin code.
 The `gridLayoutManager` and `horizontalGridLayoutManager` functions allow you
 to instantiate and customize a `GridLayoutManager` with more idiomatic Kotlin
 code.
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
-```

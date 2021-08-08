@@ -4,6 +4,13 @@
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.lifecycleCoroutines`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-lifecycle-coroutines`.
+
 **Note:**
 This split exposes its dependency on `AndroidX Lifecycle runtime KTX`, which notably brings
 `lifecycleScope` for `LifecycleOwner` (`Activity`, `Fragment`, `LifecycleService`…) and
@@ -70,12 +77,6 @@ class MainActivity : AppCompatActivity() {
         startedScope.aMethodThatWillLaunchSomeCoroutines()
     }
 }
-```
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
 ```
 
 [lifecycle]: https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle

@@ -5,6 +5,15 @@ https://material.io/guidelines) (perfect for usage in a `RecyclerView`).*
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.materialLists`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-material-lists`.
+
+## Content
+
 This [split](../../README.md#what-is-a-split "What is a split in Splitties?")
 provides Android `View`s that are the implementation for most of
 [the lists components](
@@ -27,9 +36,3 @@ requests are welcome as long as the code style is kept intact (you can
 debate about it in an issue if you feel there's room for improvement).
 
 See an example in the [sample module](../../samples/android-app).
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
-```
