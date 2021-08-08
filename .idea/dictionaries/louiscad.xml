@@ -2,15 +2,25 @@
   <dictionary name="louiscad">
     <words>
       <w>anko</w>
+      <w>appctx</w>
       <w>ayeva</w>
       <w>bintray</w>
+      <w>cardview</w>
       <w>cognault</w>
+      <w>constraintlayout</w>
+      <w>coordinatorlayout</w>
       <w>coroutine</w>
       <w>coroutines</w>
       <w>derman</w>
       <w>doesn</w>
+      <w>fragmentargs</w>
+      <w>jovche</w>
+      <w>kotlinc</w>
       <w>kotlinx</w>
       <w>louiscad</w>
+      <w>mainhandler</w>
+      <w>mainthread</w>
+      <w>mitrejchevski</w>
       <w>multiplatform</w>
       <w>roboelectric</w>
       <w>shapeable</w>
@@ -18,6 +28,7 @@
       <w>snackbars</w>
       <w>splitties</w>
       <w>stetho</w>
+      <w>systemservices</w>
       <w>undispatched</w>
     </words>
   </dictionary>
