@@ -22,7 +22,6 @@ For reference, the maven coordinates of this module are `com.louiscad.splitties:
   * [Using an IntentSpec](#using-an-intentspec)
   * [IntentSpec example](#intentspec-example)
 * [Creating `PendingIntent`s the clean and easy way](#creating-pendingintents-the-clean-and-easy-way)
-* [Download](#download)
 
 ## Using `companion object`s as typesafe and key-safe intent specs
 

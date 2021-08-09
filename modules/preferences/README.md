@@ -25,7 +25,6 @@ For reference, the maven coordinates of this module are `com.louiscad.splitties:
 * [Defining the preferences properties in an object](#defining-the-preferences-properties-in-an-object)
   * [Why `object` and not `class`?](#why-object-and-not-class)
 * [Loading the preferences without blocking the main thread](#loading-the-preferences-without-blocking-the-main-thread)
-* [Download](#download)
 
 ## Defining the preferences properties in an object
 
