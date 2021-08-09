@@ -21,16 +21,13 @@ kotlin {
     watchosArm32(); watchosArm64(); watchosX86()
 
     configure(targets) { configureMavenPublication() }
-    sourceSets {
-        val darwinMain by creating {
-            dependsOn(commonMain)
-            val platforms = listOf("macos", "ios", "watchos", "tvos")
-            filter { sourceSet ->
-                sourceSet.name.endsWith("Main") &&
-                    platforms.any { sourceSet.name.startsWith(it) }
-            }.forEach { it.dependsOn(this) }
+    common {
+        "darwin" {
+            "macosX64"()
+            "iosArm32"(); "iosArm64"(); "iosX64"()
+            "watchosArm32"(); "watchosArm64"(); "watchosX86"()
         }
-        commonTest {
+        "commonTest" {
             dependencies {
                 implementation(project(":test-helpers"))
             }

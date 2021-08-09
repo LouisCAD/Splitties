@@ -21,40 +21,33 @@ kotlin {
     watchosArm32(); watchosArm64(); watchosX86()
 
     configure(targets) { configureMavenPublication() }
-    sourceSets {
-        commonMain.dependencies {
+    common {
+        dependencies {
             api(splitties("experimental"))
             api(KotlinX.coroutines.core)
+            implementation(splitties("mainthread"))
         }
-        val allButAndroidMain by creating {
-            dependsOn(commonMain)
+        "allButAndroid" {
+            "darwin" {
+                "macosX64"()
+                "iosArm32"(); "iosArm64"(); "iosX64"()
+                "watchosArm32"(); "watchosArm64"(); "watchosX86"()
+            }
         }
-        val darwinMain by creating {
-            dependsOn(allButAndroidMain)
-            val platforms = listOf("macos", "ios", "watchos", "tvos")
-            filter { sourceSet ->
-                sourceSet.name.endsWith("Main") &&
-                    platforms.any { sourceSet.name.startsWith(it) }
-            }.forEach { it.dependsOn(this) }
-
+        "android" {
             dependencies {
-                implementation(splitties("mainthread"))
+                api(splitties("appctx"))
+                compileOnly(KotlinX.coroutines.android)
             }
         }
-        androidMain.dependencies {
-            api(splitties("appctx"))
-            compileOnly(KotlinX.coroutines.android)
-        }
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-            }
-        }
-        commonTest {
+        "commonTest" {
             dependencies {
                 implementation(project(":test-helpers"))
             }
         }
+    }
+    sourceSets {
+        all { languageSettings.apply { useExperimentalAnnotation("kotlin.RequiresOptIn") } }
     }
 }
 
