@@ -40,5 +40,5 @@ kotlin {
 
 dependencies {
     androidTestImplementation(AndroidX.test.runner)
-    testImplementation(Testing.roboElectric)
+    testImplementation(Testing.robolectric)
 }
