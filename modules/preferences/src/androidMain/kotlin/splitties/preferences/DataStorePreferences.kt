@@ -2,6 +2,8 @@
  * Copyright 2021 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("SuspiciousCollectionReassignment")
+
 package splitties.preferences
 
 import android.content.Context
@@ -99,7 +101,7 @@ internal class DataStorePreferences(
 
     override fun edit(): Editor = EditorImpl()
 
-    private val changeListeners: MutableSet<WeakReference<OnSharedPreferenceChangeListener>> = mutableSetOf()
+    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>> = emptySet()
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
         changeListeners += WeakReference(listener)
@@ -115,7 +117,7 @@ internal class DataStorePreferences(
         }
     }
 
-    private val commitsScope = CoroutineScope(Dispatchers.IO)
+    private val updatesScope = CoroutineScope(Dispatchers.Default)
 
     private inner class EditorImpl : PreferencesEditor {
         private val unCommittedEdits: MutableMap<String, Any?> = ConcurrentHashMap()
@@ -153,38 +155,34 @@ internal class DataStorePreferences(
             clear = true
         }
 
+        override fun commit(): Boolean {
+            checkNotMainThread()
+            runBlocking { performEdit() }
+            return true
+        }
+
+        override fun apply() {
+            updatesScope.launch {
+                performEdit()
+            }
+        }
+
         private fun MutablePreferences.removeForKey(key: String) {
             remove(stringPreferencesKey(key)) // The type of the key is erased, so it doesn't matter.
         }
 
-        override fun commit(): Boolean = runBlocking {
-            checkNotMainThread()
+        private suspend fun performEdit() {
+            lateinit var keysToNotifyForChange: Set<String>
+            val editedKeys: Set<String> = unCommittedEdits.keys.toSet()
             dataStore.edit { prefs ->
-                val editedKeys: Set<String> = unCommittedEdits.keys
-                if (clear) {
+                keysToNotifyForChange = if (clear) {
                     val allKeys: Set<String> = getAll().keys
                     allKeys.forEach { keyName ->
                         prefs.removeForKey(keyName)
                     }
-                    val removedAndNotReplacedKeys = allKeys - editedKeys
-                    removedAndNotReplacedKeys.forEach { key ->
-                        val iterator = changeListeners.iterator()
-                        iterator.forEach {
-                            when (val listener = it.get()) {
-                                null -> changeListeners -= it
-                                else -> {
-                                    @OptIn(NonSymmetricalApi::class)
-                                    listener.onSharedPreferenceChanged(
-                                        /*sharedPreferences =*/ this@DataStorePreferences,
-                                        /*key =*/ key
-                                    )
-                                }
-                            }
-                        }
-                    }
                     clear = false
-
-                }
+                    allKeys
+                } else editedKeys
                 editedKeys.forEach { key ->
                     when (val value = unCommittedEdits[key]) {
                         this@EditorImpl -> prefs.removeForKey(key)
@@ -200,28 +198,23 @@ internal class DataStorePreferences(
                         null -> prefs.removeForKey(key)
                         else -> throw UnsupportedOperationException("Unexpected value: $value")
                     }
-                    val iterator = changeListeners.iterator()
-                    iterator.forEach {
-                        when (val listener = it.get()) {
-                            null -> changeListeners -= it
-                            else -> {
-                                @OptIn(NonSymmetricalApi::class)
-                                listener.onSharedPreferenceChanged(
-                                    /*sharedPreferences =*/ this@DataStorePreferences,
-                                    /*key =*/ key
-                                )
-                            }
-                        }
-                    }
                 }
                 unCommittedEdits.clear()
             }
-            true
-        }
-
-        override fun apply() {
-            commitsScope.launch {
-                commit()
+            keysToNotifyForChange.forEach { key ->
+                val iterator = changeListeners.iterator()
+                iterator.forEach {
+                    when (val listener = it.get()) {
+                        null -> changeListeners -= it
+                        else -> updatesScope.launch(Dispatchers.Main) {
+                            @OptIn(NonSymmetricalApi::class)
+                            listener.onSharedPreferenceChanged(
+                                /*sharedPreferences =*/ this@DataStorePreferences,
+                                /*key =*/ key
+                            )
+                        }
+                    }
+                }
             }
         }
     }

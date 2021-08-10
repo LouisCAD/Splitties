@@ -2,7 +2,7 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-@file:Suppress("SuspiciousCollectionReassignment") //TODO: Use mutable data structures and remove this suppress when new Kotlin/Native memory model is used.
+@file:Suppress("SuspiciousCollectionReassignment")
 
 package splitties.preferences
 
