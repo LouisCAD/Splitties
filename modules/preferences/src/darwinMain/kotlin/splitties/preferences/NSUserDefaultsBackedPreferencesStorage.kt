@@ -2,6 +2,8 @@
  * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
+@file:Suppress("SuspiciousCollectionReassignment") //TODO: Use mutable data structures and remove this suppress when new Kotlin/Native memory model is used.
+
 package splitties.preferences
 
 import platform.Foundation.NSArray
@@ -11,21 +13,22 @@ import splitties.experimental.NonSymmetricalApi
 import kotlin.native.concurrent.freeze
 import kotlin.native.ref.WeakReference
 
-internal actual fun getSharedPreferences(
+internal actual fun getPreferencesStorage(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean
-): SharedPreferences {
+    androidAvailableAtDirectBoot: Boolean,
+    androidUseLegacySharedPreferences: Boolean
+): PreferencesStorage {
     val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
         ?: NSUserDefaults.standardUserDefaults
-    return NSUserDefaultsBackedSharedPreferences(userDefaults = userDefaults)
+    return NSUserDefaultsBackedPreferencesStorage(userDefaults = userDefaults)
 }
 
 /**
  * This implementation can be frozen.
  */
-internal class NSUserDefaultsBackedSharedPreferences(
+internal class NSUserDefaultsBackedPreferencesStorage(
     internal val userDefaults: NSUserDefaults
-) : SharedPreferences {
+) : PreferencesStorage {
 
     @Suppress("UNCHECKED_CAST")
     override fun getAll() = userDefaults.dictionaryRepresentation() as Map<String, *>
@@ -60,9 +63,9 @@ internal class NSUserDefaultsBackedSharedPreferences(
 
     override fun contains(key: String): Boolean = userDefaults.objectForKey(key) != null
 
-    override fun edit(): SharedPreferencesEditor = EditorImpl()
+    override fun edit(): PreferencesEditor = EditorImpl()
 
-    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>>
+    private var changeListeners: Set<WeakReference<OnPreferenceChangeListener>>
             by FrozenDelegate(emptySet())
 
     init {
@@ -70,12 +73,12 @@ internal class NSUserDefaultsBackedSharedPreferences(
     }
 
     @NonSymmetricalApi
-    override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
+    override fun registerOnSharedPreferenceChangeListener(listener: OnPreferenceChangeListener) {
         changeListeners += WeakReference(listener)
     }
 
     @NonSymmetricalApi
-    override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
+    override fun unregisterOnSharedPreferenceChangeListener(listener: OnPreferenceChangeListener) {
         val iterator = changeListeners.iterator()
         iterator.forEach {
             if (it.get() === listener) {
@@ -85,39 +88,39 @@ internal class NSUserDefaultsBackedSharedPreferences(
         }
     }
 
-    private inner class EditorImpl : SharedPreferencesEditor {
+    private inner class EditorImpl : PreferencesEditor {
         private var unCommittedEdits: Map<String, Any?> by FrozenDelegate(emptyMap())
         private var clear by FrozenDelegate(false)
 
-        override fun putString(key: String, value: String?): SharedPreferencesEditor = apply {
+        override fun putString(key: String, value: String?): PreferencesEditor = apply {
             unCommittedEdits += (key to value)
         }
 
-        override fun putStringSet(key: String, values: Set<String?>?): SharedPreferencesEditor {
+        override fun putStringSet(key: String, values: Set<String?>?): PreferencesEditor {
             return apply { unCommittedEdits += (key to values) }
         }
 
-        override fun putInt(key: String, value: Int): SharedPreferencesEditor = apply {
+        override fun putInt(key: String, value: Int): PreferencesEditor = apply {
             unCommittedEdits += (key to value)
         }
 
-        override fun putLong(key: String, value: Long): SharedPreferencesEditor = apply {
+        override fun putLong(key: String, value: Long): PreferencesEditor = apply {
             unCommittedEdits += (key to value)
         }
 
-        override fun putFloat(key: String, value: Float): SharedPreferencesEditor = apply {
+        override fun putFloat(key: String, value: Float): PreferencesEditor = apply {
             unCommittedEdits += (key to value)
         }
 
-        override fun putBoolean(key: String, value: Boolean): SharedPreferencesEditor = apply {
+        override fun putBoolean(key: String, value: Boolean): PreferencesEditor = apply {
             unCommittedEdits += (key to value)
         }
 
-        override fun remove(key: String): SharedPreferencesEditor = apply {
+        override fun remove(key: String): PreferencesEditor = apply {
             unCommittedEdits += (key to this@EditorImpl)
         }
 
-        override fun clear(): SharedPreferencesEditor = apply {
+        override fun clear(): PreferencesEditor = apply {
             clear = true
         }
 
@@ -137,7 +140,7 @@ internal class NSUserDefaultsBackedSharedPreferences(
                             else -> {
                                 @OptIn(NonSymmetricalApi::class)
                                 listener.onSharedPreferenceChanged(
-                                    sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                    preferencesStorage = this@NSUserDefaultsBackedPreferencesStorage,
                                     key = key
                                 )
                             }
@@ -172,7 +175,7 @@ internal class NSUserDefaultsBackedSharedPreferences(
                         else -> {
                             @OptIn(NonSymmetricalApi::class)
                             listener.onSharedPreferenceChanged(
-                                sharedPreferences = this@NSUserDefaultsBackedSharedPreferences,
+                                preferencesStorage = this@NSUserDefaultsBackedPreferencesStorage,
                                 key = key
                             )
                         }

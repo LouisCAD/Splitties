@@ -37,7 +37,8 @@ kotlin {
         "android" {
             dependencies {
                 api(splitties("appctx"))
-                compileOnly(KotlinX.coroutines.android)
+                api(AndroidX.dataStore.preferences)
+                implementation(KotlinX.coroutines.android)
             }
         }
         "commonTest" {

@@ -6,7 +6,7 @@ package splitties.preferences
 
 import kotlinx.coroutines.flow.Flow
 
-internal expect fun SharedPreferences.changesFlow(
+internal expect fun PreferencesStorage.changesFlow(
     key: String,
     emitAfterRegister: Boolean = false
 ): Flow<Unit>

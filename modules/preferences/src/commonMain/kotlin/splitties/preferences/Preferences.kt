@@ -11,22 +11,28 @@ package splitties.preferences
 
 import splitties.experimental.InternalSplittiesApi
 
-abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
+abstract class Preferences(prefs: PreferencesStorage) : PreferencesBase(prefs) {
 
     constructor(
         name: String,
-        androidAvailableAtDirectBoot: Boolean = false
+        androidAvailableAtDirectBoot: Boolean = false,
+        androidUseLegacySharedPreferences: Boolean = false
     ) : this(
-        getSharedPreferences(
+        getPreferencesStorage(
             name = name,
-            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
+            androidUseLegacySharedPreferences = androidUseLegacySharedPreferences
         )
     )
 
-    internal constructor(androidAvailableAtDirectBoot: Boolean) : this(
-        getSharedPreferences(
+    internal constructor(
+        androidAvailableAtDirectBoot: Boolean,
+        androidUseLegacySharedPreferences: Boolean = false
+    ) : this(
+        getPreferencesStorage(
             name = null,
-            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
+            androidUseLegacySharedPreferences = androidUseLegacySharedPreferences
         )
     )
 
@@ -121,7 +127,7 @@ abstract class Preferences(prefs: SharedPreferences) : PreferencesBase(prefs) {
     companion object
 }
 
-sealed class PreferencesBase(val prefs: SharedPreferences) {
+sealed class PreferencesBase(val prefs: PreferencesStorage) {
 
     @InternalSplittiesApi
     fun beginEdit(blocking: Boolean = false) {
@@ -141,7 +147,7 @@ sealed class PreferencesBase(val prefs: SharedPreferences) {
         isEditing = false
     }
 
-    internal var editor: SharedPreferencesEditor by ResettableLazy { prefs.edit() }
+    internal var editor: PreferencesEditor by ResettableLazy { prefs.edit() }
         private set
 
     operator fun contains(o: Any) = prefs === o
@@ -149,7 +155,7 @@ sealed class PreferencesBase(val prefs: SharedPreferences) {
     private var isEditing = false
     private var useCommitForEdit = false
 
-    internal fun SharedPreferencesEditor.attemptApply() {
+    internal fun PreferencesEditor.attemptApply() {
         if (isEditing) return
         apply()
     }

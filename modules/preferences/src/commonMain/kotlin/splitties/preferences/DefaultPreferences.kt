@@ -11,7 +11,9 @@ import splitties.experimental.ExperimentalSplittiesApi
  */
 @ExperimentalSplittiesApi
 abstract class DefaultPreferences(
-    androidAvailableAtDirectBoot: Boolean = false
+    androidAvailableAtDirectBoot: Boolean = false,
+    androidUseLegacySharedPreferences: Boolean = false
 ) : Preferences(
-    androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
+    androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
+    androidUseLegacySharedPreferences = androidUseLegacySharedPreferences
 )
