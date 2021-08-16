@@ -189,7 +189,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 
 ## Data persistence (Multiplatform)
 
-- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` and macOS/iOS/watchOS `NSUserDefaults`. **NOTE:** For Android, consider using [AndroidX DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences`/`DataStore` and macOS/iOS/watchOS `NSUserDefaults`.
 - **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform
   transactions in Kotlin.
 

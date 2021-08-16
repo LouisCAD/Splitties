@@ -8,8 +8,7 @@ import splitties.experimental.NonSymmetricalApi
 
 internal expect fun getPreferencesStorage(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean = false,
-    androidUseLegacySharedPreferences: Boolean = false
+    androidAvailableAtDirectBoot: Boolean = false
 ): PreferencesStorage
 
 /**

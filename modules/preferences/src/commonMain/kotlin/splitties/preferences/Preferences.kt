@@ -15,24 +15,20 @@ abstract class Preferences(prefs: PreferencesStorage) : PreferencesBase(prefs) {
 
     constructor(
         name: String,
-        androidAvailableAtDirectBoot: Boolean = false,
-        androidUseLegacySharedPreferences: Boolean = false
+        androidAvailableAtDirectBoot: Boolean = false
     ) : this(
         getPreferencesStorage(
             name = name,
-            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
-            androidUseLegacySharedPreferences = androidUseLegacySharedPreferences
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
         )
     )
 
     internal constructor(
-        androidAvailableAtDirectBoot: Boolean,
-        androidUseLegacySharedPreferences: Boolean = false
+        androidAvailableAtDirectBoot: Boolean
     ) : this(
         getPreferencesStorage(
             name = null,
-            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot,
-            androidUseLegacySharedPreferences = androidUseLegacySharedPreferences
+            androidAvailableAtDirectBoot = androidAvailableAtDirectBoot
         )
     )
 

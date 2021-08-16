@@ -11,12 +11,8 @@ import splitties.init.directBootCtx
 
 internal actual fun getPreferencesStorage(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean,
-    androidUseLegacySharedPreferences: Boolean
-): PreferencesStorage = when {
-    androidUseLegacySharedPreferences -> getSharedPreferences(name, androidAvailableAtDirectBoot)
-    else -> getDataStoreBackedSharedPreferences(name, androidAvailableAtDirectBoot)
-}
+    androidAvailableAtDirectBoot: Boolean
+): PreferencesStorage = getSharedPreferences(name, androidAvailableAtDirectBoot)
 
 internal fun getSharedPreferences(
     name: String?,

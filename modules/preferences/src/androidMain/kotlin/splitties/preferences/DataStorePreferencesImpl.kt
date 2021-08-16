@@ -36,8 +36,11 @@ import java.util.WeakHashMap
 
 internal fun getDataStoreBackedSharedPreferences(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean
+    androidAvailableAtDirectBoot: Boolean = false
 ): PreferencesStorage {
+    require(androidAvailableAtDirectBoot.not()) {
+        "Direct Boot is not supported in this DataStore implementation yet"
+    }
     checkNotMainThread()
     val actualName = name ?: "${appCtx.packageName}_preferences"
     val storageCtx: Context = if (androidAvailableAtDirectBoot && Build.VERSION.SDK_INT > 24) {
@@ -60,10 +63,10 @@ internal fun getDataStoreBackedSharedPreferences(
         dataStore = with(holder) { storageCtx.dataStore }
         dataStore.data.stateIn(CoroutineScope(Dispatchers.Default))
     }
-    return DataStorePreferences(dataStore, data)
+    return DataStorePreferencesStorage(dataStore, data)
 }
 
-internal class DataStorePreferences(
+private class DataStorePreferencesStorage(
     private val dataStore: DataStore<Preferences>,
     private val dataFlow: StateFlow<Preferences>
 ) : PreferencesStorage {
@@ -198,7 +201,7 @@ internal class DataStorePreferences(
                         if (listener != null) {
                             @OptIn(NonSymmetricalApi::class)
                             listener.onSharedPreferenceChanged(
-                                /*sharedPreferences =*/ this@DataStorePreferences,
+                                /*sharedPreferences =*/ this@DataStorePreferencesStorage,
                                 /*key =*/ key
                             )
                         }

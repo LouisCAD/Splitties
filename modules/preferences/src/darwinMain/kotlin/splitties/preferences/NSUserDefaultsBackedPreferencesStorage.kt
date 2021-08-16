@@ -15,8 +15,7 @@ import kotlin.native.ref.WeakReference
 
 internal actual fun getPreferencesStorage(
     name: String?,
-    androidAvailableAtDirectBoot: Boolean,
-    androidUseLegacySharedPreferences: Boolean
+    androidAvailableAtDirectBoot: Boolean
 ): PreferencesStorage {
     val userDefaults = name?.let { NSUserDefaults(suiteName = name) }
         ?: NSUserDefaults.standardUserDefaults
