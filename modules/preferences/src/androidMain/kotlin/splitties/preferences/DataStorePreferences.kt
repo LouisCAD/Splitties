@@ -32,8 +32,7 @@ import splitties.experimental.NonSymmetricalApi
 import splitties.init.appCtx
 import splitties.init.directBootCtx
 import splitties.mainthread.checkNotMainThread
-import java.lang.ref.WeakReference
-import java.util.concurrent.ConcurrentHashMap
+import java.util.WeakHashMap
 
 internal fun getDataStoreBackedSharedPreferences(
     name: String?,
@@ -101,58 +100,43 @@ internal class DataStorePreferences(
 
     override fun edit(): Editor = EditorImpl()
 
-    private var changeListeners: Set<WeakReference<OnSharedPreferenceChangeListener>> = emptySet()
+    private val changeListeners: WeakHashMap<OnSharedPreferenceChangeListener, Any> = WeakHashMap()
+    private val lock = Any()
+    private val dummyContent = Any()
 
     override fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        changeListeners += WeakReference(listener)
+        synchronized(lock) {
+            changeListeners.put(listener, dummyContent)
+        }
     }
 
     override fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener) {
-        val iterator = changeListeners.iterator()
-        iterator.forEach {
-            if (it.get() === listener) {
-                changeListeners -= it
-                return
-            }
+        synchronized(lock) {
+            changeListeners.remove(listener)
         }
     }
 
     private val updatesScope = CoroutineScope(Dispatchers.Default)
 
     private inner class EditorImpl : PreferencesEditor {
-        private val unCommittedEdits: MutableMap<String, Any?> = ConcurrentHashMap()
+        private val editorLock = Any()
+        private val unCommittedEdits: MutableMap<String, Any?> = HashMap()
         private var clear = false
 
-        override fun putString(key: String, value: String?): PreferencesEditor = apply {
-            unCommittedEdits += (key to value)
-        }
+        override fun putString(key: String, value: String?) = putEdit(key, value)
+        override fun putStringSet(key: String, values: Set<String?>?) = putEdit(key, values?.toHashSet())
+        override fun putInt(key: String, value: Int) = putEdit(key, value)
+        override fun putLong(key: String, value: Long) = putEdit(key, value)
+        override fun putFloat(key: String, value: Float) = putEdit(key, value)
+        override fun putBoolean(key: String, value: Boolean) = putEdit(key, value)
+        override fun remove(key: String) = putEdit(key, this@EditorImpl)
 
-        override fun putStringSet(key: String, values: Set<String?>?): PreferencesEditor {
-            return apply { unCommittedEdits += (key to values) }
-        }
-
-        override fun putInt(key: String, value: Int): PreferencesEditor = apply {
-            unCommittedEdits += (key to value)
-        }
-
-        override fun putLong(key: String, value: Long): PreferencesEditor = apply {
-            unCommittedEdits += (key to value)
-        }
-
-        override fun putFloat(key: String, value: Float): PreferencesEditor = apply {
-            unCommittedEdits += (key to value)
-        }
-
-        override fun putBoolean(key: String, value: Boolean): PreferencesEditor = apply {
-            unCommittedEdits += (key to value)
-        }
-
-        override fun remove(key: String): PreferencesEditor = apply {
-            unCommittedEdits += (key to this@EditorImpl)
+        private fun putEdit(key: String, value: Any?): PreferencesEditor = apply {
+            synchronized(editorLock) { unCommittedEdits += (key to value) }
         }
 
         override fun clear(): PreferencesEditor = apply {
-            clear = true
+            synchronized(editorLock) { clear = true }
         }
 
         override fun commit(): Boolean {
@@ -173,40 +157,44 @@ internal class DataStorePreferences(
 
         private suspend fun performEdit() {
             lateinit var keysToNotifyForChange: Set<String>
-            val editedKeys: Set<String> = unCommittedEdits.keys.toSet()
             dataStore.edit { prefs ->
-                keysToNotifyForChange = if (clear) {
-                    val allKeys: Set<String> = getAll().keys
-                    allKeys.forEach { keyName ->
-                        prefs.removeForKey(keyName)
-                    }
-                    clear = false
-                    allKeys
-                } else editedKeys
-                editedKeys.forEach { key ->
-                    when (val value = unCommittedEdits[key]) {
-                        this@EditorImpl -> prefs.removeForKey(key)
-                        is Boolean -> prefs[booleanPreferencesKey(key)] = value
-                        is Float -> prefs[floatPreferencesKey(key)] = value
-                        is Long -> prefs[longPreferencesKey(key)] = value
-                        is Int -> prefs[intPreferencesKey(key)] = value
-                        is Set<*> -> {
-                            @Suppress("unchecked_cast")
-                            prefs[stringSetPreferencesKey(key)] = value as Set<String>
+                synchronized(editorLock) {
+                    val editedKeys: Set<String> = unCommittedEdits.keys.toSet()
+                    keysToNotifyForChange = if (clear) {
+                        val allKeys: Set<String> = getAll().keys
+                        allKeys.forEach { keyName ->
+                            prefs.removeForKey(keyName)
                         }
-                        is String -> prefs[stringPreferencesKey(key)] = value
-                        null -> prefs.removeForKey(key)
-                        else -> throw UnsupportedOperationException("Unexpected value: $value")
+                        clear = false
+                        allKeys
+                    } else editedKeys
+                    editedKeys.forEach { key ->
+                        when (val value = unCommittedEdits[key]) {
+                            this@EditorImpl -> prefs.removeForKey(key)
+                            is Boolean -> prefs[booleanPreferencesKey(key)] = value
+                            is Float -> prefs[floatPreferencesKey(key)] = value
+                            is Long -> prefs[longPreferencesKey(key)] = value
+                            is Int -> prefs[intPreferencesKey(key)] = value
+                            is Set<*> -> {
+                                @Suppress("unchecked_cast")
+                                prefs[stringSetPreferencesKey(key)] = value as Set<String>
+                            }
+                            is String -> prefs[stringPreferencesKey(key)] = value
+                            null -> prefs.removeForKey(key)
+                            else -> throw UnsupportedOperationException("Unexpected value: $value")
+                        }
                     }
+                    unCommittedEdits.clear()
                 }
-                unCommittedEdits.clear()
             }
-            keysToNotifyForChange.forEach { key ->
-                val iterator = changeListeners.iterator()
-                iterator.forEach {
-                    when (val listener = it.get()) {
-                        null -> changeListeners -= it
-                        else -> updatesScope.launch(Dispatchers.Main) {
+            val listeners: Set<OnSharedPreferenceChangeListener?> = synchronized(lock) {
+                if (changeListeners.isEmpty()) emptySet()
+                else changeListeners.keys.toHashSet()
+            }
+            if (listeners.isNotEmpty()) updatesScope.launch(Dispatchers.Main) {
+                keysToNotifyForChange.forEach { key ->
+                    listeners.forEach { listener ->
+                        if (listener != null) {
                             @OptIn(NonSymmetricalApi::class)
                             listener.onSharedPreferenceChanged(
                                 /*sharedPreferences =*/ this@DataStorePreferences,
