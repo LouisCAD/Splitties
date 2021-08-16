@@ -34,17 +34,21 @@ Define your preferences in an `object` that extends
 ```kotlin
 import splitties.preferences.Preferences
 
-class GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0) // The property name is used as the key.
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
+object GamePreferences : Preferences("gameState") {
+  var magicNumber by intPref("magicNumber", defaultValue = 0)
+  var currentLevel by intPref("currentLevel", 1)
+  var bossesFought by intPref("bossBattleVictories", 0)
+  var lastTimePlayed by longPref("lastSessionTime", 0L)
 
-    private val pseudoField = StringPref("playerPseudo", "Player 1")
-    var currentPseudo: String by pseudoField
-    val pseudoUpdates: Flow<String> = pseudoField.valueFlow()
+  val pseudoFlow: Flow<String>
+  var pseudo by stringPref("playerPseudo", "Player 1").also {
+    pseudoFlow = it.valueFlow()
+  }
 
-    var favoriteCharacter by stringOrNullPref()
+  val favoriteCharacterFlow: Flow<String?>
+  var favoriteCharacter by stringOrNullPref("favoriteCharacter").also {
+    favoriteCharacterFlow = it.valueFlow()
+  }
 }
 ```
 
@@ -123,12 +127,12 @@ class GamePreferences private constructor() : Preferences("gameState") {
     companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)
 
     var magicNumber by intPref("magicNumber", defaultValue = 0)
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
+    var currentLevel by intPref("currentLevel", 1)
+    var bossesFought by intPref("bossBattleVictories", 0)
+    var lastTimePlayed by longPref("lastSessionTime", 0L)
     
     val pseudoFlow: Flow<String>
-    var pseudo by StringPref("playerPseudo", "Player 1").also {
+    var pseudo by stringPref("playerPseudo", "Player 1").also {
       pseudoFlow = it.valueFlow()
     }
     
