@@ -164,7 +164,7 @@ it a `suspend` function.
 
 Android's `SharedPreferences` has one performance drawback: it can perform disk I/O
 on the main thread on its own when the `onStop` callback of an `Activity` is called.
-The only way to ensure your app will not be affected from the potential ANRs
+The only way to ensure your app will not be affected by the potential ANRs
 (Application Not Responding) it can cause is to replace it with something else.
 
 The AndroidX team made [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
