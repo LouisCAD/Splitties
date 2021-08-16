@@ -161,6 +161,7 @@ internal class DataStorePreferences(
                 synchronized(editorLock) {
                     val editedKeys: Set<String> = unCommittedEdits.keys.toSet()
                     keysToNotifyForChange = if (clear) {
+                        @Suppress("UsePropertyAccessSyntax")
                         val allKeys: Set<String> = getAll().keys
                         allKeys.forEach { keyName ->
                             prefs.removeForKey(keyName)
