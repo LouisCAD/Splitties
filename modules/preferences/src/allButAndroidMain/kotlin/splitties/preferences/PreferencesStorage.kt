@@ -6,35 +6,7 @@ package splitties.preferences
 
 import splitties.experimental.NonSymmetricalApi
 
-internal expect fun getSharedPreferences(
-    name: String?,
-    androidAvailableAtDirectBoot: Boolean = false
-): SharedPreferences
-
-/**
- * Interface for accessing and modifying preference data returned by {@link
- * Context#getSharedPreferences}.  For any particular set of preferences,
- * there is a single instance of this class that all clients share.
- * Modifications to the preferences must go through an {@link Editor} object
- * to ensure the preference values remain in a consistent state and control
- * when they are committed to storage.  Objects that are returned from the
- * various <code>get</code> methods must be treated as immutable by the application.
- *
- * <p>Note: This class provides strong consistency guarantees. It is using expensive operations
- * which might slow down an app. Frequently changing properties or properties where loss can be
- * tolerated should use other mechanisms. For more details read the comments on
- * {@link Editor#commit()} and {@link Editor#apply()}.
- *
- * <p><em>Note: This class does not support use across multiple processes.</em>
- *
- * <div class="special reference">
- * <h3>Developer Guides</h3>
- * <p>For more information about using SharedPreferences, read the
- * <a href="{@docRoot}guide/topics/data/data-storage.html#pref">Data Storage</a>
- * developer guide.</p></div>
- *
- */
-expect interface SharedPreferences {
+actual interface PreferencesStorage {
 
     /**
      * Retrieve all values from the preferences.
@@ -49,7 +21,7 @@ expect interface SharedPreferences {
      *
      * @throws NullPointerException
      */
-    fun getAll(): Map<String, *>
+    actual fun getAll(): Map<String, *>
 
     /**
      * Retrieve a String value from the preferences.
@@ -63,7 +35,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getString(key: String, defValue: String?): String?
+    actual fun getString(key: String, defValue: String?): String?
 
     /**
      * Retrieve a set of String values from the preferences.
@@ -82,7 +54,10 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getStringSet(key: String, defValues: Set<String?>?): Set<String?>?
+    actual fun getStringSet(
+        key: String,
+        defValues: Set<String?>?
+    ): Set<String?>?
 
     /**
      * Retrieve an int value from the preferences.
@@ -96,7 +71,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getInt(key: String, defValue: Int): Int
+    actual fun getInt(key: String, defValue: Int): Int
 
     /**
      * Retrieve a long value from the preferences.
@@ -110,7 +85,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getLong(key: String, defValue: Long): Long
+    actual fun getLong(key: String, defValue: Long): Long
 
     /**
      * Retrieve a float value from the preferences.
@@ -124,7 +99,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getFloat(key: String, defValue: Float): Float
+    actual fun getFloat(key: String, defValue: Float): Float
 
     /**
      * Retrieve a boolean value from the preferences.
@@ -138,7 +113,7 @@ expect interface SharedPreferences {
      *
      * @throws ClassCastException
      */
-    fun getBoolean(key: String, defValue: Boolean): Boolean
+    actual fun getBoolean(key: String, defValue: Boolean): Boolean
 
     /**
      * Checks whether the preferences contains a preference.
@@ -147,7 +122,7 @@ expect interface SharedPreferences {
      * @return Returns true if the preference exists in the preferences,
      * otherwise false.
      */
-    operator fun contains(key: String): Boolean
+    actual operator fun contains(key: String): Boolean
 
     /**
      * Create a new SharedPreferencesEditor for these preferences, through which you can make
@@ -155,14 +130,14 @@ expect interface SharedPreferences {
      * changes back to the SharedPreferences object.
      *
      *
-     * Note that you *must* call [SharedPreferencesEditor.commit] to have any
+     * Note that you *must* call [PreferencesEditor.commit] to have any
      * changes you perform in the SharedPreferencesEditor actually show up in the
      * SharedPreferences.
      *
-     * @return Returns a new instance of the [SharedPreferencesEditor] interface, allowing
+     * @return Returns a new instance of the [PreferencesEditor] interface, allowing
      * you to modify the values in this SharedPreferences object.
      */
-    fun edit(): SharedPreferencesEditor
+    actual fun edit(): PreferencesEditor
 
     /**
      * Registers a callback to be invoked when a change happens to a preference.
@@ -179,7 +154,7 @@ expect interface SharedPreferences {
      * @see .unregisterOnSharedPreferenceChangeListener
      */
     @NonSymmetricalApi
-    fun registerOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
+    actual fun registerOnSharedPreferenceChangeListener(listener: OnPreferenceChangeListener)
 
     /**
      * Unregisters a previous callback.
@@ -188,24 +163,15 @@ expect interface SharedPreferences {
      * @see .registerOnSharedPreferenceChangeListener
      */
     @NonSymmetricalApi
-    fun unregisterOnSharedPreferenceChangeListener(listener: OnSharedPreferenceChangeListener)
-}
+    actual fun unregisterOnSharedPreferenceChangeListener(listener: OnPreferenceChangeListener)
 
-@NonSymmetricalApi
-@Suppress("FunctionName") // Mimics SAM usage of Java interface.
-inline fun OnSharedPreferenceChangeListener(
-    crossinline function: (sharedPreferences: SharedPreferences, key: String) -> Unit
-): OnSharedPreferenceChangeListener = object : OnSharedPreferenceChangeListener {
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        function(sharedPreferences, key)
-    }
 }
 
 /**
  * Interface definition for a callback to be invoked when a shared
  * preference is changed.
  */
-expect interface OnSharedPreferenceChangeListener {
+actual interface OnPreferenceChangeListener {
     /**
      * Called when a shared preference is changed, added, or removed. This
      * may be called even if a preference is set to its existing value.
@@ -213,22 +179,25 @@ expect interface OnSharedPreferenceChangeListener {
      *
      * This callback will be run on your main thread.
      *
-     * @param sharedPreferences The [SharedPreferences] that received
+     * @param preferencesStorage The [PreferencesStorage] that received
      * the change.
      * @param key The key of the preference that was changed, added, or
      * removed.
      */
     @NonSymmetricalApi
-    fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String)
+    actual fun onSharedPreferenceChanged(
+        preferencesStorage: PreferencesStorage,
+        key: String
+    )
 }
 
 /**
- * Interface used for modifying values in a [SharedPreferences]
+ * Interface used for modifying values in a [PreferencesStorage]
  * object.  All changes you make in an editor are batched, and not copied
- * back to the original [SharedPreferences] until you call [.commit]
+ * back to the original [PreferencesStorage] until you call [.commit]
  * or [.apply]
  */
-expect interface SharedPreferencesEditor {
+actual interface PreferencesEditor {
     /**
      * Set a String value in the preferences editor, to be written back once
      * [.commit] or [.apply] are called.
@@ -241,7 +210,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same Editor object, so you can
      * chain put calls together.
      */
-    fun putString(key: String, value: String?): SharedPreferencesEditor
+    actual fun putString(
+        key: String,
+        value: String?
+    ): PreferencesEditor
 
     /**
      * Set a set of String values in the preferences editor, to be written
@@ -254,7 +226,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putStringSet(key: String, values: Set<String?>?): SharedPreferencesEditor
+    actual fun putStringSet(
+        key: String,
+        values: Set<String?>?
+    ): PreferencesEditor
 
     /**
      * Set an int value in the preferences editor, to be written back once
@@ -266,7 +241,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putInt(key: String, value: Int): SharedPreferencesEditor
+    actual fun putInt(
+        key: String,
+        value: Int
+    ): PreferencesEditor
 
     /**
      * Set a long value in the preferences editor, to be written back once
@@ -278,7 +256,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putLong(key: String, value: Long): SharedPreferencesEditor
+    actual fun putLong(
+        key: String,
+        value: Long
+    ): PreferencesEditor
 
     /**
      * Set a float value in the preferences editor, to be written back once
@@ -290,7 +271,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putFloat(key: String, value: Float): SharedPreferencesEditor
+    actual fun putFloat(
+        key: String,
+        value: Float
+    ): PreferencesEditor
 
     /**
      * Set a boolean value in the preferences editor, to be written back
@@ -302,7 +286,10 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun putBoolean(key: String, value: Boolean): SharedPreferencesEditor
+    actual fun putBoolean(
+        key: String,
+        value: Boolean
+    ): PreferencesEditor
 
     /**
      * Mark in the editor that a preference value should be removed, which
@@ -319,7 +306,7 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun remove(key: String): SharedPreferencesEditor
+    actual fun remove(key: String): PreferencesEditor
 
     /**
      * Mark in the editor to remove *all* values from the
@@ -334,11 +321,11 @@ expect interface SharedPreferencesEditor {
      * @return Returns a reference to the same SharedPreferencesEditor object, so you can
      * chain put calls together.
      */
-    fun clear(): SharedPreferencesEditor
+    actual fun clear(): PreferencesEditor
 
     /**
      * Commit your preferences changes back from this SharedPreferencesEditor to the
-     * [SharedPreferences] object it is editing.  This atomically
+     * [PreferencesStorage] object it is editing.  This atomically
      * performs the requested modifications, replacing whatever is currently
      * in the SharedPreferences.
      *
@@ -354,11 +341,11 @@ expect interface SharedPreferencesEditor {
      * @return Returns true if the new values were successfully written
      * to persistent storage.
      */
-    fun commit(): Boolean
+    actual fun commit(): Boolean
 
     /**
      * Commit your preferences changes back from this SharedPreferencesEditor to the
-     * [SharedPreferences] object it is editing.  This atomically
+     * [PreferencesStorage] object it is editing.  This atomically
      * performs the requested modifications, replacing whatever is currently
      * in the SharedPreferences.
      *
@@ -370,16 +357,16 @@ expect interface SharedPreferencesEditor {
      * Unlike [.commit], which writes its preferences out
      * to persistent storage synchronously, [.apply]
      * commits its changes to the in-memory
-     * [SharedPreferences] immediately but starts an
+     * [PreferencesStorage] immediately but starts an
      * asynchronous commit to disk and you won't be notified of
      * any failures.  If another editor on this
-     * [SharedPreferences] does a regular [.commit]
+     * [PreferencesStorage] does a regular [.commit]
      * while a [.apply] is still outstanding, the
      * [.commit] will block until all async commits are
      * completed as well as the commit itself.
      *
      *
-     * As [SharedPreferences] instances are singletons within
+     * As [PreferencesStorage] instances are singletons within
      * a process, it's safe to replace any instance of [.commit] with
      * [.apply] if you were already ignoring the return value.
      *
@@ -391,11 +378,12 @@ expect interface SharedPreferencesEditor {
      * states.
      *
      *
-     * The [SharedPreferencesEditor] interface
+     * The [PreferencesEditor] interface
      * isn't expected to be implemented directly.  However, if you
      * previously did implement it and are now getting errors
      * about missing `apply()`, you can simply call
      * [.commit] from `apply()`.
      */
-    fun apply()
+    actual fun apply()
+
 }

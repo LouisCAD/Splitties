@@ -16,11 +16,11 @@ import splitties.experimental.NonSymmetricalApi
 import splitties.mainthread.isMainThread
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal actual fun SharedPreferences.changesFlow(
+internal actual fun PreferencesStorage.changesFlow(
     key: String,
     emitAfterRegister: Boolean
 ): Flow<Unit> = channelFlow {
-    if (this@changesFlow is NSUserDefaultsBackedSharedPreferences) {
+    if (this@changesFlow is NSUserDefaultsBackedPreferencesStorage) {
         val defaultNotificationCenter = NSNotificationCenter.defaultCenter
         val observer = defaultNotificationCenter.addObserverForName(
             name = NSUserDefaultsDidChangeNotification,

@@ -5,10 +5,12 @@
 package com.example.splitties.preferences
 
 import kotlinx.coroutines.flow.*
-import splitties.preferences.Preferences
+import splitties.preferences.DataStorePreferences
+import splitties.preferences.DataStorePreferencesPreview
 import splitties.preferences.SuspendPrefsAccessor
 
-class SamplePreferences private constructor() : Preferences(name = "sample") {
+@OptIn(DataStorePreferencesPreview::class)
+class SamplePreferences private constructor() : DataStorePreferences(name = "sample") {
     val enableAnnoyingFeaturesField = boolPref("annoying_features", defaultValue = true)
     var enableAnnoyingFeatures by enableAnnoyingFeaturesField
     val showAnnoyingPopupAtLaunchField = boolPref("annoying_popup_launch", defaultValue = true)

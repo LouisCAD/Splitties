@@ -9,10 +9,15 @@ import android.os.Build.VERSION.SDK_INT
 import splitties.init.appCtx
 import splitties.init.directBootCtx
 
-internal actual fun getSharedPreferences(
+internal actual fun getPreferencesStorage(
     name: String?,
     androidAvailableAtDirectBoot: Boolean
-): SharedPreferences {
+): PreferencesStorage = getSharedPreferences(name, androidAvailableAtDirectBoot)
+
+internal fun getSharedPreferences(
+    name: String?,
+    androidAvailableAtDirectBoot: Boolean
+): PreferencesStorage {
     val actualName = name ?: "${appCtx.packageName}_preferences"
     val storageCtx: Context = if (androidAvailableAtDirectBoot && SDK_INT > 24) {
         // Moving the sharedPreferences from is done by the system only if you had it outside
@@ -24,6 +29,6 @@ internal actual fun getSharedPreferences(
     return storageCtx.getSharedPreferences(actualName, Context.MODE_PRIVATE)
 }
 
-actual typealias SharedPreferences = android.content.SharedPreferences
-actual typealias OnSharedPreferenceChangeListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener
-actual typealias SharedPreferencesEditor = android.content.SharedPreferences.Editor
+actual typealias PreferencesStorage = android.content.SharedPreferences
+actual typealias OnPreferenceChangeListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener
+actual typealias PreferencesEditor = android.content.SharedPreferences.Editor

@@ -24,9 +24,9 @@ sealed class PrefDelegate<T>(
     @JvmField val key: String
 ) {
     @ExperimentalSplittiesApi
-    fun doesBelongTo(sharedPreferences: SharedPreferences): Boolean {
-        val delegateBackingPreferences: SharedPreferences = preferences.prefs
-        return delegateBackingPreferences === sharedPreferences
+    fun doesBelongTo(preferencesStorage: PreferencesStorage): Boolean {
+        val delegateBackingPreferences: PreferencesStorage = preferences.prefs
+        return delegateBackingPreferences === preferencesStorage
     }
 
     @ExperimentalSplittiesApi
