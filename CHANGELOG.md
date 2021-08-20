@@ -31,7 +31,7 @@ Full disclosure: I am working on refreshVersions myself, in close collaboration 
 
 #### Changed
 
-The `hasFlag`, `withFlag`, and `minusFlag` extensions for unsigned integers (`UByte`, `UShort`, `UInt`, and `ULong`) are no longer annotated with the `@ExperimentalUnsignedTypes` annotation. 
+The `hasFlag`, `withFlag`, and `minusFlag` extensions for unsigned integers (`UByte`, `UShort`, `UInt`, and `ULong`) are no longer annotated with the `@ExperimentalUnsignedTypes` annotation.
 
 ### Preferences
 
