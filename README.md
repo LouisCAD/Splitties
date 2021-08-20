@@ -255,7 +255,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -267,7 +267,7 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0")
 ```
 
 #### Android AppCompat
@@ -283,7 +283,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -293,7 +293,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0")
 ```
 
 #### Android Material Components
@@ -311,7 +311,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -322,7 +322,7 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0")
 ```
 
 #### All the artifacts (47)
@@ -338,7 +338,7 @@ Most importantly, with it, running the `refreshVersions` task will show you the 
 for all of your dependencies, right into the `versions.properties`, in a way that makes upgrading effortless,
 even with just the keyboard.
 
-FYI, the current latest release of Splitties is the version `3.0.0-rc03`
+FYI, the current latest release of Splitties is the version `3.0.0`
 
 <details>
 <summary>
