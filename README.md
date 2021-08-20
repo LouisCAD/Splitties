@@ -81,6 +81,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 ----
 
 ## Overview
+
 - [System interaction (Android only)](#system-interaction-android-only)
 - [User input and user interface related splits](#user-input-and-user-interface-related-splits)
   - [Small messages (Android only)](#small-messages-android-only)
@@ -98,17 +99,20 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - [Legacy (Android only)](#legacy-android-only)
 
 ## System interaction (Android only):
+
 - **[App Context:](modules/appctx)** Always have your application `Context` at hand with `appCtx`.
 - **[System Services:](modules/systemservices)** No more `context.getSystemService(NAME_OF_SERVICE) as NameOfManager`.
 
 ## User input and user interface related splits:
 
 ### Small messages (Android only)
+
 - **[Snackbar:](modules/snackbar)** Grab a snack without ceremony with `snack(…)` and `longSnack(…)`.
 - **[Toast:](modules/toast)** Show a toast by just calling `toast(yourText)`, and dodge [API 25
   `BadTokenException`](https://github.com/drakeet/ToastCompat#why).
 
 ### Dialogs (Android only)
+
 - **[Alert Dialog:](modules/alertdialog)** Create simple alert dialogs with simple code.
 - **[Alert Dialog AppCompat:](modules/alertdialog-appcompat)** AppCompat version of
   [Alert Dialog](modules/alertdialog).
@@ -118,9 +122,11 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
   [Alert Dialog AppCompat](modules/alertdialog-appcompat).
 
 ### System UI (Android only)
+
 - **[Dangerous permissions:](modules/permissions)** Request runtime permissions without polluting your codebase.
 
 ### Extensions for Views (Android only)
+
 - **[Views:](modules/views)** Extensions function and properties on `View`s.
 - **[Views AppCompat:](modules/views-appcompat)** AppCompat extension of [Views](modules/views). Includes helpers for `ImageView` tinting, `ActionBar` and tooltip.
 - **[Views CardView:](modules/views-cardview)** CardView extension of [Views](modules/views). Provides a `contentPadding` property.
@@ -130,6 +136,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Views Coroutines:](modules/views-coroutines)** Android Views + Kotlin coroutines.
 
 ### Creating View based UIs with the power of Kotlin (Android only)
+
 - **[Views DSL:](modules/views-dsl)** Create UIs with readable Kotlin code (IDE preview supported).
 - **[Views DSL AppCompat:](modules/views-dsl-appcompat)** AppCompat extension of [Views DSL](modules/views-dsl).
 - **[Views DSL ConstraintLayout:](modules/views-dsl-constraintlayout)** ConstraintLayout extension of
@@ -140,6 +147,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Views DSL RecyclerView:](modules/views-dsl-recyclerview)** RecyclerView extension of [Views DSL](modules/views-dsl).
 
 ### Various UI utilities (Android only)
+
 - **[Resources:](modules/resources)** Extensions to get resources like strings, colors or drawables easily,
   with support for themed attributes.
 - **[Dimensions:](modules/dimensions)** Android `dp` extensions for `View` and `Context`.
@@ -151,12 +159,14 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Typesafe RecyclerView:](modules/typesaferecyclerview)** Typesafe `ViewHolder` and `ItemViewHolder` for easy basic usage of `RecyclerView`.
 
 ### Material Design helpers (Android only)
+
 - **[Material Colors:](modules/material-colors)** [2014 Material Design color palettes](
   https://material.io/design/color/#tools-for-picking-colors) as color resources.
 - **[Material Lists:](modules/material-lists)** List item Views implementing [Material Design guidelines](
   https://material.io/guidelines) (perfect for usage in a `RecyclerView`).
 
 ## Inter and cross app communication: Activities, Fragments, Intents, and Bundles
+
 - **[Activities:](modules/activities)** Start activities with minimal boilerplate.
 - **[Intents:](modules/intents)** Transform `companion object`s into powerful typesafe intent specs,
   and create `PendingIntent`s the clean and easy way.
@@ -168,6 +178,7 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
   extras and more.
 
 ## Concurrency (Multiplatform)
+
 - **[Coroutines:](modules/coroutines)** General purpose extensions to kotlinx.coroutines.
 - **[Lifecycle Coroutines (Android only):](modules/lifecycle-coroutines)** Coroutines integration with AndroidX
   [`Lifecycle`](https://developer.android.com/reference/kotlin/androidx/lifecycle/Lifecycle).
@@ -177,19 +188,23 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 - **[Checked Lazy (Android only):](modules/checkedlazy)** `mainThreadLazy` that checks property access on
 
 ## Data persistence (Multiplatform)
-- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences` and macOS/iOS/watchOS `NSUserDefaults`. **NOTE:** For Android, consider using [AndroidX DataStore](https://developer.android.com/topic/libraries/architecture/datastore).
+
+- **[Preferences:](modules/preferences)** Property syntax for Android's `SharedPreferences`/`DataStore` and macOS/iOS/watchOS `NSUserDefaults`.
 - **[Arch Room:](modules/arch-room)** Room helpers to instantiate your DB and perform
   transactions in Kotlin.
 
 ## Utilities (Multiplatform)
+
 - **[Bit Flags:](modules/bitflags)** `hasFlag`, `withFlag` and `minusFlag` extensions on `Long`, `Int`, `Short`, `Byte`, and their unsigned counterparts.
 - **[Collections:](modules/collections)** `forEach` for `List`s without `Iterator` allocation.
 
 ## Debugging (Android only)
+
 - **[Stetho init:](modules/stetho-init)** Have [Stetho](https://github.com/facebook/stetho) for your debug
   builds, without writing any code!
 
 ## Legacy (Android only)
+
 - **[Exceptions:](modules/exceptions)** `unexpectedValue(…)`, `unsupportedAction(…)` and similar
   functions that return `Nothing`.
 - **[Arch Lifecycle:](modules/arch-lifecycle)** Extensions to get `ViewModel`s, use `LiveData` and
@@ -198,13 +213,16 @@ root.longSnack(str(R.string.deleted_x_items, deletedCount)) {
 ## Download
 
 ### Gradle instructions
+
 Make sure you have `mavenCentral()` in the repositories defined in your project's
 (root) `build.gradle` file (default for new Android Studio projects).
 
-To make is easier to take advantage of the contents of Splitties for your Android projects, there
+To make it easier to take advantage of the contents of Splitties for your Android projects, there
 are grouping artifacts that include _most_ splits.
 
 #### Android base
+
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.androidBase` or `Splitties.pack.androidBaseWithViewsDsl`.
 
 These 2 packs don't include AppCompat and are suitable for WearOS apps.
 
@@ -237,7 +255,7 @@ Includes the following modules:
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the following modules:
@@ -249,10 +267,12 @@ There's also a version with Views DSL. It additionally includes the following mo
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-base-with-views-dsl:3.0.0")
 ```
 
 #### Android AppCompat
+
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.appCompat` or `Splitties.pack.appCompatWithViewsDsl`.
 
 These 2 packs include the [Android base](#android-base) pack, and the following modules:
 - [alertdialog-appcompat](modules/alertdialog-appcompat)
@@ -263,7 +283,7 @@ These 2 packs include the [Android base](#android-base) pack, and the following 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -273,10 +293,12 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-appcompat-with-views-dsl:3.0.0")
 ```
 
 #### Android Material Components
+
+Adding with [refreshVersions](https://github.com/jmfayard/refreshVersions): `Splitties.pack.androidMdc` or `Splitties.pack.androidMdcWithViewsDsl`.
 
 These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the following modules:
 - [alertdialog-material](modules/alertdialog-material)
@@ -289,7 +311,7 @@ These 2 packs include the [Android AppCompat](#android-appcompat) pack, and the 
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components:3.0.0")
 ```
 
 There's also a version with Views DSL. It additionally includes the Views DSL version of the
@@ -300,75 +322,77 @@ There's also a version with Views DSL. It additionally includes the Views DSL ve
 Gradle dependency:
 
 ```kotlin
-implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0-rc03")
+implementation("com.louiscad.splitties:splitties-fun-pack-android-material-components-with-views-dsl:3.0.0")
 ```
 
 #### All the artifacts (47)
 
-Add the version of the library to not repeat yourself if you use multiple
-artifacts, and make sure their versions are in sync by adding an ext property
-into your root project `build.gradle` file:
-```groovy
-allProjects {
-    ext {
-        splitties_version = "3.0.0-rc03"
-    }
-}
-```
+Since you might use multiple artifacts, to not repeat yourself, we recommend you to put the version in a central place,
+so it's little effort to upgrade to newer versions.
+
+The best way to do this is to use [refreshVersions](https://github.com/jmfayard/refreshVersions),
+it has built-in dependency notations for `Splitties`, and also many other popular and qualitative libraries,
+like kotlinx, AndroidX, libraries from Square/CashApp and libraries from Google.
+
+Most importantly, with it, running the `refreshVersions` task will show you the available updates in a matter of seconds,
+for all of your dependencies, right into the `versions.properties`, in a way that makes upgrading effortless,
+even with just the keyboard.
+
+FYI, the current latest release of Splitties is the version `3.0.0`
 
 <details>
 <summary>
-<b>Here are all the artifacts of this library. Just use the ones you need. (Click to expand)</b>
+<b>Here are the maven coordinates of all the artifacts of this library, for reference. (Click to expand)</b>
 </summary>
 
-```kts
-implementation("com.louiscad.splitties:splitties-activities:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-arch-room:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bitflags:$splitties_version")
-implementation("com.louiscad.splitties:splitties-bundle:$splitties_version")
-implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
-implementation("com.louiscad.splitties:splitties-collections:$splitties_version")
-implementation("com.louiscad.splitties:splitties-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-dimensions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-exceptions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragments:$splitties_version")
-implementation("com.louiscad.splitties:splitties-fragmentargs:$splitties_version")
-implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
-implementation("com.louiscad.splitties:splitties-lifecycle-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainhandler:$splitties_version")
-implementation("com.louiscad.splitties:splitties-mainthread:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-colors:$splitties_version")
-implementation("com.louiscad.splitties:splitties-material-lists:$splitties_version")
-implementation("com.louiscad.splitties:splitties-permissions:$splitties_version")
-implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
-implementation("com.louiscad.splitties:splitties-resources:$splitties_version")
-implementation("com.louiscad.splitties:splitties-snackbar:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-stetho-init:$splitties_version")
-implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
-implementation("com.louiscad.splitties:splitties-toast:$splitties_version")
-implementation("com.louiscad.splitties:splitties-typesaferecyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-cardview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-coroutines-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-constraintlayout:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-coordinatorlayout:$splitties_version")
-debugImplementation("com.louiscad.splitties:splitties-views-dsl-ide-preview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-dsl-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-material:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-recyclerview:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-appcompat:$splitties_version")
-implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayout:$splitties_version")
+```
+com.louiscad.splitties:splitties-activities
+com.louiscad.splitties:splitties-alertdialog
+com.louiscad.splitties:splitties-alertdialog-appcompat
+com.louiscad.splitties:splitties-alertdialog-appcompat-coroutines
+com.louiscad.splitties:splitties-appctx
+com.louiscad.splitties:splitties-arch-lifecycle
+com.louiscad.splitties:splitties-arch-room
+com.louiscad.splitties:splitties-bitflags
+com.louiscad.splitties:splitties-bundle
+com.louiscad.splitties:splitties-checkedlazy
+com.louiscad.splitties:splitties-collections
+com.louiscad.splitties:splitties-coroutines
+com.louiscad.splitties:splitties-dimensions
+com.louiscad.splitties:splitties-exceptions
+com.louiscad.splitties:splitties-fragments
+com.louiscad.splitties:splitties-fragmentargs
+com.louiscad.splitties:splitties-intents
+com.louiscad.splitties:splitties-lifecycle-coroutines
+com.louiscad.splitties:splitties-mainhandler
+com.louiscad.splitties:splitties-mainthread
+com.louiscad.splitties:splitties-material-colors
+com.louiscad.splitties:splitties-material-lists
+com.louiscad.splitties:splitties-permissions
+com.louiscad.splitties:splitties-preferences
+com.louiscad.splitties:splitties-resources
+com.louiscad.splitties:splitties-snackbar
+com.louiscad.splitties:splitties-stetho-init
+com.louiscad.splitties:splitties-systemservices
+com.louiscad.splitties:splitties-toast
+com.louiscad.splitties:splitties-typesaferecyclerview
+com.louiscad.splitties:splitties-views
+com.louiscad.splitties:splitties-views-appcompat
+com.louiscad.splitties:splitties-views-cardview
+com.louiscad.splitties:splitties-views-coroutines
+com.louiscad.splitties:splitties-views-coroutines-material
+com.louiscad.splitties:splitties-views-dsl
+com.louiscad.splitties:splitties-views-dsl-appcompat
+com.louiscad.splitties:splitties-views-dsl-constraintlayout
+com.louiscad.splitties:splitties-views-dsl-coordinatorlayout
+com.louiscad.splitties:splitties-views-dsl-ide-preview
+com.louiscad.splitties:splitties-views-dsl-material
+com.louiscad.splitties:splitties-views-dsl-recyclerview
+com.louiscad.splitties:splitties-views-material
+com.louiscad.splitties:splitties-views-recyclerview
+com.louiscad.splitties:splitties-views-selectable
+com.louiscad.splitties:splitties-views-selectable-appcompat
+com.louiscad.splitties:splitties-views-selectable-constraintlayout
 ```
 
 </details>
@@ -377,8 +401,8 @@ implementation("com.louiscad.splitties:splitties-views-selectable-constraintlayo
 
 Let's say you need to try a new feature or a fix that did not make it to a release yet:
 
-You can grab it in the snapshot version by adding the corresponding repository and
-changing the library version to the dev version you need in your root project `build.gradle` file:
+You can grab it in the snapshot version by adding the corresponding repository as shown below, and
+changing the library version to the latest snapshot, `3.0.0-SNAPSHOT`:
 
 ```groovy
 allProjects {
@@ -387,18 +411,20 @@ allProjects {
         google() // Add sonatype snapshots repo below
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
     }
-    ext {
-        splitties_version = '3.0.0-SNAPSHOT'
-    }
 }
 ```
 
 ## New versions notifications
+
 Releases are announced on GitHub, you can subscribe by [clicking on "Watch", then "Releases only"](
 https://docs.github.com/en/github/managing-subscriptions-and-notifications-on-github/setting-up-notifications/configuring-notifications#configuring-your-watch-settings-for-an-individual-repository
 ).
 
+However, if you use [refreshVersions](https://github.com/jmfayard/refreshVersions),
+you'll also learn about updates when you run the `refreshVersions` task right in the `versions.properties` file.
+
 ## Improve this library
+
 If you want this library to have **a new feature or an improvement** in a
 new or in an existing module, please, open an issue or vote/comment a
 similar one first, so it can be discussed.
@@ -406,25 +432,26 @@ similar one first, so it can be discussed.
 **Documentation contributions** are also welcome.
 For typos or other small improvements, feel free to submit a PR
 (pull request) directly.
-For more significant doc contributions, please, open an issue first so it
+For more significant doc contributions, please open an issue first, so it
 can be discussed.
 
 **If you find a bug**, please open an issue with all the important details.
 If you know a simple fix that is not API breaking and that does not have
-side-effects that need to be considered, you may also directly submit a PR.
+side effects that need to be considered, you may also directly submit a PR.
 
 You can also join the discussion on Kotlin's Slack in the
 [#splitties](https://kotlinlang.slack.com/messages/splitties) channel (you can get an invitation
 [here](http://slack.kotlinlang.org/)).
 
 ## What is a split
+
 A "split" is a module of the Splitties library that you can add as a
 dependency. It only includes the required transitive dependencies.
 This allows you to only add what you need in your app or library module,
 so the final apk/ipa/app is as small as possible and doesn't include stuff not used
 by your app.
 
-Let's say you're build a Wear OS app using the Views DSL.
+Let's say you're building a Wear OS app using the Views DSL.
 Wear OS apps don't need AppCompat. Including it would be a waste of
 bandwidth and storage. The Views DSL core module relies on the Android
 SDK but not on AppCompat, so you don't bloat your wrist app with AppCompat
@@ -447,5 +474,6 @@ https://medium.com/@CodingDoug/kotlin-android-a-brass-tacks-experiment-part-3-84
 ). It is fair to say that Views DSL has its root in this experiment.
 
 ## License
+
 This library is published under Apache License version 2.0 which you can see
 [here](https://github.com/LouisCAD/Splitties/blob/master/LICENSE).

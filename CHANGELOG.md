@@ -1,5 +1,47 @@
 # Change log for Splitties
 
+## Version 3.0.0 (2021-08-20)
+
+Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.
+
+Finally! Splitties 3.0.0 is there, and it's ready to keep iterating.
+
+The last 2.x version, the 2.1.1 dates back from 2018-11-25, close to 3 years ago.
+Why did it take so long to have version 3.0.0?
+
+Let's say making a multi-modules, multiplatform library isn't full of easy and straightforward steps.
+A blog post (my first!) will be published later to share that experience from start to now.
+Feel free to click follow on [blog.louiscad.com](https://blog.louiscad.com), or [on Twitter](https://twitter.com/Louis_CAD) to know when the story is published.
+
+I'll also share a roadmap for Splitties there, which I hope will get you excited for your future endeavors.
+
+Let's get into the actual content of this release:
+
+### Documentation updates and improvements, and website
+
+In case you missed it, Splitties now has a website, happily powered by [Material for MKDocs](https://squidfunk.github.io/mkdocs-material/). The address is [splitties.louiscad.com](https://splitties.louiscad.com).
+
+The main page shows a better overview of what Splitties is about, and its content. It should be helpful for newcomers.
+
+The setup info for each module is now upfront in their respective doc pages, be it on the website, or on GitHub, and they have been updated to recommend using the dependency notations from [refreshVersions](https://github.com/jmfayard/refreshVersions), which will also help you update Splitties, along with other libraries, and all that in less time.
+
+Full disclosure: I am working on refreshVersions myself, in close collaboration with its author, Jean-Michel Fayard. I use it, and I totally recommend it for all Gradle projects. Splitties is using it of course.
+
+### Bit Flags
+
+#### Changed
+
+The `hasFlag`, `withFlag`, and `minusFlag` extensions for unsigned integers (`UByte`, `UShort`, `UInt`, and `ULong`) are no longer annotated with the `@ExperimentalUnsignedTypes` annotation.
+
+### Preferences
+
+#### Added
+
+There's a new `DataStorePreferences` class for the Android side, which you can use as a substitute of the `Preferences` class. _If you were already using `SuspendPrefsAccessor`, that's all you need to change._
+
+This AndroidX DataStore backed implementation should remove the risks of your app and their users being affected by the potential performance issues of Android platform's `SharedPreferences`.
+Be sure to check out [the updated docs](modules/preferences/README.md)!
+
 ## Version 3.0.0-rc03 (2021-08-06)
 
 Compiled with Kotlin 1.5.21 and kotlinx.coroutines 1.5.1-native-mt.

@@ -6,6 +6,16 @@ Supported platforms: **Android**.
 
 This makes using Android Architecture Components nicer in Kotlin.
 
+## Setup
+
+This dependency is not included in any of the [fun-packs](../../README.md#download),
+because we don't believe all apps need its content nowadays.
+
+Add it with [refreshVersions](https://github.com/jmfayard/refreshVersions):
+`Splitties.archLifecycle`.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-arch-lifecycle`.
+
 ## Content
 
 ### LifecycleObserver
@@ -80,9 +90,3 @@ class YourViewModel : ViewModel() {
 Note that the `map` lambda runs on UI thread, so very light operations like
 getting a property is right, but long/blocking operations are not (would
 result in lags or ANRs).
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-arch-lifecycle:$splitties_version")
-```

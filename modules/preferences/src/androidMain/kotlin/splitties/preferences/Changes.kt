@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.conflate
 import splitties.experimental.NonSymmetricalApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal actual fun SharedPreferences.changesFlow(
+internal actual fun PreferencesStorage.changesFlow(
     key: String,
     emitAfterRegister: Boolean
 ): Flow<Unit> = channelFlow {

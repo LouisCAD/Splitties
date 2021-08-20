@@ -23,40 +23,37 @@ kotlin {
     linux(x64 = true)
     mingw(x64 = true)
 
-    sourceSets {
-        commonMain.dependencies {
+    common {
+        dependencies {
             api(Kotlin.test.common)
             api(Kotlin.test.annotationsCommon)
             api(KotlinX.coroutines.core)
         }
-        val allButJvmMain by creating {
-            dependsOn(commonMain)
-            jsMain.dependsOn(this)
-        }
-        val allJvmMain by creating {
-            dependsOn(commonMain)
-            androidMain.dependsOn(this)
-            jvmMain.dependsOn(this)
+        "allJvm" {
+            "jvm"()
+            "android" {
+                dependencies {
+                    api(KotlinX.coroutines.android)
+                    api(AndroidX.test.ext.junit)
+                }
+            }
             dependencies {
                 api(Kotlin.test.junit)
             }
         }
-        val nativeMain by creating {
-            dependsOn(allButJvmMain)
-            val platforms = listOf("linux", "mingw", "macos", "ios", "watchos", "tvos")
-            filter { sourceSet ->
-                sourceSet.name.endsWith("Main") &&
-                    platforms.any { sourceSet.name.startsWith(it) }
-            }.forEach { it.dependsOn(this) }
-        }
-        androidMain.dependencies {
-            api(KotlinX.coroutines.android)
-            api(AndroidX.test.ext.junit)
-        }
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
+        "allButJvm" {
+            "js"()
+            "native" {
+                "macosX64"()
+                "iosArm32"(); "iosArm64"(); "iosX64"()
+                "watchosArm32"(); "watchosArm64"(); "watchosX86"()
+                "linuxX64"()
+                "mingwX64"()
             }
         }
+    }
+
+    sourceSets {
+        all { languageSettings.apply { useExperimentalAnnotation("kotlin.RequiresOptIn") } }
     }
 }

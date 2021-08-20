@@ -7,6 +7,18 @@ Supported platforms: **Android**.
 
 _NOTE: Coroutines can replace the need for this split altogether in most cases._
 
+## Setup
+
+This dependency is not included in any of the [fun-packs](../../README.md#download),
+because we don't believe all apps need its content nowadays.
+
+Add it with [refreshVersions](https://github.com/jmfayard/refreshVersions):
+`Splitties.checkedlazy`.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-checkedlazy`.
+
+## Content
+
 This library provides a `checkedLazy()` method that returns a `Lazy` delegate,
 as well as `mainThreadLazy()`.
 
@@ -27,10 +39,4 @@ class YourClass {
     val greeting: String by mainThreadLazy { "Hello Splitties!" }
     val expensiveObject by checkedLazy(noMainThreadChecker) { doHeavyInstantiation() }
 }
-```
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-checkedlazy:$splitties_version")
 ```

@@ -7,6 +7,18 @@ Supported platforms: **Android**.
 You may be looking for [the Material version](../alertdialog-material) or
 [the AppCompat version](../alertdialog-appcompat/README.md).
 
+## Setup
+
+This dependency is not included in any of the [fun-packs](../../README.md#download),
+because typical Android apps use the Material or AppCompat version.
+
+However, it might prove handy for WearOS apps where you should use the platform one.
+
+Add it with [refreshVersions](https://github.com/jmfayard/refreshVersions):
+`Splitties.alertdialog`.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-alertdialog`.
+
 ## Example
 
 ```kotlin
@@ -31,10 +43,4 @@ class YourActivity : AppCompatActivity {
         }.show()
     }
 }
-```
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-alertdialog:$splitties_version")
 ```

@@ -5,6 +5,13 @@ create `PendingIntent`s the clean and easy way.*
 
 Supported platforms: **Android**.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.intents`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-intents`.
+
 ## Table of contents
 
 * [Using `companion object`s as typesafe and key-safe intent specs](#using-companion-objects-as-typesafe-and-key-safe-intent-specs)
@@ -15,7 +22,6 @@ Supported platforms: **Android**.
   * [Using an IntentSpec](#using-an-intentspec)
   * [IntentSpec example](#intentspec-example)
 * [Creating `PendingIntent`s the clean and easy way](#creating-pendingintents-the-clean-and-easy-way)
-* [Download](#download)
 
 ## Using `companion object`s as typesafe and key-safe intent specs
 
@@ -144,9 +150,3 @@ All these functions have two optional parameters that default to zero:
 The `toPendingActivity()` and `toPendingActivities()` functions also have
 an `options: Bundle?` parameter that defaults to `null` (and is ignored
 below API 16).
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-intents:$splitties_version")
-```

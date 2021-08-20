@@ -1,24 +1,31 @@
 # Preferences
 
-*Property syntax for Android's `SharedPreferences` or iOS/macOS `NSUserDefaults`.*
+*Property syntax for Android's `SharedPreferences`/`DataStore` or iOS/macOS `NSUserDefaults`.*
 
 Supported platforms: **macOS** (x64), **iOS** (arm32, arm64 & x64), **Android**.
 
 This library uses Kotlin's property delegation to make using
-SharedPreferences as easy as accessing a property on an object, and provides an `NSUserDefaults`
-backed implementation for macOS and iOS.
+`SharedPreferences` and `DataStore<Preferences>` as easy as accessing a property on an object,
+and provides an `NSUserDefaults` backed implementation for macOS and iOS.
 
 On Android, it relies on the `appCtx` module of this library to allow usage in `object`,
 and can support storage on device encrypted storage for devices
 supporting Direct Boot. See [the source code](
 /src/androidMain/kotlin/splitties/preferences) for more information.
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.preferences`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-preferences`.
+
 ## Table of contents
 
 * [Defining the preferences properties in an object](#defining-the-preferences-properties-in-an-object)
   * [Why `object` and not `class`?](#why-object-and-not-class)
 * [Loading the preferences without blocking the main thread](#loading-the-preferences-without-blocking-the-main-thread)
-* [Download](#download)
+* [Using AndroidX DataStore instead of SharedPreferences under the hood](#using-androidx-datastore-instead-of-sharedpreferences-under-the-hood)
 
 ## Defining the preferences properties in an object
 
@@ -28,16 +35,20 @@ Define your preferences in an `object` that extends
 import splitties.preferences.Preferences
 
 object GamePreferences : Preferences("gameState") {
-    var magicNumber by intPref(0) // The property name is used as the key.
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
+  var magicNumber by intPref("magicNumber", defaultValue = 0)
+  var currentLevel by intPref("currentLevel", 1)
+  var bossesFought by intPref("bossBattleVictories", 0)
+  var lastTimePlayed by longPref("lastSessionTime", 0L)
 
-    private val pseudoField = StringPref("playerPseudo", "Player 1")
-    var currentPseudo: String by pseudoField
-    val pseudoUpdates: Flow<String> = pseudoField.valueFlow()
+  val pseudoFlow: Flow<String>
+  var pseudo by stringPref("playerPseudo", "Player 1").also {
+    pseudoFlow = it.valueFlow()
+  }
 
-    var favoriteCharacter by stringOrNullPref()
+  val favoriteCharacterFlow: Flow<String?>
+  var favoriteCharacter by stringOrNullPref("favoriteCharacter").also {
+    favoriteCharacterFlow = it.valueFlow()
+  }
 }
 ```
 
@@ -115,12 +126,20 @@ import splitties.preferences.Preferences
 class GamePreferences private constructor() : Preferences("gameState") {
     companion object : SuspendPrefsAccessor<GamePreferences>(::GamePreferences)
 
-    var magicNumber by intPref(0) // The property name is used as the key.
-    var currentLevel by IntPref("currentLevel", 1)
-    var bossesFought by IntPref("bossBattleVictories", 0)
-    var lastTimePlayed by LongPref("lastSessionTime", 0L)
-    var pseudo by StringPref("playerPseudo", "Player 1")
-    var favoriteCharacter by stringOrNullPref()
+    var magicNumber by intPref("magicNumber", defaultValue = 0)
+    var currentLevel by intPref("currentLevel", 1)
+    var bossesFought by intPref("bossBattleVictories", 0)
+    var lastTimePlayed by longPref("lastSessionTime", 0L)
+    
+    val pseudoFlow: Flow<String>
+    var pseudo by stringPref("playerPseudo", "Player 1").also {
+      pseudoFlow = it.valueFlow()
+    }
+    
+    val favoriteCharacterFlow: Flow<String?>
+    var favoriteCharacter by stringOrNullPref("favoriteCharacter").also {
+      favoriteCharacterFlow = it.valueFlow()
+    }
 }
 ```
 
@@ -145,8 +164,30 @@ If you have non suspending functions that would need to access the preferences,
 you have two options: pass your `Preferences` subclass as a parameter, or make
 it a `suspend` function.
 
-## Download
+## Using AndroidX DataStore instead of SharedPreferences under the hood
 
-```groovy
-implementation("com.louiscad.splitties:splitties-preferences:$splitties_version")
-```
+Android's `SharedPreferences` has one performance drawback: it can perform disk I/O
+on the main thread on its own when the `onStop` callback of an `Activity` is called.
+The only way to ensure your app will not be affected by the potential ANRs
+(Application Not Responding) it can cause is to replace it with something else.
+
+The AndroidX team made [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+just for that, but its API is not compatible, which would require significant code changes in host projects. 
+
+If you use this (Splitties Preferences) however, all the hard work has been done for you.
+
+There are just 3 quick steps to perform to use DataStore instead of SharedPreferences:
+
+1. Make sure you use `SuspendPrefsAccessor`, as described in the section above (not doing so will crash on first access).
+2. Extend `DataStorePreferences` instead of `Preferences`.
+3. Opt-in by adding `@OptIn(DataStorePreferencesPreview::class)` to your class.
+
+Once you're done, test your app to make sure it still works fine.
+
+Data migration is automatically done if you're moving from SharedPreferences and keep the same name.
+If you were using `DefaultPreferences`, you can pass `null` to `name`.
+
+Be sure that there's only one class that uses the same name, or DataStore will throw.
+
+Finally, note that direct boot (aka. deviceProtectedStorage) is not supported yet, but is being considered.
+Add a 👍 on [this issue](https://github.com/LouisCAD/Splitties/issues/290) to raise the priority.

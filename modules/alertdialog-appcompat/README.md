@@ -7,6 +7,13 @@ Supported platforms: **Android**.
 You may also need [the Material version](../alertdialog-material) and
 [the coroutines extensions](../alertdialog-appcompat-coroutines/README.md).
 
+## Setup
+
+If you want to use this dependency without using one of the [fun packs](../../README.md#download),
+you can use `Splitties.alertdialogAppcompat`, provided you have [refreshVersions](https://github.com/jmfayard/refreshVersions) added to the project.
+
+For reference, the maven coordinates of this module are `com.louiscad.splitties:splitties-alertdialog-appcompat`.
+
 ## Example
 
 ```kotlin
@@ -31,10 +38,4 @@ class YourActivity : AppCompatActivity {
         }.show()
     }
 }
-```
-
-## Download
-
-```groovy
-implementation("com.louiscad.splitties:splitties-alertdialog-appcompat:$splitties_version")
 ```
