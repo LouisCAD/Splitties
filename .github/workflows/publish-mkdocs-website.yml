@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: sudo snap install --classic kotlin
       - run: ./docs/DocsCopier.main.kts
       - uses: actions/setup-python@v2
         with:
