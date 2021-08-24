@@ -40,7 +40,7 @@ and you need to be sure to read the doc afterwards, to ensure you do it right.
 
 This split provides a few interfaces that your `companion object`s can
 implement using delegation so they become an intent specification, that you
-can use to build and `Intent`, start an `Activity`, start a `Service` or send
+can use to build an `Intent`, start an `Activity`, start a `Service` or send
 a broadcast in a type safe way.
 
 ### IntentSpec interfaces
