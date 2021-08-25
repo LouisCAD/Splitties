@@ -13,7 +13,7 @@ repo_url: https://github.com/LouisCAD/Splitties
 edit_uri: edit/main # Needed because we copy docs.
 remote_branch: gh-pages
 
-site_description: "Life is too short to google for dependencies and versions"
+site_description: "A collection of hand-crafted extensions for your Kotlin projects."
 
 site_author: LouisCAD
 copyright: 'Copyright © 2021 Louis CAD'
