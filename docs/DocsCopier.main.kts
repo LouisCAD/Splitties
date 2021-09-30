@@ -58,7 +58,11 @@ suspend fun readTextWithAdaptationForMkDocs(sourceFile: File): String = Dispatch
         // to links pointing to the link in the GitHub repository.
         val sourceDir = sourceFile.parentFile ?: projectDir
         val newPath = sourceDir.relativeTo(projectDir).resolve(url).normalize()
-        val replacement = "$gitMainBranchUrl/$newPath"
+        val isImage = url.endsWith(".png") ||
+            url.endsWith(".jpg", ignoreCase = true) ||
+            url.endsWith(".jpeg", ignoreCase = true)
+        val gitUrl = if (isImage) gitMainBranchUrl.replace("/tree/", "/raw/") else gitMainBranchUrl
+        val replacement = "$gitUrl/$newPath"
         val offset = -matchResult.range.first
         val rangeToReplaceInMatch = (urlGroup.range.first + offset)..(urlGroup.range.last + offset)
         matchResult.value.replaceRange(rangeToReplaceInMatch, replacement)
