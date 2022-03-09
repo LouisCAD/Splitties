@@ -17,6 +17,7 @@ buildscript {
 
 plugins {
     id("com.osacky.doctor")
+    id("com.louiscad.complete-kotlin")
 }
 
 doctor {
