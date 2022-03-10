@@ -42,10 +42,10 @@ android {
             signingConfig = signingConfigs.findByName("debug")
         }
     }
-    packagingOptions {
-        exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
-        exclude("**/*.kotlin_builtins") // Reduce apk size
-        exclude("**/*.kotlin_metadata") // Reduce apk size
+    packagingOptions.resources {
+        excludes += "**/*.kotlin_module" // Avoid clashes with common and jvm/android modules
+        excludes += "**/*.kotlin_builtins" // Reduce apk size
+        excludes += "**/*.kotlin_metadata" // Reduce apk size
     }
 }
 
