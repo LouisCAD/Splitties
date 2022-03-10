@@ -8,7 +8,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
-import com.example.splitties.R
 import com.example.splitties.extensions.permissions.ensurePermissionOrFinishAndCancel
 import kotlinx.coroutines.launch
 import splitties.dimensions.dip
@@ -21,6 +20,7 @@ import splitties.views.dsl.core.margin
 import splitties.views.dsl.core.textView
 import splitties.views.gravityCenter
 import splitties.views.textAppearance
+import androidx.appcompat.R as AppCompatR
 
 class PermissionsExampleActivity : AppCompatActivity() {
 
@@ -36,7 +36,7 @@ class PermissionsExampleActivity : AppCompatActivity() {
             )
             contentView = frameLayout {
                 add(textView {
-                    textAppearance = R.style.TextAppearance_AppCompat_Headline
+                    textAppearance = AppCompatR.style.TextAppearance_AppCompat_Headline
                     text = "Thanks for granting the permission!\n" +
                             "Nothing to see there now… :)"
                     centerText()

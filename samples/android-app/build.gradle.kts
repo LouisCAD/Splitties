@@ -6,7 +6,7 @@
 
 plugins {
     id("com.android.application")
-    kotlin("multiplatform")
+    kotlin("android")
 }
 
 android {
@@ -42,10 +42,6 @@ android {
             signingConfig = signingConfigs.findByName("debug")
         }
     }
-    sourceSets.getByName("main") {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
-        res.srcDir("src/androidMain/res")
-    }
     packagingOptions {
         exclude("**/*.kotlin_module") // Avoid clashes with common and jvm/android modules
         exclude("**/*.kotlin_builtins") // Reduce apk size
@@ -53,49 +49,31 @@ android {
     }
 }
 
-kotlin {
-    android()
-    sourceSets {
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-                optIn("splitties.experimental.ExperimentalSplittiesApi")
-            }
-        }
-        commonMain.dependencies {
-            api(Kotlin.stdlib.common)
-        }
-        androidMain.dependencies {
-            implementation(splittiesFunPack("android-material-components-with-views-dsl"))
-            arrayOf(
-                "arch-lifecycle",
-                "arch-room",
-                "checkedlazy",
-                "exceptions",
-                "typesaferecyclerview"
-            ).forEach { moduleName ->
-                implementation(splitties(moduleName))
-            }
-            arrayOf(
-                Kotlin.stdlib.jdk7,
-                AndroidX.appCompat,
-                AndroidX.core.ktx,
-                AndroidX.constraintLayout,
-                Google.android.material,
-                JakeWharton.timber,
-                KotlinX.coroutines.android
-            ).forEach {
-                implementation(it)
-            }
-        }
-    }
+tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile>().configureEach {
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+    kotlinOptions.freeCompilerArgs += "-Xopt-in=splitties.experimental.ExperimentalSplittiesApi"
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 dependencies {
-    arrayOf(
-        "stetho-init",
-        "views-dsl-ide-preview"
-    ).forEach { moduleName ->
-        debugImplementation(splitties(moduleName))
-    }
+    debugImplementation(splitties("stetho-init"))
+
+    implementation(splittiesFunPack("android-material-components-with-views-dsl"))
+
+    implementation(splitties("arch-lifecycle"))
+    implementation(splitties("arch-room"))
+    implementation(splitties("checkedlazy"))
+    implementation(splitties("exceptions"))
+    implementation(splitties("typesaferecyclerview"))
+
+    implementation(Kotlin.stdlib.jdk7)
+    implementation(AndroidX.appCompat)
+    implementation(AndroidX.core.ktx)
+    implementation(AndroidX.constraintLayout)
+    implementation(AndroidX.compose.material)
+    implementation(AndroidX.compose.ui)
+    implementation(AndroidX.compose.runtime)
+    implementation(Google.android.material)
+    implementation(JakeWharton.timber)
+    implementation(KotlinX.coroutines.android)
 }
