@@ -4,6 +4,8 @@
 
 @file:Suppress("SpellCheckingInspection")
 
+import de.fayard.refreshVersions.core.versionFor
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -13,7 +15,7 @@ android {
     compileSdk = ProjectVersions.androidSdk
     defaultConfig {
         applicationId = "com.louiscad.splittiessample"
-        minSdk = 14
+        minSdk = 21
         targetSdk = ProjectVersions.androidSdk
         versionCode = 1
         versionName = thisLibraryVersion
@@ -41,6 +43,10 @@ android {
             isShrinkResources = true
             signingConfig = signingConfigs.findByName("debug")
         }
+    }
+    buildFeatures.compose = true
+    composeOptions {
+        kotlinCompilerExtensionVersion = versionFor("version.androidx.compose.compiler")
     }
     packagingOptions.resources {
         excludes += "**/*.kotlin_module" // Avoid clashes with common and jvm/android modules
@@ -70,6 +76,9 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.constraintLayout)
+    implementation(AndroidX.compose.material)
+    implementation(AndroidX.compose.ui)
+    implementation(AndroidX.compose.runtime)
     implementation(Google.android.material)
     implementation(JakeWharton.timber)
     implementation(KotlinX.coroutines.android)
