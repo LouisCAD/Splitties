@@ -4,13 +4,13 @@
 
 Run the interactive script
 
-Run [Releasing.kts](Releasing.kts) (preferably in system terminal as IDE could crash)
-with `kotlinc -script Releasing.kts` and follow the steps directly from the command line.
+Run [Releasing.kts](Releasing.main.kts) (preferably in system terminal as IDE could crash)
+with `kotlinc -script Releasing.main.kts` and follow the steps directly from the command line.
 
-## Publishing a dev version
+## Publishing a SNAPSHOT version
 
-1. Make sure `splitties.version` in the [libraries_version.txt](libraries_version.txt) file is
-set to a new `-dev-` version.
-2. Commit "Dev version X.X.X-dev-XXX"
-3. Push the commit and wait for the GitHub Action to run the release (the automated workflow should
-take less than an hour).
+1. Make sure the content of the [libraries_version.txt](libraries_version.txt) file is
+set to a new `-SMAPSHOT` version on the target branch (on GitHub).
+2. Go to [this url](https://github.com/LouisCAD/Splitties/actions/workflows/publish-to-sonatype-snapshots.yml)
+3. Click the "Run workflow" white button, select the target branch, and click the green "Run workflow" button
+4. Wait (if you want) until the Workflow run completes.
