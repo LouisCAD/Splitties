@@ -30,7 +30,6 @@ kotlin {
         }
         all {
             languageSettings.apply {
-                enableLanguageFeature("InlineClasses")
                 optIn("kotlin.RequiresOptIn")
             }
         }

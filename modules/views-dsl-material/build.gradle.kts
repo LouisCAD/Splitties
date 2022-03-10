@@ -29,7 +29,6 @@ kotlin {
         }
         all {
             languageSettings.apply {
-                enableLanguageFeature("InlineClasses")
                 optIn("kotlin.contracts.ExperimentalContracts")
                 optIn("splitties.experimental.InternalSplittiesApi")
             }
