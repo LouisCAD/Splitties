@@ -10,14 +10,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(ProjectVersions.androidSdk)
+    compileSdk = ProjectVersions.androidSdk
     defaultConfig {
         applicationId = "com.louiscad.splittiessample"
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
+        minSdk = 14
+        targetSdk = ProjectVersions.androidSdk
         versionCode = 1
         versionName = thisLibraryVersion
-        resConfigs("en", "fr")
+        resourceConfigurations += setOf("en", "fr")
         proguardFile("../proguard-android-really-optimize.txt")
         proguardFile("proguard-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -58,9 +58,8 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
-                enableLanguageFeature("NewInference")
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("splitties.experimental.ExperimentalSplittiesApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("splitties.experimental.ExperimentalSplittiesApi")
             }
         }
         commonMain.dependencies {

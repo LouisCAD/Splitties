@@ -7,10 +7,10 @@
 import com.android.build.gradle.LibraryExtension as AndroidLibraryExtension
 
 fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
-    compileSdkVersion(ProjectVersions.androidSdk)
+    compileSdk = ProjectVersions.androidSdk
     defaultConfig {
-        minSdkVersion(14)
-        targetSdkVersion(ProjectVersions.androidSdk)
+        minSdk = 14
+        targetSdk = ProjectVersions.androidSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

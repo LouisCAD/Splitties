@@ -31,7 +31,7 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
+                optIn("kotlin.RequiresOptIn")
             }
         }
     }

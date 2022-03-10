@@ -24,7 +24,7 @@ kotlin {
         }
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
+                optIn("kotlin.contracts.ExperimentalContracts")
             }
         }
     }

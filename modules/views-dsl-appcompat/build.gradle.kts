@@ -27,8 +27,8 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
-                useExperimentalAnnotation("splitties.experimental.InternalSplittiesApi")
+                optIn("kotlin.contracts.ExperimentalContracts")
+                optIn("splitties.experimental.InternalSplittiesApi")
             }
         }
     }

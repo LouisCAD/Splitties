@@ -26,7 +26,7 @@ kotlin {
         all {
             languageSettings.apply {
                 enableLanguageFeature("InlineClasses")
-                useExperimentalAnnotation("kotlin.contracts.ExperimentalContracts")
+                optIn("kotlin.contracts.ExperimentalContracts")
             }
         }
     }

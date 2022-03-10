@@ -48,7 +48,7 @@ kotlin {
         }
     }
     sourceSets {
-        all { languageSettings.apply { useExperimentalAnnotation("kotlin.RequiresOptIn") } }
+        all { languageSettings.apply { optIn("kotlin.RequiresOptIn") } }
     }
 }
 
