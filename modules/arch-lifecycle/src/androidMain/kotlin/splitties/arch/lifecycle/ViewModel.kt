@@ -29,5 +29,5 @@ internal class TypeSafeViewModelFactory<VM : ViewModel>(
     private val factory: () -> VM
 ) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>) = factory() as T
+    override fun <T : ViewModel> create(modelClass: Class<T>) = factory() as T
 }
