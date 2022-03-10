@@ -38,11 +38,6 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
         java.srcDir("src/commonTest/kotlin")
         java.srcDir("src/androidTest/kotlin")
     }
-    packagingOptions {
-        // Remove line below when the following issue is ACTUALLY fixed (not just closed)
-        // https://github.com/Kotlin/kotlinx.coroutines/issues/1064
-        pickFirst("META-INF/kotlinx-coroutines-core.kotlin_module")
-    }
     testOptions {
         unitTests.isIncludeAndroidResources = true // Required for Roboelectric
     }
