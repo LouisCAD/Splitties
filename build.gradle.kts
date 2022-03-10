@@ -22,6 +22,10 @@ plugins {
 
 doctor {
     disallowCleanTaskDependencies.set(false)
+    javaHome {
+        //TODO: Remove when https://github.com/runningcode/gradle-doctor/issues/187 is fixed.
+        ensureJavaHomeMatches.set(false)
+    }
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
