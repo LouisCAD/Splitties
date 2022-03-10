@@ -20,6 +20,7 @@
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
         <activity
             android:name="com.example.splitties.main.MainActivity"
+            android:exported="true"
             android:configChanges="orientation|screenSize|screenLayout|keyboard|keyboardHidden"
             android:label="@string/app_name"
             android:launchMode="singleTop">
