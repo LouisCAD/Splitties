@@ -46,7 +46,7 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
-    kotlinOptions.freeCompilerArgs = listOf("kotlin.RequiresOptIn").map { "-Xopt-in=$it" }
+    kotlinOptions.freeCompilerArgs += listOf("kotlin.RequiresOptIn").map { "-Xopt-in=$it" }
 }
 
 tasks.withType<Test>().configureEach {
