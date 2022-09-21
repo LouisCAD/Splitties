@@ -5,6 +5,7 @@
 @file:Suppress("SpellCheckingInspection")
 
 import de.fayard.refreshVersions.core.versionFor
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     id("com.android.application")
@@ -55,7 +56,7 @@ android {
     }
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile>().configureEach {
+tasks.withType<KotlinJvmCompile>().configureEach {
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     kotlinOptions.freeCompilerArgs += "-Xopt-in=splitties.experimental.ExperimentalSplittiesApi"
     kotlinOptions.jvmTarget = "1.8"
