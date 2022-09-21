@@ -4,7 +4,6 @@
 
 @file:Suppress("SpellCheckingInspection")
 
-import de.fayard.refreshVersions.core.versionFor
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
@@ -45,10 +44,6 @@ android {
             signingConfig = signingConfigs.findByName("debug")
         }
     }
-    buildFeatures.compose = true
-    composeOptions {
-        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.compiler)
-    }
     packagingOptions.resources {
         excludes += "**/*.kotlin_module" // Avoid clashes with common and jvm/android modules
         excludes += "**/*.kotlin_builtins" // Reduce apk size
@@ -77,9 +72,6 @@ dependencies {
     implementation(AndroidX.appCompat)
     implementation(AndroidX.core.ktx)
     implementation(AndroidX.constraintLayout)
-    implementation(AndroidX.compose.material)
-    implementation(AndroidX.compose.ui)
-    implementation(AndroidX.compose.runtime)
     implementation(Google.android.material)
     implementation(JakeWharton.timber)
     implementation(KotlinX.coroutines.android)
