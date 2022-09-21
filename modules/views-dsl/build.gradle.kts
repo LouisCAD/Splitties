@@ -34,8 +34,3 @@ kotlin {
         }
     }
 }
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.useOldBackend = true //TODO: Remove when https://youtrack.jetbrains.com/issue/KT-44972 is addressed.
-    // See this comment on why it's needed: https://youtrack.jetbrains.com/issue/KT-44972#focus=Comments-27-5014161.0-0
-}
