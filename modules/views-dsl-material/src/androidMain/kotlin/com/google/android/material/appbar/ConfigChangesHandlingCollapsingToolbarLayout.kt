@@ -19,7 +19,7 @@ internal class ConfigChangesHandlingCollapsingToolbarLayout @JvmOverloads constr
     constructor(context: Context) : this(context, null)
 
     @SuppressLint("RestrictedApi")
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         collapsingTextHelper.setExpandedTextAppearance(
             R.style.TextAppearance_Design_CollapsingToolbar_Expanded
