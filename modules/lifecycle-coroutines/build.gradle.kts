@@ -26,7 +26,7 @@ kotlin {
             implementation(splitties("mainthread"))
             api(KotlinX.coroutines.android)
             api(AndroidX.lifecycle.common)
-            api(AndroidX.lifecycle.runtimeKtx)
+            api(AndroidX.lifecycle.runtime.ktx)
         }
         getByName("androidTest").dependencies {
             implementation(splitties("experimental"))

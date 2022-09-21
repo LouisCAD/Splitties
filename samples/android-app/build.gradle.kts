@@ -46,7 +46,7 @@ android {
     }
     buildFeatures.compose = true
     composeOptions {
-        kotlinCompilerExtensionVersion = versionFor("version.androidx.compose.compiler")
+        kotlinCompilerExtensionVersion = versionFor(AndroidX.compose.compiler)
     }
     packagingOptions.resources {
         excludes += "**/*.kotlin_module" // Avoid clashes with common and jvm/android modules

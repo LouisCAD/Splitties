@@ -3,16 +3,11 @@
  */
 
 pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
     plugins {
-        id("de.fayard.refreshVersions") version "0.20.0"
-////                                # available:"0.21.0"
-////                                # available:"0.22.0"
-////                                # available:"0.23.0"
-////                                # available:"0.30.0"
-////                                # available:"0.30.1"
-////                                # available:"0.30.2"
-////                                # available:"0.40.0"
-////                                # available:"0.40.1"
+        id("de.fayard.refreshVersions") version "0.50.1"
     }
 }
 

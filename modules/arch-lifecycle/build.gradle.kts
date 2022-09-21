@@ -24,8 +24,8 @@ kotlin {
             api(splitties("checkedlazy"))
             api(splitties("exceptions"))
             api(AndroidX.annotation)
-            api(AndroidX.fragmentKtx)
-            api(AndroidX.lifecycle.runtimeKtx)
+            api(AndroidX.fragment.ktx)
+            api(AndroidX.lifecycle.runtime.ktx)
             api(AndroidX.lifecycle.viewModelKtx)
             api(AndroidX.lifecycle.liveDataKtx)
         }
