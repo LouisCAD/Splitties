@@ -11,7 +11,7 @@ buildscript {
     repositories { setupForProject() }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
-        classpath("com.android.tools.build:gradle:_")
+        classpath(Android.tools.build.gradlePlugin)
     }
 }
 
