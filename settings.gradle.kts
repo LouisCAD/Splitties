@@ -25,6 +25,12 @@ gradleEnterprise {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
 
 include {

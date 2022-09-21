@@ -8,7 +8,6 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 buildscript {
-    repositories { setupForProject() }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:_")
         classpath(Android.tools.build.gradlePlugin)
@@ -31,7 +30,6 @@ doctor {
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 allprojects {
-    repositories { setupForProject() }
     afterEvaluate {
         // Remove log pollution until Android support in KMP improves.
         project.extensions.findByType<KotlinMultiplatformExtension>()?.let { kmpExt ->
