@@ -25,10 +25,5 @@ kotlin {
             implementation(splitties("intents"))
             implementation(AndroidX.core.ktx)
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

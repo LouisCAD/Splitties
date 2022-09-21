@@ -32,10 +32,5 @@ kotlin {
             implementation(AndroidX.test.espresso.core)
             implementation(KotlinX.coroutines.android)
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

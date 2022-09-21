@@ -19,11 +19,4 @@ kotlin {
     linux(x64 = true)
 
     configure(targets) { configureMavenPublication() }
-    sourceSets {
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
-    }
 }

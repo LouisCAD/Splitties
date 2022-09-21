@@ -28,10 +28,5 @@ kotlin {
             api(AndroidX.core.ktx)
             implementation(splitties("mainthread"))
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

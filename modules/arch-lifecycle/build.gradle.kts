@@ -29,10 +29,5 @@ kotlin {
             api(AndroidX.lifecycle.viewModelKtx)
             api(AndroidX.lifecycle.liveDataKtx)
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

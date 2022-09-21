@@ -25,10 +25,5 @@ kotlin {
             api(AndroidX.fragment.ktx)
             api(splitties("lifecycle-coroutines"))
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

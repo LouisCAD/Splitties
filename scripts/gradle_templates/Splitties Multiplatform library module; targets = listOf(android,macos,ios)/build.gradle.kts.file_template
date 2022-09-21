@@ -29,11 +29,6 @@ kotlin {
         nativeMain {
             dependencies {}
         }
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-            }
-        }
     }
 }
 

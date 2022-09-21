@@ -33,10 +33,5 @@ kotlin {
             implementation(KotlinX.coroutines.test)
             implementation(Kotlin.test.junit)
         }
-        all {
-            languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
-            }
-        }
     }
 }

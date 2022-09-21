@@ -52,8 +52,4 @@ kotlin {
             }
         }
     }
-
-    sourceSets {
-        all { languageSettings.apply { optIn("kotlin.RequiresOptIn") } }
-    }
 }

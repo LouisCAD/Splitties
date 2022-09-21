@@ -27,7 +27,6 @@ kotlin {
         }
         all {
             languageSettings.apply {
-                optIn("kotlin.RequiresOptIn")
                 optIn("splitties.experimental.ExperimentalSplittiesApi")
             }
         }
