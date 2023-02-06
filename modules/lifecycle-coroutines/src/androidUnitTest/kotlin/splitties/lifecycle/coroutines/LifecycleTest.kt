@@ -35,60 +35,6 @@ class LifecycleTest {
     }
 
     @Test
-    fun test_lifecycle_default_scope_uses_default_job() = runBlocking {
-        val lifecycle = TestLifecycleOwner().lifecycle
-        lifecycle.markState(Lifecycle.State.CREATED)
-        val lifecycleJob = lifecycle.job
-        val lifecycleScopeJob = lifecycle.coroutineScope.coroutineContext[Job]
-        assertSame(lifecycleJob, lifecycleScopeJob)
-        lifecycle.markState(Lifecycle.State.DESTROYED)
-    }
-
-    @Test
-    fun test_lifecycle_job_is_cached() = runBlocking {
-        val lifecycle = TestLifecycleOwner().lifecycle
-        lifecycle.markState(Lifecycle.State.CREATED)
-        assertSame(lifecycle.job, lifecycle.job)
-        lifecycle.markState(Lifecycle.State.DESTROYED)
-    }
-
-    @Test
-    fun test_lifecycle_on_destroy_cancels_job() = runBlocking {
-        val lifecycle = TestLifecycleOwner().lifecycle
-        lifecycle.markState(Lifecycle.State.CREATED)
-        val job = lifecycle.job
-        assertTrue(job.isActive)
-        assertFalse(job.isCancelled)
-        lifecycle.markState(Lifecycle.State.STARTED)
-        lifecycle.markState(Lifecycle.State.RESUMED)
-        assertTrue(job.isActive)
-        assertFalse(job.isCancelled)
-        lifecycle.markState(Lifecycle.State.DESTROYED)
-        suspendCoroutine<Unit> { c ->
-            job.invokeOnCompletion { c.resume(Unit) }
-        }
-        assertTrue(job.isCancelled)
-        assertFalse(job.isActive)
-    }
-
-    @Test
-    fun test_already_destroyed_lifecycle_makes_cancelled_job() = runBlocking {
-        val lifecycle = TestLifecycleOwner().lifecycle
-        lifecycle.markState(Lifecycle.State.CREATED)
-        lifecycle.markState(Lifecycle.State.DESTROYED)
-        val job = lifecycle.job
-        assertFalse(job.isActive)
-        assertTrue(job.isCancelled)
-    }
-
-    @Test
-    fun test_lifecycle_owner_scope_is_lifecycle_scope() = runBlocking {
-        val lifecycleOwner = TestLifecycleOwner()
-        val lifecycle = lifecycleOwner.lifecycle
-        assertSame(lifecycle.coroutineScope, lifecycleOwner.lifecycleScope)
-    }
-
-    @Test
     fun test_scope_is_not_active_after_destroy() = runBlocking {
         var count = 0
         val lifecycle = TestLifecycleOwner().lifecycle
