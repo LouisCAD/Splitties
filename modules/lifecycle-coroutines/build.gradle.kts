@@ -28,7 +28,7 @@ kotlin {
             api(AndroidX.lifecycle.common)
             api(AndroidX.lifecycle.runtime.ktx)
         }
-        getByName("androidTest").dependencies {
+        getByName("androidUnitTest").dependencies {
             implementation(splitties("experimental"))
             implementation(KotlinX.coroutines.test)
             implementation(Kotlin.test.junit)

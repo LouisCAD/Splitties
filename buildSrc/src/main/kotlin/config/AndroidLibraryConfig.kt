@@ -23,20 +23,13 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
         this.buildConfig = generateBuildConfig
     }
     sourceSets.getByName("main") {
-        manifest.srcFile("src/androidMain/AndroidManifest.xml")
         res.srcDir("src/androidMain/res")
     }
     sourceSets.getByName("debug") {
-        manifest.srcFile("src/androidDebug/AndroidManifest.xml")
         res.srcDir("src/androidDebug/res")
     }
     sourceSets.getByName("release") {
-        manifest.srcFile("src/androidRelease/AndroidManifest.xml")
         res.srcDir("src/androidRelease/res")
-    }
-    sourceSets.getByName("androidTest") {
-        java.srcDir("src/commonTest/kotlin")
-        java.srcDir("src/androidTest/kotlin")
     }
     testOptions {
         unitTests.isIncludeAndroidResources = true // Required for Roboelectric

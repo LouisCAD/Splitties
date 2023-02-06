@@ -24,7 +24,7 @@ kotlin {
             api(AndroidX.core.ktx)
             api(KotlinX.coroutines.android)
         }
-        getByName("androidTest").dependencies {
+        getByName("androidInstrumentedTest").dependencies {
             implementation(Kotlin.test.junit)
             implementation(AndroidX.test.coreKtx)
             implementation(AndroidX.test.runner)

@@ -48,19 +48,20 @@ class MainThreadCheckingPerformanceTest {
         }.toList().sortedBy { (_, result) -> result }
         val techniqueNameLength = MainThreadCheckTechnique.values().maxBy {
             it.name.length
-        }!!.name.length
+        }.name.length
         val tag = "MainThreadPerformanceTest"
         Log.i(tag, "Benchmark results below")
         results.forEach { (technique, result) ->
-            val techName = technique.name.replace('_', ' ').toLowerCase().capitalize()
+            val techName = technique.name.replace('_', ' ').lowercase()
+                .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
                 .padEnd(techniqueNameLength)
             Log.d(tag, "$techName duration (in µs): $result")
         }
         assertTrue("Library implementation should be the fastest technique! Check logs.") {
-            val (technique, _) = results.minBy { (_, result) -> result }!!
+            val (technique, _) = results.minBy { (_, result) -> result }
             technique == LIBRARY_IMPL
         }
-    }.let { Unit }
+    }.let { }
 
     private fun runBenchmark(technique: MainThreadCheckTechnique): Long {
         val mainThread = mainLooper.thread

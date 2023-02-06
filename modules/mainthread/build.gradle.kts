@@ -32,10 +32,12 @@ kotlin {
                 implementation(project(":test-helpers"))
             }
         }
+        "androidUnitTest" {
+            dependencies {
+                implementation(Kotlin.test)
+                implementation(AndroidX.test.runner)
+                implementation(Testing.robolectric)
+            }
+        }
     }
-}
-
-dependencies {
-    androidTestImplementation(AndroidX.test.runner)
-    testImplementation(Testing.robolectric)
 }
