@@ -52,8 +52,7 @@ android {
 }
 
 tasks.withType<KotlinJvmCompile>().configureEach {
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=splitties.experimental.ExperimentalSplittiesApi"
+    kotlinOptions.freeCompilerArgs += "-opt-in=splitties.experimental.ExperimentalSplittiesApi"
     kotlinOptions.jvmTarget = "1.8"
 }
 
