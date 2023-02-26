@@ -1,4 +1,4 @@
-# Permissions core
+# Permissions Core
 
 *Request runtime permissions without polluting your codebase.*
 
