@@ -6,7 +6,7 @@
 
 @file:Repository("https://repo.maven.apache.org/maven2/")
 //@file:Repository("https://oss.sonatype.org/content/repositories/snapshots")
-//@file:Repository("file:///Users/louiscad/.m2/repository")
+//@file:Repository("file:///Users/me/.m2/repository")
 @file:DependsOn("com.louiscad.incubator:lib-publishing-helpers:0.2.3")
 
 import Releasing_main.CiReleaseFailureCause.*
