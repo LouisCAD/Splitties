@@ -6,6 +6,8 @@ package splitties.bundle
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import kotlin.contracts.InvocationKind
+import kotlin.contracts.contract
 
 /**
  * This function allows to read extras of an [Activity] in the passed [block] using a [BundleSpec].
@@ -42,8 +44,7 @@ inline fun <Spec : BundleSpec, R> Intent.withExtras(
     spec: Spec,
     crossinline block: Spec.() -> R
 ): R {
-    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
-    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
         spec.isReadOnly = true
         spec.currentBundle = extras ?: Bundle()
@@ -62,8 +63,7 @@ inline fun <Spec : BundleSpec> Activity.putExtras(
     spec: Spec,
     crossinline block: Spec.() -> Unit
 ) {
-    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
-    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     intent.putExtras(spec, block)
 }
 
