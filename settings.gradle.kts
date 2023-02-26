@@ -78,7 +78,10 @@ include {
         "mainthread"()
         "material-colors"()
         "material-lists"()
-        "permissions"()
+        "permissions" {
+            "core"()
+            "fragment"()
+        }
         "preferences"()
         "resources"()
         "snackbar"()
@@ -118,19 +121,26 @@ class ModuleParentScope(
         block: (ModuleParentScope.() -> Unit)? = null
     ) {
         check(startsWith(':').not())
+        if (childrenPrefix.isNotEmpty()) check(block !== null)
         val moduleName = ":$this"
-        val projectName = "$parentalPath$moduleName"
-        include(projectName)
-        if (prefix.isNotEmpty()) {
-            project(projectName).let {
-                it.name = "$prefix${it.name}"
+        val projectPath = "$parentalPath$moduleName"
+        include(projectPath)
+        val projectName = if (prefix.isNotEmpty()) {
+            project(projectPath).let {
+                val newName = "$prefix${it.name}"
+                it.name = newName
+                ":$newName"
             }
-        }
+        } else moduleName
         block?.let { buildNode ->
             ModuleParentScope(
-                name = moduleName,
+                name = projectName,
                 parent = this@ModuleParentScope,
-                prefix = childrenPrefix
+                prefix = when {
+                    childrenPrefix.isNotEmpty() -> childrenPrefix
+                    prefix.isEmpty() -> ""
+                    else -> "$prefix$this-"
+                }
             ).buildNode()
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+  ~ Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -7,7 +7,7 @@
 
     <application>
         <activity
-            android:name=".internal.PermissionRequestFallbackActivity"
+            android:name="splitties.permissions.core.PermissionRequestFallbackActivity"
             android:theme="@style/SplittiesPermissionsFallbackActivityTransparentTheme" />
     </application>
 </manifest>

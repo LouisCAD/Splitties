@@ -9,6 +9,7 @@ plugins {
 }
 
 android {
+    namespace = "splitties.permissions.fragment"
     setDefaults()
 }
 
@@ -18,12 +19,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(splitties("fragments"))
-            implementation(splitties("mainthread"))
-            implementation(splitties("appctx"))
-            implementation(splitties("activities"))
-            implementation(splitties("intents"))
-            implementation(AndroidX.core.ktx)
+            api(splitties("permissions", "fragment"))
         }
     }
 }

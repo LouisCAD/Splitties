@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.permissions
@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.experimental.InternalSplittiesApi
 
 /**
  * Returns immediately if the [permissions] are all already granted or if the device API level is
@@ -364,6 +365,7 @@ internal suspend inline fun ensureAllPermissions(
             is PermissionRequestResult.Denied.DoNotAskAgain -> {
                 val goToSettings = askOpenSettingsOrReturn()
                 if (goToSettings) {
+                    @OptIn(InternalSplittiesApi::class)
                     activity.openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
                 } else returnOrThrowBlock()
             }

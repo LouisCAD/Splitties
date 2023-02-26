@@ -11,5 +11,25 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinDependencyHandler
 fun DependencyHandler.splitties(splitName: String) = project(":modules:splitties-$splitName")
 fun KotlinDependencyHandler.splitties(splitName: String) = project(":modules:splitties-$splitName")
 
+fun DependencyHandler.splitties(vararg splitNames: String) =
+    project(splitNames.splittiesProjectname())
+
+fun KotlinDependencyHandler.splitties(vararg splitNames: String) =
+    project(splitNames.splittiesProjectname())
+
+private fun Array<out String>.splittiesProjectname(): String = buildString {
+    append(":modules")
+    this@splittiesProjectname.runningFold(emptyList<String>()) { list, splitName ->
+        (list + splitName).also { newList ->
+            append(":splitties")
+            newList.forEach {
+                append('-')
+                append(it)
+            }
+        }
+    }
+}
+
 fun DependencyHandler.splittiesFunPack(funPackName: String) = project(":fun-packs:splitties-fun-pack-$funPackName")
+
 fun KotlinDependencyHandler.splittiesFunPack(funPackName: String) = project(":fun-packs:splitties-fun-pack-$funPackName")

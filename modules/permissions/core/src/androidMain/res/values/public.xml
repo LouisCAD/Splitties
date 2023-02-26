@@ -4,5 +4,7 @@
   -->
 
 <resources>
+    <!--suppress AndroidDomInspection -->
+    <!-- False positive, actually correct as documented here: https://developer.android.com/studio/projects/android-library.html#PrivateResources -->
     <public/>
 </resources>

@@ -7,6 +7,7 @@
 package com.example.splitties.extensions.permissions
 
 import android.app.Activity
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
@@ -30,6 +31,20 @@ suspend fun FragmentActivity.ensurePermissionOrFinishAndCancel(
     activity = this,
     fragmentManager = supportFragmentManager,
     lifecycle = lifecycle,
+    permission = permission,
+    askDialogTitle = askDialogTitle,
+    askDialogMessage = askDialogMessage,
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    returnButtonText = returnButtonText
+) { finish(); suspendCancellableCoroutine<Nothing> { c -> c.cancel() } }
+
+suspend fun ComponentActivity.ensurePermissionOrFinishAndCancel(
+    permission: String,
+    askDialogTitle: CharSequence,
+    askDialogMessage: CharSequence,
+    showRationaleBeforeFirstAsk: Boolean = true,
+    returnButtonText: CharSequence = txt(R.string.quit)
+): Unit = ensurePermission(
     permission = permission,
     askDialogTitle = askDialogTitle,
     askDialogMessage = askDialogMessage,
@@ -72,6 +87,38 @@ suspend inline fun Fragment.ensurePermission(
     askDialogMessage = askDialogMessage,
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
     returnButtonText = returnButtonText,
+    returnOrThrowBlock = returnOrThrowBlock
+)
+
+suspend inline fun ComponentActivity.ensurePermission(
+    permission: String,
+    askDialogTitle: CharSequence,
+    askDialogMessage: CharSequence,
+    showRationaleBeforeFirstAsk: Boolean = true,
+    returnButtonText: CharSequence = txt(R.string.quit),
+    returnOrThrowBlock: () -> Nothing
+): Unit = ensurePermission(
+    permission = permission,
+    showRationaleAndContinueOrReturn = {
+        alertDialog(
+            title = askDialogTitle,
+            message = askDialogMessage
+        ).showAndAwait(
+            okValue = true,
+            negativeButton = DialogButton(returnButtonText, false),
+            dismissValue = true
+        )
+    },
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    askOpenSettingsOrReturn = {
+        alertDialog(
+            message = txt(R.string.permission_denied_permanently_go_to_settings)
+        ).showAndAwait(
+            okValue = true,
+            negativeButton = DialogButton(returnButtonText, false),
+            dismissValue = true
+        )
+    },
     returnOrThrowBlock = returnOrThrowBlock
 )
 

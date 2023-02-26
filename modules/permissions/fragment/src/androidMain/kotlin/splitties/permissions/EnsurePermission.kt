@@ -1,22 +1,17 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.permissions
 
 import android.app.Activity
-import android.content.Context
 import android.os.Build.VERSION.SDK_INT
-import android.provider.Settings
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import kotlinx.coroutines.yield
-import splitties.activities.startActivity
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.lifecycle.coroutines.awaitResumed
+import splitties.experimental.InternalSplittiesApi
 
 /**
  * Returns immediately if the [permission] is already granted or if the device API level is
@@ -186,19 +181,10 @@ suspend inline fun ensurePermission(
             is PermissionRequestResult.Denied.DoNotAskAgain -> {
                 val goToSettings = askOpenSettingsOrReturn()
                 if (goToSettings) {
+                    @OptIn(InternalSplittiesApi::class)
                     activity.openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
                 } else returnOrThrowBlock()
             }
         }
     }
-}
-
-@PublishedApi
-@OptIn(ExperimentalSplittiesApi::class)
-internal suspend fun Context.openApplicationDetailsSettingsAndAwaitResumed(lifecycle: Lifecycle) {
-    startActivity(Settings.ACTION_APPLICATION_DETAILS_SETTINGS) {
-        data = "package:$packageName".toUri()
-    }
-    yield() // Allow the activity start to take effect and pause this activity
-    lifecycle.awaitResumed() // Await user coming back
 }

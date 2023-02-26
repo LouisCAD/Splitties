@@ -10,19 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
-import splitties.experimental.ExperimentalSplittiesApi
 import splitties.fragments.show
 import splitties.init.appCtx
 import splitties.permissions.internal.PermissionRequestDialogFragment
-
-/**
- * Returns true if the passed [permission] is granted, or if the device API level is lower than 23
- * (runtime permissions were introduced in API level 23, and are granted at app installation time on
- * older Android API levels).
- */
-@ExperimentalSplittiesApi
-fun hasPermission(permission: String): Boolean = SDK_INT < 23 ||
-        appCtx.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 
 /**
  * Requests the passed [permission] if needed, and returns the [PermissionRequestResult].

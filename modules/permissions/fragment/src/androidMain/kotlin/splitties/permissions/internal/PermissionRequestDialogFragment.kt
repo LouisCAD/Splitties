@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
 package splitties.permissions.internal
@@ -10,12 +10,16 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import kotlinx.coroutines.CompletableDeferred
+import splitties.bundle.withExtras
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.experimental.InternalSplittiesApi
 import splitties.intents.intent
 import splitties.lifecycle.coroutines.createJob
 import splitties.permissions.PermissionRequestResult
+import splitties.permissions.core.PermissionRequestFallbackActivity
 
 @RequiresApi(23)
+@OptIn(InternalSplittiesApi::class)
 internal class PermissionRequestDialogFragment : DialogFragment() {
 
     var permissionNames: Array<out String>? = null
@@ -47,8 +51,11 @@ internal class PermissionRequestDialogFragment : DialogFragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         checkNotNull(data) // data is always provided from PermissionRequestFallbackActivity result.
-        val extras = data.extras!! // and its result always contains the grantResult extra.
-        handleGrantResult(extras.get(PermissionRequestFallbackActivity.GRANT_RESULT) as IntArray)
+        handleGrantResult(
+            grantResults = data.withExtras(PermissionRequestFallbackActivity.ResultSpec) {
+                grantResults
+            }
+        )
     }
 
     private fun handleGrantResult(grantResults: IntArray) {

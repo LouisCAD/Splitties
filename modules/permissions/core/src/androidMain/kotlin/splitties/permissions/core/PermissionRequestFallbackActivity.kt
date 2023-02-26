@@ -1,19 +1,26 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package splitties.permissions.internal
+package splitties.permissions.core
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.annotation.RequiresApi
 import androidx.annotation.RestrictTo
 import splitties.bundle.BundleSpec
+import splitties.bundle.bundle
 import splitties.bundle.bundleOrNull
+import splitties.bundle.putExtras
 import splitties.bundle.withExtras
+import splitties.experimental.InternalSplittiesApi
 import splitties.intents.ActivityIntentSpec
 import splitties.intents.activitySpec
+import splitties.intents.intent
 
 /**
  * This Activity is internal to the Splitties permissions library.
@@ -42,23 +49,41 @@ import splitties.intents.activitySpec
  * that way, while no prompt is on the screen anymore.
  */
 @RequiresApi(23)
+@InternalSplittiesApi
 @RestrictTo(RestrictTo.Scope.LIBRARY) // Discourage usage from Java (should trigger lint)
-internal class PermissionRequestFallbackActivity : Activity() {
+class PermissionRequestFallbackActivity : Activity() {
 
-    internal companion object : ActivityIntentSpec<PermissionRequestFallbackActivity, ExtrasSpec> by
-    activitySpec(ExtrasSpec) {
-        const val GRANT_RESULT = "grantResult"
-    }
+    companion object : ActivityIntentSpec<PermissionRequestFallbackActivity, ExtrasSpec> by activitySpec(ExtrasSpec)
 
-    internal object ExtrasSpec : BundleSpec() {
+    object ExtrasSpec : BundleSpec() {
         var permissionNames: Array<out String>? by bundleOrNull()
     }
+
+    class Contract : ActivityResultContract<Array<String>, Intent>() {
+        override fun createIntent(context: Context, input: Array<String>): Intent {
+            return PermissionRequestFallbackActivity.intent { _, extrasSpec ->
+                extrasSpec.permissionNames = input
+            }
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Intent {
+            return checkNotNull(intent) // always provided from onRequestPermissionsResult.
+        }
+    }
+
+    object ResultSpec : BundleSpec() {
+        var grantResults: IntArray by bundle()
+        var timeToResultNanos: Long by bundle()
+    }
+
+    private var requestElapsedRealtimeNanos: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val permissions: Array<out String> = withExtras(ExtrasSpec) {
             permissionNames
         } ?: return finish() // Finish early if started without a permission to request.
+        requestElapsedRealtimeNanos = SystemClock.elapsedRealtimeNanos()
         requestPermissions(permissions, 1)
     }
 
@@ -67,8 +92,13 @@ internal class PermissionRequestFallbackActivity : Activity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        setResult(RESULT_OK, Intent().putExtra(GRANT_RESULT, grantResults))
+        val timeToResultNanos = SystemClock.elapsedRealtimeNanos() - requestElapsedRealtimeNanos
+        val result = Intent()
+        result.putExtras(ResultSpec) {
+            ResultSpec.grantResults = grantResults
+            ResultSpec.timeToResultNanos = timeToResultNanos
+        }
+        setResult(RESULT_OK, result)
         finish()
     }
 }
