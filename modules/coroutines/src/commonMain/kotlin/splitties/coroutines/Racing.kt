@@ -96,7 +96,7 @@ suspend fun <T> race(
 
             var raceWon = false
 
-            @Suppress("OverridingDeprecatedMember")
+            @Suppress("OverridingDeprecatedMember", "OVERRIDE_DEPRECATION")
             override fun launchRacerInternal(block: suspend CoroutineScope.() -> T) {
                 if (raceWon) return // A racer already completed.
                 async(block = block).also { racerAsync ->
