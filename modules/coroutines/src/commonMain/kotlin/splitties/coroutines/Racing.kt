@@ -87,7 +87,6 @@ suspend fun <T> race(
     @BuilderInference
     builder: suspend RacingScope<T>.() -> Unit
 ): T = coroutineScope {
-    val racersAsyncList = mutableListOf<Deferred<T>>()
     @Suppress("RemoveExplicitTypeArguments")
     select<T> {
         val builderJob = Job(parent = coroutineContext[Job])
@@ -99,27 +98,16 @@ suspend fun <T> race(
             @Suppress("OverridingDeprecatedMember", "OVERRIDE_DEPRECATION")
             override fun launchRacerInternal(block: suspend CoroutineScope.() -> T) {
                 if (raceWon) return // A racer already completed.
-                async(block = block).also { racerAsync ->
-                    racersAsyncList += racerAsync
-                    if (raceWon) { // A racer just completed on another thread, cancel.
-                        racerAsync.cancel()
-                    }
-                }.onAwait { resultOfWinner: T ->
+                async(
+                    context = builderJob,
+                    block = block
+                ).onAwait { resultOfWinner: T ->
                     raceWon = true
                     builderJob.cancel()
-                    var i = 0
-                    // Since launchRacerInternal might be called on multiple threads concurrently,
-                    //  we don't use a forEach loop, but a while loop that is additions tolerant.
-                    while (i <= racersAsyncList.lastIndex) {
-                        val deferred: Deferred<T> = racersAsyncList[i]
-                        deferred.cancel()
-                        i++
-                    }
                     return@onAwait resultOfWinner
                 }
             }
         }
-        @OptIn(ExperimentalCoroutinesApi::class)
         launch(builderJob, start = Undispatched) {
             racingScope.builder()
         }
