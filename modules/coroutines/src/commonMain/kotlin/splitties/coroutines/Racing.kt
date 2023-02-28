@@ -6,15 +6,8 @@
 
 package splitties.coroutines
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.coroutines.selects.select
-import splitties.collections.forEachByIndex
 import splitties.experimental.ExperimentalSplittiesApi
 import kotlin.experimental.ExperimentalTypeInference
 import kotlinx.coroutines.CoroutineStart.UNDISPATCHED as Undispatched
@@ -37,15 +30,16 @@ suspend fun <T> raceOf(): T = throw UnsupportedOperationException("A race needs 
 suspend fun <T> raceOf(vararg racers: suspend CoroutineScope.() -> T): T {
     require(racers.isNotEmpty()) { "A race needs racers." }
     return coroutineScope {
+        val racersParent = Job(parent = coroutineContext[Job])
         @Suppress("RemoveExplicitTypeArguments")
         select<T> {
-            @OptIn(ExperimentalCoroutinesApi::class)
-            val racersAsyncList = racers.map {
-                async(start = Undispatched, block = it)
-            }
-            racersAsyncList.forEachByIndex { racer: Deferred<T> ->
-                racer.onAwait { resultOfWinner: T ->
-                    racersAsyncList.forEachByIndex { deferred: Deferred<T> -> deferred.cancel() }
+            racers.forEach { racer ->
+                async(
+                    context = racersParent,
+                    start = Undispatched,
+                    block = racer
+                ).onAwait { resultOfWinner: T ->
+                    racersParent.cancel()
                     return@onAwait resultOfWinner
                 }
             }

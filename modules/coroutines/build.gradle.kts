@@ -22,7 +22,6 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(splitties("experimental"))
-            implementation(splitties("collections"))
             api(KotlinX.coroutines.core)
         }
         all {
