@@ -24,6 +24,13 @@ kotlin {
             api(splitties("experimental"))
             api(KotlinX.coroutines.core)
         }
+        commonTest {
+            dependencies {
+                implementation(Kotlin.test)
+                implementation(KotlinX.coroutines.test)
+                implementation(Testing.kotest.assertions.core)
+            }
+        }
         all {
             languageSettings.apply {
                 optIn("splitties.experimental.ExperimentalSplittiesApi")
