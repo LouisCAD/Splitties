@@ -44,6 +44,7 @@ private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): Any {
         val key = property.name
+        @Suppress("deprecation") // No good alternative in the public API.
         return checkNotNull(thisRef.bundle[key]) { "Property $key could not be read" }
     }
 
@@ -55,6 +56,7 @@ private object BundleDelegate : ReadWriteProperty<BundleSpec, Any> {
 private object BundleOrNullDelegate : ReadWriteProperty<BundleSpec, Any?> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): Any? {
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.bundle[property.name]
     }
 
@@ -68,6 +70,7 @@ private class BundleOrDefaultDelegate<T : Any>(
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.bundle[property.name] as T? ?: defaultValue
     }
 
@@ -81,6 +84,7 @@ private class BundleOrElseDelegate<T : Any>(
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.bundle[property.name] as T? ?: defaultValue()
     }
 
@@ -95,6 +99,7 @@ private class ExplicitBundleDelegate<T>(
 ) : ReadWriteProperty<BundleSpec, T> {
 
     override operator fun getValue(thisRef: BundleSpec, property: KProperty<*>): T {
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.bundle[key].also {
             if (noNull) checkNotNull(it) { "Property $key could not be read" }
         } as T

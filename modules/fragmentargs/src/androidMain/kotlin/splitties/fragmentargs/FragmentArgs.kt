@@ -28,6 +28,7 @@ private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
         val key = property.name
         val args = thisRef.arguments
             ?: error("Cannot read property $key if no arguments have been set")
+        @Suppress("deprecation") // No good alternative in the public API.
         return checkNotNull(args.get(key)) { "Property $key could not be read" }
     }
 
@@ -39,6 +40,7 @@ private object FragmentArgDelegate : ReadWriteProperty<Fragment, Any> {
 private object FragmentArgOrNullDelegate : ReadWriteProperty<Fragment, Any?> {
 
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): Any? {
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.arguments?.get(property.name)
     }
 
@@ -51,8 +53,9 @@ private class FragmentArgOrDefaultDelegate<T : Any>(
     private val defaultValue: T
 ) : ReadWriteProperty<Fragment, T> {
 
+    @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-        @Suppress("UNCHECKED_CAST")
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.arguments?.get(property.name) as T? ?: defaultValue
     }
 
@@ -65,8 +68,9 @@ private class FragmentArgOrElseDelegate<T : Any>(
     private val defaultValue: () -> T
 ) : ReadWriteProperty<Fragment, T> {
 
+    @Suppress("UNCHECKED_CAST")
     override operator fun getValue(thisRef: Fragment, property: KProperty<*>): T {
-        @Suppress("UNCHECKED_CAST")
+        @Suppress("deprecation") // No good alternative in the public API.
         return thisRef.arguments?.get(property.name) as T? ?: defaultValue()
     }
 
