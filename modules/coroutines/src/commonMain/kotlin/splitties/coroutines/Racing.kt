@@ -100,6 +100,7 @@ suspend fun <T> race(
                 if (raceWon) return // A racer already completed.
                 async(
                     context = builderJob,
+                    start = Undispatched,
                     block = block
                 ).onAwait { resultOfWinner: T ->
                     raceWon = true
