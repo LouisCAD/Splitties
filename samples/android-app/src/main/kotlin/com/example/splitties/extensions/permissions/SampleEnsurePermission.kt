@@ -13,44 +13,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import com.example.splitties.R
-import kotlinx.coroutines.suspendCancellableCoroutine
 import splitties.alertdialog.appcompat.alertDialog
 import splitties.alertdialog.appcompat.coroutines.DialogButton
 import splitties.alertdialog.appcompat.coroutines.showAndAwait
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.permissions.ensureAllPermissions
 import splitties.permissions.ensurePermission
 import splitties.resources.txt
-
-suspend fun FragmentActivity.ensurePermissionOrFinishAndCancel(
-    permission: String,
-    askDialogTitle: CharSequence,
-    askDialogMessage: CharSequence,
-    showRationaleBeforeFirstAsk: Boolean = true,
-    returnButtonText: CharSequence = txt(R.string.quit)
-): Unit = ensurePermission(
-    activity = this,
-    fragmentManager = supportFragmentManager,
-    lifecycle = lifecycle,
-    permission = permission,
-    askDialogTitle = askDialogTitle,
-    askDialogMessage = askDialogMessage,
-    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
-    returnButtonText = returnButtonText
-) { finish(); suspendCancellableCoroutine<Nothing> { c -> c.cancel() } }
-
-suspend fun ComponentActivity.ensurePermissionOrFinishAndCancel(
-    permission: String,
-    askDialogTitle: CharSequence,
-    askDialogMessage: CharSequence,
-    showRationaleBeforeFirstAsk: Boolean = true,
-    returnButtonText: CharSequence = txt(R.string.quit)
-): Unit = ensurePermission(
-    permission = permission,
-    askDialogTitle = askDialogTitle,
-    askDialogMessage = askDialogMessage,
-    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
-    returnButtonText = returnButtonText
-) { finish(); suspendCancellableCoroutine<Nothing> { c -> c.cancel() } }
 
 suspend inline fun FragmentActivity.ensurePermission(
     permission: String,
@@ -99,6 +68,38 @@ suspend inline fun ComponentActivity.ensurePermission(
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensurePermission(
     permission = permission,
+    showRationaleAndContinueOrReturn = {
+        alertDialog(
+            title = askDialogTitle,
+            message = askDialogMessage
+        ).showAndAwait(
+            okValue = true,
+            negativeButton = DialogButton(returnButtonText, false),
+            dismissValue = true
+        )
+    },
+    showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+    askOpenSettingsOrReturn = {
+        alertDialog(
+            message = txt(R.string.permission_denied_permanently_go_to_settings)
+        ).showAndAwait(
+            okValue = true,
+            negativeButton = DialogButton(returnButtonText, false),
+            dismissValue = true
+        )
+    },
+    returnOrThrowBlock = returnOrThrowBlock
+)
+
+suspend inline fun ComponentActivity.ensureAllPermissions(
+    vararg permissions: String,
+    askDialogTitle: CharSequence,
+    askDialogMessage: CharSequence,
+    showRationaleBeforeFirstAsk: Boolean = true,
+    returnButtonText: CharSequence = txt(R.string.quit),
+    returnOrThrowBlock: () -> Nothing
+): Unit = ensureAllPermissions(
+    *permissions,
     showRationaleAndContinueOrReturn = {
         alertDialog(
             title = askDialogTitle,

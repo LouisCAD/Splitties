@@ -6,6 +6,7 @@
 
 package splitties.permissions
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -268,13 +269,17 @@ private suspend fun ComponentActivity.requestPermissionsNow(
     var requestsCount = 0
     repeatWhileActive {
         val requestTime = SystemClock.elapsedRealtimeNanos()
-        val grantResults = activityResultRegistry.awaitResult(
+        val (recognizedPermissions, grantResults) = activityResultRegistry.awaitResult(
             key = generateVolatileKey(permissions),
             contract = ReliablePermissionRequestContract()
         ) {
             it.launch(permissions)
             requestsCount++
         }
+        checkAllPermissionsWereRecognized(
+            requestedPermissions = permissions,
+            recognizedPermissions = recognizedPermissions
+        )
         if (grantResults.isEmpty()) return@run null // Go to fallback.
         val elapsedNanos = SystemClock.elapsedRealtimeNanos() - requestTime
         val result = grantResultsToPermissionRequestResult(
@@ -282,7 +287,7 @@ private suspend fun ComponentActivity.requestPermissionsNow(
             requestsCount = requestsCount,
             timeSinceRequest = elapsedNanos.nanoseconds,
             permissions = permissions,
-            nonEmptyGrantResults = grantResults
+            grantResults = grantResults
         )
         if (result != null) return@run result
     }
@@ -307,7 +312,7 @@ private suspend fun ComponentActivity.requestPermissionsNow(
             requestsCount = requestsCount,
             timeSinceRequest = timeToResultNanos.nanoseconds,
             permissions = permissions,
-            nonEmptyGrantResults = grantResults
+            grantResults = grantResults
         )
         if (result != null) return@run result
     }
@@ -333,18 +338,22 @@ private suspend inline fun <I, O> ActivityResultRegistry.awaitResult(
 }
 
 private class ReliablePermissionRequestContract :
-    ActivityResultContract<Array<String>, IntArray>() {
+    ActivityResultContract<Array<String>, Pair<Array<String>, IntArray>>() {
 
     override fun createIntent(context: Context, input: Array<String>): Intent {
         return RequestMultiplePermissions().createIntent(context, input)
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): IntArray {
-        checkNotNull(intent) // Always provided. See ComponentActivity.onRequestPermissionsResult(…)
-        val grantResults =
-            intent.getIntArrayExtra(RequestMultiplePermissions.EXTRA_PERMISSION_GRANT_RESULTS)
-        checkNotNull(grantResults) // Always provided. See ComponentActivity.onRequestPermissionsResult(…)
-        return grantResults
+    override fun parseResult(resultCode: Int, intent: Intent?): Pair<Array<String>, IntArray> {
+        val recognizedPermissions: Array<String>
+        val grantResults: IntArray
+        with(RequestMultiplePermissions) {
+            // Values below always provided. See ComponentActivity.onRequestPermissionsResult(…)
+            val extras = intent!!.extras!!
+            recognizedPermissions = extras.getStringArray(EXTRA_PERMISSIONS)!!
+            grantResults = extras.getIntArray(EXTRA_PERMISSION_GRANT_RESULTS)!!
+        }
+        return recognizedPermissions to grantResults
     }
 }
 
@@ -354,11 +363,11 @@ private fun Activity.grantResultsToPermissionRequestResult(
     requestsCount: Int,
     timeSinceRequest: Duration,
     permissions: Array<String>,
-    nonEmptyGrantResults: IntArray
+    grantResults: IntArray
 ): PermissionRequestResult? {
     require(askCount >= 1)
-    check(nonEmptyGrantResults.isNotEmpty())
-    val indexOfFirstNotGranted = nonEmptyGrantResults.indexOfFirst {
+    if (grantResults.isEmpty()) return null
+    val indexOfFirstNotGranted = grantResults.indexOfFirst {
         it != PackageManager.PERMISSION_GRANTED
     }
     return if (indexOfFirstNotGranted == -1) {
@@ -376,7 +385,7 @@ private fun Activity.grantResultsToPermissionRequestResult(
 //        }
 //        toast(debugText)
         if (shouldShowRationale) {
-            //TODO: Store it somewhere, so we can know
+            //TODO: Store it somewhere, if we can find a good use for it.
             PermissionRequestResult.Denied.MayAskAgain(firstDeniedPermission)
         } else if (SDK_INT < Build.VERSION_CODES.R) {
             // Before Android 11, we can rely on the value of shouldShowRequestPermissionRationale.
@@ -410,4 +419,37 @@ private fun Activity.grantResultsToPermissionRequestResult(
             }
         }
     }
+}
+
+private fun checkAllPermissionsWereRecognized(
+    requestedPermissions: Array<String>,
+    recognizedPermissions: Array<String>
+) {
+    if (recognizedPermissions contentEquals requestedPermissions) return
+    val hiddenPermissions = requestedPermissions.asList() - recognizedPermissions.toSet()
+    val errorMessage: String = buildString {
+        val unrecognized = hiddenPermissions.size
+        val requested = requestedPermissions.size
+        if (hiddenPermissions.size == 1) when (val hiddenPermission = hiddenPermissions.single()) {
+            Manifest.permission.POST_NOTIFICATIONS -> {
+                // This is the only actual special case we found so far, despite trying with other
+                // permissions introduced in API 33. This behavior is (un)surprisingly undocumented.
+                appendLine("The app's targetSdk must be 33 or greater to be able to request the POST_NOTIFICATIONS permission.")
+            }
+            else -> {
+                // We have yet to find such a case beyond POST_NOTIFICATIONS, but just in case…
+                append("The app's targetSdk is too low, the following permission cannot be granted: ")
+                append(hiddenPermission)
+                appendLine('.')
+            }
+        } else {
+            appendLine("The targetSdk is too low, the following permissions cannot be granted:")
+            hiddenPermissions.forEach { appendLine("- $it") }
+        }
+        if (unrecognized != requested) {
+            appendLine("For reference, the following $requested permissions were requested:")
+            requestedPermissions.forEach { appendLine("- $it") }
+        }
+    }
+    throw IllegalArgumentException(errorMessage)
 }

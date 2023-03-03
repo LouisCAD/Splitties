@@ -1,15 +1,14 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 package com.example.splitties.permissions
 
 import android.Manifest
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
-import com.example.splitties.extensions.permissions.ensurePermissionOrFinishAndCancel
+import com.example.splitties.extensions.permissions.ensureAllPermissions
 import kotlinx.coroutines.*
 import splitties.dimensions.dip
 import splitties.snackbar.longSnack
@@ -32,12 +31,16 @@ class PermissionsExampleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
-            (this@PermissionsExampleActivity as ComponentActivity).ensurePermissionOrFinishAndCancel(
-                permission = Manifest.permission.WRITE_CALENDAR,
+            ensureAllPermissions(
+                Manifest.permission.POST_NOTIFICATIONS,
+                Manifest.permission.WRITE_CALENDAR,
                 askDialogTitle = "Calendar permission required",
                 askDialogMessage = "We will ask for calendar permission.\n" +
                     "Don't grant it too soon if you want to test all cases from this sample!"
-            )
+            ) {
+                finish()
+                awaitCancellation()
+            }
             contentView = verticalLayout {
                 gravity = gravityCenter
                 add(textView {
@@ -47,7 +50,7 @@ class PermissionsExampleActivity : AppCompatActivity() {
                     centerText()
                 }, lParams { margin = dip(16) })
                 if (SDK_INT >= 33) add(button {
-                    text = "Revoke permission on next kill"
+                    text = "Revoke write calendar permission on next kill"
                     onClick {
                         revokeSelfPermissionOnKill(Manifest.permission.WRITE_CALENDAR)
                         longSnack("Permission will be revoked on next kill")
