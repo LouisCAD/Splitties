@@ -30,13 +30,18 @@ actual fun Lifecycle.isStartedFlow(timeout: Duration): Flow<Boolean> = flow {
 }.distinctUntilChanged()
 
 @ExperimentalSplittiesApi
-actual fun Lifecycle.isResumedFlow(): Flow<Boolean> = stateFlow().map {
-    it.isAtLeast(Lifecycle.State.RESUMED)
-}.distinctUntilChanged()
+actual fun Lifecycle.isResumedFlow(): Flow<Boolean> {
+    return isStateAtLeastFlow(minimalState = Lifecycle.State.RESUMED)
+}
 
 @ExperimentalSplittiesApi
-actual fun Lifecycle.isStartedFlow(): Flow<Boolean> = stateFlow().map {
-    it.isAtLeast(Lifecycle.State.STARTED)
+actual fun Lifecycle.isStartedFlow(): Flow<Boolean> {
+    return isStateAtLeastFlow(minimalState = Lifecycle.State.STARTED)
+}
+
+@ExperimentalSplittiesApi
+actual fun Lifecycle.isStateAtLeastFlow(minimalState: Lifecycle.State): Flow<Boolean> = stateFlow().map {
+    it.isAtLeast(minimalState)
 }.distinctUntilChanged()
 
 @ExperimentalSplittiesApi

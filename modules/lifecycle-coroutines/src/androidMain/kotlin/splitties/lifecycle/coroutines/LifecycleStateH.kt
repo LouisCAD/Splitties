@@ -11,6 +11,7 @@ import kotlin.time.*
 @ExperimentalTime
 expect fun Lifecycle.isStartedFlow(timeout: Duration): Flow<Boolean>
 expect fun Lifecycle.isStartedFlow(): Flow<Boolean>
+expect fun Lifecycle.isStateAtLeastFlow(minimalState: Lifecycle.State): Flow<Boolean>
 
 @ExperimentalTime
 expect fun Lifecycle.isResumedFlow(timeout: Duration): Flow<Boolean>
