@@ -20,6 +20,7 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             api(splitties("bundle"))
+            implementation(splitties("bitflags"))
             implementation(splitties("appctx"))
             implementation(splitties("exceptions"))
             compileOnly(AndroidX.fragment)
