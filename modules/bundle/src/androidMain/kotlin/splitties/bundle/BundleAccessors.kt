@@ -88,8 +88,7 @@ inline fun <Spec : BundleSpec, R> Bundle.with(
     spec: Spec,
     crossinline block: Spec.() -> R
 ): R {
-    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
-    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     return try {
         spec.currentBundle = this
         spec.block()
