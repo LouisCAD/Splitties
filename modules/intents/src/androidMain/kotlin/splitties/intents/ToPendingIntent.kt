@@ -9,6 +9,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import splitties.bitflags.withFlag
 import splitties.init.appCtx
 
 /**
@@ -18,8 +19,11 @@ import splitties.init.appCtx
  */
 inline fun Intent.toPendingActivity(
     reqCode: Int = 0,
-    flags: Int,
-    options: Bundle? = null
+    mutable: Boolean = false,
+    oneShot: Boolean = false,
+    cancelCurrent: Boolean = false,
+    options: Bundle? = null,
+    flags: Int = 0.withKnownFlags(mutable, oneShot, cancelCurrent)
 ): PendingIntent = if (SDK_INT >= 16) {
     PendingIntent.getActivity(appCtx, reqCode, this, flags, options)
 } else PendingIntent.getActivity(appCtx, reqCode, this, flags)
@@ -31,8 +35,11 @@ inline fun Intent.toPendingActivity(
  */
 inline fun Array<Intent>.toPendingActivities(
     reqCode: Int = 0,
-    flags: Int,
-    options: Bundle? = null
+    mutable: Boolean = false,
+    oneShot: Boolean = false,
+    cancelCurrent: Boolean = false,
+    options: Bundle? = null,
+    flags: Int = 0.withKnownFlags(mutable, oneShot, cancelCurrent)
 ): PendingIntent = if (SDK_INT >= 16) {
     PendingIntent.getActivities(appCtx, reqCode, this, flags, options)
 } else PendingIntent.getActivities(appCtx, reqCode, this, flags)
@@ -43,10 +50,13 @@ inline fun Array<Intent>.toPendingActivities(
  */
 fun Intent.toPendingForegroundService(
     reqCode: Int = 0,
-    flags: Int
+    mutable: Boolean = false,
+    oneShot: Boolean = false,
+    cancelCurrent: Boolean = false,
+    flags: Int = 0.withKnownFlags(mutable, oneShot, cancelCurrent)
 ): PendingIntent = if (SDK_INT >= 26) {
     PendingIntent.getForegroundService(appCtx, reqCode, this, flags)
-} else toPendingService(reqCode, flags)
+} else PendingIntent.getService(appCtx, reqCode, this, flags)
 
 /**
  * @param reqCode Can be left to default (0) if this [PendingIntent] is unique as defined from
@@ -54,7 +64,10 @@ fun Intent.toPendingForegroundService(
  */
 inline fun Intent.toPendingService(
     reqCode: Int = 0,
-    flags: Int
+    mutable: Boolean = false,
+    oneShot: Boolean = false,
+    cancelCurrent: Boolean = false,
+    flags: Int = 0.withKnownFlags(mutable, oneShot, cancelCurrent)
 ): PendingIntent = PendingIntent.getService(appCtx, reqCode, this, flags)
 
 /**
@@ -63,5 +76,27 @@ inline fun Intent.toPendingService(
  */
 inline fun Intent.toPendingBroadcast(
     reqCode: Int = 0,
-    flags: Int
+    mutable: Boolean = false,
+    oneShot: Boolean = false,
+    cancelCurrent: Boolean = false,
+    flags: Int = 0.withKnownFlags(mutable, oneShot, cancelCurrent)
 ): PendingIntent = PendingIntent.getBroadcast(appCtx, reqCode, this, flags)
+
+@PublishedApi
+internal fun Int.withKnownFlags(
+    isMutable: Boolean,
+    isOneShot: Boolean,
+    cancelCurrent: Boolean
+): Int {
+    var flags = this
+    @Suppress("InlinedApi")
+    val mutabilityFlag = if (isMutable) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE
+    flags = flags.withFlag(mutabilityFlag)
+    val newFlag =  when {
+        isOneShot -> PendingIntent.FLAG_ONE_SHOT
+        cancelCurrent -> PendingIntent.FLAG_CANCEL_CURRENT
+        else -> PendingIntent.FLAG_UPDATE_CURRENT
+    }
+    flags = flags.withFlag(newFlag)
+    return flags
+}
