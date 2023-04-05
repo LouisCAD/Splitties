@@ -92,14 +92,14 @@ suspend inline fun ComponentActivity.ensurePermission(
 )
 
 suspend inline fun ComponentActivity.ensureAllPermissions(
-    vararg permissions: String,
+    permissions: List<String>,
     askDialogTitle: CharSequence,
     askDialogMessage: CharSequence,
     showRationaleBeforeFirstAsk: Boolean = true,
     returnButtonText: CharSequence = txt(R.string.quit),
     returnOrThrowBlock: () -> Nothing
 ): Unit = ensureAllPermissions(
-    *permissions,
+    permissions = permissions,
     showRationaleAndContinueOrReturn = {
         alertDialog(
             title = askDialogTitle,

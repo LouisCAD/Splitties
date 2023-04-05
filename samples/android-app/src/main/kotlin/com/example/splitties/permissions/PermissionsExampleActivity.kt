@@ -32,8 +32,10 @@ class PermissionsExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         lifecycle.coroutineScope.launch {
             ensureAllPermissions(
-                Manifest.permission.POST_NOTIFICATIONS,
-                Manifest.permission.WRITE_CALENDAR,
+                permissions = buildList {
+                    if (SDK_INT >= 33) add(Manifest.permission.POST_NOTIFICATIONS)
+                    add(Manifest.permission.WRITE_CALENDAR)
+                },
                 askDialogTitle = "Calendar permission required",
                 askDialogMessage = "We will ask for calendar permission.\n" +
                     "Don't grant it too soon if you want to test all cases from this sample!"
