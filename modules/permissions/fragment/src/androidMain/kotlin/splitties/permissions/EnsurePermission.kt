@@ -5,13 +5,12 @@
 package splitties.permissions
 
 import android.app.Activity
-import android.os.Build.VERSION.SDK_INT
+import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import splitties.experimental.ExperimentalSplittiesApi
-import splitties.experimental.InternalSplittiesApi
 
 /**
  * Returns immediately if the [permission] is already granted or if the device API level is
@@ -51,10 +50,7 @@ suspend inline fun FragmentActivity.ensurePermission(
     showRationaleBeforeFirstAsk: Boolean = true,
     askOpenSettingsOrReturn: () -> Boolean,
     returnOrThrowBlock: () -> Nothing
-): Unit = ensurePermission(
-    activity = this,
-    fragmentManager = supportFragmentManager,
-    lifecycle = lifecycle,
+): Unit = (this as ComponentActivity).ensurePermission(
     permission = permission,
     showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
     showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
@@ -153,6 +149,16 @@ suspend inline fun Fragment.ensurePermission(
  * will also be used to await user coming back from application details settings if that path was
  * required.
  */
+@Deprecated(
+    "Use new function for ComponentActivity",
+    ReplaceWith("activity.ensurePermission(\n" +
+        "        permission = permission,\n" +
+        "        showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,\n" +
+        "        showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,\n" +
+        "        askOpenSettingsOrReturn = askOpenSettingsOrReturn,\n" +
+        "        returnOrThrowBlock = returnOrThrowBlock\n" +
+        "    )")
+)
 @ExperimentalSplittiesApi
 suspend inline fun ensurePermission(
     activity: Activity,
@@ -164,27 +170,12 @@ suspend inline fun ensurePermission(
     askOpenSettingsOrReturn: () -> Boolean,
     returnOrThrowBlock: () -> Nothing
 ) {
-    var askCount = 0
-    if (SDK_INT < 23) return
-    askLoop@ while (!hasPermission(permission)) {
-        if (askCount > 0 ||
-            showRationaleBeforeFirstAsk ||
-            activity.shouldShowRequestPermissionRationale(permission)
-        ) {
-            val quit = !showRationaleAndContinueOrReturn()
-            if (quit) returnOrThrowBlock()
-        }
-        val result = requestPermission(fragmentManager, lifecycle, permission); askCount++
-        when (result) {
-            PermissionRequestResult.Granted -> break@askLoop
-            is PermissionRequestResult.Denied.MayAskAgain -> continue@askLoop
-            is PermissionRequestResult.Denied.DoNotAskAgain -> {
-                val goToSettings = askOpenSettingsOrReturn()
-                if (goToSettings) {
-                    @OptIn(InternalSplittiesApi::class)
-                    activity.openApplicationDetailsSettingsAndAwaitResumed(lifecycle)
-                } else returnOrThrowBlock()
-            }
-        }
-    }
+    activity as ComponentActivity
+    activity.ensurePermission(
+        permission = permission,
+        showRationaleAndContinueOrReturn = showRationaleAndContinueOrReturn,
+        showRationaleBeforeFirstAsk = showRationaleBeforeFirstAsk,
+        askOpenSettingsOrReturn = askOpenSettingsOrReturn,
+        returnOrThrowBlock = returnOrThrowBlock
+    )
 }
