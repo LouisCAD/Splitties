@@ -75,8 +75,7 @@ inline fun <Spec : BundleSpec> Intent.putExtras(
     spec: Spec,
     crossinline block: Spec.() -> Unit
 ) {
-    //TODO: Uncomment line below when https://youtrack.jetbrains.com/issue/KT-29510 is fixed.
-    //contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
+    contract { callsInPlace(block, InvocationKind.EXACTLY_ONCE) }
     replaceExtras((extras ?: Bundle()).apply { with(spec, block) })
 }
 
