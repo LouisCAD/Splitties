@@ -19,7 +19,7 @@ kotlin {
     configure(targets) { configureMavenPublication() }
     sourceSets {
         androidMain.dependencies {
-            api(splitties("views-recyclerview"))
+            api(splitties("views"))
             api(AndroidX.annotation)
             api(AndroidX.recyclerView)
         }
