@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.views.recyclerview"
 }
 
 kotlin {
@@ -21,6 +22,8 @@ kotlin {
             api(splitties("views"))
             api(AndroidX.annotation)
             api(AndroidX.recyclerView)
+            implementation(KotlinX.coroutines.core)
+            implementation(splitties("typesaferecyclerview"))
         }
     }
 }

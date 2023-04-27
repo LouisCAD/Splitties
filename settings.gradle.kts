@@ -102,7 +102,9 @@ include {
         "views-dsl-material"()
         "views-dsl-recyclerview"()
         "views-material"()
-        "views-recyclerview"()
+        "views-recyclerview" {
+            "compose"()
+        }
         "views-selectable"()
         "views-selectable-appcompat"()
         "views-selectable-constraintlayout"()

@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import splitties.experimental.ExperimentalSplittiesApi
+import splitties.experimental.InternalSplittiesApi
 import splitties.views.recyclerview.horizontalLayoutManager
 import splitties.views.recyclerview.verticalLayoutManager
 
-internal class SingleViewAdapter<V : View>(
+@InternalSplittiesApi
+class SingleViewAdapter<V : View>(
     private val view: V,
     vertical: Boolean
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
