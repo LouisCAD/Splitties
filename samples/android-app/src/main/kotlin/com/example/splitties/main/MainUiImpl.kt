@@ -34,6 +34,7 @@ import splitties.views.dsl.recyclerview.wrapInRecyclerView
 import splitties.views.gravityCenterHorizontal
 import splitties.views.gravityEndBottom
 import splitties.views.imageResource
+import splitties.views.margin
 import splitties.views.material.contentScrimColor
 import splitties.views.textResource
 import com.google.android.material.R as MaterialR

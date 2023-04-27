@@ -19,6 +19,7 @@ import splitties.views.dsl.material.MaterialComponentsStyles
 import splitties.views.dsl.material.addInput
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.gravityEnd
+import splitties.views.margin
 import splitties.views.material.text
 import splitties.views.onClick
 import splitties.views.type

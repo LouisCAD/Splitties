@@ -22,11 +22,11 @@ import splitties.views.dsl.constraintlayout.topOfParent
 import splitties.views.dsl.constraintlayout.topToBottomOf
 import splitties.views.dsl.core.add
 import splitties.views.dsl.core.checkBox
-import splitties.views.dsl.core.endMargin
+import splitties.views.endMargin
 import splitties.views.dsl.core.imageView
-import splitties.views.dsl.core.startMargin
+import splitties.views.startMargin
 import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.verticalMargin
+import splitties.views.verticalMargin
 import splitties.views.dsl.core.wrapContent
 import splitties.views.selectable.constraintlayout.SelectableConstraintLayout
 import splitties.views.textAppearance

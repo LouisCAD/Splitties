@@ -16,7 +16,7 @@ import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.coordinatorlayout.defaultLParams
 import splitties.views.dsl.core.Ui
 import splitties.views.dsl.core.add
-import splitties.views.dsl.core.margin
+import splitties.views.margin
 import splitties.views.dsl.core.withTheme
 import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.*

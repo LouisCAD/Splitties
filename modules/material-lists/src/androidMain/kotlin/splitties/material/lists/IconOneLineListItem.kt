@@ -14,12 +14,12 @@ import splitties.dimensions.dip
 import splitties.resources.styledColorSL
 import splitties.views.appcompat.imgTintList
 import splitties.views.dsl.core.add
-import splitties.views.dsl.core.endMargin
+import splitties.views.endMargin
 import splitties.views.dsl.core.imageView
 import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.startMargin
+import splitties.views.startMargin
 import splitties.views.dsl.core.textView
-import splitties.views.dsl.core.verticalMargin
+import splitties.views.verticalMargin
 import splitties.views.dsl.core.wrapContent
 import splitties.views.selectable.SelectableLinearLayout
 import splitties.views.textAppearance

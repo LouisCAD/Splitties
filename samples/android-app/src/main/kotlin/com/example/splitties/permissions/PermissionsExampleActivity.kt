@@ -17,7 +17,7 @@ import splitties.views.dsl.core.add
 import splitties.views.dsl.core.button
 import splitties.views.dsl.core.contentView
 import splitties.views.dsl.core.lParams
-import splitties.views.dsl.core.margin
+import splitties.views.margin
 import splitties.views.dsl.core.textView
 import splitties.views.dsl.core.verticalLayout
 import splitties.views.gravityCenter

@@ -30,6 +30,7 @@ import splitties.views.dsl.coordinatorlayout.coordinatorLayout
 import splitties.views.dsl.core.*
 import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
+import splitties.views.margin
 import splitties.views.textAppearance
 import splitties.views.textResource
 import com.google.android.material.R as MaterialR

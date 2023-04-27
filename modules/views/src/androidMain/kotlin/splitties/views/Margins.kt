@@ -1,8 +1,8 @@
 /*
- * Copyright 2019 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
+ * Copyright 2019-2023 Louis Cognault Ayeva Derman. Use of this source code is governed by the Apache 2.0 license.
  */
 
-package splitties.views.dsl.core
+package splitties.views
 
 import android.os.Build.VERSION.SDK_INT
 import android.view.ViewGroup

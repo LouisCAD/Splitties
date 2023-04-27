@@ -14,6 +14,7 @@ import splitties.views.dsl.core.*
 import splitties.views.dsl.idepreview.UiPreView
 import splitties.views.dsl.material.contentScrollingWithAppBarLParams
 import splitties.views.textAppearance
+import splitties.views.verticalMargin
 import splitties.views.verticalPadding
 import com.google.android.material.R as MaterialR
 
