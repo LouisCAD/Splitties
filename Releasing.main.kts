@@ -38,18 +38,22 @@ val publishToMavenCentralWorkflowLink = "$gitHubRepoUrl/actions/workflows/$publi
 val cliUi = CliUi.defaultImpl
 val git = Vcs.git
 
+// The two variables below allow changing reference branches if needed.
+val devBranch = "main"
+val releaseBranch = "release"
+
 fun File.checkChanged() = check(git.didFileChange(this)) {
     "Expected changes in the following file: $this"
 }
 
-fun checkOnMainBranch() {
-    check(git.isOnMainBranch()) { "Please, checkout the `main` branch first." }
+fun checkOnDevBranch() {
+    check(git.isOnBranch(devBranch)) { "Please, checkout the `$devBranch` branch first." }
 }
 
 @Suppress("EnumEntryName")
 enum class ReleaseStep { // Order of the steps, must be kept right.
     `Update release branch`,
-    `Update main branch from release`,
+    `Update dev branch from release`,
     `Change this library version`,
     `Request doc update confirmation`,
     `Request CHANGELOG update confirmation`,
@@ -100,7 +104,7 @@ if (ongoingReleaseFile.exists()) {
     OngoingRelease.load()
     startAtStep = ReleaseStep.valueOf(OngoingRelease.currentStepName)
 } else {
-    checkOnMainBranch()
+    checkOnDevBranch()
     with(OngoingRelease) {
         versionBeforeRelease = versionsFile.bufferedReader().use { it.readLine() }.also {
             check(it.contains("-dev-") || it.endsWith("-SNAPSHOT")) {
@@ -137,34 +141,34 @@ fun askNewVersionInput(
 
 fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
     `Update release branch` -> {
-        printInfo("Before proceeding to the release, we will ensure we merge changes from the release branch into the main branch.")
-        printInfo("Will now checkout the `release` branch and pull from GitHub (origin) to update the local `release` branch.")
+        printInfo("Before proceeding to the release, we will ensure we merge changes from the $releaseBranch branch into the $devBranch branch.")
+        printInfo("Will now checkout the `$releaseBranch` branch and pull from GitHub (origin) to update the local `$releaseBranch` branch.")
         requestUserConfirmation("Continue?")
-        if (git.hasBranch("release")) {
-            git.checkoutBranch("release")
+        if (git.hasBranch(releaseBranch)) {
+            git.checkoutBranch(releaseBranch)
             git.pullFromOrigin()
         } else {
-            printInfo("The branch release doesn't exist locally. Fetching from remote…")
+            printInfo("The branch $releaseBranch doesn't exist locally. Fetching from remote…")
             git.fetch()
-            if (git.hasRemoteBranch(remoteName = "origin", branchName = "release")) {
+            if (git.hasRemoteBranch(remoteName = "origin", branchName = releaseBranch)) {
                 printInfo("The branch exists on the origin remote. Checking out.")
-                git.checkoutAndTrackRemoteBranch("origin", "release")
+                git.checkoutAndTrackRemoteBranch("origin", releaseBranch)
             } else {
-                printInfo("Creating and checking out the release branch")
-                git.createAndCheckoutBranch("release")
-                printInfo("Pushing the new release branch…")
-                git.push(repository = "origin", setUpstream = true, branchName = "release")
+                printInfo("Creating and checking out the $releaseBranch branch")
+                git.createAndCheckoutBranch(releaseBranch)
+                printInfo("Pushing the new $releaseBranch branch…")
+                git.push(repository = "origin", setUpstream = true, branchName = releaseBranch)
             }
         }
     }
-    `Update main branch from release` -> {
-        printInfo("About to checkout the main branch (and update it from release for merge commits).")
+    `Update dev branch from release` -> {
+        printInfo("About to checkout the $devBranch branch (and update it from $releaseBranch for merge commits).")
         requestUserConfirmation("Continue?")
-        git.checkoutMain()
-        git.mergeBranchIntoCurrent("release")
+        git.checkoutBranch(devBranch)
+        git.mergeBranchIntoCurrent(releaseBranch)
     }
     `Change this library version` -> {
-        checkOnMainBranch()
+        checkOnDevBranch()
         OngoingRelease.newVersion.let { newVersion ->
             printInfo("Splitties new version: \"$newVersion\"")
             requestUserConfirmation("Confirm?")
@@ -216,10 +220,10 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
         git.pushToOrigin()
     }
     `Request PR submission` -> {
-        printInfo("You now need to create a pull request from the `main` to the `release` branch on GitHub for the new version,")
+        printInfo("You now need to create a pull request from the `$devBranch` to the `$releaseBranch` branch on GitHub for the new version,")
         printInfo("if not already done.")
         printInfo("You can do so by heading over to the following url:")
-        printInfo("$gitHubRepoUrl/compare/release...main")
+        printInfo("$gitHubRepoUrl/compare/$releaseBranch...$devBranch")
         printInfo("Here's a title suggestion which you can copy/paste:")
         printInfo("Prepare for release ${OngoingRelease.newVersion}")
         printInfo("Once submitted, GitHub should kick-off the release GitHub Action that will perform the publishing.")
@@ -254,7 +258,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         }
                         printInfo("Once the outage is resolved, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `$devBranch` branch and confirm.")
                     }
                     is RequiresNewCommits -> {
                         if (git.hasTag(tagOfVersionBeingReleased())) {
@@ -262,7 +266,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                             git.deleteTag(tag = tagOfVersionBeingReleased())
                             printInfo("tag removed")
                         }
-                        printInfo("Recovering from that is going to require new fixing commits to be pushed to the main branch.")
+                        printInfo("Recovering from that is going to require new fixing commits to be pushed to the $devBranch branch.")
                         printInfo("Note: you can keep this script waiting while you're resolving the build issue.")
                         requestManualAction("Fix the issues and commit the changes")
                         printInfo("Will now push the new commits")
@@ -270,7 +274,7 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
                         git.pushToOrigin()
                         printInfo("Now, head to the following url to run the workflow again, on the right branch:")
                         printInfo(publishToMavenCentralWorkflowLink)
-                        requestManualAction("Click the `Run workflow` button, select the `main` branch and confirm.")
+                        requestManualAction("Click the `Run workflow` button, select the `$devBranch` branch and confirm.")
                     }
                 }
             }
@@ -288,10 +292,10 @@ fun CliUi.runReleaseStep(step: ReleaseStep): Unit = when (step) {
     }
     `Request PR merge` -> {
         requestManualAction("Merge the pull request for the new version on GitHub.")
-        printInfo("Now that the pull request has been merged into the release branch on GitHub,")
-        printInfo("we are going to update our local release branch")
+        printInfo("Now that the pull request has been merged into the $releaseBranch branch on GitHub,")
+        printInfo("we are going to update our local $releaseBranch branch")
         requestUserConfirmation("Ready?")
-        git.updateBranchFromOrigin(targetBranch = "release")
+        git.updateBranchFromOrigin(targetBranch = releaseBranch)
     }
     `Request GitHub release publication` -> {
         printInfo("It's now time to publish the release on GitHub, so people get notified.")
