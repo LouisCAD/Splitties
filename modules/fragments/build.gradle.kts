@@ -23,6 +23,7 @@ kotlin {
         androidMain.dependencies {
             api(AndroidX.fragment)
             api(AndroidX.fragment.ktx)
+            api(AndroidX.activity.ktx)
             api(splitties("lifecycle-coroutines"))
         }
     }
