@@ -92,7 +92,7 @@ internal fun Int.withKnownFlags(
     @Suppress("InlinedApi")
     val mutabilityFlag = if (isMutable) PendingIntent.FLAG_MUTABLE else PendingIntent.FLAG_IMMUTABLE
     flags = flags.withFlag(mutabilityFlag)
-    val newFlag =  when {
+    val newFlag = when {
         isOneShot -> PendingIntent.FLAG_ONE_SHOT
         cancelCurrent -> PendingIntent.FLAG_CANCEL_CURRENT
         else -> PendingIntent.FLAG_UPDATE_CURRENT
