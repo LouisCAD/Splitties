@@ -66,6 +66,9 @@ include {
         "bundle"()
         "checkedlazy"()
         "collections"()
+        "compose" {
+            "callable-state"()
+        }
         "coroutines"()
         "dimensions"()
         "exceptions"()
