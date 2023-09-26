@@ -14,7 +14,7 @@ pluginManagement {
 }
 
 plugins {
-    id("com.gradle.enterprise").version("3.12.3")
+    id("com.gradle.enterprise").version("3.15")
     id("de.fayard.refreshVersions") version "0.60.2"
 }
 
