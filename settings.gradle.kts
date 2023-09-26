@@ -83,6 +83,7 @@ include {
         "material-lists"()
         "permissions" {
             "core"()
+            "compose"()
             "fragment"()
         }
         "preferences"()
