@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.typesaferecyclerview"
     sourceSets.getByName("main").java.srcDir("src/androidMain/java")
 }
 

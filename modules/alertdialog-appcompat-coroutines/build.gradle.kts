@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.alertdialog.appcompat.coroutines"
 }
 
 kotlin {

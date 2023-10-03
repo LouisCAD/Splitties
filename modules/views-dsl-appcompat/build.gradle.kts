@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.views.dsl.appcompat"
 }
 
 kotlin {

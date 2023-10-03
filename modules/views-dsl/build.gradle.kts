@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults(generateBuildConfig = true)
+    namespace = "splitties.views.dsl.core"
 }
 
 kotlin {

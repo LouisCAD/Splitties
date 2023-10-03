@@ -9,6 +9,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.internal.test"
 }
 
 kotlin {

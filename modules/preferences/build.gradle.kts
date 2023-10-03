@@ -10,6 +10,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.preferences"
     buildTypes.getByName("release").consumerProguardFiles("proguard-rules.pro")
 }
 

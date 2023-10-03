@@ -10,7 +10,6 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     compileSdk = ProjectVersions.androidSdk
     defaultConfig {
         minSdk = 14
-        targetSdk = ProjectVersions.androidSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -18,7 +17,6 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
             isMinifyEnabled = false
         }
     }
-    @Suppress("UnstableApiUsage")
     buildFeatures {
         this.buildConfig = generateBuildConfig
     }
@@ -31,6 +29,7 @@ fun AndroidLibraryExtension.setDefaults(generateBuildConfig: Boolean = false) {
     sourceSets.getByName("release") {
         res.srcDir("src/androidRelease/res")
     }
+    @Suppress("UnstableApiUsage")
     testOptions {
         unitTests.isIncludeAndroidResources = true // Required for Roboelectric
     }

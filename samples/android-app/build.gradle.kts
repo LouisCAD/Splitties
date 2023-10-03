@@ -13,6 +13,7 @@ plugins {
 
 android {
     compileSdk = ProjectVersions.androidSdk
+    namespace = "com.example.splitties"
     defaultConfig {
         applicationId = "com.louiscad.splittiessample"
         minSdk = 21

@@ -12,6 +12,7 @@ plugins {
 
 android {
     setDefaults()
+    namespace = "splitties.fun.pack.android.appcompat"
 }
 
 kotlin {
