@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.recyclerview.widget.ConcatAdapter
+import kotlinx.coroutines.*
 import splitties.experimental.InternalSplittiesApi
 import splitties.views.dsl.recyclerview.*
 import splitties.views.recyclerview.ItemDiff
@@ -61,6 +62,7 @@ fun <T : Any> LazyColumnWithRecyclerView(
 @Composable
 fun LazyColumnWithRecyclerView(
     modifier: Modifier = Modifier,
+    state: LazyListWithRecyclerViewState = rememberLazyListWithRecyclerViewState(),
     focusRequester: FocusRequester = remember { FocusRequester() },
     requestFocus: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(0.dp),
@@ -99,6 +101,8 @@ fun LazyColumnWithRecyclerView(
     }
     val isFocusedState = remember { mutableStateOf(false) }
     recyclerViewFactory.RunWithViewUntilCancelled { view ->
+        view.adapter = adapter
+        launch { state.bindToRecyclerViewUntilCancelled(view, layoutManager) }
         genericMotionEventDispatcher?.putViewUntilCancelled(view, isFocusedState)
     }
     AndroidView(
@@ -114,7 +118,6 @@ fun LazyColumnWithRecyclerView(
                 paddingBottom
             )
             if (it.layoutManager != layoutManager) it.layoutManager = layoutManager
-            if (it.adapter != adapter) it.adapter = adapter
         }
     )
     if (requestFocus) LaunchedEffect(Unit) { focusRequester.requestFocus() }
