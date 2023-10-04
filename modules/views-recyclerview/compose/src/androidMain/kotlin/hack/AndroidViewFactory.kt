@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.*
 
 @Composable
 fun <V : View> rememberViewFactory(factory: (Context) -> V): AndroidViewFactory<V> {
@@ -23,7 +24,9 @@ fun <V : View> rememberViewFactory(factory: (Context) -> V): AndroidViewFactory<
 }
 
 @Composable
-fun <V : View> AndroidViewFactory<V>.RunWithViewUntilCancelled(block: suspend (V) -> Unit) {
+fun <V : View> AndroidViewFactory<V>.RunWithViewUntilCancelled(
+    block: suspend CoroutineScope.(V) -> Unit
+) {
     val currentView = currentView
     LaunchedEffect(currentView, block) {
         if (currentView != null) block(currentView)
