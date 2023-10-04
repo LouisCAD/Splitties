@@ -14,7 +14,7 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
     js { browser(); nodejs() }
 
     macosX64()

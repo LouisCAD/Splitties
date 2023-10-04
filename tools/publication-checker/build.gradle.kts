@@ -39,7 +39,7 @@ val KotlinTarget.mainSourceSet get() = when {
 }
 
 kotlin {
-    android()
+    androidTarget()
     jvm()
     js { browser(); nodejs() }
 

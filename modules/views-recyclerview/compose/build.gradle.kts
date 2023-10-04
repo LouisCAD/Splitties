@@ -20,7 +20,7 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
 
     configure(targets) { configureMavenPublication() }
     sourceSets {

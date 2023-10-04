@@ -13,7 +13,7 @@ android {
 }
 
 kotlin {
-    android()
+    androidTarget()
     jvm()
     js { browser(); nodejs() }
 
