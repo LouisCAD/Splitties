@@ -6,8 +6,10 @@ package splitties.arch.lifecycle
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.map
+import androidx.lifecycle.switchMap
 
 @ObsoleteSplittiesLifecycleApi
 inline fun <T> LifecycleOwner.observe(
@@ -45,26 +47,41 @@ inline fun <T : Any> LifecycleOwner.observeNotNull(
  * @param Y           a type of resulting LiveData.
  * @return            a LiveData which emits resulting values
  */
-@ObsoleteSplittiesLifecycleApi
+@Deprecated(
+    message = "Use the one from androidx now.",
+    ReplaceWith("map(transform)", "androidx.lifecycle.map")
+)
 inline fun <X, Y> LiveData<X>.map(
     crossinline transform: (X?) -> Y
-): LiveData<Y> = Transformations.map(this) { input -> transform(input) }
+): LiveData<Y> = map { input -> transform(input) }
 
-@ObsoleteSplittiesLifecycleApi
+@Deprecated(
+    "Bad semantics. Doesn't follow the conventional behavior of mapNotNull from Kotlin."
+)
 inline fun <X, Y> LiveData<X>.mapNotNull(
     crossinline transform: (X) -> Y
-): LiveData<Y> = Transformations.map(this) { input: X? ->
-    input?.let { transform(it) }
+): LiveData<Y> {
+    val result = MediatorLiveData<Y>()
+    result.addSource(this) { x ->
+        if (x != null) result.value = transform(x)
+    }
+    return result
 }
 
-@ObsoleteSplittiesLifecycleApi
+@Deprecated(
+    message = "Use the one from androidx now.",
+    ReplaceWith("switchMap(transform)", "androidx.lifecycle.switchMap")
+)
 inline fun <X, Y> LiveData<X>.switchMap(
     crossinline transform: (X?) -> LiveData<Y>?
-): LiveData<Y> = Transformations.switchMap(this) { input -> transform(input) }
+): LiveData<Y> = switchMap { input -> transform(input) }
 
+@Deprecated(
+    "Bad semantics. Doesn't follow the conventional behavior of mapNotNull from Kotlin."
+)
 @ObsoleteSplittiesLifecycleApi
 inline fun <X, Y> LiveData<X>.switchMapNotNull(
     crossinline transform: (X) -> LiveData<Y>?
-): LiveData<Y> = Transformations.switchMap(this) { input: X? ->
+): LiveData<Y> = switchMap { input: X? ->
     input?.let { transform(it) }
 }
