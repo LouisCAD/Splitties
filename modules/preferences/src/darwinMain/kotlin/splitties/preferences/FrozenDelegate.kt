@@ -4,7 +4,7 @@
 
 package splitties.preferences
 
-import kotlin.native.concurrent.AtomicReference
+import kotlin.concurrent.AtomicReference
 import kotlin.native.concurrent.freeze
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
