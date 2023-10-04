@@ -18,8 +18,8 @@ kotlin {
     androidTarget()
 
     macosX64()
-    iosArm32(); iosArm64(); iosX64()
-    watchosArm32(); watchosArm64(); watchosX86()
+    iosArm64(); iosX64()
+    watchosArm32(); watchosArm64()
 
     configure(targets) { configureMavenPublication() }
     common {
@@ -31,8 +31,8 @@ kotlin {
         "allButAndroid" {
             "darwin" {
                 "macosX64"()
-                "iosArm32"(); "iosArm64"(); "iosX64"()
-                "watchosArm32"(); "watchosArm64"(); "watchosX86"()
+                "iosArm64"(); "iosX64"()
+                "watchosArm32"(); "watchosArm64"()
             }
         }
         "android" {

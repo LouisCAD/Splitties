@@ -12,8 +12,8 @@ kotlin {
     js { browser(); nodejs() }
 
     macosX64()
-    iosArm32(); iosArm64(); iosX64()
-    watchosArm32(); watchosArm64(); watchosX86()
+    iosArm64(); iosX64()
+    watchosArm32(); watchosArm64()
 
     mingw(x64 = true)
     linux(x64 = true)
