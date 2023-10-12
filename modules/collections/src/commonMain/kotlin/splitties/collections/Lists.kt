@@ -100,3 +100,26 @@ inline fun <T> List<T>.forEachReversedWithIndex(
         action(i, get(i))
     }
 }
+
+/**
+ * Execute an [action] to the first item witch matches the [predicate].
+ * Do nothing if there's not match
+ */
+fun <T> Collection<T>.executeOnFirstMatch(predicate:(T) -> Boolean,action: (T) -> Unit) {
+    val matched = this.firstOrNull(predicate)
+    if (matched != null) {
+        action(matched)
+    }
+}
+
+/**
+ * Toggle an [item] from a MutableList.
+ */
+fun <T> MutableList<T>.toggle(item: T): List<T> {
+    if (this.contains(item)) {
+        this.remove(item)
+    } else {
+        this.add(item)
+    }
+    return this
+}
